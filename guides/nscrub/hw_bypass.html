@@ -1,72 +1,60 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-
+<html class="writer-html5" data-content_root="./" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/nscrub/hw_bypass.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:58:09 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hardware Bypass Support &mdash; nScrub dev documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
-
-  
-      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
-      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Utilities and Testing" href="testing.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Поддержка аппаратного обхода — документация для разработчиков nScrub</title>
+<link href="_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<script src="_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+<script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="testing.html" rel="prev" title="Utilities and Testing"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
             nScrub
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nscrub/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/nscrub/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="features.html">Main Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="versions.html">Models and Licenses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="engine_conf.html">Engine Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="working_modes.html">Working Modes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">Performance and Tuning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="traffic_enforcement_conf.html">Traffic Enforcement Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Traffic Visibility</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="testing.html">Utilities and Testing</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Hardware Bypass Support</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#silicom-adapters">Silicom Adapters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Основные характеристики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Модели и лицензии</a></li>
+<li class="toctree-l1"><a class="reference internal" href="engine_conf.html">Конфигурация двигателя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_modes.html">Режимы работы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Производительность и настройка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="traffic_enforcement_conf.html">Конфигурация контроля трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Видимость трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Инструменты командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Утилиты и тестирование</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Поддержка аппаратного обхода</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#silicom-adapters">Silicom Адаптеры</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
@@ -75,102 +63,92 @@
 <li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">nScrub</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Hardware Bypass Support</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/hw_bypass.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="hardware-bypass-support">
-<h1>Hardware Bypass Support<a class="headerlink" href="#hardware-bypass-support" title="Link to this heading"></a></h1>
-<p>When running the software in transparent bridge mode, nScrub supports hardware bypass
-adapters that can be used for:</p>
-<ul class="simple">
-<li><p>forwarding the traffic when the system is under maintenance</p></li>
-<li><p>implementing an automatic failover mechanism in case of software failures</p></li>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">nScrub</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">Поддержка аппаратного обхода</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/hw_bypass.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
 </ul>
-<p>In bypass mode all packets received from one port are transmitted to the adjacent port.
-This mode can be enabled both manually (usually used when the system is under maintenance)
-or leveraging on a heartbeat mechanism to automatically engage the bypass when the software
-is not alive for some reason.</p>
-<p>nScrub currently supports Silicom bypass adapters. No special configuration is required
-besides installing the Silicom driver as the adapter is automatically detected and the
-heartbeat mechanism is automatically enabled.</p>
-<p>The bypass mode can be manually anabled at any time by using the <em>bypass enable</em> command
-in <em>nscrub-cli</em>. In the same way it can be disabled using <em>bypass disable</em> (this
-automatically enables the heartbeat mechanism). The actual bypass status can be checked
-using the <em>status</em> command in <em>nscrub-cli</em>.</p>
-<p>Enabling, disabling, or checking the status of the bypass is also possible through the
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="hardware-bypass-support">
+<h1>Поддержка аппаратного обхода<a class="headerlink" href="#hardware-bypass-support" title="Link to this heading"></a></h1>
+<p>При запуске программного обеспечения в режиме прозрачного моста nScrub поддерживает аппаратный обход.
+адаптеры, которые можно использовать для:</p>
+<ul class="simple">
+<li><p>перенаправление трафика, когда система находится на обслуживании</p></li>
+<li><p>реализация механизма автоматического переключения при сбое программного обеспечения</p></li>
+</ul>
+<p>В режиме обхода все пакеты, полученные с одного порта, передаются на соседний порт.
+Этот режим можно включить как вручную (обычно используется, когда система находится на обслуживании), так и вручную.
+или используя механизм heartbeat для автоматического включения обхода, когда программное обеспечение
+почему-то нет в живых.</p>
+<p>nScrub в настоящее время поддерживает обходные адаптеры Silicom. Никакой специальной настройки не требуется
+помимо установки драйвера Silicom, поскольку адаптер обнаруживается автоматически и
+heartbeat механизм включается автоматически.</p>
+<p>Режим обхода можно включить вручную в любое время с помощью кнопки <em>включение обхода</em> команда
+в <em>nscrub-cli</em>. Таким же образом его можно отключить с помощью <em>отключить обход</em> (это
+автоматически включает механизм heartbeat). Фактический статус байпаса можно проверить
+используя <em>статус</em> командовать <em>nscrub-cli</em>.</p>
+<p>Включение, отключение или проверка состояния обхода также возможны через
 REST API.</p>
-<p>Please refer to the following section for the adapter configuration.</p>
+<p>Пожалуйста, обратитесь к следующему разделу для настройки адаптера.</p>
 <section id="silicom-adapters">
-<h2>Silicom Adapters<a class="headerlink" href="#silicom-adapters" title="Link to this heading"></a></h2>
-<p>In order to enable the bypass support on Silicom adapters, the <em>bp_ctl</em> driver (provided
-by Silicom) should be compiled and installed:</p>
+<h2>Silicom Адаптеры<a class="headerlink" href="#silicom-adapters" title="Link to this heading"></a></h2>
+<p>Чтобы включить поддержку обхода на адаптерах Silicom, <em>bp_ctl</em> водитель (при условии
+по Silicom) необходимо скомпилировать и установить:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">tar xvzf bp_ctl-xxx.tar.gz</span>
 <span class="go">cd bp_ctl-xxx</span>
 <span class="go">make &amp;&amp; make install</span>
 </pre></div>
 </div>
-<p>The driver should be loaded using the installed tool (please make sure this is
-persistent across system reboots):</p>
+<p>Драйвер следует загрузить с помощью установленного инструмента (убедитесь, что это
+сохраняется при перезагрузке системы):</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bpctl_start</span>
 </pre></div>
 </div>
-<p>Please note that a nScrub restart is required after loading the bypass driver in order
-to make sure that the bypass support is detected and enabled successfully.</p>
+<p>Обратите внимание, что после загрузки драйвера обхода требуется перезагрузка nScrub.
+чтобы убедиться, что поддержка обхода обнаружена и успешно включена.</p>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="testing.html" rel="prev" title="Utilities and Testing"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2018, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="testing.html" class="btn btn-neutral float-left" title="Utilities and Testing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2018, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/nscrub/hw_bypass.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:58:10 GMT -->
 </html>

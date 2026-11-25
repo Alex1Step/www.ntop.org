@@ -1,100 +1,88 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-
+<html class="writer-html5" data-content_root="../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/scripts/flow_host_alerts.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:05 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flow/Host Alerts &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Syslog Checks" href="syslog_checks.html" />
-    <link rel="prev" title="Other Alerts (Interface, MAC, Local Networks, SNMP, System, User)" href="other_alerts.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Оповещения потока/хоста — документация ntopng v.7.1.261018</title>
+<link href="../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="syslog_checks.html" rel="next" title="Syslog Checks"/>
+<link href="other_alerts.html" rel="prev" title="Other Alerts (Interface, MAC, Local Networks, SNMP, System, User)"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index-2.html">
             ntopng
-              <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developers</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="developing_alerts.html">Alerts</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="other_alerts.html">Other Alerts (Interface, MAC, Local Networks, SNMP, System, User)</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Flow/Host Alerts</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#checks">Checks</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#alerts">Alerts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Разработчики</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">Обзор</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="developing_alerts.html">Оповещения</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="other_alerts.html">Другие оповещения (Интерфейс, MAC, Локальные сети, SNMP, Система, Пользователь)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Оповещения о потоке/хосте</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#checks">Чеки</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alerts">Оповещения</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="syslog_checks.html">Syslog Checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="syslog_checks.html">Syslog Чеки</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="alert_endpoints.html">Endpoints</a></li>
-<li class="toctree-l2"><a class="reference internal" href="localization.html">Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="timeseries_schemas.html">Timeseries Schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alert_endpoints.html">Конечные точки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Локализация</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timeseries_schemas.html">Схемы таймсерий</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Документация</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
@@ -103,129 +91,125 @@
 <li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Developers</a></li>
-          <li class="breadcrumb-item"><a href="developing_alerts.html">Alerts</a></li>
-      <li class="breadcrumb-item active">Flow/Host Alerts</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/scripts/flow_host_alerts.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="flow-host-alerts">
-<span id="flowhostalerts"></span><h1>Flow/Host Alerts<a class="headerlink" href="#flow-host-alerts" title="Link to this heading"></a></h1>
-<section id="checks">
-<h2>Checks<a class="headerlink" href="#checks" title="Link to this heading"></a></h2>
-<p>Alerts are created inside checks. Checks are chunks of code executed by ntopng. Checks are implemented as C++ classes with a predefined interface.</p>
-<p>Check interfaces are declared in classes:</p>
-<ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">include/FlowCheck.h</span></code> for flows</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">include/HostCheck.h</span></code> for hosts</p></li>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="index.html">Разработчики</a></li>
+<li class="breadcrumb-item"><a href="developing_alerts.html">Оповещения</a></li>
+<li class="breadcrumb-item active">Оповещения о потоке/хосте</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/scripts/flow_host_alerts.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
 </ul>
-<p>Those classes must be used as base classes when implementing checks:</p>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="flow-host-alerts">
+<span id="flowhostalerts"></span><h1>Оповещения о потоке/хосте<a class="headerlink" href="#flow-host-alerts" title="Link to this heading"></a></h1>
+<section id="checks">
+<h2>Чеки<a class="headerlink" href="#checks" title="Link to this heading"></a></h2>
+<p>Оповещения создаются внутри проверок. Проверки — это фрагменты кода, выполняемые ntopng. Проверки реализованы как классы C++ с предопределенным интерфейсом.</p>
+<p>Интерфейсы проверки объявлены в классах:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">include/FlowCheck.h</span></code> для потоков</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">include/HostCheck.h</span></code> для хозяев</p></li>
+</ul>
+<p>Эти классы должны использоваться в качестве базовых при реализации проверок:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Every host check implemented must inherit from <code class="code docutils literal notranslate"><span class="pre">HostCheck</span></code></p></li>
-<li><p>Every flow check implemented must inherit from <code class="code docutils literal notranslate"><span class="pre">FlowCheck</span></code></p></li>
+<li><p>Каждая реализованная проверка хоста должна наследовать от <code class="code docutils literal notranslate"><span class="pre">HostCheck</span></code></p></li>
+<li><p>Каждая реализованная проверка потока должна наследовать от <code class="code docutils literal notranslate"><span class="pre">FlowCheck</span></code></p></li>
 </ul>
 </div></blockquote>
-<p>Classes are implemented with two files, namely a <code class="code docutils literal notranslate"><span class="pre">.h</span></code> file with the class declaration, and a <code class="code docutils literal notranslate"><span class="pre">.cpp</span></code> file with the class definition:</p>
+<p>Классы реализованы с помощью двух файлов, а именно: <code class="code docutils literal notranslate"><span class="pre">.h</span></code> файл с объявлением класса и файл <code class="code docutils literal notranslate"><span class="pre">.cpp</span></code> файл с определением класса:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Host check declarations (<code class="code docutils literal notranslate"><span class="pre">.h</span></code> files) are under <code class="code docutils literal notranslate"><span class="pre">include/host_checks</span></code>. Host check definitions (<code class="code docutils literal notranslate"><span class="pre">.cpp</span></code>) files are under <code class="code docutils literal notranslate"><span class="pre">src/host_checks</span></code>.</p></li>
-<li><p>Flow check declarations (<code class="code docutils literal notranslate"><span class="pre">.h</span></code> files) are under <code class="code docutils literal notranslate"><span class="pre">include/flow_checks</span></code>. Flow check definitions (<code class="code docutils literal notranslate"><span class="pre">.cpp</span></code>) files are under <code class="code docutils literal notranslate"><span class="pre">src/host_checks</span></code>.</p></li>
+<li><p>Объявления проверки хоста (<code class="code docutils literal notranslate"><span class="pre">.h</span></code> файлы) находятся под <code class="code docutils literal notranslate"><span class="pre">include/host_checks</span></code>. Определения проверки хоста (<code class="code docutils literal notranslate"><span class="pre">.cpp</span></code>) файлы находятся под <code class="code docutils literal notranslate"><span class="pre">src/host_checks</span></code>.</p></li>
+<li><p>Объявления проверки потока (<code class="code docutils literal notranslate"><span class="pre">.h</span></code> файлы) находятся под <code class="code docutils literal notranslate"><span class="pre">include/flow_checks</span></code>. Определения проверки потока (<code class="code docutils literal notranslate"><span class="pre">.cpp</span></code>) файлы находятся под <code class="code docutils literal notranslate"><span class="pre">src/host_checks</span></code>.</p></li>
 </ul>
 </div></blockquote>
 <section id="check-execution">
-<h3>Check Execution<a class="headerlink" href="#check-execution" title="Link to this heading"></a></h3>
-<p>Checks execution for hosts consists in ntopng calling:</p>
+<h3>Проверить выполнение<a class="headerlink" href="#check-execution" title="Link to this heading"></a></h3>
+<p>Выполнение проверок для хостов заключается в вызове ntopng:</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">HostCheck::periodicUpdate</span></code> approximately every 60 seconds</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">HostCheck::periodicUpdate</span></code> примерно каждые 60 секунд</p></li>
 </ul>
-<p>Every host check, when subclassing <code class="code docutils literal notranslate"><span class="pre">HostCheck</span></code>, must override <code class="code docutils literal notranslate"><span class="pre">periodicUpdate</span></code> to implement the desired check behavior.</p>
-<p>Checks execution for flows consists in ntopng calling for every flow:</p>
+<p>Проверка каждого хоста при создании подкласса <code class="code docutils literal notranslate"><span class="pre">HostCheck</span></code>, должен переопределить <code class="code docutils literal notranslate"><span class="pre">periodicUpdate</span></code> для реализации желаемого поведения проверки.</p>
+<p>Выполнение проверок для потоков заключается в вызове ntopng для каждого потока:</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">FlowCheck::protocolDetected</span></code> as soon as the Layer-7 is detected</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">FlowCheck::periodicUpdate</span></code> approximately every 300 seconds only for flows with a minimum duration of 300 seconds</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">FlowCheck::flowEnd</span></code> as soon as the flow ends, i.e., when a TCP session is closed or when an UDP flow timeouts</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">FlowCheck::flowBegin</span></code> as soon as the flow is seen for the first time</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">FlowCheck::protocolDetected</span></code> как только будет обнаружен Layer-7</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">FlowCheck::periodicUpdate</span></code> примерно каждые 300 секунд только для потоков с минимальной длительностью 300 секунд</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">FlowCheck::flowEnd</span></code> как только поток заканчивается, т. е. когда сеанс TCP закрывается или когда истекает тайм-аут потока UDP</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">FlowCheck::flowBegin</span></code> как только поток виден впервые</p></li>
 </ul>
-<p>Every flow check, when subclassing <code class="code docutils literal notranslate"><span class="pre">FlowCheck</span></code>, must override one or more of the methods above to implement the desired check behavior.</p>
+<p>Каждая проверка потока при создании подкласса <code class="code docutils literal notranslate"><span class="pre">FlowCheck</span></code>, должен переопределить один или несколько вышеперечисленных методов, чтобы реализовать желаемое поведение проверки.</p>
 </section>
 <section id="check-configuration">
-<h3>Check Configuration<a class="headerlink" href="#check-configuration" title="Link to this heading"></a></h3>
-<p>Checks are configured from the ntopng Web UI. Configuration involves the ability to:</p>
+<h3>Проверьте конфигурацию<a class="headerlink" href="#check-configuration" title="Link to this heading"></a></h3>
+<p>Проверки настраиваются из веб-интерфейса ntopng. Конфигурация предполагает возможность:</p>
 <ul class="simple">
-<li><p>Turn any check on or off</p></li>
-<li><p>Set configuration parameters selectively for every check</p></li>
+<li><p>Включить или отключить любую проверку</p></li>
+<li><p>Устанавливайте параметры конфигурации выборочно для каждой проверки</p></li>
 </ul>
-<p>A check that is turned off is not executed. Configuration parameters can be used to set a threshold used by the check to decide if it is time to create an alert. Similarly, configuration parameters can be used to indicate a list of IP addresses to exclude when executing checks.</p>
-<p>ntopng, to populate the check configuration UI and to properly store the configured check parameters that will be passed to the C++ check class instances, needs to know along with other information:</p>
+<p>Отключенная проверка не выполняется. Параметры конфигурации можно использовать для установки порогового значения, используемого проверкой для принятия решения о том, пора ли создавать оповещение. Аналогично, параметры конфигурации можно использовать для указания списка IP-адресов, которые следует исключить при выполнении проверок.</p>
+<p>ntopng, чтобы заполнить пользовательский интерфейс конфигурации проверки и правильно сохранить настроенные параметры проверки, которые будут переданы экземплярам класса проверки C++, необходимо знать наряду с другой информацией:</p>
 <ul class="simple">
-<li><p>Strings (optionally localized) for check names and descriptions</p></li>
-<li><p>Type and format of the configuration parameters</p></li>
-<li><p>Default parameters, e.g, whether the check is on or off by default</p></li>
+<li><p>Строки (необязательно локализованные) для имен и описаний проверок.</p></li>
+<li><p>Тип и формат параметров конфигурации</p></li>
+<li><p>Параметры по умолчанию, например, включена или выключена проверка по умолчанию.</p></li>
 </ul>
-<p>ntopng reads this information from small Lua files located in:</p>
+<p>ntopng читает эту информацию из небольших файлов Lua, расположенных в:</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/check_definitions/flow/</span></code> for flow checks</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/check_definitions/host</span></code> for host checks</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/check_definitions/flow/</span></code> для проверки потока</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/check_definitions/host</span></code> для проверки хоста</p></li>
 </ul>
-<p>These files, documented here (add ref) are mandatory and must be present for a check to be properly executed.</p>
-<p>ntopng use names to link check configuration with its C++ class instance. A common <code class="code docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> must be used as:</p>
+<p>Эти файлы, описанные здесь (добавить ссылку), являются обязательными и должны присутствовать для правильного выполнения проверки.</p>
+<p>ntopng использовать имена для связи конфигурации проверки с экземпляром класса C++. Общий <code class="code docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> необходимо использовать как:</p>
 <ul class="simple">
-<li><p>The name of the Lua file under <code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/check_definitions</span></code>, e.g., <code class="code docutils literal notranslate"><span class="pre">&lt;name&gt;.lua</span></code></p></li>
-<li><p>The string returned by method <code class="code docutils literal notranslate"><span class="pre">getName</span></code> in the C++ class file, e.g., <code class="code docutils literal notranslate"><span class="pre">std::string</span> <span class="pre">getName()</span> <span class="pre">const</span> <span class="pre">{</span> <span class="pre">return(std::string(&quot;&lt;name&gt;&quot;));</span> <span class="pre">}</span></code>.</p></li>
+<li><p>Имя файла Lua под <code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/check_definitions</span></code>, например, <code class="code docutils literal notranslate"><span class="pre">&lt;name&gt;.lua</span></code></p></li>
+<li><p>Строка, возвращаемая методом <code class="code docutils literal notranslate"><span class="pre">getName</span></code> в файле класса C++, например, <code class="code docutils literal notranslate"><span class="pre">std::string</span> <span class="pre">getName()</span> <span class="pre">const</span> <span class="pre">{</span> <span class="pre">return(std::string("&lt;name&gt;"));</span> <span class="pre">}</span></code>.</p></li>
 </ul>
 </section>
 </section>
 <section id="alerts">
-<h2>Alerts<a class="headerlink" href="#alerts" title="Link to this heading"></a></h2>
-<p>Checks create alerts as part of their implementation. A check, during its execution, can detect a certain condition (e.g., an anomaly) for which it decides to create an alert. When the check decides to create an alert, it informs ntopng by passing a reference to the alert.</p>
-<p>Alerts are implemented with C++ classes. Alert interfaces are declared in classes:</p>
+<h2>Оповещения<a class="headerlink" href="#alerts" title="Link to this heading"></a></h2>
+<p>Проверки создают оповещения как часть их реализации. Проверка во время своего выполнения может обнаружить определенное состояние (например, аномалию), для которого она решает создать оповещение. Когда проверка решает создать оповещение, она сообщает ntopng, передавая ссылку на оповещение.</p>
+<p>Оповещения реализуются с помощью классов C++. Интерфейсы оповещений объявляются в классах:</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">include/FlowAlert.h</span></code> for flows</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">include/HostAlert.h</span></code> for hosts</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">include/FlowAlert.h</span></code> для потоков</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">include/HostAlert.h</span></code> для хозяев</p></li>
 </ul>
-<p>Those classes must be used as base classes when implementing alerts:</p>
+<p>Эти классы необходимо использовать в качестве базовых при реализации оповещений:</p>
 <ul class="simple">
-<li><p>Every host alert implemented must inherit from <code class="code docutils literal notranslate"><span class="pre">HostAlert</span></code></p></li>
-<li><p>Every flow alert implemented must inherit from <code class="code docutils literal notranslate"><span class="pre">FlowAlert</span></code></p></li>
+<li><p>Каждое реализуемое оповещение хоста должно наследовать от <code class="code docutils literal notranslate"><span class="pre">HostAlert</span></code></p></li>
+<li><p>Каждое реализованное оповещение о потоке должно наследовать от <code class="code docutils literal notranslate"><span class="pre">FlowAlert</span></code></p></li>
 </ul>
 <section id="identifying-alerts">
-<h3>Identifying Alerts<a class="headerlink" href="#identifying-alerts" title="Link to this heading"></a></h3>
-<p>Alerts are uniquely identified with a key, present both in C++ and Lua. In C++ alert keys are enumerated inside file <code class="code docutils literal notranslate"><span class="pre">ntop_typedefs.h</span></code>:</p>
+<h3>Определение оповещений<a class="headerlink" href="#identifying-alerts" title="Link to this heading"></a></h3>
+<p>Оповещения однозначно идентифицируются ключом, присутствующим как в C++, так и в Lua. В C++ ключи оповещений перечисляются внутри файла. <code class="code docutils literal notranslate"><span class="pre">ntop_typedefs.h</span></code>:</p>
 <ul class="simple">
-<li><p>Enumeration <code class="code docutils literal notranslate"><span class="pre">FlowAlertTypeEnum</span></code> defines keys for flow alerts</p></li>
-<li><p>Enumeration <code class="code docutils literal notranslate"><span class="pre">HostAlertTypeEnum</span></code> defines keys for host alerts</p></li>
+<li><p>Перечисление <code class="code docutils literal notranslate"><span class="pre">FlowAlertTypeEnum</span></code> определяет ключи для оповещений о потоке</p></li>
+<li><p>Перечисление <code class="code docutils literal notranslate"><span class="pre">HostAlertTypeEnum</span></code> определяет ключи для оповещений хоста</p></li>
 </ul>
-<p>Every C++ alert class must implement <code class="code docutils literal notranslate"><span class="pre">getClassType</span></code> to return an enumerated alert key. Every enumerated value must be used by one and only one alert class.</p>
-<p>In Lua, alert keys are enumerated inside files:</p>
+<p>Каждый класс оповещений C++ должен реализовывать <code class="code docutils literal notranslate"><span class="pre">getClassType</span></code> чтобы вернуть перечислимый ключ оповещения. Каждое перечисляемое значение должно использоваться одним и только одним классом оповещений.</p>
+<p>В Lua ключи оповещений перечисляются внутри файлов:</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/alert_keys/flow_alert_keys.lua</span></code> for flow alerts</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/alert_keys/host_alert_keys.lua</span></code> for host alerts</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/alert_keys/flow_alert_keys.lua</span></code> для оповещений о потоке</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/alert_keys/host_alert_keys.lua</span></code> для оповещений хоста</p></li>
 </ul>
-<p>C++ and Lua files must be synchronized, that is, they must have the same enumerated alert keys. This means using the same enumeration names and numbers, in C++:</p>
+<p>Файлы C++ и Lua должны быть синхронизированы, то есть иметь одинаковые пронумерованные ключи оповещений. Это означает использование одних и тех же имен и номеров перечислений в C++:</p>
 <div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span>
 <span class="n">flow_alert_normal</span><span class="w">                           </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
 <span class="n">flow_alert_blacklisted</span><span class="w">                      </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
@@ -234,7 +218,7 @@
 <span class="p">}</span><span class="w"> </span><span class="n">FlowAlertTypeEnum</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>and in Lua:</p>
+<p>и в Луа:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">flow_alert_keys</span> <span class="o">=</span> <span class="p">{</span>
   <span class="n">flow_alert_normal</span>                          <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
   <span class="n">flow_alert_blacklisted</span>                     <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
@@ -243,70 +227,64 @@
  <span class="p">}</span>
 </pre></div>
 </div>
-<p>To implement an alert, an additional alert key must be added to bot C++ and Lua.</p>
+<p>Чтобы реализовать оповещение, в бот C++ и Lua необходимо добавить дополнительный ключ оповещения.</p>
 </section>
 <section id="alert-formatting">
-<h3>Alert Formatting<a class="headerlink" href="#alert-formatting" title="Link to this heading"></a></h3>
-<p>Alerts are shown graphically inside the ntopng web UI and are also exported to external recipients. ntopng, to format alerts, needs to know along with other information:</p>
+<h3>Форматирование оповещений<a class="headerlink" href="#alert-formatting" title="Link to this heading"></a></h3>
+<p>Оповещения отображаются графически внутри веб-интерфейса ntopng, а также экспортируются внешним получателям. ntopng, чтобы форматировать оповещения, помимо другой информации необходимо знать:</p>
 <ul class="simple">
-<li><p>Unique alert keys</p></li>
-<li><p>Strings (optionally localized) for alert names and descriptions</p></li>
-<li><p>How to handle parameters inserted into the alert from the C++ classes</p></li>
+<li><p>Уникальные ключи оповещений</p></li>
+<li><p>Строки (необязательно локализованные) для названий и описаний предупреждений.</p></li>
+<li><p>Как обрабатывать параметры, вставленные в оповещение из классов C++</p></li>
 </ul>
-<p>ntopng reads this information from small Lua files located in:</p>
+<p>ntopng читает эту информацию из небольших файлов Lua, расположенных в:</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/alert_definitions/flow/</span></code> for flow alerts</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/alert_definitions/host/</span></code> for host alerts</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/alert_definitions/flow/</span></code> для оповещений о потоке</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/alert_definitions/host/</span></code> для оповещений хоста</p></li>
 </ul>
-<p>These files are mandatory and must be present for an alert to be properly created and visualized. Each file must return a table containing some metadata, including a unique alert key read from one of the Lua alert keys enumeration files. Each alert key must be returned by one and only one Lua file.</p>
+<p>Эти файлы являются обязательными и должны присутствовать для правильного создания и визуализации оповещения. Каждый файл должен возвращать таблицу, содержащую некоторые метаданные, включая уникальный ключ оповещения, считанный из одного из файлов перечисления ключей оповещений Lua. Каждый ключ оповещения должен быть возвращен одним и только одним файлом Lua.</p>
 </section>
 <section id="creating-flow-alerts">
-<h3>Creating Flow Alerts<a class="headerlink" href="#creating-flow-alerts" title="Link to this heading"></a></h3>
-<p>Alert classes are instantiated inside <code class="code docutils literal notranslate"><span class="pre">buildAlert</span></code>, a method that must be implemented by each flow check. This method is called by ntopng to create the alert, when it has been told to do so from a flow check.</p>
-<p>Checks use <code class="code docutils literal notranslate"><span class="pre">triggerAlert</span></code> to pass ntopng an alert. The first method is an asyncronous call, faster, but can cause the alert JSON to be generated after the call. The FlowCheck should implement the buildAlert() method which is called in the predominant check to actually build the FlowAlert object.
-The second method is a syncrhonous call, more expensive, but causes the alert (FlowAlert) to be immediately enqueued to all recipients.</p>
+<h3>Создание оповещений о потоке<a class="headerlink" href="#creating-flow-alerts" title="Link to this heading"></a></h3>
+<p>Классы оповещений создаются внутри <code class="code docutils literal notranslate"><span class="pre">buildAlert</span></code>, метод, который должен быть реализован при каждой проверке потока. Этот метод вызывается ntopng для создания оповещения, когда ему было приказано сделать это при проверке потока.</p>
+<p>Использование чеков <code class="code docutils literal notranslate"><span class="pre">triggerAlert</span></code> чтобы передать ntopng оповещение. Первый метод — асинхронный вызов, он быстрее, но может привести к созданию оповещения JSON после вызова. FlowCheck должен реализовать метод buildAlert(), который вызывается при основной проверке для фактического создания объекта FlowAlert.
+Второй метод — синхронный вызов, более дорогой, но приводит к немедленной постановке оповещения (FlowAlert) в очередь всем получателям.</p>
 </section>
 <section id="creating-host-alerts">
-<h3>Creating Host Alerts<a class="headerlink" href="#creating-host-alerts" title="Link to this heading"></a></h3>
-<p>Alert classes are instantiated inside host checks.</p>
-<p>Checks use <code class="code docutils literal notranslate"><span class="pre">triggerAlert</span></code> to tell ntopng to create an alert with an engaged status, and need to be released.
-Indeed, the actual alert creation is triggered from the host check with the call <code class="code docutils literal notranslate"><span class="pre">h-&gt;triggerAlert</span></code> that wants a pointer to the host alert instance as parameter. This call tells ntopng to create an alert on the host instance pointed by <code class="code docutils literal notranslate"><span class="pre">h</span></code>.
-Is it even possible to use another method, <code class="code docutils literal notranslate"><span class="pre">storeAlert</span></code>, that once triggered is immediately emitted.</p>
+<h3>Создание оповещений хоста<a class="headerlink" href="#creating-host-alerts" title="Link to this heading"></a></h3>
+<p>Классы оповещений создаются внутри проверок хоста.</p>
+<p>Использование чеков <code class="code docutils literal notranslate"><span class="pre">triggerAlert</span></code> чтобы сообщить ntopng о создании оповещения со статусом «занято», и его необходимо отпустить.
+Действительно, фактическое создание оповещения инициируется при проверке хоста с помощью вызова <code class="code docutils literal notranslate"><span class="pre">h-&gt;triggerAlert</span></code> которому нужен указатель на экземпляр оповещения хоста в качестве параметра. Этот вызов сообщает ntopng создать предупреждение на экземпляре хоста, на который указывает <code class="code docutils literal notranslate"><span class="pre">h</span></code>.
+Можно ли вообще использовать другой метод, <code class="code docutils literal notranslate"><span class="pre">storeAlert</span></code>, который после срабатывания немедленно испускается.</p>
 </section>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="other_alerts.html" rel="prev" title="Other Alerts (Interface, MAC, Local Networks, SNMP, System, User)"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="syslog_checks.html" rel="next" title="Syslog Checks">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="other_alerts.html" class="btn btn-neutral float-left" title="Other Alerts (Interface, MAC, Local Networks, SNMP, System, User)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="syslog_checks.html" class="btn btn-neutral float-right" title="Syslog Checks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/scripts/flow_host_alerts.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:06 GMT -->
 </html>

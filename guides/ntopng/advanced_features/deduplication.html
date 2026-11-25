@@ -1,98 +1,86 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-
+<html class="writer-html5" data-content_root="../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/deduplication.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:50:22 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. Flow Deduplication &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7. OEM Customizations" href="oem.html" />
-    <link rel="prev" title="5. Live Pcap Download" href="live_pcap_download.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>6. Дедупликация потока — документация ntopng v.7.1.261018.</title>
+<link href="../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="oem.html" rel="next" title="7. OEM Customizations"/>
+<link href="live_pcap_download.html" rel="prev" title="5. Live Pcap Download"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index-2.html">
             ntopng
-              <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced Features</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="bridging_and_policing.html">1. Bridging and Traffic Policing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ids_acceleration.html">2. IDS Acceleration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="interfaces/index.html">3. Interfaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lightview/index.html">4. Light View</a></li>
-<li class="toctree-l2"><a class="reference internal" href="live_pcap_download.html">5. Live Pcap Download</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6. Flow Deduplication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="oem.html">7. OEM Customizations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="snapshots.html">8. Snapshots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="syslog.html">9. Syslog Log Ingestion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="clickhouse_timeseries.html">10. ClickHouse Timeseries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="high_resolution_timeseries.html">11. Observability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="assets_journal.html">12. Assets Journal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Расширенные функции</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bridging_and_policing.html">1. Создание мостов и контроль дорожного движения</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ids_acceleration.html">2. Ускорение IDS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces/index.html">3. Интерфейсы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lightview/index.html">4. Светлый вид</a></li>
+<li class="toctree-l2"><a class="reference internal" href="live_pcap_download.html">5. Прямой эфир Pcap Скачать</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6. Дедупликация потока</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oem.html">7. OEM-настройки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snapshots.html">8. Снимки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syslog.html">9. Syslog Прием журналов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clickhouse_timeseries.html">10. ClickHouse Таймсерии</a></li>
+<li class="toctree-l2"><a class="reference internal" href="high_resolution_timeseries.html">11. Наблюдательность</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets_journal.html">12. Журнал активов</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Документация</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
@@ -101,100 +89,90 @@
 <li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Advanced Features</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">6. </span>Flow Deduplication</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/advanced_features/deduplication.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="flow-deduplication">
-<h1><span class="section-number">6. </span>Flow Deduplication<a class="headerlink" href="#flow-deduplication" title="Link to this heading"></a></h1>
-<p>Flow deduplication is the process of identifying and removing duplicate flow records that appear in NetFlow/IPFIX data when the same traffic is monitored and exported by multiple observation points (typically network devices) in the network. Without deduplication there are various issues that can arise including:</p>
-<ul class="simple">
-<li><p>Inaccurate Traffic Volume: Traffic appears multiplied in reports</p></li>
-<li><p>Skewed Top-N Statistics: Applications/hosts appear with inflated usage</p></li>
-<li><p>Billing Errors: Overcharging for bandwidth consumption</p></li>
-<li><p>Misleading Capacity Planning: Overestimation of traffic patterns</p></li>
-<li><p>Wasted Storage/Processing: Redundant data consumes resources</p></li>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="index.html">Расширенные функции</a></li>
+<li class="breadcrumb-item active"><span class="section-number">6. </span>Дедупликация потока</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/advanced_features/deduplication.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
 </ul>
-<p>Common flows duplication scenarios include:</p>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="flow-deduplication">
+<h1><span class="section-number">6. </span>Дедупликация потока<a class="headerlink" href="#flow-deduplication" title="Link to this heading"></a></h1>
+<p>Дедупликация потока — это процесс выявления и удаления повторяющихся записей потока, которые появляются в данных NetFlow/IPFIX, когда один и тот же трафик отслеживается и экспортируется несколькими точками наблюдения (обычно сетевыми устройствами) в сети. Без дедупликации могут возникнуть различные проблемы, в том числе:</p>
 <ul class="simple">
-<li><p>Router-to-router links: Both interfaces export the same flow</p></li>
-<li><p>Multiple monitoring points: Core and edge devices see same traffic</p></li>
-<li><p>Network TAP/SPAN duplication: Mirroring traffic to multiple collectors</p></li>
-<li><p>High availability designs: Active/standby devices both exporting</p></li>
+<li><p>Неверный объем трафика: в отчетах трафик отображается в умноженном виде.</p></li>
+<li><p>Искаженная статистика Top-N: приложения/хосты отображаются с завышенным использованием.</p></li>
+<li><p>Ошибки при выставлении счетов: завышение платы за использование полосы пропускания</p></li>
+<li><p>Неверное планирование мощности: переоценка структуры трафика</p></li>
+<li><p>Напрасное хранение/обработка: избыточные данные потребляют ресурсы.</p></li>
 </ul>
-<p>Said that flow duplication needs to be avoided, ntopng (Enterprise XL and superior) and nProbe (Enterprise L and superior) implement flow deduplication. In ntopng you can enable it from preferences</p>
+<p>Общие сценарии дублирования потоков включают в себя:</p>
+<ul class="simple">
+<li><p>Ссылки между маршрутизаторами: оба интерфейса экспортируют один и тот же поток.</p></li>
+<li><p>Несколько точек мониторинга: основные и периферийные устройства видят один и тот же трафик.</p></li>
+<li><p>Дублирование сетевых TAP/SPAN: зеркалирование трафика на несколько коллекторов</p></li>
+<li><p>Проекты высокой доступности: активные и резервные устройства экспортируют</p></li>
+</ul>
+<p>Сказав, что следует избегать дублирования потоков, ntopng (Enterprise XL и выше) и nProbe (Enterprise L и выше) реализуют дедупликацию потока. В ntopng вы можете включить его в настройках.</p>
 <figure class="align-default">
-<img alt="../_images/flow_deduplication.png" src="../_images/flow_deduplication.png" />
+<img alt="../_images/flow_deduplication.png" src="../_images/flow_deduplication.png"/>
 </figure>
-<p>and it works only with flow collection (i.e. ZMQ) and not with packet interfaces. The reason is explained below.</p>
-<p>When enabled ntopng will discard flows exported from different devices (e.g. router-1 and router-2) with the same flow key (usually VLAN/protocol/IP src/IP dst/port src/port dst). This is an indicator of a deduplication as the same flow has been observed simultaneouly by more than one exporter. You do not need to configure anything other than the prefeence, as ntopng will take care of exporters configuration that can be dynamic (i.e. the traffic topology can change overtime according to network status or backup link activated as necessary).</p>
-<p>When enabled, you can monitor deduplication statistics in the interface details page and also visualize a timeseries of deduplicated flows.</p>
+<p>и он работает только со сбором потоков (т. е. ZMQ), а не с пакетными интерфейсами. Причина объясняется ниже.</p>
+<p>При включении ntopng будут отбрасываться потоки, экспортированные с разных устройств (например, маршрутизатора-1 и маршрутизатора-2) с одним и тем же ключом потока (обычно VLAN/protocol/IP src/IP dst/port src/port dst). Это индикатор дедупликации, поскольку один и тот же поток наблюдался одновременно более чем одним экспортером. Вам не нужно настраивать ничего, кроме предпочтений, поскольку ntopng позаботится о конфигурации экспортеров, которая может быть динамической (т. е. топология трафика может меняться со временем в зависимости от состояния сети или резервного канала, активируемого при необходимости).</p>
+<p>Если этот параметр включен, вы можете отслеживать статистику дедупликации на странице сведений об интерфейсе, а также визуализировать временные ряды дедуплицированных потоков.</p>
 <figure class="align-default">
-<img alt="../_images/deduplication_stats.png" src="../_images/deduplication_stats.png" />
+<img alt="../_images/deduplication_stats.png" src="../_images/deduplication_stats.png"/>
 </figure>
-<p>Note that:</p>
+<p>Обратите внимание, что:</p>
 <ul class="simple">
-<li><p>the overall system performance will be better if you enable deduplication at the nProbe side, as the probe will only export flows that are not duplicated. Instead, discarding duplicated flows on the ntopng side will have a more limited impact as the flow has been exported by nProbe, collected by ntopng and then discarded.</p></li>
-<li><p>flow deduplication at nProbe side is applied only for exporters sending flows to the same nProbe. This means that if your ntopng instance collects flows via ZMQ from nprobe-instance-1 and nprobe-instance-2, in case the same traffic is observed by both nprobe instances, you also need to enable deduplication at the ntopng side.</p></li>
+<li><p>общая производительность системы будет выше, если вы включите дедупликацию на стороне nProbe, поскольку зонд будет экспортировать только недублированные потоки. Вместо этого отбрасывание дублированных потоков на стороне ntopng будет иметь более ограниченное влияние, поскольку поток был экспортирован nProbe, собран ntopng и затем отброшен.</p></li>
+<li><p>дедупликация потока на стороне nProbe применяется только для экспортеров, отправляющих потоки на ту же сторону nProbe. Это значит, что если ваш экземпляр ntopng собирает потоки через ZMQ от nprobe-instance-1 и nprobe-instance-2, то в случае, если оба экземпляра nprobe наблюдают один и тот же трафик, вам также необходимо включить дедупликацию на стороне ntopng.</p></li>
 </ul>
-<p>Bottom line: as deduplication is not CPU intensive, we suggest you to enable it at the ntopng side and if possible also at the nProbe side for maximum efficiency.</p>
+<p>Итог: поскольку дедупликация не является интенсивной CPU, мы предлагаем вам включить ее на стороне ntopng и, если возможно, также на стороне nProbe для максимальной эффективности.</p>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="live_pcap_download.html" rel="prev" title="5. Live Pcap Download"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="oem.html" rel="next" title="7. OEM Customizations">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="live_pcap_download.html" class="btn btn-neutral float-left" title="5. Live Pcap Download" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="oem.html" class="btn btn-neutral float-right" title="7. OEM Customizations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/deduplication.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:50:25 GMT -->
 </html>

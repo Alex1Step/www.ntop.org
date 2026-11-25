@@ -1,84 +1,72 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../../../">
-
+<html class="writer-html5" data-content_root="../../../../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/flow_checks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:10 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flow Behavioural Checks &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../../../../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="System Behavioural Checks" href="system_checks.html" />
-    <link rel="prev" title="SNMP Behavioural Checks" href="snmp_checks.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../../../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Проверки поведения потока — документация ntopng v.7.1.261018</title>
+<link href="../../../../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../../../../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../../../../_static/js/theme.js"></script>
+<link href="../../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../../search.html" rel="search" title="Search"/>
+<link href="system_checks.html" rel="next" title="System Behavioural Checks"/>
+<link href="snmp_checks.html" rel="prev" title="SNMP Behavioural Checks"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../../../index-2.html">
             ntopng
-              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../../../../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_features/index.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nanalyst/index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_features/index.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../scripts/index.html">Developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index-2.html">API Документация</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../../../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../../pf_ring/index.html">PF_RING</a></li>
@@ -87,1076 +75,1066 @@
 <li class="toctree-l1"><a class="reference external" href="../../../../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../../index.html">User Interface Guide</a></li>
-          <li class="breadcrumb-item"><a href="available_alerts.html">Behavioural Checks</a></li>
-      <li class="breadcrumb-item active">Flow Behavioural Checks</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../../../../_sources/user_interface/shared/alerts/others/flow_checks.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="flow-behavioural-checks">
-<h1>Flow Behavioural Checks<a class="headerlink" href="#flow-behavioural-checks" title="Link to this heading"></a></h1>
-<p>Flow checks are performed on live flows.</p>
-<hr class="docutils" />
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../../../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../../../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="../../../index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="breadcrumb-item"><a href="available_alerts.html">Поведенческие проверки</a></li>
+<li class="breadcrumb-item active">Поведенческие проверки потока</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../../../_sources/user_interface/shared/alerts/others/flow_checks.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="flow-behavioural-checks">
+<h1>Поведенческие проверки потока<a class="headerlink" href="#flow-behavioural-checks" title="Link to this heading"></a></h1>
+<p>Проверки потока выполняются на реальных потоках.</p>
+<hr class="docutils"/>
 <section id="acl-violation-icmp-tcp-udp">
-<h2>ACL Violation (ICMP/TCP/UDP)<a class="headerlink" href="#acl-violation-icmp-tcp-udp" title="Link to this heading"></a></h2>
-<p>Checks the ICMP, TCP and UDP flows against the Access Control List.</p>
-<p>The alert is sent when a flow does not follow the rules configured in the Access Control List page (Policies -&gt; Access Control List). The check does not block the traffic, it only triggers the alert.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Network</em></p>
-<p><em>Not Enabled by Default</em></p>
+<h2>Нарушение ACL (ICMP/TCP/UDP)<a class="headerlink" href="#acl-violation-icmp-tcp-udp" title="Link to this heading"></a></h2>
+<p>Проверяет потоки ICMP, TCP и UDP по списку контроля доступа.</p>
+<p>Оповещение отправляется, когда поток не соответствует правилам, настроенным на странице «Список контроля доступа» (Политики -&gt; Список управления доступом). Проверка не блокирует трафик, а только активирует оповещение.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Сеть</em></p>
+<p><em>Не включено по умолчанию</em></p>
 </section>
 <section id="alpn-sni-mismatch">
-<h2>ALPN/SNI Mismatch<a class="headerlink" href="#alpn-sni-mismatch" title="Link to this heading"></a></h2>
-<p>Points out when there is an ALPN/SNI Mismatch.</p>
-<p>This problem can arise when there is a misalignment between the Application-Layer Protocol Negotiation (ALPN) and Server Name Indication (SNI) during the TLS handshake process</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Несоответствие ALPN/SNI<a class="headerlink" href="#alpn-sni-mismatch" title="Link to this heading"></a></h2>
+<p>Указывает на несоответствие ALPN/SNI.</p>
+<p>Эта проблема может возникнуть в случае несогласованности между согласованием протокола уровня приложений (ALPN) и указанием имени сервера (SNI) во время процесса установления связи TLS.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="anonymous-subscriber">
-<h2>Anonymous Subscriber<a class="headerlink" href="#anonymous-subscriber" title="Link to this heading"></a></h2>
-<p>Points out the unsafe application for you credentials.</p>
-<p>An alert is triggered whenever the (source) ip address has been anonymized and it can’t be used to identify the subscriber. Example: the flow is generated by an iCloud-private-relay exit node.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Анонимный подписчик<a class="headerlink" href="#anonymous-subscriber" title="Link to this heading"></a></h2>
+<p>Указывает на небезопасное приложение для ваших учетных данных.</p>
+<p>Оповещение срабатывает всякий раз, когда IP-адрес (источника) анонимизирован и его нельзя использовать для идентификации подписчика. Пример: поток генерируется выходным узлом iCloud-private-relay.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="binary-app-exe-transfer">
-<h2>Binary App/.exe Transfer<a class="headerlink" href="#binary-app-exe-transfer" title="Link to this heading"></a></h2>
-<p>Cheks for Binary Application Transfer.</p>
-<p>Binary is a name for an executable file format and is intended for end-users.There are several variants of .exe, .msi and .zip files. The binary application can be downloaded/uploaded. These applications include Windows binaries, Linux executables, Unix scripts and Android apps.
-A binary can be potentially harmful, and therefore can generate malicious behavior.</p>
-<p>The alert is sent to notify an executable file.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Передача двоичного приложения/.exe<a class="headerlink" href="#binary-app-exe-transfer" title="Link to this heading"></a></h2>
+<p>Чеки для передачи двоичных приложений.</p>
+<p>Двоичный формат — это название формата исполняемого файла, предназначенного для конечных пользователей. Существует несколько вариантов файлов .exe, .msi и .zip. Бинарное приложение можно загрузить/загрузить. Эти приложения включают двоичные файлы Windows, исполняемые файлы Linux, сценарии Unix и приложения для Android.
+Бинарный файл может быть потенциально опасным и, следовательно, может вызывать вредоносное поведение.</p>
+<p>Предупреждение отправляется для уведомления исполняемого файла.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="binary-file-data-transfer-attempt">
-<h2>Binary file/data transfer (attempt)<a class="headerlink" href="#binary-file-data-transfer-attempt" title="Link to this heading"></a></h2>
-<p>Cheks for Binary Application Transfer.</p>
-<p>Binary is a name for an executable file format and is intended for end-users.There are several variants of .exe, .msi and .zip files. The binary application can be downloaded/uploaded. These applications include Windows binaries, Linux executables, Unix scripts and Android apps.
-A binary can be potentially harmful, and therefore can generate malicious behavior.</p>
-<p>The alert is sent to notify when there is an attempt (without success) of transferring an executable file.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Передача двоичного файла/данных (попытка)<a class="headerlink" href="#binary-file-data-transfer-attempt" title="Link to this heading"></a></h2>
+<p>Чеки для передачи двоичных приложений.</p>
+<p>Двоичный формат — это название формата исполняемого файла, предназначенного для конечных пользователей. Существует несколько вариантов файлов .exe, .msi и .zip. Бинарное приложение можно загрузить/загрузить. Эти приложения включают двоичные файлы Windows, исполняемые файлы Linux, сценарии Unix и приложения для Android.
+Бинарный файл может быть потенциально опасным и, следовательно, может вызывать вредоносное поведение.</p>
+<p>Оповещение отправляется для уведомления о попытке (безуспешной) передачи исполняемого файла.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="blacklisted-client-contact">
-<h2>Blacklisted Client Contact<a class="headerlink" href="#blacklisted-client-contact" title="Link to this heading"></a></h2>
-<p>The check verifies whether a blacklisted host has been contacted, or viceversa.</p>
-<p>Trigger an alert when a remote blacklisted host contacts a local host.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Контакт клиента с черным списком<a class="headerlink" href="#blacklisted-client-contact" title="Link to this heading"></a></h2>
+<p>Проверка проверяет, был ли установлен контакт с хостом, занесенным в черный список, или наоборот.</p>
+<p>Вызов оповещения, когда удаленный хост, занесенный в черный список, связывается с локальным хостом.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="blacklisted-country">
-<h2>Blacklisted Country<a class="headerlink" href="#blacklisted-country" title="Link to this heading"></a></h2>
-<p>Check verififes a Blacklisted Country.</p>
-<p>The check verifies whether blacklisted country has been contacted, or viceversa, somebody from a blacklisted country had tried to contact the host.</p>
-<p>Often the country is blacklisted due to many cyberattacks that are launched from that geographical area.There are countries with most ransomware <a class="reference external" href="https://it.wikipedia.org/wiki/Ransomware">https://it.wikipedia.org/wiki/Ransomware</a> attacks.</p>
-<p>The alert appears when a blacklisted country is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Страна в черном списке<a class="headerlink" href="#blacklisted-country" title="Link to this heading"></a></h2>
+<p>Проверьте наличие страны, занесенной в черный список.</p>
+<p>Проверка проверяет, связывались ли со страной, занесенной в черный список, или наоборот, кто-то из страны, занесенной в черный список, пытался связаться с хостом.</p>
+<p>Часто страна попадает в черный список из-за множества кибератак, происходящих из этой географической зоны. Есть страны, в которых больше всего ransomware <a class="reference external" href="https://it.wikipedia.org/wiki/Ransomware">https://it.wikipedia.org/wiki/Ransomware</a> атаки.</p>
+<p>Предупреждение появляется при обнаружении страны, занесенной в черный список.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="blacklisted-flow">
-<h2>Blacklisted Flow<a class="headerlink" href="#blacklisted-flow" title="Link to this heading"></a></h2>
-<p>The system sends you an alert when a blacklisted host or domain is detected.</p>
-<p>A Domain Name System Blacklist is a list that allows Internet Service Providers to block potentially malicious traffic - a blacklist contains domains, email addresses and IP addresses.
-If one of them is blacklisted, it might have bad reputation and be insecure.</p>
-<p>In case of domain -it might be suspicious website
-In case of email- it might send spam
-In case of host- it might conduct  suspicious activity</p>
-<p>The goal of the check is to notify that one of above cases has been verified.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Поток из черного списка<a class="headerlink" href="#blacklisted-flow" title="Link to this heading"></a></h2>
+<p>Система отправляет вам оповещение при обнаружении хоста или домена, занесенного в черный список.</p>
+<p>Черный список системы доменных имен — это список, который позволяет поставщикам интернет-услуг блокировать потенциально вредоносный трафик. Черный список содержит домены, адреса электронной почты и IP-адреса.
+Если один из них занесен в черный список, он может иметь плохую репутацию и быть небезопасным.</p>
+<p>В случае домена - это может быть подозрительный сайт.
+В случае электронной почты - она может рассылать спам.
+В случае хоста - он может вести подозрительную деятельность.</p>
+<p>Цель проверки – уведомить о том, что один из вышеперечисленных случаев подтвержден.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="blacklisted-server-contact">
-<h2>Blacklisted Server Contact<a class="headerlink" href="#blacklisted-server-contact" title="Link to this heading"></a></h2>
-<p>The check verifies whether a blacklisted host has been contacted, or viceversa.</p>
-<p>Trigger an alert when a localhost contacts a remote blacklisted host.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Контакт с сервером в черном списке<a class="headerlink" href="#blacklisted-server-contact" title="Link to this heading"></a></h2>
+<p>Проверка проверяет, был ли установлен контакт с хостом, занесенным в черный список, или наоборот.</p>
+<p>Вызов оповещения, когда локальный хост связывается с удаленным хостом, занесенным в черный список.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="broadcast-non-udp-traffic">
-<h2>Broadcast Non-UDP Traffic<a class="headerlink" href="#broadcast-non-udp-traffic" title="Link to this heading"></a></h2>
-<p>The system sends you an alert when an host contacts a Broadcast address using a non-UDP protocol.</p>
-<p>The goal of the check is to notify that one host is behaving strangely.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Трансляция трафика, отличного от UDP<a class="headerlink" href="#broadcast-non-udp-traffic" title="Link to this heading"></a></h2>
+<p>Система отправляет вам предупреждение, когда хост связывается с широковещательным адресом, используя протокол, отличный от UDP.</p>
+<p>Цель проверки — уведомить о том, что один хост ведет себя странно.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="clear-text-credentials">
-<h2>Clear-Text Credentials<a class="headerlink" href="#clear-text-credentials" title="Link to this heading"></a></h2>
-<p>Points out the unsafe application for you credentials.</p>
-<p>Instead of using HTTPS some applications transmit passwords over unencrypted connections, making them vulnerable. In order to exploit this vulnerability, an attacker may spy on the victim’s network traffic. This occurs when a client communicates with the server over an insecure connection such as public Wi-Fi, or an enterprise or home network that is shared with a compromised computer. To prevent this type of attack it’s fundamental to use an encrypted communication transport-level (SSL or TLS) to protect all sensitive data passing between the client and the server.</p>
-<p>The warning appears when the credentials have been inserted on the unsafe/encrypted channel.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Учетные данные в виде открытого текста<a class="headerlink" href="#clear-text-credentials" title="Link to this heading"></a></h2>
+<p>Указывает на небезопасное приложение для ваших учетных данных.</p>
+<p>Вместо использования HTTPS некоторые приложения передают пароли по незашифрованным соединениям, что делает их уязвимыми. Чтобы воспользоваться этой уязвимостью, злоумышленник может шпионить за сетевым трафиком жертвы. Это происходит, когда клиент взаимодействует с сервером через небезопасное соединение, например общедоступную сеть Wi-Fi или корпоративную или домашнюю сеть, которая используется совместно со взломанным компьютером. Чтобы предотвратить этот тип атаки, крайне важно использовать зашифрованный транспортный уровень связи (SSL или TLS) для защиты всех конфиденциальных данных, передаваемых между клиентом и сервером.</p>
+<p>Предупреждение появляется, когда учетные данные были вставлены в небезопасный/зашифрованный канал.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="crawler-bot">
-<h2>Crawler/Bot<a class="headerlink" href="#crawler-bot" title="Link to this heading"></a></h2>
-<p>Checks for crawlers.</p>
-<p>Spiderbot or crawler, is an Internet bot that browses the Web and that is typically operated by search engines for the purpose of Web indexing/web spidering.</p>
-<p>The alert is sent when a crawler on the webpage is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Краулер/Бот<a class="headerlink" href="#crawler-bot" title="Link to this heading"></a></h2>
+<p>Проверяет сканеров.</p>
+<p>Робот-паук или сканер — это интернет-бот, который просматривает Интернет и обычно используется поисковыми системами с целью веб-индексации/веб-пауков.</p>
+<p>Оповещение отправляется при обнаружении сканера на веб-странице.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="desktop-file-sharing">
-<h2>Desktop/File Sharing<a class="headerlink" href="#desktop-file-sharing" title="Link to this heading"></a></h2>
-<p>Checks for desktop or file sharing.</p>
-<p>Desktop or file sharing from a device, could be the work of an attacker trying to get info of the system.</p>
-<p>The alert is sent when a desktop or file sharing is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Рабочий стол/Общий доступ к файлам<a class="headerlink" href="#desktop-file-sharing" title="Link to this heading"></a></h2>
+<p>Проверяет доступ к рабочему столу или файлам.</p>
+<p>Общий доступ к рабочему столу или файлам с устройства может быть работой злоумышленника, пытающегося получить информацию о системе.</p>
+<p>Оповещение отправляется при обнаружении рабочего стола или общего доступа к файлам.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="dns-data-exfiltration">
-<h2>DNS Data Exfiltration<a class="headerlink" href="#dns-data-exfiltration" title="Link to this heading"></a></h2>
-<p>Verifies for data exfiltration.</p>
-<p>The data is exchanged through DNS protocol on intermediate DNS servers. During the exfiltration phase, the client makes a DNS resolution request to an external DNS server address. Instead of responding with an A record in response, the attacker’s name server will respond back with a MX or TXT record, which allows a large amount of not structured data to be sent between attacker and victim.</p>
-<p>The Alert is sent data exfiltration is detected.</p>
-<p><em>Interface: Packet</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>DNS Эксфильтрация данных<a class="headerlink" href="#dns-data-exfiltration" title="Link to this heading"></a></h2>
+<p>Проверяет утечку данных.</p>
+<p>Обмен данными осуществляется по протоколу DNS на промежуточных серверах DNS. На этапе эксфильтрации клиент отправляет запрос разрешения DNS на адрес внешнего сервера DNS. Вместо того, чтобы отправлять в ответ запись A, сервер имен злоумышленника ответит записью MX или TXT, что позволяет передавать между злоумышленником и жертвой большой объем неструктурированных данных.</p>
+<p>Отправлено оповещение. Обнаружена утечка данных.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="dns-invalid-characters">
-<h2>DNS Invalid Characters<a class="headerlink" href="#dns-invalid-characters" title="Link to this heading"></a></h2>
-<p>Notifies that an invalid character is detected in the hostname.</p>
-<p>DNS messages are sent via UDP. DNS hostname must only contain a subset of all printable characters, an alert is triggered when one of those not allowed character is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>DNS Недопустимые символы<a class="headerlink" href="#dns-invalid-characters" title="Link to this heading"></a></h2>
+<p>Уведомляет, что в имени хоста обнаружен недопустимый символ.</p>
+<p>Сообщения DNS отправляются через UDP. DNS имя хоста должно содержать только подмножество всех печатаемых символов. При обнаружении одного из этих запрещенных символов срабатывает предупреждение.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="elephant-flow">
-<h2>Elephant flow<a class="headerlink" href="#elephant-flow" title="Link to this heading"></a></h2>
-<p>Checks a flow.</p>
-<p>Elephant flows are data sessions that take up significant amounts of network capacity relative to other types of data sessions. For example, a three-minute YouTube stream accounts for 20,000 times more bandwidth than three minutes consuming Twitter. Visible effect of Elephant Flows can be seen in high cpu usage.</p>
-<p>Notifies when elephant flow is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Слоновый поток<a class="headerlink" href="#elephant-flow" title="Link to this heading"></a></h2>
+<p>Проверяет поток.</p>
+<p>Слоновьи потоки — это сеансы данных, которые занимают значительную часть пропускной способности сети по сравнению с другими типами сеансов данных. Например, трехминутная трансляция YouTube требует в 20 000 раз большей пропускной способности, чем трехминутная трансляция Twitter. Видимый эффект «Слоновьих потоков» можно увидеть при частом использовании cpu.</p>
+<p>Уведомляет об обнаружении потока слонов.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="error-code">
-<h2>Error Code<a class="headerlink" href="#error-code" title="Link to this heading"></a></h2>
-<p>Checks for error code.</p>
-<p>HTTP response status codes indicate whether a specific HTTP request has been successfully completed or failed. Responses are grouped in five classes:</p>
-<p>informational responses
-successful responses
-re-directs
-client errors
-server errors</p>
-<p>Alert is sent when an error code is seen.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category: <em>Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Код ошибки<a class="headerlink" href="#error-code" title="Link to this heading"></a></h2>
+<p>Проверяет код ошибки.</p>
+<p>Коды состояния ответа HTTP указывают, был ли конкретный запрос HTTP успешно выполнен или не выполнен. Ответы сгруппированы в пять классов:</p>
+<p>информационные ответы
+успешные ответы
+перенаправляет
+ошибки клиента
+ошибки сервера</p>
+<p>Предупреждение отправляется при обнаружении кода ошибки.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория: <em>Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="external-alert">
-<h2>External Alert<a class="headerlink" href="#external-alert" title="Link to this heading"></a></h2>
-<p>It’s a notification of External alerts from other devices, for example, logs from a firewall.</p>
-<p>For a more complete and detailed overview of the activity involved in inspection, the system can ingest alerts from any external source.</p>
-<p>External sources offer a deeper understanding and  more complete view of what’s going on your network or device.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Внешнее оповещение<a class="headerlink" href="#external-alert" title="Link to this heading"></a></h2>
+<p>Это уведомление о Внешних оповещениях с других устройств, например, логи брандмауэра.</p>
+<p>Для более полного и подробного обзора деятельности, связанной с проверкой, система может получать оповещения из любого внешнего источника.</p>
+<p>Внешние источники предлагают более глубокое понимание и более полное представление о том, что происходит в вашей сети или на устройстве.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="flow-user-check-script">
-<h2>Flow User Check Script<a class="headerlink" href="#flow-user-check-script" title="Link to this heading"></a></h2>
-<p>Trigger a flow alert based on custom Lua scripts written by the user, one detection per script, placed in
-<code class="code docutils literal notranslate"><span class="pre">/etc/ntopng/custom_checks/flows/</span></code>. Each script selects the flows it analyses (by IP address, port, layer 4
-and application protocol) and raises a <em>Custom Script</em> alert that reports its title; the Alerts Explorer can filter
-these alerts by script title. See <a class="reference internal" href="../../../../scada/custom_detections.html#customdetections"><span class="std std-ref">Custom Detections</span></a> for OT use cases and <a class="reference internal" href="../../../../api/lua_c/flow_checks/index.html#apiflowchecks-target"><span class="std std-ref">Flow Checks</span></a> to
-write a script.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Network</em></p>
-<p><em>Not Enabled by Default</em></p>
+<h2>Сценарий проверки пользователя потока<a class="headerlink" href="#flow-user-check-script" title="Link to this heading"></a></h2>
+<p>Запуск оповещения о потоке на основе пользовательских сценариев Lua, написанных пользователем, одно обнаружение на каждый сценарий, помещенный в
+<code class="code docutils literal notranslate"><span class="pre">/etc/ntopng/custom_checks/flows/</span></code>. Каждый скрипт выбирает потоки, которые он анализирует (по IP-адресу, порту, уровню 4).
+и протокол приложения) и вызывает <em>Пользовательский скрипт</em> оповещение, сообщающее его заголовок; Alerts Explorer может фильтровать
+эти оповещения по названию сценария. Видеть <a class="reference internal" href="../../../../scada/custom_detections.html#customdetections"><span class="std std-ref">Пользовательские обнаружения</span></a> для вариантов использования OT и <a class="reference internal" href="../../../../api/lua_c/flow_checks/index.html#apiflowchecks-target"><span class="std std-ref">Проверки потока</span></a> чтобы
+написать сценарий.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Сеть</em></p>
+<p><em>Не включено по умолчанию</em></p>
 </section>
 <section id="fragmented-dns-message">
-<h2>Fragmented DNS Message<a class="headerlink" href="#fragmented-dns-message" title="Link to this heading"></a></h2>
-<p>Notifies that the message was fragmented.</p>
-<p>DNS messages are sent via UDP. Even when fragmentation works, it may not be secure; it is theoretically possible to spoof parts of a fragmented DNS message, without easy detection for the receiver</p>
-<p>The UDP protocol is effective and efficient with small responses. In the case of large packers, DNS resolvers should switch from using from UDP to TCP.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Фрагментированное сообщение DNS<a class="headerlink" href="#fragmented-dns-message" title="Link to this heading"></a></h2>
+<p>Уведомляет, что сообщение было фрагментировано.</p>
+<p>Сообщения DNS отправляются через UDP. Даже если фрагментация работает, она может быть небезопасной; теоретически возможно подделать части фрагментированного сообщения DNS без возможности легкого обнаружения получателем</p>
+<p>Протокол UDP эффективен и эффективен при небольших ответах. В случае крупных пакеров резольверы DNS должны переключиться с использования UDP на TCP.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="fully-encrypted-flow">
-<h2>Fully Encrypted Flow<a class="headerlink" href="#fully-encrypted-flow" title="Link to this heading"></a></h2>
-<p>Notifies that the message was fully encrypted.</p>
-<p>A fully encrypted flow refers to a communication process in which all data transmitted between parties is encrypted</p>
-<p>Trigger an alert when a fully encrypted flow is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Полностью зашифрованный поток<a class="headerlink" href="#fully-encrypted-flow" title="Link to this heading"></a></h2>
+<p>Уведомляет, что сообщение было полностью зашифровано.</p>
+<p>Полностью зашифрованный поток относится к процессу связи, в котором все данные, передаваемые между сторонами, шифруются.</p>
+<p>Вызов оповещения при обнаружении полностью зашифрованного потока.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="host-policy">
-<h2>Host Policy<a class="headerlink" href="#host-policy" title="Link to this heading"></a></h2>
-<p>Checks the flows against the network policies.</p>
-<p>The alert is sent when a flow does not respect the host policies configured in Policies -&gt; Network Configuration, for example a restricted host contacting a public IP address not whitelisted. See <a class="reference internal" href="../../policies/network_configuration.html#networkconfiguration"><span class="std std-ref">Host Policy</span></a> for the configuration.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Network</em></p>
-<p><em>Not Enabled by Default</em></p>
+<h2>Политика хоста<a class="headerlink" href="#host-policy" title="Link to this heading"></a></h2>
+<p>Проверяет потоки на соответствие сетевым политикам.</p>
+<p>Предупреждение отправляется, когда поток не соблюдает политики узла, настроенные в разделе «Политики» -&gt; «Конфигурация сети», например, если узел с ограниченным доступом обращается к общедоступному IP-адресу, не внесенному в белый список. Видеть <a class="reference internal" href="../../policies/network_configuration.html#networkconfiguration"><span class="std std-ref">Политика хоста</span></a> для конфигурации.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Сеть</em></p>
+<p><em>Не включено по умолчанию</em></p>
 </section>
 <section id="http-obsolete-server">
-<h2>HTTP Obsolete Server<a class="headerlink" href="#http-obsolete-server" title="Link to this heading"></a></h2>
-<p>Check controls for an obsolete HTTP server.</p>
-<p>Contacting an obsolete HTTP server could be dangerous.</p>
-<p>The alert is sent when an host contacts an obsolete HTTP server.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>HTTP Устаревший сервер<a class="headerlink" href="#http-obsolete-server" title="Link to this heading"></a></h2>
+<p>Проверьте элементы управления устаревшим сервером HTTP.</p>
+<p>Соединение с устаревшим сервером HTTP может быть опасным.</p>
+<p>Оповещение отправляется, когда хост связывается с устаревшим сервером HTTP.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="http-susp-content">
-<h2>HTTP Susp. Content<a class="headerlink" href="#http-susp-content" title="Link to this heading"></a></h2>
-<p>Check controls for HTTP content.</p>
-<p>The system notifies when HTTP carries content in unexpected format (e.g. when the real content is not readable).</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>HTTP Подозр. Содержание<a class="headerlink" href="#http-susp-content" title="Link to this heading"></a></h2>
+<p>Проверьте элементы управления на наличие контента HTTP.</p>
+<p>Система уведомляет, когда HTTP передает контент в неожиданном формате (например, когда реальный контент не читается).</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="http-susp-header">
-<h2>HTTP Susp. Header<a class="headerlink" href="#http-susp-header" title="Link to this heading"></a></h2>
-<p>HTTP Host header attacks exploit vulnerable websites that handle the value of the Host header in an unsafe way. If the server implicitly trusts the Host header, and fails to validate it properly, an attacker may be able to use this input to inject harmful payloads that manipulate server-side behavior. Attacks that involve injecting a payload directly into the Host header are often known as “Host header injection” attacks.</p>
-<p>The system notifies of suspicious HTTP header inserted.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>HTTP Подозр. Заголовок<a class="headerlink" href="#http-susp-header" title="Link to this heading"></a></h2>
+<p>HTTP Атаки по заголовку хоста используют уязвимые веб-сайты, которые обрабатывают значение заголовка хоста небезопасным образом. Если сервер неявно доверяет заголовку Host и не может проверить его должным образом, злоумышленник может использовать эти входные данные для внедрения вредоносных полезных данных, которые манипулируют поведением на стороне сервера. Атаки, которые включают в себя внедрение полезных данных непосредственно в заголовок хоста, часто называют атаками «инъекция заголовка хоста».</p>
+<p>Система уведомляет о вставленном подозрительном заголовке HTTP.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="http-susp-url">
-<h2>HTTP Susp. URL<a class="headerlink" href="#http-susp-url" title="Link to this heading"></a></h2>
-<p>A warning about clicked unsafe URL.</p>
-<p>A secure website’s URL should begin with HTTPS rather than HTTP. The “s”  stands for secure and is using an SSL (Secure Sockets Layer) connection. Your information will be encrypted before being sent to a server.
-Malicius URL -The simple act of clicking on a malicious URL, opening an attachment, or engaging with an ad can lead to serious consequences. By clicking on a malicious URL, you may find yourself the target of a phishing attack, have malware auto-install onto your device.</p>
-<p>The Alert is sent in order to raise the awareness on this type of URL and to pay attention on final httpS URLs</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>HTTP Подозр. URL-адрес<a class="headerlink" href="#http-susp-url" title="Link to this heading"></a></h2>
+<p>Предупреждение о клике по небезопасному URL.</p>
+<p>URL-адрес безопасного веб-сайта должен начинаться с HTTPS, а не с HTTP. Буква «s» означает «безопасный» и использует соединение SSL (Secure Sockets Layer). Ваша информация будет зашифрована перед отправкой на сервер.
+Вредоносный URL-адрес. Простое нажатие на вредоносный URL-адрес, открытие вложения или просмотр рекламы может привести к серьезным последствиям. Нажав на вредоносный URL-адрес, вы можете оказаться объектом фишинговой атаки, и вредоносное ПО автоматически установится на ваше устройство.</p>
+<p>Оповещение отправляется с целью повысить осведомленность об этом типе URL-адресов и обратить внимание на конечные URL-адреса httpS.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="http-susp-user-agent">
-<h2>HTTP Susp. User-Agent<a class="headerlink" href="#http-susp-user-agent" title="Link to this heading"></a></h2>
-<p>The alert is sent when a suspicious User Agent is seen.</p>
-<p>The User Agent is a string of text that identifies the browser and operating system for the web server. UA is transmitted in the HTTP header when the browser makes a request to the web server.
-User Agents are just “free-text” and might be used with malicious intentions the User Agent might be used to attack websites with:</p>
+<h2>HTTP Подозр. Пользовательский агент<a class="headerlink" href="#http-susp-user-agent" title="Link to this heading"></a></h2>
+<p>Оповещение отправляется при обнаружении подозрительного агента пользователя.</p>
+<p>Пользовательский агент — это текстовая строка, которая идентифицирует браузер и операционную систему веб-сервера. UA передается в заголовке HTTP, когда браузер отправляет запрос веб-серверу.
+Пользовательские агенты представляют собой просто «свободный текст» и могут использоваться со злыми намерениями. Пользовательский агент может использоваться для атак на веб-сайты с помощью:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>SQL Injection via User Agent</p></li>
-<li><p>XSS with User Agent</p></li>
-<li><p>Spoofing User Agent to deceive the server</p></li>
+<li><p>SQL-инъекция через пользовательский агент</p></li>
+<li><p>XSS с пользовательским агентом</p></li>
+<li><p>Подмена пользовательского агента для обмана сервера</p></li>
 </ul>
 </div></blockquote>
-<p>The goal is to notify by making sure all the countermeasures are implemented.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<p>Цель состоит в том, чтобы уведомить, убедившись, что все контрмеры реализованы.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="http-tls-quic-numeric-hostname-sni">
-<h2>HTTP/TLS/QUIC Numeric Hostname/SNI<a class="headerlink" href="#http-tls-quic-numeric-hostname-sni" title="Link to this heading"></a></h2>
-<p>The Check is able to see a numeric IP Host.</p>
-<p>DNS keeps the record of all domain names and the associated IP addresses. When you type in a URL in your browser, the DNS resolves the domain name into an IP address. In other words, DNS is a service that maps domain names to corresponding IP addresses.</p>
-<p>Notifies in case of numeric IP Host.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>HTTP/TLS/QUIC Числовое имя хоста/SNI<a class="headerlink" href="#http-tls-quic-numeric-hostname-sni" title="Link to this heading"></a></h2>
+<p>Проверка может видеть числовой IP-хост.</p>
+<p>DNS хранит записи всех доменных имен и связанных с ними IP-адресов. Когда вы вводите URL-адрес в браузере, DNS преобразует имя домена в IP-адрес. Другими словами, DNS — это служба, которая сопоставляет доменные имена соответствующим IP-адресам.</p>
+<p>Уведомляет в случае числового IP-хоста.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="icmp-data-exfiltration">
-<h2>ICMP Data Exfiltration<a class="headerlink" href="#icmp-data-exfiltration" title="Link to this heading"></a></h2>
-<p>Checks data Exfiltration by using ping.</p>
-<p>The Internet Control Message Protocol is known by normal users via ping or traceroute, installed on every Operating System today. If ping is executed it will send an icmp packet with the flags - ICMP Echo Request, if the remote host wants to acknowledge this, it will respond with an “ICMP Echo Reply”. The protocol itself is used for testing of remote systems.</p>
-<p>Attackers can exploit this design choice to obfuscate malicious network behavior. Instead of explicitly communicating with a machine in the protocol of choice, each packet will be injected into an Echo or Echo Reply packet.</p>
-<p>The system sends an alert when detects a ICMP data exfiltration.</p>
-<p><em>Interface: Packet</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>ICMP Эксфильтрация данных<a class="headerlink" href="#icmp-data-exfiltration" title="Link to this heading"></a></h2>
+<p>Проверяет утечку данных с помощью ping.</p>
+<p>Протокол управляющих сообщений Интернета известен обычным пользователям через ping или Traceroute, которые сегодня установлены в каждой операционной системе. Если ping будет выполнен, он отправит пакет icmp с флагами — ICMP Echo Request. Если удаленный хост захочет подтвердить это, он ответит «ICMP Echo Reply». Сам протокол используется для тестирования удаленных систем.</p>
+<p>Злоумышленники могут использовать этот выбор конструкции, чтобы скрыть вредоносное поведение сети. Вместо явного взаимодействия с машиной по выбранному протоколу каждый пакет будет вставлен в пакет Echo или Echo Reply.</p>
+<p>Система отправляет предупреждение при обнаружении кражи данных ICMP.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="iec-invalid-command-transition">
-<h2>IEC Invalid Command Transition<a class="headerlink" href="#iec-invalid-command-transition" title="Link to this heading"></a></h2>
-<p>Check for the IEC 104 protocol used in Industrial Control Systems (ICS).</p>
-<p>In IEC systems the transitions must respect the following criteria:
-- m_to_c tranistions &lt; 20
-- c_to_m tranistions &lt; 20
-- c_to_m tranistions &lt; 5</p>
-<p>Whenever IEC transitions do not respect this rule, and alert is triggered
-for the flow that does not satisfies these constraints.</p>
-<p><em>Interface: Packet</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>IEC Неверный переход команды<a class="headerlink" href="#iec-invalid-command-transition" title="Link to this heading"></a></h2>
+<p>Проверьте протокол IEC 104, используемый в промышленных системах управления (ICS).</p>
+<p>В системах IEC переходы должны соответствовать следующим критериям:
+- переходов m_to_c &lt; 20
+- переходов c_to_m &lt; 20
+- переходов c_to_m &lt; 5</p>
+<p>Всякий раз, когда переходы IEC не соблюдают это правило, срабатывает предупреждение.
+для потока, который не удовлетворяет этим ограничениям.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="iec-invalid-transition">
-<h2>IEC Invalid Transition<a class="headerlink" href="#iec-invalid-transition" title="Link to this heading"></a></h2>
-<p>Check for the IEC 104 protocol used in Industrial Control Systems (ICS).</p>
-<p>ntopng implements for every IEC flow a learning time (see preferences for changing its duration)
-that keeps track of the transitions observed. Past the learning phase in case a
-new transition (i.e. not previously seen) is observed, this check triggers
-an alert that should not be confused with <cite>IEC Invalid Command Transition</cite>.</p>
-<p><em>Interface: Packet</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>IEC Неверный переход<a class="headerlink" href="#iec-invalid-transition" title="Link to this heading"></a></h2>
+<p>Проверьте протокол IEC 104, используемый в промышленных системах управления (ICS).</p>
+<p>ntopng реализует для каждого потока IEC время обучения (см. настройки для изменения его продолжительности)
+который отслеживает наблюдаемые переходы. Прохождение этапа обучения в случае, если
+наблюдается новый переход (т.е. ранее не наблюдавшийся), эта проверка запускает
+предупреждение, которое не следует путать с <cite>IEC Неверный переход команды</cite>.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="iec-unexpected-typeid">
-<h2>IEC Unexpected TypeID<a class="headerlink" href="#iec-unexpected-typeid" title="Link to this heading"></a></h2>
-<p>Check for the IEC 104 protocol used in Industrial Control Systems (ICS).</p>
-<p>In the check preference you can specify (numeric) the allowed IEC TypeIDs
-that can be observed in a IEC flow. In case ntopng identifies a TypeID that
-is not part of this list, an alert is triggered.</p>
-<p><em>Interface: Packet</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>IEC Неожиданный идентификатор типа<a class="headerlink" href="#iec-unexpected-typeid" title="Link to this heading"></a></h2>
+<p>Проверьте протокол IEC 104, используемый в промышленных системах управления (ICS).</p>
+<p>В настройках проверки вы можете указать (числовые) разрешенные IEC TypeID.
+это можно наблюдать в потоке IEC. В случае, если ntopng идентифицирует TypeID, который
+не входит в этот список, выдается предупреждение.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="invalid-dns-query">
-<h2>Invalid DNS Query<a class="headerlink" href="#invalid-dns-query" title="Link to this heading"></a></h2>
-<p>The system detects that the DNS is not correctly resolved.</p>
-<p>Domain Name Server (DNS) hijacking, also named DNS redirection, is a type of DNS attack in which DNS queries are incorrectly resolved in order to redirect users to malicious sites.</p>
-<p>Hackers haven’t forgotten or ignored DNS. In fact, it’s becoming an increasingly abused protocol to find command and control (C2) servers, control compromised systems, and exfiltrate your data. Threat actors are increasingly exploiting DNS.</p>
+<h2>Неверный запрос DNS<a class="headerlink" href="#invalid-dns-query" title="Link to this heading"></a></h2>
+<p>Система обнаруживает, что DNS решено неправильно.</p>
+<p>Взлом сервера доменных имен (DNS), также называемый перенаправлением DNS, представляет собой тип атаки DNS, при которой запросы DNS неправильно разрешаются с целью перенаправления пользователей на вредоносные сайты.</p>
+<p>Хакеры не забыли и не проигнорировали DNS. Фактически, этим протоколом все чаще злоупотребляют для поиска серверов управления и контроля (C2), контроля скомпрометированных систем и кражи ваших данных. Злоумышленники все чаще используют DNS.</p>
 <dl class="simple">
-<dt>Malicious DNS, include:</dt><dd><ul class="simple">
-<li><p>Domain-generation-algorithm (DGA) queries</p></li>
-<li><p>C2 data tunneled through DNS</p></li>
-<li><p>Data exfiltration via tunneled DNS</p></li>
+<dt>К вредоносным DNS относятся:</dt><dd><ul class="simple">
+<li><p>Запросы алгоритма генерации домена (DGA)</p></li>
+<li><p>Данные C2 туннелируются через DNS</p></li>
+<li><p>Эксфильтрация данных через туннелированный DNS</p></li>
 </ul>
 </dd>
 </dl>
-<p>The Alert is sent in order to notify that the system might have been compromised and changed the DNS server</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<p>Оповещение отправляется для уведомления о том, что система могла быть скомпрометирована и изменен сервер DNS.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="known-proto-on-non-std-port">
-<h2>Known Proto on Non Std Port<a class="headerlink" href="#known-proto-on-non-std-port" title="Link to this heading"></a></h2>
-<p>Checks if all the apps are on the right port.</p>
-<p>In order to avoid attacks aimed at standard ports, some organizations have turned to using ‘non-standard’ ports for their services. A non-standard port is a port that is used for a purpose not a default assignment. Using port 8080 instead of port 80 for web traffic is one example.
-This is the strategy of ‘security through obscurity’. While it may keep cybercriminals confused for a while, it’s not a long-term security solution. Also, it can make connecting to your web server more difficult for users because their browser is pre-configured to use port 80.</p>
-<p>Sends a notification in case the system detects an application is on unusual port.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Известный прототип на нестандартном порту<a class="headerlink" href="#known-proto-on-non-std-port" title="Link to this heading"></a></h2>
+<p>Проверяет, все ли приложения находятся на правильном порту.</p>
+<p>Чтобы избежать атак, направленных на стандартные порты, некоторые организации стали использовать «нестандартные» порты для своих сервисов. Нестандартный порт — это порт, который используется для цели, а не для назначения по умолчанию. Одним из примеров является использование порта 8080 вместо порта 80 для веб-трафика.
+Это стратегия «безопасности через неизвестность». Хотя это может на какое-то время сбить с толку киберпреступников, это не долгосрочное решение для обеспечения безопасности. Кроме того, это может затруднить подключение пользователей к вашему веб-серверу, поскольку их браузер предварительно настроен на использование порта 80.</p>
+<p>Отправляет уведомление, если система обнаруживает, что приложение находится на необычном порту.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="large-dns-packet-512-bytes">
-<h2>Large DNS Packet (512+ bytes)<a class="headerlink" href="#large-dns-packet-512-bytes" title="Link to this heading"></a></h2>
-<p>Check for correct size of DNS packets.</p>
-<p>DNS packets over UDP should be limited to 512 bytes. This size guarantees the datagram won’t be fragmented because losing just one fragment leads to losing the entire datagram. When DNS packets overcome this threshold indicate a potential security risk or a misconfiguration.</p>
-<p>The alert is sent in case the size overcomes 512 bytes.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Большой пакет DNS (512+ байт)<a class="headerlink" href="#large-dns-packet-512-bytes" title="Link to this heading"></a></h2>
+<p>Проверьте правильность размера пакетов DNS.</p>
+<p>Пакеты DNS старше UDP должны быть ограничены 512 байтами. Этот размер гарантирует, что дейтаграмма не будет фрагментирована, поскольку потеря всего лишь одного фрагмента приводит к потере всей дейтаграммы. Когда пакеты DNS превышают этот порог, это указывает на потенциальную угрозу безопасности или неправильную конфигурацию.</p>
+<p>Предупреждение отправляется, если размер превышает 512 байт.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="long-lived">
-<h2>Long Lived<a class="headerlink" href="#long-lived" title="Link to this heading"></a></h2>
-<p>Checks for long lived flows.</p>
-<p>The TCP source will keep sending as much data as it can for the transmission link and once congestion is occuring TCP congestion mechanism will come into play,TCP always initiate the congestion avoidance mechanism and slow-start if buffers get over-filled or output capacity of a router in the chain is smaller that the sum of its inputs.</p>
-<p>An alert is sent when a flow lasts more than the configured duration.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Долговечный<a class="headerlink" href="#long-lived" title="Link to this heading"></a></h2>
+<p>Проверяет долгоживущие потоки.</p>
+<p>Источник TCP будет продолжать отправлять столько данных, сколько сможет по каналу передачи, и как только произойдет перегрузка, TCP вступит в действие механизм перегрузки, TCP всегда запускает механизм предотвращения перегрузки и замедляет запуск, если буферы переполняются или выходная мощность маршрутизатора в цепочке меньше суммы его входов.</p>
+<p>Оповещение отправляется, когда поток длится дольше настроенной продолжительности.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="low-goodput">
-<h2>Low Goodput<a class="headerlink" href="#low-goodput" title="Link to this heading"></a></h2>
-<p>Checks for low goodput.</p>
-<p>Goodput is the rate at which useful data traverses a link. Assuming an uncongested path between endpoints.</p>
-<p>There could be various reasons for low goodput:</p>
+<h2>Низкая производительность<a class="headerlink" href="#low-goodput" title="Link to this heading"></a></h2>
+<p>Проверяет низкую пропускную способность.</p>
+<p>Goodput — это скорость, с которой полезные данные проходят по ссылке. Предполагается, что путь между конечными точками незагружен.</p>
+<p>Причин низкой производительности могут быть разные:</p>
 <ul class="simple">
-<li><p>High Utilization</p></li>
-<li><p>Too many access points on the same channel</p></li>
-<li><p>Access point power too high</p></li>
-<li><p>Broadcasting too many SSIDs</p></li>
-<li><p>A client issue</p></li>
-<li><p>Client inactivity</p></li>
+<li><p>Высокая загрузка</p></li>
+<li><p>Слишком много точек доступа на одном канале</p></li>
+<li><p>Слишком высокая мощность точки доступа</p></li>
+<li><p>Трансляция слишком большого количества SSID</p></li>
+<li><p>Проблема с клиентом</p></li>
+<li><p>Бездействие клиента</p></li>
 </ul>
-<p>The alert is sent when low goodput is tracked.</p>
-<p><em>Interface: Packet</em></p>
-<p><em>Category:Network</em></p>
-<p><em>Enabled by Default</em></p>
+<p>Оповещение отправляется, когда отслеживается низкий объем производства.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p><em>Категория:Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="malformed-packets">
-<h2>Malformed packets<a class="headerlink" href="#malformed-packets" title="Link to this heading"></a></h2>
-<p>The alert is sent when it’s not possible to dissect the payload of a packet.</p>
-<p>Maliciously malformed packets take advantage of vulnerabilities in operating systems and applications by intentionally altering the content of data fields in network protocols. These vulnerabilities may include causing a system crash (a form of denial of service) or forcing the system to execute the arbitrary code.</p>
-<p>When malformed packets are seen by ntopng, the system warns with alert.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Неверные пакеты<a class="headerlink" href="#malformed-packets" title="Link to this heading"></a></h2>
+<p>Предупреждение отправляется, когда невозможно проанализировать полезную нагрузку пакета.</p>
+<p>Вредоносно искаженные пакеты используют уязвимости в операционных системах и приложениях, намеренно изменяя содержимое полей данных в сетевых протоколах. Эти уязвимости могут включать в себя сбой системы (форма отказа в обслуживании) или принуждение системы к выполнению произвольного кода.</p>
+<p>Когда ntopng обнаруживает некорректные пакеты, система предупреждает об этом.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="malicious-ja3-fingerp">
-<h2>Malicious JA3 Fingerp.<a class="headerlink" href="#malicious-ja3-fingerp" title="Link to this heading"></a></h2>
-<p>Checks for malicious JA3 signature.</p>
-<p>JA3 is a method for creating SSL/TLS client fingerprints. JA3 signature is derived from the cipher. The cipher list is transmitted during the client/server hello negotiation.
-When the system identifies the match with blacklisted fingerprints it warns the client with an alert.</p>
-<p>The alert is sent in case malicious ja3 signature is found.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Вредоносный JA3 Fingerp.<a class="headerlink" href="#malicious-ja3-fingerp" title="Link to this heading"></a></h2>
+<p>Проверяет наличие вредоносной подписи JA3.</p>
+<p>JA3 — метод создания отпечатков клиентов SSL/TLS. JA3 подпись получается из шифра. Список шифров передается во время согласования приветствия клиент/сервер.
+Когда система обнаруживает совпадение с отпечатками пальцев, занесенными в черный список, она предупреждает клиента об этом.</p>
+<p>Оповещение отправляется в случае обнаружения вредоносной подписи ja3.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="malicious-ja3-sha1-cert">
-<h2>Malicious JA3 SHA1 Cert.<a class="headerlink" href="#malicious-ja3-sha1-cert" title="Link to this heading"></a></h2>
-<p>Checks for blaclisted JA3 SHA1 certificates.</p>
-<p>TLS certificates are uniquely identified with a SHA1 hash value. If such hash is found on a blacklist it could be a problem.</p>
-<p>The alert is sent in case a blacklisted JA3 SHA1 certificate is found.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Вредоносный сертификат JA3 SHA1.<a class="headerlink" href="#malicious-ja3-sha1-cert" title="Link to this heading"></a></h2>
+<p>Проверяет наличие сертификатов JA3 SHA1, внесенных в черный список.</p>
+<p>TLS сертификаты однозначно идентифицируются по хеш-значению SHA1. Если такой хеш будет найден в черном списке, это может стать проблемой.</p>
+<p>Оповещение отправляется в случае обнаружения сертификата JA3 SHA1, занесенного в черный список.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="malware-host-contacted">
-<h2>Malware Host Contacted<a class="headerlink" href="#malware-host-contacted" title="Link to this heading"></a></h2>
-<p>Checks for connections with Malware hosts.</p>
-<p>The alert is sent in case a flow involves an host blacklisted as Malware.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>С хостом вредоносного ПО связались<a class="headerlink" href="#malware-host-contacted" title="Link to this heading"></a></h2>
+<p>Проверяет соединения с хостами вредоносного ПО.</p>
+<p>Оповещение отправляется, если в потоке участвует хост, занесенный в черный список как вредоносное ПО.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="minor-issues">
-<h2>Minor Issues<a class="headerlink" href="#minor-issues" title="Link to this heading"></a></h2>
-<p>Checks for minor issues in packets.</p>
-<p>The alert is sent in case minor packet/flow issues (e.g. DNS traffic with zero TTL) have been detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Незначительные проблемы<a class="headerlink" href="#minor-issues" title="Link to this heading"></a></h2>
+<p>Проверяет наличие мелких проблем в пакетах.</p>
+<p>Предупреждение отправляется в случае обнаружения незначительных проблем с пакетами/потоками (например, трафик DNS с TTL zero).</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="mismatching-protocol-with-ip">
-<h2>Mismatching Protocol with IP<a class="headerlink" href="#mismatching-protocol-with-ip" title="Link to this heading"></a></h2>
-<p>Checks that the protocol of a flow matches the server IP address.</p>
-<p>The alert is sent when the protocol detected by nDPI does not match the protocol expected for the server IP address (e.g. a flow towards an IP address known to belong to a service, carrying a different protocol).</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Несовпадение протокола с IP<a class="headerlink" href="#mismatching-protocol-with-ip" title="Link to this heading"></a></h2>
+<p>Проверяет, что протокол потока соответствует IP-адресу сервера.</p>
+<p>Предупреждение отправляется, когда протокол, обнаруженный nDPI, не соответствует протоколу, ожидаемому для IP-адреса сервера (например, поток к IP-адресу, который, как известно, принадлежит службе, несущей другой протокол).</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="missing-sni-tls-extn">
-<h2>Missing SNI TLS Extn<a class="headerlink" href="#missing-sni-tls-extn" title="Link to this heading"></a></h2>
-<p>Inspects if SNI is missed.</p>
-<p>Often a web server is responsible for multiple hostnames – or domain names. Each hostname has its own SSL certificate if the websites use HTTPS.
-The problem is, all these hostnames on one server are at the same IP address. This isn’t a problem over HTTP, because as soon as a TCP connection is opened the client will indicate which website they’re trying to reach in an HTTP request.
-But in HTTPS, a TLS handshake takes place first, before the HTTP conversation can begin (HTTPS still uses HTTP – it just encrypts the HTTP messages). Without SNI (Server Indication Name) then, there is no way for the client to indicate to the server which hostname they’re talking to. As a result, the server may produce the SSL certificate for the wrong hostname. If the name on the SSL certificate does not match the name the client is trying to reach, the client browser returns an error and usually terminates the connection.</p>
-<p>Alert is sent to notify that TLS SNI is missing.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Отсутствует SNI TLS Внутренний номер<a class="headerlink" href="#missing-sni-tls-extn" title="Link to this heading"></a></h2>
+<p>Проверяет, пропущен ли SNI.</p>
+<p>Часто веб-сервер отвечает за несколько имен хостов или доменных имен. Каждое имя хоста имеет свой собственный сертификат SSL, если веб-сайты используют HTTPS.
+Проблема в том, что все эти имена хостов на одном сервере имеют один и тот же IP-адрес. Это не проблема для HTTP, потому что как только соединение TCP открывается, клиент укажет, к какому веб-сайту он пытается обратиться, в запросе HTTP.
+Но в HTTPS сначала происходит рукопожатие TLS, прежде чем может начаться разговор HTTP (HTTPS по-прежнему использует HTTP — он просто шифрует сообщения HTTP). Без SNI (имя индикации сервера) клиент не сможет указать серверу, с каким именем хоста он разговаривает. В результате сервер может выдать сертификат SSL для неправильного имени хоста. Если имя в сертификате SSL не соответствует имени, к которому пытается обратиться клиент, браузер клиента возвращает ошибку и обычно разрывает соединение.</p>
+<p>Отправляется оповещение об отсутствии TLS SNI.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="modbustcp-invalid-transition">
-<h2>ModbusTCP Invalid Transition<a class="headerlink" href="#modbustcp-invalid-transition" title="Link to this heading"></a></h2>
-<p>Triggers an alert when, after the learning period, a Modbus flow reports a transition between two function codes never observed before in the flow. See <a class="reference internal" href="../../../../scada/modbus.html"><span class="doc">ModbusTCP</span></a> for details.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>Неверный переход ModbusTCP<a class="headerlink" href="#modbustcp-invalid-transition" title="Link to this heading"></a></h2>
+<p>Вызывает предупреждение, когда после периода обучения поток Modbus сообщает о переходе между двумя функциональными кодами, никогда ранее не наблюдавшимися в потоке. Видеть <a class="reference internal" href="../../../../scada/modbus.html"><span class="doc">МодбусTCP</span></a> для получения подробной информации.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="modbustcp-too-many-exceptions">
-<h2>ModbusTCP Too Many Exceptions<a class="headerlink" href="#modbustcp-too-many-exceptions" title="Link to this heading"></a></h2>
-<p>Triggers an alert when the number of exceptions reported for a Modbus flow reaches the configured threshold. See <a class="reference internal" href="../../../../scada/modbus.html"><span class="doc">ModbusTCP</span></a> for details.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>ModbusTCP слишком много исключений<a class="headerlink" href="#modbustcp-too-many-exceptions" title="Link to this heading"></a></h2>
+<p>Вызывает оповещение, когда количество исключений, зарегистрированных для потока Modbus, достигает настроенного порога. Видеть <a class="reference internal" href="../../../../scada/modbus.html"><span class="doc">МодбусTCP</span></a> для получения подробной информации.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="modbustcp-unexpected-function-code">
-<h2>ModbusTCP Unexpected Function Code<a class="headerlink" href="#modbustcp-unexpected-function-code" title="Link to this heading"></a></h2>
-<p>Triggers an alert when a Modbus flow uses a function code that is not in the list of the allowed function codes. See <a class="reference internal" href="../../../../scada/modbus.html"><span class="doc">ModbusTCP</span></a> for details.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>Неожиданный функциональный код ModbusTCP<a class="headerlink" href="#modbustcp-unexpected-function-code" title="Link to this heading"></a></h2>
+<p>Вызывает оповещение, когда поток Modbus использует код функции, которого нет в списке разрешенных кодов функций. Видеть <a class="reference internal" href="../../../../scada/modbus.html"><span class="doc">МодбусTCP</span></a> для получения подробной информации.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="not-purged">
-<h2>Not Purged<a class="headerlink" href="#not-purged" title="Link to this heading"></a></h2>
-<p>Checks for bugs in the flow pure logic.</p>
-<p>Purging is the process of freeing up space in the database or deleting obsolete data that is not required by the system. The purge process can be based on the age of the data or the type of data.
-Data purging is a mechanism that permanently deletes inactive or obsolete records from the database.</p>
-<p>Sends the alert in case of bugs in the flow pure logic.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Internals</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Не очищено<a class="headerlink" href="#not-purged" title="Link to this heading"></a></h2>
+<p>Проверяет наличие ошибок в чистой логике потока.</p>
+<p>Очистка — это процесс освобождения места в базе данных или удаления устаревших данных, которые не требуются системе. Процесс очистки может зависеть от возраста данных или типа данных.
+Очистка данных — это механизм, который безвозвратно удаляет неактивные или устаревшие записи из базы данных.</p>
+<p>Отправляет оповещение в случае ошибок в чистой логике потока.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Внутренности</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="obfuscated-traffic">
-<h2>Obfuscated Traffic<a class="headerlink" href="#obfuscated-traffic" title="Link to this heading"></a></h2>
-<p>Checks for obfuscated traffic.</p>
-<p>The alert is sent when nDPI detects obfuscated traffic, i.e. traffic disguised or tunneled to evade detection.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Запутанный трафик<a class="headerlink" href="#obfuscated-traffic" title="Link to this heading"></a></h2>
+<p>Проверяет запутанный трафик.</p>
+<p>Оповещение отправляется, когда nDPI обнаруживает запутанный трафик, т. е. трафик, замаскированный или туннелированный для уклонения от обнаружения.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="obsolete-non-pqc-flow">
-<h2>Obsolete non-PQC Flow<a class="headerlink" href="#obsolete-non-pqc-flow" title="Link to this heading"></a></h2>
-<p>Checks for flows that are not Post-Quantum Cryptography (PQC) compliant.</p>
-<p>The alert is sent when an SSH, TLS, QUIC or IPSEC flow does not use a PQC compliant key exchange, so the traffic could be decrypted in the future by a quantum computer.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Устаревший поток без PQC<a class="headerlink" href="#obsolete-non-pqc-flow" title="Link to this heading"></a></h2>
+<p>Проверяет потоки, которые не соответствуют требованиям пост-квантовой криптографии (PQC).</p>
+<p>Предупреждение отправляется, когда поток SSH, TLS, QUIC или IPSEC не использует обмен ключами, совместимый с PQC, поэтому в будущем трафик может быть расшифрован квантовым компьютером.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="obsolete-non-pqc-host">
-<h2>Obsolete non-PQC Host<a class="headerlink" href="#obsolete-non-pqc-host" title="Link to this heading"></a></h2>
-<p>Checks for hosts that are not Post-Quantum Cryptography (PQC) compliant.</p>
-<p>The alert is sent when a host offering SSH, TLS, QUIC or IPSEC does not support a PQC compliant key exchange.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Устаревший хост без PQC<a class="headerlink" href="#obsolete-non-pqc-host" title="Link to this heading"></a></h2>
+<p>Проверяет хосты, которые не совместимы с пост-квантовой криптографией (PQC).</p>
+<p>Предупреждение отправляется, когда хост, предлагающий SSH, TLS, QUIC или IPSEC, не поддерживает обмен ключами, совместимый с PQC.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="obsolete-ssh-client-version-or-cipher">
-<h2>Obsolete SSH Client Version or Cipher<a class="headerlink" href="#obsolete-ssh-client-version-or-cipher" title="Link to this heading"></a></h2>
-<p>Checks for Obsolete SSH client or chiper.</p>
-<p>The SSH protocol is a method for secure remote login from one computer to another. If the target is using deprecated SSH settings. A man-in-the-middle attacker may be able to exploit this vulnerability to record the communication to decrypt the session key and even the messages.</p>
-<p>The system sends an alert when it sees an obsolete SSH.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Устаревшая версия или шифр клиента SSH<a class="headerlink" href="#obsolete-ssh-client-version-or-cipher" title="Link to this heading"></a></h2>
+<p>Проверяет наличие устаревшего клиента или чипа SSH.</p>
+<p>Протокол SSH — это метод безопасного удаленного входа с одного компьютера на другой. Если цель использует устаревшие настройки SSH. Злоумышленник «человек посередине» может воспользоваться этой уязвимостью для записи разговора и расшифровки сеансового ключа и даже сообщений.</p>
+<p>Система отправляет предупреждение, когда видит устаревший SSH.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="obsolete-ssh-server-version-or-cipher">
-<h2>Obsolete SSH Server Version or Cipher<a class="headerlink" href="#obsolete-ssh-server-version-or-cipher" title="Link to this heading"></a></h2>
-<p>Checks for obsolete SSH Version</p>
-<p>It is possible to customize the supported SSH ciphers on the client machine when support is needed for a deprecated cipher. This is not a very common issue. It typically happens when a modern SSH client is used to connect to an old SSH server that hasn’t yet disabled weaker ciphers.</p>
-<p>The system sends an alert to nitify an obsolete SSH version or Cipher.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Устаревшая версия или шифр сервера SSH<a class="headerlink" href="#obsolete-ssh-server-version-or-cipher" title="Link to this heading"></a></h2>
+<p>Проверяет наличие устаревшей версии SSH</p>
+<p>На клиентском компьютере можно настроить поддерживаемые шифры SSH, если требуется поддержка устаревшего шифра. Это не очень распространенная проблема. Обычно это происходит, когда современный клиент SSH используется для подключения к старому серверу SSH, на котором еще не отключены более слабые шифры.</p>
+<p>Система отправляет предупреждение о необходимости нитифицировать устаревшую версию SSH или Cipher.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="old-tls-version">
-<h2>Old TLS Version<a class="headerlink" href="#old-tls-version" title="Link to this heading"></a></h2>
-<p>Warns about an old version of TLS.</p>
-<p>Sensitive data always requires robust protection. TLS protocols provide confidentiality, integrity, and often authenticity protections to information while in transit over a network. This can be achieved by providing a secured channel between a server and a client to communicate for a session. Over time, new TLS versions are developed, and some of the previous versions become outdated for vulnerabilities or technical reasons; and, therefore, should no longer be used to protect data.</p>
-<p>Alerts when a new version of TLS is needed.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Старая версия TLS<a class="headerlink" href="#old-tls-version" title="Link to this heading"></a></h2>
+<p>Предупреждает о старой версии TLS.</p>
+<p>Конфиденциальные данные всегда требуют надежной защиты. Протоколы TLS обеспечивают конфиденциальность, целостность и часто защиту подлинности информации при ее передаче по сети. Этого можно достичь, предоставив защищенный канал между сервером и клиентом для связи во время сеанса. Со временем разрабатываются новые версии TLS, а некоторые предыдущие версии устаревают из-за уязвимостей или технических причин; и, следовательно, больше не должны использоваться для защиты данных.</p>
+<p>Предупреждает, когда необходима новая версия TLS.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="periodic-flow">
-<h2>Periodic Flow<a class="headerlink" href="#periodic-flow" title="Link to this heading"></a></h2>
-<p>Warns about a periodic flow.</p>
-<p>Periodic flows can be sometimes dangerous. For example an host in a botnet send a periodic flow to the botnet to signal its activity.</p>
-<p>Alerts when a new periodic flow is found.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Периодический поток<a class="headerlink" href="#periodic-flow" title="Link to this heading"></a></h2>
+<p>Предупреждает о периодическом течении.</p>
+<p>Периодические потоки иногда могут быть опасными. Например, хост в ботнете периодически отправляет в ботнет поток, сигнализирующий о его активности.</p>
+<p>Оповещения при обнаружении нового периодического потока.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="periodicity-changed">
-<h2>Periodicity Changed<a class="headerlink" href="#periodicity-changed" title="Link to this heading"></a></h2>
-<p>Checks for periodicity change.</p>
-<p>New periodic distance measures for time-series sequences have been implemented.</p>
-<p>The alert is sent when periodicity change is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Периодичность изменена<a class="headerlink" href="#periodicity-changed" title="Link to this heading"></a></h2>
+<p>Проверяет изменение периодичности.</p>
+<p>Были реализованы новые периодические меры расстояния для последовательностей временных рядов.</p>
+<p>Оповещение отправляется при обнаружении изменения периодичности.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="possible-ai-inference-traffic">
-<h2>Possible AI Inference Traffic<a class="headerlink" href="#possible-ai-inference-traffic" title="Link to this heading"></a></h2>
-<p>Checks for traffic towards AI services.</p>
-<p>The alert is sent when a flow is possibly carrying traffic towards an AI inference service (e.g. requests to a hosted Large Language Model).</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Возможный трафик вывода AI<a class="headerlink" href="#possible-ai-inference-traffic" title="Link to this heading"></a></h2>
+<p>Проверяет трафик к сервисам AI.</p>
+<p>Предупреждение отправляется, когда поток, возможно, передает трафик к службе вывода AI (например, запросы к размещенной модели большого языка).</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="possible-exploit">
-<h2>Possible Exploit<a class="headerlink" href="#possible-exploit" title="Link to this heading"></a></h2>
-<p>Checks for an exploit.</p>
-<p>An exploit is a code that takes advantage of a software vulnerability or security flaw. Exploits allow an intruder to remotely access a network and gain elevated privileges, or move deeper into the network.
-In some cases, an exploit can be used as part of a multi-component attack. Instead of using a malicious file, the exploit may instead drop another malware, which can include backdoor Trojans and spyware that can steal user information from the infected systems.</p>
-<p>The system sends an alert when a possible exploit is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Возможный эксплойт<a class="headerlink" href="#possible-exploit" title="Link to this heading"></a></h2>
+<p>Проверяет наличие эксплойта.</p>
+<p>Эксплойт — это код, который использует уязвимость программного обеспечения или недостаток безопасности. Эксплойты позволяют злоумышленнику получить удаленный доступ к сети и получить повышенные привилегии или проникнуть глубже в сеть.
+В некоторых случаях эксплойт может использоваться как часть многокомпонентной атаки. Вместо использования вредоносного файла эксплойт может использовать другое вредоносное ПО, которое может включать в себя трояны с бэкдором и шпионское ПО, которое может украсть пользовательскую информацию из зараженных систем.</p>
+<p>Система отправляет предупреждение при обнаружении возможного эксплойта.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="possible-remote-code-execution-rce">
-<h2>Possible Remote Code Execution (RCE)<a class="headerlink" href="#possible-remote-code-execution-rce" title="Link to this heading"></a></h2>
-<p>The system sees RCE that consist in Allowing an attacker to remotely execute malicious code on a computer.</p>
-<p>Remote code execution RCE is a type of software security vulnerabilitity. RCE vulnerabilities will allow a malicious actor to execute a code on a remote machine over LAN, WAN, or internet. An attacker can gain a full control over the compromised machine.</p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Возможное удаленное выполнение кода (RCE)<a class="headerlink" href="#possible-remote-code-execution-rce" title="Link to this heading"></a></h2>
+<p>Система видит RCE, который заключается в том, чтобы позволить злоумышленнику удаленно выполнить вредоносный код на компьютере.</p>
+<p>Удаленное выполнение кода RCE — это тип уязвимости безопасности программного обеспечения. Уязвимости RCE позволят злоумышленнику выполнить код на удаленном компьютере через LAN, WAN или Интернет. Злоумышленник может получить полный контроль над скомпрометированной машиной.</p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="possible-sql-inj">
-<h2>Possible SQL Inj<a class="headerlink" href="#possible-sql-inj" title="Link to this heading"></a></h2>
-<p>Checks for possible sql injections</p>
-<p>SQL injection, also known as SQLI, is a common attack vector that uses malicious SQL code for backend database to manipulate and access sensitive information that was not intended to be public. This information may include sensitive company data, user lists or private customer details.</p>
-<p>Sends an alert when SQL might have occurred.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Возможная SQL-инъекция<a class="headerlink" href="#possible-sql-inj" title="Link to this heading"></a></h2>
+<p>Проверяет возможные SQL-инъекции</p>
+<p>SQL-инъекция, также известная как SQLI, — это распространенный вектор атаки, который использует вредоносный код SQL для внутренней базы данных для манипулирования и доступа к конфиденциальной информации, которая не должна была быть общедоступной. Эта информация может включать конфиденциальные данные компании, списки пользователей или личные данные клиентов.</p>
+<p>Отправляет предупреждение, когда мог произойти SQL.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="probing-attempt">
-<h2>Probing Attempt<a class="headerlink" href="#probing-attempt" title="Link to this heading"></a></h2>
-<p>A probing attempt refers to an action taken to gather information about a system, network, or service, often to identify vulnerabilities, discover services, or understand the system’s configuration.</p>
-<p>The alert notifies that a probing attempt has been detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Попытка зондирования<a class="headerlink" href="#probing-attempt" title="Link to this heading"></a></h2>
+<p>Попытка зондирования — это действие, предпринятое для сбора информации о системе, сети или службе, часто для выявления уязвимостей, обнаружения служб или понимания конфигурации системы.</p>
+<p>Предупреждение уведомляет об обнаружении попытки проверки.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="profinet-too-many-errors">
-<h2>Profinet Too Many Errors<a class="headerlink" href="#profinet-too-many-errors" title="Link to this heading"></a></h2>
-<p>Triggers an alert when the number of errors reported for a PROFINET flow, summed across all the operations, reaches the configured threshold. See <a class="reference internal" href="../../../../scada/profinet.html"><span class="doc">PROFINET</span></a> for details.</p>
-<p><em>Interface: ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>Profinet слишком много ошибок<a class="headerlink" href="#profinet-too-many-errors" title="Link to this heading"></a></h2>
+<p>Вызывает оповещение, когда количество ошибок, зарегистрированных для потока PROFINET, суммированное по всем операциям, достигает настроенного порога. Видеть <a class="reference internal" href="../../../../scada/profinet.html"><span class="doc">ПРОФИНЕТ</span></a> для получения подробной информации.</p>
+<p><em>Интерфейс: ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="punicody-idn">
-<h2>Punicody  IDN<a class="headerlink" href="#punicody-idn" title="Link to this heading"></a></h2>
-<p>The domain has been converted in Ponycode to latin version.</p>
-<p>The acronym IDN stands for ‘Internationalized Domain Name’. For non-latin script or alphabet,</p>
-<p>there is a system called Punycode. When you wish to register an IDN domain, you must convert the domain name to Punycode, Then when the user enters a URL containing an IDN domain into their web browser, it will convert the IDN domain into Punycode and resolve that domain.</p>
-<p>The alert notifies that the website domain name was written in non latin script.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Пуникодический IDN<a class="headerlink" href="#punicody-idn" title="Link to this heading"></a></h2>
+<p>Домен конвертирован в Ponycode в латинскую версию.</p>
+<p>Аббревиатура IDN означает «интернационализированное доменное имя». Для нелатинского алфавита или алфавита:</p>
+<p>есть система Punycode. Если вы хотите зарегистрировать домен IDN, вы должны преобразовать имя домена в Punycode. Затем, когда пользователь вводит URL-адрес, содержащий домен IDN, в свой веб-браузер, он преобразует домен IDN в Punycode и разрешает этот домен.</p>
+<p>Предупреждение уведомляет о том, что доменное имя сайта написано нелатинским шрифтом.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="qoe-issues">
-<h2>QoE Issues<a class="headerlink" href="#qoe-issues" title="Link to this heading"></a></h2>
-<p>Checks for flow QoE (Quality of Experience).</p>
-<p>The alert is triggered when a flow has a degraded or Poor QoE.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Network</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>QoE Проблемы<a class="headerlink" href="#qoe-issues" title="Link to this heading"></a></h2>
+<p>Проверяет поток QoE (Качество опыта).</p>
+<p>Предупреждение срабатывает, когда поток имеет ухудшенное или плохое значение QoE.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Сеть</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="rare-destination">
-<h2>Rare Destination<a class="headerlink" href="#rare-destination" title="Link to this heading"></a></h2>
-<p>Checks for destinations.</p>
-<p>The alert notifies a rare/unusual destination is contacted.</p>
-<p><em>Interface: Packet</em></p>
-<p><em>Category: Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Редкое направление<a class="headerlink" href="#rare-destination" title="Link to this heading"></a></h2>
+<p>Проверяет пункты назначения.</p>
+<p>Предупреждение уведомляет о контакте с редким/необычным пунктом назначения.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p><em>Категория: Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="remote-access">
-<h2>Remote Access<a class="headerlink" href="#remote-access" title="Link to this heading"></a></h2>
-<p>Checks for remote access end.</p>
-<p>The connection to the remote computer was lost, possibly due to network connectivity problems.
-When the remote desktop connection between a Windows desktop and its host fails, it’s time to do some remote desktop troubleshooting by checking firewalls, security certificates.
-It also could happen when the remote access to the server is not enabled or the remote computer is turned off.</p>
-<p>The alert is sent when the the remote access is ended.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Удаленный доступ<a class="headerlink" href="#remote-access" title="Link to this heading"></a></h2>
+<p>Проверки удаленного доступа заканчиваются.</p>
+<p>Соединение с удаленным компьютером потеряно, возможно, из-за проблем с сетевым подключением.
+Когда соединение с удаленным рабочим столом между рабочим столом Windows и его хостом не работает, пришло время устранить неполадки удаленного рабочего стола, проверив брандмауэры и сертификаты безопасности.
+Это также может произойти, если удаленный доступ к серверу не включен или удаленный компьютер выключен.</p>
+<p>Оповещение отправляется после завершения удаленного доступа.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="remote-to-local-insecure-protocol">
-<h2>Remote to Local Insecure Protocol<a class="headerlink" href="#remote-to-local-insecure-protocol" title="Link to this heading"></a></h2>
-<p>Check for remote to local insecure protocol.</p>
-<p>Remote Desktop Protocol (RDP) is a Microsoft proprietary protocol that enables remote connections to other computers, typically over TCP port 3389.
-RDP itself is not a secure protocol so firewalls should restrict access to remote desktop listening ports.Using RDP Gateway is highly recommended for restricting RDP access to desktops and servers.</p>
-<p>The alert is sent to notify the insecure protocol.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category: Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>Небезопасный протокол удаленного доступа к локальному<a class="headerlink" href="#remote-to-local-insecure-protocol" title="Link to this heading"></a></h2>
+<p>Проверьте наличие небезопасного протокола удаленного доступа к локальному.</p>
+<p>Протокол удаленного рабочего стола (RDP) — это собственный протокол Microsoft, который обеспечивает удаленное подключение к другим компьютерам, обычно через порт TCP 3389.
+RDP сам по себе не является безопасным протоколом, поэтому брандмауэры должны ограничивать доступ к портам прослушивания удаленных рабочих столов. Настоятельно рекомендуется использовать шлюз RDP для ограничения доступа RDP к настольным компьютерам и серверам.</p>
+<p>Предупреждение отправляется для уведомления небезопасного протокола.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория: Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="remote-to-remote-flow">
-<h2>Remote to Remote Flow<a class="headerlink" href="#remote-to-remote-flow" title="Link to this heading"></a></h2>
-<p>Check for remote flows.</p>
-<p>Remote Desktop Protocol (RDP) is a Microsoft proprietary protocol that enables remote connections to other computers, typically over TCP port 3389.
-RDP itself is not a secure protocol so firewalls should restrict access to remote desktop listening ports.Using RDP Gateway is highly recommended for restricting RDP access to desktops and servers.</p>
-<p>The alert is sent when a remote client contacts a remote server.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category: Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>Удаленный поток к удаленному<a class="headerlink" href="#remote-to-remote-flow" title="Link to this heading"></a></h2>
+<p>Проверьте удаленные потоки.</p>
+<p>Протокол удаленного рабочего стола (RDP) — это собственный протокол Microsoft, который обеспечивает удаленное подключение к другим компьютерам, обычно через порт TCP 3389.
+RDP сам по себе не является безопасным протоколом, поэтому брандмауэры должны ограничивать доступ к портам прослушивания удаленных рабочих столов. Настоятельно рекомендуется использовать шлюз RDP для ограничения доступа RDP к настольным компьютерам и серверам.</p>
+<p>Оповещение отправляется, когда удаленный клиент связывается с удаленным сервером.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория: Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="risky-asn">
-<h2>Risky ASN<a class="headerlink" href="#risky-asn" title="Link to this heading"></a></h2>
-<p>Check for ASN.</p>
-<p>The alert is sent when traffic is exchanged towards a risky ASN.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category: Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>Рискованный АСН<a class="headerlink" href="#risky-asn" title="Link to this heading"></a></h2>
+<p>Проверьте наличие АСН.</p>
+<p>Предупреждение отправляется при обмене трафиком на рискованный ASN.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория: Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="risky-domain">
-<h2>Risky Domain<a class="headerlink" href="#risky-domain" title="Link to this heading"></a></h2>
-<p>Check for domain.</p>
-<p>The alert is sent when traffic is exchanged towards a risky domain.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category: Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>Рискованный домен<a class="headerlink" href="#risky-domain" title="Link to this heading"></a></h2>
+<p>Проверьте домен.</p>
+<p>Оповещение отправляется при обмене трафиком в сторону рискованного домена.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория: Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="s7comm-invalid-transition">
-<h2>S7Comm Invalid Transition<a class="headerlink" href="#s7comm-invalid-transition" title="Link to this heading"></a></h2>
-<p>Triggers an alert when, after the learning period, an S7Comm flow reports a transition between two function codes never observed before in the flow. See <a class="reference internal" href="../../../../scada/s7comm.html"><span class="doc">S7Comm</span></a> for details.</p>
-<p><em>Interface: ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>Неверный переход S7Comm<a class="headerlink" href="#s7comm-invalid-transition" title="Link to this heading"></a></h2>
+<p>Вызывает предупреждение, когда после периода обучения поток S7Comm сообщает о переходе между двумя функциональными кодами, никогда ранее не наблюдавшимися в потоке. Видеть <a class="reference internal" href="../../../../scada/s7comm.html"><span class="doc">S7Comm</span></a> для получения подробной информации.</p>
+<p><em>Интерфейс: ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="s7comm-too-many-errors">
-<h2>S7Comm Too Many Errors<a class="headerlink" href="#s7comm-too-many-errors" title="Link to this heading"></a></h2>
-<p>Triggers an alert when the number of errors reported for an S7Comm flow reaches the configured threshold. See <a class="reference internal" href="../../../../scada/s7comm.html"><span class="doc">S7Comm</span></a> for details.</p>
-<p><em>Interface: ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>S7Comm Слишком много ошибок<a class="headerlink" href="#s7comm-too-many-errors" title="Link to this heading"></a></h2>
+<p>Вызывает оповещение, когда количество ошибок, о которых сообщается для потока S7Comm, достигает настроенного порога. Видеть <a class="reference internal" href="../../../../scada/s7comm.html"><span class="doc">S7Comm</span></a> для получения подробной информации.</p>
+<p><em>Интерфейс: ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="s7comm-unexpected-function-code">
-<h2>S7Comm Unexpected Function Code<a class="headerlink" href="#s7comm-unexpected-function-code" title="Link to this heading"></a></h2>
-<p>Triggers an alert when an S7Comm flow uses a function code that is not in the list of the allowed function codes. See <a class="reference internal" href="../../../../scada/s7comm.html"><span class="doc">S7Comm</span></a> for details.</p>
-<p><em>Interface: ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>Неожиданный функциональный код S7Comm<a class="headerlink" href="#s7comm-unexpected-function-code" title="Link to this heading"></a></h2>
+<p>Вызывает предупреждение, когда поток S7Comm использует код функции, которого нет в списке разрешенных кодов функций. Видеть <a class="reference internal" href="../../../../scada/s7comm.html"><span class="doc">S7Comm</span></a> для получения подробной информации.</p>
+<p><em>Интерфейс: ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="service-map-lateral-movement-detection">
-<h2>Service Map Lateral Movement Detection<a class="headerlink" href="#service-map-lateral-movement-detection" title="Link to this heading"></a></h2>
-<p>Checks for unusual traffic behaviour.</p>
-<p>A lateral movement is a common way for attackers to discover the network structure and plan the attack. It usually starts by infecting a device and then it spreads to all other devices in a network.</p>
-<p>The alert is sent in case a lateral movement is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Карта сервиса Обнаружение бокового движения<a class="headerlink" href="#service-map-lateral-movement-detection" title="Link to this heading"></a></h2>
+<p>Проверяет необычное поведение трафика.</p>
+<p>Боковое движение — это распространенный способ для злоумышленников обнаружить структуру сети и спланировать атаку. Обычно оно начинается с заражения устройства, а затем распространяется на все остальные устройства в сети.</p>
+<p>Оповещение отправляется в случае обнаружения бокового движения.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="slow-dos">
-<h2>Slow DoS<a class="headerlink" href="#slow-dos" title="Link to this heading"></a></h2>
-<p>Checks for Slow DoS attacks.</p>
-<p>A Slow DoS attack (e.g. Slowloris) keeps many connections open towards a server by sending data very slowly, until the server cannot accept new connections. The alert is sent when nDPI detects this behavior in a flow.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Медленный DoS<a class="headerlink" href="#slow-dos" title="Link to this heading"></a></h2>
+<p>Проверяет медленные DoS-атаки.</p>
+<p>Медленная DoS-атака (например, Slowloris) оставляет открытыми многие соединения с сервером, отправляя данные очень медленно, пока сервер не перестанет принимать новые соединения. Предупреждение отправляется, когда nDPI обнаруживает такое поведение в потоке.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="smb-insecure">
-<h2>SMB insecure<a class="headerlink" href="#smb-insecure" title="Link to this heading"></a></h2>
-<p>Checks for SMB</p>
-<p>Notably, SMB <a class="reference external" href="https://it.wikipedia.org/wiki/Server_Message_Block">https://it.wikipedia.org/wiki/Server_Message_Block</a> was used as an attack channel for both the WannaCry and NotPetya huge ransomware attacks in 2017. SMBv1 is so insecure that most security experts now recommend that administrators disable it entirely via a group policy update or find other solutions to protect the infrastructure against other Server Message Block (SMB) exploits.</p>
-<p>Alert is sent when Server message block is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Малый и средний бизнес небезопасен<a class="headerlink" href="#smb-insecure" title="Link to this heading"></a></h2>
+<p>Проверки для SMB</p>
+<p>В частности, МСБ <a class="reference external" href="https://it.wikipedia.org/wiki/Server_Message_Block">https://it.wikipedia.org/wiki/Server_Message_Block</a> использовался в качестве канала атаки для огромных атак WannaCry и NotPetya ransomware в 2017 году. SMBv1 настолько небезопасен, что большинство экспертов по безопасности теперь рекомендуют администраторам полностью отключить его с помощью обновления групповой политики или найти другие решения для защиты инфраструктуры от других эксплойтов Server Message Block (SMB).</p>
+<p>Оповещение отправляется при обнаружении блокировки сообщений Сервера.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="susp-device-protocol">
-<h2>Susp. Device Protocol<a class="headerlink" href="#susp-device-protocol" title="Link to this heading"></a></h2>
-<p>Warns about an unusual application protocol used by a device. Allowed protocols can be configured from the Allowed Applications page.</p>
-<p>The goal is notify that the system has detected a strange behavior from an host.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Подозр. Протокол устройства<a class="headerlink" href="#susp-device-protocol" title="Link to this heading"></a></h2>
+<p>Предупреждает о необычном протоколе приложения, используемом устройством. Разрешенные протоколы можно настроить на странице «Разрешенные приложения».</p>
+<p>Цель — уведомить о том, что система обнаружила странное поведение хоста.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="susp-dga-domain-name">
-<h2>Susp. DGA Domain name<a class="headerlink" href="#susp-dga-domain-name" title="Link to this heading"></a></h2>
-<p>Warns about a suspicious domain that could be used with the scope to make survive the malware.</p>
-<p>A domain generation algorithm DGA is a program that generates a list of domain names. DGA provide malware with new domains in order to evade security measures.
-Continously changing domain names helps hackers to prevent their servers from being blacklisted. The idea is to have an algorithm that produces random domain names that the malware can use and quickly switch between them. Security software tools block and take down the malicious domains that malware uses but switching domains quickly enables cybercriminals to continue pursuing the attack without being detected.</p>
-<p>The goal is notify that the system has detected a malware.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Подозр. Доменное имя DGA<a class="headerlink" href="#susp-dga-domain-name" title="Link to this heading"></a></h2>
+<p>Предупреждает о подозрительном домене, который может быть использован для защиты от вредоносного ПО.</p>
+<p>Алгоритм генерации домена DGA — это программа, которая генерирует список доменных имен. DGA предоставляет вредоносному ПО новые домены, чтобы обойти меры безопасности.
+Постоянное изменение доменных имен помогает хакерам предотвратить попадание своих серверов в черный список. Идея состоит в том, чтобы иметь алгоритм, который генерирует случайные доменные имена, которые может использовать вредоносное ПО, и быстро переключается между ними. Программные инструменты безопасности блокируют и уничтожают вредоносные домены, которые использует вредоносное ПО, но быстрое переключение доменов позволяет киберпреступникам продолжать атаку, не будучи обнаруженными.</p>
+<p>Цель — уведомить о том, что система обнаружила вредоносное ПО.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="susp-dns-traffic">
-<h2>Susp. DNS traffic<a class="headerlink" href="#susp-dns-traffic" title="Link to this heading"></a></h2>
-<p>Checks for suspicious dns traffic.</p>
-<p>The attackers have discovered ways to take advantage of the protocol.By manipulating DNS to hijack traffic and redirect it to an IP address under the attacker’s control. This could send users intending to visit bbc.com.uk, for example, to an unrelated malicious website. Another technique involves using the DNS protocol for command-and-control activities with the attacker’s malicious code or to exfiltrate data.</p>
-<p>The alert is sent when a suspicious dns traffic is seen.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category:Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>Подозр. DNS трафик<a class="headerlink" href="#susp-dns-traffic" title="Link to this heading"></a></h2>
+<p>Проверяет подозрительный трафик dns.</p>
+<p>Злоумышленники нашли способы воспользоваться преимуществами протокола. Манипулируя DNS, можно перехватить трафик и перенаправить его на IP-адрес, находящийся под контролем злоумышленника. Это может привести к тому, что пользователи, намеревающиеся посетить bbc.com.uk, попадут, например, на несвязанный вредоносный веб-сайт. Другой метод предполагает использование протокола DNS для управления вредоносным кодом злоумышленника или для кражи данных.</p>
+<p>Оповещение отправляется при обнаружении подозрительного трафика dns.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория:Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="susp-entropy">
-<h2>Susp. Entropy<a class="headerlink" href="#susp-entropy" title="Link to this heading"></a></h2>
-<p>Checks for suspicious entropy.</p>
-<p>In case of files analysis whether they contain embedded files or scripts, and the entropy scores.</p>
-<p>The file entropy score, which measure the randomness of data and is used to find encrypted malware, and the entropy distribution also clearly shows that a portion/size of the file is not what it should be. Further analysis proves that this file contains a new form of malware that passed undetected by existing security measures and was responsible for the infected systems.</p>
-<p>Alert is sent when suspicious entropy is seen.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Подозр. Энтропия<a class="headerlink" href="#susp-entropy" title="Link to this heading"></a></h2>
+<p>Проверяет подозрительную энтропию.</p>
+<p>В случае анализа файлов, содержат ли они встроенные файлы или скрипты, а также оценивается энтропия.</p>
+<p>Показатель энтропии файла, который измеряет случайность данных и используется для поиска зашифрованных вредоносных программ, а также распределение энтропии также ясно показывают, что часть/размер файла не такие, какими должны быть. Дальнейший анализ показывает, что этот файл содержит новую форму вредоносного ПО, которое не было обнаружено существующими мерами безопасности и было ответственно за зараженные системы.</p>
+<p>Оповещение отправляется при обнаружении подозрительной энтропии.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="susp-domain-scan">
-<h2>Susp. Domain Scan<a class="headerlink" href="#susp-domain-scan" title="Link to this heading"></a></h2>
-<p>Warns about a suspicious domain scan.</p>
-<p>The goal is notify that an host is scanning domains on another host. Requires historical flows (Clickhouse enabled).</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>Подозр. Сканирование домена<a class="headerlink" href="#susp-domain-scan" title="Link to this heading"></a></h2>
+<p>Предупреждает о проверке подозрительного домена.</p>
+<p>Цель — уведомить о том, что хост сканирует домены на другом хосте. Требуются исторические потоки (Clickhouse включено).</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="tcp-connection-issues">
-<h2>TCP connection Issues<a class="headerlink" href="#tcp-connection-issues" title="Link to this heading"></a></h2>
-<p>Check a TCP connection.</p>
-<p>Sends an alert in case some issue during the TCP connection arise.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TCP Проблемы с подключением<a class="headerlink" href="#tcp-connection-issues" title="Link to this heading"></a></h2>
+<p>Проверьте соединение TCP.</p>
+<p>Отправляет оповещение в случае возникновения каких-либо проблем во время соединения TCP.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tcp-connection-refused">
-<h2>TCP connection refused<a class="headerlink" href="#tcp-connection-refused" title="Link to this heading"></a></h2>
-<p>Check a TCP connection.</p>
-<p>In general, connection refused - errors are generated during a system connection call when an application attempts to connect using TCP to a server port which is not open.</p>
-<p>Sends an alert in case the port is closed or other errors.</p>
-<p><em>Interface: Packet</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TCP соединение отклонено<a class="headerlink" href="#tcp-connection-refused" title="Link to this heading"></a></h2>
+<p>Проверьте соединение TCP.</p>
+<p>В общем, соединение отклонено — ошибки генерируются во время вызова системного подключения, когда приложение пытается подключиться с помощью TCP к порту сервера, который не открыт.</p>
+<p>Отправляет оповещение в случае закрытия порта или других ошибок.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tcp-flow-reset">
-<h2>TCP Flow Reset<a class="headerlink" href="#tcp-flow-reset" title="Link to this heading"></a></h2>
-<p>A TCP flow reset refers to the termination of a TCP connection by sending a TCP RST (reset) packet</p>
-<p>Sends an TCP flow reset is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TCP Сброс потока<a class="headerlink" href="#tcp-flow-reset" title="Link to this heading"></a></h2>
+<p>Сброс потока TCP означает завершение соединения TCP путем отправки пакета TCP RST (сброс).</p>
+<p>Отправляет сообщение об обнаружении сброса потока TCP.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tcp-no-data-exchanged">
-<h2>TCP No Data Exchanged<a class="headerlink" href="#tcp-no-data-exchanged" title="Link to this heading"></a></h2>
-<p>Checks for no data exchange.</p>
-<p>When the sending TCP wants to establish connections, it sends a segment called a SYN to the peer TCP protocol running on the receiving host. The receiving TCP returns a segment called an ACK to acknowledge the successful receipt of the segment. The sending TCP sends another ACK segment, then proceeds to send the data.</p>
-<p>The alert is sent when flow ends with no data exchanged.</p>
-<p><em>Interface: Packet</em></p>
-<p><em>Category: Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TCP Обмен данными не осуществляется<a class="headerlink" href="#tcp-no-data-exchanged" title="Link to this heading"></a></h2>
+<p>Проверяет отсутствие обмена данными.</p>
+<p>Когда отправитель TCP хочет установить соединение, он отправляет сегмент, называемый SYN, протоколу однорангового узла TCP, работающему на принимающем хосте. Принимающий TCP возвращает сегмент, называемый ACK, для подтверждения успешного получения сегмента. Отправка TCP отправляет еще один сегмент ACK, а затем переходит к отправке данных.</p>
+<p>Оповещение отправляется, когда поток заканчивается без обмена данными.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p><em>Категория: Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tcp-packets-issues">
-<h2>TCP Packets Issues<a class="headerlink" href="#tcp-packets-issues" title="Link to this heading"></a></h2>
-<p>Checks for TCP retransmissions, packets loss and out of orders.</p>
-<p>The alert is sent when one of these three indicator crosses a configurable threshold.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TCP Проблемы с пакетами<a class="headerlink" href="#tcp-packets-issues" title="Link to this heading"></a></h2>
+<p>Проверяет наличие повторных передач TCP, потери пакетов и отсутствия заказов.</p>
+<p>Оповещение отправляется, когда один из этих трех индикаторов пересекает настраиваемый порог.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tcp-with-no-answer">
-<h2>TCP With No Answer<a class="headerlink" href="#tcp-with-no-answer" title="Link to this heading"></a></h2>
-<p>Checks for TCP packets.</p>
-<p>The alert is sent when detecting a TCP connection with no answers.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TCP Без ответа<a class="headerlink" href="#tcp-with-no-answer" title="Link to this heading"></a></h2>
+<p>Проверяет наличие пакетов TCP.</p>
+<p>Оповещение отправляется при обнаружении соединения TCP без ответов.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tcp-zero-window">
-<h2>TCP Zero Window<a class="headerlink" href="#tcp-zero-window" title="Link to this heading"></a></h2>
-<p>Checks for zero TCP window.</p>
-<p>When the receiver has a full buffer, the window size is reduced to zero. In this state, the window is shown to be ‘Frozen’ and the sender cannot send any more bytes until it receives a datagram from the receiver with a window size greater than zero.</p>
-<p>The alert is sent when zero TCP window is detected.</p>
-<p><em>Interface: Packet</em></p>
-<p>Category: <em>Network</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TCP Zero Окно<a class="headerlink" href="#tcp-zero-window" title="Link to this heading"></a></h2>
+<p>Проверяет наличие окна zero TCP.</p>
+<p>Когда приемник имеет полный буфер, размер окна уменьшается до zero. В этом состоянии окно отображается как «замороженное», и отправитель не может отправлять больше байтов, пока не получит дейтаграмму от получателя с размером окна больше zero.</p>
+<p>Оповещение отправляется при обнаружении окна zero TCP.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p>Категория: <em>Сеть</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-probably-not-carrying-https">
-<h2>TLS (probably) Not Carrying HTTPS<a class="headerlink" href="#tls-probably-not-carrying-https" title="Link to this heading"></a></h2>
-<p>Check identifies that HTTP content isn’t transmitted in TLS protocol.</p>
-<p>The main limitation of HTTP is that it is completely insecure. All traffic carried over HTTP is readable to the intruders. As the web carries more and more sensitive information due to ecommerce, online health records, social media, etc. this places more and more users’ sensitive data are at risk.
-HTTPS uses the Transport Layer Security (TLS) protocol – to add security to HTTP. With SSL/TLS, HTTPS encrypts all traffic flowing between the client and the server.</p>
-<p>Alert is sent when HTTP traffic is not encrypted.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS (вероятно) Не ​​несет HTTPS<a class="headerlink" href="#tls-probably-not-carrying-https" title="Link to this heading"></a></h2>
+<p>Проверка определяет, что контент HTTP не передается по протоколу TLS.</p>
+<p>Основное ограничение HTTP заключается в том, что он совершенно небезопасен. Весь трафик, передаваемый через HTTP, доступен злоумышленникам. Поскольку в сети передается все больше и больше конфиденциальной информации из-за электронной коммерции, онлайн-медицинских записей, социальных сетей и т. д., это подвергает риску все больше и больше конфиденциальных данных пользователей.
+HTTPS использует протокол Transport Layer Security (TLS) – для повышения безопасности HTTP. С помощью SSL/TLS, HTTPS шифрует весь трафик, проходящий между клиентом и сервером.</p>
+<p>Оповещение отправляется, когда трафик HTTP не зашифрован.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-cert-about-to-expire">
-<h2>TLS Cert About To Expire<a class="headerlink" href="#tls-cert-about-to-expire" title="Link to this heading"></a></h2>
-<p>Checks for TLS validity.</p>
-<p>Ntopng tells when the TLS deadline is looming.</p>
-<p>The alert is sent in case the TLS certificate is nearly expired.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS Срок действия сертификата истекает<a class="headerlink" href="#tls-cert-about-to-expire" title="Link to this heading"></a></h2>
+<p>Проверяет действительность TLS.</p>
+<p>Ntopng сообщает, когда приближается крайний срок TLS.</p>
+<p>Оповещение отправляется в случае, если срок действия сертификата TLS почти истек.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-cert-expired">
-<h2>TLS Cert Expired<a class="headerlink" href="#tls-cert-expired" title="Link to this heading"></a></h2>
-<p>Checks for TLS certification already expired.</p>
-<p>The alert is sent in case TLS cert is already expired.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS Срок действия сертификата истек<a class="headerlink" href="#tls-cert-expired" title="Link to this heading"></a></h2>
+<p>Срок действия чеков на сертификацию TLS уже истек.</p>
+<p>Предупреждение отправляется в случае, если срок действия сертификата TLS уже истек.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-cert-issues">
-<h2>TLS Cert Issues<a class="headerlink" href="#tls-cert-issues" title="Link to this heading"></a></h2>
-<p>Check if TLS Certiicate works properly.</p>
-<p>The name mismatch error indicates that the domain name in the SSL certificate (SSL certificate enables an encrypted connection) doesn’t match the address that is in the address bar of the browser.
-if the domain name is associated with an old IP address that has not been changed and a different certificate is referring to the same IP address, then you may see a Common Name Mismatch Error. The problem can be solved by changing DNS record.</p>
-<p>Alert is sent when a mismatch error in TLS Certificate is seen.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS Проблемы с сертификатами<a class="headerlink" href="#tls-cert-issues" title="Link to this heading"></a></h2>
+<p>Проверьте, правильно ли работает TLS Сертификат.</p>
+<p>Ошибка несоответствия имени указывает на то, что имя домена в сертификате SSL (сертификат SSL обеспечивает зашифрованное соединение) не соответствует адресу, указанному в адресной строке браузера.
+Если доменное имя связано со старым IP-адресом, который не был изменен, а другой сертификат ссылается на тот же IP-адрес, вы можете увидеть ошибку общего несоответствия имени. Проблему можно решить, изменив запись DNS.</p>
+<p>Оповещение отправляется при обнаружении ошибки несоответствия в сертификате TLS.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-cert-self-signed">
-<h2>TLS Cert Self-Signed<a class="headerlink" href="#tls-cert-self-signed" title="Link to this heading"></a></h2>
-<p>Checks for self signed certificates.</p>
-<p>To eliminate the risk of a self-signed SSL certificate is to get an SSL/TLS certificate issued from a trusted Certificate Authority.</p>
-<p>The alert notifies about self - signed certificates.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS Самоподписанный сертификат<a class="headerlink" href="#tls-cert-self-signed" title="Link to this heading"></a></h2>
+<p>Проверяет наличие самозаверяющих сертификатов.</p>
+<p>Чтобы исключить риск самоподписанного сертификата SSL, необходимо получить сертификат SSL/TLS, выданный доверенным центром сертификации.</p>
+<p>Предупреждение уведомляет о самоподписанных сертификатах.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-cert-validity-too-long">
-<h2>TLS Cert Validity Too Long<a class="headerlink" href="#tls-cert-validity-too-long" title="Link to this heading"></a></h2>
-<p>Checks for certificate validity.</p>
-<p>TLS/SSL Certificate Validity Periods are currently 398 days, or about 13 months.</p>
-<p>The alert is sent to notify about the certificate expiration date.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS Срок действия сертификата слишком длинный<a class="headerlink" href="#tls-cert-validity-too-long" title="Link to this heading"></a></h2>
+<p>Проверяет действительность сертификата.</p>
+<p>TLS/SSL Срок действия сертификата в настоящее время составляет 398 дней или около 13 месяцев.</p>
+<p>Оповещение отправляется для уведомления о дате истечения срока действия сертификата.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-fatal-alert">
-<h2>TLS Fatal Alert<a class="headerlink" href="#tls-fatal-alert" title="Link to this heading"></a></h2>
-<p>A TLS Fatal Alert refers to a critical error in the TLS (Transport Layer Security) handshake process that causes the connection to be terminated immediately</p>
-<p>Trigger an alert when a TLS fatal error is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS Фатальное предупреждение<a class="headerlink" href="#tls-fatal-alert" title="Link to this heading"></a></h2>
+<p>Фатальное предупреждение TLS относится к критической ошибке в процессе установления связи TLS (Transport Layer Security), которая приводит к немедленному разрыву соединения.</p>
+<p>Вызов оповещения при обнаружении фатальной ошибки TLS.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-susp-esni-usage">
-<h2>TLS Susp ESNI Usage<a class="headerlink" href="#tls-susp-esni-usage" title="Link to this heading"></a></h2>
-<p>Checks for suspicious tls esni usage.</p>
-<p>Server Name Indication (SNI) is an extension to the TLS protocol. It allows a client or browser to indicate which hostname it is trying to connect to at the start of the TLS handshake. This allows the server to present multiple certificates on the same IP address and port number.</p>
-<p>The alert notifies about a suspicious tls esni usage.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category:Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS Приостановка использования ESNI<a class="headerlink" href="#tls-susp-esni-usage" title="Link to this heading"></a></h2>
+<p>Проверяет подозрительное использование tls esni.</p>
+<p>Индикация имени сервера (SNI) является расширением протокола TLS. Это позволяет клиенту или браузеру указать, к какому имени хоста он пытается подключиться, в начале рукопожатия TLS. Это позволяет серверу предоставлять несколько сертификатов на один и тот же IP-адрес и номер порта.</p>
+<p>Предупреждение уведомляет о подозрительном использовании tls esni.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория:Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-susp-extension">
-<h2>TLS Susp. Extension<a class="headerlink" href="#tls-susp-extension" title="Link to this heading"></a></h2>
-<p>Checks for suspicious tls esni usage.</p>
-<p>The alert notifies when the domain name (SNI extension) is not printable and thus it is a problem.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category:Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS Подозр. Расширение<a class="headerlink" href="#tls-susp-extension" title="Link to this heading"></a></h2>
+<p>Проверяет подозрительное использование tls esni.</p>
+<p>Предупреждение уведомляет, когда имя домена (расширение SNI) невозможно распечатать и, следовательно, это проблема.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория:Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-uncommon-alpn">
-<h2>TLS Uncommon ALPN<a class="headerlink" href="#tls-uncommon-alpn" title="Link to this heading"></a></h2>
-<p>Checks for TLS ALPN.</p>
-<p>The alert notifies when when the ALPN (it indicates the protocol carried into this TLS flow, for instance HTTP/1.1) is uncommon.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category:Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS Необычный АЛПН<a class="headerlink" href="#tls-uncommon-alpn" title="Link to this heading"></a></h2>
+<p>Проверяет наличие TLS ALPN.</p>
+<p>Предупреждение уведомляет, когда ALPN (оно указывает протокол, передаваемый в этот поток TLS, например HTTP/1.1) является необычным.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория:Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="tls-unsafe-ciphers">
-<h2>TLS Unsafe Ciphers<a class="headerlink" href="#tls-unsafe-ciphers" title="Link to this heading"></a></h2>
-<p>Checks for secure TLS Cipher.</p>
-<p>TLS is encrypting the communication between web applications and servers. To secure the data transfer, TLS uses one or more cipher suites, which is a combination of authentication or encryption. Using an old or outdated cipher makes vulnerable to attack. With an insufficient cipher, the attacker may intercept or modify data.</p>
-<p>The Alert is sent when unsafe ciphers are seen.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>TLS Небезопасные шифры<a class="headerlink" href="#tls-unsafe-ciphers" title="Link to this heading"></a></h2>
+<p>Проверяет безопасность шифрования TLS.</p>
+<p>TLS шифрует связь между веб-приложениями и серверами. Для защиты передачи данных TLS использует один или несколько наборов шифров, которые представляют собой комбинацию аутентификации или шифрования. Использование старого или устаревшего шифра делает уязвимым для атак. При недостаточном шифре злоумышленник может перехватить или изменить данные.</p>
+<p>Оповещение отправляется при обнаружении небезопасных шифров.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="unexpected-dhcp">
-<h2>Unexpected DHCP<a class="headerlink" href="#unexpected-dhcp" title="Link to this heading"></a></h2>
-<p>Checks for unusual DHCP.</p>
-<p>A DHCP server setup on a network by a hacker called Rogue DHCP server, can lead to Man in the Middle, Sniffing, and Reconnaissance attacks. By placing a rogue DHCP server on the network, an attacker can supply the clients with fake addresses and other network information to snoop into the data packets.</p>
-<p>The alert is sent when the system identifies an unexpected DHCP (IPv4 and IPv6) server, i.e. a host replying to DHCP requests that is not in the DHCP servers list of the Network Configuration (the check does nothing when the list is empty). Only hosts that actually reply are reported: a request with no reply (e.g. a client renewing its lease with a server that no longer answers) does not trigger the alert. The DHCP server is reported as the attacker and gets most of the score.</p>
+<h2>Неожиданно DHCP<a class="headerlink" href="#unexpected-dhcp" title="Link to this heading"></a></h2>
+<p>Проверяет наличие необычного DHCP.</p>
+<p>Установка сервера DHCP в сети хакером по имени Rogue server DHCP может привести к атакам «Человек посередине», «Сниффинг» и «Разведка». Разместив в сети мошеннический сервер DHCP, злоумышленник может предоставить клиентам поддельные адреса и другую сетевую информацию для перехвата пакетов данных.</p>
+<p>Предупреждение отправляется, когда система обнаруживает неожиданный сервер DHCP (IPv4 и IPv6), т.е. хост, отвечающий на запросы DHCP, которого нет в списке серверов DHCP конфигурации сети (проверка ничего не делает, если список пуст). Сообщается только о хостах, которые действительно отвечают: запрос без ответа (например, клиент, продлевающий аренду сервера, который больше не отвечает) не вызывает оповещение. Сервер DHCP считается атакующим и получает большую часть очков.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>DHCP relay agents delivering the replies to the clients act as DHCP servers for them: add them to the DHCP servers list too. The relay agents forwarding the requests to a DHCP server of the list are allowed.</p>
+<p class="admonition-title">Примечание</p>
+<p>DHCP агенты ретрансляции, доставляющие ответы клиентам, действуют для них как DHCP серверы: добавьте их также в список DHCP серверов. Агенты ретрансляции, пересылающие запросы на сервер DHCP списка, разрешены.</p>
 </div>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Not Enabled by Default</em></p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Не включено по умолчанию</em></p>
 </section>
 <section id="unexpected-dns-server">
-<h2>Unexpected DNS Server<a class="headerlink" href="#unexpected-dns-server" title="Link to this heading"></a></h2>
-<p>Check for not allowed DNS servers.</p>
-<p>DNS blocking is a filter method used to prevent Internet users visiting malicious websites. It works by comparing IP addresses against those assigned to websites known to be harmful or potentially threatning – those websites where malware and ransomware can be caught – dns blocking is implemented in order to prevent devices connecting with them when a match is found.</p>
-<p>The Alert is sent when not allowed DNS server is detected.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category: Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>Неожиданный сервер DNS<a class="headerlink" href="#unexpected-dns-server" title="Link to this heading"></a></h2>
+<p>Проверьте наличие неразрешенных серверов DNS.</p>
+<p>Блокировка DNS — это метод фильтрации, используемый для предотвращения посещения пользователями Интернета вредоносных веб-сайтов. Он работает путем сравнения IP-адресов с IP-адресами, назначенными веб-сайтам, которые, как известно, являются вредоносными или потенциально опасными — тех веб-сайтов, на которых могут быть обнаружены вредоносные программы и ransomware — реализована блокировка dns, чтобы предотвратить подключение устройств к ним при обнаружении соответствия.</p>
+<p>Предупреждение отправляется при обнаружении запрещенного сервера DNS.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория: Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="unexpected-ntp-server">
-<h2>Unexpected NTP Server<a class="headerlink" href="#unexpected-ntp-server" title="Link to this heading"></a></h2>
-<p>Check for not allowed NTP server.</p>
-<p>NTP is one of the internet’s oldest protocols and is not secure by default, leaving it susceptible to distributed denial-of-service (DDoS) and man-in-the-middle (MitM) attacks.</p>
-<p>The Alert is sent when not allowed NTP server is seen.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category: Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>Неожиданный NTP-сервер<a class="headerlink" href="#unexpected-ntp-server" title="Link to this heading"></a></h2>
+<p>Проверьте наличие неразрешенного NTP-сервера.</p>
+<p>NTP — один из старейших протоколов Интернета, который по умолчанию не является безопасным, что делает его уязвимым для распределенных атак типа «отказ в обслуживании» (DDoS) и «человек посередине» (MitM).</p>
+<p>Предупреждение отправляется, когда обнаружен неразрешенный NTP-сервер.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория: Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="unexpected-smtp-server">
-<h2>Unexpected SMTP Server<a class="headerlink" href="#unexpected-smtp-server" title="Link to this heading"></a></h2>
-<p>Checks for unexpected smtp.</p>
-<p>An SMTP attack is any exploitation of the SMTP server that enables attackers to gain unauthorized access to it. When an SMTP hack occurs, attacker can see the email addresses stored on the server and send messages impersonating a company.</p>
-<p>An alert is sent to notify about a unexpected SMTP server.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category:Cybersecurity</em></p>
-<p><em>Not Enabled by Default</em></p>
+<h2>Неожиданный сервер SMTP<a class="headerlink" href="#unexpected-smtp-server" title="Link to this heading"></a></h2>
+<p>Проверяет наличие неожиданного smtp.</p>
+<p>Атака SMTP — это любая эксплуатация сервера SMTP, позволяющая злоумышленникам получить к нему несанкционированный доступ. Когда происходит взлом SMTP, злоумышленник может видеть адреса электронной почты, хранящиеся на сервере, и отправлять сообщения, выдавая себя за компанию.</p>
+<p>Отправляется оповещение о неожиданном появлении сервера SMTP.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория:Кибербезопасность</em></p>
+<p><em>Не включено по умолчанию</em></p>
 </section>
 <section id="unidirectional-flow">
-<h2>Unidirectional Flow<a class="headerlink" href="#unidirectional-flow" title="Link to this heading"></a></h2>
-<p>Checks for “one way” data flow.</p>
-<p>There are many situations in which a computer does not require a bidirectional flow
-A connection on which a device may only transmit data or only receive data, but not both. That is, a source can transmit data to one or many destinations, but the destination(s) cannot transmit data back to the source because it is unable to receive.</p>
-<p>The system sends a notification when detects in and out going data flows.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Однонаправленный поток<a class="headerlink" href="#unidirectional-flow" title="Link to this heading"></a></h2>
+<p>Проверяет «односторонний» поток данных.</p>
+<p>Существует множество ситуаций, в которых компьютеру не требуется двунаправленный поток.
+Соединение, при котором устройство может только передавать данные или только получать данные, но не то и другое. То есть источник может передавать данные одному или нескольким адресатам, но пункт назначения(а) не может передавать данные обратно источнику, поскольку он не может их получить.</p>
+<p>Система отправляет уведомление при обнаружении входящих и исходящих потоков данных.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="unresolved-hostname">
-<h2>Unresolved Hostname<a class="headerlink" href="#unresolved-hostname" title="Link to this heading"></a></h2>
-<p>Checks for hostnames not resolved via DNS.</p>
-<p>The alert is sent when a TLS, QUIC or HTTP flow connects to a hostname that was not previously resolved via DNS. This may indicate a hardcoded server (e.g. malware) or the use of an alternative resolver.</p>
-<p><em>Interface: Packet</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Not Enabled by Default</em></p>
+<h2>Неразрешенное имя хоста<a class="headerlink" href="#unresolved-hostname" title="Link to this heading"></a></h2>
+<p>Проверяет имена хостов, не разрешенные через DNS.</p>
+<p>Предупреждение отправляется, когда поток TLS, QUIC или HTTP подключается к имени хоста, которое ранее не было разрешено через DNS. Это может указывать на жестко закодированный сервер (например, вредоносное ПО) или использование альтернативного преобразователя.</p>
+<p><em>Интерфейс: Пакет</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Не включено по умолчанию</em></p>
 </section>
 <section id="unsafe-protocol">
-<h2>Unsafe protocol<a class="headerlink" href="#unsafe-protocol" title="Link to this heading"></a></h2>
-<p>The check identifies an insecure/unencrypted protocols.</p>
-<p>Credential information submitted through telnet is not encrypted and is vulnerable to identity theft for this reason is not recommended.Users should instead use ssh <a class="reference external" href="https://it.wikipedia.org/wiki/Secure_Shell">https://it.wikipedia.org/wiki/Secure_Shell</a>
-Also,unecrypted ftp should not be used. Users wishing to transfer files between computers should instead use utilities sftp.</p>
-<p>The alert is sent when important data is transmitted without any encryption.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>Небезопасный протокол<a class="headerlink" href="#unsafe-protocol" title="Link to this heading"></a></h2>
+<p>Проверка выявляет незащищенные/незашифрованные протоколы.</p>
+<p>Информация об учетных данных, отправленная через telnet, не зашифрована и уязвима для кражи личных данных, поэтому не рекомендуется. Вместо этого пользователям следует использовать ssh <a class="reference external" href="https://it.wikipedia.org/wiki/Secure_Shell">https://it.wikipedia.org/wiki/Secure_Shell</a>
+Кроме того, не следует использовать незашифрованный ftp. Пользователи, желающие передавать файлы между компьютерами, должны вместо этого использовать утилиту sftp.</p>
+<p>Оповещение отправляется, когда важные данные передаются без шифрования.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="vlan-bidirectional-flow">
-<h2>VLAN Bidirectional Flow<a class="headerlink" href="#vlan-bidirectional-flow" title="Link to this heading"></a></h2>
-<p>Check for bidirectional flow.</p>
-<p>In the check preference you can specify (numeric) the enabled VLAN IDs
-that can be observed (the ‘0’ value represents the untagged flows, meaning no VLAN).
-In case ntopng identifies a bidirectional flow member of one enabled VLAN ID of this list
-with remote server address, an alert is triggered.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Disabled by Default</em></p>
+<h2>VLAN Двунаправленный поток<a class="headerlink" href="#vlan-bidirectional-flow" title="Link to this heading"></a></h2>
+<p>Проверьте двунаправленный поток.</p>
+<p>В настройках проверки вы можете указать (числовые) включенные идентификаторы VLAN.
+которые можно наблюдать (значение «0» представляет непомеченные потоки, что означает отсутствие VLAN).
+В случае, если ntopng идентифицирует член двунаправленного потока одного включенного VLAN ID этого списка
+с адресом удаленного сервера срабатывает оповещение.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Отключено по умолчанию</em></p>
 </section>
 <section id="web-mining">
-<h2>WEb Mining<a class="headerlink" href="#web-mining" title="Link to this heading"></a></h2>
-<p>Check generated traffic from/to hosts known to perform cryptocurrencies mining.</p>
-<p>Cryptocurrency mining is a computationally intensive task which requires powerful resources like specialized hardware and processors,as significant electricity costs and investments in hardware.
-To avoid the costs of all these tools - expensive hardware, cybercriminals infect systems in order to consume the victims’ CPU or GPU power and existing resources for crypto mining. Putting in place different attack vectors, such as spam campaigns and Exploit Kits, they are able to turn the infected machines into army of cryptocurrency miners.</p>
-<p>The Alert is received when traffic from/to hosts known to perform cryptocurrencies mining is discovered.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p>Category: Cybersecurity*</p>
-<p><em>Enabled by Default</em></p>
+<h2>Веб-майнинг<a class="headerlink" href="#web-mining" title="Link to this heading"></a></h2>
+<p>Проверьте генерируемый трафик от/к хостам, которые, как известно, выполняют майнинг криптовалют.</p>
+<p>Майнинг криптовалюты — это трудоемкая задача, требующая мощных ресурсов, таких как специализированное оборудование и процессоры, а также значительных затрат на электроэнергию и инвестиций в оборудование.
+Чтобы избежать затрат на все эти инструменты — дорогостоящее оборудование, киберпреступники заражают системы, чтобы использовать мощность CPU или графического процессора жертв и существующие ресурсы для майнинга криптовалют. Используя различные векторы атак, такие как спам-кампании и наборы эксплойтов, они способны превратить зараженные машины в армию майнеров криптовалюты.</p>
+<p>Оповещение поступает при обнаружении трафика от/к хостам, которые, как известно, выполняют майнинг криптовалют.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p>Категория: Кибербезопасность*</p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 <section id="xss-attack">
-<h2>XSS Attack<a class="headerlink" href="#xss-attack" title="Link to this heading"></a></h2>
-<p>The check verifies a possible XSS attack.</p>
-<p>Cross-site Scripting (XSS) is a client-side code attack. The attacker aims to execute malicious scripts in a web browser of the victim by including malicious code in a legitimate web page or web application. The actual attack occurs when the victim visits the web page or web application that executes the malicious code. The web page or web application becomes a way to deliver the malicious script to the user’s browser. Commonly used for Cross-site Scripting attacks are forums, message boards, and web pages that allow comments.</p>
-<p>The system sends an alert in case it has detected a possible XSS attack on the website.</p>
-<p><em>Interface: Packet &amp; ZMQ</em></p>
-<p><em>Category: Cybersecurity</em></p>
-<p><em>Enabled by Default</em></p>
+<h2>XSS-атака<a class="headerlink" href="#xss-attack" title="Link to this heading"></a></h2>
+<p>Проверка подтверждает возможную XSS-атаку.</p>
+<p>Межсайтовый скриптинг (XSS) — это атака на клиентский код. Злоумышленник стремится выполнить вредоносные сценарии в веб-браузере жертвы, включив вредоносный код в законную веб-страницу или веб-приложение. Фактическая атака происходит, когда жертва посещает веб-страницу или веб-приложение, выполняющее вредоносный код. Веб-страница или веб-приложение становится способом доставки вредоносного сценария в браузер пользователя. Для атак с использованием межсайтовых сценариев обычно используются форумы, доски объявлений и веб-страницы, на которых разрешено оставлять комментарии.</p>
+<p>Система отправляет оповещение в случае обнаружения возможной XSS-атаки на сайте.</p>
+<p><em>Интерфейс: Пакет &amp; ZMQ</em></p>
+<p><em>Категория: Кибербезопасность</em></p>
+<p><em>Включено по умолчанию</em></p>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="snmp_checks.html" rel="prev" title="SNMP Behavioural Checks"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="system_checks.html" rel="next" title="System Behavioural Checks">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="snmp_checks.html" class="btn btn-neutral float-left" title="SNMP Behavioural Checks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="system_checks.html" class="btn btn-neutral float-right" title="System Behavioural Checks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/flow_checks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:11 GMT -->
 </html>

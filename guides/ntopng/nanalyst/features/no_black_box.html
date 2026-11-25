@@ -1,111 +1,99 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
-
+<html class="writer-html5" data-content_root="../../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/nanalyst/features/no_black_box.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:52:18 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Explainability — No Black Box &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="AI-Generated Network Policies" href="policies.html" />
-    <link rel="prev" title="Features" href="index.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Объясняемость — нет черного ящика — документация ntopng v.7.1.261018</title>
+<link href="../../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../../_static/js/theme.js"></script>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="policies.html" rel="next" title="AI-Generated Network Policies"/>
+<link href="index.html" rel="prev" title="Features"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index-2.html">
             ntopng
-              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">nAnalyst - Agentic AI Network Intelligence</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../what_is_nanalyst.html">What is nAnalyst?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chat_interface.html">Chat Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ai_dashboards.html">AI Dashboards</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Features</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Explainability — No Black Box</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#evidence-log">Evidence log</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#evidence-panel">Evidence panel</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#rerunning-a-query-from-the-ui">Rerunning a query from the UI</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#why-this-matters">Why this matters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#interpretable-results">Interpretable results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">nAnalyst - Агент AI Сетевой интеллект</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../what_is_nanalyst.html">Что такое Аналист?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chat_interface.html">Интерфейс чата</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ai_dashboards.html">AI Панели мониторинга</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Функции</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Объясняемость — никакого черного ящика</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#evidence-log">Журнал доказательств</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#evidence-panel">Панель доказательств</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rerunning-a-query-from-the-ui">Повторный запуск запроса из пользовательского интерфейса</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#why-this-matters">Почему это важно</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interpretable-results">Интерпретируемые результаты</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="policies.html">AI-Generated Network Policies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="active_monitoring.html">Active Monitoring Automation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="alert_management.html">Alert Management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="usage_stats.html">Usage Statistics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="audit_log.html">Action Audit Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="policies.html">AI-сгенерированные сетевые политики</a></li>
+<li class="toctree-l3"><a class="reference internal" href="active_monitoring.html">Автоматизация активного мониторинга</a></li>
+<li class="toctree-l3"><a class="reference internal" href="alert_management.html">Управление оповещениями</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage_stats.html">Статистика использования</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audit_log.html">Журнал аудита действий</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../tools_and_licensing.html">Tools and Licensing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../llm_setup.html">LLM Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mcp_server.html">MCP Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../observability.html">Observability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools_and_licensing.html">Инструменты и лицензирование</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../llm_setup.html">LLM Настройка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mcp_server.html">MCP Сервер</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../observability.html">Наблюдаемость</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Документация</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
@@ -114,131 +102,121 @@
 <li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-          <li class="breadcrumb-item"><a href="index.html">Features</a></li>
-      <li class="breadcrumb-item active">Explainability — No Black Box</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/nanalyst/features/no_black_box.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="explainability-no-black-box">
-<span id="nanalystnoblackbox"></span><h1>Explainability — No Black Box<a class="headerlink" href="#explainability-no-black-box" title="Link to this heading"></a></h1>
-<p>A core design principle of nAnalyst is that every answer must be verifiable. Unlike generic AI assistants that produce text with no traceable source, nAnalyst exposes the full chain of reasoning behind every response.</p>
-<section id="evidence-log">
-<h2>Evidence log<a class="headerlink" href="#evidence-log" title="Link to this heading"></a></h2>
-<p>Every chat response includes an evidence log — a structured record of:</p>
-<ul class="simple">
-<li><p><strong>Tools called</strong> — which of the 25+ domain tools were invoked and in what order</p></li>
-<li><p><strong>SQL executed</strong> — the exact ClickHouse queries run against your data</p></li>
-<li><p><strong>Raw results</strong> — the data returned by each tool call before summarisation</p></li>
-<li><p><strong>Reasoning steps</strong> — the agent’s intermediate conclusions as it assembled the answer</p></li>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="../index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="breadcrumb-item"><a href="index.html">Функции</a></li>
+<li class="breadcrumb-item active">Объясняемость — никакого черного ящика</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../_sources/nanalyst/features/no_black_box.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
 </ul>
-<p>The evidence log is shown when clicking <cite>X Tool Calls</cite> button at the end of the respone message. Clicking this, opens a side panel with all the evidemce used to answer the question, for example all tool calls executed, if they were successful or not.</p>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="explainability-no-black-box">
+<span id="nanalystnoblackbox"></span><h1>Объясняемость — никакого черного ящика<a class="headerlink" href="#explainability-no-black-box" title="Link to this heading"></a></h1>
+<p>Основной принцип разработки nAnalyst заключается в том, что каждый ответ должен быть проверяемым. В отличие от обычных помощников AI, которые создают текст без отслеживаемого источника, nAnalyst раскрывает полную цепочку рассуждений, лежащих в основе каждого ответа.</p>
+<section id="evidence-log">
+<h2>Журнал доказательств<a class="headerlink" href="#evidence-log" title="Link to this heading"></a></h2>
+<p>Каждый ответ в чате включает в себя журнал доказательств — структурированную запись:</p>
+<ul class="simple">
+<li><p><strong>Инструменты под названием</strong> — какие из более чем 25 предметных инструментов были вызваны и в каком порядке</p></li>
+<li><p><strong>SQL выполнен</strong> — точные запросы ClickHouse выполняются к вашим данным</p></li>
+<li><p><strong>Необработанные результаты</strong> — данные, возвращаемые каждым вызовом инструмента перед суммированием</p></li>
+<li><p><strong>Шаги рассуждения</strong> — промежуточные выводы агента при сборе ответа</p></li>
+</ul>
+<p>Журнал доказательств отображается при нажатии <cite>X Вызовы инструментов</cite> кнопку в конце ответного сообщения. При нажатии на эту кнопку открывается боковая панель со всеми доказательствами, использованными для ответа на вопрос, например, обо всех выполненных вызовах инструментов, были ли они успешными или нет.</p>
 </section>
 <section id="evidence-panel">
-<h2>Evidence panel<a class="headerlink" href="#evidence-panel" title="Link to this heading"></a></h2>
-<p>The <strong>Evidence</strong> panel opens on the right side of the chat and lists every tool call made while answering the currently selected turn.</p>
+<h2>Панель доказательств<a class="headerlink" href="#evidence-panel" title="Link to this heading"></a></h2>
+<p> <strong>Доказательство</strong> Панель открывается в правой части чата и отображает все вызовы инструментов, сделанные при ответе на текущий выбранный ход.</p>
 <figure class="align-center" id="id1">
-<img alt="nAnalyst Evidence panel" src="../../_images/nAnalyst_evidence_panel_live.png" />
+<img alt="nAnalyst Evidence panel" src="../../_images/nAnalyst_evidence_panel_live.png"/>
 <figcaption>
-<p><span class="caption-text">nAnalyst Evidence panel, showing the tool call sequence for a turn</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Панель nAnalyst Evidence, показывающая последовательность вызова инструмента для поворота</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>For each turn, the panel header shows:</p>
+<p>Для каждого хода в заголовке панели отображается:</p>
 <ul class="simple">
-<li><p><strong>Elapsed time</strong> for the turn (e.g. <code class="docutils literal notranslate"><span class="pre">27s</span></code>)</p></li>
-<li><p><strong>Total tool calls</strong> made</p></li>
-<li><p><strong>Success count</strong> (e.g. <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">succeeded</span></code>) — a status dot summarizes the turn: green when every call succeeded, red when at least one tool call failed or returned an error</p></li>
+<li><p><strong>Прошедшее время</strong> на терне (напр. <code class="docutils literal notranslate"><span class="pre">27s</span></code>)</p></li>
+<li><p><strong>Всего вызовов инструментов</strong> сделал</p></li>
+<li><p><strong>Количество успехов</strong> (например. <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">succeeded</span></code>) — точка состояния суммирует ход: зеленая, когда каждый вызов был успешным, красная, когда хотя бы один вызов инструмента не удался или возвратил ошибку.</p></li>
 </ul>
-<p>Below the header, the <strong>tool call sequence</strong> lists each call in the order it was executed, with an icon identifying the tool family (table lookup, SQL query, chart, etc.). A tool call that failed — a malformed query, a permission error, an empty/unexpected result the agent had to recover from — is highlighted in red in the sequence, so you can immediately spot which step needed a retry or caused the agent to change strategy, without reading the full transcript.</p>
-<p>Clicking a row expands it to show:</p>
+<p>Под заголовком <strong>последовательность вызова инструмента</strong> отображает каждый вызов в том порядке, в котором он был выполнен, со значком, обозначающим семейство инструментов (поиск в таблице, SQL-запрос, диаграмма и т. д.). Неудачный вызов инструмента (неверный запрос, ошибка разрешения, пустой/неожиданный результат, из-за которого агент должен был восстановиться) выделяется в последовательности красным, поэтому вы можете сразу определить, какой шаг потребовал повторной попытки или заставил агента изменить стратегию, не читая полную расшифровку.</p>
+<p>Щелчок по строке разворачивает ее, чтобы отобразить:</p>
 <ul class="simple">
-<li><p>The full SQL statement or tool parameters used</p></li>
-<li><p>The agent’s stated reasoning for that call (why it chose this tool/query)</p></li>
-<li><p>The raw result returned by the tool</p></li>
+<li><p>Полный оператор SQL или используемые параметры инструмента.</p></li>
+<li><p>Заявленная агентом причина этого звонка (почему он выбрал этот инструмент/запрос)</p></li>
+<li><p>Необработанный результат, возвращаемый инструментом</p></li>
 </ul>
 </section>
 <section id="rerunning-a-query-from-the-ui">
-<h2>Rerunning a query from the UI<a class="headerlink" href="#rerunning-a-query-from-the-ui" title="Link to this heading"></a></h2>
-<p>Every <code class="docutils literal notranslate"><span class="pre">SQL</span> <span class="pre">Query</span></code> row in the evidence panel has a <strong>Run query</strong> button (▶). Clicking it re-executes the exact statement the agent ran, directly against ClickHouse, without going back through the LLM — letting you independently confirm the number, or check whether the underlying data has changed since the agent’s answer was generated.</p>
+<h2>Повторный запуск запроса из пользовательского интерфейса<a class="headerlink" href="#rerunning-a-query-from-the-ui" title="Link to this heading"></a></h2>
+<p>Каждый <code class="docutils literal notranslate"><span class="pre">SQL</span> <span class="pre">Query</span></code> В строке на панели доказательств есть <strong>Запустить запрос</strong> кнопку (▶). Нажатие на нее повторно выполняет тот же оператор, который выполнил агент, непосредственно против ClickHouse, без возврата к LLM, что позволяет вам самостоятельно подтвердить число или проверить, изменились ли базовые данные с момента генерации ответа агента.</p>
 <figure class="align-center" id="id2">
-<img alt="nAnalyst evidence row expanded showing the Run query button" src="../../_images/nAnalyst_evidence_sql_expanded.png" />
+<img alt="nAnalyst evidence row expanded showing the Run query button" src="../../_images/nAnalyst_evidence_sql_expanded.png"/>
 <figcaption>
-<p><span class="caption-text">Evidence row expanded, showing the query text and the Run query action</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Развернута строка доказательств, в которой отображается текст запроса и действие «Выполнить запрос».</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="why-this-matters">
-<h2>Why this matters<a class="headerlink" href="#why-this-matters" title="Link to this heading"></a></h2>
-<p>Black-box AI answers create a trust problem in security contexts. If an analyst cannot verify why the AI reached a conclusion, they cannot rely on it during an incident.</p>
-<p>nAnalyst’s evidence log means:</p>
+<h2>Почему это важно<a class="headerlink" href="#why-this-matters" title="Link to this heading"></a></h2>
+<p>Ответы «черного ящика» AI создают проблему доверия в контексте безопасности. Если аналитик не может проверить, почему AI пришел к такому выводу, он не может полагаться на него во время инцидента.</p>
+<p>Журнал доказательств nAnalyst означает:</p>
 <ul class="simple">
-<li><p>Every claim in the answer maps to a specific data row</p></li>
-<li><p>SQL can be copied and re-run independently to validate results</p></li>
-<li><p>Investigations are reproducible and shareable across team members</p></li>
-<li><p>Evidence can be attached to incident reports or tickets</p></li>
+<li><p>Каждое утверждение в ответе сопоставляется с определенной строкой данных.</p></li>
+<li><p>SQL можно скопировать и повторно запустить независимо для проверки результатов.</p></li>
+<li><p>Результаты расследований воспроизводимы и доступны всем членам команды.</p></li>
+<li><p>Доказательства могут быть прикреплены к отчетам об инцидентах или заявкам.</p></li>
 </ul>
 </section>
 <section id="interpretable-results">
-<h2>Interpretable results<a class="headerlink" href="#interpretable-results" title="Link to this heading"></a></h2>
-<p>nAnalyst does not hallucinate network data. It only states facts that are backed by tool-call results. If the data needed to answer a question is not available, nAnalyst says so rather than guessing.</p>
-<p>Charts and tables embedded in responses are generated directly from the SQL result sets — there is no additional LLM-driven data transformation between the database and the visualisation. Chart artifacts are rendered in vueJS, so they are fast, reactive and the same components used throughout the ntopng user interface.</p>
+<h2>Интерпретируемые результаты<a class="headerlink" href="#interpretable-results" title="Link to this heading"></a></h2>
+<p>nAnalyst не галлюцинирует сетевые данные. В нем констатируются только факты, подкрепленные результатами применения инструментов. Если данные, необходимые для ответа на вопрос, недоступны, nAnalyst говорит об этом, а не угадывает.</p>
+<p>Диаграммы и таблицы, встроенные в ответы, генерируются непосредственно из наборов результатов SQL — дополнительное преобразование данных на основе LLM между базой данных и визуализацией не требуется. Артефакты диаграмм визуализируются в vueJS, поэтому они быстрые, реактивные и имеют те же компоненты, которые используются во всем пользовательском интерфейсе ntopng.</p>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="Features"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="policies.html" rel="next" title="AI-Generated Network Policies">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="policies.html" class="btn btn-neutral float-right" title="AI-Generated Network Policies" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/nanalyst/features/no_black_box.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:52:21 GMT -->
 </html>

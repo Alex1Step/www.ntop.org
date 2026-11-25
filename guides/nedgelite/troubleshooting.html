@@ -1,121 +1,109 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-
+<html class="writer-html5" data-content_root="./" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/nedgelite/troubleshooting.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:26 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Troubleshooting &mdash; nEdge Lite dev documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
-
-  
-      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
-      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="License Management" href="license.html" />
-    <link rel="prev" title="Advanced Features" href="advanced.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Устранение неполадок — документация для разработчиков nEdge Lite</title>
+<link href="_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<script src="_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+<script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="license.html" rel="next" title="License Management"/>
+<link href="advanced.html" rel="prev" title="Advanced Features"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
             nEdge Lite
           </a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nedgelite/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/nedgelite/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="netfilter_setup.html">Netfilter Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="policies.html">Policy Rules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ntopng_integration.html">ntopng Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#startup-issues">Startup Issues</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#license-validation-failed">License Validation Failed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#unable-to-bind-to-nfqueue">Unable to Bind to NFQUEUE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#permission-denied-errors">Permission Denied Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Введение</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Краткое руководство</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netfilter_setup.html">Настройка сетевого фильтра</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Конфигурация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="policies.html">Правила политики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ntopng_integration.html">ntopng Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Расширенные функции</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Поиск неисправностей</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#startup-issues">Проблемы при запуске</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#license-validation-failed">Проверка лицензии не удалась</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unable-to-bind-to-nfqueue">Невозможно привязаться к NFQUEUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#permission-denied-errors">Ошибки отказа в разрешении</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#packet-processing-issues">Packet Processing Issues</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#no-packets-reaching-nedge-lite">No Packets Reaching nEdge Lite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#packets-dropped-unexpectedly">Packets Dropped Unexpectedly</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#high-packet-loss">High Packet Loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#packet-processing-issues">Проблемы с обработкой пакетов</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#no-packets-reaching-nedge-lite">Никакие пакеты не достигают nEdge Lite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#packets-dropped-unexpectedly">Пакеты неожиданно отбрасываются</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#high-packet-loss">Высокая потеря пакетов</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#protocol-detection-issues">Protocol Detection Issues</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#protocols-not-being-detected">Protocols Not Being Detected</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#encrypted-traffic">Encrypted Traffic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wrong-protocol-detected">Wrong Protocol Detected</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#protocol-detection-issues">Проблемы обнаружения протокола</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#protocols-not-being-detected">Протоколы не обнаруживаются</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#encrypted-traffic">Зашифрованный трафик</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wrong-protocol-detected">Обнаружен неправильный протокол</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#policy-issues">Policy Issues</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#policy-not-applied">Policy Not Applied</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#policy-changes-not-taking-effect">Policy Changes Not Taking Effect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#policy-issues">Вопросы политики</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#policy-not-applied">Политика не применяется</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#policy-changes-not-taking-effect">Изменения политики не вступают в силу</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#ntopng-integration-issues">ntopng Integration Issues</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#no-flows-appearing-in-ntopng">No Flows Appearing in ntopng</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#zmq-connection-refused">ZMQ Connection Refused</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#policy-updates-from-ntopng-not-working">Policy Updates from ntopng Not Working</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ntopng-integration-issues">ntopng Проблемы интеграции</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#no-flows-appearing-in-ntopng">В ntopng никаких потоков не появляется</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zmq-connection-refused">ZMQ Отказ в соединении</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#policy-updates-from-ntopng-not-working">Обновления политики от ntopng не работают</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#performance-issues">Performance Issues</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#high-cpu-usage">High CPU Usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#high-memory-usage">High Memory Usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#network-latency">Network Latency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-issues">Проблемы с производительностью</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#high-cpu-usage">Высокое использование CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#high-memory-usage">Высокое использование памяти</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#network-latency">Задержка сети</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#system-issues">System Issues</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#kernel-module-not-loading">Kernel Module Not Loading</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#conntrack-table-full">Conntrack Table Full</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#out-of-memory">Out of Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#system-issues">Системные проблемы</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-module-not-loading">Модуль ядра не загружается</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conntrack-table-full">Таблица Conntrack заполнена</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#out-of-memory">Недостаточно памяти</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#debugging-techniques">Debugging Techniques</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#verbose-logging">Verbose Logging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#packet-capture">Packet Capture</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#conntrack-monitoring">Conntrack Monitoring</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iptables-rule-verification">iptables Rule Verification</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#system-logs">System Logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-techniques">Методы отладки</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verbose-logging">Подробное ведение журнала</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#packet-capture">Захват пакетов</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conntrack-monitoring">Мониторинг Conntrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iptables-rule-verification">Проверка правил iptables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system-logs">Системные журналы</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-help">Получение помощи</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Следующие шаги</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Управление лицензиями</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other ntop Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие ntop продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
@@ -124,40 +112,36 @@
 <li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">nEdge Lite</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Troubleshooting</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/troubleshooting.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="troubleshooting">
-<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h1>
-<p>This section provides solutions to common issues encountered when deploying and operating nEdge Lite.</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">nEdge Lite</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">Поиск неисправностей</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/troubleshooting.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="troubleshooting">
+<h1>Поиск неисправностей<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h1>
+<p>В этом разделе представлены решения распространенных проблем, возникающих при развертывании и эксплуатации nEdge Lite.</p>
 <section id="startup-issues">
-<h2>Startup Issues<a class="headerlink" href="#startup-issues" title="Link to this heading"></a></h2>
+<h2>Проблемы при запуске<a class="headerlink" href="#startup-issues" title="Link to this heading"></a></h2>
 <section id="license-validation-failed">
-<h3>License Validation Failed<a class="headerlink" href="#license-validation-failed" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">Invalid</span> <span class="pre">license</span></code> or <code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">file</span> <span class="pre">not</span> <span class="pre">found</span></code></p>
-<p><strong>Solution</strong>:</p>
+<h3>Проверка лицензии не удалась<a class="headerlink" href="#license-validation-failed" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: <code class="docutils literal notranslate"><span class="pre">Invalid</span> <span class="pre">license</span></code> или <code class="docutils literal notranslate"><span class="pre">License</span> <span class="pre">file</span> <span class="pre">not</span> <span class="pre">found</span></code></p>
+<p><strong>Решение</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Check<span class="w"> </span>license<span class="w"> </span>file<span class="w"> </span>location
 <span class="go">ls -la nedgelite.license /etc/nedgelite.license</span>
 
@@ -172,11 +156,11 @@
 </div>
 </section>
 <section id="unable-to-bind-to-nfqueue">
-<h3>Unable to Bind to NFQUEUE<a class="headerlink" href="#unable-to-bind-to-nfqueue" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">Unable</span> <span class="pre">to</span> <span class="pre">open</span> <span class="pre">queue</span> <span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">Unable</span> <span class="pre">to</span> <span class="pre">bind</span> <span class="pre">to</span> <span class="pre">queue</span></code></p>
-<p><strong>Causes and Solutions</strong>:</p>
+<h3>Невозможно привязаться к NFQUEUE<a class="headerlink" href="#unable-to-bind-to-nfqueue" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: <code class="docutils literal notranslate"><span class="pre">Unable</span> <span class="pre">to</span> <span class="pre">open</span> <span class="pre">queue</span> <span class="pre">0</span></code> или <code class="docutils literal notranslate"><span class="pre">Unable</span> <span class="pre">to</span> <span class="pre">bind</span> <span class="pre">to</span> <span class="pre">queue</span></code></p>
+<p><strong>Причины и решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Queue already in use</strong>:</p>
+<li><p><strong>Очередь уже занята</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Check<span class="w"> </span><span class="k">for</span><span class="w"> </span>other<span class="w"> </span>nedgelite<span class="w"> </span>instances
 <span class="go">ps aux | grep nedgelite</span>
 <span class="go">sudo killall nedgelite</span>
@@ -186,13 +170,13 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Kernel module not loaded</strong>:</p>
+<li><p><strong>Модуль ядра не загружен</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo modprobe nfnetlink_queue</span>
 <span class="go">sudo modprobe nf_conntrack</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Insufficient permissions</strong>:</p>
+<li><p><strong>Недостаточно разрешений</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Must<span class="w"> </span>run<span class="w"> </span>as<span class="w"> </span>root
 <span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234</span>
 </pre></div>
@@ -201,9 +185,9 @@
 </ol>
 </section>
 <section id="permission-denied-errors">
-<h3>Permission Denied Errors<a class="headerlink" href="#permission-denied-errors" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">Permission</span> <span class="pre">denied</span></code> when accessing netfilter</p>
-<p><strong>Solution</strong>:</p>
+<h3>Ошибки отказа в разрешении<a class="headerlink" href="#permission-denied-errors" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: <code class="docutils literal notranslate"><span class="pre">Permission</span> <span class="pre">denied</span></code> при доступе к сетевому фильтру</p>
+<p><strong>Решение</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Run<span class="w"> </span>as<span class="w"> </span>root<span class="w"> </span>or<span class="w"> </span>with<span class="w"> </span>sudo
 <span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234</span>
 
@@ -214,11 +198,11 @@
 </section>
 </section>
 <section id="packet-processing-issues">
-<h2>Packet Processing Issues<a class="headerlink" href="#packet-processing-issues" title="Link to this heading"></a></h2>
+<h2>Проблемы с обработкой пакетов<a class="headerlink" href="#packet-processing-issues" title="Link to this heading"></a></h2>
 <section id="no-packets-reaching-nedge-lite">
-<h3>No Packets Reaching nEdge Lite<a class="headerlink" href="#no-packets-reaching-nedge-lite" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: nEdge Lite starts but shows no activity</p>
-<p><strong>Diagnosis</strong>:</p>
+<h3>Никакие пакеты не достигают nEdge Lite<a class="headerlink" href="#no-packets-reaching-nedge-lite" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: nEdge Lite запускается, но не проявляет активности.</p>
+<p><strong>Диагностика</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Check<span class="w"> </span>iptables<span class="w"> </span>rules
 <span class="go">sudo iptables -t mangle -L -n -v</span>
 
@@ -229,15 +213,15 @@
 <span class="go">cat /proc/net/netfilter/nfnetlink_queue</span>
 </pre></div>
 </div>
-<p><strong>Solutions</strong>:</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>iptables rules not configured</strong>:</p>
+<li><p><strong>правила iptables не настроены</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Run<span class="w"> </span>setup<span class="w"> </span>script
 <span class="go">sudo /usr/share/nedgelite/scripts/default_setup.sh eth0</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Wrong queue number</strong>:</p>
+<li><p><strong>Неверный номер очереди</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Ensure<span class="w"> </span>iptables<span class="w"> </span>queue-num<span class="w"> </span>matches<span class="w"> </span>nedgelite<span class="w"> </span>-q<span class="w"> </span>option
 <span class="go">sudo iptables -t mangle -L -n -v | grep NFQUEUE</span>
 <span class="gp"># </span>Should<span class="w"> </span>show:<span class="w"> </span>--queue-num<span class="w"> </span><span class="m">0</span>
@@ -245,13 +229,13 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Packets already marked</strong>:</p>
+<li><p><strong>Пакеты уже отмечены</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Flush<span class="w"> </span>conntrack<span class="w"> </span>table<span class="w"> </span>to<span class="w"> </span>reset<span class="w"> </span>marks
 <span class="go">sudo conntrack -F</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Traffic not matching rules</strong>:</p>
+<li><p><strong>Трафик не соответствует правилам</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Add<span class="w"> </span>catch-all<span class="w"> </span>rule<span class="w"> </span><span class="k">for</span><span class="w"> </span>testing
 <span class="go">sudo iptables -t mangle -A PREROUTING -j NFQUEUE --queue-num 0 --queue-bypass</span>
 </pre></div>
@@ -260,9 +244,9 @@
 </ol>
 </section>
 <section id="packets-dropped-unexpectedly">
-<h3>Packets Dropped Unexpectedly<a class="headerlink" href="#packets-dropped-unexpectedly" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: Legitimate traffic is being blocked</p>
-<p><strong>Diagnosis</strong>:</p>
+<h3>Пакеты неожиданно отбрасываются<a class="headerlink" href="#packets-dropped-unexpectedly" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: Легитимный трафик блокируется.</p>
+<p><strong>Диагностика</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Run<span class="w"> </span>with<span class="w"> </span>verbose<span class="w"> </span>logging
 <span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json -v</span>
 
@@ -272,32 +256,32 @@
 <span class="gp"># </span>View<span class="w"> </span>blocked<span class="w"> </span>flows<span class="w"> </span><span class="k">in</span><span class="w"> </span>ntopng
 </pre></div>
 </div>
-<p><strong>Solutions</strong>:</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Overly broad policy rules</strong>:</p>
-<p>Review policy file and adjust category/protocol filters:</p>
+<li><p><strong>Слишком широкие правила политики</strong>:</p>
+<p>Просмотрите файл политики и настройте фильтры категорий/протоколов:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;SocialNetwork&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">May</span><span class="w"> </span><span class="err">block</span><span class="w"> </span><span class="kc">t</span><span class="err">oo</span><span class="w"> </span><span class="err">much</span>
+<span class="w">  </span><span class="nt">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"markers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"SocialNetwork"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drop"</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">May</span><span class="w"> </span><span class="err">block</span><span class="w"> </span><span class="kc">t</span><span class="err">oo</span><span class="w"> </span><span class="err">much</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">Cha</span><span class="kc">n</span><span class="err">ge</span><span class="w"> </span><span class="kc">fr</span><span class="err">om</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">    </span><span class="nt">"default_marker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pass"</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">Cha</span><span class="kc">n</span><span class="err">ge</span><span class="w"> </span><span class="kc">fr</span><span class="err">om</span><span class="w"> </span><span class="s2">"drop"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Protocol misdetection</strong>:</p>
-<p>Check nEdge Lite logs to see what protocol was detected. nDPI may occasionally misidentify protocols.</p>
+<li><p><strong>Неверное определение протокола</strong>:</p>
+<p>Проверьте журналы nEdge Lite, чтобы узнать, какой протокол был обнаружен. nDPI иногда может неправильно идентифицировать протоколы.</p>
 </li>
-<li><p><strong>Default marker is “drop”</strong>:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">More</span><span class="w"> </span><span class="err">permissive</span>
+<li><p><strong>Маркер по умолчанию — «дроп».</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">"default_marker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pass"</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">More</span><span class="w"> </span><span class="err">permissive</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Testing policies</strong>:</p>
+<li><p><strong>Политики тестирования</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Temporarily<span class="w"> </span>use<span class="w"> </span>pass-all<span class="w"> </span>policy
 <span class="go">sudo nedgelite -q 0 -v  # No -r option</span>
 </pre></div>
@@ -306,9 +290,9 @@
 </ol>
 </section>
 <section id="high-packet-loss">
-<h3>High Packet Loss<a class="headerlink" href="#high-packet-loss" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: Packets are being dropped due to queue overflow</p>
-<p><strong>Diagnosis</strong>:</p>
+<h3>Высокая потеря пакетов<a class="headerlink" href="#high-packet-loss" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: Пакеты отбрасываются из-за переполнения очереди.</p>
+<p><strong>Диагностика</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Check<span class="w"> </span>queue<span class="w"> </span>statistics
 <span class="go">cat /proc/net/netfilter/nfnetlink_queue</span>
 <span class="gp"># </span>Look<span class="w"> </span><span class="k">for</span><span class="w"> </span>queue_dropped<span class="w"> </span>counter
@@ -317,15 +301,15 @@
 <span class="go">dmesg | grep nf_queue</span>
 </pre></div>
 </div>
-<p><strong>Solutions</strong>:</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Increase queue size</strong>:</p>
+<li><p><strong>Увеличить размер очереди</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo iptables -t mangle -A PREROUTING -m mark --mark 0 \</span>
 <span class="go">  -j NFQUEUE --queue-num 0 --queue-size 4096</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Use multiple queues</strong>:</p>
+<li><p><strong>Используйте несколько очередей</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo iptables -t mangle -A PREROUTING -m mark --mark 0 \</span>
 <span class="go">  -j NFQUEUE --queue-balance 0:3 --queue-cpu-fanout</span>
 
@@ -333,38 +317,38 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Add queue-bypass</strong>:</p>
+<li><p><strong>Добавить обход очереди</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo iptables -t mangle -A PREROUTING -m mark --mark 0 \</span>
 <span class="go">  -j NFQUEUE --queue-num 0 --queue-bypass</span>
 </pre></div>
 </div>
-<p>This allows packets to pass if nEdge Lite is overloaded or crashes.</p>
+<p>Это позволяет пакетам проходить, если nEdge Lite перегружен или выходит из строя.</p>
 </li>
-<li><p><strong>Optimize nEdge Lite performance</strong>:</p>
+<li><p><strong>Оптимизация производительности nEdge Lite</strong>:</p>
 <ul class="simple">
-<li><p>Reduce flow update interval: <code class="docutils literal notranslate"><span class="pre">-u</span> <span class="pre">60</span></code></p></li>
-<li><p>Increase conntrack table size</p></li>
-<li><p>Pin nEdge Lite to dedicated CPU cores</p></li>
+<li><p>Уменьшите интервал обновления потока: <code class="docutils literal notranslate"><span class="pre">-u</span> <span class="pre">60</span></code></p></li>
+<li><p>Увеличить размер таблицы conntrack</p></li>
+<li><p>Прикрепите nEdge Lite к выделенным ядрам CPU</p></li>
 </ul>
 </li>
 </ol>
 </section>
 </section>
 <section id="protocol-detection-issues">
-<h2>Protocol Detection Issues<a class="headerlink" href="#protocol-detection-issues" title="Link to this heading"></a></h2>
+<h2>Проблемы обнаружения протокола<a class="headerlink" href="#protocol-detection-issues" title="Link to this heading"></a></h2>
 <section id="protocols-not-being-detected">
-<h3>Protocols Not Being Detected<a class="headerlink" href="#protocols-not-being-detected" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: nDPI marks flows as “Unknown”</p>
-<p><strong>Causes</strong>:</p>
+<h3>Протоколы не обнаруживаются<a class="headerlink" href="#protocols-not-being-detected" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: nDPI отмечает потоки как «Неизвестные».</p>
+<p><strong>Причины</strong>:</p>
 <ul class="simple">
-<li><p>Encrypted traffic (HTTPS, VPN)</p></li>
-<li><p>Not enough packets inspected</p></li>
-<li><p>New/unsupported protocol</p></li>
-<li><p>Fragmented packets</p></li>
+<li><p>Зашифрованный трафик (HTTPS, VPN)</p></li>
+<li><p>Недостаточное количество проверенных пакетов</p></li>
+<li><p>Новый/неподдерживаемый протокол</p></li>
+<li><p>Фрагментированные пакеты</p></li>
 </ul>
-<p><strong>Solutions</strong>:</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Update nDPI library</strong>:</p>
+<li><p><strong>Обновить библиотеку nDPI</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~/nDPI</span>
 <span class="go">git pull</span>
 <span class="go">make</span>
@@ -372,77 +356,77 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Check nDPI protocol list</strong>:</p>
+<li><p><strong>Проверьте список протоколов nDPI</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nedgelite -H | grep -i &lt;protocol&gt;</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Allow more packets for detection</strong>:</p>
-<p>nDPI may need 10-20 packets for some protocols. Ensure initial packets aren’t being dropped.</p>
+<li><p><strong>Разрешить больше пакетов для обнаружения</strong>:</p>
+<p>nDPI для некоторых протоколов может потребоваться 10–20 пакетов. Убедитесь, что начальные пакеты не отбрасываются.</p>
 </li>
-<li><p><strong>Custom protocol configuration</strong>:</p>
-<p>Consult nDPI documentation for custom protocol definitions.</p>
+<li><p><strong>Пользовательская конфигурация протокола</strong>:</p>
+<p>См. документацию nDPI для определения пользовательских протоколов.</p>
 </li>
 </ol>
 </section>
 <section id="encrypted-traffic">
-<h3>Encrypted Traffic<a class="headerlink" href="#encrypted-traffic" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: HTTPS/TLS traffic not classified correctly</p>
-<p><strong>Explanation</strong>: nDPI can detect many protocols over HTTPS using:</p>
+<h3>Зашифрованный трафик<a class="headerlink" href="#encrypted-traffic" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: трафик HTTPS/TLS классифицирован неправильно</p>
+<p><strong>Объяснение</strong>: nDPI может обнаружить множество протоколов выше HTTPS, используя:</p>
 <ul class="simple">
-<li><p>TLS SNI (Server Name Indication)</p></li>
-<li><p>Certificate analysis</p></li>
-<li><p>Behavioral patterns</p></li>
+<li><p>TLS SNI (указание имени сервера)</p></li>
+<li><p>Анализ сертификатов</p></li>
+<li><p>Поведенческие модели</p></li>
 </ul>
-<p><strong>Limitations</strong>: Some encrypted protocols cannot be identified without TLS interception (MITM).</p>
+<p><strong>Ограничения</strong>: Некоторые зашифрованные протоколы невозможно идентифицировать без перехвата TLS (MITM).</p>
 </section>
 <section id="wrong-protocol-detected">
-<h3>Wrong Protocol Detected<a class="headerlink" href="#wrong-protocol-detected" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: nDPI misidentifies the protocol</p>
-<p><strong>Solutions</strong>:</p>
+<h3>Обнаружен неправильный протокол<a class="headerlink" href="#wrong-protocol-detected" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: nDPI неправильно идентифицирует протокол</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic simple">
-<li><p><strong>Update nDPI</strong>: Newer versions have improved accuracy</p></li>
-<li><p><strong>Report to nDPI project</strong>: Submit PCAP files for analysis</p></li>
-<li><p><strong>Use category-based policies</strong>: Categories are more reliable than individual protocols</p></li>
-<li><p><strong>Manual override</strong>: Use IP-based rules for specific services</p></li>
+<li><p><strong>Обновление nDPI</strong>: новые версии имеют улучшенную точность.</p></li>
+<li><p><strong>Сообщите проекту nDPI</strong>: Отправьте PCAP файлов на анализ.</p></li>
+<li><p><strong>Используйте политики на основе категорий</strong>: Категории более надежны, чем отдельные протоколы.</p></li>
+<li><p><strong>Ручное переопределение</strong>: использовать правила на основе IP для определенных служб.</p></li>
 </ol>
 </section>
 </section>
 <section id="policy-issues">
-<h2>Policy Issues<a class="headerlink" href="#policy-issues" title="Link to this heading"></a></h2>
+<h2>Вопросы политики<a class="headerlink" href="#policy-issues" title="Link to this heading"></a></h2>
 <section id="policy-not-applied">
-<h3>Policy Not Applied<a class="headerlink" href="#policy-not-applied" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: Policy rules are not being enforced</p>
-<p><strong>Diagnosis</strong>:</p>
+<h3>Политика не применяется<a class="headerlink" href="#policy-not-applied" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: Правила политики не соблюдаются.</p>
+<p><strong>Диагностика</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Check<span class="w"> </span><span class="k">if</span><span class="w"> </span>policy<span class="w"> </span>file<span class="w"> </span>is<span class="w"> </span>being<span class="w"> </span>loaded
 <span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json -v</span>
-<span class="gp"># </span>Look<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s2">&quot;Loading policy&quot;</span><span class="w"> </span>messages
+<span class="gp"># </span>Look<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s2">"Loading policy"</span><span class="w"> </span>messages
 
 <span class="gp"># </span>Verify<span class="w"> </span>JSON<span class="w"> </span>syntax
 <span class="go">cat /etc/nedgelite/policy.json | jq .</span>
 </pre></div>
 </div>
-<p><strong>Solutions</strong>:</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>JSON syntax error</strong>:</p>
+<li><p><strong>JSON синтаксическая ошибка</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Validate<span class="w"> </span>JSON
 <span class="go">cat /etc/nedgelite/policy.json | jq .</span>
 <span class="gp"># </span>Fix<span class="w"> </span>any<span class="w"> </span>syntax<span class="w"> </span>errors
 </pre></div>
 </div>
 </li>
-<li><p><strong>Pool not matching traffic</strong>:</p>
-<p>Verify IP ranges in pool definition:</p>
+<li><p><strong>Пул не соответствует трафику</strong>:</p>
+<p>Проверьте диапазоны IP-адресов в определении пула:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;192.168.1.0/24&quot;</span><span class="p">],</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">Mus</span><span class="kc">t</span><span class="w"> </span><span class="err">ma</span><span class="kc">t</span><span class="err">ch</span><span class="w"> </span><span class="err">ac</span><span class="kc">tual</span><span class="w"> </span><span class="kc">traff</span><span class="err">ic</span>
+<span class="w">  </span><span class="nt">"pool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"192.168.1.0/24"</span><span class="p">],</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">Mus</span><span class="kc">t</span><span class="w"> </span><span class="err">ma</span><span class="kc">t</span><span class="err">ch</span><span class="w"> </span><span class="err">ac</span><span class="kc">tual</span><span class="w"> </span><span class="kc">traff</span><span class="err">ic</span>
 <span class="w">    </span><span class="err">...</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Reload policy</strong>:</p>
+<li><p><strong>Политика перезагрузки</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo kill -HUP $(pidof nedgelite)</span>
 </pre></div>
 </div>
@@ -450,23 +434,23 @@
 </ol>
 </section>
 <section id="policy-changes-not-taking-effect">
-<h3>Policy Changes Not Taking Effect<a class="headerlink" href="#policy-changes-not-taking-effect" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: Modifications to policy file have no effect</p>
-<p><strong>Solutions</strong>:</p>
+<h3>Изменения политики не вступают в силу<a class="headerlink" href="#policy-changes-not-taking-effect" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: Изменения в файле политики не имеют эффекта.</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Reload policy</strong>:</p>
+<li><p><strong>Политика перезагрузки</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo kill -HUP $(pidof nedgelite)</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Restart nEdge Lite</strong>:</p>
+<li><p><strong>Перезапустите nEdge Lite.</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo killall nedgelite</span>
 <span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json -z tcp://127.0.0.1:1234</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Clear conntrack</strong>:</p>
-<p>Existing connections retain old marks:</p>
+<li><p><strong>Очистить соединение</strong>:</p>
+<p>Существующие соединения сохраняют старые отметки:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo conntrack -F</span>
 </pre></div>
 </div>
@@ -475,11 +459,11 @@
 </section>
 </section>
 <section id="ntopng-integration-issues">
-<h2>ntopng Integration Issues<a class="headerlink" href="#ntopng-integration-issues" title="Link to this heading"></a></h2>
+<h2>ntopng Проблемы интеграции<a class="headerlink" href="#ntopng-integration-issues" title="Link to this heading"></a></h2>
 <section id="no-flows-appearing-in-ntopng">
-<h3>No Flows Appearing in ntopng<a class="headerlink" href="#no-flows-appearing-in-ntopng" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: nEdge Lite is running but ntopng shows no flows</p>
-<p><strong>Diagnosis</strong>:</p>
+<h3>В ntopng никаких потоков не появляется<a class="headerlink" href="#no-flows-appearing-in-ntopng" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: nEdge Lite работает, но ntopng не отображает потоки.</p>
+<p><strong>Диагностика</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Check<span class="w"> </span>ZMQ<span class="w"> </span>connection
 <span class="go">sudo netstat -tn | grep 1234</span>
 
@@ -487,24 +471,24 @@
 <span class="go">ps aux | grep ntopng | grep tcp://</span>
 </pre></div>
 </div>
-<p><strong>Solutions</strong>:</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Endpoint mismatch</strong>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>ntopng<span class="w"> </span>must<span class="w"> </span>have<span class="w"> </span>trailing<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<li><p><strong>Несоответствие конечной точки</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>ntopng<span class="w"> </span>must<span class="w"> </span>have<span class="w"> </span>trailing<span class="w"> </span><span class="s1">'c'</span>
 <span class="go">sudo ntopng -i tcp://127.0.0.1:1234c</span>
 
-<span class="gp"># </span>nEdge<span class="w"> </span>Lite<span class="w"> </span>must<span class="w"> </span>NOT<span class="w"> </span>have<span class="w"> </span>trailing<span class="w"> </span><span class="s1">&#39;c&#39;</span>
+<span class="gp"># </span>nEdge<span class="w"> </span>Lite<span class="w"> </span>must<span class="w"> </span>NOT<span class="w"> </span>have<span class="w"> </span>trailing<span class="w"> </span><span class="s1">'c'</span>
 <span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Firewall blocking ZMQ</strong>:</p>
+<li><p><strong>Блокировка брандмауэра ZMQ</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Allow<span class="w"> </span>TCP<span class="w"> </span>port<span class="w"> </span><span class="m">1234</span>
 <span class="go">sudo iptables -A INPUT -p tcp --dport 1234 -j ACCEPT</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>ntopng not running</strong>:</p>
+<li><p><strong>ntopng не работает</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ps aux | grep ntopng</span>
 <span class="gp"># </span>Start<span class="w"> </span>ntopng<span class="w"> </span><span class="k">if</span><span class="w"> </span>not<span class="w"> </span>running
 </pre></div>
@@ -513,34 +497,34 @@
 </ol>
 </section>
 <section id="zmq-connection-refused">
-<h3>ZMQ Connection Refused<a class="headerlink" href="#zmq-connection-refused" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">Connection</span> <span class="pre">refused</span></code> when nEdge Lite tries to connect to ntopng</p>
-<p><strong>Solutions</strong>:</p>
+<h3>ZMQ Отказ в соединении<a class="headerlink" href="#zmq-connection-refused" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: <code class="docutils literal notranslate"><span class="pre">Connection</span> <span class="pre">refused</span></code> когда nEdge Lite пытается подключиться к ntopng</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Start ntopng first</strong>:</p>
+<li><p><strong>Сначала начните ntopng</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ntopng -i tcp://0.0.0.0:1234c</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Check ntopng is listening</strong>:</p>
+<li><p><strong>Проверьте, что ntopng слушает</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo netstat -tnlp | grep 1234</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Verify endpoint address</strong>:</p>
+<li><p><strong>Проверьте адрес конечной точки</strong>:</p>
 <ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code> on ntopng to listen on all interfaces</p></li>
-<li><p>Use correct IP address in nEdge Lite <code class="docutils literal notranslate"><span class="pre">-z</span></code> option</p></li>
+<li><p>Использовать <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code> на ntopng для прослушивания на всех интерфейсах</p></li>
+<li><p>Используйте правильный IP-адрес в nEdge Lite <code class="docutils literal notranslate"><span class="pre">-z</span></code> вариант</p></li>
 </ul>
 </li>
 </ol>
 </section>
 <section id="policy-updates-from-ntopng-not-working">
-<h3>Policy Updates from ntopng Not Working<a class="headerlink" href="#policy-updates-from-ntopng-not-working" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: Changes in ntopng GUI don’t affect nEdge Lite</p>
-<p><strong>Solutions</strong>:</p>
+<h3>Обновления политики от ntopng не работают<a class="headerlink" href="#policy-updates-from-ntopng-not-working" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: Изменения в ntopng GUI не влияют на nEdge Lite.</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Verify policy endpoint</strong>:</p>
+<li><p><strong>Проверка конечной точки политики</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>ntopng<span class="w"> </span>must<span class="w"> </span>publish<span class="w"> </span>events
 <span class="go">sudo ntopng -i tcp://0.0.0.0:5556c --zmq-publish-events tcp://0.0.0.0:5557</span>
 
@@ -549,12 +533,12 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Check ZMQ policy connection</strong>:</p>
+<li><p><strong>Проверьте подключение политики ZMQ</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo netstat -tn | grep 5557</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Restart both services</strong>:</p>
+<li><p><strong>Перезапустите обе службы</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo killall ntopng nedgelite</span>
 <span class="gp"># </span>Start<span class="w"> </span>ntopng<span class="w"> </span>first,<span class="w"> </span><span class="k">then</span><span class="w"> </span>nEdge<span class="w"> </span>Lite
 </pre></div>
@@ -564,35 +548,35 @@
 </section>
 </section>
 <section id="performance-issues">
-<h2>Performance Issues<a class="headerlink" href="#performance-issues" title="Link to this heading"></a></h2>
+<h2>Проблемы с производительностью<a class="headerlink" href="#performance-issues" title="Link to this heading"></a></h2>
 <section id="high-cpu-usage">
-<h3>High CPU Usage<a class="headerlink" href="#high-cpu-usage" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: nEdge Lite consuming excessive CPU</p>
-<p><strong>Causes</strong>:</p>
+<h3>Высокое использование CPU<a class="headerlink" href="#high-cpu-usage" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: nEdge Lite потребляет слишком много CPU</p>
+<p><strong>Причины</strong>:</p>
 <ul class="simple">
-<li><p>High packet rate</p></li>
-<li><p>Complex policies</p></li>
-<li><p>Too frequent flow updates</p></li>
+<li><p>Высокая скорость передачи пакетов</p></li>
+<li><p>Комплексная политика</p></li>
+<li><p>Слишком частые обновления потока</p></li>
 </ul>
-<p><strong>Solutions</strong>:</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Use multiple queues</strong>:</p>
+<li><p><strong>Используйте несколько очередей</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0:$(nproc) -z tcp://127.0.0.1:1234</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Reduce flow update frequency</strong>:</p>
+<li><p><strong>Уменьшите частоту обновления потока</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -u 60</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Optimize policies</strong>:</p>
+<li><p><strong>Оптимизация политик</strong>:</p>
 <ul class="simple">
-<li><p>Use category filters instead of many protocol filters</p></li>
-<li><p>Simplify policy logic</p></li>
+<li><p>Используйте фильтры категорий вместо множества фильтров протоколов.</p></li>
+<li><p>Упростите логику политики</p></li>
 </ul>
 </li>
-<li><p><strong>System tuning</strong>:</p>
+<li><p><strong>Настройка системы</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Increase<span class="w"> </span>conntrack<span class="w"> </span>table
 <span class="go">sudo sysctl -w net.netfilter.nf_conntrack_max=1048576</span>
 </pre></div>
@@ -601,28 +585,28 @@
 </ol>
 </section>
 <section id="high-memory-usage">
-<h3>High Memory Usage<a class="headerlink" href="#high-memory-usage" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: nEdge Lite memory usage growing over time</p>
-<p><strong>Diagnosis</strong>:</p>
+<h3>Высокое использование памяти<a class="headerlink" href="#high-memory-usage" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: Использование памяти nEdge Lite со временем растет.</p>
+<p><strong>Диагностика</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Monitor<span class="w"> </span>memory
 <span class="go">ps aux | grep nedgelite</span>
 <span class="go">pmap $(pidof nedgelite)</span>
 </pre></div>
 </div>
-<p><strong>Causes</strong>:</p>
+<p><strong>Причины</strong>:</p>
 <ul class="simple">
-<li><p>Large number of concurrent flows</p></li>
-<li><p>Flow leaks (not being purged)</p></li>
+<li><p>Большое количество одновременных потоков</p></li>
+<li><p>Утечки потока (не очищаются)</p></li>
 </ul>
-<p><strong>Solutions</strong>:</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Normal behavior</strong>: ~2-3KB per active flow is expected</p></li>
-<li><p><strong>Adjust idle timeout</strong>: If flows aren’t being purged, check conntrack timeouts:</p>
+<li><p><strong>Нормальное поведение</strong>: ожидается ~2–3 КБ на активный поток.</p></li>
+<li><p><strong>Настройка тайм-аута простоя</strong>: Если потоки не очищаются, проверьте таймауты conntrack:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo sysctl -w net.netfilter.nf_conntrack_tcp_timeout_established=3600</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Monitor flow count</strong>:</p>
+<li><p><strong>Мониторинг количества потоков</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo conntrack -C  # Show connection count</span>
 </pre></div>
 </div>
@@ -630,22 +614,22 @@
 </ol>
 </section>
 <section id="network-latency">
-<h3>Network Latency<a class="headerlink" href="#network-latency" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: Increased latency when nEdge Lite is running</p>
-<p><strong>Solutions</strong>:</p>
+<h3>Задержка сети<a class="headerlink" href="#network-latency" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: увеличена задержка при работе nEdge Lite.</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Optimize queue processing</strong>:</p>
+<li><p><strong>Оптимизация обработки очереди</strong>:</p>
 <ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">--queue-cpu-fanout</span></code> in iptables</p></li>
-<li><p>Pin nEdge Lite to dedicated cores</p></li>
+<li><p>Использовать <code class="docutils literal notranslate"><span class="pre">--queue-cpu-fanout</span></code> в iptables</p></li>
+<li><p>Прикрепите nEdge Lite к выделенным ядрам</p></li>
 </ul>
 </li>
-<li><p><strong>Disable flow batching</strong>:</p>
+<li><p><strong>Отключить пакетирование потока</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -f</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Check queue depth</strong>:</p>
+<li><p><strong>Проверить глубину очереди</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /proc/net/netfilter/nfnetlink_queue</span>
 </pre></div>
 </div>
@@ -654,11 +638,11 @@
 </section>
 </section>
 <section id="system-issues">
-<h2>System Issues<a class="headerlink" href="#system-issues" title="Link to this heading"></a></h2>
+<h2>Системные проблемы<a class="headerlink" href="#system-issues" title="Link to this heading"></a></h2>
 <section id="kernel-module-not-loading">
-<h3>Kernel Module Not Loading<a class="headerlink" href="#kernel-module-not-loading" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">modprobe:</span> <span class="pre">FATAL:</span> <span class="pre">Module</span> <span class="pre">nfnetlink_queue</span> <span class="pre">not</span> <span class="pre">found</span></code></p>
-<p><strong>Solutions</strong>:</p>
+<h3>Модуль ядра не загружается<a class="headerlink" href="#kernel-module-not-loading" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: <code class="docutils literal notranslate"><span class="pre">modprobe:</span> <span class="pre">FATAL:</span> <span class="pre">Module</span> <span class="pre">nfnetlink_queue</span> <span class="pre">not</span> <span class="pre">found</span></code></p>
+<p><strong>Решения</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Install<span class="w"> </span>kernel<span class="w"> </span>modules
 <span class="gp"># </span>Ubuntu/Debian
 <span class="go">sudo apt-get install linux-headers-$(uname -r)</span>
@@ -673,14 +657,14 @@
 </div>
 </section>
 <section id="conntrack-table-full">
-<h3>Conntrack Table Full<a class="headerlink" href="#conntrack-table-full" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">nf_conntrack:</span> <span class="pre">table</span> <span class="pre">full,</span> <span class="pre">dropping</span> <span class="pre">packet</span></code></p>
-<p><strong>Solutions</strong>:</p>
+<h3>Таблица Conntrack заполнена<a class="headerlink" href="#conntrack-table-full" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: <code class="docutils literal notranslate"><span class="pre">nf_conntrack:</span> <span class="pre">table</span> <span class="pre">full,</span> <span class="pre">dropping</span> <span class="pre">packet</span></code></p>
+<p><strong>Решения</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Increase<span class="w"> </span>conntrack<span class="w"> </span>table<span class="w"> </span>size
 <span class="go">sudo sysctl -w net.netfilter.nf_conntrack_max=1048576</span>
 
 <span class="gp"># </span>Make<span class="w"> </span>persistent
-<span class="go">echo &quot;net.netfilter.nf_conntrack_max=1048576&quot; | \</span>
+<span class="go">echo "net.netfilter.nf_conntrack_max=1048576" | \</span>
 <span class="go">  sudo tee -a /etc/sysctl.conf</span>
 
 <span class="gp"># </span>Verify
@@ -689,13 +673,13 @@
 </div>
 </section>
 <section id="out-of-memory">
-<h3>Out of Memory<a class="headerlink" href="#out-of-memory" title="Link to this heading"></a></h3>
-<p><strong>Problem</strong>: Kernel OOM killer terminates nEdge Lite</p>
-<p><strong>Solutions</strong>:</p>
+<h3>Недостаточно памяти<a class="headerlink" href="#out-of-memory" title="Link to this heading"></a></h3>
+<p><strong>Проблема</strong>: Убийца Kernel OOM прекращает работу nEdge Lite</p>
+<p><strong>Решения</strong>:</p>
 <ol class="arabic">
-<li><p><strong>Add more RAM</strong></p></li>
-<li><p><strong>Reduce flow count</strong>: Implement aggressive timeout policies</p></li>
-<li><p><strong>Limit nEdge Lite memory</strong>:</p>
+<li><p><strong>Добавьте еще RAM</strong></p></li>
+<li><p><strong>Уменьшите количество потоков</strong>: Реализация агрессивной политики тайм-аута.</p></li>
+<li><p><strong>Ограничить память nEdge Lite</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Use<span class="w"> </span>systemd<span class="w"> </span>to<span class="w"> </span>limit<span class="w"> </span>memory
 <span class="go">sudo systemctl set-property nedgelite.service MemoryMax=1G</span>
 </pre></div>
@@ -705,15 +689,15 @@
 </section>
 </section>
 <section id="debugging-techniques">
-<h2>Debugging Techniques<a class="headerlink" href="#debugging-techniques" title="Link to this heading"></a></h2>
+<h2>Методы отладки<a class="headerlink" href="#debugging-techniques" title="Link to this heading"></a></h2>
 <section id="verbose-logging">
-<h3>Verbose Logging<a class="headerlink" href="#verbose-logging" title="Link to this heading"></a></h3>
+<h3>Подробное ведение журнала<a class="headerlink" href="#verbose-logging" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json -z tcp://127.0.0.1:1234 -v</span>
 </pre></div>
 </div>
 </section>
 <section id="packet-capture">
-<h3>Packet Capture<a class="headerlink" href="#packet-capture" title="Link to this heading"></a></h3>
+<h3>Захват пакетов<a class="headerlink" href="#packet-capture" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Capture<span class="w"> </span>packets<span class="w"> </span>going<span class="w"> </span>to<span class="w"> </span>NFQUEUE
 <span class="go">sudo tcpdump -i any -w /tmp/capture.pcap</span>
 
@@ -723,9 +707,9 @@
 </div>
 </section>
 <section id="conntrack-monitoring">
-<h3>Conntrack Monitoring<a class="headerlink" href="#conntrack-monitoring" title="Link to this heading"></a></h3>
+<h3>Мониторинг Conntrack<a class="headerlink" href="#conntrack-monitoring" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Watch<span class="w"> </span>connections<span class="w"> </span><span class="k">in</span><span class="w"> </span>real-time
-<span class="go">watch -n 1 &#39;sudo conntrack -L | head -20&#39;</span>
+<span class="go">watch -n 1 'sudo conntrack -L | head -20'</span>
 
 <span class="gp"># </span>Show<span class="w"> </span>statistics
 <span class="go">sudo conntrack -S</span>
@@ -736,7 +720,7 @@
 </div>
 </section>
 <section id="iptables-rule-verification">
-<h3>iptables Rule Verification<a class="headerlink" href="#iptables-rule-verification" title="Link to this heading"></a></h3>
+<h3>Проверка правил iptables<a class="headerlink" href="#iptables-rule-verification" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>List<span class="w"> </span>mangle<span class="w"> </span>table<span class="w"> </span>with<span class="w"> </span>counters
 <span class="go">sudo iptables -t mangle -L -n -v</span>
 
@@ -747,9 +731,9 @@
 </div>
 </section>
 <section id="system-logs">
-<h3>System Logs<a class="headerlink" href="#system-logs" title="Link to this heading"></a></h3>
+<h3>Системные журналы<a class="headerlink" href="#system-logs" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Check<span class="w"> </span>kernel<span class="w"> </span>messages
-<span class="go">sudo dmesg | grep -i &quot;nf_queue\|conntrack\|nedgelite&quot;</span>
+<span class="go">sudo dmesg | grep -i "nf_queue\|conntrack\|nedgelite"</span>
 
 <span class="gp"># </span>Check<span class="w"> </span>system<span class="w"> </span>logs
 <span class="go">sudo journalctl -u nedgelite -f  # If running as systemd service</span>
@@ -758,12 +742,12 @@
 </section>
 </section>
 <section id="getting-help">
-<h2>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h2>
-<p>If you cannot resolve an issue:</p>
+<h2>Получение помощи<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h2>
+<p>Если вы не можете решить проблему:</p>
 <ol class="arabic">
-<li><p><strong>Check Documentation</strong>: Review relevant sections of this guide</p></li>
-<li><p><strong>Search Issues</strong>: Look for similar issues on GitHub</p></li>
-<li><p><strong>Collect Diagnostics</strong>:</p>
+<li><p><strong>Проверьте документацию</strong>: просмотрите соответствующие разделы данного руководства.</p></li>
+<li><p><strong>Проблемы с поиском</strong>: ищите похожие проблемы на GitHub.</p></li>
+<li><p><strong>Соберите диагностику</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>System<span class="w"> </span>info
 <span class="go">uname -a</span>
 <span class="go">nedgelite --version</span>
@@ -780,61 +764,55 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>Report Bug</strong>: <a class="reference external" href="https://github.com/ntop/nEdge">https://github.com/ntop/nEdge</a> Lite/issues</p></li>
+<li><p><strong>Сообщить об ошибке</strong>: <a class="reference external" href="https://github.com/ntop/nEdge">https://github.com/ntop/nEdge</a> Lite/проблемы</p></li>
 </ol>
-<p>Include:</p>
+<p>Включать:</p>
 <ul class="simple">
-<li><p>nEdge Lite version</p></li>
-<li><p>Operating system and kernel version</p></li>
-<li><p>Configuration files</p></li>
-<li><p>Log output with <code class="docutils literal notranslate"><span class="pre">-v</span></code> flag</p></li>
-<li><p>Steps to reproduce</p></li>
+<li><p>версия nEdge Lite</p></li>
+<li><p>Операционная система и версия ядра</p></li>
+<li><p>Конфигурационные файлы</p></li>
+<li><p>Вывод журнала с <code class="docutils literal notranslate"><span class="pre">-v</span></code> флаг</p></li>
+<li><p>Шаги по воспроизведению</p></li>
 </ul>
 <ol class="arabic simple" start="5">
-<li><p><strong>Commercial Support</strong>: Contact ntop.org for professional support</p></li>
+<li><p><strong>Коммерческая поддержка</strong>: Свяжитесь с ntop.org для получения профессиональной поддержки.</p></li>
 </ol>
 </section>
 <section id="next-steps">
-<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<h2>Следующие шаги<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>Review <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> for optimization options</p></li>
-<li><p>Learn about <a class="reference internal" href="advanced.html"><span class="doc">Advanced Features</span></a> features</p></li>
-<li><p>Consult <span class="xref std std-doc">architecture</span> for technical details</p></li>
+<li><p>Обзор <a class="reference internal" href="configuration.html"><span class="doc">Конфигурация</span></a> для вариантов оптимизации</p></li>
+<li><p>Узнайте о <a class="reference internal" href="advanced.html"><span class="doc">Расширенные функции</span></a> функции</p></li>
+<li><p>Проконсультируйтесь <span class="xref std std-doc">архитектура</span> для технических подробностей</p></li>
 </ul>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="advanced.html" rel="prev" title="Advanced Features"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="license.html" rel="next" title="License Management">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2025, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="advanced.html" class="btn btn-neutral float-left" title="Advanced Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="license.html" class="btn btn-neutral float-right" title="License Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2025, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/nedgelite/troubleshooting.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:27 GMT -->
 </html>

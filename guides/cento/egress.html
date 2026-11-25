@@ -1,82 +1,70 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-
+<html class="writer-html5" data-content_root="./" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/cento/egress.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:24 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Egress Queues &mdash; cento 1.15 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
-
-  
-      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_optionsd5c8.js?v=e6db31ea"></script>
-      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Network Bridge" href="bridge.html" />
-    <link rel="prev" title="Flow Offload" href="offload.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
-            cento
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Выходные очереди — документация cento 1.15</title>
+<link href="_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<script src="_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="_static/documentation_optionsd5c8.js?v=e6db31ea"></script>
+<script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="bridge.html" rel="next" title="Network Bridge"/>
+<link href="offload.html" rel="prev" title="Flow Offload"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
+            центо
+              <img alt="Logo" class="logo" src="_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/cento/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/cento/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="versions.html">Models Comparison Table</a></li>
-<li class="toctree-l1"><a class="reference internal" href="definitions.html">Definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usecases.html">Use Cases</a></li>
-<li class="toctree-l1"><a class="reference internal" href="clickhouse.html">ClickHouse Export</a></li>
-<li class="toctree-l1"><a class="reference internal" href="offload.html">Flow Offload</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Egress Queues</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#policing-egress-queues-traffic">Policing Egress Queues Traffic</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#policy-rules">Policy Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Таблица сравнения моделей</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Определения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usecases.html">Варианты использования</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clickhouse.html">ClickHouse Экспорт</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offload.html">Разгрузка потока</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Выходные очереди</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#policing-egress-queues-traffic">Контроль трафика исходящих очередей</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#policy-rules">Правила политики</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#the-egress-queues-configuration-file">The Egress Queues Configuration File</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#shunting">Shunting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#aggregated-egress-queue">Aggregated Egress Queue</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#balanced-egress-queues">Balanced Egress Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-egress-queues-configuration-file">Файл конфигурации выходных очередей</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#shunting">Шунтирование</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aggregated-egress-queue">Объединенная выходная очередь</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#balanced-egress-queues">Сбалансированные исходящие очереди</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#the-egress-queues-runtime-rest-configuration-api">The Egress Queues runtime REST Configuration API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-egress-queues-runtime-rest-configuration-api">Среда выполнения выходных очередей REST Конфигурация API</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="bridge.html">Network Bridge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="options.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="systemd.html">Systemd</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Hugepages Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geolocation.html">Geolocation Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bridge.html">Сетевой мост</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">Системад</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Конфигурация огромных страниц</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geolocation.html">База данных геолокации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">Ссылки</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
@@ -88,102 +76,98 @@
 <li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">cento</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Egress Queues</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/egress.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="egress-queues">
-<h1>Egress Queues<a class="headerlink" href="#egress-queues" title="Link to this heading"></a></h1>
-<p>As it has already been introduced in section “Use Cases”, nProbe™ Cento implements (in the cento-ids binary) traffic forwarding functionalities that allow to:</p>
-<ul class="simple">
-<li><p>Capture packets from multiple input interfaces and forward them towards a single, aggregated egress queue.</p></li>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">центо</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">Выходные очереди</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/egress.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
 </ul>
-<a class="reference internal image-reference" href="_images/cento_egress_single.png"><img alt="_images/cento_egress_single.png" class="align-center" src="_images/cento_egress_single.png" style="width: 409.2px; height: 209.4px;" />
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="egress-queues">
+<h1>Выходные очереди<a class="headerlink" href="#egress-queues" title="Link to this heading"></a></h1>
+<p>Как уже было представлено в разделе «Случаи использования», nProbe™ Cento реализует (в двоичном формате cento-ids) функции перенаправления трафика, которые позволяют:</p>
+<ul class="simple">
+<li><p>Перехватывайте пакеты из нескольких входных интерфейсов и пересылайте их в единую агрегированную выходную очередь.</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/cento_egress_single.png"><img alt="_images/cento_egress_single.png" class="align-center" src="_images/cento_egress_single.png" style="width: 409.2px; height: 209.4px;"/>
 </a>
 <ul class="simple">
-<li><p>Capture packets from an input interface and forward them towards multiple, balanced egress queues.</p></li>
+<li><p>Захватывайте пакеты из входного интерфейса и пересылайте их в несколько сбалансированных выходных очередей.</p></li>
 </ul>
-<a class="reference internal image-reference" href="_images/cento_egress_balanced.png"><img alt="_images/cento_egress_balanced.png" class="align-center" src="_images/cento_egress_balanced.png" style="width: 402.59999999999997px; height: 146.4px;" />
+<a class="reference internal image-reference" href="_images/cento_egress_balanced.png"><img alt="_images/cento_egress_balanced.png" class="align-center" src="_images/cento_egress_balanced.png" style="width: 402.59999999999997px; height: 146.4px;"/>
 </a>
 <ul class="simple">
-<li><p>Capture packets from one or more input interfaces and simultaneously forward them to multiple balanced queues and to a single aggregated queue.</p></li>
+<li><p>Перехватывайте пакеты из одного или нескольких входных интерфейсов и одновременно пересылайте их в несколько сбалансированных очередей и в одну агрегированную очередь.</p></li>
 </ul>
-<a class="reference internal image-reference" href="_images/cento_egress_single_and_balanced.png"><img alt="_images/cento_egress_single_and_balanced.png" class="align-center" src="_images/cento_egress_single_and_balanced.png" style="width: 403.2px; height: 206.4px;" />
+<a class="reference internal image-reference" href="_images/cento_egress_single_and_balanced.png"><img alt="_images/cento_egress_single_and_balanced.png" class="align-center" src="_images/cento_egress_single_and_balanced.png" style="width: 403.2px; height: 206.4px;"/>
 </a>
-<p>An egress queue is said to be aggregated when it carries packets coming from multiple input interfaces. Conversely, it is said to be balanced when it carry a subset of packets originated at the input interface.</p>
-<p>Often, a bare packet forwarder doesn’t suffice as one may need some flexibility to policy the traffic that goes through the output queues. For example, if the egress queue used by a packet recorder, one may save valuable space by avoid recording encrypted traffic payloads. Similarly, when the balanced egress queues are sent to IDS/IPS, one may reduce the load on the processors by dropping encrypted packets.</p>
+<p>Говорят, что выходная очередь агрегируется, когда она содержит пакеты, поступающие от нескольких входных интерфейсов. И наоборот, его называют сбалансированным, если он несет подмножество пакетов, исходящих из входного интерфейса.</p>
+<p>Часто простого перенаправления пакетов недостаточно, поскольку может потребоваться некоторая гибкость для политики трафика, проходящего через выходные очереди. Например, если выходная очередь используется устройством записи пакетов, можно сэкономить ценное пространство, избегая записи полезных данных зашифрованного трафика. Аналогичным образом, когда сбалансированные выходные очереди отправляются в IDS/IPS, можно снизить нагрузку на процессоры, отбрасывая зашифрованные пакеты.</p>
 <section id="policing-egress-queues-traffic">
-<h2>Policing Egress Queues Traffic<a class="headerlink" href="#policing-egress-queues-traffic" title="Link to this heading"></a></h2>
-<p>Both aggregated and balanced egress queues allow a fine-grained traffic control through a set of hierarchical rules. Rules are submitted using a text file during nProbe™ Cento startup or dynamically via a REST API. nProbe™ Cento can be instructed to re-read the rules text file by sending a SIGHUP to the process (e.g., kill -SIGHUP &lt;process id&gt;). This can be useful for example to update the policies without stopping and restarting the process.</p>
-<p>Rules can be applied at three different levels, namely:</p>
+<h2>Контроль трафика исходящих очередей<a class="headerlink" href="#policing-egress-queues-traffic" title="Link to this heading"></a></h2>
+<p>Как агрегированные, так и сбалансированные исходящие очереди позволяют детально контролировать трафик с помощью набора иерархических правил. Правила передаются с использованием текстового файла во время запуска nProbe™ Cento или динамически через REST API. nProbe™ Cento можно дать указание перечитать текстовый файл правил, отправив процессу SIGHUP (например, kill -SIGHUP &lt;идентификатор процесса&gt;). Это может быть полезно, например, для обновления политик без остановки и перезапуска процесса.</p>
+<p>Правила могут применяться на трех разных уровнях, а именно:</p>
 <ul class="simple">
-<li><p>At the level of queue;</p></li>
-<li><p>At the level of subnet;</p></li>
-<li><p>At the level of application protocol.</p></li>
+<li><p>На уровне очереди;</p></li>
+<li><p>На уровне подсети;</p></li>
+<li><p>На уровне протокола приложения.</p></li>
 </ul>
-<p>Application protocol rules take precedence over subnet-level rules which, in turn, take precedence over the queue-level rules. Queue-level rules can be thought of as the “default” queue rules.</p>
+<p>Правила протокола приложения имеют приоритет над правилами уровня подсети, которые, в свою очередь, имеют приоритет над правилами уровня очереди. Правила уровня очереди можно рассматривать как правила очереди «по умолчанию».</p>
 <section id="policy-rules">
-<h3>Policy Rules<a class="headerlink" href="#policy-rules" title="Link to this heading"></a></h3>
-<p>As already introduced above, policies can be enforced at three different levels by means of rules. Rule types are five, namely:</p>
+<h3>Правила политики<a class="headerlink" href="#policy-rules" title="Link to this heading"></a></h3>
+<p>Как уже говорилось выше, политика может применяться на трех разных уровнях с помощью правил. Типов правил пять, а именно:</p>
 <ul class="simple">
-<li><p>Forward: forward the packet;</p></li>
-<li><p>Discard: do not forward the packet;</p></li>
-<li><p>Shunt: forward the first K packets in every flow, where K is a configurable constant;</p></li>
-<li><p>Slice-l4: cut the packet after the IP layer;</p></li>
-<li><p>Slice-l3: cut the packet after the TCP/UDP layer.</p></li>
-<li><p>Destination Queue/Interface: forward the packet to a specific queue or egress interface (balanced egress only)</p></li>
+<li><p>Переслать: переслать пакет;</p></li>
+<li><p>Discard: не пересылать пакет;</p></li>
+<li><p>Шунт: пересылка первых K пакетов в каждом потоке, где K — настраиваемая константа;</p></li>
+<li><p>Slice-l4: обрезать пакет после уровня IP;</p></li>
+<li><p>Slice-l3: вырезать пакет после слоя TCP/UDP.</p></li>
+<li><p>Очередь/интерфейс назначения: перенаправить пакет в определенную очередь или выходной интерфейс (только сбалансированный выходной интерфейс).</p></li>
 </ul>
-<p>Forward means the traffic should be delivered to the output queue as-is, without being dropped or modified.
-Discard means that the traffic doesn’t get forwarded to the output queue.
-Shunt means that only the first K packets of every flow are forwarded to the output queue. The value of K is configurable and can be set by the user.
-Slice-l4 (slice-l3) mean that the packet is forwarded only up to the layer-4 (layer-3) headers. Any layer-4 (layer-3) payload is discarded.</p>
-<p>Rules are expressed as &lt;policed unit&gt; = &lt;policy&gt;. For example, one that wants to shunt all the egress traffic will use the rule</p>
+<p>Пересылка означает, что трафик должен доставляться в очередь вывода как есть, без отбрасывания или изменения.
+Discard означает, что трафик не перенаправляется в выходную очередь.
+Шунт означает, что в выходную очередь пересылаются только первые K пакетов каждого потока. Значение K настраивается и может быть установлено пользователем.
+Slice-l4 (slice-l3) означает, что пакет пересылается только до заголовков уровня 4 (layer-3). Любая полезная нагрузка уровня 4 (уровня-3) отбрасывается.</p>
+<p>Правила выражаются как &lt;полицейский объект&gt; = &lt;политика&gt;. Например, тот, кто хочет шунтировать весь исходящий трафик, будет использовать правило</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default = shunt
 </pre></div>
 </div>
-<p>Assuming an exception is needed to waive the default rule in order to record all the traffic that originates from (is destined to) subnet 10.0.0.0/8, one will use the additional rule</p>
+<p>Предполагая, что исключение необходимо для отмены правила по умолчанию и записи всего трафика, который исходит (назначается) из подсети 10.0.0.0/8, будет использоваться дополнительное правило.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>10.0.0.0/8 = forward
 </pre></div>
 </div>
-<p>Supposing another exception is needed to waive both the default rule and the rule set on the subnet in order to always drop SSH traffic, one will add a third rule as</p>
+<p>Предположим, что необходимо еще одно исключение для отказа как от правила по умолчанию, так и от правила, установленного в подсети, чтобы всегда отбрасывать трафик SSH, добавим третье правило как</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SSH = discard
 </pre></div>
 </div>
-<p>If a specific application application protocol should be forwarded to one of the queues or network interfaces configured in a balanced egress configuration (it should be one of the interfaces listed in --balanced-egress-queues), the destination queue index or egress interface can be configured as below</p>
+<p>Если определенный протокол прикладного приложения должен быть перенаправлен в одну из очередей или сетевых интерфейсов, настроенных в сбалансированной исходящей конфигурации (это должен быть один из интерфейсов, перечисленных в --balanced-egress-queues), индекс очереди назначения или выходной интерфейс можно настроить, как показано ниже.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DNS = eth1
 </pre></div>
 </div>
-<p>Please note that the list of DPI protocols supported by cento can be printed with:</p>
+<p>Обратите внимание, что список протоколов DPI, поддерживаемых cento, можно распечатать с помощью:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento --print-ndpi-protocols</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="the-egress-queues-configuration-file">
-<h2>The Egress Queues Configuration File<a class="headerlink" href="#the-egress-queues-configuration-file" title="Link to this heading"></a></h2>
-<p>Rules are specified in a plain text file that follows the INI standard. INI is a very simple standard that specify the format of the configuration file. The configuration file is divided in sections. Every section starts with a “label” that is wrapped between square brackets, e.g., [egress.aggregated]. Every line contained after the label is related to the section. A section ends implicitly when a new section begins.</p>
-<p>nProbe™ Cento configuration files contain, between square brackets, sections corresponding to the different hierarchical levels for both aggregated and balanced egress queues. Each section contains the rules that have to be applied. An additional section is present to configure shunting. An exhaustive example of configuration file is the following</p>
+<h2>Файл конфигурации выходных очередей<a class="headerlink" href="#the-egress-queues-configuration-file" title="Link to this heading"></a></h2>
+<p>Правила указываются в текстовом файле, соответствующем стандарту INI. INI — это очень простой стандарт, определяющий формат файла конфигурации. Файл конфигурации разделен на разделы. Каждый раздел начинается с «метки», заключенной в квадратные скобки, например, [egress.aggregated]. Каждая строка, содержащаяся после метки, относится к разделу. Раздел неявно заканчивается, когда начинается новый раздел.</p>
+<p>nProbe™ Файлы конфигурации Cento содержат в квадратных скобках разделы, соответствующие различным уровням иерархии как для агрегированных, так и для сбалансированных выходных очередей. Каждый раздел содержит правила, которые необходимо применять. Присутствует дополнительный раздел для настройки шунтирования. Исчерпывающий пример файла конфигурации приведен ниже.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[egress.aggregated]
 default = shunt
 banned-hosts = discard
@@ -217,62 +201,62 @@ HTTP = 40
 SSL = 5
 </pre></div>
 </div>
-<p>In the remainder of this section is given a description of configuration file sections.</p>
+<p>В оставшейся части этого раздела дано описание разделов конфигурационного файла.</p>
 <section id="shunting">
-<h3>Shunting<a class="headerlink" href="#shunting" title="Link to this heading"></a></h3>
-<p>The [shunt] section of the configuration file allows you to specify the number of packets for each flow that have to go through any egress queue.
-This section is global and applies both to aggregated and balanced queues. The default number of packets is 10, and it can be modified using the rule:</p>
+<h3>Шунтирование<a class="headerlink" href="#shunting" title="Link to this heading"></a></h3>
+<p>Раздел [shunt] файла конфигурации позволяет указать количество пакетов для каждого потока, которые должны пройти через любую выходную очередь.
+Этот раздел является глобальным и применяется как к агрегированным, так и к сбалансированным очередям. Количество пакетов по умолчанию — 10, и его можно изменить с помощью правила:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default = 10
 </pre></div>
 </div>
-<p>The rule above sets to 10 the maximum number of packets per flow that are forwarded to the egress queues. Caps can also be set for the maximum number of packets that have to go though any tcp (e.g., tcp = 12) or udp (e.g., udp = 2) flow. Similarly, the maximum number of packets can be configured on a per-application-protocol basis. For example, to set to 40 the maximum number of packets allowed to go through ay HTTP flow, one can use the following line</p>
+<p>Приведенное выше правило устанавливает максимальное количество пакетов на поток, пересылаемых в выходные очереди, равным 10. Также можно установить ограничения для максимального количества пакетов, которые должны пройти через любой поток tcp (например, tcp = 12) или udp (например, udp = 2). Аналогично, максимальное количество пакетов можно настроить для каждого протокола приложения. Например, чтобы установить максимальное количество пакетов, которые могут пройти через поток HTTP, равное 40, можно использовать следующую строку</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>HTTP = 40
 </pre></div>
 </div>
-<p>The rule of last resort is default, that is, any flow that doesn't match any of the other rules is shunted using the default value. Application-protocol rules “override” layer-4 rules, that is, an HTTP flow transported over tcp is forwarded up to the 40th packet if one considers the examples above.</p>
-<p>All reserved keywords (in addition to nDPI protocols) are:</p>
+<p>Правилом последней инстанции является значение по умолчанию, то есть любой поток, который не соответствует ни одному из других правил, шунтируется с использованием значения по умолчанию. Правила протокола приложения «отменяют» правила уровня 4, то есть поток HTTP, транспортируемый через tcp, пересылается до 40-го пакета, если рассматривать приведенные выше примеры.</p>
+<p>Все зарезервированные ключевые слова (помимо протоколов nDPI):</p>
 <ul class="simple">
-<li><p>default</p></li>
+<li><p>по умолчанию</p></li>
 <li><p>tcp</p></li>
 <li><p>udp</p></li>
 </ul>
 </section>
 <section id="aggregated-egress-queue">
-<h3>Aggregated Egress Queue<a class="headerlink" href="#aggregated-egress-queue" title="Link to this heading"></a></h3>
-<p>Aggregated egress queues are configured via three sections, namely [egress.aggregated], [egress.aggregated.subnet] and [egress.aggregated.protocol]. Rules are indicated in every section, one per line.</p>
+<h3>Объединенная выходная очередь<a class="headerlink" href="#aggregated-egress-queue" title="Link to this heading"></a></h3>
+<p>Агрегированные выходные очереди настраиваются с помощью трех разделов: [egress.aggregated], [egress.aggregated.subnet] и [egress.aggregated.protocol]. Правила указаны в каждом разделе, по одному в строке.</p>
 <p>[egress.aggregated.protocol]
-contains application-protocol forwarding rules that must be enforced. Any application protocol is expressed using a string. The full list of application protocols available can be queries simply by running nProbe™ Cento inline help</p>
+содержит правила пересылки протокола приложения, которые необходимо соблюдать. Любой протокол приложения выражается с помощью строки. Полный список доступных протоколов приложений можно просмотреть, просто запустив встроенную справку nProbe™ Cento.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento --print-ndpi-protocols</span>
 </pre></div>
 </div>
-<p>Any line in this section has the format &lt;protocol name&gt; = &lt;policy&gt;, where policy can be any of: forward, discard, shunt, slice-l4 and slice-l3.</p>
-<p>An example is</p>
+<p>Любая строка в этом разделе имеет формат &lt;имя протокола&gt; = &lt;политика&gt;, где политика может быть любой: пересылка, отбрасывание, шунтирование, срез-l4 и срез-l3.</p>
+<p>Примером является</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[egress.aggregated.protocol]
 HTTP = forward
 SSL = slice-l4
 SSH = slice-l4
 </pre></div>
 </div>
-<p>[egress.aggregated.subnet] contains forwarding rules that are enforced at the level of subnet. Every line in this section is formatted as &lt;CIDR subnet&gt; = &lt;policy&gt;. Subnets are expressed using the common CIDR &lt;address&gt;/&lt;netmask&gt; notation. Policy can be any of: forward, discard, shunt, slice-l4 and slice-l3.</p>
-<p>An example is</p>
+<p>[egress.aggregated.subnet] содержит правила переадресации, которые применяются на уровне подсети. Каждая строка в этом разделе имеет формат &lt;CIDR подсеть&gt; = &lt;политика&gt;. Подсети выражаются с использованием общепринятой нотации CIDR &lt;адрес&gt;/&lt;сетевая маска&gt;. Политика может быть любой из следующих: пересылка, отбрасывание, шунтирование, срез-14 и срез-13.</p>
+<p>Примером является</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[egress.aggregated.subnet]
 10.0.0.1/32 = forward
 10.10.10/24 = forward
 </pre></div>
 </div>
-<p>If a flow matches both a subnet- and a protocol-level rule, then the protocol-level rule is applied.</p>
-<p>[egress.aggregated] contains the “default” egress queue policies, that is, any flow that doesn’t match any rule indicated in the subnet and protocol sections, then will be policed using the “default” rules. This section contains at most two lines, one for the default policy and the other for the policy that has to be applied to banned hosts. We refer the reader to the section “Command Line Options” for a detailed description of banned hosts.</p>
-<p>An example is</p>
+<p>Если поток соответствует как правилу уровня подсети, так и правилу уровня протокола, то применяется правило уровня протокола.</p>
+<p>[egress.aggregated] содержит политики исходящей очереди «по умолчанию», то есть любой поток, который не соответствует ни одному правилу, указанному в разделах подсети и протокола, будет контролироваться с использованием правил «по умолчанию». Этот раздел содержит не более двух строк: одну для политики по умолчанию, а другую для политики, которая должна применяться к запрещенным хостам. Мы отсылаем читателя к разделу «Параметры командной строки» для подробного описания запрещенных хостов.</p>
+<p>Примером является</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[egress.aggregated]
 default = shunt
 banned-hosts = discard
 </pre></div>
 </div>
-<p>In the example above, all the flows that are not policed via subnet- or protocol-level rules are shunted as specified in the default rule. If an host belongs to the list of banned-hosts, then all the traffic gets discarded.</p>
+<p>В приведенном выше примере все потоки, которые не контролируются правилами на уровне подсети или протокола, шунтируются, как указано в правиле по умолчанию. Если хост входит в список запрещенных хостов, то весь трафик отбрасывается.</p>
 </section>
 <section id="balanced-egress-queues">
-<h3>Balanced Egress Queues<a class="headerlink" href="#balanced-egress-queues" title="Link to this heading"></a></h3>
-<p>Balanced egress queues are configured exactly as it is described in the section above for aggregated egress queues. The only difference lays in the three section names that are:</p>
+<h3>Сбалансированные исходящие очереди<a class="headerlink" href="#balanced-egress-queues" title="Link to this heading"></a></h3>
+<p>Сбалансированные исходящие очереди настраиваются точно так же, как описано в разделе выше для агрегированных исходящих очередей. Единственное отличие заключается в трех названиях разделов:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[egress.balanced]
 
 [egress.balanced.subnet]
@@ -280,54 +264,48 @@ banned-hosts = discard
 [egress.balanced.protocol]
 </pre></div>
 </div>
-<p>Therefore, we refer the reader to the previous section for a detailed description of queues configuration.</p>
+<p>Поэтому мы отсылаем читателя к предыдущему разделу за подробным описанием настройки очередей.</p>
 </section>
 </section>
 <section id="the-egress-queues-runtime-rest-configuration-api">
-<h2>The Egress Queues runtime REST Configuration API<a class="headerlink" href="#the-egress-queues-runtime-rest-configuration-api" title="Link to this heading"></a></h2>
-<p>nProbe™ Cento has been designed to allow egress queues to be dynamically configured by means of a REST API. One of the main reasons behind the choice of exposing queues configuration though an API is to provide a feedback channel that can be used, for example, by IDS/IPS such as Suricata od Snort. Indeed, it is fundamental to provide IDS/IPS with a quick way to policy the traffic on the basis of their runtime decisions. Thanks to this API, an IDS/IPS becomes able, for example, to block an host that has just been flagged as malicious. Similarly, it can use the API to instruct nProbe™ Cento to start sending the traffic of a suspicious subnet to a traffic recorder.</p>
-<a class="reference internal image-reference" href="_images/cento_egress_rest_configuration.png"><img alt="_images/cento_egress_rest_configuration.png" class="align-center" src="_images/cento_egress_rest_configuration.png" style="width: 372.0px; height: 212.4px;" />
+<h2>Среда выполнения выходных очередей REST Конфигурация API<a class="headerlink" href="#the-egress-queues-runtime-rest-configuration-api" title="Link to this heading"></a></h2>
+<p>nProbe™ Cento был разработан, чтобы обеспечить динамическую настройку выходных очередей с помощью REST API. Одной из основных причин выбора конфигурации открытых очередей через API является обеспечение канала обратной связи, который может использоваться, например, IDS/IPS, например Suricata или Snort. Действительно, крайне важно предоставить IDS/IPS возможность быстрого управления трафиком на основе решений, принимаемых во время выполнения. Благодаря этому API IDS/IPS получает возможность, например, заблокировать хост, который только что был помечен как вредоносный. Аналогично, он может использовать API, чтобы дать команду nProbe™ Cento начать отправку трафика подозрительной подсети на устройство записи трафика.</p>
+<a class="reference internal image-reference" href="_images/cento_egress_rest_configuration.png"><img alt="_images/cento_egress_rest_configuration.png" class="align-center" src="_images/cento_egress_rest_configuration.png" style="width: 372.0px; height: 212.4px;"/>
 </a>
-<p>This API that provides the same level of flexibility that can be achieved through
-the configuration file. Indeed, the API can be used to set policy rules at any of
-the three different levels thoroughly discussed above, namely, at: the queue-, the
-subnet- and the protocol-level. We refer the interested reader to the “Policy Rules”
-section above for a detailed description of these rules.</p>
-<p>Please refer to the <em>API Documentation</em> section for the full API specification.</p>
+<p>Это API, обеспечивающее тот же уровень гибкости, которого можно достичь за счет
+файл конфигурации. Действительно, API можно использовать для установки правил политики на любом из
+три различных уровня, подробно рассмотренные выше, а именно: очередь,
+подсети и уровня протокола. Отсылаем заинтересованного читателя к «Правилам политики».
+раздел выше для подробного описания этих правил.</p>
+<p>Пожалуйста, обратитесь к <em>API Документация</em> раздел для полной спецификации API.</p>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="offload.html" rel="prev" title="Flow Offload"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="bridge.html" rel="next" title="Network Bridge">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2018, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="offload.html" class="btn btn-neutral float-left" title="Flow Offload" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="bridge.html" class="btn btn-neutral float-right" title="Network Bridge" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2018, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/cento/egress.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:29 GMT -->
 </html>

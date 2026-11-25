@@ -1,99 +1,87 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-
+<html class="writer-html5" data-content_root="../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/pf_ring/modules/af_xdp.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:50 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2. AF_XDP Support &mdash; PF_RING 9.5.0-4814 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
-      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. Silicom/Fiberblaze Support" href="fiberblaze.html" />
-    <link rel="prev" title="1. Adapters Comparison Table" href="supported_nics.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>2. Поддержка AF_XDP — документация PF_RING 9.5.0-4814.</title>
+<link href="../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
+<script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="fiberblaze.html" rel="next" title="3. Silicom/Fiberblaze Support"/>
+<link href="supported_nics.html" rel="prev" title="1. Adapters Comparison Table"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index-2.html">
             PF_RING
-              <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/pf_ring/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Get Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Vanilla PF_RING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Copy)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (Flow Table)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Sample Applications</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Drivers and Modules</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="supported_nics.html">1. Adapters Comparison Table</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">2. AF_XDP Support</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#prerequisite">2.1. Prerequisite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#kernel-version">2.2. Kernel Version</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#installation">2.3. Installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#load-the-driver">2.4. Load the driver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#load-hugepages">2.5. Load Hugepages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#usage">2.6. Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Начать</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Ванильный PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Копия)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (таблица потоков)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Примеры приложений</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Драйверы и модули</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="supported_nics.html">1. Сравнительная таблица адаптеров</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. Поддержка AF_XDP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisite">2.1. Предварительное условие</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-version">2.2. Версия ядра</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation">2.3. Установка</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-the-driver">2.4. Загрузите драйвер</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-hugepages">2.5. Загрузка огромных страниц</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">2.6. Использование</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="fiberblaze.html">3. Silicom/Fiberblaze Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="intel.html">4. Intel Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mellanox.html">5. NVIDIA/Mellanox Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="napatech.html">6. Napatech Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pcap.html">7. pcap Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stack.html">8. Linux TCP/IP Stack Injection Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="timeline.html">9. n2disk Timeline Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fiberblaze.html">3. Silicom/Поддержка Fiberblaze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intel.html">4. Intel Поддержка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mellanox.html">5. Поддержка NVIDIA/Mellanox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="napatech.html">6. Napatech Поддержка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pcap.html">7. pcap Поддержка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stack.html">8. Модуль внедрения стека Linux TCP/IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timeline.html">9. n2disk Модуль временной шкалы</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../rss.html">Load Balancing / RSS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Containers Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">VM Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">IDS/IPSs Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Hugepages Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../amd.html">AMD Processors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rss.html">Балансировка нагрузки/RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Фильтрация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Поддержка контейнеров</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">Поддержка виртуальных машин</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">Интеграция IDS/IPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Поддержка огромных страниц</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Возможности</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amd.html">Процессоры AMD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Процессоры</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">Crash Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">Аварийная отладка</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
@@ -101,65 +89,61 @@
 <li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index-2.html">PF_RING</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Drivers and Modules</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">2. </span>AF_XDP Support</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/modules/af_xdp.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="af-xdp-support">
-<h1><span class="section-number">2. </span>AF_XDP Support<a class="headerlink" href="#af-xdp-support" title="Link to this heading"></a></h1>
-<p>PF_RING (7.9 or later) includes support for AF_XDP adapters,
-when compiling from source code this is enabled by default (unless the <em>–disable-xdp</em>
-configure flag is specified).</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index-2.html">PF_RING</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="index.html">Драйверы и модули</a></li>
+<li class="breadcrumb-item active"><span class="section-number">2. </span>AF_XDP Поддержка</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/modules/af_xdp.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="af-xdp-support">
+<h1><span class="section-number">2. </span>AF_XDP Поддержка<a class="headerlink" href="#af-xdp-support" title="Link to this heading"></a></h1>
+<p>PF_RING (7.9 или более поздняя версия) включает поддержку адаптеров AF_XDP,
+при компиляции из исходного кода это включено по умолчанию (если только <em>–отключить-xdp</em>
+указан флаг конфигурации).</p>
 <section id="prerequisite">
-<h2><span class="section-number">2.1. </span>Prerequisite<a class="headerlink" href="#prerequisite" title="Link to this heading"></a></h2>
+<h2><span class="section-number">2.1. </span>Предварительное условие<a class="headerlink" href="#prerequisite" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>PF_RING 7.9.0-6671 or later</p></li>
-<li><p>Dependencies: libelf-dev</p></li>
-<li><p>Kernel: &gt;= 5.4 (configured with <cite>CONFIG_XDP_SOCKETS=y</cite>)</p></li>
-<li><p>libbpf with latest AF_XDP support installed from &lt;kernel source&gt;/tools/lib/bpf</p></li>
-<li><p>Hugepages loaded</p></li>
+<li><p>PF_RING 7.9.0-6671 или новее</p></li>
+<li><p>Зависимости: libelf-dev</p></li>
+<li><p>Ядро: &gt;= 5.4 (настроено с помощью <cite>CONFIG_XDP_SOCKETS=y</cite>)</p></li>
+<li><p>libbpf с последней поддержкой AF_XDP, установленной из &lt;источник ядра&gt;/tools/lib/bpf</p></li>
+<li><p>Огромные страницы загружены</p></li>
 </ul>
 </section>
 <section id="kernel-version">
-<h2><span class="section-number">2.2. </span>Kernel Version<a class="headerlink" href="#kernel-version" title="Link to this heading"></a></h2>
-<p>Install a kernel &gt;= 5.4, which includes support for unaligned zero-copy buffers. Ubuntu 20 LTS currently runs a kernel 5.4 which fully supports AF_XDP. However the HWE kernel 5.8 is recommended as it provides improved AF_XDP support.</p>
-<p>Install <em>libelf-dev</em>:</p>
+<h2><span class="section-number">2.2. </span>Версия ядра<a class="headerlink" href="#kernel-version" title="Link to this heading"></a></h2>
+<p>Установите ядро ​​&gt;= 5.4, которое включает поддержку невыровненных буферов копирования zero. Ubuntu 20 LTS в настоящее время использует ядро ​​5.4, которое полностью поддерживает AF_XDP. Однако рекомендуется использовать ядро ​​HWE 5.8, поскольку оно обеспечивает улучшенную поддержку AF_XDP.</p>
+<p>Установить <em>клевета-разработчик</em>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">apt install libelf-dev</span>
 </pre></div>
 </div>
-<p>On Ubuntu 18.04 you can use uktools available at <a class="reference external" href="https://github.com/usbkey9/uktools/">https://github.com/usbkey9/uktools/</a> following the instructions below:</p>
+<p>Ubuntu 18.04 вы можете использовать uktools, доступные по адресу <a class="reference external" href="https://github.com/usbkey9/uktools/">https://github.com/usbkey9/uktools/</a> следуя инструкциям ниже:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/usbkey9/uktools &amp;&amp; cd uktools</span>
 <span class="go">make</span>
 </pre></div>
 </div>
-<p>Download and unpack sources for kernel 5.x:</p>
+<p>Скачайте и распакуйте исходники ядра 5.x:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">wget http://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.8.tar.xz</span>
 <span class="go">tar xvf linux-5.8.tar.xz</span>
 </pre></div>
 </div>
-<p>Compile and install <em>libbpf</em>:</p>
+<p>Скомпилируйте и установите <em>библиотека libbpf</em>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd linux-5.8/tools/lib/bpf</span>
 <span class="go">make</span>
 <span class="go">sudo make install_lib</span>
@@ -169,82 +153,76 @@ configure flag is specified).</p>
 </div>
 </section>
 <section id="installation">
-<h2><span class="section-number">2.3. </span>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
-<p>Install PF_RING as reported in the <em>Installing from packages</em> section
-on a supported OS with a supported kernel version (e.g. Ubuntu 20) or
-compile it from source code. In the latter case AF_XDP support should
-be automatically detected and enabled:</p>
+<h2><span class="section-number">2.3. </span>Установка<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>Установите PF_RING, как указано в <em>Установка из пакетов</em> раздел
+в поддерживаемой ОС с поддерживаемой версией ядра (например, Ubuntu 20) или
+скомпилируйте его из исходного кода. В последнем случае должна поддерживаться AF_XDP.
+автоматически обнаруживаться и включаться:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd PF_RING/userland</span>
 <span class="go">./configure</span>
 <span class="go">make</span>
 </pre></div>
 </div>
-<p>Note: the –enable-xdp flag was required on previous pf_ring versions.</p>
-<p>Please make sure the below output is printed by the configure script
-(this means AF_XDP support is actually detected and enabled).</p>
+<p>Примечание. Флаг –enable-xdp требовался в предыдущих версиях pf_ring.</p>
+<p>Убедитесь, что приведенный ниже вывод распечатан сценарием настройки.
+(это означает, что поддержка AF_XDP действительно обнаружена и включена).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">checking PF_RING AF_XDP support... yes</span>
 </pre></div>
 </div>
 </section>
 <section id="load-the-driver">
-<h2><span class="section-number">2.4. </span>Load the driver<a class="headerlink" href="#load-the-driver" title="Link to this heading"></a></h2>
-<p>Load vanilla drivers (use recent drivers that include AF_XDP support, PF_RING ZC
-drivers should be unloaded as they only support PF_RING ZC mode).</p>
+<h2><span class="section-number">2.4. </span>Загрузите драйвер<a class="headerlink" href="#load-the-driver" title="Link to this heading"></a></h2>
+<p>Загрузите ванильные драйверы (используйте последние версии драйверов, включающие поддержку AF_XDP, PF_RING ZC).
+драйверы следует выгрузить, поскольку они поддерживают только режим PF_RING ZC).</p>
 </section>
 <section id="load-hugepages">
-<h2><span class="section-number">2.5. </span>Load Hugepages<a class="headerlink" href="#load-hugepages" title="Link to this heading"></a></h2>
-<p>Hugepages are required for the AF_XDP support to work (used for buffers allocation).
-When installing from packages following the <em>Installing from packages</em> guide it is
-only required to create <em>/etc/pf_ring/hugepages.conf</em>, otherwise hugepages can be
-loaded with:</p>
+<h2><span class="section-number">2.5. </span>Загрузка огромных страниц<a class="headerlink" href="#load-hugepages" title="Link to this heading"></a></h2>
+<p>Огромные страницы необходимы для работы поддержки AF_XDP (используется для распределения буферов).
+При установке из пакетов, следующих <em>Установка из пакетов</em> руководство это
+требуется только создать <em>/etc/pf_ring/hugepages.conf</em>, иначе могут получиться огромные страницы
+загружен:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 1024 &gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages</span>
 <span class="go">mount -t hugetlbfs nodev /dev/hugepages</span>
 </pre></div>
 </div>
 </section>
 <section id="usage">
-<h2><span class="section-number">2.6. </span>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
-<p>You are now ready to run any pf_ring sample application using xdp:&lt;interface&gt;&#64;&lt;queue&gt; as interface name.
-Example:</p>
+<h2><span class="section-number">2.6. </span>Использование<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>Теперь вы готовы запустить любой пример приложения pf_ring, используя xdp:&lt;interface&gt;@&lt;queue&gt; в качестве имени интерфейса.
+Пример:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd examples</span>
 <span class="go">sudo ./pfcount -i xdp:eth1@0</span>
 </pre></div>
 </div>
-<p>Please note that with AF_XDP pf_ring attaches to a NIC queue, please disable RSS or open all queues.</p>
+<p>Обратите внимание, что если AF_XDP pf_ring прикрепляется к очереди NIC, отключите RSS или откройте все очереди.</p>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="supported_nics.html" rel="prev" title="1. Adapters Comparison Table"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="fiberblaze.html" rel="next" title="3. Silicom/Fiberblaze Support">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="supported_nics.html" class="btn btn-neutral float-left" title="1. Adapters Comparison Table" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="fiberblaze.html" class="btn btn-neutral float-right" title="3. Silicom/Fiberblaze Support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/pf_ring/modules/af_xdp.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:51 GMT -->
 </html>

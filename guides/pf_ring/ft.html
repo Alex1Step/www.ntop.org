@@ -1,86 +1,74 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-
+<html class="writer-html5" data-content_root="./" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/pf_ring/ft.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:50:42 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PF_RING FT (Flow Table) &mdash; PF_RING 9.5.0-4814 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options7c40.js?v=840a9ff6"></script>
-      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Sample Applications" href="examples.html" />
-    <link rel="prev" title="PF_RING ZC (Zero Copy)" href="zc.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PF_RING FT (таблица потоков) — PF_RING документация 9.5.0-4814</title>
+<link href="_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="_static/documentation_options7c40.js?v=840a9ff6"></script>
+<script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="examples.html" rel="next" title="Sample Applications"/>
+<link href="zc.html" rel="prev" title="PF_RING ZC (Zero Copy)"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
             PF_RING
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/pf_ring/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Get Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vanilla.html">Vanilla PF_RING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="zc.html">PF_RING ZC (Zero Copy)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">PF_RING FT (Flow Table)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#api-overview">API Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ndpi-integration">nDPI Integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#l7-filtering-and-shunting">L7 Filtering and Shunting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ids-acceleration">IDS Acceleration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Начать</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vanilla.html">Ванильный PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zc.html">PF_RING ZC (Zero Копия)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PF_RING FT (таблица потоков)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#api-overview">API Обзор</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-integration">nDPI Интеграция</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#l7-filtering-and-shunting">L7 Фильтрация и шунтирование</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ids-acceleration">IDS-ускорение</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Sample Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/index.html">Drivers and Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rss.html">Load Balancing / RSS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filtering/index.html">Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers/index.html">Containers Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vm/index.html">VM Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="thirdparty/index.html">IDS/IPSs Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Hugepages Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="capabilities.html">Capabilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amd.html">AMD Processors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intel.html">Intel Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Примеры приложений</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/index.html">Драйверы и модули</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rss.html">Балансировка нагрузки/RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filtering/index.html">Фильтрация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers/index.html">Поддержка контейнеров</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vm/index.html">Поддержка виртуальных машин</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thirdparty/index.html">Интеграция IDS/IPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Поддержка огромных страниц</a></li>
+<li class="toctree-l1"><a class="reference internal" href="capabilities.html">Возможности</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amd.html">Процессоры AMD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intel.html">Intel Процессоры</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index-2.html">API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Crash Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index-2.html">API Документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Аварийная отладка</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
@@ -88,46 +76,42 @@
 <li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">PF_RING</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">PF_RING FT (Flow Table)</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/ft.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="pf-ring-ft-flow-table">
-<h1>PF_RING FT (Flow Table)<a class="headerlink" href="#pf-ring-ft-flow-table" title="Link to this heading"></a></h1>
-<p>PF_RING FT implements an optimized flow table that can be used to keep track of flows and
-extract flow metadata including the L7 protocol thanks to the native integration with nDPI.
-Using PF_RING FT it is possible to write an event-driven flow processing application focusing
-on the actual flow processing rather then the flow table management and performance, in fact
-it provides many hooks that can be used to customize and extend the core table for building
-any type of flow analysis application, including probes, IDSs, IPSs.</p>
-<img alt="_images/pfring_ft.png" src="_images/pfring_ft.png" />
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">PF_RING</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">PF_RING FT (таблица потоков)</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/ft.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="pf-ring-ft-flow-table">
+<h1>PF_RING FT (таблица потоков)<a class="headerlink" href="#pf-ring-ft-flow-table" title="Link to this heading"></a></h1>
+<p>PF_RING FT реализует оптимизированную таблицу потоков, которую можно использовать для отслеживания потоков и
+извлекайте метаданные потока, включая протокол L7, благодаря встроенной интеграции с nDPI.
+Используя PF_RING FT, можно написать приложение для обработки потоков, управляемое событиями.
+на фактической обработке потока, а не на управлении и производительности таблицы потоков, на самом деле
+он предоставляет множество хуков, которые можно использовать для настройки и расширения основной таблицы для построения
+любые приложения для анализа потока, включая датчики, IDS, IPS.</p>
+<img alt="_images/pfring_ft.png" src="_images/pfring_ft.png"/>
 <section id="api-overview">
-<h2>API Overview<a class="headerlink" href="#api-overview" title="Link to this heading"></a></h2>
-<p>Designing and implementing a flow processing application on top of PF_RING FT is quite
-straightforward as it provides a clean API that can be used to do complex things in a
-few lines of code. The following code snippet shows how it is easy to capture traffic
-and export flow informations with PF_RING FT.</p>
+<h2>API Обзор<a class="headerlink" href="#api-overview" title="Link to this heading"></a></h2>
+<p>Проектирование и реализация приложения обработки потоков на базе PF_RING FT — довольно сложная задача.
+прост, поскольку он предоставляет чистый API, который можно использовать для выполнения сложных задач в
+несколько строк кода. Следующий фрагмент кода показывает, как легко захватывать трафик.
+и информацию о потоках экспорта с помощью PF_RING FT.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pfring_ft_create_table</span><span class="p">(</span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 
 <span class="n">pfring_ft_set_flow_export_callback</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="n">processFlow</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
@@ -144,82 +128,82 @@ and export flow informations with PF_RING FT.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The full example is available on github under <a class="reference external" href="https://github.com/ntop/PF_RING/tree/dev/userland/examples_ft">examples_ft</a>.</p>
-<p>Please note that the FT API is capture-agnostic, this means that it is possible to use any capture framework
-for capturing raw traffic, in the example above we used PF_RING. When using PF_RING, there is no need to link
-additional libraries as PF_RING FT is already part of PF_RING, instead when using other framework, the <em>libpfring_ft</em>
-available under the <a class="reference external" href="https://github.com/ntop/PF_RING/tree/dev/userland/lib/libs">libs</a> folder need to be linked.</p>
-<p>In order to write an application based on PF_RING FT, the first step is to create a <em>pfring_ft_table</em> object,
-which represents a flow table instance, this can be done calling <em>pfring_ft_create_table</em>:</p>
+<p>Полный пример доступен на github в разделе <a class="reference external" href="https://github.com/ntop/PF_RING/tree/dev/userland/examples_ft">example_ft</a>.</p>
+<p>Обратите внимание, что FT API не зависит от захвата, это означает, что можно использовать любую структуру захвата.
+для захвата необработанного трафика в приведенном выше примере мы использовали PF_RING. При использовании PF_RING нет необходимости связывать
+дополнительные библиотеки, поскольку PF_RING FT уже является частью PF_RING, вместо этого при использовании другой платформы <em>libpfring_ft</em>
+доступен под <a class="reference external" href="https://github.com/ntop/PF_RING/tree/dev/userland/lib/libs">библиотеки</a> папку необходимо связать.</p>
+<p>Чтобы написать приложение на основе PF_RING FT, первым делом необходимо создать <em>pfring_ft_table</em> объект,
+который представляет экземпляр таблицы потоков, это можно сделать, вызвав <em>pfring_ft_create_table</em>:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">pfring_ft_table</span><span class="w"> </span><span class="o">*</span><span class="n">ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pfring_ft_create_table</span><span class="p">(</span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The <em>pfring_ft_create_table</em> parameters include:</p>
+<p> <em>pfring_ft_create_table</em> параметры включают в себя:</p>
 <ul class="simple">
-<li><p><em>flags</em> that can be used to enable optional features like L7 protocol detection based on nDPI (PFRING_FT_TABLE_FLAGS_DPI)</p></li>
-<li><p>the maximum number of active flows the flow table should be able to handle (default: 500K)</p></li>
-<li><p>the timeout for idle flows (default: 30 sec)</p></li>
-<li><p>the maximum flow duration/lifetime (default: 120 sec)</p></li>
+<li><p><em>флаги</em> который можно использовать для включения дополнительных функций, таких как обнаружение протокола L7 на основе nDPI (PFRING_FT_TABLE_FLAGS_DPI)</p></li>
+<li><p>максимальное количество активных потоков, которые должна обрабатывать таблица потоков (по умолчанию: 500 КБ)</p></li>
+<li><p>таймаут для бездействующих потоков (по умолчанию: 30 секунд)</p></li>
+<li><p>максимальная продолжительность/время жизни потока (по умолчанию: 120 секунд)</p></li>
 </ul>
-<p>As introduced before, the flow of an application designed on top of PF_RING FT is event-driven,
-before feeding the flow table with raw packets, the application can register for getting notified
-when there is a new event through hooks. Those events include:</p>
+<p>Как было сказано ранее, работа приложения, разработанного на основе PF_RING FT, управляется событиями.
+перед подачей в таблицу потоков необработанных пакетов приложение может зарегистрироваться для получения уведомлений
+когда происходит новое событие через крючки. Эти события включают в себя:</p>
 <ul class="simple">
-<li><p>New flow (<em>pfring_ft_set_new_flow_callback</em>)</p></li>
-<li><p>Packet classified (<em>pfring_ft_set_flow_packet_callback</em>)</p></li>
-<li><p>Flow expiration (<em>pfring_ft_set_flow_export_callback</em> or <em>pfring_ft_set_flow_list_export_callback</em>)</p></li>
+<li><p>Новый поток(<em>pfring_ft_set_new_flow_callback</em>)</p></li>
+<li><p>Пакет классифицирован (<em>pfring_ft_set_flow_packet_callback</em>)</p></li>
+<li><p>Истечение потока (<em>pfring_ft_set_flow_export_callback</em> или <em>pfring_ft_set_flow_list_export_callback</em>)</p></li>
 </ul>
-<p>Registering for events notificaiton means setting a callback that will be called, for instance, when
-a flow is expired and should be processed (e.g. exported in case of a Netflow application):</p>
+<p>Регистрация для получения уведомлений о событиях означает настройку обратного вызова, который будет вызываться, например, когда
+срок действия потока истек, и его следует обработать (например, экспортировать в случае приложения Netflow):</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">pfring_ft_set_flow_export_callback</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="n">processFlow</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>In this example, <em>processFlow</em> is the callback that will be called when the event is triggered.
-This callback can access flow information including the flow key (5-tuple) and built-in flow data collected
-by FT (please note that the application can extend this data accessing custom metadata with the
-<em>pfring_ft_flow_value.user</em> pointer), in order to compute actions based on the flow status.</p>
+<p>В этом примере <em>процессПоток</em> — это обратный вызов, который будет вызываться при возникновении события.
+Этот обратный вызов может получить доступ к информации о потоке, включая ключ потока (5-кортеж) и собранные встроенные данные потока.
+от FT (обратите внимание, что приложение может расширять эти данные, получая доступ к пользовательским метаданным с помощью
+<em>pfring_ft_flow_value.user</em> указатель), чтобы вычислять действия на основе состояния потока.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">processFlow</span><span class="p">(</span><span class="n">pfring_ft_flow</span><span class="w"> </span><span class="o">*</span><span class="n">flow</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user</span><span class="p">){</span>
 <span class="w">  </span><span class="n">pfring_ft_flow_value</span><span class="w"> </span><span class="o">*</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pfring_ft_flow_get_value</span><span class="p">(</span><span class="n">flow</span><span class="p">);</span>
 
 <span class="w">  </span><span class="cm">/* Example of printing the L7 protocol for this flow: */</span>
-<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;l7: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pfring_ft_l7_protocol_name</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="o">-&gt;</span><span class="n">l7_protocol</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">)));</span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">"l7: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">pfring_ft_l7_protocol_name</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="o">-&gt;</span><span class="n">l7_protocol</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">)));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Finally, we need to feed the flow table with raw packets, this is achieved calling <em>pfring_ft_process</em> in
-the main capture loop for every packet.</p>
+<p>Наконец, нам нужно заполнить таблицу потоков необработанными пакетами, это достигается вызовом <em>pfring_ft_process</em> в
+основной цикл захвата для каждого пакета.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pfring_recv</span><span class="p">(</span><span class="n">pd</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buffer_p</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">hdr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
 <span class="w">    </span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pfring_ft_process</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">pfring_ft_pcap_pkthdr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">h</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The <em>pfring_ft_process</em> function returns an action (default/forward/discard) in case the
-flow has been marked by the application (according to custom policies) or by the built-in filtering engine
-as described in the following sections. This is where packet filtering should happen.</p>
-<p>Before destroying the flow table with <em>pfring_ft_destroy_table</em>, it is recommended to call <em>pfring_ft_flush</em>
-to process all flows that are still active and have not been exported yet.</p>
-<p>For detailed information please refer to the <a class="reference external" href="../pf_ring_api/pfring__ft_8h.html">API documentation</a>.</p>
+<p> <em>pfring_ft_process</em> функция возвращает действие (по умолчанию/переслать/отменить) в случае, если
+поток помечен приложением (в соответствии с пользовательскими политиками) или встроенным механизмом фильтрации
+как описано в следующих разделах. Здесь должна произойти фильтрация пакетов.</p>
+<p>Прежде чем уничтожить стол потока с помощью <em>pfring_ft_destroy_table</em>, рекомендуется позвонить <em>pfring_ft_flush</em>
+для обработки всех потоков, которые все еще активны и еще не экспортированы.</p>
+<p>Для получения подробной информации, пожалуйста, обратитесь к <a class="reference external" href="../pf_ring_api/pfring__ft_8h.html">API документация</a>.</p>
 </section>
 <section id="ndpi-integration">
-<h2>nDPI Integration<a class="headerlink" href="#ndpi-integration" title="Link to this heading"></a></h2>
-<p>PF_RING FT is natively integrated with nDPI for providing L7 protocol information out of
-the box. The application itself does not need to deal with the nDPI library directly as
-everything happens behind the scenes. In order to get L7 information in the flow metadata
-in <em>pfring_ft_flow_value.l7_protocol</em>, all you need to do is to</p>
+<h2>nDPI Интеграция<a class="headerlink" href="#ndpi-integration" title="Link to this heading"></a></h2>
+<p>PF_RING FT изначально интегрирован с nDPI для предоставления информации о протоколе L7 из
+коробка. Самому приложению не нужно напрямую работать с библиотекой nDPI, поскольку
+все происходит за кулисами. Чтобы получить информацию L7 в метаданных потока
+в <em>pfring_ft_flow_value.l7_protocol</em>, все, что вам нужно сделать, это</p>
 <ol class="arabic simple">
-<li><p>enable L7 detection through the <em>PFRING_FT_TABLE_FLAGS_DPI</em> flag:</p></li>
+<li><p>включить обнаружение L7 через <em>PFRING_FT_TABLE_FLAGS_DPI</em> флаг:</p></li>
 </ol>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">ft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pfring_ft_create_table</span><span class="p">(</span><span class="n">PFRING_FT_TABLE_FLAGS_DPI</span><span class="p">);</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>read the L7 protocol from <em>pfring_ft_flow_value.l7_protocol</em></p></li>
+<li><p>прочитать протокол L7 из <em>pfring_ft_flow_value.l7_protocol</em></p></li>
 </ol>
-<p>Note: since PF_RING 7.3 <em>ndpi</em> is installed as a dependency of <em>pfring</em> when installing
-from packages. If you are compiling from source code, or using an older version of PF_RING,
-you need to manually install the nDPI library from <a class="reference external" href="https://github.com/ntop/nDPI">https://github.com/ntop/nDPI</a> following
-the steps below:</p>
+<p>Примечание: начиная с PF_RING 7.3. <em>ndpi</em> устанавливается как зависимость от <em>пфринг</em> при установке
+из пакетов. Если вы компилируете исходный код или используете более старую версию PF_RING,
+вам необходимо вручную установить библиотеку nDPI из <a class="reference external" href="https://github.com/ntop/nDPI">https://github.com/ntop/nDPI</a> следующий
+шаги ниже:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/ntop/nDPI.git</span>
 <span class="go">cd nDPI</span>
 <span class="go">./autogen.sh</span>
@@ -227,24 +211,24 @@ the steps below:</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you are installing a <strong>stable</strong> version of PF_RING, you should also clone latest stable version of nDPI, to make sure that the API is in sync.</p>
+<p class="admonition-title">Примечание</p>
+<p>Если вы устанавливаете <strong>стабильный</strong> версию PF_RING, вам также следует клонировать последнюю стабильную версию nDPI, чтобы убедиться, что API синхронизирована.</p>
 </div>
 </section>
 <section id="l7-filtering-and-shunting">
-<h2>L7 Filtering and Shunting<a class="headerlink" href="#l7-filtering-and-shunting" title="Link to this heading"></a></h2>
-<p>PF_RING FT features a L7 filtering engine that can be used for filtering flows based on the application
-protocol, or can be extended with custom policies.
-This is usually the case for instance of IPSs, L7 firewalls, other inline applications.
-Using the built-in L7 filtering engine is possible by setting filtering rules through the API
-or through a configuration file.
-The API provides functions to filter or shunt traffic (specifying the number of packets for each flow that
-are allowed to pass before discarding them) based on the application protocol. Example:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">pfring_ft_set_filter_protocol_by_name</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;UPnP&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">PFRING_FT_ACTION_DISCARD</span><span class="p">);</span>
-<span class="n">pfring_ft_set_shunt_protocol_by_name</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;SSH&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<h2>L7 Фильтрация и шунтирование<a class="headerlink" href="#l7-filtering-and-shunting" title="Link to this heading"></a></h2>
+<p>PF_RING FT имеет механизм фильтрации L7, который можно использовать для фильтрации потоков в зависимости от приложения.
+протокол или может быть расширен с помощью пользовательских политик.
+Обычно это касается, например, IPS, межсетевых экранов L7 и других встроенных приложений.
+Использовать встроенный механизм фильтрации L7 можно, установив правила фильтрации через API.
+или через файл конфигурации.
+API предоставляет функции для фильтрации или шунтирования трафика (определяя количество пакетов для каждого потока, который
+разрешено пройти, прежде чем их отбросить) на основе протокола приложения. Пример:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">pfring_ft_set_filter_protocol_by_name</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="s">"UPnP"</span><span class="p">,</span><span class="w"> </span><span class="n">PFRING_FT_ACTION_DISCARD</span><span class="p">);</span>
+<span class="n">pfring_ft_set_shunt_protocol_by_name</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="s">"SSH"</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>It is also possible to specify filtering and shunting rules using a configuration file:</p>
+<p>Также можно указать правила фильтрации и шунтирования с помощью файла конфигурации:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[shunt]
 default = 10
 tcp = 15
@@ -256,28 +240,28 @@ YouTube = discard
 Netflix = discard
 </pre></div>
 </div>
-<p>Where:</p>
+<p>Где:</p>
 <ul class="simple">
-<li><p>supported entries for the <em>shunt</em> section include all the nDPI application protocols, <em>tcp</em>/<em>udp</em> for L4 protocols when there is no application protocol match, <em>default</em> for all traffic matching none of the application or L4 rules (default for <em>default</em> is 0, which means that shunting is disabled).</p></li>
-<li><p>supported entries for the <em>filter</em> section include all the nDPI application protocols</p></li>
-<li><p>supported actions for the <em>filter</em> section are <em>forward</em> and <em>discard</em>.</p></li>
-<li><p>please check <em>ndpiReader -h</em> (included in <em>ndpi</em>) for the full list of supported nDPI protocols</p></li>
+<li><p>поддерживаемые записи для <em>шунт</em> раздел включает все протоколы приложений nDPI, <em>tcp</em>/<em>udp</em> для протоколов L4, когда нет совпадения протокола приложения, <em>по умолчанию</em> для всего трафика, не соответствующего ни одному из правил приложения или L4 (по умолчанию для <em>по умолчанию</em> равен 0, что означает, что шунтирование отключено).</p></li>
+<li><p>поддерживаемые записи для <em>фильтр</em> раздел включает все протоколы приложений nDPI</p></li>
+<li><p>поддерживаемые действия по <em>фильтр</em> раздел <em>вперед</em> и <em>отказаться</em>.</p></li>
+<li><p>пожалуйста, проверьте <em>ndpiReader -h</em> (входит в <em>ndpi</em>) для получения полного списка поддерживаемых протоколов nDPI</p></li>
 </ul>
-<p>It is also possible to set specify the default action for detected protocols adding the global default:</p>
+<p>Также можно указать действие по умолчанию для обнаруженных протоколов, добавив глобальное значение по умолчанию:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[global]
 default = forward
 </pre></div>
 </div>
-<p>This file can be provided to the filtering engine using the <em>pfring_ft_load_configuration</em> API:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">pfring_ft_load_configuration</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/etc/ft_rules.conf&quot;</span><span class="p">);</span>
+<p>Этот файл может быть предоставлен механизму фильтрации с помощью <em>pfring_ft_load_configuration</em> API:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">pfring_ft_load_configuration</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span><span class="w"> </span><span class="s">"/etc/ft_rules.conf"</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>The <em>pfring_ft_process</em> API returns PFRING_FT_ACTION_DISCARD as action for packets that should be
-discarded according to the filtering or shunting policies.</p>
-<p>In addition to the built-in filtering engine, the application can mark flows for filtering or shunting
-them based on custom policies using the <em>pfring_ft_flow_set_action</em> API.</p>
-<p>The configuration file can also be used to configure advanced settings for nDPI detection and flow table,
-including the flow idleness and lifetime timeouts. Example:</p>
+<p> <em>pfring_ft_process</em> API возвращает PFRING_FT_ACTION_DISCARD в качестве действия для пакетов, которые должны быть
+отбрасываются в соответствии с политикой фильтрации или шунтирования.</p>
+<p>Помимо встроенного механизма фильтрации, приложение может отмечать потоки для фильтрации или шунтирования.
+их на основе пользовательских политик с использованием <em>pfring_ft_flow_set_action</em> API.</p>
+<p>Файл конфигурации также можно использовать для настройки дополнительных параметров обнаружения nDPI и таблицы потоков.
+включая бездействие потока и тайм-ауты времени жизни. Пример:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[global]
 default = forward
 dpi_min_num_tcp_packets = 12
@@ -286,73 +270,67 @@ flow_idle_timeout = 30
 flow_lifetime_timeout = 120
 </pre></div>
 </div>
-<p>Please keep in mind tha the Deep Packet Inspection engine implemented with nDPI requires the inspection
-of a few packets at the beginning of each communication before being able to identify with a reasonable
-degree of confidence the L7 protocol. For this reason, the initial packets of any communication are usually
-not marked with a protocol and not filtered when this is used for filtering traffic, until the L7 protocol
-is detected.</p>
+<p>Имейте в виду, что механизм глубокой проверки пакетов, реализованный с помощью nDPI, требует проверки
+нескольких пакетов в начале каждого сеанса связи, прежде чем можно будет идентифицироваться с разумной
+степень достоверности протокола L7. По этой причине начальные пакеты любого сообщения обычно
+не помечен протоколом и не фильтруется, если он используется для фильтрации трафика, до протокола L7
+обнаружен.</p>
 </section>
 <section id="ids-acceleration">
-<h2>IDS Acceleration<a class="headerlink" href="#ids-acceleration" title="Link to this heading"></a></h2>
-<p>The PF_RING FT L7 filtering engine can also be used for accelerating CPU-bound applications, such as
-IDS/IPSs, shunting flows based on the application protocol. Discarding elephant flows is becoming a
-common yet effective practice for reducing the amount of traffic an IDS/IPS need to inspect (typically
-multimedia traffic), dramatically reducing packet loss and improving the system performance.</p>
-<p>Leveraging on PF_RING FT, any PF_RING-based or Libpcap-based application can take advantage of L7
-shunting without changing a single line of code, all you need to do is to set the <em>PF_RING_FT_CONF</em>
-environment variable with the path of the configuration file.</p>
-<p>For example, if we want to filter out Youtube and Netflix traffic, we need to create a configuration
-file like the one below:</p>
+<h2>IDS-ускорение<a class="headerlink" href="#ids-acceleration" title="Link to this heading"></a></h2>
+<p>Механизм фильтрации PF_RING FT L7 также можно использовать для ускорения приложений, связанных с CPU, таких как
+IDS/IPS, шунтирующие потоки на основе протокола приложения. Отказ от слоновьих потоков становится
+распространенная, но эффективная практика сокращения объема трафика, который необходимо проверять IDS/IPS (обычно
+мультимедийный трафик), резко сокращая потери пакетов и повышая производительность системы.</p>
+<p>Используя PF_RING FT, любое приложение на базе PF_RING или Libpcap может воспользоваться преимуществами L7
+шунтирования без изменения ни одной строчки кода, все, что вам нужно сделать, это установить <em>PF_RING_FT_CONF</em>
+переменная среды с путем к файлу конфигурации.</p>
+<p>Например, если мы хотим отфильтровать трафик Youtube и Netflix, нам нужно создать конфигурацию
+файл, подобный приведенному ниже:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>cat<span class="w"> </span>/etc/pf_ring/ft-rules.conf
 <span class="go">[filter]</span>
 <span class="go">YouTube = discard</span>
 <span class="go">Netflix = discard</span>
 </pre></div>
 </div>
-<p>And run Suricata on top of PF_RING, setting the <em>PF_RING_FT_CONF</em> environment variable according
-to the configuration file path:</p>
+<p>И запустите Suricata поверх PF_RING, установив <em>PF_RING_FT_CONF</em> переменная среды в соответствии
+по пути к файлу конфигурации:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span><span class="nv">PF_RING_FT_CONF</span><span class="o">=</span>/etc/pf_ring/ft-rules.conf<span class="w"> </span>suricata<span class="w"> </span>--pfring-int<span class="o">=</span>zc:eth1<span class="w"> </span>-c<span class="w"> </span>/etc/suricata/suricata.yaml
 </pre></div>
 </div>
-<p>Please note that it is also possible to define custom L7 protocols (e.g. based on ip or hostname) using the standard nDPI file format for custom protocols  (see an <a class="reference external" href="https://github.com/ntop/nDPI/blob/dev/example/protos.txt">example here</a>) and provide the file path by setting the PF_RING_FT_PROTOCOLS environment variable.</p>
-<p>Please refer to the <a class="reference external" href="thirdparty/suricata.html#pf-ring-ft-acceleration">Using Suricata with PF_RING</a>
-and <a class="reference external" href="thirdparty/bro.html#pf-ring-ft-acceleration">Using Bro with PF_RING</a>
-guides for enabling PF_RING FT support in Suricata and Bro. Note that the same acceleration can be used with other
-IDSs like Snort.</p>
+<p>Обратите внимание, что также можно определить собственные протоколы L7 (например, на основе IP-адреса или имени хоста), используя стандартный формат файла nDPI для пользовательских протоколов (см. <a class="reference external" href="https://github.com/ntop/nDPI/blob/dev/example/protos.txt">пример здесь</a>) и укажите путь к файлу, установив переменную среды PF_RING_FT_PROTOCOLS.</p>
+<p>Пожалуйста, обратитесь к <a class="reference external" href="thirdparty/suricata.html#pf-ring-ft-acceleration">Использование Suricata с PF_RING</a>
+и <a class="reference external" href="thirdparty/bro.html#pf-ring-ft-acceleration">Использование Bro с PF_RING</a>
+руководства по включению поддержки PF_RING FT в Suricata и Bro. Обратите внимание, что то же ускорение можно использовать и с другими
+IDS, такие как Snort.</p>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="zc.html" rel="prev" title="PF_RING ZC (Zero Copy)"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="examples.html" rel="next" title="Sample Applications">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="zc.html" class="btn btn-neutral float-left" title="PF_RING ZC (Zero Copy)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="examples.html" class="btn btn-neutral float-right" title="Sample Applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/pf_ring/ft.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:50:46 GMT -->
 </html>

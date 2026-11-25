@@ -1,105 +1,93 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../../">
-
+<html class="writer-html5" data-content_root="../../../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/api/lua_c/host_checks/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:31 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3. Host Checks &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../../../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="4. Flow Checks" href="../flow_checks/index.html" />
-    <link rel="prev" title="2.6. Dump API" href="../interface/interface_dump.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>3. Проверки хоста — документация ntopng v.7.1.261018.</title>
+<link href="../../../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../../../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../../../_static/js/theme.js"></script>
+<link href="../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../search.html" rel="search" title="Search"/>
+<link href="../flow_checks/index.html" rel="next" title="4. Flow Checks"/>
+<link href="../interface/interface_dump.html" rel="prev" title="2.6. Dump API"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../../index-2.html">
             ntopng
-              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../../../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../advanced_features/index.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nanalyst/index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_features/index.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../../scripts/index.html">Developers</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../index-2.html">API Documentation</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index-2.html">API Документация</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../rest/index.html">RESTful API</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Lua API</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../ntop/index.html">1. ntop Lua Object</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../interface/index.html">2. interface Lua Object</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">3. Host Checks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#operational-mode">3.1. Operational Mode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#script-example">3.2. Script Example</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#host-object-methods">3.3. Host Object Methods</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Луа API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ntop/index.html">1. ntop Объект Lua</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interface/index.html">2. интерфейс объекта Lua</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3. Проверки хоста</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#operational-mode">3.1. Рабочий режим</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#script-example">3.2. Пример сценария</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#host-object-methods">3.3. Методы хост-объекта</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../flow_checks/index.html">4. Flow Checks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../interface_checks/index.html">5. Interface Checks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../network_checks/index.html">6. Network Checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flow_checks/index.html">4. Проверка потока</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interface_checks/index.html">5. Проверка интерфейса</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../network_checks/index.html">6. Проверка сети</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../python/index.html">Python API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../timeseries/index.html">Timeseries API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../alerts/index.html">Alerts API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../recording/index.html">Recording API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../python/index.html">Питон API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../timeseries/index.html">Таймсерия API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../alerts/index.html">Оповещения API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../recording/index.html">Запись API</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../pf_ring/index.html">PF_RING</a></li>
@@ -108,52 +96,48 @@
 <li class="toctree-l1"><a class="reference external" href="../../../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index-2.html">API Documentation</a></li>
-          <li class="breadcrumb-item"><a href="../index.html">Lua API</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">3. </span>Host Checks</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/api/lua_c/host_checks/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="host-checks">
-<span id="apihostchecks-target"></span><h1><span class="section-number">3. </span>Host Checks<a class="headerlink" href="#host-checks" title="Link to this heading"></a></h1>
-<p>Host checks are written in C++ for efficiency reasons. However ntopng also offers a Lua API that can be used to create host checks. All you need to do is to enable the <cite>Host User Check Script</cite> behavioural check under the <cite>Settings</cite> menu sidebar. Done that you need to create a script named <cite>custom_host_lua_script.lua</cite> under <cite>/usr/share/ntopng/scripts/callbacks/checks/hosts/</cite>.</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="../../index-2.html">API Документация</a></li>
+<li class="breadcrumb-item"><a href="../index.html">Луа API</a></li>
+<li class="breadcrumb-item active"><span class="section-number">3. </span>Проверки хоста</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../../_sources/api/lua_c/host_checks/index.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="host-checks">
+<span id="apihostchecks-target"></span><h1><span class="section-number">3. </span>Проверки хоста<a class="headerlink" href="#host-checks" title="Link to this heading"></a></h1>
+<p>Проверки хоста написаны на C++ из соображений эффективности. Однако ntopng также предлагает Lua API, который можно использовать для создания проверок хоста. Все, что вам нужно сделать, это включить <cite>Сценарий проверки пользователя хоста</cite> поведенческая проверка под <cite>Настройки</cite> боковая панель меню. Готово, вам нужно создать скрипт с именем <cite>custom_host_lua_script.lua</cite> под <cite>/usr/share/ntopng/scripts/callbacks/checks/hosts/</cite>.</p>
 <figure class="align-default">
-<img alt="../../../_images/host_user_check_script.png" src="../../../_images/host_user_check_script.png" />
+<img alt="../../../_images/host_user_check_script.png" src="../../../_images/host_user_check_script.png"/>
 </figure>
-<p>ntopng has a sample host script that you can find <a class="reference external" href="https://github.com/ntop/ntopng/tree/dev/scripts/callbacks/checks/hosts">here</a> and that can be used as reference.</p>
+<p>ntopng есть образец хост-скрипта, который вы можете найти <a class="reference external" href="https://github.com/ntop/ntopng/tree/dev/scripts/callbacks/checks/hosts">здесь</a> и это можно использовать в качестве ссылки.</p>
 <section id="operational-mode">
-<h2><span class="section-number">3.1. </span>Operational Mode<a class="headerlink" href="#operational-mode" title="Link to this heading"></a></h2>
-<p>The lua script check is executed periodically on all hosts (typically every minute). Through the Lua API, developers have access to the <cite>host</cite> object that can be used to access information about the host being checked and also to trigger a host alert.</p>
+<h2><span class="section-number">3.1. </span>Рабочий режим<a class="headerlink" href="#operational-mode" title="Link to this heading"></a></h2>
+<p>Проверка сценария lua выполняется периодически на всех хостах (обычно каждую минуту). Через Lua API разработчики имеют доступ к <cite>хозяин</cite> объект, который можно использовать для доступа к информации о проверяемом хосте, а также для запуска оповещения хоста.</p>
 </section>
 <section id="script-example">
-<h2><span class="section-number">3.2. </span>Script Example<a class="headerlink" href="#script-example" title="Link to this heading"></a></h2>
-<p>Below you can find a simple <cite>custom_host_lua_script.lua</cite> script.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="o">(</span>host.ip<span class="o">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;1.2.3.4&quot;</span><span class="o">)</span><span class="w"> </span><span class="k">then</span>
+<h2><span class="section-number">3.2. </span>Пример сценария<a class="headerlink" href="#script-example" title="Link to this heading"></a></h2>
+<p>Ниже вы можете найти простой <cite>custom_host_lua_script.lua</cite> сценарий.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="o">(</span>host.ip<span class="o">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"1.2.3.4"</span><span class="o">)</span><span class="w"> </span><span class="k">then</span>
 <span class="w">   </span><span class="nb">local</span><span class="w"> </span><span class="nv">score</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="m">100</span>
-<span class="w">   </span><span class="nb">local</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;dummy alert message&quot;</span>
+<span class="w">   </span><span class="nb">local</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dummy alert message"</span>
 
 <span class="w">   </span>host.triggerAlert<span class="o">(</span>score,<span class="w"> </span>message<span class="o">)</span>
 <span class="w"> </span>end
@@ -162,106 +146,100 @@
 <span class="w"> </span><span class="k">return</span><span class="o">(</span><span class="m">0</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>In the script above an alert is triggered host hosts whose server port is 53.</p>
+<p>В приведенном выше сценарии предупреждение срабатывает на хостах, порт сервера которых равен 53.</p>
 </section>
 <section id="host-object-methods">
-<h2><span class="section-number">3.3. </span>Host Object Methods<a class="headerlink" href="#host-object-methods" title="Link to this heading"></a></h2>
+<h2><span class="section-number">3.3. </span>Методы хост-объекта<a class="headerlink" href="#host-object-methods" title="Link to this heading"></a></h2>
 <ul>
 <li><div class="line-block">
-<div class="line"><strong>host.ip()</strong></div>
-<div class="line">Read the host IP address (string)</div>
+<div class="line"><strong>хост.ip()</strong></div>
+<div class="line">Чтение IP-адреса хоста (строка)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.name()</strong></div>
-<div class="line">Read the symbolici host name (string)</div>
+<div class="line"><strong>хост.имя()</strong></div>
+<div class="line">Прочитайте символическое имя хоста (строка)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.vlan_id()</strong></div>
-<div class="line">Read the host VLAN Id (number)</div>
+<div class="line"><strong>хост.vlan_id()</strong></div>
+<div class="line">Прочитайте идентификатор хоста VLAN (номер)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.is_unicast()</strong></div>
-<div class="line">Check if host has an unicast IP address (bool)</div>
+<div class="line"><strong>хост.is_unicast()</strong></div>
+<div class="line">Проверьте, имеет ли хост одноадресный IP-адрес (bool)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.is_multicast()</strong></div>
-<div class="line">Check if host has an multicast IP address (bool)</div>
+<div class="line"><strong>хост.is_multicast()</strong></div>
+<div class="line">Проверьте, имеет ли хост IP-адрес многоадресной рассылки (bool)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.is_broadcast()</strong></div>
-<div class="line">Check if host has a broadcast IP address (bool)</div>
+<div class="line"><strong>хост.is_broadcast()</strong></div>
+<div class="line">Проверьте, имеет ли хост широковещательный IP-адрес (bool)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.is_blacklisted()</strong></div>
-<div class="line">Check if the host is blacklisted (bool)</div>
+<div class="line"><strong>хост.is_blacklisted()</strong></div>
+<div class="line">Проверьте, находится ли хост в черном списке (bool)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.bytes_sent()</strong></div>
-<div class="line">Read the (total) host bytes sent (number)</div>
+<div class="line"><strong>хост.bytes_sent()</strong></div>
+<div class="line">Прочитать (всего) отправленных хостом байтов (число)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.bytes_rcvd()</strong></div>
-<div class="line">Read the (total) host bytes received (number)</div>
+<div class="line"><strong>хост.bytes_rcvd()</strong></div>
+<div class="line">Прочитайте (общее количество) полученных хостом байт (число)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.bytes()</strong></div>
-<div class="line">Read the (total sent and received) host bytes (number)</div>
+<div class="line"><strong>хост.байты()</strong></div>
+<div class="line">Прочитайте (общее количество отправленных и полученных) хост-байтов (число)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.l7()</strong></div>
-<div class="line">Read the host nDPI protocol statistics (table)</div>
+<div class="line"><strong>хост.l7()</strong></div>
+<div class="line">Чтение статистики протокола хоста nDPI (таблица)</div>
 </div>
 </li>
 <li><div class="line-block">
-<div class="line"><strong>host.triggerAlert(score, message)</strong></div>
-<div class="line">Triggers an alert for the selected host. The score parameter (numeric) is used to set the alert score, and the message (string) is used to set the alert string that typically contains a human-readeable message related to the triggered alert.</div>
+<div class="line"><strong>хост.triggerAlert(оценка, сообщение)</strong></div>
+<div class="line">Запускает оповещение для выбранного хоста. Параметр оценки (числовой) используется для установки оценки оповещения, а сообщение (строка) используется для установки строки оповещения, которая обычно содержит удобочитаемое сообщение, связанное с активированным оповещением.</div>
 </div>
 </li>
 </ul>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="../interface/interface_dump.html" rel="prev" title="2.6. Dump API"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="../flow_checks/index.html" rel="next" title="4. Flow Checks">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../interface/interface_dump.html" class="btn btn-neutral float-left" title="2.6. Dump API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../flow_checks/index.html" class="btn btn-neutral float-right" title="4. Flow Checks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/api/lua_c/host_checks/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:33 GMT -->
 </html>

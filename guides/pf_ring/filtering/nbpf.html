@@ -1,90 +1,78 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-
+<html class="writer-html5" data-content_root="../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/pf_ring/filtering/nbpf.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:58 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1. nBPF &mdash; PF_RING 9.5.0-4814 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
-      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2. Runtime Filtering" href="runtime.html" />
-    <link rel="prev" title="Filtering" href="index.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>1. nBPF — PF_RING 9.5.0-4814 документация</title>
+<link href="../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
+<script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="runtime.html" rel="next" title="2. Runtime Filtering"/>
+<link href="index.html" rel="prev" title="Filtering"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index-2.html">
             PF_RING
-              <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/pf_ring/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Get Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Vanilla PF_RING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Copy)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (Flow Table)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Sample Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Drivers and Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rss.html">Load Balancing / RSS</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Filtering</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Начать</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Ванильный PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Копия)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (таблица потоков)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Примеры приложений</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Драйверы и модули</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rss.html">Балансировка нагрузки/RSS</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Фильтрация</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">1. nBPF</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#expressions">1.1. Expressions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#filter-examples">1.1.1. Filter Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expressions">1.1. Выражения</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#filter-examples">1.1.1. Примеры фильтров</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="runtime.html">2. Runtime Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runtime.html">2. Фильтрация во время выполнения</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Containers Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">VM Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">IDS/IPSs Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Hugepages Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../amd.html">AMD Processors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Поддержка контейнеров</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">Поддержка виртуальных машин</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">Интеграция IDS/IPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Поддержка огромных страниц</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Возможности</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amd.html">Процессоры AMD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Процессоры</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">Crash Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">Аварийная отладка</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
@@ -92,112 +80,102 @@
 <li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index-2.html">PF_RING</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Filtering</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">1. </span>nBPF</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/filtering/nbpf.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="nbpf">
-<h1><span class="section-number">1. </span>nBPF<a class="headerlink" href="#nbpf" title="Link to this heading"></a></h1>
-<p>nBPF is a filtering engine/SDK supporting the BPF (Berkeley Packet Filter) syntax
-and can be used as alternative to the implementation that can be found in libpcap
-and inside the kernel.</p>
-<p>This version implements a subset of the filtering expressions supported by the original
-BPF, and it is designed to be fast and small in size, with no external dependencies.</p>
-<p>This library has been designed to be efficient, and easy to embed in applications
-(e.g. n2disk uses it to filter traffic).</p>
-<p>Currently it is used by selected PF_RING modules to convert BPF filtering expressions
-onto hardware filters supported by popular network adapters such as Fiberblaze
-(Silicom FPGA), Mellanox and Napatech.</p>
-<section id="expressions">
-<h2><span class="section-number">1.1. </span>Expressions<a class="headerlink" href="#expressions" title="Link to this heading"></a></h2>
-<p>An expression consists of one or more primitives.
-The filter expressions are built by using AND and OR.</p>
-<ul class="simple">
-<li><p>Protocol: tcp, udp, sctp</p></li>
-<li><p>Direction: src, dst, src or dst, src and dst</p></li>
-<li><p>Type: host, port, proto, portrange (not supported on most adapters)</p></li>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index-2.html">PF_RING</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="index.html">Фильтрация</a></li>
+<li class="breadcrumb-item active"><span class="section-number">1. </span>nBPF</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/filtering/nbpf.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
 </ul>
-<p>Additional constraints for packet capture filters include:</p>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="nbpf">
+<h1><span class="section-number">1. </span>nBPF<a class="headerlink" href="#nbpf" title="Link to this heading"></a></h1>
+<p>nBPF — механизм фильтрации/SDK, поддерживающий синтаксис BPF (фильтр пакетов Беркли).
+и может использоваться как альтернатива реализации, которую можно найти в libpcap.
+и внутри ядра.</p>
+<p>Эта версия реализует подмножество выражений фильтрации, поддерживаемых исходной версией.
+BPF, он спроектирован так, чтобы быть быстрым и небольшим по размеру, без внешних зависимостей.</p>
+<p>Эта библиотека была разработана с учетом эффективности и простоты встраивания в приложения.
+(например, n2disk использует его для фильтрации трафика).</p>
+<p>В настоящее время он используется выбранными модулями PF_RING для преобразования выражений фильтрации BPF.
+на аппаратные фильтры, поддерживаемые популярными сетевыми адаптерами, такими как Fiberblaze.
+(Silicom FPGA), Mellanox и Napatech.</p>
+<section id="expressions">
+<h2><span class="section-number">1.1. </span>Выражения<a class="headerlink" href="#expressions" title="Link to this heading"></a></h2>
+<p>Выражение состоит из одного или нескольких примитивов.
+Выражения фильтра создаются с использованием операторов AND и OR.</p>
 <ul class="simple">
-<li><p>it is not possible to use more than 1-level nesting using parenthesis</p></li>
-<li><p>it is not possible to use the “or” operator inside parenthesis</p></li>
-<li><p>it is not possible to mix different operators (only 1-level “or” of “and” blocks is allowed)</p></li>
-<li><p>is not possible to combine different directions in the same block using   the “and” operator.</p></li>
-<li><p>the NOT operator is not always permitted, depending on the match engine in use (for instance it is not supported on most adapters when translating to hardware rules)</p></li>
+<li><p>Протокол: tcp, udp, sctp</p></li>
+<li><p>Направление: источник, летнее время, источник или летнее время, источник и летнее время.</p></li>
+<li><p>Тип: хост, порт, прототип, диапазон портов (не поддерживается большинством адаптеров).</p></li>
+</ul>
+<p>Дополнительные ограничения для фильтров захвата пакетов включают:</p>
+<ul class="simple">
+<li><p>невозможно использовать более 1 уровня вложенности с помощью круглых скобок</p></li>
+<li><p>невозможно использовать оператор «или» внутри скобок</p></li>
+<li><p>нельзя смешивать разные операторы (допускается только одноуровневые блоки «или» и «и»)</p></li>
+<li><p>невозможно объединить разные направления в одном блоке с помощью оператора «и».</p></li>
+<li><p>оператор NOT не всегда разрешен в зависимости от используемого механизма сопоставления (например, он не поддерживается большинством адаптеров при трансляции в аппаратные правила)</p></li>
 </ul>
 <section id="filter-examples">
-<h3><span class="section-number">1.1.1. </span>Filter Examples<a class="headerlink" href="#filter-examples" title="Link to this heading"></a></h3>
-<p>Valid filters:</p>
+<h3><span class="section-number">1.1.1. </span>Примеры фильтров<a class="headerlink" href="#filter-examples" title="Link to this heading"></a></h3>
+<p>Допустимые фильтры:</p>
 <ul class="simple">
-<li><p>dst host 192.168.0.1</p></li>
-<li><p>src port 3000</p></li>
-<li><p>ip dst host 192.168.0.1</p></li>
-<li><p>src host 192.168.0.1 or dst host 192.168.0.1</p></li>
-<li><p>src port 3000 and src host 10.0.0.1 and proto 17</p></li>
-<li><p>tcp src port (80 or 443)</p></li>
-<li><p>(host 192.168.0.1 and port 3000) or (src host 10.0.0.1 and proto 17)</p></li>
+<li><p>dst-хост 192.168.0.1</p></li>
+<li><p>исходный порт 3000</p></li>
+<li><p>IP-адрес хоста 192.168.0.1</p></li>
+<li><p>хост src 192.168.0.1 или хост dst 192.168.0.1</p></li>
+<li><p>порт src 3000 и хост src 10.0.0.1 и прототип 17</p></li>
+<li><p>tcp порт источника (80 или 443)</p></li>
+<li><p>(хост 192.168.0.1 и порт 3000) или (хост src 10.0.0.1 и прототип 17)</p></li>
 </ul>
-<p>Unsupported filters:</p>
+<p>Неподдерживаемые фильтры:</p>
 <ul class="simple">
-<li><p>src port 3000 and (src host 10.0.0.1 or src host 10.0.0.2)</p></li>
+<li><p>порт src 3000 и (хост src 10.0.0.1 или хост src 10.0.0.2)</p></li>
 </ul>
 </section>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="Filtering"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="runtime.html" rel="next" title="2. Runtime Filtering">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Filtering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="runtime.html" class="btn btn-neutral float-right" title="2. Runtime Filtering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/pf_ring/filtering/nbpf.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:59 GMT -->
 </html>

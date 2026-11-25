@@ -1,101 +1,89 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-
+<html class="writer-html5" data-content_root="../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/nanalyst/architecture.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:48:49 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Architecture &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chat Interface" href="chat_interface.html" />
-    <link rel="prev" title="What is nAnalyst?" href="what_is_nanalyst.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Архитектура — документация ntopng v.7.1.261018</title>
+<link href="../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="chat_interface.html" rel="next" title="Chat Interface"/>
+<link href="what_is_nanalyst.html" rel="prev" title="What is nAnalyst?"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index-2.html">
             ntopng
-              <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index-2.html">nAnalyst - Agentic AI Network Intelligence</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="what_is_nanalyst.html">What is nAnalyst?</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#how-a-request-is-processed">How a request is processed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#llm-integration">LLM integration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data-flow-and-privacy">Data flow and privacy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index-2.html">nAnalyst - Агент AI Сетевой интеллект</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="what_is_nanalyst.html">Что такое Аналист?</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Архитектура</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-a-request-is-processed">Как обрабатывается запрос</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#llm-integration">LLM интеграция</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-flow-and-privacy">Поток данных и конфиденциальность</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="chat_interface.html">Chat Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ai_dashboards.html">AI Dashboards</a></li>
-<li class="toctree-l2"><a class="reference internal" href="features/index.html">Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tools_and_licensing.html">Tools and Licensing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="llm_setup.html">LLM Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mcp_server.html">MCP Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="observability.html">Observability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chat_interface.html">Интерфейс чата</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_dashboards.html">AI Панели мониторинга</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features/index.html">Функции</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools_and_licensing.html">Инструменты и лицензирование</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llm_setup.html">LLM Настройка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcp_server.html">MCP Сервер</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observability.html">Наблюдаемость</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">Часто задаваемые вопросы</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Документация</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
@@ -104,37 +92,33 @@
 <li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-      <li class="breadcrumb-item active">Architecture</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/nanalyst/architecture.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="architecture">
-<span id="nanalystarchitecture"></span><h1>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h1>
-<p>nAnalyst is structured as an agentic loop that sits between the user’s natural language input and ntopng’s data layer. The diagram below shows the high-level flow.</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="breadcrumb-item active">Архитектура</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/nanalyst/architecture.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="architecture">
+<span id="nanalystarchitecture"></span><h1>Архитектура<a class="headerlink" href="#architecture" title="Link to this heading"></a></h1>
+<p>nAnalyst структурирован как агентный цикл, который находится между вводом естественного языка пользователя и уровнем данных ntopng. На диаграмме ниже показан поток высокого уровня.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>User question (chat or MCP client)
          │
          ▼
@@ -160,32 +144,32 @@
 </pre></div>
 </div>
 <section id="how-a-request-is-processed">
-<h2>How a request is processed<a class="headerlink" href="#how-a-request-is-processed" title="Link to this heading"></a></h2>
+<h2>Как обрабатывается запрос<a class="headerlink" href="#how-a-request-is-processed" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
-<li><p><strong>User asks a question</strong> — through the built-in chat UI or any MCP-compatible client.</p></li>
-<li><p><strong>Agent starts</strong> — nAnalyst initialises a reasoning session tied to the authenticated ntopng user.</p></li>
-<li><p><strong>Tool selection</strong> — the agent determines which of its 25+ network-specific tools are relevant. Tools are not called blindly; the agent reasons about what evidence is needed.</p></li>
-<li><p><strong>Data collection</strong> — tools query ClickHouse for historical flows, the asset inventory for host metadata, SNMP for device information, and the alert subsystem for active incidents.</p></li>
-<li><p><strong>Evidence assembly</strong> — collected data is structured into an evidence log. Charts are generated and embedded in the chat response. The full SQL and tool-call trace is stored.</p></li>
-<li><p><strong>Answer and next steps</strong> — the agent synthesises the evidence into a plain-language answer with citations and, where appropriate, suggests or performs follow-up actions (creating policies, adding monitors, silencing noise).</p></li>
-<li><p><strong>Persistence</strong> — evidence and reasoning steps are persisted across sessions so context is not lost between conversations.</p></li>
+<li><p><strong>Пользователь задает вопрос</strong> — через встроенный чат или любой MCP-совместимый клиент.</p></li>
+<li><p><strong>Агент запускается</strong> — nAnalyst инициализирует сеанс рассуждения, привязанный к аутентифицированному пользователю ntopng.</p></li>
+<li><p><strong>Выбор инструмента</strong> — агент определяет, какие из более чем 25 сетевых инструментов актуальны. Инструменты не вызываются вслепую; агент рассуждает о том, какие доказательства необходимы.</p></li>
+<li><p><strong>Сбор данных</strong> — инструменты запрашивают ClickHouse для исторических потоков, инвентаризацию активов для метаданных хоста, SNMP для информации об устройстве и подсистему оповещения об активных инцидентах.</p></li>
+<li><p><strong>Сбор доказательств</strong> — собранные данные структурируются в журнал доказательств. Диаграммы генерируются и встраиваются в ответ чата. Сохраняется полная трассировка SQL и вызовов инструментов.</p></li>
+<li><p><strong>Ответ и дальнейшие действия</strong> — агент синтезирует доказательства в простой ответ с цитатами и, при необходимости, предлагает или выполняет последующие действия (создание политик, добавление мониторов, подавление шума).</p></li>
+<li><p><strong>Упорство</strong> — доказательства и рассуждения сохраняются между сеансами, поэтому контекст не теряется между разговорами.</p></li>
 </ol>
 </section>
 <section id="llm-integration">
-<h2>LLM integration<a class="headerlink" href="#llm-integration" title="Link to this heading"></a></h2>
-<p>nAnalyst communicates with an LLM only for reasoning and natural language generation. All data retrieval is performed by tool calls against your ntopng instance.</p>
-<p>Supported LLM backends:</p>
+<h2>LLM интеграция<a class="headerlink" href="#llm-integration" title="Link to this heading"></a></h2>
+<p>nAnalyst общается с LLM только для рассуждений и генерации естественного языка. Весь поиск данных выполняется вызовами инструментов вашего экземпляра ntopng.</p>
+<p>Поддерживаемые LLM бэкэнды:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.anthropic.com/api">Anthropic</a> (Claude) — native API format</p></li>
-<li><p><a class="reference external" href="https://platform.openai.com/docs/overview">OpenAI</a> — native API format</p></li>
-<li><p><a class="reference external" href="https://aws.amazon.com/bedrock/">AWS Bedrock</a> — OpenAI-compatible endpoint</p></li>
-<li><p><a class="reference external" href="https://www.alibabacloud.com/en/solutions/generative-ai/qwen">Qwen (Alibaba Cloud)</a> — OpenAI-compatible; tested with Qwen3 235B-A22B</p></li>
-<li><p>Local inference servers — <a class="reference external" href="https://github.com/ggml-org/llama.cpp">llama-cpp</a>, <a class="reference external" href="https://docs.vllm.ai/">vllm</a>, <a class="reference external" href="https://docs.sglang.ai/">sglang</a>, or any OpenAI-compatible server</p></li>
+<li><p><a class="reference external" href="https://www.anthropic.com/api">антропный</a> (Клод) — родной формат API</p></li>
+<li><p><a class="reference external" href="https://platform.openai.com/docs/overview">ОпенАИ</a> — собственный формат API</p></li>
+<li><p><a class="reference external" href="https://aws.amazon.com/bedrock/">AWS Коренная порода</a> — OpenAI-совместимая конечная точка</p></li>
+<li><p><a class="reference external" href="https://www.alibabacloud.com/en/solutions/generative-ai/qwen">Квен (Облако Алибаба)</a> — OpenAI-совместимый; протестировано с Qwen3 235B-A22B</p></li>
+<li><p>Локальные серверы вывода — <a class="reference external" href="https://github.com/ggml-org/llama.cpp">лама-cpp</a>, <a class="reference external" href="https://docs.vllm.ai/">вллм</a>, <a class="reference external" href="https://docs.sglang.ai/">сленг</a>или любой OpenAI-совместимый сервер</p></li>
 </ul>
-<p>See <a class="reference internal" href="llm_setup.html#nanalystllmsetup"><span class="std std-ref">LLM Setup</span></a> for configuration details.</p>
+<p>Видеть <a class="reference internal" href="llm_setup.html#nanalystllmsetup"><span class="std std-ref">LLM Настройка</span></a> для получения подробной информации о конфигурации.</p>
 </section>
 <section id="data-flow-and-privacy">
-<h2>Data flow and privacy<a class="headerlink" href="#data-flow-and-privacy" title="Link to this heading"></a></h2>
+<h2>Поток данных и конфиденциальность<a class="headerlink" href="#data-flow-and-privacy" title="Link to this heading"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ntopng instance (your premises)
 ┌──────────────────────────────────────┐
 │  nAnalyst agent                      │
@@ -198,38 +182,32 @@
 </div>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="what_is_nanalyst.html" rel="prev" title="What is nAnalyst?"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="chat_interface.html" rel="next" title="Chat Interface">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="what_is_nanalyst.html" class="btn btn-neutral float-left" title="What is nAnalyst?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="chat_interface.html" class="btn btn-neutral float-right" title="Chat Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/nanalyst/architecture.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:48:50 GMT -->
 </html>

@@ -1,93 +1,81 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-
+<html class="writer-html5" data-content_root="../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/pf_ring/api/libpcap.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:24:12 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5. Libpcap API &mdash; PF_RING 9.5.0-4814 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
-      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Crash Debug" href="../debug.html" />
-    <link rel="prev" title="4. PF_RING FT API" href="pfring_ft.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>5. Документация Libpcap API — PF_RING 9.5.0-4814</title>
+<link href="../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
+<script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="../debug.html" rel="next" title="Crash Debug"/>
+<link href="pfring_ft.html" rel="prev" title="4. PF_RING FT API"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index-2.html">
             PF_RING
-              <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/pf_ring/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Get Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Vanilla PF_RING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Copy)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (Flow Table)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Sample Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Drivers and Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rss.html">Load Balancing / RSS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Containers Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">VM Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">IDS/IPSs Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Hugepages Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../amd.html">AMD Processors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Начать</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Ванильный PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Копия)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (таблица потоков)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Примеры приложений</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Драйверы и модули</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rss.html">Балансировка нагрузки/RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Фильтрация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Поддержка контейнеров</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">Поддержка виртуальных машин</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">Интеграция IDS/IPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Поддержка огромных страниц</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Возможности</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amd.html">Процессоры AMD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Процессоры</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index-2.html">API Documentation</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="pfring_k.html">1. PF_RING Kernel Internal API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index-2.html">API Документация</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html">1. PF_RING Внутреннее ядро ​​API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pfring.html">2. PF_RING API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html">3. PF_RING ZC API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html">4. PF_RING FT API</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">5. Libpcap API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#api-extensions">5.1. API Extensions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#environment-variables">5.1.1. Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html">3. PF_RING ЗЦ API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html">4. PF_RING ФТ API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. Либкап API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api-extensions">5.1. API Расширения</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#environment-variables">5.1.1. Переменные среды</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">Crash Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">Аварийная отладка</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
@@ -95,75 +83,71 @@
 <li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index-2.html">PF_RING</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index-2.html">API Documentation</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5. </span>Libpcap API</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/api/libpcap.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="libpcap-api">
-<h1><span class="section-number">5. </span>Libpcap API<a class="headerlink" href="#libpcap-api" title="Link to this heading"></a></h1>
-<p>PF_RING includes a patched libpcap which provides PF_RING acceleration through the
-legagy pcap API. Obviously a pcap-based application should be linked against the
-PF_RING-aware libpcap in order to use it. Please expect a performance degradation
-with respect to the PF_RING API as the pcap API introduces some more overhead.</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index-2.html">PF_RING</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="index-2.html">API Документация</a></li>
+<li class="breadcrumb-item active"><span class="section-number">5. </span>Либкап API</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/api/libpcap.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="libpcap-api">
+<h1><span class="section-number">5. </span>Либкап API<a class="headerlink" href="#libpcap-api" title="Link to this heading"></a></h1>
+<p>PF_RING включает исправленный libpcap, который обеспечивает ускорение PF_RING через
+леги pcap API. Очевидно, что приложение на основе pcap должно быть связано с
+libpcap с поддержкой PF_RING, чтобы использовать его. Ожидайте снижения производительности
+относительно PF_RING API, поскольку pcap API вносит дополнительные накладные расходы.</p>
 <section id="api-extensions">
-<h2><span class="section-number">5.1. </span>API Extensions<a class="headerlink" href="#api-extensions" title="Link to this heading"></a></h2>
-<p>This section lists the extensions added to the legacy pcap API. Please note that
-they are not mandatory to operate, a legacy pcap-based application can work on top
-of this library with no changes (linking only is required).</p>
+<h2><span class="section-number">5.1. </span>API Расширения<a class="headerlink" href="#api-extensions" title="Link to this heading"></a></h2>
+<p>В этом разделе перечислены расширения, добавленные к устаревшим pcap API. Обратите внимание, что
+они не обязательны для работы, поверх них может работать устаревшее приложение на базе pcap
+этой библиотеки без изменений (требуется только линковка).</p>
 <ul class="simple">
-<li><p>pcap_get_pfring_handle - returns the pfring handle.</p></li>
-<li><p>pcap_get_pfring_id - wrapper for the pfring_get_ring_id API.</p></li>
-<li><p>pcap_set_master_id - wrapper for the pfring_set_master_id API.</p></li>
-<li><p>pcap_set_master - wrapper for the pfring_set_master API.</p></li>
-<li><p>pcap_set_application_name - wrapper for the pfring_set_application_name API.</p></li>
-<li><p>pcap_set_cluster - wrapper for the pfring_set_cluster API.</p></li>
-<li><p>pcap_set_watermark - wrapper for the pfring_set_poll_watermark API.</p></li>
-<li><p>pcap_set_poll_watermark_timeout - wrapper for the pfring_set_poll_watermark_timeout API.</p></li>
+<li><p>pcap_get_pfring_handle — возвращает дескриптор pfring.</p></li>
+<li><p>pcap_get_pfring_id — оболочка для pfring_get_ring_id API.</p></li>
+<li><p>pcap_set_master_id — оболочка для pfring_set_master_id API.</p></li>
+<li><p>pcap_set_master — оболочка для pfring_set_master API.</p></li>
+<li><p>pcap_set_application_name — оболочка для pfring_set_application_name API.</p></li>
+<li><p>pcap_set_cluster — оболочка для pfring_set_cluster API.</p></li>
+<li><p>pcap_set_watermark — оболочка для pfring_set_poll_watermark API.</p></li>
+<li><p>pcap_set_poll_watermark_timeout — оболочка для pfring_set_poll_watermark_timeout API.</p></li>
 </ul>
 <section id="environment-variables">
-<h3><span class="section-number">5.1.1. </span>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h3>
-<p>This section lists environment variables supported by the extended pcap library
-in order to control the working mode without changing the pcap-based application.</p>
+<h3><span class="section-number">5.1.1. </span>Переменные среды<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h3>
+<p>В этом разделе перечислены переменные среды, поддерживаемые расширенной библиотекой pcap.
+для управления режимом работы без изменения приложения на базе pcap.</p>
 <ul class="simple">
-<li><p>PCAP_PF_RING_ACTIVE_POLL - set active polling (CPU spinning)</p></li>
-<li><p>PCAP_PF_RING_RSS_REHASH - set in-kernel RSS rehash with standard drivers</p></li>
-<li><p>PCAP_PF_RING_ALWAYS_SYNC_FD - always sync the file descriptor after receive</p></li>
-<li><p>PCAP_PF_RING_ZC_RSS - set symmetric RSS on ZC drivers</p></li>
-<li><p>PCAP_PF_RING_STRIP_HW_TIMESTAMP - set hardware timestamping stripping from packets</p></li>
-<li><p>PCAP_PF_RING_HW_TIMESTAMP - enable hardware timestamping</p></li>
-<li><p>PCAP_PF_RING_USERSPACE_BPF - force userspace BPF in place of in-kernel BPF evaluation</p></li>
-<li><p>PCAP_PF_RING_RECV_ONLY - set receive only mode to the socket</p></li>
-<li><p>PCAP_PF_RING_APPNAME - set the application name</p></li>
-<li><p>PCAP_PF_RING_CLUSTER_ID - set the kernel cluster ID</p></li>
+<li><p>PCAP_PF_RING_ACTIVE_POLL — установить активный опрос (CPU крутится)</p></li>
+<li><p>PCAP_PF_RING_RSS_REHASH — установить перехеширование RSS в ядре со стандартными драйверами.</p></li>
+<li><p>PCAP_PF_RING_ALWAYS_SYNC_FD — всегда синхронизировать дескриптор файла после получения</p></li>
+<li><p>PCAP_PF_RING_ZC_RSS — установить симметричный RSS на драйверах ZC</p></li>
+<li><p>PCAP_PF_RING_STRIP_HW_TIMESTAMP — установка аппаратного удаления меток времени из пакетов.</p></li>
+<li><p>PCAP_PF_RING_HW_TIMESTAMP — включить аппаратную метку времени</p></li>
+<li><p>PCAP_PF_RING_USERSPACE_BPF - принудительно использовать пользовательское пространство BPF вместо внутриядерной оценки BPF</p></li>
+<li><p>PCAP_PF_RING_RECV_ONLY — установить для сокета режим только приема</p></li>
+<li><p>PCAP_PF_RING_APPNAME — установить имя приложения</p></li>
+<li><p>PCAP_PF_RING_CLUSTER_ID — установить идентификатор кластера ядра</p></li>
 </ul>
-<p>Environment variables to control the in-kernel cluster distribution function:</p>
+<p>Переменные среды для управления функцией распределения кластеров в ядре:</p>
 <ul class="simple">
 <li><p>PCAP_PF_RING_USE_CLUSTER_PER_FLOW</p></li>
 <li><p>PCAP_PF_RING_USE_CLUSTER_PER_FLOW_2_TUPLE</p></li>
 <li><p>PCAP_PF_RING_USE_CLUSTER_PER_FLOW_4_TUPLE</p></li>
-<li><p>PCAP_PF_RING_USE_CLUSTER_PER_FLOW_5_TUPLE (Default)</p></li>
+<li><p>PCAP_PF_RING_USE_CLUSTER_PER_FLOW_5_TUPLE (по умолчанию)</p></li>
 <li><p>PCAP_PF_RING_USE_CLUSTER_PER_FLOW_TCP_5_TUPLE</p></li>
 <li><p>PCAP_PF_RING_USE_CLUSTER_ROUNDROBIN</p></li>
 <li><p>PCAP_PF_RING_USE_CLUSTER_PER_INNER_FLOW</p></li>
@@ -178,38 +162,32 @@ in order to control the working mode without changing the pcap-based application
 </section>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="pfring_ft.html" rel="prev" title="4. PF_RING FT API"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="../debug.html" rel="next" title="Crash Debug">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pfring_ft.html" class="btn btn-neutral float-left" title="4. PF_RING FT API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../debug.html" class="btn btn-neutral float-right" title="Crash Debug" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/pf_ring/api/libpcap.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:24:13 GMT -->
 </html>

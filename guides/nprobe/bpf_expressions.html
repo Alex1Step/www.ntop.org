@@ -1,100 +1,88 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-
+<html class="writer-html5" data-content_root="./" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/nprobe/bpf_expressions.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:21 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BPF Packet Filtering Expressions &mdash; nProbe 10.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options0088.js?v=864e5427"></script>
-      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Flow Information Elements" href="flow_information_elements.html" />
-    <link rel="prev" title="Developing nProbe Plugins" href="developing_plugins.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BPF Выражения фильтрации пакетов — документация nProbe 10.0</title>
+<link href="_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="_static/documentation_options0088.js?v=864e5427"></script>
+<script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="flow_information_elements.html" rel="next" title="Flow Information Elements"/>
+<link href="developing_plugins.html" rel="prev" title="Developing nProbe Plugins"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
             nProbe
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nprobe/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/nprobe/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html#what-is-nprobe">What is nProbe?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="versions.html">Versions Comparison Table</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configurations.html">nProbe Modes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s New</a></li>
-<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">How to Start nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">Tuning nProbe Performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#high-speed-flow-collection">High-Speed Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#expected-collection-performance">Expected Collection Performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-flows-from-many-routers">Collecting Flows from Many Routers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Handling Trillion Flows: Dumping Flows into ClickHouse</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#data-deduplication">Data Deduplication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#snmp-interfaces-polling">SNMP Interfaces Polling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-ntap-traffic">Collecting nTap Traffic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#influxdb-based-timeseries-dump">InfluxDB-based Timeseries Dump</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#howto-create-sflow-timeseries">HowTo Create sFlow Timeseries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-relay">Flow Relay</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-replication-fanout">Flow Replication / Fanout</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#dumping-collected-flows-packets">Dumping Collected Flows/Packets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tls.html">Using TLS In Flow Collection/Export</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tls.html#tls-certificates-validation">TLS Certificates Validation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli_options.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Note on interface indexes and (router) MAC/IP addresses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli_options.html#further-plugin-available-command-line-options">Further plugin available command line options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX format [-T]</a></li>
-<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Using nProbe with ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kafka.html">Using Kafka with nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bgp.html">BGP/BMP Traffic Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="agent_mode.html">Agent Mode support in nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="case_study/index.html">nProbe Case Study</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">nProbe Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="developing_plugins.html">Developing nProbe Plugins</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">BPF Packet Filtering Expressions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#allowable-primitives">Allowable primitives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Введение</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#what-is-nprobe">Что такое nProbe?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Таблица сравнения версий</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configurations.html">nProbe Режимы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">Что нового</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">Как начать nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Настройка nProbe Производительность</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#high-speed-flow-collection">Коллекция высокоскоростного потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#expected-collection-performance">Ожидаемая производительность коллекции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-flows-from-many-routers">Сбор потоков от множества маршрутизаторов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Обработка триллионов потоков: сброс потоков в ClickHouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#data-deduplication">Дедупликация данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#snmp-interfaces-polling">SNMP Опрос интерфейсов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-ntap-traffic">Сбор nTap трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#influxdb-based-timeseries-dump">Дамп таймсерий на основе InfluxDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#howto-create-sflow-timeseries">Как создать таймсерию sFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-relay">Реле потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-replication-fanout">Репликация потока/разветвление</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#dumping-collected-flows-packets">Сброс собранных потоков/пакетов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tls.html">Использование TLS при сборе/экспорте потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tls.html#tls-certificates-validation">TLS Проверка сертификатов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Примечание об индексах интерфейсов и MAC/IP-адресах (маршрутизатора)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#further-plugin-available-command-line-options">Дополнительные параметры командной строки, доступные для плагина</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX формат [-T]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Использование nProbe с ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kafka.html">Использование Kafka с nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bgp.html">BGP/BMP Мониторинг трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="agent_mode.html">Поддержка режима агента в nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Часто задаваемые вопросы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="case_study/index.html">nProbe Практический пример</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">nProbe Плагины</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing_plugins.html">Разработка плагинов nProbe</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">BPF Выражения фильтрации пакетов</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#allowable-primitives">Допустимые примитивы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Примеры</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="flow_information_elements.html">Flow Information Elements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hardware_sizing.html">Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_information_elements.html">Информационные элементы потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware_sizing.html">Определение размеров оборудования</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
-<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
@@ -102,196 +90,186 @@
 <li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">nProbe</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">BPF Packet Filtering Expressions</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/bpf_expressions.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="bpf-packet-filtering-expressions">
-<h1>BPF Packet Filtering Expressions<a class="headerlink" href="#bpf-packet-filtering-expressions" title="Link to this heading"></a></h1>
-<p>This section has been extracted from the tcpdump man page and it describes the syntax of BPF filters you can specify using the –f flag.</p>
-<p>The expression consists of one or more primitives. Primitives usually consist of an id (name or number) preceded by one or more qualifiers. There are three different kinds of qualifier:</p>
-<p><em>type</em></p>
-<p>Qualifiers say what kind of thing the id name or number refers to. Possible types are host, net and port. E.g., <cite>host foo</cite>, <cite>net 128.3</cite>, <cite>port 20</cite>. If there is no type qualifier, host is assumed.</p>
-<p><em>dir</em></p>
-<p>Qualifiers specify a particular transfer direction to and/or from id. Possible directions are src, dst, src or dst and src and dst. E.g., <cite>src foo</cite>, <cite>dst net 128.3</cite>, <cite>src or dst port ftp-data</cite>. If there is no dir qualifier, src or dst is assumed.</p>
-<p><em>proto</em></p>
-<p>Qualifiers restrict the match to a particular protocol. Possible protos are: ether, fddi, ip, arp, rarp, decnet, lat, moprc, mopdl, tcp and udp. E.g., <cite>ether src foo</cite>, <cite>arp net 128.3</cite>, <cite>tcp port 21</cite>. If there is no proto qualifier, all protocols consistent with the type are assumed. E.g., <cite>src foo</cite> means <cite>(ip or arp or rarp) src foo</cite> (except the latter is not legal syntax), <cite>net bar</cite> means <cite>(ip or arp or rarp) net bar</cite> and <cite>port 53</cite> means <cite>(tcp or udp) port 53</cite>.
-[<cite>fddi</cite> is actually an alias for <cite>ether</cite>; the parser treats them identically as meaning <cite>the data link level used on the specified network interface.</cite> FDDI headers contain Ethernet-like source and destination addresses, and often contain Ethernet-like packet types, so you can filter on these FDDI fields just as with the analogous Ethernet fields. FDDI headers also contain other fields, but you cannot name them explicitly in a filter expression.]
-In addition to the above, there are some special <cite>primitive</cite> keywords that don’t follow the pattern: gateway, broadcast, less, greater and arithmetic expressions. All of these are described below.
-More complex filter expressions are built up by using the words and, or and not to combine primitives. E.g., <cite>host foo and not port ftp and not port ftp-data</cite>. To save typing, identical qualifier lists can be omitted. E.g., <cite>tcp dst port ftp or ftp-data or domain</cite> is exactly the same as <cite>tcp dst port ftp or tcp dst port ftp-data or tcp dst port domain</cite>.</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">nProbe</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">BPF Выражения фильтрации пакетов</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/bpf_expressions.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="bpf-packet-filtering-expressions">
+<h1>BPF Выражения фильтрации пакетов<a class="headerlink" href="#bpf-packet-filtering-expressions" title="Link to this heading"></a></h1>
+<p>Этот раздел был взят из man-страницы tcpdump и описывает синтаксис фильтров BPF, которые можно указать с помощью флага –f.</p>
+<p>Выражение состоит из одного или нескольких примитивов. Примитивы обычно состоят из идентификатора (имени или номера), которому предшествуют один или несколько квалификаторов. Существует три различных типа квалификаторов:</p>
+<p><em>тип</em></p>
+<p>Квалификаторы говорят, к какому типу объекта относится имя или номер идентификатора. Возможные типы: хост, сеть и порт. Например., <cite>хозяин фу</cite>, <cite>нетто 128,3</cite>, <cite>порт 20</cite>. Если квалификатор типа отсутствует, подразумевается хост.</p>
+<p><em>реж.</em></p>
+<p>Квалификаторы указывают конкретное направление передачи к id и/или от него. Возможные направления: src, dst, src или dst и src и dst. Например., <cite>источник foo</cite>, <cite>сеть летнего времени 128,3</cite>, <cite>порт src или dst ftp-данные</cite>. Если квалификатор dir отсутствует, предполагается src или dst.</p>
+<p><em>прото</em></p>
+<p>Квалификаторы ограничивают соответствие определенному протоколу. Возможные прото: ether, fddi, ip, arp, rarp, decnet, lat, moprc, mopdl, tcp и udp. Например., <cite>эфир src foo</cite>, <cite>сеть арп 128,3</cite>, <cite>tcp порт 21</cite>. Если квалификатор прототипа отсутствует, предполагаются все протоколы, соответствующие этому типу. Например., <cite>источник foo</cite> означает <cite>(ip или arp или rarp) src foo</cite> (за исключением того, что последний не является допустимым синтаксисом), <cite>чистый бар</cite> означает <cite>(ip или arp или rarp) чистая полоса</cite> и <cite>порт 53</cite> означает <cite>(tcp или udp) порт 53</cite>.
+[<cite>ФДДИ</cite> на самом деле это псевдоним <cite>эфир</cite>; анализатор обрабатывает их одинаково как значение <cite>уровень канала передачи данных, используемый на указанном сетевом интерфейсе.</cite> Заголовки FDDI содержат адреса источника и назначения, подобные Ethernet, и часто содержат типы пакетов, подобные Ethernet, поэтому вы можете фильтровать эти поля FDDI так же, как и в случае с аналогичными полями Ethernet. Заголовки FDDI также содержат другие поля, но вы не можете явно указать их имя в выражении фильтра.]
+Помимо вышеперечисленного, существуют некоторые специальные <cite>примитивный</cite> ключевые слова, которые не соответствуют шаблону: шлюз, широковещательная передача, меньше, больше и арифметические выражения. Все это описано ниже.
+Более сложные выражения фильтра создаются с использованием слов и или и не для объединения примитивов. Например., <cite>хост foo, а не порт ftp и не порт ftp-данные</cite>. Чтобы сэкономить на вводе текста, идентичные списки квалификаторов можно опустить. Например., <cite>tcp dst-порт ftp или ftp-данные или домен</cite> точно так же, как <cite>tcp порт dst ftp или tcp порт dst ftp-данные или tcp домен порта dst</cite>.</p>
 <section id="allowable-primitives">
-<h2>Allowable primitives<a class="headerlink" href="#allowable-primitives" title="Link to this heading"></a></h2>
-<p><em>dst host host</em></p>
-<p>True if the IP destination field of the packet is host, which may be either an address or a name.</p>
-<p><em>src host host</em></p>
-<p>True if the IP source field of the packet is host.</p>
-<p><em>host host</em></p>
-<p>True if either the IP source or destination of the packet is host. Any of the above host expressions can be prepended with the keywords, ip, arp, or rarp as in: ip host host
-which is equivalent to: ether proto ip and host host
-If host is a name with multiple IP addresses, each address will be checked for a match.</p>
-<p><em>ether dst ehost</em></p>
-<p>True if the ethernet destination address is ehost. Ehost may be either a name from /etc/ethers or a number.</p>
-<p><em>ether src ehost</em></p>
-<p>True if the ethernet source address is ehost.</p>
-<p><em>ether host ehost</em></p>
-<p>True if either the ethernet source or destination address is ehost.</p>
-<p><em>gateway host</em></p>
-<p>True if the packet used host as a gateway. I.e., the ethernet source or destination address was host but neither the IP source nor the IP destination was host. Host must be a name and must be found in both /etc/hosts and /etc/ethers. (An equivalent expression is ether host ehost and not host host
-which can be used with either names or numbers for host / ehost.)</p>
-<p><em>dst net net</em></p>
-<p>True if the IP destination address of the packet has a network number of net, which may be either an address or a name.</p>
-<p><em>src net net</em></p>
-<p>True if the IP source address of the packet has a network number of net.</p>
-<p><em>net net</em></p>
-<p>True if either the IP source or destination address of the packet has a network number of net.</p>
-<p><em>dst port port</em></p>
-<p>True if the packet is ip/tcp or ip/udp and has a destination port value of port. The port can be a number or a name used in /etc/services. If a name is used, both the port number and protocol are checked. If a number or ambiguous name is used, only the port number is checked (e.g., dst port 513 will print both tcp/login traffic and udp/who traffic, and port domain will print both tcp/domain and udp/domain traffic).</p>
-<p><em>src port port</em></p>
-<p>True if the packet has a source port value of port.</p>
-<p><em>port port</em></p>
-<p>True if either the source or destination port of the packet is port. Any of the above port expressions can be prepended with the keywords, tcp or udp, as in: tcp src port port which matches only tcp packets.</p>
-<p><em>less length</em></p>
-<p>True if the packet has a length less than or equal to length. This is equivalent to: len &lt;= length.</p>
-<p><em>greater length</em></p>
-<p>True if the packet has a length greater than or equal to length. This is equivalent to: len &gt;= length.</p>
-<p><em>ip proto protocol</em></p>
-<p>True if the packet is an ip packet of protocol type protocol. Protocol can be a number or one of the names icmp, udp, nd, or tcp. Note that the identifiers tcp, udp, and icmp are also keywords and must be escaped via backslash (), which is \ in the C-shell.</p>
-<p><em>ether broadcast</em></p>
-<p>True if the packet is an ethernet broadcast packet. The ether keyword is optional.</p>
-<p><em>ip broadcast</em></p>
-<p>True if the packet is an IP broadcast packet. It checks for both the all-zeroes and all-ones broadcast conventions, and looks up the local subnet mask.</p>
-<p><em>ether multicast</em></p>
-<p>True if the packet is an ethernet multicast packet. The ether keyword is optional. This is shorthand for <cite>ether[0] &amp; 1 != 0</cite>.</p>
-<p><em>ip multicast</em></p>
-<p>True if the packet is an IP multicast packet.</p>
-<p><em>ether proto protocol</em></p>
-<p>True if the packet is of ether type protocol. Protocol can be a number or a name like ip, arp, or rarp. Note these identifiers are also keywords and must be escaped via backslash (). [In the case of FDDI (e.g., <cite>fddi protocol arp</cite>), the protocol identification comes from the 802.2 Logical Link Control (LLC) header, which is usually layered on top of the FDDI header. ntop assumes, when filtering on the protocol identifier, that all FDDI packets include an LLC header, and that the LLC header is in so-called SNAP format.]</p>
-<p><em>decnet src host</em></p>
-<p>True if the DECNET source address is host, which may be an address of the form <cite>10.123</cite>, or a DECNET host name. [DECNET host name support is only available on Ultrix systems that are configured to run DECNET.]</p>
-<p><em>decnet dst host</em></p>
-<p>True if the DECNET destination address is host.</p>
-<p><em>decnet host host</em></p>
-<p>True if either the DECNET source or destination address is host.</p>
-<p><em>ip, arp, rarp, decnet</em></p>
-<p>Abbreviations for: ether proto p where p is one of the above protocols.</p>
-<p><em>lat, moprc, mopdl</em></p>
-<p>Abbreviations for: ether proto p where p is one of the above protocols. Note that ntop does not currently know how to parse these protocols.</p>
+<h2>Допустимые примитивы<a class="headerlink" href="#allowable-primitives" title="Link to this heading"></a></h2>
+<p><em>хост хоста dst</em></p>
+<p>Истинно, если в поле IP-адресата пакета указан хост, который может быть либо адресом, либо именем.</p>
+<p><em>хост хоста src</em></p>
+<p>Истинно, если поле источника IP пакета — хост.</p>
+<p><em>хост хост</em></p>
+<p>Истинно, если IP-источник или пункт назначения пакета — хост. К любому из приведенных выше выражений хоста можно добавить ключевые слова ip, arp или rarp, например: ip хост хост
+что эквивалентно: ether proto ip и хост-хост
+Если хост представляет собой имя с несколькими IP-адресами, каждый адрес будет проверен на соответствие.</p>
+<p><em>эфир dst ehost</em></p>
+<p>Истинно, если адрес назначения Ethernet — ehost. Ehost может быть либо именем из /etc/ethers, либо числом.</p>
+<p><em>эфир src ehost</em></p>
+<p>Истинно, если исходный адрес Ethernet — ehost.</p>
+<p><em>хост эфира эхост</em></p>
+<p>Истинно, если адрес источника или назначения Ethernet — ehost.</p>
+<p><em>хост-шлюз</em></p>
+<p>Истинно, если пакет использовал хост в качестве шлюза. То есть адрес источника или назначения Ethernet был хостом, но ни источник IP, ни адрес назначения IP не были хостом. Хост должен быть именем и должен быть найден как в /etc/hosts, так и в /etc/ethers. (Эквивалентное выражение: etherhost ehost, а не хост-хост.
+который можно использовать как с именами, так и с номерами хоста/ehost.)</p>
+<p><em>сеть DST</em></p>
+<p>Истинно, если IP-адрес назначения пакета имеет сетевой номер, который может быть либо адресом, либо именем.</p>
+<p><em>сеть SRC Net</em></p>
+<p>Истинно, если IP-адрес источника пакета имеет сетевой номер net.</p>
+<p><em>чистая сеть</em></p>
+<p>Истинно, если IP-адрес источника или назначения пакета имеет сетевой номер net.</p>
+<p><em>порт dst порт</em></p>
+<p>Истинно, если пакет имеет тип ip/tcp или ip/udp и имеет значение порта назначения port. Порт может быть номером или именем, используемым в /etc/services. Если используется имя, проверяются и номер порта, и протокол. Если используется номер или неоднозначное имя, проверяется только номер порта (например, dst порт 513 будет печатать как tcp/трафик входа в систему, так и udp/трафик who, а домен порта будет печатать как tcp/domain, так и udp/трафик домена).</p>
+<p><em>исходный порт порт</em></p>
+<p>Истинно, если пакет имеет значение порта источника port.</p>
+<p><em>порт порт</em></p>
+<p>Истинно, если порт источника или назначения пакета является портом. К любому из приведенных выше выражений порта можно добавить ключевые слова tcp или udp, например: tcp src port порт, который соответствует только tcp пакетам.</p>
+<p><em>меньше длина</em></p>
+<p>Истинно, если длина пакета меньше или равна length. Это эквивалентно: len &lt;= length.</p>
+<p><em>большая длина</em></p>
+<p>Истинно, если длина пакета больше или равна length. Это эквивалентно: len &gt;= length.</p>
+<p><em>IP-протокол</em></p>
+<p>Истинно, если пакет является IP-пакетом типа протокола. Протокол может быть числом или одним из имен icmp, udp, nd или tcp. Обратите внимание, что идентификаторы tcp, udp и icmp также являются ключевыми словами и должны экранироваться обратной косой чертой (), которая в C-оболочке равна \.</p>
+<p><em>эфирное вещание</em></p>
+<p>Истинно, если пакет является широковещательным пакетом Ethernet. Ключевое слово ether не является обязательным.</p>
+<p><em>IP-трансляция</em></p>
+<p>Истинно, если пакет является широковещательным IP-пакетом. Он проверяет соглашения о широковещательной передаче как «все нули», так и «все единицы», а также ищет маску локальной подсети.</p>
+<p><em>многоадресная рассылка эфира</em></p>
+<p>Истинно, если пакет является многоадресным пакетом Ethernet. Ключевое слово ether не является обязательным. Это сокращение от <cite>эфир[0] &amp; 1 != 0</cite>.</p>
+<p><em>IP-многоадресная рассылка</em></p>
+<p>Истинно, если пакет является многоадресным IP-пакетом.</p>
+<p><em>протопротокол эфира</em></p>
+<p>Истинно, если пакет имеет протокол типа эфира. Протокол может быть числом или именем, например ip, arp или rarp. Обратите внимание, что эти идентификаторы также являются ключевыми словами и должны экранироваться обратной косой чертой (). [В случае FDDI (например, <cite>протокол fddi arp</cite>), идентификация протокола происходит из заголовка 802.2 Logical Link Control (LLC), который обычно располагается поверх заголовка FDDI. ntop при фильтрации по идентификатору протокола предполагает, что все пакеты FDDI включают заголовок LLC и что заголовок LLC имеет так называемый формат SNAP.]</p>
+<p><em>хост decnet src</em></p>
+<p>Истинно, если исходным адресом DECNET является хост, который может быть адресом вида <cite>10.123</cite>или имя хоста DECNET. [Поддержка имени хоста DECNET доступна только в системах Ultrix, настроенных для работы с DECNET.]</p>
+<p><em>хост decnet dst</em></p>
+<p>Истинно, если адрес назначения DECNET — хост.</p>
+<p><em>хост decnet хост</em></p>
+<p>Истинно, если адрес источника или назначения DECNET является хостом.</p>
+<p><em>ip, арп, рапп, decnet</em></p>
+<p>Сокращения: ether proto p, где p — один из вышеуказанных протоколов.</p>
+<p><em>лат, moprc, mopdl</em></p>
+<p>Сокращения: ether proto p, где p — один из вышеуказанных протоколов. Обратите внимание, что ntop в настоящее время не знает, как анализировать эти протоколы.</p>
 <p><em>tcp, udp, icmp</em></p>
-<p>Abbreviations for: ip proto p where p is one of the above protocols.</p>
-<p><em>expr relop expr</em></p>
-<p>True if the relation holds, where relop is one of &gt;, &lt;, &gt;=, &lt;=, =, !=, and expr is an arithmetic expression composed of integer constants (expressed in standard C syntax), the normal binary operators [+, -, <a href="#id1"><span class="problematic" id="id2">*</span></a>, /, &amp;, <a href="#id3"><span class="problematic" id="id4">|</span></a>], a length operator, and special packet data accessors. To access data inside the packet, use the following syntax: proto [ expr : size ] Proto is one of ether, fddi, ip, arp, rarp, tcp, udp, or icmp, and indicates the protocol layer for the index operation. The byte offset, relative to the indicated protocol layer, is given by expr. Size is optional and indicates the number of bytes in the field of interest; it can be either one, two, or four, and defaults to one. The length operator, indicated by the keyword len, gives the length of the packet.
-For example, <cite>ether[0] &amp; 1 != 0</cite> catches all multicast traffic. The expression <cite>ip[0] &amp; 0xf != 5</cite> catches all IP packets with options. The expression <cite>ip[6:2] &amp; 0x1fff = 0</cite> catches only unfragmented datagrams and frag zero of fragmented datagrams. This check is implicitly applied to the tcp and udp index operations. For instance, tcp[0] always means the first byte of the TCP header, and never means the first byte of an intervening fragment.</p>
-<p>Primitives may be combined using:</p>
+<p>Сокращения: ip proto p, где p — один из вышеуказанных протоколов.</p>
+<p><em>выражение повторное выражение</em></p>
+<p>Истинно, если соотношение выполняется, где relop — это одно из &gt;, &lt;, &gt;=, &lt;=, =, !=, а expr — арифметическое выражение, состоящее из целочисленных констант (выраженных в стандартном синтаксисе C), обычные бинарные операторы [+, -, <a href="#id1"><span class="problematic" id="id2">*</span></a>, /, &amp;, <a href="#id3"><span class="problematic" id="id4">|</span></a>], оператор длины и специальные средства доступа к пакетным данным. Чтобы получить доступ к данным внутри пакета, используйте следующий синтаксис: proto [выражение: размер] Proto — это один из эфиров, fddi, ip, arp, rarp, tcp, udp или icmp и указывает уровень протокола для операции с индексом. Смещение в байтах относительно указанного уровня протокола задается выражением. Размер не является обязательным и указывает количество байтов в интересующем поле; это может быть один, два или четыре, по умолчанию — один. Оператор длины, обозначаемый ключевым словом len, определяет длину пакета.
+Например, <cite>эфир[0] &amp; 1 != 0</cite> ловит весь многоадресный трафик. Выражение <cite>ip[0] и 0xf != 5</cite> ловит все IP-пакеты с опциями. Выражение <cite>ip[6:2] &amp; 0x1fff = 0</cite> перехватывает только нефрагментированные дейтаграммы и фрагментирует zero фрагментированных дейтаграмм. Эта проверка неявно применяется к индексным операциям tcp и udp. Например, tcp[0] всегда означает первый байт заголовка TCP и никогда не означает первый байт промежуточного фрагмента.</p>
+<p>Примитивы можно комбинировать, используя:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>A parenthesized group of primitives and operators</p></li>
-<li><p>(parentheses are special to the Shell and must be escaped).</p></li>
-<li><p>Negation (<cite>!</cite> or <cite>not</cite>).</p></li>
-<li><p>Concatenation (<cite>&amp;&amp;</cite> or <cite>and</cite>).</p></li>
-<li><p>Alternation (<cite>||</cite> or <cite>or</cite>).</p></li>
+<li><p>Заключенная в круглые скобки группа примитивов и операторов</p></li>
+<li><p>(скобки являются специальными для оболочки и должны быть экранированы).</p></li>
+<li><p>Отрицание (<cite>!</cite> или <cite>нет</cite>).</p></li>
+<li><p>Конкатенация (<cite>&amp;&amp;</cite> или <cite>и</cite>).</p></li>
+<li><p>Чередование (<cite>||</cite> или <cite>или</cite>).</p></li>
 </ul>
 </div></blockquote>
-<p>Negation has highest precedence. Alternation and concatenation have equal precedence and associate left to right. Note that explicit and tokens, not juxtaposition, are now required for concatenation. If an identifier is given without a keyword, the most recent keyword is assumed. For example, not host vs and ace is short for not host vs and host ace which should not be confused with not ( host vs or ace ). Expression arguments can be passed to nProbe as either a single argument or as multiple arguments, whichever is more convenient. Generally, if the expression contains Shell metacharacters, it is easier to pass it as a single, quoted argument. Multiple arguments are concatenated with spaces before being parsed.</p>
+<p>Отрицание имеет наивысший приоритет. Чередование и конкатенация имеют одинаковый приоритет и связаны слева направо. Обратите внимание, что для конкатенации теперь требуются явные и токены, а не сопоставление. Если идентификатор указан без ключевого слова, предполагается самое последнее ключевое слово. Например, not host vs и ace — это сокращение от not Host vs и Host ace, которые не следует путать с not (host vs или ace). Аргументы выражения могут передаваться в nProbe либо как один аргумент, либо как несколько аргументов, в зависимости от того, что удобнее. Обычно, если выражение содержит метасимволы Shell, его проще передать как один аргумент в кавычках. Перед анализом несколько аргументов объединяются пробелами.</p>
 </section>
 <section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
-<p>To select all packets arriving at or departing from sundown:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;host sundown&quot;</span>
+<h2>Примеры<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>Чтобы выбрать все пакеты, прибывающие или отправляющиеся после захода солнца:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">"host sundown"</span>
 </pre></div>
 </div>
-<p>To select traffic between helios and either hot or ace:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;host helios and ( hot or ace )&quot;</span>
+<p>Чтобы выбрать трафик между helios и hot или ace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">"host helios and ( hot or ace )"</span>
 </pre></div>
 </div>
-<p>To select all IP packets between ace and any host except helios:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;ip host ace and not helios&quot;</span>
+<p>Чтобы выбрать все IP-пакеты между ace и любым хостом, кроме helios:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">"ip host ace and not helios"</span>
 </pre></div>
 </div>
-<p>To select all traffic between local hosts and hosts at Berkeley:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;net ucb-ether&quot;</span>
+<p>Чтобы выбрать весь трафик между локальными хостами и хостами в Беркли:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">"net ucb-ether"</span>
 </pre></div>
 </div>
-<p>To select all ftp traffic through internet gateway snup: (note that the expression is quoted to prevent the shell from (mis-)interpreting the parentheses):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;gateway snup and (port ftp or ftp-data)&quot;</span>
+<p>Чтобы выбрать весь трафик ftp через интернет-шлюз, snup: (обратите внимание, что выражение заключено в кавычки, чтобы оболочка не (неправильно) интерпретировала скобки):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">"gateway snup and (port ftp or ftp-data)"</span>
 </pre></div>
 </div>
-<p>To select traffic neither sourced from nor destined for local hosts (if you gateway to one other net, this stuff should never make it onto your local net).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot; ip and not net localnet&quot;</span>
+<p>Чтобы выбрать трафик, который не исходит от локальных хостов и не предназначен для них (если вы используете шлюз в другую сеть, этот материал никогда не должен попасть в вашу локальную сеть).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">" ip and not net localnet"</span>
 </pre></div>
 </div>
-<p>To select the start and end packets (the SYN and FIN packets) of each TCP conversation that involves a non-local host.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;tcp[13] &amp; 3 != 0 and not src and dst net localnet&quot;</span>
+<p>Чтобы выбрать начальный и конечный пакеты (пакеты SYN и FIN) каждого диалога TCP, в котором участвует нелокальный хост.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">"tcp[13] &amp; 3 != 0 and not src and dst net localnet"</span>
 </pre></div>
 </div>
-<p>To select IP packets longer than 576 bytes sent through gateway snup:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;gateway snup and ip[2:2] &gt; 576&quot;</span>
+<p>Чтобы выбрать IP-пакеты длиной более 576 байт, отправленные через snup шлюза:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">"gateway snup and ip[2:2] &gt; 576"</span>
 </pre></div>
 </div>
-<p>To select IP broadcast or multicast packets that were not sent via ethernet broadcast or multicast:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;ether[0] &amp; 1 = 0 and ip[16] &gt;= 224&quot;</span>
+<p>Чтобы выбрать широковещательные или многоадресные IP-пакеты, которые не были отправлены через широковещательную или многоадресную рассылку Ethernet:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">"ether[0] &amp; 1 = 0 and ip[16] &gt;= 224"</span>
 </pre></div>
 </div>
-<p>To select all ICMP packets that are not echo requests/replies (i.e., not ping packets):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;icmp[0] != 8 and icmp[0] != 0&quot;</span>
+<p>Чтобы выбрать все пакеты ICMP, которые не являются эхо-запросами/ответами (т. е. не пинг-пакетами):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-f<span class="w"> </span><span class="s2">"icmp[0] != 8 and icmp[0] != 0"</span>
 </pre></div>
 </div>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="developing_plugins.html" rel="prev" title="Developing nProbe Plugins"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="flow_information_elements.html" rel="next" title="Flow Information Elements">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2025, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="developing_plugins.html" class="btn btn-neutral float-left" title="Developing nProbe Plugins" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="flow_information_elements.html" class="btn btn-neutral float-right" title="Flow Information Elements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2025, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/nprobe/bpf_expressions.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:22 GMT -->
 </html>

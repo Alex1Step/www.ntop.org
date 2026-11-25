@@ -1,106 +1,94 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-
+<html class="writer-html5" data-content_root="./" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/nedgelite/netfilter_setup.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:21 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Netfilter Setup &mdash; nEdge Lite dev documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
-
-  
-      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
-      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Configuration" href="configuration.html" />
-    <link rel="prev" title="Quick Start Guide" href="quick_start.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Настройка Netfilter — документация для разработчиков nEdge Lite</title>
+<link href="_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<script src="_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+<script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="configuration.html" rel="next" title="Configuration"/>
+<link href="quick_start.html" rel="prev" title="Quick Start Guide"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
             nEdge Lite
           </a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nedgelite/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/nedgelite/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Netfilter Setup</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#understanding-nfqueue">Understanding NFQUEUE</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#key-concepts">Key Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Введение</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Краткое руководство</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Настройка сетевого фильтра</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-nfqueue">Понимание NFQUEUE</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#key-concepts">Ключевые понятия</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#setup-scripts">Setup Scripts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#single-interface-mode">Single Interface Mode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bridge-mode">Bridge Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-scripts">Сценарии настройки</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#single-interface-mode">Режим единого интерфейса</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bridge-mode">Режим моста</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#manual-configuration">Manual Configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#basic-manual-setup">Basic Manual Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#multiple-queue-configuration">Multiple Queue Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipv6-support">IPv6 Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manual-configuration">Ручная настройка</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-manual-setup">Базовая ручная настройка</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-queue-configuration">Конфигурация с несколькими очередями</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipv6-support">IPv6 Поддержка</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#advanced-scenarios">Advanced Scenarios</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#router-mode">Router Mode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#interface-specific-filtering">Interface-Specific Filtering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#direction-specific-filtering">Direction-Specific Filtering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#subnet-specific-filtering">Subnet-Specific Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-scenarios">Расширенные сценарии</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#router-mode">Режим маршрутизатора</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interface-specific-filtering">Фильтрация, специфичная для интерфейса</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#direction-specific-filtering">Фильтрация по определенному направлению</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subnet-specific-filtering">Фильтрация по подсети</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#viewing-and-debugging">Viewing and Debugging</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#view-current-rules">View Current Rules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#view-nfqueue-statistics">View NFQUEUE Statistics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#view-connection-tracking">View Connection Tracking</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#clearing-rules">Clearing Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#viewing-and-debugging">Просмотр и отладка</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#view-current-rules">Посмотреть текущие правила</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view-nfqueue-statistics">Просмотр статистики NFQUEUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view-connection-tracking">Просмотр отслеживания соединений</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clearing-rules">Правила клиринга</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#packets-not-reaching-nedge-lite">Packets Not Reaching nEdge Lite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#nedge-lite-not-starting">nEdge Lite Not Starting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#performance-issues">Performance Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Поиск неисправностей</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#packets-not-reaching-nedge-lite">Пакеты не доходят до nEdge Lite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nedge-lite-not-starting">nEdge Lite не запускается</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-issues">Проблемы с производительностью</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Следующие шаги</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="policies.html">Policy Rules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ntopng_integration.html">ntopng Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Конфигурация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="policies.html">Правила политики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ntopng_integration.html">ntopng Интеграция</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Поиск неисправностей</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Управление лицензиями</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other ntop Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие ntop продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
@@ -109,76 +97,72 @@
 <li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">nEdge Lite</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Netfilter Setup</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/netfilter_setup.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="netfilter-setup">
-<h1>Netfilter Setup<a class="headerlink" href="#netfilter-setup" title="Link to this heading"></a></h1>
-<p>nEdge Lite relies on Linux netfilter (iptables) to intercept packets for inspection. This section explains how to configure netfilter for different deployment scenarios,
-however reading this section is usually not required when using the provided scripts as explained in the Quick Start Guide section.</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">nEdge Lite</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">Настройка сетевого фильтра</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/netfilter_setup.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="netfilter-setup">
+<h1>Настройка сетевого фильтра<a class="headerlink" href="#netfilter-setup" title="Link to this heading"></a></h1>
+<p>nEdge Lite использует сетевой фильтр Linux (iptables) для перехвата пакетов для проверки. В этом разделе объясняется, как настроить netfilter для различных сценариев развертывания.
+однако чтение этого раздела обычно не требуется при использовании предоставленных сценариев, как описано в разделе «Краткое руководство».</p>
 <section id="understanding-nfqueue">
-<h2>Understanding NFQUEUE<a class="headerlink" href="#understanding-nfqueue" title="Link to this heading"></a></h2>
-<p>NFQUEUE is a netfilter target that queues packets to userspace applications for processing. nEdge Lite uses NFQUEUE to:</p>
+<h2>Понимание NFQUEUE<a class="headerlink" href="#understanding-nfqueue" title="Link to this heading"></a></h2>
+<p>NFQUEUE — это целевой сетевой фильтр, который ставит пакеты в очередь в приложения пользовательского пространства для обработки. nEdge Lite использует NFQUEUE для:</p>
 <ol class="arabic simple">
-<li><p>Receive packets from the kernel</p></li>
-<li><p>Perform Deep Packet Inspection</p></li>
-<li><p>Apply policy decisions</p></li>
-<li><p>Return verdicts (accept/drop) to the kernel</p></li>
+<li><p>Получать пакеты от ядра</p></li>
+<li><p>Выполните глубокую проверку пакетов</p></li>
+<li><p>Применять политические решения</p></li>
+<li><p>Возвращать вердикты (принять/отбросить) ядру</p></li>
 </ol>
 <section id="key-concepts">
-<h3>Key Concepts<a class="headerlink" href="#key-concepts" title="Link to this heading"></a></h3>
-<p><strong>Queue ID</strong>: Each NFQUEUE has a numeric ID (0-65535). nEdge Lite listens on specific queue IDs specified with the <code class="docutils literal notranslate"><span class="pre">-q</span></code> option.</p>
-<p><strong>Connection Marking (CONNMARK)</strong>: Instead of marking individual packets, nEdge Lite marks entire connections using conntrack. This ensures all packets in a connection follow the same policy.</p>
-<p><strong>Mark Values</strong>:</p>
+<h3>Ключевые понятия<a class="headerlink" href="#key-concepts" title="Link to this heading"></a></h3>
+<p><strong>Идентификатор очереди</strong>: каждая NFQUEUE имеет числовой идентификатор (0–65535). nEdge Lite прослушивает определенные идентификаторы очередей, указанные в <code class="docutils literal notranslate"><span class="pre">-q</span></code> вариант.</p>
+<p><strong>Маркировка соединений (CONNMARK)</strong>: вместо маркировки отдельных пакетов nEdge Lite маркирует целые соединения с помощью conntrack. Это гарантирует, что все пакеты в соединении следуют одной и той же политике.</p>
+<p><strong>Отметить значения</strong>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: Unmarked (needs inspection)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: Pass (allow)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code>: Drop (block)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: Без маркировки (требуется проверка)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: Пропустить (разрешить)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code>: Отбросить (блокировать)</p></li>
 </ul>
-<p><strong>Packet Flow</strong>:</p>
+<p><strong>Пакетный поток</strong>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PREROUTING → Restore CONNMARK → [mark=2? DROP] → [mark=0? NFQUEUE] → POSTROUTING → Save CONNMARK
 </pre></div>
 </div>
 </section>
 </section>
 <section id="setup-scripts">
-<h2>Setup Scripts<a class="headerlink" href="#setup-scripts" title="Link to this heading"></a></h2>
-<p>nEdge Lite includes setup scripts for common deployment scenarios.</p>
+<h2>Сценарии настройки<a class="headerlink" href="#setup-scripts" title="Link to this heading"></a></h2>
+<p>nEdge Lite включает сценарии установки для распространенных сценариев развертывания.</p>
 <section id="single-interface-mode">
-<h3>Single Interface Mode<a class="headerlink" href="#single-interface-mode" title="Link to this heading"></a></h3>
-<p>Use this mode when protecting traffic on a single network interface (e.g., protecting local services or gateway traffic).</p>
-<p><strong>Script</strong>: <code class="docutils literal notranslate"><span class="pre">/usr/share/nedgelite/scripts/default_setup.sh</span></code></p>
-<p><strong>Usage</strong>:</p>
+<h3>Режим единого интерфейса<a class="headerlink" href="#single-interface-mode" title="Link to this heading"></a></h3>
+<p>Используйте этот режим при защите трафика на одном сетевом интерфейсе (например, защита локальных служб или трафика шлюза).</p>
+<p><strong>Скрипт</strong>: <code class="docutils literal notranslate"><span class="pre">/usr/share/nedgelite/scripts/default_setup.sh</span></code></p>
+<p><strong>Использование</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo /usr/share/nedgelite/scripts/default_setup.sh &lt;interface&gt;</span>
 </pre></div>
 </div>
-<p><strong>Example</strong>:</p>
+<p><strong>Пример</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo /usr/share/nedgelite/scripts/default_setup.sh eth0</span>
 </pre></div>
 </div>
-<p><strong>What it does</strong>:</p>
+<p><strong>Что он делает</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable conntrack accounting and timestamps</span>
 <span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/netfilter/nf_conntrack_acct
 <span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/netfilter/nf_conntrack_timestamp
@@ -199,18 +183,18 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </div>
 </section>
 <section id="bridge-mode">
-<h3>Bridge Mode<a class="headerlink" href="#bridge-mode" title="Link to this heading"></a></h3>
-<p>Use this mode for transparent inspection between two network segments (e.g., LAN and WAN).</p>
-<p><strong>Script</strong>: <code class="docutils literal notranslate"><span class="pre">/usr/share/nedgelite/scripts/bridge_setup.sh</span></code></p>
-<p><strong>Usage</strong>:</p>
+<h3>Режим моста<a class="headerlink" href="#bridge-mode" title="Link to this heading"></a></h3>
+<p>Используйте этот режим для прозрачной проверки между двумя сегментами сети (например, LAN и WAN).</p>
+<p><strong>Скрипт</strong>: <code class="docutils literal notranslate"><span class="pre">/usr/share/nedgelite/scripts/bridge_setup.sh</span></code></p>
+<p><strong>Использование</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo /usr/share/nedgelite/scripts/bridge_setup.sh &lt;lan_interface&gt; &lt;wan_interface&gt;</span>
 </pre></div>
 </div>
-<p><strong>Example</strong>:</p>
+<p><strong>Пример</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo /usr/share/nedgelite/scripts/bridge_setup.sh eth0 eth1</span>
 </pre></div>
 </div>
-<p><strong>What it does</strong>:</p>
+<p><strong>Что он делает</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create bridge</span>
 ip<span class="w"> </span>link<span class="w"> </span>add<span class="w"> </span>name<span class="w"> </span>br0<span class="w"> </span><span class="nb">type</span><span class="w"> </span>bridge
 ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>dev<span class="w"> </span><span class="nv">$LAN_IF</span><span class="w"> </span>master<span class="w"> </span>br0
@@ -230,8 +214,8 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-j<span class="w"> </span>CONNMARK<span class="w"> </span>--save-mark
 </pre></div>
 </div>
-<p><strong>Bridge with VLANs</strong>:</p>
-<p>If using VLAN trunking, you can create VLAN subinterfaces on the bridge:</p>
+<p><strong>Мост с VLAN</strong>:</p>
+<p>При использовании транкинга VLAN на мосту можно создать субинтерфейсы VLAN:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Add<span class="w"> </span>VLAN<span class="w"> </span><span class="m">10</span>
 <span class="go">ip link add link br0 name br0.10 type vlan id 10</span>
 <span class="go">ip link set dev br0.10 up</span>
@@ -241,10 +225,10 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </section>
 </section>
 <section id="manual-configuration">
-<h2>Manual Configuration<a class="headerlink" href="#manual-configuration" title="Link to this heading"></a></h2>
-<p>For custom deployments, you can manually configure iptables.</p>
+<h2>Ручная настройка<a class="headerlink" href="#manual-configuration" title="Link to this heading"></a></h2>
+<p>Для пользовательских развертываний вы можете вручную настроить iptables.</p>
 <section id="basic-manual-setup">
-<h3>Basic Manual Setup<a class="headerlink" href="#basic-manual-setup" title="Link to this heading"></a></h3>
+<h3>Базовая ручная настройка<a class="headerlink" href="#basic-manual-setup" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Enable<span class="w"> </span>conntrack<span class="w"> </span>features
 <span class="go">sudo sysctl -w net.netfilter.nf_conntrack_acct=1</span>
 <span class="go">sudo sysctl -w net.netfilter.nf_conntrack_timestamp=1</span>
@@ -256,17 +240,17 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 <span class="go">sudo iptables -t mangle -A POSTROUTING -j CONNMARK --save-mark</span>
 </pre></div>
 </div>
-<p><strong>Important Options</strong>:</p>
+<p><strong>Важные параметры</strong>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--restore-mark</span></code>: Copies conntrack mark to packet mark</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--save-mark</span></code>: Copies packet mark back to conntrack</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--queue-num</span> <span class="pre">0</span></code>: Specifies NFQUEUE ID (must match nEdge Lite’s <code class="docutils literal notranslate"><span class="pre">-q</span></code> option)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--queue-bypass</span></code>: If nEdge Lite is not running, packets pass through (optional, but recommended for testing)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--restore-mark</span></code>: копирует метку conntrack на метку пакета.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--save-mark</span></code>: копирует метку пакета обратно в conntrack.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--queue-num</span> <span class="pre">0</span></code>: указывает идентификатор NFQUEUE (должен совпадать с идентификатором nEdge Lite). <code class="docutils literal notranslate"><span class="pre">-q</span></code> вариант)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--queue-bypass</span></code>: Если nEdge Lite не запущен, пакеты проходят (необязательно, но рекомендуется для тестирования).</p></li>
 </ul>
 </section>
 <section id="multiple-queue-configuration">
-<h3>Multiple Queue Configuration<a class="headerlink" href="#multiple-queue-configuration" title="Link to this heading"></a></h3>
-<p>For load balancing across CPU cores, use multiple queues:</p>
+<h3>Конфигурация с несколькими очередями<a class="headerlink" href="#multiple-queue-configuration" title="Link to this heading"></a></h3>
+<p>Для балансировки нагрузки по ядрам CPU используйте несколько очередей:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Configure<span class="w"> </span><span class="m">4</span><span class="w"> </span>queues<span class="w"> </span><span class="o">(</span><span class="m">0</span>-3<span class="o">)</span>
 <span class="go">sudo iptables -t mangle -A PREROUTING -j CONNMARK --restore-mark</span>
 <span class="go">sudo iptables -t mangle -A PREROUTING -m mark --mark 2 -j DROP</span>
@@ -274,19 +258,19 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 <span class="go">sudo iptables -t mangle -A POSTROUTING -j CONNMARK --save-mark</span>
 </pre></div>
 </div>
-<p>Then start nEdge Lite with:</p>
+<p>Затем запустите nEdge Lite с помощью:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0:4 -z tcp://127.0.0.1:1234</span>
 </pre></div>
 </div>
-<p><strong>Options explained</strong>:</p>
+<p><strong>Объяснение опций</strong>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--queue-balance</span> <span class="pre">0:3</span></code>: Distribute packets across queues 0-3</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--queue-cpu-fanout</span></code>: Pin queues to CPU cores for better performance</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--queue-balance</span> <span class="pre">0:3</span></code>: Распределить пакеты по очередям 0–3.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--queue-cpu-fanout</span></code>: закрепите очереди на ядрах CPU для повышения производительности.</p></li>
 </ul>
 </section>
 <section id="ipv6-support">
-<h3>IPv6 Support<a class="headerlink" href="#ipv6-support" title="Link to this heading"></a></h3>
-<p>To filter IPv6 traffic, add corresponding ip6tables rules:</p>
+<h3>IPv6 Поддержка<a class="headerlink" href="#ipv6-support" title="Link to this heading"></a></h3>
+<p>Чтобы фильтровать трафик IPv6, добавьте соответствующие правила ip6tables:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Enable<span class="w"> </span>IPv6<span class="w"> </span>conntrack
 <span class="go">sudo modprobe nf_conntrack_ipv6</span>
 
@@ -300,10 +284,10 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </section>
 </section>
 <section id="advanced-scenarios">
-<h2>Advanced Scenarios<a class="headerlink" href="#advanced-scenarios" title="Link to this heading"></a></h2>
+<h2>Расширенные сценарии<a class="headerlink" href="#advanced-scenarios" title="Link to this heading"></a></h2>
 <section id="router-mode">
-<h3>Router Mode<a class="headerlink" href="#router-mode" title="Link to this heading"></a></h3>
-<p>When nEdge Lite runs on a router/gateway:</p>
+<h3>Режим маршрутизатора<a class="headerlink" href="#router-mode" title="Link to this heading"></a></h3>
+<p>Когда nEdge Lite работает на маршрутизаторе/шлюзе:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Enable<span class="w"> </span>IP<span class="w"> </span>forwarding
 <span class="go">sudo sysctl -w net.ipv4.ip_forward=1</span>
 
@@ -319,8 +303,8 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </div>
 </section>
 <section id="interface-specific-filtering">
-<h3>Interface-Specific Filtering<a class="headerlink" href="#interface-specific-filtering" title="Link to this heading"></a></h3>
-<p>Filter only specific interfaces:</p>
+<h3>Фильтрация, специфичная для интерфейса<a class="headerlink" href="#interface-specific-filtering" title="Link to this heading"></a></h3>
+<p>Фильтровать только определенные интерфейсы:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Only<span class="w"> </span>inspect<span class="w"> </span>traffic<span class="w"> </span>on<span class="w"> </span>eth0
 <span class="go">sudo iptables -t mangle -A PREROUTING -i eth0 -j CONNMARK --restore-mark</span>
 <span class="go">sudo iptables -t mangle -A PREROUTING -i eth0 -m mark --mark 2 -j DROP</span>
@@ -330,8 +314,8 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </div>
 </section>
 <section id="direction-specific-filtering">
-<h3>Direction-Specific Filtering<a class="headerlink" href="#direction-specific-filtering" title="Link to this heading"></a></h3>
-<p>Inspect only incoming or outgoing traffic:</p>
+<h3>Фильтрация по определенному направлению<a class="headerlink" href="#direction-specific-filtering" title="Link to this heading"></a></h3>
+<p>Проверяйте только входящий или исходящий трафик:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Only<span class="w"> </span>inspect<span class="w"> </span>incoming<span class="w"> </span>traffic<span class="w"> </span><span class="o">(</span>from<span class="w"> </span>WAN<span class="o">)</span>
 <span class="go">sudo iptables -t mangle -A PREROUTING -i wan0 -j CONNMARK --restore-mark</span>
 <span class="go">sudo iptables -t mangle -A PREROUTING -i wan0 -m mark --mark 2 -j DROP</span>
@@ -341,8 +325,8 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </div>
 </section>
 <section id="subnet-specific-filtering">
-<h3>Subnet-Specific Filtering<a class="headerlink" href="#subnet-specific-filtering" title="Link to this heading"></a></h3>
-<p>Apply filtering only to specific IP ranges:</p>
+<h3>Фильтрация по подсети<a class="headerlink" href="#subnet-specific-filtering" title="Link to this heading"></a></h3>
+<p>Применяйте фильтрацию только к определенным диапазонам IP-адресов:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Only<span class="w"> </span>inspect<span class="w"> </span>traffic<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.1.0/24
 <span class="go">sudo iptables -t mangle -A PREROUTING -s 192.168.1.0/24 -j CONNMARK --restore-mark</span>
 <span class="go">sudo iptables -t mangle -A PREROUTING -s 192.168.1.0/24 -m mark --mark 2 -j DROP</span>
@@ -353,9 +337,9 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </section>
 </section>
 <section id="viewing-and-debugging">
-<h2>Viewing and Debugging<a class="headerlink" href="#viewing-and-debugging" title="Link to this heading"></a></h2>
+<h2>Просмотр и отладка<a class="headerlink" href="#viewing-and-debugging" title="Link to this heading"></a></h2>
 <section id="view-current-rules">
-<h3>View Current Rules<a class="headerlink" href="#view-current-rules" title="Link to this heading"></a></h3>
+<h3>Посмотреть текущие правила<a class="headerlink" href="#view-current-rules" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>View<span class="w"> </span>mangle<span class="w"> </span>table
 <span class="go">sudo iptables -t mangle -L -n -v</span>
 
@@ -365,14 +349,14 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </div>
 </section>
 <section id="view-nfqueue-statistics">
-<h3>View NFQUEUE Statistics<a class="headerlink" href="#view-nfqueue-statistics" title="Link to this heading"></a></h3>
+<h3>Просмотр статистики NFQUEUE<a class="headerlink" href="#view-nfqueue-statistics" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Check<span class="w"> </span>queue<span class="w"> </span>statistics<span class="w"> </span><span class="o">(</span>requires<span class="w"> </span>nfqueue-utils<span class="o">)</span>
 <span class="go">cat /proc/net/netfilter/nfnetlink_queue</span>
 </pre></div>
 </div>
 </section>
 <section id="view-connection-tracking">
-<h3>View Connection Tracking<a class="headerlink" href="#view-connection-tracking" title="Link to this heading"></a></h3>
+<h3>Просмотр отслеживания соединений<a class="headerlink" href="#view-connection-tracking" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>View<span class="w"> </span>all<span class="w"> </span>connections
 <span class="go">sudo conntrack -L</span>
 
@@ -388,8 +372,8 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </div>
 </section>
 <section id="clearing-rules">
-<h3>Clearing Rules<a class="headerlink" href="#clearing-rules" title="Link to this heading"></a></h3>
-<p>To remove all iptables rules:</p>
+<h3>Правила клиринга<a class="headerlink" href="#clearing-rules" title="Link to this heading"></a></h3>
+<p>Чтобы удалить все правила iptables:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Flush<span class="w"> </span>all<span class="w"> </span>chains
 <span class="go">sudo iptables -t mangle -F</span>
 
@@ -404,20 +388,20 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </section>
 </section>
 <section id="troubleshooting">
-<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<h2>Поиск неисправностей<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
 <section id="packets-not-reaching-nedge-lite">
-<h3>Packets Not Reaching nEdge Lite<a class="headerlink" href="#packets-not-reaching-nedge-lite" title="Link to this heading"></a></h3>
+<h3>Пакеты не доходят до nEdge Lite<a class="headerlink" href="#packets-not-reaching-nedge-lite" title="Link to this heading"></a></h3>
 <ol class="arabic">
-<li><p><strong>Check iptables rules</strong>:</p>
+<li><p><strong>Проверьте правила iptables</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo iptables -t mangle -L -n -v</span>
 </pre></div>
 </div>
-<p>Look for NFQUEUE rules and verify packet counters are increasing.</p>
+<p>Найдите правила NFQUEUE и убедитесь, что счетчики пакетов увеличиваются.</p>
 </li>
-<li><p><strong>Verify queue ID</strong>:</p>
-<p>Ensure iptables <code class="docutils literal notranslate"><span class="pre">--queue-num</span></code> matches nEdge Lite’s <code class="docutils literal notranslate"><span class="pre">-q</span></code> option.</p>
+<li><p><strong>Проверьте идентификатор очереди</strong>:</p>
+<p>Убедитесь, что iptables <code class="docutils literal notranslate"><span class="pre">--queue-num</span></code> соответствует nEdge Lite <code class="docutils literal notranslate"><span class="pre">-q</span></code> вариант.</p>
 </li>
-<li><p><strong>Check conntrack</strong>:</p>
+<li><p><strong>Проверить контрек</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo conntrack -L | grep MARK</span>
 </pre></div>
 </div>
@@ -425,29 +409,29 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </ol>
 </section>
 <section id="nedge-lite-not-starting">
-<h3>nEdge Lite Not Starting<a class="headerlink" href="#nedge-lite-not-starting" title="Link to this heading"></a></h3>
+<h3>nEdge Lite не запускается<a class="headerlink" href="#nedge-lite-not-starting" title="Link to this heading"></a></h3>
 <ol class="arabic">
-<li><p><strong>Check if queue is already in use</strong>:</p>
+<li><p><strong>Проверьте, не используется ли уже очередь</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /proc/net/netfilter/nfnetlink_queue</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>Use queue-bypass</strong>:</p>
-<p>Add <code class="docutils literal notranslate"><span class="pre">--queue-bypass</span></code> to iptables rules for testing.</p>
+<li><p><strong>Использовать обход очереди</strong>:</p>
+<p>Добавлять <code class="docutils literal notranslate"><span class="pre">--queue-bypass</span></code> к правилам iptables для тестирования.</p>
 </li>
 </ol>
 </section>
 <section id="performance-issues">
-<h3>Performance Issues<a class="headerlink" href="#performance-issues" title="Link to this heading"></a></h3>
+<h3>Проблемы с производительностью<a class="headerlink" href="#performance-issues" title="Link to this heading"></a></h3>
 <ol class="arabic">
-<li><p><strong>Use multiple queues</strong>:</p>
-<p>Distribute load across CPU cores (see Multiple Queue Configuration above).</p>
+<li><p><strong>Используйте несколько очередей</strong>:</p>
+<p>Распределите нагрузку между ядрами CPU (см. Конфигурацию нескольких очередей выше).</p>
 </li>
-<li><p><strong>Check CPU affinity</strong>:</p>
-<p>Pin nEdge Lite threads to specific CPU cores.</p>
+<li><p><strong>Проверьте близость CPU</strong>:</p>
+<p>Прикрепите потоки nEdge Lite к определенным ядрам CPU.</p>
 </li>
-<li><p><strong>Monitor queue depth</strong>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">watch -n 1 &#39;cat /proc/net/netfilter/nfnetlink_queue&#39;</span>
+<li><p><strong>Мониторинг глубины очереди</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">watch -n 1 'cat /proc/net/netfilter/nfnetlink_queue'</span>
 </pre></div>
 </div>
 </li>
@@ -455,46 +439,40 @@ iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w">
 </section>
 </section>
 <section id="next-steps">
-<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<h2>Следующие шаги<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>Learn about all <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> options for nEdge Lite</p></li>
-<li><p>Understand <a class="reference internal" href="policies.html"><span class="doc">Policy Rules</span></a> for traffic filtering</p></li>
-<li><p>Explore <a class="reference internal" href="advanced.html"><span class="doc">Advanced Features</span></a> features</p></li>
+<li><p>Узнайте обо всем <a class="reference internal" href="configuration.html"><span class="doc">Конфигурация</span></a> опции для nEdge Lite</p></li>
+<li><p>Понимать <a class="reference internal" href="policies.html"><span class="doc">Правила политики</span></a> для фильтрации трафика</p></li>
+<li><p>Исследовать <a class="reference internal" href="advanced.html"><span class="doc">Расширенные функции</span></a> функции</p></li>
 </ul>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="quick_start.html" rel="prev" title="Quick Start Guide"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="configuration.html" rel="next" title="Configuration">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2025, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="quick_start.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2025, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/nedgelite/netfilter_setup.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:22 GMT -->
 </html>

@@ -1,109 +1,97 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
-
+<html class="writer-html5" data-content_root="../../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/api/timeseries/intro.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:40 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Basic Concepts &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Exporting Data" href="export.html" />
-    <link rel="prev" title="Timeseries API" href="index.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Основные понятия — документация ntopng v.7.1.261018</title>
+<link href="../../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../../_static/js/theme.js"></script>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="export.html" rel="next" title="Exporting Data"/>
+<link href="index.html" rel="prev" title="Timeseries API"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index-2.html">
             ntopng
-              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">API Documentation</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">API Документация</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../rest/index.html">RESTful API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lua_c/index.html">Lua API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../python/index.html">Python API</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Timeseries API</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Basic Concepts</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#schema">Schema</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#schema-name">Schema Name</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#metric-types">Metric Types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#driver">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lua_c/index.html">Луа API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/index.html">Питон API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Таймсерия API</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Основные понятия</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#schema">Схема</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#schema-name">Имя схемы</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#metric-types">Типы метрик</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#driver">Водитель</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="export.html">Exporting Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="change_schema.html">Modify an existing Schema</a></li>
-<li class="toctree-l3"><a class="reference internal" href="adding_new_timeseries.html">Adding New Metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="accessing_metrics.html">Accessing Metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="metrics.html">Metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="queries.html">Querying Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="export.html">Экспорт данных</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change_schema.html">Изменить существующую схему</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adding_new_timeseries.html">Добавление новых показателей</a></li>
+<li class="toctree-l3"><a class="reference internal" href="accessing_metrics.html">Доступ к метрикам</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html">Метрики</a></li>
+<li class="toctree-l3"><a class="reference internal" href="queries.html">Запрос данных</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ts_utils.html">ts_utils API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="driver.html">Driver Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="driver.html">Реализация драйвера</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../alerts/index.html">Alerts API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../recording/index.html">Recording API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../alerts/index.html">Оповещения API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recording/index.html">Запись API</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
@@ -112,150 +100,140 @@
 <li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index-2.html">API Documentation</a></li>
-          <li class="breadcrumb-item"><a href="index.html">Timeseries API</a></li>
-      <li class="breadcrumb-item active">Basic Concepts</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/api/timeseries/intro.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="basic-concepts">
-<h1>Basic Concepts<a class="headerlink" href="#basic-concepts" title="Link to this heading"></a></h1>
-<p>Here is a brief introduction to some fundamental concepts of the API.</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="../index-2.html">API Документация</a></li>
+<li class="breadcrumb-item"><a href="index.html">Таймсерия API</a></li>
+<li class="breadcrumb-item active">Основные понятия</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../_sources/api/timeseries/intro.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="basic-concepts">
+<h1>Основные понятия<a class="headerlink" href="#basic-concepts" title="Link to this heading"></a></h1>
+<p>Вот краткое введение в некоторые фундаментальные концепции API.</p>
 <section id="schema">
-<h2>Schema<a class="headerlink" href="#schema" title="Link to this heading"></a></h2>
-<p>A schema can be seen as a table of a database. It specifies the data format and types.
-A schema is identified by it’s name and contains the following informations:</p>
+<h2>Схема<a class="headerlink" href="#schema" title="Link to this heading"></a></h2>
+<p>Схему можно рассматривать как таблицу базы данных. Он определяет формат и типы данных.
+Схема идентифицируется по своему имени и содержит следующую информацию:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Step: the expected interval, in seconds, between raw data points.</p></li>
-<li><p>Tags: a tag is a label which can be used to filter data. Example of tags are
-the interface name, host name and nDPI protocol name.</p></li>
-<li><p>Metrics: a metric is a particual value which is being measured. Example of metrics are
-the host bytes sent traffic, interface number of flows and ASN round trip time.
-All metrics must be consistent with the specified type (see below).</p></li>
-<li><p>Type: the type for all the metrics of the schema. Currently “counter” or “gauge”.</p></li>
-<li><p>Options: some driver specific options.</p></li>
+<li><p>Шаг: ожидаемый интервал в секундах между точками необработанных данных.</p></li>
+<li><p>Теги: тег — это метка, которую можно использовать для фильтрации данных. Пример тегов:
+имя интерфейса, имя хоста и имя протокола nDPI.</p></li>
+<li><p>Метрики: метрика — это частное значение, которое измеряется. Пример показателей:
+байты хоста, отправленные трафиком, количество потоков интерфейса и время прохождения ASN туда и обратно.
+Все метрики должны соответствовать указанному типу (см. ниже).</p></li>
+<li><p>Тип: тип всех метрик схемы. В настоящее время «счетчик» или «датчик».</p></li>
+<li><p>Опции: некоторые опции, специфичные для драйвера.</p></li>
 </ul>
 </div></blockquote>
-<p>All the ntopng defined schemas can be found in <cite>scripts/lua/modules/timeseries/schemas</cite>.
-Schemas are split into 3 files, one for each periodic script, to avoid wasting time loading
-unnecessary schemas. Nevertheless, by including the <cite>ts_utils</cite> module, all the available
-schemas are loaded automatically.</p>
+<p>Все схемы, определенные ntopng, можно найти в <cite>скрипты/lua/модули/таймсерии/схемы</cite>.
+Схемы разделены на 3 файла, по одному на каждый периодический сценарий, чтобы не тратить время на загрузку.
+ненужные схемы. Тем не менее, включив <cite>ts_utils</cite> модуль, все доступные
+схемы загружаются автоматически.</p>
 </section>
 <section id="schema-name">
-<h2>Schema Name<a class="headerlink" href="#schema-name" title="Link to this heading"></a></h2>
+<h2>Имя схемы<a class="headerlink" href="#schema-name" title="Link to this heading"></a></h2>
 <dl class="simple">
-<dt>A schema name is made up of two parts:</dt><dd><ul class="simple">
-<li><p>A schema prefix, for example “host”</p></li>
-<li><p>A schema suffix, for example “ndpi”</p></li>
+<dt>Имя схемы состоит из двух частей:</dt><dd><ul class="simple">
+<li><p>Префикс схемы, например «хост».</p></li>
+<li><p>Суффикс схемы, например «ndpi».</p></li>
 </ul>
 </dd>
 </dl>
-<p>The two parts are separated by a single <cite>:</cite>, so for example “host:ndpi” is a valid
-schema name and indicates the nDPI application traffic of an host. Only a single
-colon is allowed and no spaces are allowed.
-For new schemas, it is important to choose a consistent schema name.</p>
-<p>Here are some common schema prefixes used:</p>
+<p>Обе части разделены одной <cite>:</cite>, например, «host:ndpi» является допустимым
+имя схемы и указывает трафик приложения nDPI хоста. Только один
+допускается двоеточие, пробелы не допускаются.
+Для новых схем важно выбрать единообразное имя схемы.</p>
+<p>Вот некоторые распространенные используемые префиксы схемы:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">iface</span></code>: schemas for network interfaces (e.g. <cite>iface:traffic</cite>)</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">host</span></code>: schemas for local hosts</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">mac</span></code>: schemas for L2 devices</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">asn</span></code>: schemas for autonomous systems</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">subnet</span></code>: schemas for local networks</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">country</span></code>: schemas for countries</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">vlan</span></code>: schemas for VLANs</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">iface</span></code>: схемы сетевых интерфейсов (например. <cite>iface:трафик</cite>)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">host</span></code>: схемы для локальных хостов</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">mac</span></code>: схемы для устройств L2</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">asn</span></code>: схемы для автономных систем</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">subnet</span></code>: схемы для локальных сетей</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">country</span></code>: схемы для стран</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">vlan</span></code>: схемы для VLAN</p></li>
 </ul>
 </div></blockquote>
-<p>Here are some common schema suffixes used:</p>
+<p>Вот некоторые распространенные используемые суффиксы схемы:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">traffic</span></code>: schemas for bytes timeseries (e.g. <cite>host:traffic</cite>)</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ndpi</span></code>: schemas for nDPI application timeseries</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">ndpi_categories</span></code>: schemas for nDPI category timeseries</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">traffic</span></code>: схемы для таймсерий байтов (например. <cite>хост: трафик</cite>)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ndpi</span></code>: схемы для таймсерий приложения nDPI</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ndpi_categories</span></code>: схемы для временных рядов категории nDPI</p></li>
 </ul>
 </div></blockquote>
-<p>Usually the schema prefix appears also as a tag in the timeseries and it’s used
-to identify the element (e.g. the schema <cite>asn:ndpi</cite> as a tag <cite>asn</cite> which holds the
-AS number).</p>
+<p>Обычно префикс схемы появляется также как тег в таймсериях и используется
+для идентификации элемента (например, схемы <cite>asn:ndpi</cite> как тег <cite>асн</cite> который держит
+номер АС).</p>
 </section>
 <section id="metric-types">
-<h2>Metric Types<a class="headerlink" href="#metric-types" title="Link to this heading"></a></h2>
-<p>ntopng provides metrics of two types, namely gauges and
-counters. Timeseries can be created out of gauges and counters,
-transparently. The only thing that is necessary is to tell the
-timeseries engine the actual type, then the rest will be handled automatically.</p>
+<h2>Типы метрик<a class="headerlink" href="#metric-types" title="Link to this heading"></a></h2>
+<p>ntopng предоставляет метрики двух типов, а именно датчики и
+счетчики. Таймсерии могут быть созданы из датчиков и счетчиков.
+прозрачно. Единственное, что необходимо, это рассказать
+таймсерии фактический тип, то rest будет обрабатываться автоматически.</p>
 <ul class="simple">
-<li><p>Counters are for continuous incrementing metrics such as the total
-number of bytes (e.g., <code class="code docutils literal notranslate"><span class="pre">bytes.sent</span></code>,
-<code class="code docutils literal notranslate"><span class="pre">bytes.rcvd</span></code>). This is the most common metric type for networks.</p></li>
-<li><p>Gauges are metrics such as the number of active flows
-(e.g., <code class="code docutils literal notranslate"><span class="pre">active_flows.as_client</span></code>, <code class="code docutils literal notranslate"><span class="pre">active_flows.as_server</span></code>) or active
-hosts at a certain point in time.</p></li>
+<li><p>Счетчики предназначены для непрерывного увеличения показателей, таких как общий объем
+количество байтов (например, <code class="code docutils literal notranslate"><span class="pre">bytes.sent</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">bytes.rcvd</span></code>). Это наиболее распространенный тип метрик для сетей.</p></li>
+<li><p>Датчики — это такие показатели, как количество активных потоков.
+(например, <code class="code docutils literal notranslate"><span class="pre">active_flows.as_client</span></code>, <code class="code docutils literal notranslate"><span class="pre">active_flows.as_server</span></code>) или активный
+хосты в определенный момент времени.</p></li>
 </ul>
 </section>
 <section id="driver">
-<h2>Driver<a class="headerlink" href="#driver" title="Link to this heading"></a></h2>
-<p>A timeseries <em>driver</em> implements a well defined interface to provide support for a
-specific database. Currently ntopng provides the RRD and InfluxDB drivers to communicate
-with the respective datatabases.</p>
+<h2>Водитель<a class="headerlink" href="#driver" title="Link to this heading"></a></h2>
+<p>Таймсерия <em>водитель</em> реализует четко определенный интерфейс для обеспечения поддержки
+конкретная база данных. В настоящее время ntopng предоставляет драйверы RRD и InfluxDB для связи.
+с соответствующими базами данных.</p>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="Timeseries API"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="export.html" rel="next" title="Exporting Data">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Timeseries API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="export.html" class="btn btn-neutral float-right" title="Exporting Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/api/timeseries/intro.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:41 GMT -->
 </html>

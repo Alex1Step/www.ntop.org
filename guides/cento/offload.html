@@ -1,74 +1,62 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-
+<html class="writer-html5" data-content_root="./" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/cento/offload.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:23 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flow Offload &mdash; cento 1.15 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
-
-  
-      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_optionsd5c8.js?v=e6db31ea"></script>
-      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Egress Queues" href="egress.html" />
-    <link rel="prev" title="ClickHouse Export" href="clickhouse.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
-            cento
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Разгрузка потока — документация Cento 1.15</title>
+<link href="_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<script src="_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="_static/documentation_optionsd5c8.js?v=e6db31ea"></script>
+<script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="egress.html" rel="next" title="Egress Queues"/>
+<link href="clickhouse.html" rel="prev" title="ClickHouse Export"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
+            центо
+              <img alt="Logo" class="logo" src="_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/cento/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/cento/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="versions.html">Models Comparison Table</a></li>
-<li class="toctree-l1"><a class="reference internal" href="definitions.html">Definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usecases.html">Use Cases</a></li>
-<li class="toctree-l1"><a class="reference internal" href="clickhouse.html">ClickHouse Export</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Flow Offload</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#adapter-configuration">Adapter Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-cento">Running Cento</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configure-multiple-streams">Configure Multiple Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Таблица сравнения моделей</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Определения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usecases.html">Варианты использования</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clickhouse.html">ClickHouse Экспорт</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Разгрузка потока</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adapter-configuration">Конфигурация адаптера</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-cento">Запуск Ченто</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configure-multiple-streams">Настройка нескольких потоков</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="egress.html">Egress Queues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bridge.html">Network Bridge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="options.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="systemd.html">Systemd</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Hugepages Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geolocation.html">Geolocation Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="egress.html">Выходные очереди</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bridge.html">Сетевой мост</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">Системад</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Конфигурация огромных страниц</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geolocation.html">База данных геолокации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">Ссылки</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
@@ -80,90 +68,86 @@
 <li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">cento</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Flow Offload</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/offload.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="flow-offload">
-<h1>Flow Offload<a class="headerlink" href="#flow-offload" title="Link to this heading"></a></h1>
-<p>cento has been designed to process high-speed traffic with moderate CPU load.
-Traffic processing can be further optimized by offloading flows to the adapter, on Napatech adapters
-featuring an hardware Flow Manager. This dramatically reduces the load on the CPU.
-Cento offloads flows to the adapter as soon as the application protocol has been detected (this
-requires a few packets for each flow, depending on the actual protocol).</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">центо</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">Разгрузка потока</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/offload.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="flow-offload">
+<h1>Разгрузка потока<a class="headerlink" href="#flow-offload" title="Link to this heading"></a></h1>
+<p>cento был разработан для обработки высокоскоростного трафика с умеренной нагрузкой CPU.
+Обработку трафика можно дополнительно оптимизировать за счет разгрузки потоков на адаптер на Napatech адаптерах.
+с аппаратным Flow Manager. Это резко снижает нагрузку на CPU.
+Cento разгружает потоки на адаптер, как только обнаруживается протокол приложения (это
+требуется несколько пакетов для каждого потока, в зависимости от фактического протокола).</p>
 <section id="adapter-configuration">
-<h2>Adapter Configuration<a class="headerlink" href="#adapter-configuration" title="Link to this heading"></a></h2>
+<h2>Конфигурация адаптера<a class="headerlink" href="#adapter-configuration" title="Link to this heading"></a></h2>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Flow Manager enabled firmware required
-A Flow Manager enabled firmware is required in order to use flow offload on the adapter.</p>
+<p class="admonition-title">Примечание</p>
+<p>Требуется прошивка с поддержкой Flow Manager
+Для использования разгрузки потока на адаптере требуется встроенное ПО с поддержкой Flow Manager.</p>
 </div>
-<p>When enabling flow offload with the <em>--flow-offload</em> option in cento, the software receives updates
-from the adapter both periodically (flow still programmed in the adapter) and on termination (flow removed from the hardware table).</p>
-<p>Max flow duration is managed by the adapter, which is sending periodic updates to the software (--lifetime-timeout|-t is ignored by cento).
-Every time a periodic update is received, the software sends out a clone of the flow with partial stats since last update. For this reason
-max duration checks are disabled in software when flow offload is enabled, otherwise that would lead to flow table synchronization issues.
-FlowPeriodicStatisticsProfiles (nsec) needs to be configured in the adapter to deliver periodic flow updates.</p>
-<p>Max flow duration is set to 10 seconds in the example below (snippet from /opt/napatech3/config/ntservice.ini):</p>
+<p>При включении разгрузки потока с помощью <em>--flow-offload</em> опция в cento, программное обеспечение получает обновления
+от адаптера как периодически (поток все еще запрограммирован в адаптере), так и по завершении (поток удален из аппаратной таблицы).</p>
+<p>Максимальная продолжительность потока управляется адаптером, который периодически отправляет обновления программного обеспечения (--lifetime-timeout|-t игнорируется cento).
+Каждый раз при получении периодического обновления программа отправляет клон потока с частичной статистикой с момента последнего обновления. По этой причине
+Проверки максимальной продолжительности отключены в программном обеспечении, когда включена разгрузка потока, в противном случае это приведет к проблемам с синхронизацией таблицы потоков.
+FlowPeriodicStatisticsProfiles (nsec) необходимо настроить в адаптере для доставки периодических обновлений потока.</p>
+<p>В приведенном ниже примере максимальная продолжительность потока установлена ​​равной 10 секундам (фрагмент из /opt/napatech3/config/ntservice.ini):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FlowPeriodicStatisticsProfiles = [0,0,10000000000],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]
 </pre></div>
 </div>
-<p>Idle flows are managed by the adapter as well, however the software still checks for idle flows for safety (according to the --idle-timeout|-d
-parameter), to avoid keeping flows forever in case the software misses some flow termination message from the adapter. For this reason the flow
-idle timeout in cento should be configured using a value higher than the hardware timeout. FlowTimeOut (msec) needs to be configured in the adapter.</p>
-<p>Flow idle timeout is set to 120 seconds in the example below (snippet from /opt/napatech3/config/ntservice.ini):</p>
+<p>Потоки простоя также управляются адаптером, однако программное обеспечение по-прежнему проверяет потоки простоя в целях безопасности (согласно параметру --idle-timeout|-d
+параметр), чтобы избежать постоянного сохранения потоков в случае, если программное обеспечение пропустит какое-либо сообщение о завершении потока от адаптера. По этой причине поток
+Тайм-аут простоя в cento должен быть настроен с использованием значения, превышающего аппаратный тайм-аут. FlowTimeOut (мсек) необходимо настроить в адаптере.</p>
+<p>В приведенном ниже примере тайм-аут простоя потока установлен на 120 секунд (фрагмент из /opt/napatech3/config/ntservice.ini):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FlowTimeOut = 120000 (ms)
 </pre></div>
 </div>
-<p>Flow offload needs to be configured in the adapter by means of a NTPL script before running cento.
-Please find below a sample &quot;flow-offload.ntpl&quot; script that can be used to configure one (or more) stream.</p>
+<p>Разгрузку потока необходимо настроить в адаптере с помощью сценария NTPL перед запуском cento.
+Ниже вы найдете образец сценария «flow-offload.ntpl», который можно использовать для настройки одного (или нескольких) потоков.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Delete = All
 
 // Pair of uplink and downlink ports
-Define UL_PORT = Macro(&quot;0&quot;)
-Define DL_PORT = Macro(&quot;1&quot;)
+Define UL_PORT = Macro("0")
+Define DL_PORT = Macro("1")
 
 // Streams / threads
-Define STREAMS = Macro(&quot;(0..0)&quot;)
-Define NUMA    = Macro(&quot;0&quot;)
+Define STREAMS = Macro("(0..0)")
+Define NUMA    = Macro("0")
 
-Define TX_FORWARD = Macro(&quot;0x00&quot;)
-Define TX_DISCARD = Macro(&quot;0x08&quot;)
+Define TX_FORWARD = Macro("0x00")
+Define TX_DISCARD = Macro("0x08")
 
-Define FLM_HIT       = Macro(&quot;0x00&quot;)
-Define FLM_MISS      = Macro(&quot;0x10&quot;)
-Define FLM_UNHANDLED = Macro(&quot;0x20&quot;)
+Define FLM_HIT       = Macro("0x00")
+Define FLM_MISS      = Macro("0x10")
+Define FLM_UNHANDLED = Macro("0x20")
 
-Define FLM_DISCARD = Macro(&quot;3&quot;)
-Define FLM_FORWARD = Macro(&quot;4&quot;)
+Define FLM_DISCARD = Macro("3")
+Define FLM_FORWARD = Macro("4")
 
-Define isIPv4    = Macro(&quot;Layer3Protocol==IPv4&quot;)
-Define isTcpUdp  = Macro(&quot;Layer4Protocol==TCP,UDP&quot;)
+Define isIPv4    = Macro("Layer3Protocol==IPv4")
+Define isTcpUdp  = Macro("Layer4Protocol==TCP,UDP")
 
 KeyType[Name=KT_4Tuple] = {32, 32, 16, 16}
 
-Define KeyDefProtoSpec = Macro(&quot;(Layer3Header[12]/32, Layer3Header[16]/32, Layer4Header[0]/16, Layer4Header[2]/16)&quot;)
+Define KeyDefProtoSpec = Macro("(Layer3Header[12]/32, Layer3Header[16]/32, Layer4Header[0]/16, Layer4Header[2]/16)")
 KeyDef[Name=KD_4Tuple; KeyType=KT_4Tuple; IpProtocolField=Outer; KeySort=Sorted] = KeyDefProtoSpec
 
 HashMode = Hash5TupleSorted
@@ -193,73 +177,67 @@ Assign[StreamId=Drop; DestinationPort=DL_PORT] = Port==UL_PORT AND isIPv4 AND is
 Assign[StreamId=Drop; DestinationPort=UL_PORT] = Port==DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == FLM_FORWARD
 </pre></div>
 </div>
-<p>Note: the above NTPL is similar to the inline/bridge configuration, expection made for the <em>ColorMask=TX_DISCARD</em> assignment.</p>
-<p>Command to load the NTPL script to the adapter:</p>
+<p>Примечание. Приведенная выше конфигурация NTPL аналогична конфигурации «встроенный/мост». <em>ColorMask=TX_DISCARD</em> назначение.</p>
+<p>Команда загрузки NTPL-скрипта в адаптер:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/opt/napatech3/bin/ntpl<span class="w"> </span>-f<span class="w"> </span>flow-offload.ntpl
 </pre></div>
 </div>
 </section>
 <section id="running-cento">
-<h2>Running Cento<a class="headerlink" href="#running-cento" title="Link to this heading"></a></h2>
-<p>In order to enable flow offload in nProbe Cento, a <code class="code docutils literal notranslate"><span class="pre">--flow-offload</span></code> option is available. Example:</p>
+<h2>Запуск Ченто<a class="headerlink" href="#running-cento" title="Link to this heading"></a></h2>
+<p>Чтобы включить разгрузку потока в nProbe Cento, <code class="code docutils literal notranslate"><span class="pre">--flow-offload</span></code> опция доступна. Пример:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cento<span class="w"> </span>-i<span class="w"> </span>nt:stream0<span class="w"> </span>--flow-offload<span class="w"> </span>--dpi-level<span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
 </section>
 <section id="configure-multiple-streams">
-<h2>Configure Multiple Streams<a class="headerlink" href="#configure-multiple-streams" title="Link to this heading"></a></h2>
-<p>In order to run cento on multiple streams and scale performance, change the STREAMS definition in the NTPL script
-as below (4 streams in the example):</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Define STREAMS = Macro(&quot;(0..3)&quot;)
+<h2>Настройка нескольких потоков<a class="headerlink" href="#configure-multiple-streams" title="Link to this heading"></a></h2>
+<p>Чтобы запустить cento на нескольких потоках и масштабировать производительность, измените определение STREAMS в сценарии NTPL.
+как показано ниже (в примере 4 потока):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Define STREAMS = Macro("(0..3)")
 </pre></div>
 </div>
-<p>Reload the NTPL script to the adapter:</p>
+<p>Перезагрузите NTPL-скрипт в адаптер:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/opt/napatech3/bin/ntpl<span class="w"> </span>-f<span class="w"> </span>flow-offload.ntpl
 </pre></div>
 </div>
-<p>Run cento on top of all configured streams:</p>
+<p>Запустите cento поверх всех настроенных потоков:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cento<span class="w"> </span>-i<span class="w"> </span>nt:stream<span class="o">[</span><span class="m">0</span>-3<span class="o">]</span><span class="w"> </span>--flow-offload<span class="w"> </span>--dpi-level<span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
-<p>Please note that when running cento at high speed, it is recommended to also tune the flow cache size
-and the CPU cores affinity. This is an example:</p>
+<p>Обратите внимание, что при запуске cento на высокой скорости рекомендуется также настроить размер кэша потока.
+и родство ядер CPU. Это пример:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cento<span class="w"> </span>-i<span class="w"> </span>nt:stream<span class="o">[</span><span class="m">0</span>-3<span class="o">]</span><span class="w"> </span>--flow-offload<span class="w"> </span>--dpi-level<span class="w"> </span><span class="m">2</span><span class="w"> </span>--processing-cores<span class="w"> </span><span class="m">0</span>,1,2,3<span class="w"> </span>--exporting-cores<span class="w"> </span><span class="m">4</span>,5,6,7<span class="w"> </span>--max-hash-size<span class="w"> </span><span class="m">10000000</span>
 </pre></div>
 </div>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="clickhouse.html" rel="prev" title="ClickHouse Export"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="egress.html" rel="next" title="Egress Queues">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2018, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="clickhouse.html" class="btn btn-neutral float-left" title="ClickHouse Export" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="egress.html" class="btn btn-neutral float-right" title="Egress Queues" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2018, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/cento/offload.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:24 GMT -->
 </html>

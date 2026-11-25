@@ -1,96 +1,84 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-
+<html class="writer-html5" data-content_root="./" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/nprobe/developing_plugins.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:20 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Developing nProbe Plugins &mdash; nProbe 10.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options0088.js?v=864e5427"></script>
-      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="BPF Packet Filtering Expressions" href="bpf_expressions.html" />
-    <link rel="prev" title="Custom Plugin" href="plugins/custom.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Разработка плагинов nProbe — документация nProbe 10.0</title>
+<link href="_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="_static/documentation_options0088.js?v=864e5427"></script>
+<script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="bpf_expressions.html" rel="next" title="BPF Packet Filtering Expressions"/>
+<link href="plugins/custom.html" rel="prev" title="Custom Plugin"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
             nProbe
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nprobe/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/nprobe/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html#what-is-nprobe">What is nProbe?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="versions.html">Versions Comparison Table</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configurations.html">nProbe Modes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s New</a></li>
-<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">How to Start nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">Tuning nProbe Performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#high-speed-flow-collection">High-Speed Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#expected-collection-performance">Expected Collection Performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-flows-from-many-routers">Collecting Flows from Many Routers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Handling Trillion Flows: Dumping Flows into ClickHouse</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#data-deduplication">Data Deduplication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#snmp-interfaces-polling">SNMP Interfaces Polling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-ntap-traffic">Collecting nTap Traffic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#influxdb-based-timeseries-dump">InfluxDB-based Timeseries Dump</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#howto-create-sflow-timeseries">HowTo Create sFlow Timeseries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-relay">Flow Relay</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-replication-fanout">Flow Replication / Fanout</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html#dumping-collected-flows-packets">Dumping Collected Flows/Packets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tls.html">Using TLS In Flow Collection/Export</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tls.html#tls-certificates-validation">TLS Certificates Validation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli_options.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Note on interface indexes and (router) MAC/IP addresses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli_options.html#further-plugin-available-command-line-options">Further plugin available command line options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX format [-T]</a></li>
-<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Using nProbe with ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kafka.html">Using Kafka with nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bgp.html">BGP/BMP Traffic Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="agent_mode.html">Agent Mode support in nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="case_study/index.html">nProbe Case Study</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">nProbe Plugins</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Developing nProbe Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bpf_expressions.html">BPF Packet Filtering Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="flow_information_elements.html">Flow Information Elements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hardware_sizing.html">Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Введение</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#what-is-nprobe">Что такое nProbe?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Таблица сравнения версий</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configurations.html">nProbe Режимы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">Что нового</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">Как начать nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Настройка nProbe Производительность</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#high-speed-flow-collection">Коллекция высокоскоростного потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#expected-collection-performance">Ожидаемая производительность коллекции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-flows-from-many-routers">Сбор потоков от множества маршрутизаторов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Обработка триллионов потоков: сброс потоков в ClickHouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#data-deduplication">Дедупликация данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#snmp-interfaces-polling">SNMP Опрос интерфейсов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-ntap-traffic">Сбор nTap трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#influxdb-based-timeseries-dump">Дамп таймсерий на основе InfluxDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#howto-create-sflow-timeseries">Как создать таймсерию sFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-relay">Реле потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-replication-fanout">Репликация потока/разветвление</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#dumping-collected-flows-packets">Сброс собранных потоков/пакетов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tls.html">Использование TLS при сборе/экспорте потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tls.html#tls-certificates-validation">TLS Проверка сертификатов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Примечание об индексах интерфейсов и MAC/IP-адресах (маршрутизатора)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#further-plugin-available-command-line-options">Дополнительные параметры командной строки, доступные для плагина</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX формат [-T]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Использование nProbe с ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kafka.html">Использование Kafka с nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bgp.html">BGP/BMP Мониторинг трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="agent_mode.html">Поддержка режима агента в nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Часто задаваемые вопросы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="case_study/index.html">nProbe Практический пример</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">nProbe Плагины</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Разработка плагинов nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bpf_expressions.html">BPF Выражения фильтрации пакетов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_information_elements.html">Информационные элементы потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware_sizing.html">Определение размеров оборудования</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
-<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
@@ -98,48 +86,44 @@
 <li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">nProbe</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Developing nProbe Plugins</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/developing_plugins.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="developing-nprobe-plugins">
-<h1>Developing nProbe Plugins<a class="headerlink" href="#developing-nprobe-plugins" title="Link to this heading"></a></h1>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">nProbe</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">Разработка плагинов nProbe</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/developing_plugins.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="developing-nprobe-plugins">
+<h1>Разработка плагинов nProbe<a class="headerlink" href="#developing-nprobe-plugins" title="Link to this heading"></a></h1>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Plugin SDK is available on demand to selected users</p>
+<p class="admonition-title">Примечание</p>
+<p>Плагин SDK доступен по запросу избранным пользователям.</p>
 </div>
-<p>Each nProbe plugin is implemented as shared library to be loaded at runtime by nProbe. The probe comes with several plugins that can be used as example for this activity. Below we list the main concepts you need to know if you plan to develop nProbe plugins.</p>
-<p>Each plugin has to defined a plugin entry point as follows</p>
+<p>Каждый плагин nProbe реализован как общая библиотека, которая загружается во время выполнения nProbe. Зонд поставляется с несколькими плагинами, которые можно использовать в качестве примера для этого действия. Ниже мы перечисляем основные понятия, которые вам необходимо знать, если вы планируете разрабатывать плагины nProbe.</p>
+<p>Каждый плагин должен определить точку входа плагина следующим образом:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">PluginEntryPoint</span><span class="w"> </span><span class="n">dbPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">NPROBE_REVISION</span><span class="p">,</span>
-<span class="w">  </span><span class="s">&quot;My Plugin Name&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s">&quot;shortName&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span>
-<span class="w">  </span><span class="s">&quot;version&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s">&quot;Plugin string description&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s">&quot;author email&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s">"My Plugin Name"</span><span class="p">,</span>
+<span class="w">  </span><span class="s">"shortName"</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">  </span><span class="s">"version"</span><span class="p">,</span>
+<span class="w">  </span><span class="s">"Plugin string description"</span><span class="p">,</span>
+<span class="w">  </span><span class="s">"author email"</span><span class="p">,</span>
 <span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="cm">/* do NOT skip in collector mode */</span><span class="p">,</span>
 <span class="w">  </span><span class="mi">0</span><span class="w"> </span><span class="cm">/* always enabled */</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="cm">/* enabled */</span>
 <span class="w">  </span><span class="n">PLUGIN_PRO_VERSION</span><span class="p">,</span>
@@ -159,7 +143,7 @@
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>and a function with the following format</p>
+<p>и функция следующего формата</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifdef MAKE_STATIC_PLUGINS</span>
 <span class="n">PluginEntryPoint</span><span class="o">*</span><span class="w"> </span><span class="nf">myPluginEntryFctn</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <span class="cp">#else</span>
@@ -170,43 +154,43 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The fields of the PluginEntryPoint function have the following meaning:</p>
+<p>Поля функции PluginEntryPoint имеют следующее значение:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*nprobe_revision</span></code>; string to be defined as NPROBE_REVISION.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*name</span></code>; Extended plugin name.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*short_name</span></code>; Short plugin name.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*family</span></code>; Plugin family name (if any) or NULL to use the short plugin name.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*version</span></code>; Plugin version (e.g. 1.0).</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*descr</span></code>; Plugin description in plain English.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*author</span></code>; Plugin author name and email.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">skip_in_collector_mode</span></code>; Set it to 0 to skip the plugin when nprobe is in collector mode, set it to 1 otherwise.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">always_enabled</span></code>; Set it to 1 to enable the plugin permanently regardless of its use in the template.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">enabled</span></code>; Do not touch it and set it to 0 (used by nProbe).</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">need_license</span></code>; Set it to 1 if a license for this plugin is needed, or 0 if is not needed.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginInitFctn</span> <span class="pre">initFctn</span></code>; Plugin initialization function called when the plugin is loaded in memory. This function is called regardless of the fact that the plugin will later be used or not.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginTermFctn</span> <span class="pre">termFctn</span></code>; Plugin termination function called when the plugin is terminated during nProbe shutdown.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginConf</span> <span class="pre">pluginFlowConf</span></code>; Function that returns the flow configuration (see below).</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginFctn</span> <span class="pre">deleteFlowFctn</span></code>; Flow callback that is called for flows handled by this plugin whenever a flow has been exported. This function is used to free memory of resources associated to the flow. Set it to NULL if no function will be defined,</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">call_packetFlowFctn_for_each_packet</span></code>; Set it to 1 to ask nProbe to call the packetFlowFctn callback for every packet belonging to this flow, or 0 for calling it only for the first flow packet.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginPacketFctn</span> <span class="pre">packetFlowFctn</span></code>; Callback called whenever nProbe has a packet belonging to the flow to be processed by the plugin.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginGetTemplateFctn</span> <span class="pre">getTemplateFctn</span></code>; Function used to return the template Element for the specified information element passed as parameter.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginExportFctn</span> <span class="pre">pluginExportFctn</span></code>; Callback called whenever the flow handled by this plugin is going to be exported.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginPrintFctn</span> <span class="pre">pluginPrintFctn</span></code>; Function that is called when nprobe -P is used, and that is supposed to print flow information into text files.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginStatsFctn</span> <span class="pre">pluginStatsFctn</span></code>; Function that is called (when not set to NULL) whenever nProbe prints periodic information (-b 1 or -b 2).</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginSetupFctn</span> <span class="pre">setupFctn</span></code>; Function called after plugin initialization (when not set to NULL), if according to the specified template, this plugin will be used.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginHelpFctn</span> <span class="pre">helpFctn</span></code>; Function that is called when nprobe -h is executed, and that is supposed to print plugin information.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">PluginIdleTaskFctn</span> <span class="pre">idleFctn</span></code>; If not set to NULL, this function will be periodically called by the nProbe core to execute (if any) housekeeping activities.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">v4TemplateIdx,</span> <span class="pre">v6TemplateIdx</span></code>; Used by nProbe. Set them to 0.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*nprobe_revision</span></code>; строка, которая будет определена как NPROBE_REVISION.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*name</span></code>; Расширенное имя плагина.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*short_name</span></code>; Короткое название плагина.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*family</span></code>; Имя семейства плагина (если есть) или NULL, чтобы использовать короткое имя плагина.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*version</span></code>; Версия плагина (например, 1.0).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*descr</span></code>; Описание плагина на простом английском языке.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">char</span> <span class="pre">*author</span></code>; Имя автора плагина и адрес электронной почты.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">skip_in_collector_mode</span></code>; Установите значение 0, чтобы пропустить плагин, когда nprobe находится в режиме коллектора, в противном случае установите значение 1.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">always_enabled</span></code>; Установите значение 1, чтобы включить плагин постоянно, независимо от его использования в шаблоне.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">enabled</span></code>; Не трогайте его и установите значение 0 (используется nProbe).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">need_license</span></code>; Установите значение 1, если лицензия для этого плагина необходима, или 0, если она не нужна.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginInitFctn</span> <span class="pre">initFctn</span></code>; Функция инициализации плагина, вызываемая при загрузке плагина в память. Эта функция вызывается независимо от того, будет ли в дальнейшем использоваться плагин или нет.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginTermFctn</span> <span class="pre">termFctn</span></code>; Функция завершения плагина вызывается, когда плагин завершается во время выключения nProbe.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginConf</span> <span class="pre">pluginFlowConf</span></code>; Функция, возвращающая конфигурацию потока (см. ниже).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginFctn</span> <span class="pre">deleteFlowFctn</span></code>; Обратный вызов потока, который вызывается для потоков, обрабатываемых этим плагином, при каждом экспорте потока. Эта функция используется для освобождения памяти ресурсов, связанных с потоком. Установите значение NULL, если функция не будет определена,</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">call_packetFlowFctn_for_each_packet</span></code>; Установите значение 1, чтобы запросить nProbe вызвать обратный вызов packageFlowFctn для каждого пакета, принадлежащего этому потоку, или 0, чтобы вызвать его только для первого пакета потока.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginPacketFctn</span> <span class="pre">packetFlowFctn</span></code>; Обратный вызов вызывается всякий раз, когда nProbe имеет пакет, принадлежащий потоку, который должен быть обработан плагином.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginGetTemplateFctn</span> <span class="pre">getTemplateFctn</span></code>; Функция, используемая для возврата элемента шаблона для указанного информационного элемента, переданного в качестве параметра.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginExportFctn</span> <span class="pre">pluginExportFctn</span></code>; Обратный вызов вызывается всякий раз, когда поток, обрабатываемый этим плагином, будет экспортирован.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginPrintFctn</span> <span class="pre">pluginPrintFctn</span></code>; Функция, которая вызывается, когда используется nprobe -P, и которая должна печатать информацию о потоке в текстовые файлы.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginStatsFctn</span> <span class="pre">pluginStatsFctn</span></code>; Функция, которая вызывается (если не установлено значение NULL) всякий раз, когда nProbe печатает периодическую информацию (-b 1 или -b 2).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginSetupFctn</span> <span class="pre">setupFctn</span></code>; Функция, вызываемая после инициализации плагина (если не установлено значение NULL), если согласно указанному шаблону, будет использоваться этот плагин.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginHelpFctn</span> <span class="pre">helpFctn</span></code>; Функция, которая вызывается при выполнении nprobe -h и должна печатать информацию о плагине.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">PluginIdleTaskFctn</span> <span class="pre">idleFctn</span></code>; Если не установлено значение NULL, эта функция будет периодически вызываться ядром nProbe для выполнения (если таковые имеются) служебных действий.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">v4TemplateIdx,</span> <span class="pre">v6TemplateIdx</span></code>; Используется nProbe. Установите их на 0.</p></li>
 </ul>
 </div></blockquote>
-<p>Each plugin must define a template with the following format</p>
+<p>Каждый плагин должен определить шаблон следующего формата</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">V9V10TemplateElementId</span><span class="w"> </span><span class="n">myPlugin_template</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">BOTH_IPV4_IPV6</span><span class="p">,</span><span class="w"> </span><span class="n">FLOW_TEMPLATE</span><span class="p">,</span><span class="w"> </span><span class="n">LONG_SNAPLEN</span><span class="p">,</span><span class="w"> </span><span class="n">NTOP_ENTERPRISE_ID</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">STATIC_FIELD_LEN</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="w"> </span><span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>what will be then used by the following functions</p>
+<p>что будет затем использоваться следующими функциями</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">V9V10TemplateElementId</span><span class="o">*</span><span class="w"> </span><span class="nf">myPlugin_get_template</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">template_name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
 
@@ -224,25 +208,25 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In the file template.h are specified the flow identifiers to be used in V9V10TemplateElementId that is defined as follows:</p>
+<p>В файле template.h указаны идентификаторы потока, которые будут использоваться в V9V10TemplateElementId, который определяется следующим образом:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">isInUse</span></code>; Always set it to 1, or 0 if it is the last template element to indicate that no further element will be defined.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">protoMode</span></code>; Set it to BOTH_IPV4_IPV6 or ONLY_IPV4, ONLY_IPV6 if this element is for both IPv4 and IPv46 flows, just for IPv4 flows, or just for IPv6 flows.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">u_int8_t</span> <span class="pre">isOptionTemplate</span></code>; Set it to 0 if this is a flow template (default), or 1 if it used as option template.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">u_int8_t</span> <span class="pre">useLongSnaplen</span></code>; Set it to 1 if this plugin requires nProbe to capture packets with long snaplen that are needed when the plugin has to perform payload analysis.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">u_int32_t</span> <span class="pre">templateElementEnterpriseId</span></code>; Specify the IANA defined enterprise Id for this custom field. ntop uses NTOP_ENTERPRISE_ID for the proprietary ones.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">u_int16_t</span> <span class="pre">templateElementId</span></code>; Used by nProbe, leave it to 0.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">variableFieldLength</span></code>; Set it to 1 to indicate that if nProbe exports flows in IPFIX format (-V 10) this field will have a variable field size.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">u_int16_t</span> <span class="pre">templateElementLen</span></code>; Specify the static field size (-V 9) or max field size (-V 10)</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">ElementFormat</span> <span class="pre">elementFormat</span></code>; Specify the format of the element. This information will be used when this data is printed into MySQL. The supported format types are: ascii_format, hex_format, numeric_format, ipv6_address_format.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">ElementDumpFormat</span> <span class="pre">fileDumpFormat</span></code>; Specify the field format when the nProbe metadata information is printed (–metadata). The supported format types are: dump_as_uint , dump_as_formatted_uint, dump_as_ip_port, dump_as_ip_proto, dump_as_ipv4_address, dump_as_ipv6_address, dump_as_mac_address, dump_as_epoch, dump_as_bool, dump_as_tcp_flags, dump_as_hex, dump_as_ascii</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*netflowElementName</span></code>; String with the symbolic network element name used in NetFlow (-V 9).</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*ipfixElementName</span></code>; String with the symbolic network element name used in IPFIX (-V 10).</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*templateElementDescr</span></code>; String that describes the element information type used by nProbe when the help (-h) is printed.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">isInUse</span></code>; Всегда устанавливайте для него значение 1 или 0, если это последний элемент шаблона, указывающий, что дальнейший элемент не будет определен.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">protoMode</span></code>; Установите для него значение BOTH_IPV4_IPV6 или ONLY_IPV4, ONLY_IPV6, если этот элемент предназначен как для потоков IPv4, так и для потоков IPv46, только для потоков IPv4 или только для потоков IPv6.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">u_int8_t</span> <span class="pre">isOptionTemplate</span></code>; Установите для него значение 0, если это шаблон потока (по умолчанию), или 1, если он используется в качестве шаблона опции.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">u_int8_t</span> <span class="pre">useLongSnaplen</span></code>; Установите значение 1, если этому плагину требуется nProbe для захвата пакетов с длинным snaplen, которые необходимы, когда плагину необходимо выполнить анализ полезной нагрузки.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">u_int32_t</span> <span class="pre">templateElementEnterpriseId</span></code>; Укажите идентификатор предприятия, определенный IANA, для этого настраиваемого поля. ntop использует NTOP_ENTERPRISE_ID для проприетарных.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">u_int16_t</span> <span class="pre">templateElementId</span></code>; Используется nProbe, оставьте значение 0.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u_int8_t</span> <span class="pre">variableFieldLength</span></code>; Установите значение 1, чтобы указать, что если nProbe экспортирует потоки в формате IPFIX (-V 10), это поле будет иметь переменный размер.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">u_int16_t</span> <span class="pre">templateElementLen</span></code>; Укажите статический размер поля (-V 9) или максимальный размер поля (-V 10).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">ElementFormat</span> <span class="pre">elementFormat</span></code>; Укажите формат элемента. Эта информация будет использоваться при печати данных в MySQL. Поддерживаемые типы формата: ascii_format, hex_format, numeric_format, ipv6_address_format.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">ElementDumpFormat</span> <span class="pre">fileDumpFormat</span></code>; Укажите формат поля при печати информации метаданных nProbe (–метаданные). Поддерживаемые формы типов: dump_as_uint, dump_as_formatted_uint, dump_as_ip_port, dump_as_ip_proto, dump_as_ipv4_address, dump_as_ipv6_address, dump_as_mac_address, dump_as_epoch, dump_as_bool, dump_as_tcp_flags, dump_as_hex, dump_as_ascii</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*netflowElementName</span></code>; Строка с символическим именем сетевого элемента, используемым в NetFlow (-V 9).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*ipfixElementName</span></code>; Строка с символическим именем сетевого элемента, используемым в IPFIX (-V 10).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*templateElementDescr</span></code>; Строка, описывающая тип информации об элементе, используемый nProbe при выводе справки (-h).</p></li>
 </ul>
 </div></blockquote>
-<p>Most plugin callbacks are straightforward and its logic can be understood simply having a look at examples of existing plugins. The only function worth to describe is the one that processes packets as it is the most complex one.</p>
+<p>Большинство обратных вызовов плагинов просты, и их логику можно понять, просто взглянув на примеры существующих плагинов. Единственная функция, которую стоит описать, — это та, которая обрабатывает пакеты, поскольку она самая сложная.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">myPlugin_packet</span><span class="p">(</span><span class="n">u_char</span><span class="w"> </span><span class="n">new_bucket</span><span class="p">,</span>
 <span class="w">                    </span><span class="kt">int</span><span class="w"> </span><span class="n">packet_if_idx</span><span class="w"> </span><span class="cm">/* -1 = unknown */</span><span class="p">,</span>
 <span class="w">                    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pluginData</span><span class="p">,</span>
@@ -264,14 +248,14 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>This function processes a packet belonging to a flow handled by this plugin. nProbe has no clue what plugins are doing, this whenever a new flow is created (new_bucket is set to 1 for the first packet of the flow, or 0 for the following packets), it calls all active plugins to tell that a new flow is active in cache. The plugin will then decide if the packet can be handled by the plugin or not. This is done by looking at the packet header fields passed to the function, or inspecting the packet payload (payload point whose length is specified by payloadLen). If a plugin decides that the packet cannot be handled by the plugin (for instance because the packet protocol is not managed by the plugin) no action is needed and the function must simply return. Instead if the plugin can handle the packet, at the beginning of the function the following code-like must be specified in order to add the plugin to the list of plugins (it should usually be 1 or 0 element long) handling this flow.</p>
+<p>Эта функция обрабатывает пакет, принадлежащий потоку, обрабатываемому этим плагином. nProbe не имеет ни малейшего представления о том, что делают плагины, поэтому всякий раз, когда создается новый поток (new_bucket имеет значение 1 для первого пакета потока или 0 для следующих пакетов), он вызывает все активные плагины, чтобы сообщить, что новый поток активен в кеше. Затем плагин решит, может ли пакет быть обработан плагином или нет. Это делается путем просмотра полей заголовка пакета, переданных функции, или проверки полезной нагрузки пакета (точки полезной нагрузки, длина которой задается параметром payloadLen). Если плагин решает, что пакет не может быть обработан плагином (например, потому что протокол пакета не управляется плагином), никаких действий не требуется, и функция должна просто вернуться. Вместо этого, если плагин может обрабатывать пакет, в начале функции необходимо указать следующий код, чтобы добавить плагин в список плагинов (обычно он должен иметь длину 1 или 0 элементов), обрабатывающих этот поток.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">new_bucket</span><span class="w"> </span><span class="cm">/* This bucket has been created recently */</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">      </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">pluginPtr</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">myPlugin</span><span class="p">;</span>
 <span class="n">pluginData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">info</span><span class="o">-&gt;</span><span class="n">pluginData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">my_plugin_info</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">my_plugin_info</span><span class="p">));</span>
 
 <span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">pluginData</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Not enough memory?&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_ERROR</span><span class="p">,</span><span class="w"> </span><span class="s">"Not enough memory?"</span><span class="p">);</span>
 <span class="w">        </span><span class="n">free</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="cm">/* Not enough memory */</span>
 <span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
@@ -288,15 +272,15 @@
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Once a plugin is defined, it must be placed into the nProbe/plugins directory so that the nProbe build process will detect and compile it.</p>
-<p>Following is a complete example of a plugin with its callbacks.</p>
+<p>После определения плагина его необходимо поместить в каталог nProbe/plugins, чтобы процесс сборки nProbe обнаружил и скомпилировал его.</p>
+<p>Ниже приведен полный пример плагина с его обратными вызовами.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm"> *</span>
 <span class="cm"> *  This is a dummy plugin example</span>
 <span class="cm"> *</span>
 <span class="cm"> */</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;nprobe.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"nprobe.h"</span>
 
 <span class="k">static</span><span class="w"> </span><span class="n">V9V10TemplateElementId</span><span class="w"> </span><span class="n">dummyPlugin_template</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                                                      </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">BOTH_IPV4_IPV6</span><span class="p">,</span><span class="w"> </span><span class="n">FLOW_TEMPLATE</span><span class="p">,</span><span class="w"> </span><span class="n">LONG_SNAPLEN</span><span class="p">,</span><span class="w"> </span><span class="n">NTOP_ENTERPRISE_ID</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">STATIC_FIELD_LEN</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="w"> </span><span class="p">}</span>
@@ -314,7 +298,7 @@
 <span class="cm">/* ******************************************* */</span>
 
 <span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">dummyPlugin_init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_NORMAL</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Initialized dummy plugin&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_NORMAL</span><span class="p">,</span><span class="w"> </span><span class="s">"Initialized dummy plugin"</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="cm">/* *********************************************** */</span>
@@ -337,7 +321,7 @@
 <span class="w">                             </span><span class="n">u_char</span><span class="w"> </span><span class="n">mplsLabels</span><span class="p">[</span><span class="n">MAX_NUM_MPLS_LABELS</span><span class="p">][</span><span class="n">MPLS_LABEL_LEN</span><span class="p">],</span>
 <span class="w">                             </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">pcap_pkthdr</span><span class="w"> </span><span class="o">*</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">u_char</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span>
 <span class="w">                             </span><span class="n">u_char</span><span class="w"> </span><span class="o">*</span><span class="n">_priv_payload</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">payloadLen</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_NORMAL</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%s()&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_NORMAL</span><span class="p">,</span><span class="w"> </span><span class="s">"%s()"</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="cm">/* *********************************************** */</span>
@@ -373,7 +357,7 @@
 <span class="w">                            </span><span class="n">FlowDirection</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="cm">/* 0 = src-&gt;dst, 1 = dst-&gt;src */</span><span class="p">,</span>
 <span class="w">                            </span><span class="n">FlowHashBucket</span><span class="w"> </span><span class="o">*</span><span class="n">bkt</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">outBuffer</span><span class="p">,</span>
 <span class="w">                            </span><span class="n">uint</span><span class="o">*</span><span class="w"> </span><span class="n">outBufferBegin</span><span class="p">,</span><span class="w"> </span><span class="n">uint</span><span class="o">*</span><span class="w"> </span><span class="n">outBufferMax</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%s()&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">"%s()"</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
 <span class="w">  </span><span class="k">return</span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span><span class="w"> </span><span class="cm">/* Not handled */</span>
 <span class="p">}</span>
 
@@ -387,7 +371,7 @@
 <span class="w">                           </span><span class="n">u_int8_t</span><span class="w"> </span><span class="n">json_mode</span><span class="p">,</span><span class="w"> </span><span class="n">u_int8_t</span><span class="w"> </span><span class="o">*</span><span class="n">escape_string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">;</span>
 
-<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%s()&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">"%s()"</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
 
 <span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">pluginData</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
 
@@ -403,32 +387,32 @@
 <span class="cm">/* *********************************************** */</span>
 
 <span class="k">static</span><span class="w"> </span><span class="n">V9V10TemplateElementId</span><span class="o">*</span><span class="w"> </span><span class="nf">dummyPlugin_conf</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%s()&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">"%s()"</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
 <span class="w">  </span><span class="k">return</span><span class="p">(</span><span class="n">dummyPlugin_template</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="cm">/* *********************************************** */</span>
 
 <span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">dummyPlugin_term</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%s()&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">"%s()"</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="cm">/* *********************************************** */</span>
 
 <span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">dummyPlugin_help</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%s()&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">"%s()"</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="cm">/* *********************************************** */</span>
 
 <span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">dummyPlugin_idle</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%s()&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="w">  </span><span class="n">traceEvent</span><span class="p">(</span><span class="n">TRACE_INFO</span><span class="p">,</span><span class="w"> </span><span class="s">"%s()"</span><span class="p">,</span><span class="w"> </span><span class="n">__FUNCTION__</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="cm">/* *********************************************** */</span>
 
 <span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">option</span><span class="w"> </span><span class="n">plugin_options</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                                             </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;dummy-option&quot;</span><span class="p">,</span><span class="w">           </span><span class="n">required_argument</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">252</span><span class="w"> </span><span class="cm">/* dummy */</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                                             </span><span class="p">{</span><span class="w"> </span><span class="s">"dummy-option"</span><span class="p">,</span><span class="w">           </span><span class="n">required_argument</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">252</span><span class="w"> </span><span class="cm">/* dummy */</span><span class="w"> </span><span class="p">},</span>
 <span class="w">                                             </span><span class="p">{</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w">                     </span><span class="n">no_argument</span><span class="p">,</span><span class="w">       </span><span class="nb">NULL</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="w"> </span><span class="p">}</span>
 <span class="p">};</span>
 
@@ -441,11 +425,11 @@
 <span class="cm">/* Plugin entrypoint */</span>
 <span class="k">static</span><span class="w"> </span><span class="n">PluginEntryPoint</span><span class="w"> </span><span class="n">dummyPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                                     </span><span class="n">NPROBE_REVISION</span><span class="p">,</span>
-<span class="w">                                     </span><span class="s">&quot;Dummy Protocol&quot;</span><span class="p">,</span>
-<span class="w">                                     </span><span class="s">&quot;dummy&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span>
-<span class="w">                                     </span><span class="s">&quot;0.1&quot;</span><span class="p">,</span>
-<span class="w">                                     </span><span class="s">&quot;Handle Dummy protocol&quot;</span><span class="p">,</span>
-<span class="w">                                     </span><span class="s">&quot;developer@company.com&quot;</span><span class="p">,</span>
+<span class="w">                                     </span><span class="s">"Dummy Protocol"</span><span class="p">,</span>
+<span class="w">                                     </span><span class="s">"dummy"</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span>
+<span class="w">                                     </span><span class="s">"0.1"</span><span class="p">,</span>
+<span class="w">                                     </span><span class="s">"Handle Dummy protocol"</span><span class="p">,</span>
+<span class="w">                                     </span><span class="s">"developer@company.com"</span><span class="p">,</span>
 <span class="w">                                     </span><span class="mi">0</span><span class="w"> </span><span class="cm">/* not always enabled */</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="cm">/* enabled */</span>
 <span class="w">                                     </span><span class="n">PLUGIN_NEED_LICENSE</span><span class="p">,</span>
 <span class="w">                                     </span><span class="n">PLUGIN_STANDARD_VERSION</span><span class="w"> </span><span class="cm">/* pro/standard plugin version */</span><span class="p">,</span>
@@ -480,38 +464,32 @@
 </pre></div>
 </div>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="plugins/custom.html" rel="prev" title="Custom Plugin"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="bpf_expressions.html" rel="next" title="BPF Packet Filtering Expressions">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2025, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="plugins/custom.html" class="btn btn-neutral float-left" title="Custom Plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="bpf_expressions.html" class="btn btn-neutral float-right" title="BPF Packet Filtering Expressions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2025, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/nprobe/developing_plugins.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:21 GMT -->
 </html>

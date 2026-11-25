@@ -1,95 +1,83 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-
+<html class="writer-html5" data-content_root="../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/flows/nprobe.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:49:17 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>What nProbe Does &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Flow Exporters" href="exporters.html" />
-    <link rel="prev" title="Flow Collection" href="index.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Что делает nProbe — документация ntopng v.7.1.261018</title>
+<link href="../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="exporters.html" rel="next" title="Flow Exporters"/>
+<link href="index.html" rel="prev" title="Flow Collection"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index-2.html">
             ntopng
-              <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Flow Collection</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">What nProbe Does</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#how-nprobe-and-ntopng-work-together">How nProbe and ntopng Work Together</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#why-nprobe-is-often-a-necessary-component">Why nProbe is Often a Necessary Component</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Коллекция потоков</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Что делает nProbe</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-nprobe-and-ntopng-work-together">Как nProbe и ntopng работают вместе</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-nprobe-is-often-a-necessary-component">Почему nProbe часто является необходимым компонентом</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="exporters.html">Flow Exporters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exporters_bandwidth_usage.html">Exporter Interfaces Bandwidth Usage per Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../using_with_other_tools/nprobe.html">Using ntopng with nProbe</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../using_with_other_tools/nprobe_collector_mode.html">Using ntopng with nProbe (Collector Mode)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporters.html">Экспортеры потоков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporters_bandwidth_usage.html">Интерфейсы экспортера. Использование полосы пропускания на приложение.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using_with_other_tools/nprobe.html">Использование ntopng с nProbe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using_with_other_tools/nprobe_collector_mode.html">Использование ntopng с nProbe (режим коллектора)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Документация</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
@@ -98,118 +86,108 @@
 <li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Flow Collection</a></li>
-      <li class="breadcrumb-item active">What nProbe Does</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/flows/nprobe.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="what-nprobe-does">
-<h1>What nProbe Does<a class="headerlink" href="#what-nprobe-does" title="Link to this heading"></a></h1>
-<p>Think of nProbe as a versatile flow agent and translator that sits between your network devices and ntopng. Its key functions are:</p>
-<ul class="simple">
-<li><p>Flow Collection &amp; Export Protocol Termination:
-It listens for flow exports from network hardware (NetFlow v5/v9, IPFIX, sFlow).
-It can handle exports from hundreds of devices, acting as a central, scalable collector. ntopng alone isn’t designed to scale to that level of direct ingestion.</p></li>
-<li><p>Flow Probing / Generation:
-It can also act as a software probe itself. By sniffing live traffic from a network interface (or a PCAP file), it can generate flow records from raw packets, just like a hardware router does. This is crucial if your network devices don’t support flow export.</p></li>
-<li><p>Protocol Translation &amp; Normalization:
-This is a critical function. nProbe converts any incoming flow format (sFlow, NetFlow v5, NetFlow v9, etc.) into a single, unified format (typically NetFlow v9 or IPFIX) that ntopng understands and expects.</p></li>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="index.html">Коллекция потоков</a></li>
+<li class="breadcrumb-item active">Что делает nProbe</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/flows/nprobe.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
 </ul>
-<p>It “cleans” and normalizes the data, ensuring consistency before it reaches ntopng.
-Flow Enrichment &amp; Augmentation:</p>
-<p>nProbe can add valuable metadata to flow records before passing them to ntopng. This includes:</p>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="what-nprobe-does">
+<h1>Что делает nProbe<a class="headerlink" href="#what-nprobe-does" title="Link to this heading"></a></h1>
+<p>Думайте о nProbe как об универсальном агенте потока и переводчике, который находится между вашими сетевыми устройствами и ntopng. Его ключевые функции:</p>
 <ul class="simple">
-<li><p>GeoIP Information: Adding country, city, AS number for source/destination IPs.</p></li>
-<li><p>Deep Packet Inspection (DPI): Identifying the actual application (e.g., Facebook, Netflix, Zoom) based on packet signatures, not just port numbers. (This is a licensed feature in the full version).</p></li>
-<li><p>VLAN/MPLS tagging: Preserving or adding layer 2 information.</p></li>
-<li><p>Flow Filtering &amp; Sampling Aggregation:</p></li>
+<li><p>Завершение протокола сбора потоков и экспорта:
+Он прослушивает экспорт потоков с сетевого оборудования (NetFlow v5/v9, IPFIX, sFlow).
+Он может обрабатывать экспорт с сотен устройств, действуя как центральный масштабируемый сборщик. ntopng сам по себе не предназначен для масштабирования до такого уровня прямого приема.</p></li>
+<li><p>Зондирование потока/генерация:
+Он также может действовать как программный зонд. Перехватывая живой трафик сетевого интерфейса (или файла PCAP), он может генерировать записи потока из необработанных пакетов, как это делает аппаратный маршрутизатор. Это очень важно, если ваши сетевые устройства не поддерживают экспорт потока.</p></li>
+<li><p>Трансляция и нормализация протоколов:
+Это критическая функция. nProbe преобразует любой формат входящего потока (sFlow, NetFlow v5, NetFlow v9 и т. д.) в единый унифицированный формат (обычно NetFlow v9 или IPFIX), который понимает и ожидает ntopng.</p></li>
 </ul>
-<p>It can filter flows (e.g., “ignore all DNS traffic”) before sending them forward, reducing load on ntopng.
-It can handle and even re-sample sampled flows (like sFlow) to provide more accurate volume estimates.
-Load Distribution &amp; Fan-out:</p>
-<p>A single nProbe instance can collect from many sources and fan out the processed flows to multiple destinations (e.g., multiple ntopng instances, or other tools like Elasticsearch).</p>
+<p>Он «очищает» и нормализует данные, обеспечивая согласованность до того, как они достигнут ntopng.
+Обогащение и увеличение потока:</p>
+<p>nProbe может добавлять ценные метаданные в записи потока перед их передачей в ntopng. Это включает в себя:</p>
+<ul class="simple">
+<li><p>Информация GeoIP: добавление страны, города, номера AS для IP-адресов источника/назначения.</p></li>
+<li><p>Глубокая проверка пакетов (DPI): идентификация фактического приложения (например, Facebook, Netflix, Zoom) на основе сигнатур пакетов, а не только номеров портов. (Это лицензионная функция в полной версии).</p></li>
+<li><p>Маркировка VLAN/MPLS: сохранение или добавление информации уровня 2.</p></li>
+<li><p>Фильтрация потока и агрегирование выборки:</p></li>
+</ul>
+<p>Он может фильтровать потоки (например, «игнорировать весь трафик DNS») перед их отправкой вперед, снижая нагрузку на ntopng.
+Он может обрабатывать и даже выполнять повторную выборку выборочных потоков (например, sFlow), чтобы обеспечить более точные оценки объема.
+Распределение нагрузки и разветвление:</p>
+<p>Один экземпляр nProbe может собирать данные из многих источников и распределять обработанные потоки по нескольким пунктам назначения (например, несколько экземпляров ntopng или другие инструменты, такие как Elasticsearch).</p>
 <section id="how-nprobe-and-ntopng-work-together">
-<h2>How nProbe and ntopng Work Together<a class="headerlink" href="#how-nprobe-and-ntopng-work-together" title="Link to this heading"></a></h2>
+<h2>Как nProbe и ntopng работают вместе<a class="headerlink" href="#how-nprobe-and-ntopng-work-together" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>Devices send raw flow data to the nProbe IP address and port.</p></li>
-<li><p>nProbe receives, normalizes, enriches (GeoIP, DPI), and filters this data.</p></li>
-<li><p>nProbe then forwards the cleaned, unified flow stream to ntopng. This is often done using a lightweight, efficient protocol called ZMQ (ZeroMQ), which is ntop’s preferred method, but it can also use NetFlow v9/IPFIX.</p></li>
-<li><p>ntopng receives the single, clean stream from nProbe.</p></li>
+<li><p>Устройства отправляют необработанные данные о потоке на IP-адрес и порт nProbe.</p></li>
+<li><p>nProbe получает, нормализует, обогащает (GeoIP, DPI) и фильтрует эти данные.</p></li>
+<li><p>nProbe затем направляет очищенный единый поток в ntopng. Это часто делается с использованием легкого и эффективного протокола под названием ZMQ (ZeroMQ), который является предпочтительным методом ntop, но он также может использовать NetFlow v9/IPFIX.</p></li>
+<li><p>ntopng получает единственный чистый поток от nProbe.</p></li>
 </ul>
-<p>It then focuses on its core jobs:</p>
+<p>Затем он сосредотачивается на своих основных задачах:</p>
 <ul class="simple">
-<li><p>Real-time visualization in the web GUI.</p></li>
-<li><p>Time-series analysis and historical reporting.</p></li>
-<li><p>Alerting on anomalies and thresholds.</p></li>
-<li><p>Storing aggregated data for trends.</p></li>
+<li><p>Визуализация в реальном времени в сети GUI.</p></li>
+<li><p>Анализ временных рядов и историческая отчетность.</p></li>
+<li><p>Оповещение об аномалиях и порогах.</p></li>
+<li><p>Хранение агрегированных данных по трендам.</p></li>
 </ul>
 </section>
 <section id="why-nprobe-is-often-a-necessary-component">
-<h2>Why nProbe is Often a Necessary Component<a class="headerlink" href="#why-nprobe-is-often-a-necessary-component" title="Link to this heading"></a></h2>
+<h2>Почему nProbe часто является необходимым компонентом<a class="headerlink" href="#why-nprobe-is-often-a-necessary-component" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>Scalability: For environments with more than a handful of flow exporters, using nProbe as a collector is mandatory. ntopng’s native collector is not designed for large-scale, multi-device ingestion.</p></li>
-<li><p>Hardware Support: If your network hardware doesn’t support flow export, nProbe is the only way to generate flows for ntopng by sniffing traffic directly.</p></li>
-<li><p>Protocol Support: Some legacy formats (like NetFlow v5) are not natively streamed to ntopng. nProbe must translate them.</p></li>
-<li><p>Feature Dependency: Critical features like Deep Packet Inspection (application identification) are performed by nProbe, not ntopng. If you need to see “Facebook” or “TikTok” as an application in your ntopng dashboard, you must use nProbe with a valid license for its DPI plugin.</p></li>
-<li><p>Architectural Flexibility: It allows you to place a collector (nProbe) in a remote network segment and forward only the processed data to a central ntopng server.</p></li>
+<li><p>Масштабируемость: для сред с более чем несколькими экспортерами потока использование nProbe в качестве коллектора является обязательным. Собственный сборщик ntopng не предназначен для крупномасштабного приема данных с нескольких устройств.</p></li>
+<li><p>Аппаратная поддержка: если ваше сетевое оборудование не поддерживает экспорт потоков, nProbe — единственный способ генерировать потоки для ntopng путем прямого перехвата трафика.</p></li>
+<li><p>Поддержка протоколов: некоторые устаревшие форматы (например, NetFlow v5) изначально не передаются на ntopng. nProbe должен их перевести.</p></li>
+<li><p>Зависимость функций: критически важные функции, такие как глубокая проверка пакетов (идентификация приложения), выполняются nProbe, а не ntopng. Если вам нужно видеть «Facebook» или «TikTok» как приложение на панели управления ntopng, вы должны использовать nProbe с действующей лицензией для его плагина DPI.</p></li>
+<li><p>Архитектурная гибкость: позволяет разместить коллектор (nProbe) в удаленном сегменте сети и пересылать только обработанные данные на центральный сервер ntopng.</p></li>
 </ul>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="Flow Collection"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="exporters.html" rel="next" title="Flow Exporters">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Flow Collection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="exporters.html" class="btn btn-neutral float-right" title="Flow Exporters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/flows/nprobe.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:49:18 GMT -->
 </html>

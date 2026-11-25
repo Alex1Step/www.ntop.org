@@ -1,81 +1,69 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-
+<html class="writer-html5" data-content_root="./" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/nscrub/engine_conf.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:15:09 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Engine Configuration &mdash; nScrub dev documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
-
-  
-      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
-      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Working Modes" href="working_modes.html" />
-    <link rel="prev" title="Models and Licenses" href="versions.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Конфигурация движка — документация для разработчиков nScrub</title>
+<link href="_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<script src="_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+<script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="working_modes.html" rel="next" title="Working Modes"/>
+<link href="versions.html" rel="prev" title="Models and Licenses"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
             nScrub
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nscrub/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/nscrub/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="features.html">Main Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="versions.html">Models and Licenses</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Engine Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#basic-settings">Basic Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#host-connectivity-routing">Host Connectivity/Routing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cpu-affinity">CPU Affinity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#traffic-monitoring">Traffic Monitoring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#rest-server">REST Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#service">Service</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#version-and-license">Version and License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Основные характеристики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Модели и лицензии</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Конфигурация двигателя</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-settings">Основные настройки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#host-connectivity-routing">Соединение с хостом/маршрутизация</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cpu-affinity">CPU Родство</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#traffic-monitoring">Мониторинг трафика</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Расширенные настройки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rest-server">REST Сервер</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">Ведение журнала</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#service">Услуга</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-and-license">Версия и лицензия</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="working_modes.html">Working Modes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">Performance and Tuning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="traffic_enforcement_conf.html">Traffic Enforcement Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Traffic Visibility</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="testing.html">Utilities and Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hw_bypass.html">Hardware Bypass Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_modes.html">Режимы работы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Производительность и настройка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="traffic_enforcement_conf.html">Конфигурация контроля трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Видимость трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Инструменты командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Утилиты и тестирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hw_bypass.html">Поддержка аппаратного обхода</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
@@ -84,41 +72,37 @@
 <li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">nScrub</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Engine Configuration</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/engine_conf.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="engine-configuration">
-<h1>Engine Configuration<a class="headerlink" href="#engine-configuration" title="Link to this heading"></a></h1>
-<p>The engine can be configured using the REST API or the CLI tool nscrub-cli with auto-completion support (note this is also using the REST API as backend).
-In order to use the API over HTTPs you need to create a SSL certificate:</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">nScrub</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">Конфигурация двигателя</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/engine_conf.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="engine-configuration">
+<h1>Конфигурация двигателя<a class="headerlink" href="#engine-configuration" title="Link to this heading"></a></h1>
+<p>Движок можно настроить с помощью инструмента REST API или CLI nscrub-cli с поддержкой автозаполнения (обратите внимание, что в качестве бэкэнда также используется REST API).
+Чтобы использовать API вместо HTTPs, вам необходимо создать сертификат SSL:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl req -new -x509 -sha256 -extensions v3_ca -nodes -days 365 -out cert.pem</span>
 <span class="go">cat privkey.pem cert.pem &gt; /usr/share/nscrub/ssl/ssl-cert.pem</span>
 <span class="go">rm -f privkey.pem cert.em</span>
 </pre></div>
 </div>
-<p>In order to run nScrub using systemd the configuration file should be placed under /etc/nscrub/nscrub.conf. Example:</p>
+<p>Чтобы запустить nScrub с помощью systemd, файл конфигурации должен быть помещен в /etc/nscrub/nscrub.conf. Пример:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">touch /etc/nscrub/nscrub.start</span>
 <span class="go">cat /etc/nscrub/nscrub.conf</span>
 <span class="go">--wan-interface=zc:eth1</span>
@@ -128,138 +112,132 @@ In order to use the API over HTTPs you need to create a SSL certificate:</p>
 <span class="go">--daemon</span>
 </pre></div>
 </div>
-<p>Note: if you are using the init.d script on old linux distributions, /etc/nscrub/nscrub.start should be created in order to enable the service.</p>
-<p>If your system is using systemd, the application can be run with:</p>
+<p>Примечание. Если вы используете сценарий init.d в старых дистрибутивах Linux, необходимо создать /etc/nscrub/nscrub.start, чтобы включить службу.</p>
+<p>Если ваша система использует systemd, приложение можно запустить с помощью:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl start nscrub</span>
 </pre></div>
 </div>
-<p>Otherwise please use the init.d script:</p>
+<p>В противном случае используйте сценарий init.d:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/etc/init.d/nscrub start</span>
 </pre></div>
 </div>
-<p>The following options can be specified in the configuration file. For default values please refer to the application help (–help|-h option).</p>
+<p>В файле конфигурации можно указать следующие параметры. Значения по умолчанию см. в справке приложения (опция –help|-h).</p>
 <section id="basic-settings">
-<h2>Basic Settings<a class="headerlink" href="#basic-settings" title="Link to this heading"></a></h2>
-<p><em>[–wan-interface|-i] &lt;device&gt;</em>
-First device name (internet)</p>
-<p><em>[–lan-interface|-o] &lt;device&gt;</em>
-Second device name (local network)</p>
-<p><em>[–asymmetric|-A]</em>
-Asymmetric routing (wan to lan traffic only)</p>
-<p><em>[–sw-distribution|-w]</em>
-Use SW Distribution + RSS TX Queues</p>
-<p><em>[–active-wait|-a]</em>
-Active packet wait</p>
+<h2>Основные настройки<a class="headerlink" href="#basic-settings" title="Link to this heading"></a></h2>
+<p><em>[–wan-interface|-i] &lt;устройство&gt;</em>
+Имя первого устройства (Интернет)</p>
+<p><em>[–lan-interface|-o] &lt;устройство&gt;</em>
+Имя второго устройства (локальная сеть)</p>
+<p><em>[–асимметричный|-A]</em>
+Асимметричная маршрутизация (только трафик локальной сети)</p>
+<p><em>[–sw-распределение|-w]</em>
+Использование SW Distribution + RSS TX Queues</p>
+<p><em>[–активное-ожидание|-a]</em>
+Активное ожидание пакета</p>
 </section>
 <section id="host-connectivity-routing">
-<h2>Host Connectivity/Routing<a class="headerlink" href="#host-connectivity-routing" title="Link to this heading"></a></h2>
-<p><em>[–connect-host|-X]</em>
-Let the host be reachable on the wan/lan interfaces</p>
-<p><em>[–routing|-x]</em>
-Act as a router (usually used with BGP traffic diversion)</p>
+<h2>Соединение с хостом/маршрутизация<a class="headerlink" href="#host-connectivity-routing" title="Link to this heading"></a></h2>
+<p><em>[–connect-хост|-X]</em>
+Пусть хост будет доступен на интерфейсах wan/lan.</p>
+<p><em>[–маршрутизация|-x]</em>
+Действовать как маршрутизатор (обычно используется с перенаправлением трафика BGP)</p>
 </section>
 <section id="cpu-affinity">
-<h2>CPU Affinity<a class="headerlink" href="#cpu-affinity" title="Link to this heading"></a></h2>
-<p><em>[–balancer-affinity|-r] &lt;id&gt;:&lt;id&gt;</em>
-Bind packet distribution threads to core ids (-w only)</p>
+<h2>CPU Родство<a class="headerlink" href="#cpu-affinity" title="Link to this heading"></a></h2>
+<p><em>[-balancer-affinity|-r] &lt;id&gt;:&lt;id&gt;</em>
+Привязать потоки распределения пакетов к идентификаторам ядра (только -w)</p>
 <p><em>[–thread-affinity|-g] &lt;id&gt;[:&lt;id&gt;[..]]</em>
-Bind processing threads to core id</p>
+Привязка потоков обработки к идентификатору ядра</p>
 <p><em>[–time-source-affinity|-T] &lt;id&gt;</em>
-Bind time-source thread to core id</p>
+Привязать поток источника времени к идентификатору ядра</p>
 </section>
 <section id="traffic-monitoring">
-<h2>Traffic Monitoring<a class="headerlink" href="#traffic-monitoring" title="Link to this heading"></a></h2>
-<p><em>[–aux-queues|-O] &lt;num&gt;</em>
-Enable &lt;num&gt; sets of auxiliary egress queues for packet sampling (traffic analysis/dumping)</p>
-<p><em>[–event-script-dir|-Q] &lt;dir&gt;</em>
-Event scripts directory</p>
+<h2>Мониторинг трафика<a class="headerlink" href="#traffic-monitoring" title="Link to this heading"></a></h2>
+<p><em>[–aux-queues|-O] &lt;число&gt;</em>
+Включить &lt;число&gt; наборов вспомогательных выходных очередей для выборки пакетов (анализ/сброс трафика)</p>
+<p><em>[–event-script-dir|-Q] &lt;каталог&gt;</em>
+Каталог сценариев событий</p>
 </section>
 <section id="advanced-settings">
-<h2>Advanced Settings<a class="headerlink" href="#advanced-settings" title="Link to this heading"></a></h2>
+<h2>Расширенные настройки<a class="headerlink" href="#advanced-settings" title="Link to this heading"></a></h2>
 <p><em>[–cluster-id|-c] &lt;id&gt;</em>
-ZC cluster ID</p>
+Идентификатор кластера ZC</p>
 <p><em>[–ht-idle-timeout|-I] &lt;usec&gt;</em>
-Flow idle timeout</p>
+Тайм-аут простоя потока</p>
 <p><em>[–dyn-white-list-idle-timeout|-e] &lt;usec&gt;</em>
-Auto-whitelist idle timeout</p>
-<p><em>[–gre-decapsulation|-E]</em>
-Decapsulate GRE traffic</p>
-<p><em>[–redis|-D] &lt;host[:port][&#64;db-id]&gt;</em>
-Redis DB host[:port][&#64;database id]</p>
+Тайм-аут простоя автоматического белого списка</p>
+<p><em>[–gre-декапсуляция|-E]</em>
+Декапсулировать трафик GRE</p>
+<p><em>[–redis|-D] &lt;хост[:порт][@db-id]&gt;</em>
+Redis Хост БД[:порт][@идентификатор базы данных]</p>
 </section>
 <section id="rest-server">
-<h2>REST Server<a class="headerlink" href="#rest-server" title="Link to this heading"></a></h2>
-<p><em>[–http-address|-G] &lt;address&gt;</em>
-IP address for REST server socket binding</p>
-<p><em>[–http-port|-H] &lt;port&gt;</em>
-HTTP port for REST server</p>
-<p><em>[–https-port|-s] &lt;port&gt;</em>
-HTTPs port for REST server</p>
-<p><em>[–docs-root|-R] &lt;dir&gt;</em>
-Docs root directory</p>
+<h2>REST Сервер<a class="headerlink" href="#rest-server" title="Link to this heading"></a></h2>
+<p><em>[–http-адрес|-G] &lt;адрес&gt;</em>
+IP-адрес для привязки сокета сервера REST</p>
+<p><em>[–http-порт|-H] &lt;порт&gt;</em>
+HTTP порт для REST сервера</p>
+<p><em>[–https-порт|-s] &lt;порт&gt;</em>
+HTTPs порт для REST сервера</p>
+<p><em>[–docs-root|-R] &lt;каталог&gt;</em>
+Корневой каталог документов</p>
 </section>
 <section id="logging">
-<h2>Logging<a class="headerlink" href="#logging" title="Link to this heading"></a></h2>
-<p><em>[–log-path|-l] &lt;path&gt;</em>
-Log file path</p>
-<p><em>[–stats-log-path|-y] &lt;path&gt;</em>
-Stats log file path</p>
-<p><em>[–debug-level|-t] &lt;level&gt;</em>
-Trace level</p>
+<h2>Ведение журнала<a class="headerlink" href="#logging" title="Link to this heading"></a></h2>
+<p><em>[–log-path|-l] &lt;путь&gt;</em>
+Путь к файлу журнала</p>
+<p><em>[–stats-log-path|-y] &lt;путь&gt;</em>
+Путь к файлу журнала статистики</p>
+<p><em>[-debug-level|-t] &lt;уровень&gt;</em>
+Уровень трассировки</p>
 </section>
 <section id="service">
-<h2>Service<a class="headerlink" href="#service" title="Link to this heading"></a></h2>
-<p><em>[–daemon|-d]</em>
-Run as a daemon</p>
-<p><em>[–pid-path|-p] &lt;path&gt;</em>
-PID file path</p>
-<p><em>[–user] &lt;sys user&gt;</em>
-Run with the specified user</p>
+<h2>Услуга<a class="headerlink" href="#service" title="Link to this heading"></a></h2>
+<p><em>[–демон|-d]</em>
+Запустить как демон</p>
+<p><em>[-pid-path|-p] &lt;путь&gt;</em>
+Путь к файлу PID</p>
+<p><em>[–user] &lt;пользователь системы&gt;</em>
+Запуск от указанного пользователя</p>
 </section>
 <section id="version-and-license">
-<h2>Version and License<a class="headerlink" href="#version-and-license" title="Link to this heading"></a></h2>
-<p><em>[–version|-V]</em>
-Print version</p>
-<p><em>[–system-id|-Y]</em>
-Print system identifier</p>
+<h2>Версия и лицензия<a class="headerlink" href="#version-and-license" title="Link to this heading"></a></h2>
+<p><em>[–версия|-V]</em>
+Версия для печати</p>
+<p><em>[–идентификатор системы|-Y]</em>
+Распечатать идентификатор системы</p>
 <p><em>[–check-license|-C]</em>
-Checks if license is valid</p>
-<p><em>[–check-maintenance|-M]</em>
-Checks maintenance expiration</p>
+Проверяет, действительна ли лицензия</p>
+<p><em>[–проверка-обслуживание|-M]</em>
+Проверяет срок действия технического обслуживания</p>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="versions.html" rel="prev" title="Models and Licenses"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="working_modes.html" rel="next" title="Working Modes">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2018, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="versions.html" class="btn btn-neutral float-left" title="Models and Licenses" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="working_modes.html" class="btn btn-neutral float-right" title="Working Modes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2018, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/nscrub/engine_conf.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:15:10 GMT -->
 </html>

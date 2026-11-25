@@ -1,90 +1,78 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-
+<html class="writer-html5" data-content_root="../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/pf_ring/vm/virsh_hostdev.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:24:03 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1. PCI Passthrough with PF_RING ZC &mdash; PF_RING 9.5.0-4814 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
-      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2. SR-IOV with PF_RING ZC" href="sriov.html" />
-    <link rel="prev" title="VM Support" href="index.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>1. Сквозное соединение PCI с документацией PF_RING ZC — PF_RING 9.5.0-4814.</title>
+<link href="../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
+<script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="sriov.html" rel="next" title="2. SR-IOV with PF_RING ZC"/>
+<link href="index.html" rel="prev" title="VM Support"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index-2.html">
             PF_RING
-              <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/pf_ring/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Get Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Vanilla PF_RING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Copy)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (Flow Table)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">Sample Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Drivers and Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rss.html">Load Balancing / RSS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Containers Support</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">VM Support</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">1. PCI Passthrough with PF_RING ZC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pci-passthrough-on-qemu-kvm">1.1. PCI Passthrough on QEMU/KVM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#possible-errors">1.2. Possible Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pci-passthrough-on-vmware">1.3. PCI Passthrough on VMWare</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Начать</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Ванильный PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Копия)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (таблица потоков)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Примеры приложений</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Драйверы и модули</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rss.html">Балансировка нагрузки/RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Фильтрация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Поддержка контейнеров</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Поддержка виртуальных машин</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. Сквозное соединение PCI с PF_RING ZC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pci-passthrough-on-qemu-kvm">1.1. Сквозное прохождение PCI на QEMU/KVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#possible-errors">1.2. Возможные ошибки</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pci-passthrough-on-vmware">1.3. Сквозное прохождение PCI на VMWare</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sriov.html">2. SR-IOV with PF_RING ZC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kvm_zc.html">3. QEMU/KVM Support in PF_RING ZC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sriov.html">2. СР-ИОВ с PF_RING ZC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kvm_zc.html">3. Поддержка QEMU/KVM в PF_RING ZC.</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">IDS/IPSs Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Hugepages Support</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../amd.html">AMD Processors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">Интеграция IDS/IPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Поддержка огромных страниц</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Возможности</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amd.html">Процессоры AMD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Процессоры</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">Crash Debug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">Аварийная отладка</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
@@ -92,146 +80,136 @@
 <li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index-2.html">PF_RING</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">VM Support</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">1. </span>PCI Passthrough with PF_RING ZC</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/vm/virsh_hostdev.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="pci-passthrough-with-pf-ring-zc">
-<h1><span class="section-number">1. </span>PCI Passthrough with PF_RING ZC<a class="headerlink" href="#pci-passthrough-with-pf-ring-zc" title="Link to this heading"></a></h1>
-<p>In order to capture traffic from an Intel/ZC interface using PF_RING ZC
-drivers on a VM, you need to assign the network device to the VM in your
-hypervisor configuring the PCI Passthrough. This is available both on
-QEMU/KVM and VMWare (aka DirectPath I/O).</p>
-<p>After following the steps below to configure the passthrough, you should
-be able to see the device on the VM using lspci, and load the native ZC
-driver according to the card model.</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index-2.html">PF_RING</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="index.html">Поддержка виртуальных машин</a></li>
+<li class="breadcrumb-item active"><span class="section-number">1. </span>Сквозное соединение PCI с PF_RING ZC</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/vm/virsh_hostdev.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="pci-passthrough-with-pf-ring-zc">
+<h1><span class="section-number">1. </span>Сквозное соединение PCI с PF_RING ZC<a class="headerlink" href="#pci-passthrough-with-pf-ring-zc" title="Link to this heading"></a></h1>
+<p>Чтобы перехватить трафик с интерфейса Intel/ZC с помощью PF_RING ZC
+драйверы на виртуальной машине, вам необходимо назначить сетевое устройство виртуальной машине в вашей
+гипервизор, настраивающий сквозное соединение PCI. Это доступно как на
+QEMU/KVM и VMWare (также известный как ввод-вывод DirectPath).</p>
+<p>После выполнения описанных ниже шагов по настройке сквозной передачи вам следует
+иметь возможность видеть устройство на виртуальной машине с помощью lspci и загружать собственный ZC
+драйвер согласно модели карты.</p>
 <section id="pci-passthrough-on-qemu-kvm">
-<h2><span class="section-number">1.1. </span>PCI Passthrough on QEMU/KVM<a class="headerlink" href="#pci-passthrough-on-qemu-kvm" title="Link to this heading"></a></h2>
-<p>In order to assign a network device to a VM with virsh, to be used with native PF_RING ZC drivers, follow the following steps:</p>
-<p>Edit /etc/default/grub as below:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX_DEFAULT=&quot;intel_iommu=on&quot;
+<h2><span class="section-number">1.1. </span>Сквозное прохождение PCI на QEMU/KVM<a class="headerlink" href="#pci-passthrough-on-qemu-kvm" title="Link to this heading"></a></h2>
+<p>Чтобы назначить сетевое устройство виртуальной машине с virsh для использования с собственными драйверами PF_RING ZC, выполните следующие действия:</p>
+<p>Отредактируйте /etc/default/grub, как показано ниже:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on"
 </pre></div>
 </div>
-<p>Update grub:</p>
+<p>Обновить харч:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">update-grub</span>
 <span class="go">reboot</span>
 </pre></div>
 </div>
-<p>Shutdown the VM (in this example ubuntu16):</p>
+<p>Выключите виртуальную машину (в этом примере ubuntu16):</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">virsh shutdown ubuntu16</span>
 </pre></div>
 </div>
-<p>Identify the network device to assign:</p>
+<p>Определите сетевое устройство, которое нужно назначить:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lspci -D | grep Ethernet</span>
 <span class="go">0000:02:00.0 Ethernet controller: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection (rev 01)</span>
 <span class="go">0000:02:00.1 Ethernet controller: Intel Corporation 82599ES 10-Gigabit SFI/SFP+ Network Connection (rev 01)</span>
 </pre></div>
 </div>
-<p>Find the device identifier in virsh (assuming that we want to use 0000:02:00.1):</p>
+<p>Найдите идентификатор устройства в virsh (при условии, что мы хотим использовать 0000:02:00.1):</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">virsh nodedev-list | grep pci_0000_02_00_1</span>
 <span class="go">pci_0000_02_00_1</span>
 </pre></div>
 </div>
-<p>Detach the device from the host system:</p>
+<p>Отсоедините устройство от хост-системы:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">virsh nodedev-detach pci_0000_02_00_1</span>
 </pre></div>
 </div>
-<p>Check that no driver on the host system is using the device:</p>
+<p>Убедитесь, что ни один драйвер в хост-системе не использует устройство:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">readlink /sys/bus/pci/devices/0000\:02\:00.1</span>
 </pre></div>
 </div>
-<p>Edit the VM configuration adding the hostdev entry:</p>
+<p>Отредактируйте конфигурацию виртуальной машины, добавив запись хостдева:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>virsh edit ubuntu16
 
- &lt;hostdev mode=&#39;subsystem&#39; type=&#39;pci&#39; managed=&#39;no&#39;&gt;
+ &lt;hostdev mode='subsystem' type='pci' managed='no'&gt;
    &lt;source&gt;
-     &lt;address domain=&#39;0x0000&#39; bus=&#39;0x02&#39; slot=&#39;0x00&#39; function=&#39;0x1&#39;/&gt;
+     &lt;address domain='0x0000' bus='0x02' slot='0x00' function='0x1'/&gt;
    &lt;/source&gt;
  &lt;/hostdev&gt;
 </pre></div>
 </div>
-<p>Start the VM:</p>
+<p>Запустите виртуальную машину:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">virsh start ubuntu16</span>
 </pre></div>
 </div>
 </section>
 <section id="possible-errors">
-<h2><span class="section-number">1.2. </span>Possible Errors<a class="headerlink" href="#possible-errors" title="Link to this heading"></a></h2>
-<p>1. if <em>virsh start ubuntu16</em> fails with <em>vfio: error, group 1 is not viable, please ensure all devices within the iommu_group are bound to their vfio bus driver</em>
-you probably need to detach all pci devices in the same IOMMU group.
-List all the devices in the same group:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dmesg | grep &quot;group 1$&quot;</span>
+<h2><span class="section-number">1.2. </span>Возможные ошибки<a class="headerlink" href="#possible-errors" title="Link to this heading"></a></h2>
+<p>1. если <em>Вирш запускает Ubuntu16</em> терпит неудачу с <em>vfio: ошибка, группа 1 нежизнеспособна, убедитесь, что все устройства в группе iommu_group привязаны к их драйверу шины vfio.</em>
+вам, вероятно, потребуется отсоединить все устройства PCI в одной группе IOMMU.
+Перечислите все устройства в одной группе:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dmesg | grep "group 1$"</span>
 <span class="go">[    0.711256] iommu: Adding device 0000:01:00.0 to group 1</span>
 <span class="go">[    0.711261] iommu: Adding device 0000:02:00.0 to group 1</span>
 <span class="go">[    0.711266] iommu: Adding device 0000:02:00.1 to group 1</span>
 </pre></div>
 </div>
-<p>Detach all the devices in the group:</p>
+<p>Отсоедините все устройства в группе:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">virsh nodedev-detach pci_0000_01_00_0</span>
 <span class="go">virsh nodedev-detach pci_0000_02_00_0</span>
 </pre></div>
 </div>
 </section>
 <section id="pci-passthrough-on-vmware">
-<h2><span class="section-number">1.3. </span>PCI Passthrough on VMWare<a class="headerlink" href="#pci-passthrough-on-vmware" title="Link to this heading"></a></h2>
-<p>In order to configure the PCI Passthrough on VMWare, please refer to the
-VMWare documentation according to your VMWare version looking for DirectPath I/O.</p>
+<h2><span class="section-number">1.3. </span>Сквозное прохождение PCI на VMWare<a class="headerlink" href="#pci-passthrough-on-vmware" title="Link to this heading"></a></h2>
+<p>Чтобы настроить PCI Passthrough на VMWare, обратитесь к
+Документация VMWare в соответствии с вашей версией VMWare, которая ищет ввод-вывод DirectPath.</p>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="VM Support"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="sriov.html" rel="next" title="2. SR-IOV with PF_RING ZC">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="VM Support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="sriov.html" class="btn btn-neutral float-right" title="2. SR-IOV with PF_RING ZC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/pf_ring/vm/virsh_hostdev.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:24:04 GMT -->
 </html>

@@ -1,107 +1,95 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-
+<html class="writer-html5" data-content_root="../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/nprobe/case_study/exporting_to_kafka.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:44 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exporting to Apache Kafka &mdash; nProbe 10.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options0088.js?v=864e5427"></script>
-      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scripting nProbe Using Lua" href="scripting_using_lua.html" />
-    <link rel="prev" title="Collecting Proprietary Flow Fields" href="collecting_proprietary_flow_fields.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Экспорт документации в Apache Kafka — nProbe 10.0</title>
+<link href="../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options0088.js?v=864e5427"></script>
+<script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="scripting_using_lua.html" rel="next" title="Scripting nProbe Using Lua"/>
+<link href="collecting_proprietary_flow_fields.html" rel="prev" title="Collecting Proprietary Flow Fields"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index-2.html">
             nProbe
-              <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nprobe/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/nprobe/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html#what-is-nprobe">What is nProbe?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../versions.html">Versions Comparison Table</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../configurations.html">nProbe Modes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s New</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../how_to_start.html">How to Start nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html">Tuning nProbe Performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#high-speed-flow-collection">High-Speed Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#expected-collection-performance">Expected Collection Performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#collecting-flows-from-many-routers">Collecting Flows from Many Routers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Handling Trillion Flows: Dumping Flows into ClickHouse</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#data-deduplication">Data Deduplication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#snmp-interfaces-polling">SNMP Interfaces Polling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#collecting-ntap-traffic">Collecting nTap Traffic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#influxdb-based-timeseries-dump">InfluxDB-based Timeseries Dump</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#howto-create-sflow-timeseries">HowTo Create sFlow Timeseries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#flow-relay">Flow Relay</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#flow-replication-fanout">Flow Replication / Fanout</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#dumping-collected-flows-packets">Dumping Collected Flows/Packets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tls.html">Using TLS In Flow Collection/Export</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tls.html#tls-certificates-validation">TLS Certificates Validation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Note on interface indexes and (router) MAC/IP addresses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#further-plugin-available-command-line-options">Further plugin available command line options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX format [-T]</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using_with_ntopng.html">Using nProbe with ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../kafka.html">Using Kafka with nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../bgp.html">BGP/BMP Traffic Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../agent_mode.html">Agent Mode support in nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">nProbe Case Study</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="flow_collection.html">Understanding How Flow Collection Works</a></li>
-<li class="toctree-l2"><a class="reference internal" href="collecting_proprietary_flow_fields.html">Collecting Proprietary Flow Fields</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Exporting to Apache Kafka</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#custom-configuration-properties">Custom Configuration Properties</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tls-ssl-encryption">TLS/SSL Encryption</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Введение</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html#what-is-nprobe">Что такое nProbe?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">Таблица сравнения версий</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configurations.html">nProbe Режимы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Что нового</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start.html">Как начать nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html">Настройка nProbe Производительность</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#high-speed-flow-collection">Коллекция высокоскоростного потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#expected-collection-performance">Ожидаемая производительность коллекции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#collecting-flows-from-many-routers">Сбор потоков от множества маршрутизаторов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Обработка триллионов потоков: сброс потоков в ClickHouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#data-deduplication">Дедупликация данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#snmp-interfaces-polling">SNMP Опрос интерфейсов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#collecting-ntap-traffic">Сбор nTap трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#influxdb-based-timeseries-dump">Дамп таймсерий на основе InfluxDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#howto-create-sflow-timeseries">Как создать таймсерию sFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#flow-relay">Реле потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#flow-replication-fanout">Репликация потока/разветвление</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#dumping-collected-flows-packets">Сброс собранных потоков/пакетов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tls.html">Использование TLS при сборе/экспорте потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tls.html#tls-certificates-validation">TLS Проверка сертификатов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Примечание об индексах интерфейсов и MAC/IP-адресах (маршрутизатора)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#further-plugin-available-command-line-options">Дополнительные параметры командной строки, доступные для плагина</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX формат [-T]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_ntopng.html">Использование nProbe с ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kafka.html">Использование Kafka с nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bgp.html">BGP/BMP Мониторинг трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agent_mode.html">Поддержка режима агента в nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Часто задаваемые вопросы</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">nProbe Практический пример</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="flow_collection.html">Понимание того, как работает сбор потоков</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collecting_proprietary_flow_fields.html">Сбор собственных полей потока</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Экспорт в Apache Kafka</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#custom-configuration-properties">Свойства пользовательской конфигурации</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tls-ssl-encryption">TLS/SSL Шифрование</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quick-start">Быстрый старт</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="scripting_using_lua.html">Scripting nProbe Using Lua</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripting_using_lua.html">Написание сценариев nProbe с использованием Lua</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">nProbe Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developing_plugins.html">Developing nProbe Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../bpf_expressions.html">BPF Packet Filtering Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../flow_information_elements.html">Flow Information Elements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hardware_sizing.html">Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">nProbe Плагины</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_plugins.html">Разработка плагинов nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bpf_expressions.html">BPF Выражения фильтрации пакетов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_information_elements.html">Информационные элементы потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardware_sizing.html">Определение размеров оборудования</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
@@ -109,165 +97,155 @@
 <li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index-2.html">nProbe</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">nProbe Case Study</a></li>
-      <li class="breadcrumb-item active">Exporting to Apache Kafka</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/case_study/exporting_to_kafka.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="exporting-to-apache-kafka">
-<h1>Exporting to Apache Kafka<a class="headerlink" href="#exporting-to-apache-kafka" title="Link to this heading"></a></h1>
-<p>nProbe, if configured with the export plugin, can send flows to one or more Kafka brokers in a cluster. Initially, the nProbe tries to contact one or more user-specified brokers to retrieve Kafka cluster metadata. Metadata include the list of brokers available in the cluster that are responsible for a given user-specified topic. Once the nProbe has the list of brokers available, it starts sending flows to them. The user can also decide to compress data and specify if he/she:</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index-2.html">nProbe</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="index.html">nProbe Практический пример</a></li>
+<li class="breadcrumb-item active">Экспорт в Apache Kafka</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/case_study/exporting_to_kafka.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="exporting-to-apache-kafka">
+<h1>Экспорт в Apache Kafka<a class="headerlink" href="#exporting-to-apache-kafka" title="Link to this heading"></a></h1>
+<p>nProbe, если настроен плагин экспорта, может отправлять потоки одному или нескольким брокерам Kafka в кластере. Первоначально nProbe пытается связаться с одним или несколькими указанными пользователем брокерами для получения метаданных кластера Kafka. Метаданные включают список брокеров, доступных в кластере, которые отвечают за заданную пользователем тему. Как только у nProbe появится список доступных брокеров, он начнет отправлять им потоки. Пользователь также может принять решение о сжатии данных и указать, если он/она:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Doesn’t want to wait for ACKs</p></li>
-<li><p>Wants to receive an ACK only from the Kafka leader</p></li>
-<li><p>Wants to receive an ACK from every replica</p></li>
+<li><p>Не хочет ждать ACK</p></li>
+<li><p>Хочет получать ACK только от лидера Kafka</p></li>
+<li><p>Хочет получать ACK от каждой реплики</p></li>
 </ul>
 </div></blockquote>
-<p><em>Example</em></p>
-<p>Assuming there is a Zookeeper on localhost port 2181 that manages the Kafka cluster, it is possible to ask for the creation of a new Kafka topic. Let’s say the topic is called “topicFlows” and we want it to be split across three partitions with replication factor two. The command that has to be issued is the following</p>
+<p><em>Пример</em></p>
+<p>Предполагая, что на локальном порту 2181 имеется Zookeeper, который управляет кластером Kafka, можно запросить создание новой темы Kafka. Допустим, тема называется «topicFlows», и мы хотим, чтобы она была разделена на три раздела с коэффициентом репликации два. Команда, которая должна быть выдана, следующая</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./bin/kafka-topics.sh<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--create<span class="w"> </span>--topic<span class="w"> </span>topicFlows<span class="w"> </span>--partitions<span class="w"> </span><span class="m">3</span><span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
-<p>Now that the Kafka topic has been created, it is possible to execute nProbe and tell the instance to export to Kafka topic “topicFlows”. We also tell the instance a list of three brokers running on localhost (on ports 9092, 9093 and 9094 respectively) that will be queried at the beginning to obtain kafka cluster/topic metadata.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>--kafka<span class="w"> </span><span class="s2">&quot;127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094;topicFlows&quot;</span>
+<p>Теперь, когда тема Kafka создана, можно выполнить nProbe и указать экземпляру экспортировать в тему Kafka «topicFlows». Мы также сообщаем экземпляру список из трех брокеров, работающих на локальном хосте (на портах 9092, 9093 и 9094 соответственно), которые будут запрошены вначале для получения метаданных kafka кластера/темы.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>--kafka<span class="w"> </span><span class="s2">"127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094;topicFlows"</span>
 </pre></div>
 </div>
-<p>At this point the nProbe instance is actively exporting flows to the Kafka cluster. To verify that everything is running properly, we can take messages out of the Kafka topic with the following command</p>
+<p>На данный момент экземпляр nProbe активно экспортирует потоки в кластер Kafka. Чтобы убедиться, что все работает правильно, мы можем удалить сообщения из темы Kafka с помощью следующей команды</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./bin/kafka-console-consumer.sh<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--topic<span class="w"> </span>topicFlows<span class="w"> </span>--from-beginning
 </pre></div>
 </div>
-<p>Additional information and fine-tuning of Kafka export can be found at
-the following blog posts:</p>
+<p>Дополнительную информацию и тонкую настройку экспорта Kafka можно найти по адресу
+следующие сообщения в блоге:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="../../../tutorials/stream-that-flow-how-to-inject-nprobe-cento-flows-in-a-kafka-cluster/index.html">https://www.ntop.org/tutorials/stream-that-flow-how-to-inject-nprobe-cento-flows-in-a-kafka-cluster/</a></p></li>
 <li><p><a class="reference external" href="../../../nprobe/improved-nprobe-kafka-export-support-theory-and-practice/index.html">https://www.ntop.org/nprobe/improved-nprobe-kafka-export-support-theory-and-practice/</a></p></li>
 </ul>
 <section id="custom-configuration-properties">
-<h2>Custom Configuration Properties<a class="headerlink" href="#custom-configuration-properties" title="Link to this heading"></a></h2>
-<p>nProbe allows custom configuration properties to be set. Being able to
-set configuration properties is key as it allows to decide if
-highthroughput is the name of the game, or if a low latency service is
-required.</p>
-<p>Among all the configuration properties available, for the
-sake of performance tuning, it is worth mentioning:</p>
+<h2>Свойства пользовательской конфигурации<a class="headerlink" href="#custom-configuration-properties" title="Link to this heading"></a></h2>
+<p>nProbe позволяет устанавливать пользовательские свойства конфигурации. Будучи в состоянии
+установка свойств конфигурации является ключевым моментом, поскольку позволяет решить,
+highthroughput — это название игры, или если используется служба с низкой задержкой
+требуется.</p>
+<p>Среди всех доступных свойств конфигурации для
+ради настройки производительности стоит упомянуть:</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">batch.num.messages</span></code>: the minimum number of messages – flows,
-in the nProbe parlance – to wait for to accumulate in the queue
-before sending off a message set.</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">queue.buffering.max.ms</span></code>: how long to wait for
-<code class="code docutils literal notranslate"><span class="pre">batch.num.messages</span></code> to fill up in the queue. A lower value improves
-latency  at the cost of lower throughput and higher per-message
-overhead. A higher value improves throughput at the expense of latency.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">batch.num.messages</span></code>: минимальное количество сообщений – потоков,
+на языке nProbe — ждать, пока накопится в очереди
+перед отправкой набора сообщений.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">queue.buffering.max.ms</span></code>: сколько ждать
+<code class="code docutils literal notranslate"><span class="pre">batch.num.messages</span></code> чтобы пополнить очередь. Более низкое значение улучшает
+задержка за счет более низкой пропускной способности и более высокого количества сообщений
+накладные расходы. Более высокое значение повышает пропускную способность за счет задержки.</p></li>
 </ul>
-<p>Configuration properties are set using nProbe option
-<code class="code docutils literal notranslate"><span class="pre">--kafka-conf</span></code>, followed by the property name and the property
-value, separated by an equal <code class="code docutils literal notranslate"><span class="pre">=</span></code> sign. The option can be
-repeated multiple times, when multiple properties need to be set.</p>
-<p>For example, to set the <code class="code docutils literal notranslate"><span class="pre">queue.buffering.max.ms</span></code> to 1000 ms, the
-autocommit interval <code class="code docutils literal notranslate"><span class="pre">topic.auto.commit.interval.ms</span></code> to 2000 ms,
-and the messages debug, one can run nProbe adding the following:</p>
+<p>Свойства конфигурации задаются с помощью опции nProbe.
+<code class="code docutils literal notranslate"><span class="pre">--kafka-conf</span></code>, за которым следует имя свойства и свойство
+значение, разделенное равным <code class="code docutils literal notranslate"><span class="pre">=</span></code> знак. Вариант может быть
+повторяется несколько раз, когда необходимо установить несколько свойств.</p>
+<p>Например, чтобы установить <code class="code docutils literal notranslate"><span class="pre">queue.buffering.max.ms</span></code> до 1000 мс,
+интервал автофиксации <code class="code docutils literal notranslate"><span class="pre">topic.auto.commit.interval.ms</span></code> до 2000 мс,
+и отладку сообщений можно запустить nProbe, добавив следующее:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--kafka-conf<span class="w"> </span><span class="nv">debug</span><span class="o">=</span>msg<span class="w"> </span>--kafka-conf<span class="w"> </span>queue.buffering.max.ms<span class="o">=</span><span class="m">1000</span><span class="w"> </span>--kafka-conf<span class="o">=</span>topic.auto.commit.interval.ms<span class="o">=</span><span class="m">2000</span>
 </pre></div>
 </div>
-<p>The full list of configuration properties that can be configured is
-available at
+<p>Полный список свойств конфигурации, которые можно настроить, приведен ниже.
+доступно на
 <a class="reference external" href="https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md">https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md</a></p>
 </section>
 <section id="tls-ssl-encryption">
-<h2>TLS/SSL Encryption<a class="headerlink" href="#tls-ssl-encryption" title="Link to this heading"></a></h2>
-<p>To add TLS/SSL encryption to Kafka, both the brokers and the nProbe
-client need to be opportunely configured as described in
+<h2>TLS/SSL Шифрование<a class="headerlink" href="#tls-ssl-encryption" title="Link to this heading"></a></h2>
+<p>Чтобы добавить шифрование TLS/SSL к Kafka, как брокеры, так и nProbe
+клиент должен быть соответствующим образом настроен, как описано в
 <a class="reference external" href="https://github.com/edenhill/librdkafka/wiki/Using-SSL-with-librdkafka">https://github.com/edenhill/librdkafka/wiki/Using-SSL-with-librdkafka</a>.</p>
-<p>Specifically, configuration properties such as <code class="code docutils literal notranslate"><span class="pre">ssl.ca.location</span></code>
-and <code class="code docutils literal notranslate"><span class="pre">ssl.key.location</span></code> can be set using nProbe option
-<code class="code docutils literal notranslate"><span class="pre">--kafka-conf</span></code> as described in the section above.</p>
+<p>В частности, свойства конфигурации, такие как <code class="code docutils literal notranslate"><span class="pre">ssl.ca.location</span></code>
+и <code class="code docutils literal notranslate"><span class="pre">ssl.key.location</span></code> можно установить с помощью опции nProbe
+<code class="code docutils literal notranslate"><span class="pre">--kafka-conf</span></code> как описано в разделе выше.</p>
 </section>
 <section id="quick-start">
-<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
-<p>For the impatient, please follow the instructions below to build a basic
-Kafka installation and run it.</p>
-<p>Download Kafka:</p>
+<h2>Быстрый старт<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<p>Для нетерпеливых, пожалуйста, следуйте инструкциям ниже, чтобы построить базовый
+Kafka установку и запустите ее.</p>
+<p>Скачать Kafka:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://downloads.apache.org/kafka/2.8.0/kafka_2.13-2.8.0.tgz
 tar<span class="w"> </span>-xzf<span class="w"> </span>kafka_2.13-2.8.0.tgz
 </pre></div>
 </div>
-<p>Run the Kafka Zookeeper:</p>
+<p>Запустите Kafka Zookeeper:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>kafka_2.13-2.8.0
 bin/zookeeper-server-start.sh<span class="w"> </span>config/zookeeper.properties
 </pre></div>
 </div>
-<p>In another terminal run the Kafka server:</p>
+<p>В другом терминале запустите сервер Kafka:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>kafka_2.13-2.8.0
 bin/kafka-server-start.sh<span class="w"> </span>config/server.properties
 </pre></div>
 </div>
-<p>Create a topic:</p>
+<p>Создайте тему:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>kafka_2.13-2.8.0
 bin/kafka-topics.sh<span class="w"> </span>--zookeeper<span class="w"> </span>localhost:2181<span class="w"> </span>--create<span class="w"> </span>--topic<span class="w"> </span>topicFlows<span class="w"> </span>--partitions<span class="w"> </span><span class="m">3</span><span class="w"> </span>--replication-factor<span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
-<p>Run nProbe:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nprobe<span class="w"> </span>-i<span class="w"> </span>eno1<span class="w"> </span>--kafka<span class="w"> </span><span class="s2">&quot;127.0.0.1:9092;topicFlows&quot;</span>
+<p>Запустите nProbe:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nprobe<span class="w"> </span>-i<span class="w"> </span>eno1<span class="w"> </span>--kafka<span class="w"> </span><span class="s2">"127.0.0.1:9092;topicFlows"</span>
 </pre></div>
 </div>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="collecting_proprietary_flow_fields.html" rel="prev" title="Collecting Proprietary Flow Fields"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="scripting_using_lua.html" rel="next" title="Scripting nProbe Using Lua">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2025, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="collecting_proprietary_flow_fields.html" class="btn btn-neutral float-left" title="Collecting Proprietary Flow Fields" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="scripting_using_lua.html" class="btn btn-neutral float-right" title="Scripting nProbe Using Lua" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2025, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/nprobe/case_study/exporting_to_kafka.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:45 GMT -->
 </html>

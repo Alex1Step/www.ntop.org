@@ -1,107 +1,95 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
-
+<html class="writer-html5" data-content_root="../../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/nanalyst/features/audit_log.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:52:31 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Action Audit Log &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Tools and Licensing" href="../tools_and_licensing.html" />
-    <link rel="prev" title="Usage Statistics" href="usage_stats.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Журнал аудита действий — документация ntopng v.7.1.261018</title>
+<link href="../../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../../_static/js/theme.js"></script>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../tools_and_licensing.html" rel="next" title="Tools and Licensing"/>
+<link href="usage_stats.html" rel="prev" title="Usage Statistics"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index-2.html">
             ntopng
-              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">nAnalyst - Agentic AI Network Intelligence</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../what_is_nanalyst.html">What is nAnalyst?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../chat_interface.html">Chat Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ai_dashboards.html">AI Dashboards</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html">Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tools_and_licensing.html">Tools and Licensing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../llm_setup.html">LLM Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mcp_server.html">MCP Server</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../observability.html">Observability</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="usage_stats.html">Usage Statistics</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Action Audit Log</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#what-is-logged">What is logged</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#viewing-the-audit-log">Viewing the audit log</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#blame-and-attribution">Blame and attribution</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#compliance-use-cases">Compliance use cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">nAnalyst - Агент AI Сетевой интеллект</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../what_is_nanalyst.html">Что такое Аналист?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Архитектура</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chat_interface.html">Интерфейс чата</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ai_dashboards.html">AI Панели мониторинга</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html">Функции</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools_and_licensing.html">Инструменты и лицензирование</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../llm_setup.html">LLM Настройка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mcp_server.html">MCP Сервер</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../observability.html">Наблюдаемость</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="usage_stats.html">Статистика использования</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Журнал аудита действий</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#what-is-logged">Что записывается</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#viewing-the-audit-log">Просмотр журнала аудита</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#blame-and-attribution">Вина и атрибуция</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compliance-use-cases">Варианты использования соответствия</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../observability.html#summary">Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observability.html#summary">Краткое содержание</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Документация</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
@@ -110,130 +98,120 @@
 <li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-          <li class="breadcrumb-item"><a href="index.html">Features</a></li>
-      <li class="breadcrumb-item active">Action Audit Log</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/nanalyst/features/audit_log.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="action-audit-log">
-<span id="nanalystauditlog"></span><h1>Action Audit Log<a class="headerlink" href="#action-audit-log" title="Link to this heading"></a></h1>
-<p>nAnalyst maintains a comprehensive audit log of every action taken — by users through the chat interface and by the AI agent autonomously. This provides SOC2-style accountability for all AI-assisted operations.</p>
-<section id="what-is-logged">
-<h2>What is logged<a class="headerlink" href="#what-is-logged" title="Link to this heading"></a></h2>
-<p>Every time nAnalyst takes an action that modifies ntopng state, an audit record is created. Logged actions include:</p>
-<ul class="simple">
-<li><p>Adding an active monitoring script</p></li>
-<li><p>Creating or modifying a network policy</p></li>
-<li><p>Registering a new alert rule</p></li>
-<li><p>Silencing or creating an alert exclusion (host, domain, certificate)</p></li>
-<li><p>Any other tool call that writes to the ntopng configuration or database</p></li>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="../index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="breadcrumb-item"><a href="index.html">Функции</a></li>
+<li class="breadcrumb-item active">Журнал аудита действий</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../_sources/nanalyst/features/audit_log.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
 </ul>
-<p>Each audit record captures:</p>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="action-audit-log">
+<span id="nanalystauditlog"></span><h1>Журнал аудита действий<a class="headerlink" href="#action-audit-log" title="Link to this heading"></a></h1>
+<p>nAnalyst ведет подробный журнал аудита всех действий, предпринятых пользователями через интерфейс чата и агентом AI автономно. Это обеспечивает подотчетность в стиле SOC2 для всех операций с помощью AI.</p>
+<section id="what-is-logged">
+<h2>Что записывается<a class="headerlink" href="#what-is-logged" title="Link to this heading"></a></h2>
+<p>Каждый раз, когда nAnalyst предпринимает действие, изменяющее состояние ntopng, создается запись аудита. Зарегистрированные действия включают в себя:</p>
 <ul class="simple">
-<li><p><strong>Action</strong> — what was done (e.g., <code class="docutils literal notranslate"><span class="pre">add_active_monitoring_script</span></code>)</p></li>
-<li><p><strong>Actor</strong> — the ntopng user who initiated the session</p></li>
-<li><p><strong>Initiator type</strong> — whether the action was requested by the user or suggested and executed autonomously by the agent</p></li>
-<li><p><strong>Tool call content</strong> — the exact parameters passed to the tool</p></li>
-<li><p><strong>Timestamp</strong> — when the action occurred</p></li>
-<li><p><strong>Session ID</strong> — link back to the full conversation that produced this action</p></li>
+<li><p>Добавление скрипта активного мониторинга</p></li>
+<li><p>Создание или изменение сетевой политики</p></li>
+<li><p>Регистрация нового правила оповещения</p></li>
+<li><p>Отключение звука или создание исключения из оповещений (хост, домен, сертификат)</p></li>
+<li><p>Любой другой вызов инструмента, который записывает в конфигурацию ntopng или базу данных.</p></li>
+</ul>
+<p>Каждая запись аудита фиксирует:</p>
+<ul class="simple">
+<li><p><strong>Действие</strong> - что было сделано (например, <code class="docutils literal notranslate"><span class="pre">add_active_monitoring_script</span></code>)</p></li>
+<li><p><strong>Актер</strong> — пользователь ntopng, инициировавший сеанс</p></li>
+<li><p><strong>Тип инициатора</strong> — было ли действие запрошено пользователем или предложено и выполнено агентом самостоятельно</p></li>
+<li><p><strong>Содержание вызова инструмента</strong> — точные параметры, передаваемые в инструмент</p></li>
+<li><p><strong>Временная метка</strong> — когда произошло действие</p></li>
+<li><p><strong>Идентификатор сеанса</strong> — обратная ссылка на полный разговор, который привел к этому действию</p></li>
 </ul>
 </section>
 <section id="viewing-the-audit-log">
-<h2>Viewing the audit log<a class="headerlink" href="#viewing-the-audit-log" title="Link to this heading"></a></h2>
-<p>The audit log is accessible from the nAnalyst observability panel. It can be filtered by:</p>
+<h2>Просмотр журнала аудита<a class="headerlink" href="#viewing-the-audit-log" title="Link to this heading"></a></h2>
+<p>Журнал аудита доступен из панели наблюдения nAnalyst. Его можно фильтровать по:</p>
 <ul class="simple">
-<li><p>User</p></li>
-<li><p>Action type</p></li>
-<li><p>Time range</p></li>
-<li><p>Initiator (user-requested vs. agent-autonomous)</p></li>
+<li><p>Пользователь</p></li>
+<li><p>Тип действия</p></li>
+<li><p>Временной диапазон</p></li>
+<li><p>Инициатор (по запросу пользователя или автономный агент)</p></li>
 </ul>
-<p>Each row is expandable to show the full tool call payload.</p>
+<p>Каждую строку можно расширить, чтобы отобразить полную полезную нагрузку вызова инструмента.</p>
 <figure class="align-center" id="id1">
-<img alt="nAnalyst Audit Log" src="../../_images/nAnalyst_audit_log.png" />
+<img alt="nAnalyst Audit Log" src="../../_images/nAnalyst_audit_log.png"/>
 <figcaption>
-<p><span class="caption-text">nAnalyst Audit Log</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">nЖурнал аудита аналитика</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="blame-and-attribution">
-<h2>Blame and attribution<a class="headerlink" href="#blame-and-attribution" title="Link to this heading"></a></h2>
-<p>The audit log answers two accountability questions:</p>
+<h2>Вина и атрибуция<a class="headerlink" href="#blame-and-attribution" title="Link to this heading"></a></h2>
+<p>Журнал аудита отвечает на два вопроса подотчетности:</p>
 <ol class="arabic simple">
-<li><p><strong>Who did this?</strong> — every action is attributed to an authenticated ntopng user, even when the action was performed autonomously by the agent following the user’s instruction.</p></li>
-<li><p><strong>Why did this happen?</strong> — the session ID links the action back to the full conversation, including the original user question that led the agent to take the action.</p></li>
+<li><p><strong>Кто это сделал?</strong> — каждое действие приписывается аутентифицированному пользователю ntopng, даже если действие было выполнено агентом автономно по инструкции пользователя.</p></li>
+<li><p><strong>Почему это произошло?</strong> — идентификатор сеанса связывает действие с полным разговором, включая исходный вопрос пользователя, который побудил агента выполнить действие.</p></li>
 </ol>
-<p>This makes nAnalyst audit-ready for environments that require change accountability, such as SOC operations, compliance audits, and post-incident reviews.</p>
+<p>Это делает nAnalyst готовым к аудиту для сред, требующих учета изменений, таких как операции SOC, аудит соответствия и проверки после инцидентов.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The audit log is append-only. Actions recorded in it cannot be modified or deleted through the nAnalyst UI. Administrative database access would be required to alter audit records.</p>
+<p class="admonition-title">Примечание</p>
+<p>Журнал аудита предназначен только для добавления. Записанные в нем действия нельзя изменить или удалить через пользовательский интерфейс nAnalyst. Для изменения записей аудита потребуется административный доступ к базе данных.</p>
 </div>
 </section>
 <section id="compliance-use-cases">
-<h2>Compliance use cases<a class="headerlink" href="#compliance-use-cases" title="Link to this heading"></a></h2>
+<h2>Варианты использования соответствия<a class="headerlink" href="#compliance-use-cases" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><strong>SOC2 evidence</strong> — demonstrate that all automated network changes have a traceable human initiator</p></li>
-<li><p><strong>Incident post-mortems</strong> — reconstruct the sequence of AI-assisted actions during an incident</p></li>
-<li><p><strong>Change management</strong> — review what configurations nAnalyst modified during a given time window</p></li>
-<li><p><strong>Insider threat monitoring</strong> — detect unusual patterns in AI tool usage by specific users</p></li>
+<li><p><strong>Доказательства SOC2</strong> - продемонстрировать, что все автоматизированные изменения в сети имеют отслеживаемого человека-инициатора.</p></li>
+<li><p><strong>Вскрытие инцидента</strong> — восстановить последовательность действий с помощью AI во время инцидента</p></li>
+<li><p><strong>Управление изменениями</strong> — просмотрите, какие конфигурации nAnalyst изменил в течение заданного временного интервала.</p></li>
+<li><p><strong>Мониторинг внутренних угроз</strong> — обнаруживать необычные закономерности в использовании инструмента AI конкретными пользователями.</p></li>
 </ul>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="usage_stats.html" rel="prev" title="Usage Statistics"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="../tools_and_licensing.html" rel="next" title="Tools and Licensing">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="usage_stats.html" class="btn btn-neutral float-left" title="Usage Statistics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../tools_and_licensing.html" class="btn btn-neutral float-right" title="Tools and Licensing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/nanalyst/features/audit_log.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:52:33 GMT -->
 </html>

@@ -1,103 +1,91 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
-
+<html class="writer-html5" data-content_root="../../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/api/timeseries/change_schema.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:42 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modify an existing Schema &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Adding New Metrics" href="adding_new_timeseries.html" />
-    <link rel="prev" title="Exporting Data" href="export.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Изменить существующую схему — документация ntopng v.7.1.261018.</title>
+<link href="../../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../../_static/js/theme.js"></script>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="adding_new_timeseries.html" rel="next" title="Adding New Metrics"/>
+<link href="export.html" rel="prev" title="Exporting Data"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index-2.html">
             ntopng
-              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">API Documentation</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">API Документация</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../rest/index.html">RESTful API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lua_c/index.html">Lua API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../python/index.html">Python API</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Timeseries API</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="intro.html">Basic Concepts</a></li>
-<li class="toctree-l3"><a class="reference internal" href="export.html">Exporting Data</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Modify an existing Schema</a></li>
-<li class="toctree-l3"><a class="reference internal" href="adding_new_timeseries.html">Adding New Metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="accessing_metrics.html">Accessing Metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="metrics.html">Metrics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="queries.html">Querying Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lua_c/index.html">Луа API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/index.html">Питон API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Таймсерия API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="intro.html">Основные понятия</a></li>
+<li class="toctree-l3"><a class="reference internal" href="export.html">Экспорт данных</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Изменить существующую схему</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adding_new_timeseries.html">Добавление новых показателей</a></li>
+<li class="toctree-l3"><a class="reference internal" href="accessing_metrics.html">Доступ к метрикам</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html">Метрики</a></li>
+<li class="toctree-l3"><a class="reference internal" href="queries.html">Запрос данных</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ts_utils.html">ts_utils API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="driver.html">Driver Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="driver.html">Реализация драйвера</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../alerts/index.html">Alerts API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../recording/index.html">Recording API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../alerts/index.html">Оповещения API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recording/index.html">Запись API</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
@@ -106,93 +94,83 @@
 <li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index-2.html">API Documentation</a></li>
-          <li class="breadcrumb-item"><a href="index.html">Timeseries API</a></li>
-      <li class="breadcrumb-item active">Modify an existing Schema</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/api/timeseries/change_schema.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="modify-an-existing-schema">
-<h1>Modify an existing Schema<a class="headerlink" href="#modify-an-existing-schema" title="Link to this heading"></a></h1>
-<p>Modifying a timeseries schema has some drawbacks and it is only possible under
-some constraints. For this reason is usually better to create a new schema or
-change the schema name, although this is not always applicable as it leads to
-data loss.</p>
-<p>The contraints are:</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="../index-2.html">API Документация</a></li>
+<li class="breadcrumb-item"><a href="index.html">Таймсерия API</a></li>
+<li class="breadcrumb-item active">Изменить существующую схему</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../_sources/api/timeseries/change_schema.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="modify-an-existing-schema">
+<h1>Изменить существующую схему<a class="headerlink" href="#modify-an-existing-schema" title="Link to this heading"></a></h1>
+<p>Изменение схемы таймсерий имеет некоторые недостатки и возможно только при
+некоторые ограничения. По этой причине обычно лучше создать новую схему или
+изменить имя схемы, хотя это не всегда применимо, так как приводит к
+потеря данных.</p>
+<p>Ограничения:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Schema type or options (like the step) cannot be modified</p></li>
-<li><p>Up to 3 metrics per schema are supported</p></li>
-<li><p>New schema metrics can be added but not removed. Existing ones can be renamed.</p></li>
+<li><p>Тип или параметры схемы (например, шаг) не могут быть изменены.</p></li>
+<li><p>Поддерживается до 3 метрик на схему.</p></li>
+<li><p>Новые метрики схемы можно добавлять, но нельзя удалять. Существующие можно переименовать.</p></li>
 </ul>
 </div></blockquote>
-<p>Here are the drawbacks:</p>
+<p>Вот недостатки:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>InfluxDB: If a schema metric name is changed, the past traffic will be not be
-displayed anymore in the ntopng charts (RRD is not affected as the metrics are positional)</p></li>
+<li><p>InfluxDB: если имя метрики схемы изменено, прошлый трафик не будет
+больше отображается на диаграммах ntopng (на RRD это не влияет, поскольку показатели являются позиционными)</p></li>
 </ul>
 </div></blockquote>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>After modifying a schema, the schema name must be added to the function <cite>ts_utils.getPossiblyChangedSchemas</cite></p>
+<p class="admonition-title">Предупреждение</p>
+<p>После изменения схемы имя схемы необходимо добавить в функцию. <cite>ts_utils.getPossibleChangedSchemas</cite></p>
 </div>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="export.html" rel="prev" title="Exporting Data"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="adding_new_timeseries.html" rel="next" title="Adding New Metrics">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="export.html" class="btn btn-neutral float-left" title="Exporting Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="adding_new_timeseries.html" class="btn btn-neutral float-right" title="Adding New Metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/api/timeseries/change_schema.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:43 GMT -->
 </html>

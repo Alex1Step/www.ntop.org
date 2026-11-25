@@ -1,157 +1,138 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-
+<html class="writer-html5" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/nprobeagent/how_to_start.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 18:27:36 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Run nProbe Agent as a Service &mdash; nProbe Agent dev documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quick Start" href="quick_start.html" />
-    <link rel="prev" title="Configuration File" href="conf_file.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
-            nProbe Agent
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Запустите nProbe Агент как услугу — nProbe Документация для разработчиков агента.</title>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/jquery.js"></script>
+<script src="_static/underscore.js"></script>
+<script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="_static/doctools.js"></script>
+<script src="_static/sphinx_highlight.js"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="quick_start.html" rel="next" title="Quick Start"/>
+<link href="conf_file.html" rel="prev" title="Configuration File"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
+            nProbe Агент
+              <img alt="Logo" class="logo" src="_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nprobeagent/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/nprobeagent/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s New</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli_options.html">Agent Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conf_file.html">Configuration File</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Run nProbe Agent as a Service</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#systemd-based-systems">Systemd-based Systems</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#start-and-stop">Start and Stop</a></li>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Введение</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">Что нового</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html">Конфигурация агента</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conf_file.html">Файл конфигурации</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Запустите nProbe Агент как услугу.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#systemd-based-systems">Системы на базе Systemd</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#start-and-stop">Старт и стоп</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="information_elements.html">Information Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Быстрый старт</a></li>
+<li class="toctree-l1"><a class="reference internal" href="information_elements.html">Информационные элементы</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">nProbe Agent</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Run nProbe Agent as a Service</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/how_to_start.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="run-nprobe-agent-as-a-service">
-<h1>Run nProbe Agent as a Service<a class="headerlink" href="#run-nprobe-agent-as-a-service" title="Permalink to this heading"></a></h1>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">nProbe Агент</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">Запустите nProbe Агент как услугу.</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/how_to_start.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="run-nprobe-agent-as-a-service">
+<h1>Запустите nProbe Агент как услугу.<a class="headerlink" href="#run-nprobe-agent-as-a-service" title="Permalink to this heading"></a></h1>
 <section id="systemd-based-systems">
-<h2>Systemd-based Systems<a class="headerlink" href="#systemd-based-systems" title="Permalink to this heading"></a></h2>
-<p>The nProbe Agent service (<em>nprobe-agent</em>) is controlled using the systemctl utility on operating systems and distributions that use the systemd service manager.
-It uses a configuration file that is located at /etc/nprobe-agent/nprobe-agent.conf which is populated with some default options during installation.
-The configuration file can be edited and extended with any configuration option supported by nProbe Agent (see <em>nprobe-agent -h</em>). Example:</p>
+<h2>Системы на базе Systemd<a class="headerlink" href="#systemd-based-systems" title="Permalink to this heading"></a></h2>
+<p>Служба агента nProbe (<em>nprobe-агент</em>) контролируется с помощью утилиты systemctl в операционных системах и дистрибутивах, использующих диспетчер служб systemd.
+Он использует файл конфигурации, расположенный по адресу /etc/nprobe-agent/nprobe-agent.conf, который во время установки заполняется некоторыми параметрами по умолчанию.
+Файл конфигурации можно редактировать и расширять с помощью любого параметра конфигурации, поддерживаемого nProbe Агентом (см. <em>nprobe-агент -h</em>). Пример:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ cat /etc/nprobe-agent/nprobe-agent.conf
 --zmq=tcp://127.0.0.1:1234c
 </pre></div>
 </div>
-<p>Please check the <em>Configuration File</em> section for further information about the configuration file format.
-A service restart is required after configuration file modifications.</p>
+<p>Пожалуйста, проверьте <em>Файл конфигурации</em> раздел для получения дополнительной информации о формате файла конфигурации.
+После изменения файла конфигурации требуется перезапуск службы.</p>
 <section id="start-and-stop">
-<h3>Start and Stop<a class="headerlink" href="#start-and-stop" title="Permalink to this heading"></a></h3>
-<p>To start, stop and restart the default nProbe service type:</p>
+<h3>Старт и стоп<a class="headerlink" href="#start-and-stop" title="Permalink to this heading"></a></h3>
+<p>Чтобы запустить, остановите и перезапустите тип службы по умолчанию nProbe:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>start<span class="w"> </span>nprobe-agent
 systemctl<span class="w"> </span>stop<span class="w"> </span>nprobe-agent
 systemctl<span class="w"> </span>restart<span class="w"> </span>nprobe-agent
 </pre></div>
 </div>
-<p>To prevent nProbe Agent from starting on boot type:</p>
+<p>Чтобы предотвратить запуск агента nProbe при типе загрузки:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>disable<span class="w"> </span>nprobe-agent
 </pre></div>
 </div>
-<p>Or to start nProbe Agent on boot, type:</p>
+<p>Или чтобы запустить агент nProbe при загрузке, введите:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>nprobe-agent
 </pre></div>
 </div>
-<p>To check the status of the service, including its output and PID, type:</p>
+<p>Чтобы проверить статус службы, включая ее выходные данные и PID, введите:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>nprobe-agent
 </pre></div>
 </div>
 </section>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="conf_file.html" rel="prev" title="Configuration File"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="quick_start.html" rel="next" title="Quick Start">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2019, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="conf_file.html" class="btn btn-neutral float-left" title="Configuration File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="quick_start.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2019, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/nprobeagent/how_to_start.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 18:27:37 GMT -->
 </html>

@@ -1,108 +1,96 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../../">
-
+<html class="writer-html5" data-content_root="../../../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/api/lua_c/interface/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:24 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2. interface Lua Object &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../../../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="2.1. Hosts API" href="interface_hosts.html" />
-    <link rel="prev" title="1.6. Misc API" href="../ntop/ntop_misc.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>2. интерфейс Lua Object — документация ntopng v.7.1.261018</title>
+<link href="../../../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../../../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../../../_static/js/theme.js"></script>
+<link href="../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../search.html" rel="search" title="Search"/>
+<link href="interface_hosts.html" rel="next" title="2.1. Hosts API"/>
+<link href="../ntop/ntop_misc.html" rel="prev" title="1.6. Misc API"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../../index-2.html">
             ntopng
-              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../../../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../advanced_features/index.html">Advanced Features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nanalyst/index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_features/index.html">Расширенные функции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../../scripts/index.html">Developers</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../index-2.html">API Documentation</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index-2.html">API Документация</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../rest/index.html">RESTful API</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Lua API</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../ntop/index.html">1. ntop Lua Object</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">2. interface Lua Object</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="interface_hosts.html">2.1. Hosts API</a></li>
-<li class="toctree-l4"><a class="reference internal" href="interface_flows.html">2.2. Flows API</a></li>
-<li class="toctree-l4"><a class="reference internal" href="interface_misc.html">2.3. Misc API</a></li>
-<li class="toctree-l4"><a class="reference internal" href="interface_macs.html">2.4. MACs API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Луа API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ntop/index.html">1. ntop Объект Lua</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2. интерфейс объекта Lua</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interface_hosts.html">2.1. Хозяева API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interface_flows.html">2.2. Потоки API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interface_misc.html">2.3. Разное API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interface_macs.html">2.4. МАК API</a></li>
 <li class="toctree-l4"><a class="reference internal" href="interface_ndpi.html">2.5. nDPI API</a></li>
-<li class="toctree-l4"><a class="reference internal" href="interface_dump.html">2.6. Dump API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interface_dump.html">2.6. Дамп API</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../host_checks/index.html">3. Host Checks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../flow_checks/index.html">4. Flow Checks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../interface_checks/index.html">5. Interface Checks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../network_checks/index.html">6. Network Checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../host_checks/index.html">3. Проверки хоста</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../flow_checks/index.html">4. Проверка потока</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interface_checks/index.html">5. Проверка интерфейса</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../network_checks/index.html">6. Проверка сети</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../python/index.html">Python API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../timeseries/index.html">Timeseries API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../alerts/index.html">Alerts API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../recording/index.html">Recording API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../python/index.html">Питон API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../timeseries/index.html">Таймсерия API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../alerts/index.html">Оповещения API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../recording/index.html">Запись API</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../pf_ring/index.html">PF_RING</a></li>
@@ -111,44 +99,40 @@
 <li class="toctree-l1"><a class="reference external" href="../../../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index-2.html">API Documentation</a></li>
-          <li class="breadcrumb-item"><a href="../index.html">Lua API</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">2. </span>interface Lua Object</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/api/lua_c/interface/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="interface-lua-object">
-<h1><span class="section-number">2. </span>interface Lua Object<a class="headerlink" href="#interface-lua-object" title="Link to this heading"></a></h1>
-<p>A Lua script is associated with a network interface, called <em>active interface</em>.
-All the interface methods are referred to the <em>active interface</em>.
-By calling <cite>interface.select()</cite> it’s possible to change the current <em>active interface</em>
-of the script.</p>
-<p>For example, in order to extract local hosts information for interface eth0, the
-following snippet would be used:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">interface</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;eth0&quot;</span><span class="p">)</span>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="../../index-2.html">API Документация</a></li>
+<li class="breadcrumb-item"><a href="../index.html">Луа API</a></li>
+<li class="breadcrumb-item active"><span class="section-number">2. </span>интерфейс Lua-объекта</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../../_sources/api/lua_c/interface/index.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="interface-lua-object">
+<h1><span class="section-number">2. </span>интерфейс Lua-объекта<a class="headerlink" href="#interface-lua-object" title="Link to this heading"></a></h1>
+<p>Сценарий Lua связан с сетевым интерфейсом, называемым <em>активный интерфейс</em>.
+Все методы интерфейса относятся к <em>активный интерфейс</em>.
+Позвонив <cite>интерфейс.выбрать()</cite> можно изменить ток <em>активный интерфейс</em>
+сценария.</p>
+<p>Например, чтобы извлечь информацию о локальных хостах для интерфейса eth0,
+будет использован следующий фрагмент:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">interface</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s2">"eth0"</span><span class="p">)</span>
 
 <span class="c1">-- working on eth0 from now on</span>
 
@@ -158,68 +142,62 @@ following snippet would be used:</p>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="interface_hosts.html">2.1. Hosts API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface_flows.html">2.2. Flows API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface_misc.html">2.3. Misc API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface_macs.html">2.4. MACs API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface_hosts.html">2.1. Хозяева API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface_flows.html">2.2. Потоки API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface_misc.html">2.3. Разное API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface_macs.html">2.4. МАК API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interface_ndpi.html">2.5. nDPI API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface_dump.html">2.6. Dump API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface_dump.html">2.6. Дамп API</a></li>
 </ul>
 </div>
-<p>Rather than using the <code class="code docutils literal notranslate"><span class="pre">interface</span></code> API directly, one can use Lua
-wrappers to process hosts, flows and other elements in
-batches. Processing in batches has the benefit of reduced memory
-footprint and thus it may be absolutely necessary when working in large
-environments.</p>
-<p>For example, to visit all the active flows in batches using the Lua
-wrapper, the following snippet of code can be used:</p>
+<p>Вместо того, чтобы использовать <code class="code docutils literal notranslate"><span class="pre">interface</span></code> API напрямую, можно использовать Lua
+оболочки для обработки хостов, потоков и других элементов в
+партии. Преимущество пакетной обработки заключается в уменьшении объема памяти.
+занимаемую площадь, поэтому это может быть абсолютно необходимо при работе в больших объемах.
+среды.</p>
+<p>Например, для пакетного посещения всех активных потоков с помощью Lua
+обертку, можно использовать следующий фрагмент кода:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">callback_utils</span><span class="p">.</span><span class="n">foreachFlow</span><span class="p">(</span><span class="s2">&quot;eno1&quot;</span><span class="p">,</span> <span class="nb">os.time</span><span class="p">()</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span>
+<span class="n">callback_utils</span><span class="p">.</span><span class="n">foreachFlow</span><span class="p">(</span><span class="s2">"eno1"</span><span class="p">,</span> <span class="nb">os.time</span><span class="p">()</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span>
   <span class="kr">function</span><span class="p">(</span><span class="n">flow_num</span><span class="p">,</span> <span class="n">flow</span><span class="p">)</span>
     <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="kr">return</span> <span class="kc">true</span> <span class="c1">-- continue</span>
   <span class="kr">end</span>
 <span class="p">)</span>
 
-<span class="nb">io.write</span><span class="p">(</span><span class="s2">&quot;total flows: &quot;</span><span class="o">..</span><span class="n">count</span><span class="o">..</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">io.write</span><span class="p">(</span><span class="s2">"total flows: "</span><span class="o">..</span><span class="n">count</span><span class="o">..</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The full list of wrappers is available at
+<p>Полный список оберток доступен по адресу
 <a class="reference external" href="https://github.com/ntop/ntopng/blob/dev/scripts/lua/modules/callback_utils.lua">https://github.com/ntop/ntopng/blob/dev/scripts/lua/modules/callback_utils.lua</a></p>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="../ntop/ntop_misc.html" rel="prev" title="1.6. Misc API"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="interface_hosts.html" rel="next" title="2.1. Hosts API">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../ntop/ntop_misc.html" class="btn btn-neutral float-left" title="1.6. Misc API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="interface_hosts.html" class="btn btn-neutral float-right" title="2.1. Hosts API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/api/lua_c/interface/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:25 GMT -->
 </html>

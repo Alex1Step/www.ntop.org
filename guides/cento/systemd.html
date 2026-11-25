@@ -1,76 +1,64 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-
+<html class="writer-html5" data-content_root="./" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/cento/systemd.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:33 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Systemd &mdash; cento 1.15 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
-
-  
-      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_optionsd5c8.js?v=e6db31ea"></script>
-      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Documentation" href="api/index.html" />
-    <link rel="prev" title="Command Line Options" href="options.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index-2.html" class="icon icon-home">
-            cento
-              <img src="_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Systemd — документация Cento 1.15</title>
+<link href="_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<script src="_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="_static/documentation_optionsd5c8.js?v=e6db31ea"></script>
+<script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="_static/js/theme.js"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="api/index.html" rel="next" title="API Documentation"/>
+<link href="options.html" rel="prev" title="Command Line Options"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="index-2.html">
+            центо
+              <img alt="Logo" class="logo" src="_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/cento/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/cento/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="versions.html">Models Comparison Table</a></li>
-<li class="toctree-l1"><a class="reference internal" href="definitions.html">Definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usecases.html">Use Cases</a></li>
-<li class="toctree-l1"><a class="reference internal" href="clickhouse.html">ClickHouse Export</a></li>
-<li class="toctree-l1"><a class="reference internal" href="offload.html">Flow Offload</a></li>
-<li class="toctree-l1"><a class="reference internal" href="egress.html">Egress Queues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bridge.html">Network Bridge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="options.html">Command Line Options</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Systemd</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#the-cento-service-configuration-file">The cento service configuration file</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#controlling-cento">Controlling cento</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#instantiated-cento-services">Instantiated cento services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Таблица сравнения моделей</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Определения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usecases.html">Варианты использования</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clickhouse.html">ClickHouse Экспорт</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offload.html">Разгрузка потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="egress.html">Выходные очереди</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bridge.html">Сетевой мост</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Параметры командной строки</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Системад</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-cento-service-configuration-file">Файл конфигурации службы cento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#controlling-cento">Управление центо</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instantiated-cento-services">Созданные сервисы cento</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Hugepages Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geolocation.html">Geolocation Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Конфигурация огромных страниц</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geolocation.html">База данных геолокации</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">Ссылки</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
 <li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
@@ -82,98 +70,94 @@
 <li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index-2.html">cento</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Systemd</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/systemd.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="systemd">
-<h1>Systemd<a class="headerlink" href="#systemd" title="Link to this heading"></a></h1>
-<p>cento is controlled using utility <cite>systemctl</cite> on operating systems
-and distributions that use the <cite>systemd</cite> service manager.</p>
-<p>Upon successful package installation, the cento service is
-automatically started on the loopback interface. The service uses a
-configuration file that is located at <cite>/etc/cento/cento.conf</cite> and
-that is populated with some defaults during installation. The
-configuration file can be edited and extended with any configuration
-option supported by cento. A service restart is required after
-configuration file modifications.</p>
-<p>The cento service is always started on boot by default. The service
-must be disabled to prevent this behavior.</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="index-2.html">центо</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="index-2.html"></a></li>
+<li class="breadcrumb-item active">Системад</li>
+<li class="wy-breadcrumbs-aside">
+<a href="_sources/systemd.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="systemd">
+<h1>Системад<a class="headerlink" href="#systemd" title="Link to this heading"></a></h1>
+<p>cento управляется с помощью утилиты <cite>системаctl</cite> по операционным системам
+и дистрибутивы, использующие <cite>системный</cite> менеджер службы.</p>
+<p>После успешной установки пакета служба cento
+автоматически запускается на интерфейсе обратной связи. В сервисе используется
+файл конфигурации, который находится по адресу <cite>/etc/cento/cento.conf</cite> и
+который заполняется некоторыми значениями по умолчанию во время установки.
+файл конфигурации можно редактировать и расширять любой конфигурацией
+опция, поддерживаемая cento. Требуется перезапуск службы после
+модификации файла конфигурации.</p>
+<p>Служба cento всегда запускается при загрузке по умолчанию. Сервис
+необходимо отключить, чтобы предотвратить такое поведение.</p>
 <section id="the-cento-service-configuration-file">
-<h2>The cento service configuration file<a class="headerlink" href="#the-cento-service-configuration-file" title="Link to this heading"></a></h2>
-<p>The configuration file is located at <cite>/etc/cento/cento.conf</cite>.</p>
+<h2>Файл конфигурации службы cento<a class="headerlink" href="#the-cento-service-configuration-file" title="Link to this heading"></a></h2>
+<p>Конфигурационный файл находится по адресу <cite>/etc/cento/cento.conf</cite>.</p>
 <section id="controlling-cento">
-<h3>Controlling cento<a class="headerlink" href="#controlling-cento" title="Link to this heading"></a></h3>
-<p>To start, stop and restart the cento service type:</p>
+<h3>Управление центо<a class="headerlink" href="#controlling-cento" title="Link to this heading"></a></h3>
+<p>Чтобы запустить, остановить и перезапустить тип службы cento:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl start cento</span>
 <span class="go">systemctl stop cento</span>
 <span class="go">systemctl restart cento</span>
 </pre></div>
 </div>
-<p>To prevent cento from starting on boot type:</p>
+<p>Чтобы предотвратить запуск cento при типе загрузки:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl disable cento</span>
 </pre></div>
 </div>
-<p>To start cento on boot, assuming it has previously been disabled,
-type:</p>
+<p>Чтобы запустить cento при загрузке, если он ранее был отключен,
+тип:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl enable cento</span>
 </pre></div>
 </div>
-<p>To check the status of the service, including its output and PID, type:</p>
+<p>Чтобы проверить статус службы, включая ее выходные данные и PID, введите:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl status cento</span>
 </pre></div>
 </div>
 </section>
 <section id="instantiated-cento-services">
-<h3>Instantiated cento services<a class="headerlink" href="#instantiated-cento-services" title="Link to this heading"></a></h3>
-<p>There are circumstances under which multiple instances of the cento
-service may run on the same host. To manage a particular <cite>&lt;instance&gt;</cite>
-of the service, append an <cite>&#64;&lt;instance&gt;</cite> to the <cite>cento</cite> service name.</p>
-<p>Typically, <cite>&lt;instance&gt;</cite> corresponds to an interface name (e.g., <cite>eno1</cite>).
-This convention allows an easy identification of the purpose of each
-service. Nonetheless, any string is acceptable as value for <cite>&lt;instance&gt;</cite>.</p>
-<p>The <cite>&lt;instance&gt;</cite> uniquely identifies a service and its corresponding
-configuration file that is located under
-<cite>/etc/cento/cento-&lt;instance&gt;.conf</cite>.</p>
-<p>For example, to start two cento services, on interface <cite>eno1</cite> and
-another on zero-copy interface <cite>eth1</cite> respectively, one can create the
-following configuration files:</p>
+<h3>Созданные сервисы cento<a class="headerlink" href="#instantiated-cento-services" title="Link to this heading"></a></h3>
+<p>Существуют обстоятельства, при которых несколько экземпляров cento
+служба может работать на том же хосте. Чтобы управлять конкретным <cite>&lt;экземпляр&gt;</cite>
+услуги, добавьте <cite>@&lt;экземпляр&gt;</cite> к <cite>центо</cite> название услуги.</p>
+<p>Обычно <cite>&lt;экземпляр&gt;</cite> соответствует имени интерфейса (например, <cite>ено1</cite>).
+Это соглашение позволяет легко определить назначение каждого
+обслуживание. Тем не менее, любая строка приемлема в качестве значения для <cite>&lt;экземпляр&gt;</cite>.</p>
+<p> <cite>&lt;экземпляр&gt;</cite> однозначно идентифицирует услугу и соответствующую ей
+файл конфигурации, который находится под
+<cite>/etc/cento/cento-&lt;экземпляр&gt;.conf</cite>.</p>
+<p>Например, чтобы запустить две службы Cento, на интерфейсе <cite>ено1</cite> и
+еще один интерфейс копирования zero <cite>eth1</cite> соответственно, можно создать
+следующие файлы конфигурации:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/etc/cento/cento-eno1.conf
 /etc/cento/cento-zc:eth1.conf
 </pre></div>
 </div>
-<p>And then start the services with:</p>
+<p>А затем запустите службы с помощью:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl start cento@eno1</span>
 <span class="go">systemctl start cento@zc:eth1</span>
 </pre></div>
 </div>
-<p>Optionally, one may want to start the services on boot with:</p>
+<p>При желании можно запустить службы при загрузке с помощью:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl enable cento@eno1</span>
 <span class="go">systemctl enable cento@zc:eth1</span>
 </pre></div>
 </div>
-<p>The status of the services above can be controlled with:</p>
+<p>Статус вышеперечисленных услуг можно контролировать с помощью:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl status cento@eno1</span>
 <span class="go">systemctl status cento@zc:eth1</span>
 </pre></div>
@@ -181,38 +165,32 @@ following configuration files:</p>
 </section>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="options.html" rel="prev" title="Command Line Options"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="api/index.html" rel="next" title="API Documentation">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2018, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="options.html" class="btn btn-neutral float-left" title="Command Line Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="api/index.html" class="btn btn-neutral float-right" title="API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2018, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/cento/systemd.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:34 GMT -->
 </html>

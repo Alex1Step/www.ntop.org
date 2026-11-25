@@ -1,105 +1,93 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../">
-
+<html class="writer-html5" data-content_root="../../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/interfaces/interfaces_vs_view_interfaces.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 14:55:45 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3.3. Interfaces vs View Interfaces &mdash; ntopng v.7.1.261018 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
-      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="3.4. Interfaces Disaggregation" href="dynamic_interfaces_disaggregation.html" />
-    <link rel="prev" title="3.2. View Interfaces" href="view_interfaces.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>3.3. Интерфейсы и интерфейсы просмотра — документация ntopng v.7.1.261018</title>
+<link href="../../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/ntopea32.css?v=e6689f8c" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+<script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../../_static/js/theme.js"></script>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="dynamic_interfaces_disaggregation.html" rel="next" title="3.4. Interfaces Disaggregation"/>
+<link href="view_interfaces.html" rel="prev" title="3.2. View Interfaces"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index-2.html">
             ntopng
-              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/ntopng/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Advanced Features</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../bridging_and_policing.html">1. Bridging and Traffic Policing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ids_acceleration.html">2. IDS Acceleration</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">3. Interfaces</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="packet_vs_zmq.html">3.1. Packet vs ZMQ Interfaces</a></li>
-<li class="toctree-l3"><a class="reference internal" href="view_interfaces.html">3.2. View Interfaces</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">3.3. Interfaces vs View Interfaces</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dynamic_interfaces_disaggregation.html">3.4. Interfaces Disaggregation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ntap_interface.html">3.5. Using nTap as Virtual Tap with ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">Что такое ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Доступные версии и лицензирование</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">Как начать ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">Руководство по пользовательскому интерфейсу</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">Аутентификация пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Использование ntopng с ntop Инструментами</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Агент AI Сетевой интеллект</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Коллекция потоков</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Промышленный мониторинг</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Качество опыта (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN и BGP Мониторинг потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Работа ntopng в крупных сетях</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Дамп потоков (ClickHouse)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Расширенные функции</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bridging_and_policing.html">1. Создание мостов и контроль дорожного движения</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ids_acceleration.html">2. Ускорение IDS</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">3. Интерфейсы</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="packet_vs_zmq.html">3.1. Пакетные и ZMQ интерфейсы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="view_interfaces.html">3.2. Посмотреть интерфейсы</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3.3. Интерфейсы против интерфейсов просмотра</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dynamic_interfaces_disaggregation.html">3.4. Дезагрегация интерфейсов</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ntap_interface.html">3.5. Использование nTap в качестве виртуального касания с ntopng</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lightview/index.html">4. Light View</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../live_pcap_download.html">5. Live Pcap Download</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../deduplication.html">6. Flow Deduplication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../oem.html">7. OEM Customizations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../snapshots.html">8. Snapshots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../syslog.html">9. Syslog Log Ingestion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clickhouse_timeseries.html">10. ClickHouse Timeseries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../high_resolution_timeseries.html">11. Observability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../assets_journal.html">12. Assets Journal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lightview/index.html">4. Светлый вид</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live_pcap_download.html">5. Прямой эфир Pcap Скачать</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deduplication.html">6. Дедупликация потока</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../oem.html">7. OEM-настройки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snapshots.html">8. Снимки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../syslog.html">9. Syslog Прием журналов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clickhouse_timeseries.html">10. ClickHouse Таймсерии</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../high_resolution_timeseries.html">11. Наблюдательность</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets_journal.html">12. Журнал активов</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Производительность и определение аппаратного обеспечения</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Часто задаваемые вопросы</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">Руководство разработчика</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Разработчики</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Документация</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
@@ -108,105 +96,95 @@
 <li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index-2.html">ntopng</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index.html">Advanced Features</a></li>
-          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">3. </span>Interfaces</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">3.3. </span>Interfaces vs View Interfaces</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/advanced_features/interfaces/interfaces_vs_view_interfaces.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="interfaces-vs-view-interfaces">
-<h1><span class="section-number">3.3. </span>Interfaces vs View Interfaces<a class="headerlink" href="#interfaces-vs-view-interfaces" title="Link to this heading"></a></h1>
-<p>There are cases when multipe interfaces need to be aggregated together with the aim of performing traffic analyses on the aggregate.</p>
-<p>For example, when RSS is used to process packets across multiple queues, a re-aggregation is useful to obtain visibility of the whole traffic and not just a subset of it.</p>
-<p>In the following example, a <code class="code docutils literal notranslate"><span class="pre">view:</span></code> interface is created to aggregate packets from two <code class="code docutils literal notranslate"><span class="pre">eth1</span></code> RSS queues processed using PF_RING Zero Copy.</p>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index-2.html">ntopng</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="../index.html">Расширенные функции</a></li>
+<li class="breadcrumb-item"><a href="index.html"><span class="section-number">3. </span>Интерфейсы</a></li>
+<li class="breadcrumb-item active"><span class="section-number">3.3. </span>Интерфейсы против интерфейсов просмотра</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../_sources/advanced_features/interfaces/interfaces_vs_view_interfaces.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="interfaces-vs-view-interfaces">
+<h1><span class="section-number">3.3. </span>Интерфейсы против интерфейсов просмотра<a class="headerlink" href="#interfaces-vs-view-interfaces" title="Link to this heading"></a></h1>
+<p>Бывают случаи, когда несколько интерфейсов необходимо объединить вместе с целью выполнения анализа трафика в совокупности.</p>
+<p>Например, когда RSS используется для обработки пакетов в нескольких очередях, повторное агрегирование полезно для получения видимости всего трафика, а не только его части.</p>
+<p>В следующем примере <code class="code docutils literal notranslate"><span class="pre">view:</span></code> интерфейс создан для агрегирования пакетов из двух <code class="code docutils literal notranslate"><span class="pre">eth1</span></code> Очереди RSS обрабатываются с помощью копирования PF_RING Zero.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">ntopng</span> <span class="o">-</span><span class="n">i</span> <span class="n">zc</span><span class="p">:</span><span class="n">eth1</span><span class="o">@</span><span class="mi">0</span>  <span class="o">-</span><span class="n">i</span> <span class="n">zc</span><span class="p">:</span><span class="n">eth1</span><span class="o">@</span><span class="mi">1</span>  <span class="o">-</span><span class="n">i</span> <span class="n">view</span><span class="p">:</span><span class="n">zc</span><span class="p">:</span><span class="n">eth1</span><span class="o">@</span><span class="mi">0</span><span class="p">,</span><span class="n">zc</span><span class="p">:</span><span class="n">eth1</span><span class="o">@</span><span class="mi">1</span>
 </pre></div>
 </div>
-<p>If you do not want to list all interfaces you can use the shortcut <code class="code docutils literal notranslate"><span class="pre">view:all</span></code> to tell ntopng to create a view interface from all configured interfaces. The above example will then become:</p>
+<p>Если вы не хотите перечислять все интерфейсы, вы можете использовать ярлык <code class="code docutils literal notranslate"><span class="pre">view:all</span></code> чтобы указать ntopng создать интерфейс просмотра из всех настроенных интерфейсов. Приведенный выше пример станет:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">ntopng</span> <span class="o">-</span><span class="n">i</span> <span class="n">zc</span><span class="p">:</span><span class="n">eth1</span><span class="o">@</span><span class="mi">0</span>  <span class="o">-</span><span class="n">i</span> <span class="n">zc</span><span class="p">:</span><span class="n">eth1</span><span class="o">@</span><span class="mi">1</span>  <span class="o">-</span><span class="n">i</span> <span class="n">view</span><span class="p">:</span><span class="nb">all</span>
 </pre></div>
 </div>
-<p>However, view interfaces come with some visibility limitations if compared to other interfaces. This means they don’t have all traffic data that is normally available for regular interfaces. For example, view interfaces don’t have:</p>
+<p>Однако интерфейсы представления имеют некоторые ограничения видимости по сравнению с другими интерфейсами. Это означает, что у них нет всех данных о трафике, которые обычно доступны для обычных интерфейсов. Например, интерфейсы представления не имеют:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>MAC addresses and everything related to MAC addresses</p></li>
-<li><p>Packet size distribution (up to 128, up to 256, …)</p></li>
-<li><p>TCP Flags / ARP Distribution</p></li>
+<li><p>MAC-адреса и все, что связано с MAC-адресами</p></li>
+<li><p>Распределение пакетов по размерам (до 128, до 256, …)</p></li>
+<li><p>TCP Флаги/Распределение ARP</p></li>
 </ul>
 </div></blockquote>
-<p>A comprehensive list of all the limitations is at  <a class="reference external" href="https://github.com/ntop/ntopng/issues/3383">this page</a>.</p>
-<p>Using interfaces views also reduces the data available on <em>viewed</em> interfaces. For example, using <code class="code docutils literal notranslate"><span class="pre">-i</span> <span class="pre">view:zc:eth1&#64;0,zc:eth1&#64;1</span></code> will automatically reduce the data kept for <code class="code docutils literal notranslate"><span class="pre">zc:eth1&#64;0</span></code> and <code class="code docutils literal notranslate"><span class="pre">zc:eth1&#64;1</span></code>, respectively.</p>
-<p>Viewed interfaces only have flows. All other network elements are kept for the view interface only. A non-exhaustive list of network elements that are not present on viewed interfaces but are kept on view interface is:</p>
+<p>Полный список всех ограничений доступен по ссылке.  <a class="reference external" href="https://github.com/ntop/ntopng/issues/3383">эта страница</a>.</p>
+<p>Использование представлений интерфейсов также уменьшает объем данных, доступных на <em>просмотрено</em> интерфейсы. Например, используя <code class="code docutils literal notranslate"><span class="pre">-i</span> <span class="pre">view:zc:eth1@0,zc:eth1@1</span></code> автоматически уменьшит объем данных, хранящихся для <code class="code docutils literal notranslate"><span class="pre">zc:eth1@0</span></code> и <code class="code docutils literal notranslate"><span class="pre">zc:eth1@1</span></code>, соответственно.</p>
+<p>Просматриваемые интерфейсы имеют только потоки. Все остальные сетевые элементы сохраняются только для интерфейса просмотра. Неисчерпывающий список сетевых элементов, которые отсутствуют в просматриваемых интерфейсах, но сохраняются в интерфейсе просмотра:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Hosts and historical hosts data</p></li>
-<li><p>Autonomous Systems</p></li>
-<li><p>VLANs</p></li>
+<li><p>Хосты и исторические данные хостов</p></li>
+<li><p>Автономные системы</p></li>
+<li><p>VLAN</p></li>
 </ul>
 </div></blockquote>
-<p>The rationale behind this is:</p>
+<p>Обоснование этого следующее:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Technical, as keeping most of the network elements only in the view greatly reduces the overall memory footprint</p></li>
-<li><p>Practical, to avoid keeping partial data (e.g., the same host <code class="code docutils literal notranslate"><span class="pre">1.1.1.1</span></code> can be seen on two interfaces but, since a view is used, only it overall aggregated data is assumed to be relevant).</p></li>
+<li><p>Технический, поскольку сохранение большинства сетевых элементов только в представлении значительно снижает общий объем памяти.</p></li>
+<li><p>Практично, чтобы избежать хранения частичных данных (например, одного и того же хоста). <code class="code docutils literal notranslate"><span class="pre">1.1.1.1</span></code> можно увидеть на двух интерфейсах, но, поскольку используется представление, предполагается, что только его общие агрегированные данные являются релевантными).</p></li>
 </ul>
 </div></blockquote>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="view_interfaces.html" rel="prev" title="3.2. View Interfaces"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="dynamic_interfaces_disaggregation.html" rel="next" title="3.4. Interfaces Disaggregation">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2026, ntop.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="view_interfaces.html" class="btn btn-neutral float-left" title="3.2. View Interfaces" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="dynamic_interfaces_disaggregation.html" class="btn btn-neutral float-right" title="3.4. Interfaces Disaggregation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2026, ntop.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/interfaces/interfaces_vs_view_interfaces.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 14:57:45 GMT -->
 </html>

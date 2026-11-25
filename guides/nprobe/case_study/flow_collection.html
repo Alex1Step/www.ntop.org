@@ -1,105 +1,93 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../">
-
+<html class="writer-html5" data-content_root="../" lang="ru-RU">
 <!-- Mirrored from www.ntop.org/guides/nprobe/case_study/flow_collection.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:42 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Understanding How Flow Collection Works &mdash; nProbe 10.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
-
-  
-      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
-      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options0088.js?v=864e5427"></script>
-      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
-    <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Collecting Proprietary Flow Fields" href="collecting_proprietary_flow_fields.html" />
-    <link rel="prev" title="nProbe Case Study" href="index.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index-2.html" class="icon icon-home">
+<!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Понимание того, как работает сбор потоков — документация nProbe 10.0</title>
+<link href="../_static/pygments7bd6.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/themee873.css?v=e59714d7" rel="stylesheet" type="text/css"/>
+<link href="../_static/css/custome4b8.css?v=4b68ecde" rel="stylesheet" type="text/css"/>
+<script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+<script src="../_static/documentation_options0088.js?v=864e5427"></script>
+<script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+<script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+<script src="../_static/js/theme.js"></script>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="collecting_proprietary_flow_fields.html" rel="next" title="Collecting Proprietary Flow Fields"/>
+<link href="index.html" rel="prev" title="nProbe Case Study"/>
+</head><body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index-2.html">
             nProbe
-              <img src="../_static/logo.png" class="logo" alt="Logo"/>
-          </a>
+              <img alt="Logo" class="logo" src="../_static/logo.png"/>
+</a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nprobe/search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="https://www.ntop.org/guides/nprobe/search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Руководство пользователя</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html#what-is-nprobe">What is nProbe?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../versions.html">Versions Comparison Table</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../configurations.html">nProbe Modes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s New</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../how_to_start.html">How to Start nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html">Tuning nProbe Performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#high-speed-flow-collection">High-Speed Flow Collection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#expected-collection-performance">Expected Collection Performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#collecting-flows-from-many-routers">Collecting Flows from Many Routers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Handling Trillion Flows: Dumping Flows into ClickHouse</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#data-deduplication">Data Deduplication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#snmp-interfaces-polling">SNMP Interfaces Polling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#collecting-ntap-traffic">Collecting nTap Traffic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#influxdb-based-timeseries-dump">InfluxDB-based Timeseries Dump</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#howto-create-sflow-timeseries">HowTo Create sFlow Timeseries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#flow-relay">Flow Relay</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#flow-replication-fanout">Flow Replication / Fanout</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tuning.html#dumping-collected-flows-packets">Dumping Collected Flows/Packets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tls.html">Using TLS In Flow Collection/Export</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tls.html#tls-certificates-validation">TLS Certificates Validation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options.html">Command Line Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Note on interface indexes and (router) MAC/IP addresses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#further-plugin-available-command-line-options">Further plugin available command line options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX format [-T]</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using_with_ntopng.html">Using nProbe with ntopng</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../kafka.html">Using Kafka with nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../bgp.html">BGP/BMP Traffic Monitoring</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../agent_mode.html">Agent Mode support in nProbe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">nProbe Case Study</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Understanding How Flow Collection Works</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#filtering-and-reforging-collected-netflow-flows">Filtering and Reforging Collected NetFlow Flows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Введение</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html#what-is-nprobe">Что такое nProbe?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">Таблица сравнения версий</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configurations.html">nProbe Режимы</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">Что нового</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start.html">Как начать nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html">Настройка nProbe Производительность</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#high-speed-flow-collection">Коллекция высокоскоростного потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#expected-collection-performance">Ожидаемая производительность коллекции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#collecting-flows-from-many-routers">Сбор потоков от множества маршрутизаторов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Обработка триллионов потоков: сброс потоков в ClickHouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#data-deduplication">Дедупликация данных</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#snmp-interfaces-polling">SNMP Опрос интерфейсов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#collecting-ntap-traffic">Сбор nTap трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#influxdb-based-timeseries-dump">Дамп таймсерий на основе InfluxDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#howto-create-sflow-timeseries">Как создать таймсерию sFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#flow-relay">Реле потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#flow-replication-fanout">Репликация потока/разветвление</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#dumping-collected-flows-packets">Сброс собранных потоков/пакетов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tls.html">Использование TLS при сборе/экспорте потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tls.html#tls-certificates-validation">TLS Проверка сертификатов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html">Параметры командной строки</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Примечание об индексах интерфейсов и MAC/IP-адресах (маршрутизатора)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#further-plugin-available-command-line-options">Дополнительные параметры командной строки, доступные для плагина</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX формат [-T]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_ntopng.html">Использование nProbe с ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kafka.html">Использование Kafka с nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bgp.html">BGP/BMP Мониторинг трафика</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agent_mode.html">Поддержка режима агента в nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Сторонние интеграции</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Часто задаваемые вопросы</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">nProbe Практический пример</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Понимание того, как работает сбор потоков</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#filtering-and-reforging-collected-netflow-flows">Фильтрация и переформовка собранных NetFlow потоков</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="collecting_proprietary_flow_fields.html">Collecting Proprietary Flow Fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="exporting_to_kafka.html">Exporting to Apache Kafka</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripting_using_lua.html">Scripting nProbe Using Lua</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collecting_proprietary_flow_fields.html">Сбор собственных полей потока</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporting_to_kafka.html">Экспорт в Apache Kafka</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripting_using_lua.html">Написание сценариев nProbe с использованием Lua</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">nProbe Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developing_plugins.html">Developing nProbe Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../bpf_expressions.html">BPF Packet Filtering Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../flow_information_elements.html">Flow Information Elements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hardware_sizing.html">Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">nProbe Плагины</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_plugins.html">Разработка плагинов nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bpf_expressions.html">BPF Выражения фильтрации пакетов</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_information_elements.html">Информационные элементы потока</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardware_sizing.html">Определение размеров оборудования</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<p class="caption" role="heading"><span class="caption-text">Другие продукты</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Ченто</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
@@ -107,89 +95,85 @@
 <li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
 <li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
-<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">Менеджер лицензий</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index-2.html">nProbe</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">nProbe Case Study</a></li>
-      <li class="breadcrumb-item active">Understanding How Flow Collection Works</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/case_study/flow_collection.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="understanding-how-flow-collection-works">
-<span id="understandingflowcollection"></span><h1>Understanding How Flow Collection Works<a class="headerlink" href="#understanding-how-flow-collection-works" title="Link to this heading"></a></h1>
-<p>nProbe supports the collection of NetFlow v5 and v9, jFlow, IPFIX and
-sFlow. Specifically, it extract flows carried in NetFlow v5 and v9, jFlow and
-IPFIX, whereas it creates flows starting from the sampled packets
-carried within sFlow.</p>
-<p>Once the flows are extracted or created, they can be processed and
-exported as discussed thoroughly in the present guide, regardless of
-the source they are coming from. In other words, after the collection,
-a flow for nProbe is just an element with certain fields (e.g., client ip, server
-ip, client to server bytes, server to client bytes, and so on) and it
-will no longer matter if it has been extracted from NetFlow or created
-out of sFlow.</p>
-<p>After the collection, flows are temporarily placed by nProbe in an
-internal flow cache. Once in the cache, flows may have their traffic
-counters updated, for example when multiple NetFlow packets carry
-updates for the same flow or when multiple sFlow sampled packets are
-actually samples of the same flow.</p>
-<p>Flows stay in the cache for a certain amount of time, which is
-configurable using timeout options <code class="code docutils literal notranslate"><span class="pre">-t</span></code>
-and <code class="code docutils literal notranslate"><span class="pre">-d</span></code>. After this time, flows are exported downstream
-according to the specified configuration (for example to text files,
-Kafka, ElasticSearch and so on) and limited to the fields specified in
-the template with option <code class="code docutils literal notranslate"><span class="pre">-T</span></code>.</p>
-<p>Placing flows in the cache and updating their traffic counters before
-the export may have the beneficial effect to reduce the volume of
-exported flows as, rather than exporting a flow multiple times, a
-single flow carrying the (total) updated traffic counters is exported
-just one time. However, this comes at the cost of using extra memory
-and extra time to handle the cache and do lookups into it. Therefore,
-when it is not necessary or when it is not desired to have collected
-flows placed into the cache, time and memory can be saved by
-completely bypassing the internal flows cache using option <code class="code docutils literal notranslate"><span class="pre">--collector-passthrough</span></code>.</p>
-<p>Option <code class="code docutils literal notranslate"><span class="pre">--collector-passthrough</span></code> exports flows to the configured
-ZMQ endpoints as-is, right after their collection, without placing
-them into the cache. Flows are exported as-is with all their fields as
-found in the NetFlow/jFlow/IPFIX. This option only works with NetFlow/jFlow/IPFIX
-(i.e., sFlow is not supported), causes the template <code class="code docutils literal notranslate"><span class="pre">-T</span></code> to be
-ignored, and only exports to ZMQ. Using <code class="code docutils literal notranslate"><span class="pre">--collector-passthrough</span></code>
-gives the highest collection throughput.</p>
-<p>Rather than using <code class="code docutils literal notranslate"><span class="pre">--collector-passthrough</span></code>, one can decide to
-just use <code class="code docutils literal notranslate"><span class="pre">--disable-cache</span></code>. Just disabling the cache rather than
-using the <code class="code docutils literal notranslate"><span class="pre">--collector-passthrough</span></code> yields a lower throughput but
-does not have the limitations discussed above. Hence, the
-<code class="code docutils literal notranslate"><span class="pre">-T</span></code> template option will be honoured and flows will be exported to
-any of the configured downstream destinations (not just ZMQ).</p>
-<section id="filtering-and-reforging-collected-netflow-flows">
-<h2>Filtering and Reforging Collected NetFlow Flows<a class="headerlink" href="#filtering-and-reforging-collected-netflow-flows" title="Link to this heading"></a></h2>
-<p>Sometimes when collecting NetFlow flows there are two needs:</p>
-<ul class="simple">
-<li><p>Discard specific flows coming from selected interfaces/routers</p></li>
-<li><p>Reforge NetFlow probe IP address as it might have been modified (e.g. through NAT)</p></li>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../index-2.html">nProbe</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../index-2.html"></a></li>
+<li class="breadcrumb-item"><a href="index.html">nProbe Практический пример</a></li>
+<li class="breadcrumb-item active">Понимание того, как работает сбор потоков</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/case_study/flow_collection.rst.txt" rel="nofollow"> Посмотреть исходный код страницы</a>
+</li>
 </ul>
-<p>nProbe allows you to do that using the <code class="code docutils literal notranslate"><span class="pre">--collector-nf-reforge</span> <span class="pre">&lt;path&gt;</span></code> command line option. The
-format of the reforge file is the one shown in the example below (note that fields are tab separated):</p>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<section id="understanding-how-flow-collection-works">
+<span id="understandingflowcollection"></span><h1>Понимание того, как работает сбор потоков<a class="headerlink" href="#understanding-how-flow-collection-works" title="Link to this heading"></a></h1>
+<p>nProbe поддерживает коллекцию NetFlow v5 и v9, jFlow, IPFIX и
+sFlow. В частности, он извлекает потоки, переносимые в NetFlow v5 и v9, jFlow и
+IPFIX, тогда как он создает потоки, начиная с выбранных пакетов
+осуществляется в пределах sFlow.</p>
+<p>После того как потоки извлечены или созданы, их можно обработать и
+экспортируются, как подробно описано в настоящем руководстве, независимо от
+источник, из которого они исходят. Другими словами, после сбора
+поток для nProbe — это просто элемент с определенными полями (например, ip клиента, сервер
+ip, байты от клиента к серверу, байты от сервера к клиенту и т. д.), и это
+больше не будет иметь значения, было ли оно извлечено из NetFlow или создано
+из sFlow.</p>
+<p>После сбора потоки временно помещаются на nProbe в
+внутренний кэш потока. Попав в кеш, потоки могут иметь свой трафик
+счетчики обновляются, например, когда несколько пакетов NetFlow переносят
+обновления для одного и того же потока или когда несколько sFlow выборочных пакетов
+на самом деле образцы одного и того же потока.</p>
+<p>Потоки остаются в кеше определенное время, т.е.
+настраивается с помощью параметров тайм-аута <code class="code docutils literal notranslate"><span class="pre">-t</span></code>
+и <code class="code docutils literal notranslate"><span class="pre">-d</span></code>. По истечении этого времени потоки экспортируются вниз по течению.
+согласно указанной конфигурации (например, в текстовые файлы,
+Kafka, ElasticSearch и т. д.) и ограничивается полями, указанными в
+шаблон с опцией <code class="code docutils literal notranslate"><span class="pre">-T</span></code>.</p>
+<p>Размещение потоков в кеше и обновление их счетчиков трафика перед
+экспорт может иметь положительный эффект для сокращения объема
+экспортированные потоки, поскольку вместо многократного экспорта потока
+экспортируется один поток, несущий (всего) обновленные счетчики трафика
+всего один раз. Однако это происходит за счет использования дополнительной памяти.
+и дополнительное время на обработку кеша и поиск в нем. Следовательно,
+когда в этом нет необходимости или когда нежелательно собирать
+потоки помещаются в кеш, время и память могут быть сохранены путем
+полный обход внутреннего кэша потоков с помощью опции <code class="code docutils literal notranslate"><span class="pre">--collector-passthrough</span></code>.</p>
+<p>Вариант <code class="code docutils literal notranslate"><span class="pre">--collector-passthrough</span></code> экспортирует потоки в настроенные
+ZMQ конечные точки как есть, сразу после их сбора, без размещения
+их в кэш. Потоки экспортируются «как есть» со всеми полями в виде
+находится в папке NetFlow/jFlow/IPFIX. Эта опция работает только с NetFlow/jFlow/IPFIX.
+(т. е. sFlow не поддерживается), приводит к тому, что шаблон <code class="code docutils literal notranslate"><span class="pre">-T</span></code> быть
+игнорируется и экспортируется только в ZMQ. С использованием <code class="code docutils literal notranslate"><span class="pre">--collector-passthrough</span></code>
+обеспечивает максимальную производительность сбора.</p>
+<p>Вместо использования <code class="code docutils literal notranslate"><span class="pre">--collector-passthrough</span></code>, можно решить
+просто используй <code class="code docutils literal notranslate"><span class="pre">--disable-cache</span></code>. Просто отключить кеш, а не
+используя <code class="code docutils literal notranslate"><span class="pre">--collector-passthrough</span></code> дает меньшую пропускную способность, но
+не имеет ограничений, описанных выше. Следовательно,
+<code class="code docutils literal notranslate"><span class="pre">-T</span></code> опция шаблона будет учитываться, и потоки будут экспортированы в
+любое из настроенных нисходящих пунктов назначения (не только ZMQ).</p>
+<section id="filtering-and-reforging-collected-netflow-flows">
+<h2>Фильтрация и переформовка собранных NetFlow потоков<a class="headerlink" href="#filtering-and-reforging-collected-netflow-flows" title="Link to this heading"></a></h2>
+<p>Иногда при сборе потоков NetFlow возникают две потребности:</p>
+<ul class="simple">
+<li><p>Отменить определенные потоки, поступающие от выбранных интерфейсов/маршрутизаторов.</p></li>
+<li><p>Reforge NetFlow проверяет IP-адрес, поскольку он мог быть изменен (например, через NAT)</p></li>
+</ul>
+<p>nProbe позволяет сделать это с помощью <code class="code docutils literal notranslate"><span class="pre">--collector-nf-reforge</span> <span class="pre">&lt;path&gt;</span></code> опция командной строки.
+Формат файла reforge показан в примере ниже (обратите внимание, что поля разделены табуляцией):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># NOTE</span>
 <span class="c1"># - ReforgedIP set to * means no IP reforge</span>
@@ -202,46 +186,40 @@ format of the reforge file is the one shown in the example below (note that fiel
 <span class="m">192</span>.168.1.21<span class="w">    </span>*<span class="w">               </span><span class="m">1</span>,12,43,98
 </pre></div>
 </div>
-<p>For those routers for which you want to apply some filtering/reforging you need to specify a line
-in the file (to date only IPv4 is supported) where you specify the reforged IP address (or * for using
-the original IP and this not reforging it) and the list of allowed ingressInterfaceId’s that are accepted
-for this exported. In the first line, only the interface 12 as allowed, meaning that all other collected flows
-originated by other interfaceIds will be discarded and not considered by nProbe. For exporters not listed
-in the file, no IP reforging and no interfaceId filtering is performed (i.e. everything will go through).</p>
+<p>Для тех роутеров, к которым вы хотите применить некоторую фильтрацию/перековку, вам необходимо указать строку
+в файле (на сегодняшний день поддерживается только IPv4), где вы указываете переделанный IP-адрес (или * для использования
+исходный IP-адрес и его не переформирование) и список разрешенных ingressInterfaceId, которые принимаются
+для этого экспортировал. В первой строке разрешен только интерфейс 12, то есть все остальные собранные потоки
+созданные другими идентификаторами интерфейса, будут отброшены и не рассмотрены nProbe. Для экспортеров, не указанных в списке
+в файле не производится перефорсировка IP и фильтрация по интерфейсу (т.е. все пройдет).</p>
 </section>
 </section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="index.html" rel="prev" title="nProbe Case Study"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Предыдущий</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="collecting_proprietary_flow_fields.html" rel="next" title="Collecting Proprietary Flow Fields">Следующий <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Авторское право 2025, ntop.org.</p>
+</div>
 
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="nProbe Case Study" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="collecting_proprietary_flow_fields.html" class="btn btn-neutral float-right" title="Collecting Proprietary Flow Fields" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2025, ntop.org.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+  Построен с <a href="https://www.sphinx-doc.org/">Сфинкс</a> используя
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">тема</a>
+    предоставлено <a href="https://readthedocs.org/">Прочтите документацию</a>.
    
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
+</div>
+</div>
+</section>
+</div>
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
-
+  </script>
 </body>
-
 <!-- Mirrored from www.ntop.org/guides/nprobe/case_study/flow_collection.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:43 GMT -->
 </html>
