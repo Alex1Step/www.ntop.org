@@ -1,0 +1,389 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/cento/bridge.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:29 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Network Bridge &mdash; cento 1.15 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_optionsd5c8.js?v=e6db31ea"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command Line Options" href="options.html" />
+    <link rel="prev" title="Egress Queues" href="egress.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            cento
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/cento/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Models Comparison Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usecases.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clickhouse.html">ClickHouse Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offload.html">Flow Offload</a></li>
+<li class="toctree-l1"><a class="reference internal" href="egress.html">Egress Queues</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Network Bridge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#policing-bridged-traffic">Policing Bridged Traffic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-network-bridge-configuration-file">The Network Bridge Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-examples">Configuration Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple-bridge">Simple Bridge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tx-offload">TX Offload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flow-forwarding-offload">Flow Forwarding Offload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-network-bridge-runtime-rest-configuration-api">The Network Bridge Runtime REST Configuration API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-resources">Additional Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Hugepages Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geolocation.html">Geolocation Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">cento</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Network Bridge</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bridge.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="network-bridge">
+<h1>Network Bridge<a class="headerlink" href="#network-bridge" title="Link to this heading"></a></h1>
+<p>nProbe™ Cento features (in the cento-bridge binary) a bi-directional bridge mode. When functioning in bridge mode, nProbe™ Cento intercepts, policy, and (possibly) forward any traffic that goes through a pair of network interfaces. Flow export functionalities will continue to work smoothly and independently from the bridge.</p>
+<a class="reference internal image-reference" href="_images/cento_bridge.png"><img alt="_images/cento_bridge.png" class="align-center" src="_images/cento_bridge.png" style="width: 498.0px; height: 262.2px;" />
+</a>
+<p>nProbe™ Cento allow a fine-grained control of the bridged traffic through a set of hierarchical rules.  Rules are submitted statically using a text file during nProbe™ Cento startup or dynamically via a REST API. nProbe™ Cento can be instructed to re-read the rules text file by sending a SIGHUP to the process (e.g., kill -SIGHUP &lt;process id&gt;). This can be useful for example to update the bridging policies without stopping and restarting the process.</p>
+<p>The set of rules available to policy the bridged traffic is similar to the ones used to policy egress queues.</p>
+<p>A detailed description of network bridge configuration and policing is given in the remainder of this section. The careful reader will notice a certain degree of overlap with configuration and policing of egress queues. Indeed, in an effort to keep nProbe™ Cento as usable as possible, the developers have designed a clear workflow that can be almost seamlessly used both in the context of packet bridging and in the one of egress queues.</p>
+<section id="policing-bridged-traffic">
+<h2>Policing Bridged Traffic<a class="headerlink" href="#policing-bridged-traffic" title="Link to this heading"></a></h2>
+<p>Bridged traffic is policed though a fine-grained set of hierarchical rules, in fact rules can be applied at three different levels, namely:</p>
+<ul class="simple">
+<li><p>At the level of bridge;</p></li>
+<li><p>At the level of subnet;</p></li>
+<li><p>At the level of application protocol.</p></li>
+</ul>
+<p>Application protocol rules take precedence over subnet-level rules which, in turn, take precedence over the bridge-level rules.
+Bridge-level rules can be thought of as the &quot;default&quot; bridge rules.</p>
+<p>Rule types are mainly two, namely:</p>
+<ul class="simple">
+<li><p>Forward: forward the packet;</p></li>
+<li><p>Discard: do not forward the packet;</p></li>
+</ul>
+<p>Forward means the traffic received from a bridged network interface card (NIC) will be forwarded to the other bridged NIC as-is, without being dropped, altered, or modified.
+Discard means that the traffic received from a bridged NIC will not get forwarded to the other bridged NIC.</p>
+<p>Important: when the default policy is set to discard, traffic is always forwarded until the protocol is detected and the protocol-based rules can be evaluated.
+In the same way, when the default policy is set to forward, traffic is always forwarded until the protocol is detected, even for protocols with a discard policy,
+as cento requires a few packets to detect it. This behaviour is expected by design.</p>
+<p>Rules are expressed as &lt;policed unit&gt; = &lt;policy&gt;. For example, one that wants to bridge all the NICs traffic will use the following expression</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default = forward
+</pre></div>
+</div>
+<p>Assuming an exception is needed to waive the default rule in order to drop all the traffic that originates from (is destined to) subnet 10.0.0.0/8, one will use the additional rule</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>10.0.0.0/8 = discard
+</pre></div>
+</div>
+<p>Supposing another exception is needed to waive both the default rule and the rule set on the subnet in order to always drop Viber traffic, one will add a third rule as</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Viber = discard
+</pre></div>
+</div>
+<p>The full list of DPI protocols supported by can be printed with</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento --print-ndpi-protocols</span>
+</pre></div>
+</div>
+</section>
+<section id="the-network-bridge-configuration-file">
+<h2>The Network Bridge Configuration File<a class="headerlink" href="#the-network-bridge-configuration-file" title="Link to this heading"></a></h2>
+<p>Rules are specified in a plain text file that follows the INI standard. INI is a very simple standard that specify the format of the configuration file. For a more detailed introduction on the INI standard, the interested reader is referred to the section “The Egress Queues Configuration File” that follows the same standard.</p>
+<p>nProbe™ Cento network bridge configuration files contain, between square brackets, sections corresponding to the different hierarchical levels of rules. Each section contains the rules, one per line, that have to be applied. An exhaustive example of configuration file is the following</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[bridge]
+default = forward
+banned-hosts = discard
+
+[bridge.subnet]
+192.168.2/24 = discard
+
+[bridge.protocol]
+Skype = discard
+</pre></div>
+</div>
+<p>In the remainder of this section is given a description of configuration file sections. As already anticipated with the configuration file example, network bridging is configured via three sections, namely [bridge], [bridge.subnet] and [bridge.protocol]. Rules are indicated in every section, one per line.</p>
+<p>[bridge.protocol]
+contains application-protocol forwarding rules that must be enforced. Any application protocol is expressed using a mnemonic string. The full list of application protocols available can be queries simply by running nProbe™ Cento inline help</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento --print-ndpi-protocols</span>
+</pre></div>
+</div>
+<p>Any line in this section has the format &lt;protocol name&gt; = &lt;policy&gt;, where policy can be any of: forward and discard.</p>
+<p>An example is</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[bridge.protocol]
+Skype = discard
+Viber = discard
+</pre></div>
+</div>
+<p>[bridge.subnet] contains forwarding rules that are enforced at the level of subnet. Every line in this section is formatted as &lt;CIDR subnet&gt; = &lt;policy&gt;. Subnets are expressed using the common CIDR &lt;address&gt;/&lt;netmask&gt; notation. Policy can be any of: forward and discard.</p>
+<p>An example is</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[bridge.subnet]
+10.0.0.1/32 = discard
+10.10.10/24 = discard
+</pre></div>
+</div>
+<p>If a flow matches both a subnet- and a protocol-level rule, then the protocol-level rule is applied.</p>
+<p>[bridge] contains the “default” bridge policies, that is, any flow that doesn’t match any rule indicated in the subnet and protocol sections, then will be policed using the “default” rules. This section contains at most two lines, one for the default policy and the other for the policy that has to be applied to banned hosts. We refer the reader to the section “Command Line Options” for a detailed description of banned hosts.</p>
+<p>An example is</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[bridge]
+default = forward
+banned-hosts = discard
+</pre></div>
+</div>
+<p>In the example above, all the flows that are not policed via subnet or protocol-level rules are forwarded as specified in the default rule. If an host belongs to the list of banned-hosts, then all the traffic gets discarded.</p>
+<p>Note: shunting (shunt section) and slicing (slice-l3 or slice-l4 actions) rules are also supported, however they are not usually required in bridge mode as it does not make sense to use them in real world scenarios. If you are interested in configuring traffic shunt or slice in bridge mode, please refer to the syntax described in the Egress Queues (IDS mode using cento-ids) section.</p>
+</section>
+<section id="configuration-examples">
+<h2>Configuration Examples<a class="headerlink" href="#configuration-examples" title="Link to this heading"></a></h2>
+<section id="simple-bridge">
+<h3>Simple Bridge<a class="headerlink" href="#simple-bridge" title="Link to this heading"></a></h3>
+<p>Assuming nProbe™ Cento has to be used to bridge ZC eth1 and eth2 interfaces using configuration file bridge.example and banned hosts list file banned.example, it is possible to use the following command</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento-bridge -i zc:eth1,zc:eth2 --bridge-conf bridge.example --banned-hosts banned.example --dpi-level 2 -v 4</span>
+</pre></div>
+</div>
+</section>
+<section id="tx-offload">
+<h3>TX Offload<a class="headerlink" href="#tx-offload" title="Link to this heading"></a></h3>
+<p>The bridge configuration can be optimized on selected adapters to get the best packet forwarding performance.
+Napatech adapters for instance support zero-copy transmission, this means received packets can be forwarded
+in hardware, offloading the packet copy. This support should be enabled when configuring the adapter, by using
+the ntpl tool, and can be combined with streams to distribute the load to multiple cores.</p>
+<p>Please find below a sample &quot;tx-offload.ntpl&quot; script that can be used to configure 2 streams on port 0
+and forward traffic to port 1.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Delete=All
+
+HashMode[Priority = 0; Layer4Type=TCP,UDP,SCTP] = Hash5TupleSorted
+HashMode[Priority = 1; Layer3Type=IP] = Hash2TupleSorted
+
+Setup[NUMANode=0] = StreamId==(0..1)
+Setup[TxDescriptor = DYN1; TxPorts = 1; TxIgnorePos = 141] = StreamId == (0..1)
+
+Assign[StreamId = (0..1); Descriptor = DYN1] = Port == 0
+</pre></div>
+</div>
+<p>Command to load the NTPL script to the adapter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/opt/napatech3/bin/ntpl<span class="w"> </span>-f<span class="w"> </span>tx-offload.ntpl
+</pre></div>
+</div>
+<p>In order to enable TX offload in nProbe Cento, a <code class="code docutils literal notranslate"><span class="pre">--tx-offload</span></code> option is available. In the below example
+nProbe Cento is configured to spaws 2 capture threads, one per stream, and forward to port 1 all traffic
+according to the rules configured in the rules.conf file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cento-bridge<span class="w"> </span>-i<span class="w"> </span>nt:stream<span class="o">[</span><span class="m">0</span>-1<span class="o">]</span>,nt:1<span class="w"> </span>--tx-offload<span class="w"> </span>--dpi-level<span class="w"> </span><span class="m">2</span><span class="w"> </span>--bridge-conf<span class="w"> </span>rules.conf
+</pre></div>
+</div>
+<p>Sample rules configuration file for discarding video traffic from selected applications:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[bridge]
+default = forward
+banned-hosts = discard
+
+[bridge.protocol]
+NetFlix = discard
+YouTube = discard
+</pre></div>
+</div>
+</section>
+<section id="flow-forwarding-offload">
+<h3>Flow Forwarding Offload<a class="headerlink" href="#flow-forwarding-offload" title="Link to this heading"></a></h3>
+<p>Traffic processing can be further optimized by offloading flow rules to the adapter, on adapters
+featuring an hardware Flow Manager (Napatech). This allows to offload traffic forwarding rules to
+forward or discard all packets for a specific flow, dramatically reducing the load on the CPU.
+Cento offloads flows to the adapter as soon as the application protocol has been detected (this
+requires a few packets for each flow, depending on the actual protocol).</p>
+<p>Note: a Flow Manager enabled firmware is required in order to use flow offload on the adapter.</p>
+<p>Please find below a sample &quot;flow-offload.ntpl&quot; script that can be used to configure 4 streams to
+forward traffic between ports 0 and 1 in both directions. This script is also compatible with TX Offload
+(--tx-offload) and can also be used with both Flow Offload and TX Offload enabled at the same time.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Delete = All
+
+// Pair of uplink and downlink ports
+Define UL_PORT = Macro(&quot;0&quot;)
+Define DL_PORT = Macro(&quot;1&quot;)
+
+// Streams / threads
+Define STREAMS = Macro(&quot;(0..3)&quot;)
+Define NUMA    = Macro(&quot;0&quot;)
+
+Define TX_FORWARD = Macro(&quot;0x00&quot;)
+Define TX_DISCARD = Macro(&quot;0x08&quot;)
+
+Define FLM_HIT       = Macro(&quot;0x00&quot;)
+Define FLM_MISS      = Macro(&quot;0x10&quot;)
+Define FLM_UNHANDLED = Macro(&quot;0x20&quot;)
+
+Define FLM_DISCARD = Macro(&quot;3&quot;)
+Define FLM_FORWARD = Macro(&quot;4&quot;)
+
+Define isIPv4    = Macro(&quot;Layer3Protocol==IPv4&quot;)
+Define isTcpUdp  = Macro(&quot;Layer4Protocol==TCP,UDP&quot;)
+
+KeyType[Name=KT_4Tuple] = {32, 32, 16, 16}
+
+Define KeyDefProtoSpec = Macro(&quot;(Layer3Header[12]/32, Layer3Header[16]/32, Layer4Header[0]/16, Layer4Header[2]/16)&quot;)
+KeyDef[Name=KD_4Tuple; KeyType=KT_4Tuple; IpProtocolField=Outer; KeySort=Sorted] = KeyDefProtoSpec
+
+HashMode = Hash5TupleSorted
+
+Setup[NUMANode=NUMA] = StreamId == STREAMS
+
+// Tx port number is the first 3 bits of the NtDyn1Descr_s-&gt;color at offset 138 (0b000XXX)
+// Tx forward/discard verdict is bit 4 of the NtDyn1Descr_s-&gt;color at offset 141 (0b00X000)
+Setup[TxDescriptor=DYN; TxPorts=UL_PORT,DL_PORT; TxPortPos=138; TxIgnorePos=141] = StreamId==STREAMS
+
+// Set TX port value, which is the first 3 bits of the NtDyn1Descr_s-&gt;color
+Assign[ColorMask=DL_PORT; Descriptor=DYN1] = Port==UL_PORT
+Assign[ColorMask=UL_PORT; Descriptor=DYN1] = Port==DL_PORT
+
+// Set TX forward/discard, which is bit 4 of the NtDyn1Descr_s-&gt;color
+Assign[ColorMask=TX_FORWARD; Descriptor=DYN1] = Port==UL_PORT,DL_PORT
+
+// New and unhandled flows are sent to the host
+Assign[StreamId=STREAMS; ColorMask=FLM_UNHANDLED; Descriptor=DYN1] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == UNHANDLED
+Assign[StreamId=STREAMS; ColorMask=FLM_MISS;      Descriptor=DYN1] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == MISS
+
+// Drop discarded flows
+Assign[StreamId=DROP] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == FLM_DISCARD
+
+// Forward allowed flows between ports
+Assign[StreamId=Drop; DestinationPort=DL_PORT] = Port==UL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == FLM_FORWARD
+Assign[StreamId=Drop; DestinationPort=UL_PORT] = Port==DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == FLM_FORWARD
+</pre></div>
+</div>
+<p>Note: the above NTPL is similar to the passive capture configuration, expection made for the <em>ColorMask=TX_FORWARD</em> assignment.</p>
+<p>Command to load the NTPL script to the adapter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/opt/napatech3/bin/ntpl<span class="w"> </span>-f<span class="w"> </span>flow-offload.ntpl
+</pre></div>
+</div>
+<p>In order to enable flow offload in nProbe Cento, a <code class="code docutils literal notranslate"><span class="pre">--flow-offload</span></code> option is available. In the below example
+nProbe Cento is configured to spaws 4 capture threads, one per stream, and forward traffic according to the rules
+configured in the rules.conf file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cento-bridge<span class="w"> </span>-i<span class="w"> </span>nt:stream<span class="o">[</span><span class="m">0</span>-3<span class="o">]</span>,nt:stream<span class="o">[</span><span class="m">0</span>-3<span class="o">]</span><span class="w"> </span>--tx-offload<span class="w"> </span>--flow-offload<span class="w"> </span>--dpi-level<span class="w"> </span><span class="m">2</span><span class="w"> </span>--bridge-conf<span class="w"> </span>rules.conf
+</pre></div>
+</div>
+<p>Sample rules.conf file for discarding video traffic from selected applications:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[bridge]
+default = forward
+banned-hosts = discard
+
+[bridge.protocol]
+NetFlix = discard
+YouTube = discard
+</pre></div>
+</div>
+</section>
+</section>
+<section id="the-network-bridge-runtime-rest-configuration-api">
+<h2>The Network Bridge Runtime REST Configuration API<a class="headerlink" href="#the-network-bridge-runtime-rest-configuration-api" title="Link to this heading"></a></h2>
+<p>nProbe™ Cento has been designed to allow the network bridge to be dynamically configured by means of a REST API.
+This API that provides the same level of flexibility that can be achieved through the configuration file.</p>
+<p>Please refer to the <em>API Documentation</em> section for the full API specification.</p>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading"></a></h2>
+<p>Additional configuration examples for Napatech (TX Offload and Flow Offload) are available in the <a class="reference external" href="https://github.com/tourko/cento-demo/">demo repository from Napatech</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="egress.html" class="btn btn-neutral float-left" title="Egress Queues" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="options.html" class="btn btn-neutral float-right" title="Command Line Options" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/cento/bridge.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:31 GMT -->
+</html>

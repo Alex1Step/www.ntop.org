@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/basic_concepts/geolocation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:48:23 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geolocation &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Network Interfaces" href="interfaces.html" />
+    <link rel="prev" title="Basic Concepts" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../what_is_ntopng.html#releases-and-features">Releases and Features</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../what_is_ntopng.html#basic-concepts-use-cases">Basic Concepts &amp; Use Cases</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Basic Concepts</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interfaces.html">Network Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system_interface.html">System Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hosts.html">Hosts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="host_pools.html">Host Pools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stats.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="alerts.html">Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="timeseries.html">Timeseries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts.html">Scripts and Checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local_broadcast_domain.html">Local Broadcast Domain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="disk_space.html">Disk Space Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../use_cases/index.html">Use Cases</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../what_is_ntopng.html">What is ntopng</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Basic Concepts</a></li>
+      <li class="breadcrumb-item active">Geolocation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/basic_concepts/geolocation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="geolocation">
+<span id="id1"></span><h1>Geolocation<a class="headerlink" href="#geolocation" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>ntopng includes Geolocation support provided by the following companies</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.maxmind.com/">MaxMind</a></p></li>
+<li><p><a class="reference external" href="https://db-ip.com/">DB-IP</a></p></li>
+</ul>
+<p>ntopng geolocation is based on a database file stored locally with no cloud
+access whatsoever.</p>
+<p>You can choose to install the free (albeit not very accurate) GeoIP
+databases or the commercial ones. By default the <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code> includes
+the DB-IP databases that are released under the Creative Commons
+Attribution License.</p>
+<p>Please install the <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code> package to enable geolocation in
+ntopng, this unless you already have geolocation databases installed.</p>
+</section>
+<section id="using-maxmind-geolocation-in-ntopng">
+<h2>Using MaxMind geolocation in ntopng<a class="headerlink" href="#using-maxmind-geolocation-in-ntopng" title="Link to this heading"></a></h2>
+<p>New privacy regulations, such as GDPR and CCPA, place restrictions that
+impact our ability to continue distributing MaxMind GeoLite2 databases in
+the public <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code> package. Reasons are explained in detail at the
+following page
+<a class="reference external" href="https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/">https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/</a>.</p>
+<p>Starting December 30, 2019, to continue using geolocation in ntop
+software, you are required to register for a MaxMind account and obtain a
+license key in order to download GeoLite2 geolocation databases.</p>
+<p>The following section lists all the steps which are necessary to use
+geolocation in ntopng.</p>
+<ol class="arabic simple">
+<li><p>Install package <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code> which pulls in MaxMind downloader
+<code class="docutils literal notranslate"><span class="pre">geoipupdate</span></code> as dependency.</p></li>
+<li><p>Register for a MaxMind account at
+<a class="reference external" href="https://www.maxmind.com/en/geolite2/signup">https://www.maxmind.com/en/geolite2/signup</a>.</p></li>
+<li><p>Create a license key at
+<a class="reference external" href="https://www.maxmind.com/en/accounts/current/license-key">https://www.maxmind.com/en/accounts/current/license-key</a>.</p>
+<ol class="arabic simple">
+<li><p>Select “Generate New License Key”.</p></li>
+<li><p>Add a license key description and answer “Yes” to the question
+“Will this key be used for GeoIP Update?”.</p></li>
+<li><p>Then choose one of the two available options “Generate a license
+key and config file”. Choice depends on the installed
+<code class="docutils literal notranslate"><span class="pre">geoipupdate</span></code> version. Most likely, installed version is older
+than 3.1.1 so the correct option to select is “Generate a license
+key and config file for use with <code class="docutils literal notranslate"><span class="pre">geoipupdate</span></code> versions older
+than 3.1.1”. If you don’t know the version type
+<code class="docutils literal notranslate"><span class="pre">geoipupdate</span> <span class="pre">-V</span></code>.</p></li>
+</ol>
+</li>
+<li><p>Once the license is created, you will be prompted to download file
+<code class="docutils literal notranslate"><span class="pre">GeoIP.conf</span></code> which contains account id and license key necessary to
+download the databases. Download and place this file in
+<code class="docutils literal notranslate"><span class="pre">/etc/GeoIP.conf</span></code>.</p></li>
+<li><p>Make sure that the <code class="docutils literal notranslate"><span class="pre">EditionIDs</span></code> section (or <code class="docutils literal notranslate"><span class="pre">ProductIds</span></code>
+according to the <code class="docutils literal notranslate"><span class="pre">geoipupdate</span></code> version) in <code class="docutils literal notranslate"><span class="pre">/etc/GeoIP.conf</span></code>
+contains <code class="docutils literal notranslate"><span class="pre">GeoLite2-Country</span> <span class="pre">GeoLite2-City</span> <span class="pre">GeoLite2-ASN</span></code>
+(<code class="docutils literal notranslate"><span class="pre">GeoLite2-ASN</span></code> could be missing by default).</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">geoipupdate</span></code> to download the database files.</p></li>
+<li><p>Restart any running ntop software. Upon restart, software will
+automatically locate and load the downloaded databases.</p></li>
+</ol>
+<p>Subsequent updates of the <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code> package will check for the
+availability of newer geolocation databases and will possibly update
+them automatically.</p>
+<p>If you prefer to handle updates manually, you may skip <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code>
+installation and directly use <code class="docutils literal notranslate"><span class="pre">geoipupdate</span></code>. Instructions to use
+<code class="docutils literal notranslate"><span class="pre">geoipupdate</span></code> are available at
+<a class="reference external" href="https://dev.maxmind.com/geoip/geoipupdate/">https://dev.maxmind.com/geoip/geoipupdate/</a></p>
+</section>
+<section id="using-geolocation-on-raspberry-pi-os-raspbian">
+<h2>Using geolocation on Raspberry Pi OS (Raspbian)<a class="headerlink" href="#using-geolocation-on-raspberry-pi-os-raspbian" title="Link to this heading"></a></h2>
+<p>Since the <code class="docutils literal notranslate"><span class="pre">geoipupdate</span></code> package is not available on Raspberry Pi, the
+MaxMind database should be downloaded and installed manually on this
+platform. Please check the next section for further instructions.</p>
+</section>
+<section id="how-to-use-maxmind-instead-of-db-ip">
+<h2>How to use MaxMind instead of DB-IP?<a class="headerlink" href="#how-to-use-maxmind-instead-of-db-ip" title="Link to this heading"></a></h2>
+<p>The simplest solution is to install <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code>. However if this is
+not possible please do (as root):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>su
+<span class="nb">cd</span><span class="w"> </span>/usr/share/ntopng/httpdocs/geoip/
+mkdir<span class="w"> </span>backup
+mv<span class="w"> </span>*mmdb<span class="w"> </span>backup
+ln<span class="w"> </span>-s<span class="w"> </span>/var/lib/GeoIP/GeoLite2-City.mmdb<span class="w"> </span>.
+ln<span class="w"> </span>-s<span class="w"> </span>/var/lib/GeoIP/GeoLite2-ASN.mmdb<span class="w"> </span>.
+service<span class="w"> </span>ntopng<span class="w"> </span>restart
+</pre></div>
+</div>
+</section>
+<section id="using-geolocation-when-ntopng-data-is-not-available">
+<h2>Using geolocation when <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code> is not available<a class="headerlink" href="#using-geolocation-when-ntopng-data-is-not-available" title="Link to this heading"></a></h2>
+<p>In case package <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code> or <code class="docutils literal notranslate"><span class="pre">geoipupdate</span></code> is not available on
+your platform:</p>
+<ol class="arabic simple">
+<li><p>Manually download database files</p>
+<ul class="simple">
+<li><p>DB-IP: <code class="docutils literal notranslate"><span class="pre">dbip-city-lite</span></code>, <code class="docutils literal notranslate"><span class="pre">dbip-asn-lite</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">dbip-country-lite</span></code> (<a class="reference external" href="https://db-ip.com/db/">https://db-ip.com/db/</a>) databases in MMDB
+format</p></li>
+<li><p>MaxMind: <code class="docutils literal notranslate"><span class="pre">GeoLite2-ASN.mmdb</span></code> and <code class="docutils literal notranslate"><span class="pre">GeoLite2-City.mmdb</span></code> from the
+“GeoIP2 / GeoLite2” &gt; “Download Files” section of your MaxMind
+account page</p></li>
+</ul>
+</li>
+<li><p>Then place the downloaded files under a specific folder which depends
+on the platform:</p>
+<ul class="simple">
+<li><p><strong>Linux</strong> (including Raspberry Pi OS): place downloaded files under
+<code class="docutils literal notranslate"><span class="pre">/var/lib/GeoIP/</span></code> (<code class="docutils literal notranslate"><span class="pre">/usr/share/GeoIP/</span></code> is also a valid path)</p></li>
+<li><p><strong>Windows</strong>: place downloaded files under
+<code class="docutils literal notranslate"><span class="pre">Program</span> <span class="pre">Files/ntopng/httpdocs/geoip/</span></code></p></li>
+<li><p><strong>OS X package</strong>: place downloaded files under
+<code class="docutils literal notranslate"><span class="pre">/usr/local/share/ntopng/httpdocs/geoip</span></code> (in case the <code class="docutils literal notranslate"><span class="pre">geoip</span></code>
+folder is missing, it is necessary to create it with
+<code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span> <span class="pre">/usr/local/share/ntopng/httpdocs/geoip</span></code> before copying
+the files)</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="upgrading-from-a-previous-version-of-ntopng-data">
+<h2>Upgrading from a previous version of <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code><a class="headerlink" href="#upgrading-from-a-previous-version-of-ntopng-data" title="Link to this heading"></a></h2>
+<p>In case an old <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code> package was already installed in the
+system, you may receive the message <em>The following packages have been
+kept back</em> with reference to it.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># sudo apt-get update
+[...]
+Calculating upgrade... Done
+The following packages have been kept back:
+  ntopng-data
+</pre></div>
+</div>
+<p>This occurs usually on debian because the dependencies have changed on
+the <code class="docutils literal notranslate"><span class="pre">ntopng-data</span></code> you have installed so that the package
+<code class="docutils literal notranslate"><span class="pre">geoipupdate</span></code> from MaxMind must be installed to perform the upgrade.
+If this is the case, to resolve it suffices to run</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>--with-new-pkgs<span class="w"> </span>upgrade
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Basic Concepts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="interfaces.html" class="btn btn-neutral float-right" title="Network Interfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/basic_concepts/geolocation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:48:24 GMT -->
+</html>

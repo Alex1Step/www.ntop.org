@@ -1,0 +1,223 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/using_with_other_tools/nprobe_ips.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 18:03:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using ntopng with nProbe IPS &mdash; ntopng 6.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options3fe8.js?v=b77652a2"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using ntopng with nProbe Agent" href="nprobeagent.html" />
+    <link rel="prev" title="Using ntopng with nProbe (Collector Mode)" href="nprobe_collector_mode.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using ntopng with ntop Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nprobe.html">Using ntopng with nProbe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nprobe_collector_mode.html">Using ntopng with nProbe (Collector Mode)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Using ntopng with nProbe IPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nprobeagent.html">Using ntopng with nProbe Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cento.html">Using ntopng with nProbe Cento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="n2disk.html">Using ntopng with n2disk</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Using ntopng with ntop Tools</a></li>
+      <li class="breadcrumb-item active">Using ntopng with nProbe IPS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/using_with_other_tools/nprobe_ips.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-ntopng-with-nprobe-ips">
+<span id="usingntopngwithnprobeips"></span><h1>Using ntopng with nProbe IPS<a class="headerlink" href="#using-ntopng-with-nprobe-ips" title="Link to this heading"></a></h1>
+<p>ntopng can be used to enforce traffic policies and report them, when ntopng is used in
+combination with <a class="reference external" href="../../nprobe/ips_mode.html">nProbe in IPS mode</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A ntopng Pro or Enterprise license is required.</p>
+</div>
+<p>Traffic policies are automatically exported to nProbe after a change to the policies configuration, or
+when a new nProbe instance connects to ntopng via ZMQ. In order to publish IPS events (including policies)
+an additional ZMQ chann
+configure the ntopng ZMQ endpoint for IPS events. Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>--zmq<span class="w"> </span>tcp://*:1234<span class="w"> </span>--ips-mode<span class="w"> </span>none<span class="w"> </span>--zmq-publish-events<span class="w"> </span>tcp://127.0.0.1:5557<span class="w"> </span>-i<span class="w"> </span>nf:0
+ntopng<span class="w"> </span>-i<span class="w"> </span>tcp://127.0.0.1:1234<span class="w"> </span>--zmq-publish-events<span class="w"> </span>tcp://*:5557
+</pre></div>
+</div>
+<p>Please refer to the <a class="reference external" href="../../nprobe/ips_mode.html">nProbe documentation</a> for more
+details about the nProbe configuration and working mode.</p>
+<p>A different traffic policy can be configured for each pool of hosts (see <span class="xref std std-ref">HostPools</span>) by selecting the pool to edit, in the dropdown icon (‘Actions column’), click ‘Manage Pool’</p>
+<figure class="align-center" id="id1">
+<img alt="Manage Host Pool" src="../_images/web_gui_interfaces_manage_pool.png" />
+<figcaption>
+<p><span class="caption-text">The Host Pool Page</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>then on the “key” button in the <em>Interface</em> &gt; <em>Host/Network/MAC Pools</em> page to edit the selected pool.</p>
+<figure class="align-center" id="id2">
+<img alt="Edit Host Pool Policy" src="../_images/web_gui_interfaces_edit_host_pool_policy.png" />
+<figcaption>
+<p><span class="caption-text">The Edit Host Pool Page</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The policies configuration includes a default policy, that can be Pass or Drop (Default Deny), and
+more specific rules that can be used to configure exceptions with respect to the default policy, including:</p>
+<ul class="simple">
+<li><p>L7 Application Protocol Rules</p></li>
+<li><p>L7 Category Rules</p></li>
+<li><p>Host Rules to configure hostnames used in TLS and DNS protocols for instance</p></li>
+<li><p>Country Rules</p></li>
+<li><p>Continent Rules</p></li>
+<li><p>Risk Rules to apply policies based on the Flow Risk computed by nDPI</p></li>
+</ul>
+<figure class="align-center" id="id3">
+<img alt="Edit Traffic Policies" src="../_images/web_gui_interfaces_edit_policies.png" />
+<figcaption>
+<p><span class="caption-text">The Traffic Policies Page</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>An <em>Auto Configure</em> functionality is also available to automatically create a recommended configuration
+for the Traffic Policy by leveraging on the protocols/hosts seen by ntopng for the devices belonging to the Pool
+(please note ntopng should run for at least 1 day in order to get the best results). Please note that this
+configuration is a <em>guess</em> and should be manually fine tuned. This feature is particularly useful in case of
+devices which are supposed to use a limited/static set of services, which is the case of <em>IoT devices</em> for
+instance. In this case the <em>Default Policy</em> is set to Drop (<em>Default Deny</em>) and the <em>Auto Configure</em>
+functionality adds those L7 protocols and hostnames which are actually required for the device to work
+(according to the historical data). In order to populate <em>Host Rules</em>, the <em>Top Visited Sites</em> heuristic
+should be enabled under <em>Settings</em> &gt; <em>Preferences</em> &gt; <em>Applications</em>.</p>
+<figure class="align-center" id="id4">
+<img alt="Auto Configure Traffic Policies" src="../_images/web_gui_interfaces_autoconfigure_policies.png" />
+<figcaption>
+<p><span class="caption-text">The Auto Configure Feature</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nprobe_collector_mode.html" class="btn btn-neutral float-left" title="Using ntopng with nProbe (Collector Mode)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nprobeagent.html" class="btn btn-neutral float-right" title="Using ntopng with nProbe Agent" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/using_with_other_tools/nprobe_ips.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 18:03:52 GMT -->
+</html>

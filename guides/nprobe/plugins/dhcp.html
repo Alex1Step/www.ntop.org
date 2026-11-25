@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/nprobe/plugins/dhcp.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:26 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DHCP Plugin &mdash; nProbe 10.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options0088.js?v=864e5427"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Export Plugin" href="export.html" />
+    <link rel="prev" title="DNS Plugin" href="dns.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            nProbe
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nprobe/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html#what-is-nprobe">What is nProbe?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">Versions Comparison Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configurations.html">nProbe Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start.html">How to Start nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html">Tuning nProbe Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#high-speed-flow-collection">High-Speed Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#expected-collection-performance">Expected Collection Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#collecting-flows-from-many-routers">Collecting Flows from Many Routers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Handling Trillion Flows: Dumping Flows into ClickHouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#data-deduplication">Data Deduplication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#snmp-interfaces-polling">SNMP Interfaces Polling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#collecting-ntap-traffic">Collecting nTap Traffic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#influxdb-based-timeseries-dump">InfluxDB-based Timeseries Dump</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#howto-create-sflow-timeseries">HowTo Create sFlow Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#flow-relay">Flow Relay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#flow-replication-fanout">Flow Replication / Fanout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning.html#dumping-collected-flows-packets">Dumping Collected Flows/Packets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tls.html">Using TLS In Flow Collection/Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tls.html#tls-certificates-validation">TLS Certificates Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Note on interface indexes and (router) MAC/IP addresses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#further-plugin-available-command-line-options">Further plugin available command line options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX format [-T]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_ntopng.html">Using nProbe with ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kafka.html">Using Kafka with nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bgp.html">BGP/BMP Traffic Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agent_mode.html">Agent Mode support in nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../case_study/index.html">nProbe Case Study</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">nProbe Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="diameter.html">SIP Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dns.html">DNS Plugin</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DHCP Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="export.html">Export Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gtpv0.html">GTPv0 Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gtpv1.html">GTPv1 Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gtpv2.html">GTPv2 Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http.html">HTTP Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imap.html">IMAP Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pop3.html">POP3 Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radius.html">Radius Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rtp.html">RTP Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sip.html">SIP Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smtp.html">SMTP Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="netflowlite.html">NetFlow-Lite Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modbus.html">Modbus Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom.html">Custom Plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_plugins.html">Developing nProbe Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bpf_expressions.html">BPF Packet Filtering Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_information_elements.html">Flow Information Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardware_sizing.html">Hardware Sizing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">nProbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">nProbe Plugins</a></li>
+      <li class="breadcrumb-item active">DHCP Plugin</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/plugins/dhcp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dhcp-plugin">
+<h1>DHCP Plugin<a class="headerlink" href="#dhcp-plugin" title="Link to this heading"></a></h1>
+<p>This plugin dissects DHCP traffic and saves it in dump files as well export the information via NetFlow/IPFIX using the following information elements.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>NFv9<span class="w"> </span><span class="m">57825</span><span class="o">][</span>IPFIX<span class="w"> </span><span class="m">35632</span>.353<span class="o">][</span>Len<span class="w"> </span><span class="m">6</span><span class="o">]</span><span class="w"> </span>%DHCP_CLIENT_MAC<span class="w">                   </span>MAC<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>DHCP<span class="w"> </span>client
+<span class="o">[</span>NFv9<span class="w"> </span><span class="m">57826</span><span class="o">][</span>IPFIX<span class="w"> </span><span class="m">35632</span>.354<span class="o">][</span>Len<span class="w"> </span><span class="m">4</span><span class="o">]</span><span class="w"> </span>%DHCP_CLIENT_IP<span class="w">                    </span>DHCP<span class="w"> </span>assigned<span class="w"> </span>client<span class="w"> </span>IPv4<span class="w"> </span>address
+<span class="o">[</span>NFv9<span class="w"> </span><span class="m">57827</span><span class="o">][</span>IPFIX<span class="w"> </span><span class="m">35632</span>.355<span class="o">][</span>Len<span class="w"> </span><span class="m">64</span><span class="w"> </span>varlen<span class="o">]</span><span class="w"> </span>%DHCP_CLIENT_NAME<span class="w">          </span>DHCP<span class="w"> </span>client<span class="w"> </span>name
+<span class="o">[</span>NFv9<span class="w"> </span><span class="m">57895</span><span class="o">][</span>IPFIX<span class="w"> </span><span class="m">35632</span>.423<span class="o">][</span>Len<span class="w"> </span><span class="m">32</span><span class="w"> </span>varlen<span class="o">]</span><span class="w"> </span>%DHCP_REMOTE_ID<span class="w">            </span>DHCP<span class="w"> </span>agent<span class="w"> </span>remote<span class="w"> </span>Id
+<span class="o">[</span>NFv9<span class="w"> </span><span class="m">57896</span><span class="o">][</span>IPFIX<span class="w"> </span><span class="m">35632</span>.424<span class="o">][</span>Len<span class="w"> </span><span class="m">48</span><span class="w"> </span>varlen<span class="o">]</span><span class="w"> </span>%DHCP_SUBSCRIBER_ID<span class="w">        </span>DHCP<span class="w"> </span>subscribed<span class="w"> </span>Id
+<span class="o">[</span>NFv9<span class="w"> </span><span class="m">57901</span><span class="o">][</span>IPFIX<span class="w"> </span><span class="m">35632</span>.429<span class="o">][</span>Len<span class="w"> </span><span class="m">1</span><span class="o">]</span><span class="w"> </span>%DHCP_MESSAGE_TYPE<span class="w">                 </span>DHCP<span class="w"> </span>message<span class="w"> </span><span class="nb">type</span>
+</pre></div>
+</div>
+<p>DHCP plugin support option <code class="code docutils literal notranslate"><span class="pre">--dhcp-dump-dir</span> <span class="pre">&lt;dump</span> <span class="pre">dir&gt;</span></code>. When this option is used, nProbe writes DHCP dump files in <code class="code docutils literal notranslate"><span class="pre">&lt;dump</span> <span class="pre">dir&gt;</span></code>. Multiple files are created in a hierarchical YYYY/MM/DD directory tree and each file is at most 1000-lines long.</p>
+<p>An example of a created file is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<span class="w"> </span>When<span class="o">[</span>uint<span class="o">]</span><span class="w">    </span>MessageType<span class="o">[</span>ascii:16<span class="o">]</span><span class="w">   </span>DHCP_Server<span class="o">[</span>ascii:32<span class="o">]</span><span class="w">   </span>ClientMAC<span class="o">[</span>ascii:32<span class="o">]</span><span class="w">     </span>ClientIP<span class="o">[</span>ascii:32<span class="o">]</span><span class="w">      </span>ClientName<span class="o">[</span>ascii:32<span class="o">]</span><span class="w">    </span>TransactionId<span class="w">   </span>LeaseTime<span class="o">[</span>uint<span class="o">]</span><span class="w"> </span>SubscriberId<span class="o">[</span>ascii:32<span class="o">]</span><span class="w">  </span>AgentRemoteId<span class="o">[</span>ascii:48<span class="o">]</span>
+<span class="c1">#</span>
+<span class="m">1593701239</span><span class="w">      </span>Offer<span class="o">(</span><span class="m">2</span><span class="o">)</span><span class="w">        </span><span class="m">192</span>.168.2.1<span class="w">     </span><span class="m">00</span>:25:90:D4:CC:F9<span class="w">       </span><span class="m">192</span>.168.2.222<span class="w">           </span>0xF8494A18<span class="w">      </span><span class="m">86400</span>
+<span class="m">1593701239</span><span class="w">      </span>ACK<span class="o">(</span><span class="m">5</span><span class="o">)</span><span class="w">  </span><span class="m">192</span>.168.2.1<span class="w">     </span><span class="m">00</span>:25:90:D4:CC:F9<span class="w">       </span><span class="m">192</span>.168.2.222<span class="w">           </span>0xF8494A18<span class="w">      </span><span class="m">86400</span>
+<span class="m">1593701250</span><span class="w">      </span>ACK<span class="o">(</span><span class="m">5</span><span class="o">)</span><span class="w">  </span><span class="m">192</span>.168.2.1<span class="w">     </span><span class="m">00</span>:25:90:D4:CC:F9<span class="w">       </span><span class="m">192</span>.168.2.222<span class="w">           </span>0x4EEC7C3B<span class="w">      </span><span class="m">86400</span>
+<span class="m">1593701256</span><span class="w">      </span>ACK<span class="o">(</span><span class="m">5</span><span class="o">)</span><span class="w">  </span><span class="m">192</span>.168.2.1<span class="w">     </span><span class="m">00</span>:25:90:D4:CC:F9<span class="w">       </span><span class="m">192</span>.168.2.222<span class="w">           </span>0xBA0E6A54<span class="w">      </span><span class="m">86400</span>
+</pre></div>
+</div>
+<p>An extra command can be executed every time nProbe ends dumping a directory using option <code class="code docutils literal notranslate"><span class="pre">--dhcp-exec-cmd</span> <span class="pre">&lt;cmd&gt;</span></code>. Command <code class="code docutils literal notranslate"><span class="pre">&lt;cmd&gt;</span></code> is executed using system call <code class="code docutils literal notranslate"><span class="pre">system()</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As this plugin dissects traffic packets, it is only available when nProbe is used in probe mode.</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dns.html" class="btn btn-neutral float-left" title="DNS Plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="export.html" class="btn btn-neutral float-right" title="Export Plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nprobe/plugins/dhcp.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:27 GMT -->
+</html>

@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/interfaces/ntap_interface.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 14:57:45 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.5. Using nTap as Virtual Tap with ntopng &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4. Light View" href="../lightview/index.html" />
+    <link rel="prev" title="3.4. Interfaces Disaggregation" href="dynamic_interfaces_disaggregation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Advanced Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bridging_and_policing.html">1. Bridging and Traffic Policing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ids_acceleration.html">2. IDS Acceleration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">3. Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="packet_vs_zmq.html">3.1. Packet vs ZMQ Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="view_interfaces.html">3.2. View Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interfaces_vs_view_interfaces.html">3.3. Interfaces vs View Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dynamic_interfaces_disaggregation.html">3.4. Interfaces Disaggregation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3.5. Using nTap as Virtual Tap with ntopng</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ntopng-enterprise-l">3.5.1. ntopng Enterprise L</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#all-other-ntopng-editions">3.5.2. All Other ntopng Editions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lightview/index.html">4. Light View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live_pcap_download.html">5. Live Pcap Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deduplication.html">6. Flow Deduplication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../oem.html">7. OEM Customizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snapshots.html">8. Snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../syslog.html">9. Syslog Log Ingestion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clickhouse_timeseries.html">10. ClickHouse Timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../high_resolution_timeseries.html">11. Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets_journal.html">12. Assets Journal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Advanced Features</a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">3. </span>Interfaces</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3.5. </span>Using nTap as Virtual Tap with ntopng</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/advanced_features/interfaces/ntap_interface.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-ntap-as-virtual-tap-with-ntopng">
+<h1><span class="section-number">3.5. </span>Using nTap as Virtual Tap with ntopng<a class="headerlink" href="#using-ntap-as-virtual-tap-with-ntopng" title="Link to this heading"></a></h1>
+<p>Sometimes you need to analyze traffic on a remote host, and NetFlow is not an option. In this case you need to enable a remote span that allows you to capture packets on a remote host and divert them to the host where ntopng runs. This task is usually carried on by a <a class="reference external" href="https://en.wikipedia.org/wiki/Network_tap">virtual tap</a> that is often quite expensive.</p>
+<p>ntop has developed <a class="reference external" href="../../../../products/traffic-analysis/ntap/index.html">nTap</a> that is a software virtual tap, suitable to be deployed in the cloud, in a VM, container or physical host. nTap is logically implemented with two components:</p>
+<ul class="simple">
+<li><p>a remote tap that captures traffic, encrypts it, and sends it to remote collector</p></li>
+<li><p>a central collector application that receives encryoted packets sent by the remote tap(s). The collector is not needed with ntopng Enterprise L as it natively includes nTap collection capabilities.</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../_images/ntap_ntopng.png"><img alt="nTap Integation with ntopng" src="../../_images/ntap_ntopng.png" style="width: 594.6999999999999px; height: 353.4px;" />
+</a>
+</figure>
+<p>A single ntopng instance can collect traffic from multiple remote taps.</p>
+<p>Below you can find a summary of the commands that need to be used in order to collect nTap traffic. All commands need to be started by root or via sudo.</p>
+<section id="ntopng-enterprise-l">
+<h2><span class="section-number">3.5.1. </span>ntopng Enterprise L<a class="headerlink" href="#ntopng-enterprise-l" title="Link to this heading"></a></h2>
+<p>The Enterprise L edition of ntopng has native nTap support meaning that you do not need a nTap license as ntopng embeds the logic present in the nTap collector.</p>
+<p>Suppose to start ntopng on host 1.2.3.4 and let it listen on port 5678, and encrypt traffic with key ‘hello’. You can start the applications as follows:</p>
+<ul class="simple">
+<li><p>[ntopng host] ntopng -i ntap:5678:hello</p></li>
+<li><p>[remote host we want we want to monitor] tap -i eth0 -c 1.2.3.4:5678 -k hello</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to nature of nTap, only one application can collect traffic sent by remote probes. In case of ntopng enterprise L, if you receive traffic with -i ntap:XXX:YYY those packets will be sent only to ntopng. This means that if you also want to enable n2disk/nProbe over ntap, you should start the ntap_collector (a nTap license is needed) and create a virtual ntap0 device to which ntopng, nProbe and n2disk can attach simultaneously.</p>
+</div>
+</section>
+<section id="all-other-ntopng-editions">
+<h2><span class="section-number">3.5.2. </span>All Other ntopng Editions<a class="headerlink" href="#all-other-ntopng-editions" title="Link to this heading"></a></h2>
+<p>All other ntopng versions can collect nTap traffic via the collector component that instead require a separate license:</p>
+<p>Suppose to start ntopng on host 1.2.3.4 and let it listen on port 5678, and encrypt traffic with key ‘hello’. You can start the applications as follows:</p>
+<ul class="simple">
+<li><p>[ntopng host] collector -p 5678 -k hello -i ntap0</p></li>
+<li><p>[ntopng host] ntopng -i ntap0</p></li>
+<li><p>[remote host we want we want to monitor] tap -i eth0 -c 1.2.3.4:5678 -k hello</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dynamic_interfaces_disaggregation.html" class="btn btn-neutral float-left" title="3.4. Interfaces Disaggregation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../lightview/index.html" class="btn btn-neutral float-right" title="4. Light View" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/interfaces/ntap_interface.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:01:45 GMT -->
+</html>

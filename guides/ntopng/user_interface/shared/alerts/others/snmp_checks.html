@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/snmp_checks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:09 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNMP Behavioural Checks &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Flow Behavioural Checks" href="flow_checks.html" />
+    <link rel="prev" title="Local Networks Behavioural Checks" href="local_network_checks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="available_alerts.html">Behavioural Checks</a></li>
+      <li class="breadcrumb-item active">SNMP Behavioural Checks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/user_interface/shared/alerts/others/snmp_checks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="snmp-behavioural-checks">
+<h1>SNMP Behavioural Checks<a class="headerlink" href="#snmp-behavioural-checks" title="Link to this heading"></a></h1>
+<p>These checks are executed after a periodic SNMP poll session, in order to detect relevant changes since the previous SNMP poll</p>
+<hr class="docutils" />
+<section id="duplex-status-change">
+<h2>Duplex Status Change<a class="headerlink" href="#duplex-status-change" title="Link to this heading"></a></h2>
+<p>Check for Duplex Status.</p>
+<p>The term full-duplex describes simultaneous data transmission and receptions over one channel. A full-duplex device is capable of bi-directional network data transmission at the same time.</p>
+<p>Half-duplex devices can only transmit in one direction at one time</p>
+<p>The alert is sent when Duplex status is changed.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="high-interface-discards-errors">
+<h2>High Interface Discards/Errors<a class="headerlink" href="#high-interface-discards-errors" title="Link to this heading"></a></h2>
+<p>Checks for Interface Discards and Errors.</p>
+<p>An interface discard happens when the device has decided to discard a packet for some reasons. It could be a corrupt packet, the device is busy, buffer overflows, packet size issues, or other issues.</p>
+<p>The alert is sent when an interface error is seen.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="interface-errors-exceeded">
+<h2>Interface Errors Exceeded<a class="headerlink" href="#interface-errors-exceeded" title="Link to this heading"></a></h2>
+<p>Checks for Interface Errors.</p>
+<p>An high rate of errors in comparison with packets could represent many issues on a device.</p>
+<p>The alert is sent when the errors counter of an interface exceed 5% of packets.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="lldp-cdp-topology-monitor">
+<h2>LLDP/CDP Topology Monitor<a class="headerlink" href="#lldp-cdp-topology-monitor" title="Link to this heading"></a></h2>
+<p>Checks for changes in the SNMP network topology.</p>
+<p>Mapping network topology helps to keep all the information about the network. Informing about each piece of equipment, how everything is interconnected, including extra details such as IP addresses, traffic speed or volume, or any other configuration parameters.
+A network topology map diagram is also important troubleshooting tool, it can report poor performance between a workstation and a server. The SNMP simple network management protocol or other protocols such as the Cisco Discovery Protocol (CDP) poll the devices and discover their interconnections. This information automatically build a graphical representation of the network, a network topology map.</p>
+<p>Alert is sent when changes in the SNMP network topology are discovered.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="mac-detection-snmp">
+<h2>MAC Detection (SNMP)<a class="headerlink" href="#mac-detection-snmp" title="Link to this heading"></a></h2>
+<p>Checks if a MAC has disappeared/appeared on an interface or device.</p>
+<p>To detect and locate possible unwanted MACs on a device/network.</p>
+<p>Alert is sent when a MAC address appear or disapper from an interface or device.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="mac-port-changed-snmp">
+<h2>MAC Port Changed (SNMP)<a class="headerlink" href="#mac-port-changed-snmp" title="Link to this heading"></a></h2>
+<p>Checks if a MAC has been moved between interfaces or devices.</p>
+<p>If a MAC address is continuously moved between the two interfaces, Layer 2 loops might occur. To detect and locate loops, you can view the MAC address move information. To display the MAC address move records after the device is started, use the display mac-address mac-move command.</p>
+<p>Alert is sent when MAC address moved between interfaces.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="oper-status-change">
+<h2>Oper. Status Change<a class="headerlink" href="#oper-status-change" title="Link to this heading"></a></h2>
+<p>Checks if the operational state of an interface has been changed.</p>
+<p>There are the operational states for an interface:</p>
+<ul class="simple">
+<li><p>Up—Ready to pass packets (if admin status is changed to up, then operational status should change to up if the interface is ready to transmit and receive network traffic).</p></li>
+<li><p>Down—If admin status is down, then operational status should be down</p></li>
+<li><p>Testing—In test mode, no operational packets can be passed</p></li>
+<li><p>Unknown—Status can not be determined for some reason</p></li>
+</ul>
+<p>and few others.</p>
+<p>Alert is sent in case the operational state of an interface changed.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="snmp-device-restart">
+<h2>SNMP Device Restart<a class="headerlink" href="#snmp-device-restart" title="Link to this heading"></a></h2>
+<p>Checks for SNMP device restart.</p>
+<p>An SNMP device is a device that is managed using SNMP. Most common network devices, like routers, switches, firewalls, load balancers, storage devices, UPS devices, and printers, are equipped with SNMP. The vendors preconfigure the SNMP agent, and the admins simply have to enable SNMP to start managing the device.</p>
+<p>When an SNMP agent restarts (for example, after a reboot of the network device), it generally resets all counter variables to zero, and afterwards it may show incorrect values.</p>
+<p>Alert is sent when a restart for an SNMP device has been seen.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="threshold-crossed">
+<h2>Threshold Crossed<a class="headerlink" href="#threshold-crossed" title="Link to this heading"></a></h2>
+<p>Checks for threshold configured in the SNMP Device Rules page.</p>
+<p>Alert is sent when a threshold from one of the devices configured is exceeded.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="too-many-macs-on-non-trunk">
+<h2>Too Many MACs on Non-Trunk<a class="headerlink" href="#too-many-macs-on-non-trunk" title="Link to this heading"></a></h2>
+<p>Checks the number of MACs on a Non-Trunk port.</p>
+<p>An higher number of MACs on a Non-Trunk port could possibly mean that an unwanted MAC connected to the port.</p>
+<p>Alert is sent when the number of MACs detected on a non-trunk port exceeds the configured threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="traffic-change-detected">
+<h2>Traffic Change Detected<a class="headerlink" href="#traffic-change-detected" title="Link to this heading"></a></h2>
+<p>Checks the traffic from an SNMP device.</p>
+<p>No more traffic from an SNMP device could mean that the device is down or some problem arose (likewise a device that abruptly starts sending traffic).</p>
+<p>Alert is sent when a device starts/stops sending traffic.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: SNMP</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="local_network_checks.html" class="btn btn-neutral float-left" title="Local Networks Behavioural Checks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="flow_checks.html" class="btn btn-neutral float-right" title="Flow Behavioural Checks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/snmp_checks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:10 GMT -->
+</html>

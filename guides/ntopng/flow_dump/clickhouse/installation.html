@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/flow_dump/clickhouse/installation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:52:26 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Connect to ClickHouse" href="clickhouse.html" />
+    <link rel="prev" title="ClickHouse (Flow Dump)" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Flows Dump (ClickHouse)</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">ClickHouse (Flow Dump)</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#freebsd-notes">FreeBSD Notes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cluster-configuration">Cluster Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#clickhouse-cloud">ClickHouse Cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#clickhouse-tuning">ClickHouse Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clickhouse.html">Connect to ClickHouse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clickhouse.html#what-s-stored-in-clickhouse">What’s Stored in ClickHouse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clickhouse.html#tls-connection">TLS Connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clickhouse.html#strict-startup">Strict Startup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clickhouse_schema.html">ClickHouse DB Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="historical_flows.html">Historical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reports.html">Traffic Reports</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kafka/index.html">Kafka</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../syslog/index.html">Syslog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Flows Dump (ClickHouse)</a></li>
+          <li class="breadcrumb-item"><a href="index.html">ClickHouse (Flow Dump)</a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/flow_dump/clickhouse/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>In order to install ClickHouse refer to the official <a class="reference external" href="https://clickhouse.com/docs/en/getting-started/quick-start/">guide</a> by useing the following packages:</p>
+<ul class="simple">
+<li><p>Debian/Ubuntu: <a class="reference external" href="https://clickhouse.com/docs/en/install/#install-from-deb-packages">https://clickhouse.com/docs/en/install/#install-from-deb-packages</a></p></li>
+<li><p>RedHat/RockyLinux: <a class="reference external" href="https://clickhouse.com/docs/en/install/#from-rpm-packages">https://clickhouse.com/docs/en/install/#from-rpm-packages</a></p></li>
+<li><p>FreeBSD/Other: <a class="reference external" href="https://clickhouse.com/docs/en/install#quick-install">https://clickhouse.com/docs/en/install#quick-install</a> (read the notes below)</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p>Make sure that ClickHouse <strong>version 22 or newer</strong> is installed. Older versions are not supported as they lack important features such as the MySQL compatibiity layer.</p></li>
+<li><p>In case multiple ntopng instances write to the <strong>same</strong> ClickHouse database they must have different instance names. By default ntopng uses the hostname as instance name, but in case such names are <strong>not unique</strong>, please consider using the <code class="code docutils literal notranslate"><span class="pre">--instance-name</span></code> command line option to set the custom instance name to an unique value for all the ntopng instances writing to the same database.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The ClickHouse database (server) can run anywhere, both locally on the machine running ntopng, or on a remote machine. However, the clickhouse client (<code class="code docutils literal notranslate"><span class="pre">clickhouse</span></code> or <code class="code docutils literal notranslate"><span class="pre">clickhouse-client</span></code>) must always be installed locally as it is used by ntopng to connect to the ClickHouse server.</p>
+</div>
+<section id="freebsd-notes">
+<h2>FreeBSD Notes<a class="headerlink" href="#freebsd-notes" title="Link to this heading"></a></h2>
+<p>On FreeBSD please make sure that the clickhouse binary is placed under /usr/local/bin in order to be detected by ntopng.</p>
+<p>It is possible to download the binary following the instructions available on the official <a class="reference external" href="https://clickhouse.com/docs/en/getting-started/quick-start/">guide</a>, and install it with <code class="code docutils literal notranslate"><span class="pre">./clickhouse</span> <span class="pre">install</span></code> or manually as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>https://clickhouse.com/<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+mv<span class="w"> </span>clickhouse<span class="w"> </span>/usr/local/bin/
+</pre></div>
+</div>
+</section>
+<section id="cluster-configuration">
+<h2>Cluster Configuration<a class="headerlink" href="#cluster-configuration" title="Link to this heading"></a></h2>
+<p>For large deployments or data replication, a cluster is a better option with respect to a stand-alone database deployment. At <a class="reference external" href="https://github.com/ntop/ntopng/tree/dev/clickhouse">this page</a> we share simple configuration notes for deploying a ClickHouse cluster in minutes.</p>
+</section>
+<section id="clickhouse-cloud">
+<h2>ClickHouse Cloud<a class="headerlink" href="#clickhouse-cloud" title="Link to this heading"></a></h2>
+<p>In case instead of ClickHouse Cloud, the configuration is quite simple; after creating the service on ClickHouse Cloud, enable the MySQL Connection from the <cite>Connect</cite> section.
+Then add to the ntopng configuration file the <cite>-F</cite> option correctly configured:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>clickhouse-cloud<span class="p">;</span>&lt;host<span class="o">[</span>@port<span class="o">]</span><span class="p">|</span>socket&gt;<span class="p">;</span>&lt;dbname&gt;<span class="p">;</span>&lt;clickhouse-user&gt;,&lt;mysql-user&gt;<span class="p">;</span>&lt;pw&gt;<span class="p">;</span>&lt;cluster<span class="w"> </span>name&gt;
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./ntopng<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;clickhouse-cloud;my-cloud-host.clickhouse.org@9440,3306s;ntopng;ch-user,mysql-user;ch-password&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <cite>s</cite> after the ports, means to use a secured connection, see for more info.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Even when using ClickHouse Cloud, clickhouse-client is needed in the local machine.</p>
+</div>
+</section>
+</section>
+<section id="clickhouse-tuning">
+<h1>ClickHouse Tuning<a class="headerlink" href="#clickhouse-tuning" title="Link to this heading"></a></h1>
+<p>The defaut ClickHouse service configuration is not optimized in terms of memory and disk utilization.
+In order to reduce utilization of such resources please <a class="reference external" href="https://github.com/ntop/ntopng/blob/dev/doc/README.clickhouse.md">refer to this guide</a>
+that explain in detail how to optimize the database configuration.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="ClickHouse (Flow Dump)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="clickhouse.html" class="btn btn-neutral float-right" title="Connect to ClickHouse" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/flow_dump/clickhouse/installation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:52:27 GMT -->
+</html>

@@ -1,0 +1,755 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/api/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:50:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Documentation &mdash; PF_RING 9.5.0-4814 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. PF_RING Kernel Internal API" href="pfring_k.html" />
+    <link rel="prev" title="Intel Processors" href="../intel.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            PF_RING
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Vanilla PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Copy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (Flow Table)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Sample Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Drivers and Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rss.html">Load Balancing / RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Containers Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">VM Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">IDS/IPSs Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Hugepages Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amd.html">AMD Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Processors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html">1. PF_RING Kernel Internal API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html">2. PF_RING API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html">3. PF_RING ZC API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html">4. PF_RING FT API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libpcap.html">5. Libpcap API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">Crash Debug</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">PF_RING</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-documentation">
+<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pfring_k.html">1. PF_RING Kernel Internal API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv423five_tuple_rule_handler"><code class="docutils literal notranslate"><span class="pre">five_tuple_rule_handler</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv430perfect_filter_hw_rule_handler"><code class="docutils literal notranslate"><span class="pre">perfect_filter_hw_rule_handler</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv418zc_dev_wait_packet"><code class="docutils literal notranslate"><span class="pre">zc_dev_wait_packet</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv413zc_dev_notify"><code class="docutils literal notranslate"><span class="pre">zc_dev_notify</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv415zc_dev_set_time"><code class="docutils literal notranslate"><span class="pre">zc_dev_set_time</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv418zc_dev_adjust_time"><code class="docutils literal notranslate"><span class="pre">zc_dev_adjust_time</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv418zc_dev_get_tx_time"><code class="docutils literal notranslate"><span class="pre">zc_dev_get_tx_time</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv420zc_dev_control_queue"><code class="docutils literal notranslate"><span class="pre">zc_dev_control_queue</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv416zc_dev_get_stats"><code class="docutils literal notranslate"><span class="pre">zc_dev_get_stats</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv414pkt_header_len"><code class="docutils literal notranslate"><span class="pre">pkt_header_len</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv421rule_action_behaviour"><code class="docutils literal notranslate"><span class="pre">rule_action_behaviour</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv415pkt_detail_mode"><code class="docutils literal notranslate"><span class="pre">pkt_detail_mode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv416packet_direction"><code class="docutils literal notranslate"><span class="pre">packet_direction</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv411socket_mode"><code class="docutils literal notranslate"><span class="pre">socket_mode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv428silicom_redirector_rule_type"><code class="docutils literal notranslate"><span class="pre">silicom_redirector_rule_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv427generic_default_action_type"><code class="docutils literal notranslate"><span class="pre">generic_default_action_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv429generic_flow_rule_action_type"><code class="docutils literal notranslate"><span class="pre">generic_flow_rule_action_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv422hw_filtering_rule_type"><code class="docutils literal notranslate"><span class="pre">hw_filtering_rule_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv425hw_filtering_rule_command"><code class="docutils literal notranslate"><span class="pre">hw_filtering_rule_command</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv416zc_dev_operation"><code class="docutils literal notranslate"><span class="pre">zc_dev_operation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv412zc_dev_model"><code class="docutils literal notranslate"><span class="pre">zc_dev_model</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv412cluster_type"><code class="docutils literal notranslate"><span class="pre">cluster_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv418pfring_device_type"><code class="docutils literal notranslate"><span class="pre">pfring_device_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv419cluster_client_type"><code class="docutils literal notranslate"><span class="pre">cluster_client_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410eth_offset"><code class="docutils literal notranslate"><span class="pre">eth_offset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv411vlan_offset"><code class="docutils literal notranslate"><span class="pre">vlan_offset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49l3_offset"><code class="docutils literal notranslate"><span class="pre">l3_offset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49l4_offset"><code class="docutils literal notranslate"><span class="pre">l4_offset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv414payload_offset"><code class="docutils literal notranslate"><span class="pre">payload_offset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49h_vlan_id"><code class="docutils literal notranslate"><span class="pre">h_vlan_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47h_proto"><code class="docutils literal notranslate"><span class="pre">h_proto</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48priority"><code class="docutils literal notranslate"><span class="pre">priority</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47version"><code class="docutils literal notranslate"><span class="pre">version</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48flow_lbl"><code class="docutils literal notranslate"><span class="pre">flow_lbl</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv411payload_len"><code class="docutils literal notranslate"><span class="pre">payload_len</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47nexthdr"><code class="docutils literal notranslate"><span class="pre">nexthdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49hop_limit"><code class="docutils literal notranslate"><span class="pre">hop_limit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv45saddr"><code class="docutils literal notranslate"><span class="pre">saddr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv45daddr"><code class="docutils literal notranslate"><span class="pre">daddr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv46hdrlen"><code class="docutils literal notranslate"><span class="pre">hdrlen</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47padding"><code class="docutils literal notranslate"><span class="pre">padding</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv417flags_and_version"><code class="docutils literal notranslate"><span class="pre">flags_and_version</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv45proto"><code class="docutils literal notranslate"><span class="pre">proto</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv45flags"><code class="docutils literal notranslate"><span class="pre">flags</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv412message_type"><code class="docutils literal notranslate"><span class="pre">message_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv44teid"><code class="docutils literal notranslate"><span class="pre">teid</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47seq_num"><code class="docutils literal notranslate"><span class="pre">seq_num</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48npdu_num"><code class="docutils literal notranslate"><span class="pre">npdu_num</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv412next_ext_hdr"><code class="docutils literal notranslate"><span class="pre">next_ext_hdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv43len"><code class="docutils literal notranslate"><span class="pre">len</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv411next_header"><code class="docutils literal notranslate"><span class="pre">next_header</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48reserved"><code class="docutils literal notranslate"><span class="pre">reserved</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv43gdp"><code class="docutils literal notranslate"><span class="pre">gdp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv43vni"><code class="docutils literal notranslate"><span class="pre">vni</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv43res"><code class="docutils literal notranslate"><span class="pre">res</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv44dmac"><code class="docutils literal notranslate"><span class="pre">dmac</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv44smac"><code class="docutils literal notranslate"><span class="pre">smac</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48eth_type"><code class="docutils literal notranslate"><span class="pre">eth_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47vlan_id"><code class="docutils literal notranslate"><span class="pre">vlan_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv412qinq_vlan_id"><code class="docutils literal notranslate"><span class="pre">qinq_vlan_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410ip_version"><code class="docutils literal notranslate"><span class="pre">ip_version</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48l3_proto"><code class="docutils literal notranslate"><span class="pre">l3_proto</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv46ip_tos"><code class="docutils literal notranslate"><span class="pre">ip_tos</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv46ip_src"><code class="docutils literal notranslate"><span class="pre">ip_src</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv46ip_dst"><code class="docutils literal notranslate"><span class="pre">ip_dst</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv411l4_src_port"><code class="docutils literal notranslate"><span class="pre">l4_src_port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv411l4_dst_port"><code class="docutils literal notranslate"><span class="pre">l4_dst_port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49icmp_type"><code class="docutils literal notranslate"><span class="pre">icmp_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49icmp_code"><code class="docutils literal notranslate"><span class="pre">icmp_code</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47ack_num"><code class="docutils literal notranslate"><span class="pre">ack_num</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv46tunnel"><code class="docutils literal notranslate"><span class="pre">tunnel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv420last_matched_rule_id"><code class="docutils literal notranslate"><span class="pre">last_matched_rule_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv46offset"><code class="docutils literal notranslate"><span class="pre">offset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv412timestamp_ns"><code class="docutils literal notranslate"><span class="pre">timestamp_ns</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv412rx_direction"><code class="docutils literal notranslate"><span class="pre">rx_direction</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47port_id"><code class="docutils literal notranslate"><span class="pre">port_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49device_id"><code class="docutils literal notranslate"><span class="pre">device_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48if_index"><code class="docutils literal notranslate"><span class="pre">if_index</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48pkt_hash"><code class="docutils literal notranslate"><span class="pre">pkt_hash</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv416bounce_interface"><code class="docutils literal notranslate"><span class="pre">bounce_interface</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv43pid"><code class="docutils literal notranslate"><span class="pre">pid</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410parsed_pkt"><code class="docutils literal notranslate"><span class="pre">parsed_pkt</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv42ts"><code class="docutils literal notranslate"><span class="pre">ts</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv46caplen"><code class="docutils literal notranslate"><span class="pre">caplen</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv412extended_hdr"><code class="docutils literal notranslate"><span class="pre">extended_hdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv46tv_sec"><code class="docutils literal notranslate"><span class="pre">tv_sec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47tv_nsec"><code class="docutils literal notranslate"><span class="pre">tv_nsec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv43pfr"><code class="docutils literal notranslate"><span class="pre">pfr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv44rule"><code class="docutils literal notranslate"><span class="pre">rule</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv45match"><code class="docutils literal notranslate"><span class="pre">match</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48filtered"><code class="docutils literal notranslate"><span class="pre">filtered</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv413match_forward"><code class="docutils literal notranslate"><span class="pre">match_forward</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv44next"><code class="docutils literal notranslate"><span class="pre">next</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv411sample_rate"><code class="docutils literal notranslate"><span class="pre">sample_rate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv413min_num_slots"><code class="docutils literal notranslate"><span class="pre">min_num_slots</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48slot_len"><code class="docutils literal notranslate"><span class="pre">slot_len</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48data_len"><code class="docutils literal notranslate"><span class="pre">data_len</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47tot_mem"><code class="docutils literal notranslate"><span class="pre">tot_mem</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410insert_off"><code class="docutils literal notranslate"><span class="pre">insert_off</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv417kernel_remove_off"><code class="docutils literal notranslate"><span class="pre">kernel_remove_off</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48tot_pkts"><code class="docutils literal notranslate"><span class="pre">tot_pkts</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48tot_lost"><code class="docutils literal notranslate"><span class="pre">tot_lost</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410tot_insert"><code class="docutils literal notranslate"><span class="pre">tot_insert</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv415kernel_tot_read"><code class="docutils literal notranslate"><span class="pre">kernel_tot_read</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410tot_fwd_ok"><code class="docutils literal notranslate"><span class="pre">tot_fwd_ok</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv413tot_fwd_notok"><code class="docutils literal notranslate"><span class="pre">tot_fwd_notok</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv413good_pkt_sent"><code class="docutils literal notranslate"><span class="pre">good_pkt_sent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv414pkt_send_error"><code class="docutils literal notranslate"><span class="pre">pkt_send_error</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49k_padding"><code class="docutils literal notranslate"><span class="pre">k_padding</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48tot_read"><code class="docutils literal notranslate"><span class="pre">tot_read</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410remove_off"><code class="docutils literal notranslate"><span class="pre">remove_off</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49u_padding"><code class="docutils literal notranslate"><span class="pre">u_padding</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410cluster_id"><code class="docutils literal notranslate"><span class="pre">cluster_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48queue_id"><code class="docutils literal notranslate"><span class="pre">queue_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47options"><code class="docutils literal notranslate"><span class="pre">options</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv48the_type"><code class="docutils literal notranslate"><span class="pre">the_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49recovered"><code class="docutils literal notranslate"><span class="pre">recovered</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv411object_type"><code class="docutils literal notranslate"><span class="pre">object_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49object_id"><code class="docutils literal notranslate"><span class="pre">object_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49lock_mask"><code class="docutils literal notranslate"><span class="pre">lock_mask</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv411locked_mask"><code class="docutils literal notranslate"><span class="pre">locked_mask</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410pkt_offset"><code class="docutils literal notranslate"><span class="pre">pkt_offset</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv47ip_addr"><code class="docutils literal notranslate"><span class="pre">ip_addr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv412eth_vlan_hdr"><code class="docutils literal notranslate"><span class="pre">eth_vlan_hdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv417kcompact_ipv6_hdr"><code class="docutils literal notranslate"><span class="pre">kcompact_ipv6_hdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv421kcompact_ipv6_opt_hdr"><code class="docutils literal notranslate"><span class="pre">kcompact_ipv6_opt_hdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410gre_header"><code class="docutils literal notranslate"><span class="pre">gre_header</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv410gtp_v1_hdr"><code class="docutils literal notranslate"><span class="pre">gtp_v1_hdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv414gtp_v1_opt_hdr"><code class="docutils literal notranslate"><span class="pre">gtp_v1_opt_hdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv414gtp_v1_ext_hdr"><code class="docutils literal notranslate"><span class="pre">gtp_v1_ext_hdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9tunnel_idE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunnel_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError13tunneled_dmacE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunneled_dmac</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError13tunneled_smacE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunneled_smac</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError17tunneled_eth_typeE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunneled_eth_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError19tunneled_ip_versionE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunneled_ip_version</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError14tunneled_protoE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunneled_proto</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError15tunneled_ip_srcE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunneled_ip_src</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError15tunneled_ip_dstE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunneled_ip_dst</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError20tunneled_l4_src_portE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunneled_l4_src_port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError20tunneled_l4_dst_portE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunneled_l4_dst_port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8if_indexE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::if_index</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError4smacE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::smac</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError4dmacE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dmac</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError7vlan_idE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::vlan_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8eth_typeE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::eth_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError5protoE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::proto</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError5shostE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::shost</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError5dhostE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dhost</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10shost_maskE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::shost_mask</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10dhost_maskE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dhost_mask</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9sport_lowE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::sport_low</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10sport_highE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::sport_high</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9dport_lowE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dport_low</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10dport_highE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dport_high</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError5flagsE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::flags</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError3tcpE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tcp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError15optional_fieldsE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::optional_fields</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6tunnelE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tunnel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError15payload_patternE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::payload_pattern</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError18jiffies_last_matchE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::jiffies_last_match</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError13reflector_devE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::reflector_dev</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError7rule_idE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rule_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11rule_actionE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rule_action</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10balance_idE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::balance_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError12balance_poolE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::balance_pool</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6lockedE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::locked</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError13bidirectionalE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::bidirectional</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11core_fieldsE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::core_fields</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError15extended_fieldsE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::extended_fields</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError21reflector_device_nameE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::reflector_device_name</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9internalsE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::internals</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6s_addrE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::s_addr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6d_addrE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::d_addr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6s_portE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::s_port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6d_portE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::d_port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8queue_idE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::queue_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9rule_typeE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rule_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9rule_portE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rule_port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError16rule_target_portE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rule_target_port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11vlan_id_lowE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::vlan_id_low</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError12vlan_id_highE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::vlan_id_high</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8l3_protoE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::l3_proto</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8src_addrE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::src_addr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8dst_addrE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dst_addr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8src_maskE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::src_mask</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8dst_maskE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dst_mask</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError12src_port_lowE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::src_port_low</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError13src_port_highE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::src_port_high</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError12dst_port_lowE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dst_port_low</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError13dst_port_highE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dst_port_high</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6actionE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::action</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError7flow_idE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::flow_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6threadE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::thread</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6src_ipE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::src_ip</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6dst_ipE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dst_ip</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11src_ip_maskE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::src_ip_mask</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11dst_ip_maskE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dst_ip_mask</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8src_portE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::src_port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8dst_portE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dst_port</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10ip_versionE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::ip_version</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8protocolE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::protocol</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9interfaceE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::interface</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError16rule_family_typeE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rule_family_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8priorityE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::priority</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError15five_tuple_ruleE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::five_tuple_rule</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError12perfect_ruleE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::perfect_rule</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError15redirector_ruleE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::redirector_rule</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError12flow_id_ruleE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::flow_id_rule</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError15flow_tuple_ruleE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::flow_tuple_rule</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11rule_familyE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rule_family</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError5causeE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::cause</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9padding_0E"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::padding_0</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9padding_1E"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::padding_1</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9flags_outE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::flags_out</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8flags_inE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::flags_in</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11packets_outE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::packets_out</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10packets_inE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::packets_in</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9bytes_outE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::bytes_out</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8bytes_inE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::bytes_in</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9last_seenE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::last_seen</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11l4_protocolE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::l4_protocol</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError3tosE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tos</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9tcp_flagsE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tcp_flags</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError13start_of_flowE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::start_of_flow</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8reservedE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::reserved</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11fwd_packetsE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::fwd_packets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11rev_packetsE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rev_packets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9fwd_bytesE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::fwd_bytes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9rev_bytesE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rev_bytes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError12fwd_ts_firstE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::fwd_ts_first</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11fwd_ts_lastE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::fwd_ts_last</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError12rev_ts_firstE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rev_ts_first</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11rev_ts_lastE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rev_ts_last</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError18five_tuple_handlerE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::five_tuple_handler</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError22perfect_filter_handlerE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::perfect_filter_handler</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11host_peer_aE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::host_peer_a</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11host_peer_bE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::host_peer_b</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11port_peer_aE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::port_peer_a</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11port_peer_bE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::port_peer_b</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError5matchE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::match</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8filteredE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::filtered</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError13match_forwardE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::match_forward</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10inactivityE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::inactivity</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11wait_packetE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::wait_packet</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError18usage_notificationE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::usage_notification</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8set_timeE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::set_time</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11adjust_timeE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::adjust_time</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11get_tx_timeE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::get_tx_time</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError13control_queueE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::control_queue</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9get_statsE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::get_stats</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError23packet_memory_num_slotsE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::packet_memory_num_slots</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError22packet_memory_slot_lenE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::packet_memory_slot_len</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError27descr_packet_memory_tot_lenE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::descr_packet_memory_tot_len</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError15registers_indexE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::registers_index</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11stats_indexE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::stats_index</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6vectorE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::vector</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10num_queuesE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::num_queues</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError2rxE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rx</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError2txE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tx</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError20phys_card_memory_lenE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::phys_card_memory_len</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError12device_modelE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::device_model</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError8mem_infoE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::mem_info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10channel_idE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::channel_id</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError22rx_descr_packet_memoryE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rx_descr_packet_memory</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError22tx_descr_packet_memoryE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tx_descr_packet_memory</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError16phys_card_memoryE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::phys_card_memory</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError3devE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::dev</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError5hwdevE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::hwdev</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError14device_addressE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::device_address</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError16packet_waitqueueE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::packet_waitqueue</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError18interrupt_receivedE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::interrupt_received</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError6in_useE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::in_use</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10rx_adapterE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::rx_adapter</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10tx_adapterE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::tx_adapter</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9callbacksE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::callbacks</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError9operationE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::operation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11device_nameE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::device_name</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError11device_typeE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::device_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv4N19PhonyNameDueToError10proc_entryE"><code class="docutils literal notranslate"><span class="pre">PhonyNameDueToError::proc_entry</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv413mobile_ip_hdr"><code class="docutils literal notranslate"><span class="pre">mobile_ip_hdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv49vxlan_hdr"><code class="docutils literal notranslate"><span class="pre">vxlan_hdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv416pkt_parsing_info"><code class="docutils literal notranslate"><span class="pre">pkt_parsing_info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv422pfring_extended_pkthdr"><code class="docutils literal notranslate"><span class="pre">pfring_extended_pkthdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv413pfring_pkthdr"><code class="docutils literal notranslate"><span class="pre">pfring_pkthdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv415pfring_timespec"><code class="docutils literal notranslate"><span class="pre">pfring_timespec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv425_sw_filtering_hash_bucket"><code class="docutils literal notranslate"><span class="pre">_sw_filtering_hash_bucket</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv412flowSlotInfo"><code class="docutils literal notranslate"><span class="pre">flowSlotInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv414add_to_cluster"><code class="docutils literal notranslate"><span class="pre">add_to_cluster</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv427create_cluster_referee_info"><code class="docutils literal notranslate"><span class="pre">create_cluster_referee_info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv426public_cluster_object_info"><code class="docutils literal notranslate"><span class="pre">public_cluster_object_info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_k.html#_CPPv424lock_cluster_object_info"><code class="docutils literal notranslate"><span class="pre">lock_cluster_object_info</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pfring.html">2. PF_RING API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv420pfringProcesssPacket"><code class="docutils literal notranslate"><span class="pre">pfringProcesssPacket</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv46pfring"><code class="docutils literal notranslate"><span class="pre">pfring</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv411pfring_if_t"><code class="docutils literal notranslate"><span class="pre">pfring_if_t</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv414filtering_mode"><code class="docutils literal notranslate"><span class="pre">filtering_mode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv420packet_slicing_level"><code class="docutils literal notranslate"><span class="pre">packet_slicing_level</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv417pfring_chunk_type"><code class="docutils literal notranslate"><span class="pre">pfring_chunk_type</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv411pfring_openPKc9u_int32_t9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_open()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv424pfring_open_multichannelPKc9u_int32_t9u_int32_tA19MAX_NUM_RX_CHANNELS_P6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_open_multichannel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv415pfring_shutdownP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_shutdown()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv413pfring_config7u_short"><code class="docutils literal notranslate"><span class="pre">pfring_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv411pfring_loopP6pfring20pfringProcesssPacketPK6u_char8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_loop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv416pfring_breakloopP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_breakloop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv412pfring_closeP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_close()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv412pfring_statsP6pfringP11pfring_stat"><code class="docutils literal notranslate"><span class="pre">pfring_stats()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv411pfring_recvP6pfringPP6u_char5u_intP13pfring_pkthdr8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_recv()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv417pfring_recv_burstP6pfringP18pfring_packet_info8u_int8_t8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_recv_burst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_recv_parsedP6pfringPP6u_char5u_intP13pfring_pkthdr8u_int8_t8u_int8_t8u_int8_t8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_recv_parsed()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv416pfring_recv_flowP6pfringP18pfring_flow_update8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_recv_flow()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv419pfring_get_metadataP6pfringPP6u_charP9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_get_metadata()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv425pfring_set_poll_watermarkP6pfring9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_poll_watermark()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv433pfring_set_poll_watermark_timeoutP6pfring9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_poll_watermark_timeout()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv424pfring_set_poll_durationP6pfring5u_int"><code class="docutils literal notranslate"><span class="pre">pfring_set_poll_duration()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv423pfring_set_tx_watermarkP6pfring9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_tx_watermark()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv428pfring_set_default_hw_actionP6pfring27generic_default_action_type"><code class="docutils literal notranslate"><span class="pre">pfring_set_default_hw_action()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_add_hw_ruleP6pfringP17hw_filtering_rule"><code class="docutils literal notranslate"><span class="pre">pfring_add_hw_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv421pfring_remove_hw_ruleP6pfring9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_remove_hw_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv421pfring_set_channel_idP6pfring9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_channel_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv423pfring_set_channel_maskP6pfring9u_int64_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_channel_mask()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv427pfring_set_application_nameP6pfringPc"><code class="docutils literal notranslate"><span class="pre">pfring_set_application_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv428pfring_set_application_statsP6pfringPc"><code class="docutils literal notranslate"><span class="pre">pfring_set_application_stats()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv431pfring_get_appl_stats_file_nameP6pfringPc5u_int"><code class="docutils literal notranslate"><span class="pre">pfring_get_appl_stats_file_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_set_vlan_idP6pfring9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_vlan_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv411pfring_bindP6pfringPc"><code class="docutils literal notranslate"><span class="pre">pfring_bind()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv411pfring_sendP6pfringPc5u_int8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_send()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv420pfring_send_get_timeP6pfringPc5u_intP8timespec"><code class="docutils literal notranslate"><span class="pre">pfring_send_get_time()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv426pfring_get_num_rx_channelsP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_get_num_rx_channels()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv424pfring_set_sampling_rateP6pfring9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_sampling_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv434pfring_set_filtering_sampling_rateP6pfring9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_filtering_sampling_rate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv425pfring_set_packet_slicingP6pfring20packet_slicing_level9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_packet_slicing()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv424pfring_get_selectable_fdP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_get_selectable_fd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv420pfring_set_directionP6pfring16packet_direction"><code class="docutils literal notranslate"><span class="pre">pfring_set_direction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv422pfring_set_socket_modeP6pfring11socket_mode"><code class="docutils literal notranslate"><span class="pre">pfring_set_socket_mode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv427pfring_set_cluster_consumerP6pfring9u_int16_t9u_int16_t12cluster_type9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_cluster_consumer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_set_clusterP6pfring5u_int12cluster_type"><code class="docutils literal notranslate"><span class="pre">pfring_set_cluster()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv426pfring_remove_from_clusterP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_remove_from_cluster()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv420pfring_set_master_idP6pfring9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_set_master_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv417pfring_set_masterP6pfringP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_set_master()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_get_ring_idP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_get_ring_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv426pfring_get_num_queued_pktsP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_get_num_queued_pkts()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv433pfring_handle_hash_filtering_ruleP6pfringP19hash_filtering_rule6u_char"><code class="docutils literal notranslate"><span class="pre">pfring_handle_hash_filtering_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv425pfring_add_filtering_ruleP6pfringP14filtering_rule"><code class="docutils literal notranslate"><span class="pre">pfring_add_filtering_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv428pfring_remove_filtering_ruleP6pfring9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_remove_filtering_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv428pfring_purge_idle_hash_rulesP6pfring9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_purge_idle_hash_rules()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv423pfring_purge_idle_rulesP6pfring9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_purge_idle_rules()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv436pfring_get_hash_filtering_rule_statsP6pfringP19hash_filtering_rulePcP5u_int"><code class="docutils literal notranslate"><span class="pre">pfring_get_hash_filtering_rule_stats()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv431pfring_get_filtering_rule_statsP6pfring9u_int16_tPcP5u_int"><code class="docutils literal notranslate"><span class="pre">pfring_get_filtering_rule_stats()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv430pfring_toggle_filtering_policyP6pfring8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_toggle_filtering_policy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv424pfring_enable_rss_rehashP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_enable_rss_rehash()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv411pfring_pollP6pfring5u_int"><code class="docutils literal notranslate"><span class="pre">pfring_poll()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv423pfring_is_pkt_availableP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_is_pkt_available()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv420pfring_next_pkt_timeP6pfringP8timespec"><code class="docutils literal notranslate"><span class="pre">pfring_next_pkt_time()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv429pfring_next_pkt_raw_timestampP6pfringP9u_int64_t"><code class="docutils literal notranslate"><span class="pre">pfring_next_pkt_raw_timestamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv421pfring_version_noringP9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_version_noring()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv414pfring_versionP6pfringP9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_version()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv427pfring_set_reflector_deviceP6pfringPc"><code class="docutils literal notranslate"><span class="pre">pfring_set_reflector_device()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv431pfring_get_bound_device_addressP6pfringAL6E_6u_char"><code class="docutils literal notranslate"><span class="pre">pfring_get_bound_device_address()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv426pfring_get_slot_header_lenP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_get_slot_header_len()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv431pfring_get_bound_device_ifindexP6pfringPi"><code class="docutils literal notranslate"><span class="pre">pfring_get_bound_device_ifindex()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv425pfring_get_device_ifindexP6pfringPcPi"><code class="docutils literal notranslate"><span class="pre">pfring_get_device_ifindex()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv425pfring_set_virtual_deviceP6pfringP29virtual_filtering_device_info"><code class="docutils literal notranslate"><span class="pre">pfring_set_virtual_device()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv420pfring_loopback_testP6pfringPc5u_int5u_int"><code class="docutils literal notranslate"><span class="pre">pfring_loopback_test()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_enable_ringP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_enable_ring()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv419pfring_disable_ringP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_disable_ring()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv421pfring_set_bpf_filterP6pfringPKc"><code class="docutils literal notranslate"><span class="pre">pfring_set_bpf_filter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv424pfring_remove_bpf_filterP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_remove_bpf_filter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv425pfring_set_filtering_modeP6pfring14filtering_mode"><code class="docutils literal notranslate"><span class="pre">pfring_set_filtering_mode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv423pfring_get_device_clockP6pfringP8timespec"><code class="docutils literal notranslate"><span class="pre">pfring_get_device_clock()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv423pfring_set_device_clockP6pfringP8timespec"><code class="docutils literal notranslate"><span class="pre">pfring_set_device_clock()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv426pfring_adjust_device_clockP6pfringP8timespec6int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_adjust_device_clock()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv431pfring_sync_indexes_with_kernelP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_sync_indexes_with_kernel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv426pfring_send_last_rx_packetP6pfringi"><code class="docutils literal notranslate"><span class="pre">pfring_send_last_rx_packet()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv422pfring_get_link_statusP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_get_link_status()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv420pfring_get_link_typeP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_get_link_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv417pfring_get_caplenP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_get_caplen()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv423pfring_flush_tx_packetsP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_flush_tx_packets()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv421pfring_search_payloadP6pfringPc"><code class="docutils literal notranslate"><span class="pre">pfring_search_payload()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv416pfring_parse_pktP6u_charP13pfring_pkthdr8u_int8_t8u_int8_t8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_parse_pkt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv421pfring_set_if_promiscPKci"><code class="docutils literal notranslate"><span class="pre">pfring_set_if_promisc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_set_promiscP6pfringi"><code class="docutils literal notranslate"><span class="pre">pfring_set_promisc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv421pfring_format_numbersdPc5u_int8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_format_numbers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv426pfring_enable_hw_timestampP6pfringPc8u_int8_t8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_enable_hw_timestamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv419pfring_get_mtu_sizeP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_get_mtu_size()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv424pfring_get_card_settingsP6pfringP20pfring_card_settings"><code class="docutils literal notranslate"><span class="pre">pfring_get_card_settings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv423pfring_print_parsed_pktPc5u_intPK6u_charPK13pfring_pkthdr"><code class="docutils literal notranslate"><span class="pre">pfring_print_parsed_pkt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv416pfring_print_pktPc5u_intPK6u_char5u_int5u_int"><code class="docutils literal notranslate"><span class="pre">pfring_print_pkt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv417pfring_recv_chunkP6pfringPPvP17pfring_chunk_info8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_recv_chunk()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv425pfring_set_bound_dev_nameP6pfringPc"><code class="docutils literal notranslate"><span class="pre">pfring_set_bound_dev_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv432pfring_enable_hw_timestamp_debugv"><code class="docutils literal notranslate"><span class="pre">pfring_enable_hw_timestamp_debug()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv429pfring_read_ixia_hw_timestampP6u_char9u_int32_tP8timespec"><code class="docutils literal notranslate"><span class="pre">pfring_read_ixia_hw_timestamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv431pfring_handle_ixia_hw_timestampP6u_charP13pfring_pkthdr"><code class="docutils literal notranslate"><span class="pre">pfring_handle_ixia_hw_timestamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv434pfring_read_metawatch_hw_timestampP6u_char9u_int32_tP8timespec"><code class="docutils literal notranslate"><span class="pre">pfring_read_metawatch_hw_timestamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv433pfring_read_metawatch_device_infoP6u_char9u_int32_tP9u_int16_tP8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_read_metawatch_device_info()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv436pfring_handle_metawatch_hw_timestampP6u_charP13pfring_pkthdr"><code class="docutils literal notranslate"><span class="pre">pfring_handle_metawatch_hw_timestamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv432pfring_read_arista_7150_keyframeP6u_char9u_int32_tP9u_int64_tP9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_read_arista_7150_keyframe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv436pfring_read_arista_7150_hw_timestampP6u_char9u_int32_tP9u_int64_t"><code class="docutils literal notranslate"><span class="pre">pfring_read_arista_7150_hw_timestamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv433pfring_handle_arista_hw_timestampP6u_charP13pfring_pkthdr"><code class="docutils literal notranslate"><span class="pre">pfring_handle_arista_hw_timestamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv426pfring_get_interface_speedP6pfring"><code class="docutils literal notranslate"><span class="pre">pfring_get_interface_speed()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv429pfring_get_ethtool_link_speedPKc"><code class="docutils literal notranslate"><span class="pre">pfring_get_ethtool_link_speed()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_findalldevsv"><code class="docutils literal notranslate"><span class="pre">pfring_findalldevs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_freealldevsP11pfring_if_t"><code class="docutils literal notranslate"><span class="pre">pfring_freealldevs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv423pfring_is_module_prefixPKc"><code class="docutils literal notranslate"><span class="pre">pfring_is_module_prefix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv423pfring_parse_bpf_filterPKc5u_intP18pfring_bpf_program"><code class="docutils literal notranslate"><span class="pre">pfring_parse_bpf_filter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv422pfring_free_bpf_filterP18pfring_bpf_program"><code class="docutils literal notranslate"><span class="pre">pfring_free_bpf_filter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv417pfring_bpf_filterPvP6u_char9u_int32_t9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_bpf_filter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv412gmt_to_local6time_t"><code class="docutils literal notranslate"><span class="pre">gmt_to_local()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv426pfring_thirdparty_lib_initPKcA_15thirdparty_func"><code class="docutils literal notranslate"><span class="pre">pfring_thirdparty_lib_init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv420pfring_card_settings"><code class="docutils literal notranslate"><span class="pre">pfring_card_settings</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv411pfring_stat"><code class="docutils literal notranslate"><span class="pre">pfring_stat</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv417pfring_chunk_info"><code class="docutils literal notranslate"><span class="pre">pfring_chunk_info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_packet_info"><code class="docutils literal notranslate"><span class="pre">pfring_packet_info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_bpf_program"><code class="docutils literal notranslate"><span class="pre">pfring_bpf_program</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv49pfring_if"><code class="docutils literal notranslate"><span class="pre">pfring_if</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv48__pfring"><code class="docutils literal notranslate"><span class="pre">__pfring</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv418pfring_module_info"><code class="docutils literal notranslate"><span class="pre">pfring_module_info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring.html#_CPPv415thirdparty_func"><code class="docutils literal notranslate"><span class="pre">thirdparty_func</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pfring_zc.html">3. PF_RING ZC API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv417pfring_zc_cluster"><code class="docutils literal notranslate"><span class="pre">pfring_zc_cluster</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv415pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_queue</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv421pfring_zc_buffer_pool"><code class="docutils literal notranslate"><span class="pre">pfring_zc_buffer_pool</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv416pfring_zc_worker"><code class="docutils literal notranslate"><span class="pre">pfring_zc_worker</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv421pfring_zc_multi_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_multi_queue</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_filtering_func"><code class="docutils literal notranslate"><span class="pre">pfring_zc_filtering_func</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv427pfring_zc_distribution_func"><code class="docutils literal notranslate"><span class="pre">pfring_zc_distribution_func</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv430pfring_zc_distribution_func_v3"><code class="docutils literal notranslate"><span class="pre">pfring_zc_distribution_func_v3</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv423pfring_zc_idle_callback"><code class="docutils literal notranslate"><span class="pre">pfring_zc_idle_callback</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv420pfring_zc_queue_mode"><code class="docutils literal notranslate"><span class="pre">pfring_zc_queue_mode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv421pfring_zc_recv_policy"><code class="docutils literal notranslate"><span class="pre">pfring_zc_recv_policy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv423pfring_zc_pkt_buff_dataP18pfring_zc_pkt_buffP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_pkt_buff_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv436pfring_zc_pkt_buff_data_from_clusterP18pfring_zc_pkt_buffP17pfring_zc_cluster"><code class="docutils literal notranslate"><span class="pre">pfring_zc_pkt_buff_data_from_cluster()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv423pfring_zc_pkt_data_buffP6u_charP17pfring_zc_cluster"><code class="docutils literal notranslate"><span class="pre">pfring_zc_pkt_data_buff()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv423pfring_zc_pkt_buff_pullP18pfring_zc_pkt_buffP15pfring_zc_queue9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_pkt_buff_pull()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv423pfring_zc_pkt_buff_pushP18pfring_zc_pkt_buffP15pfring_zc_queue9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_pkt_buff_push()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv428pfring_zc_pkt_buff_pull_onlyP18pfring_zc_pkt_buff9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_pkt_buff_pull_only()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_create_cluster9u_int32_t9u_int32_t9u_int32_t9u_int32_t7int32_tPKc9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_create_cluster()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv437pfring_zc_precompute_cluster_settingsP22pfring_zc_cluster_info9u_int32_t9u_int32_t9u_int32_t9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_precompute_cluster_settings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv425pfring_zc_get_memory_infoP17pfring_zc_clusterP26pfring_zc_cluster_mem_info"><code class="docutils literal notranslate"><span class="pre">pfring_zc_get_memory_info()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_get_cluster_idP17pfring_zc_cluster"><code class="docutils literal notranslate"><span class="pre">pfring_zc_get_cluster_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv425pfring_zc_destroy_clusterP17pfring_zc_cluster"><code class="docutils literal notranslate"><span class="pre">pfring_zc_destroy_cluster()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv421pfring_zc_open_deviceP17pfring_zc_clusterPKc20pfring_zc_queue_mode9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_open_device()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv422pfring_zc_create_queueP17pfring_zc_cluster9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_create_queue()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv432pfring_zc_create_queue_pool_pairP17pfring_zc_cluster9u_int32_t9u_int32_tPP15pfring_zc_queuePP21pfring_zc_buffer_pool"><code class="docutils literal notranslate"><span class="pre">pfring_zc_create_queue_pool_pair()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv422pfring_zc_close_deviceP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_close_device()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv418pfring_zc_recv_pktP15pfring_zc_queuePP18pfring_zc_pkt_buff8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_recv_pkt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_recv_pkt_burstP15pfring_zc_queuePP18pfring_zc_pkt_buff9u_int32_t8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_recv_pkt_burst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_queue_is_emptyP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_queue_is_empty()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv425pfring_zc_queue_breakloopP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_queue_breakloop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv418pfring_zc_send_pktP15pfring_zc_queuePP18pfring_zc_pkt_buff8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_send_pkt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv427pfring_zc_send_pkt_get_timeP15pfring_zc_queuePP18pfring_zc_pkt_buff8u_int8_tP8timespec"><code class="docutils literal notranslate"><span class="pre">pfring_zc_send_pkt_get_time()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_send_pkt_burstP15pfring_zc_queuePP18pfring_zc_pkt_buff9u_int32_t8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_send_pkt_burst()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv423pfring_zc_queue_is_fullP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_queue_is_full()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv420pfring_zc_sync_queueP15pfring_zc_queue20pfring_zc_queue_mode"><code class="docutils literal notranslate"><span class="pre">pfring_zc_sync_queue()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv426pfring_zc_get_device_clockP15pfring_zc_queueP8timespec"><code class="docutils literal notranslate"><span class="pre">pfring_zc_get_device_clock()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv426pfring_zc_set_device_clockP15pfring_zc_queueP8timespec"><code class="docutils literal notranslate"><span class="pre">pfring_zc_set_device_clock()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv429pfring_zc_adjust_device_clockP15pfring_zc_queueP8timespec6int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_adjust_device_clock()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_set_bpf_filterP15pfring_zc_queuePKc"><code class="docutils literal notranslate"><span class="pre">pfring_zc_set_bpf_filter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv427pfring_zc_remove_bpf_filterP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_remove_bpf_filter()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv421pfring_zc_add_hw_ruleP15pfring_zc_queueP17hw_filtering_rule"><code class="docutils literal notranslate"><span class="pre">pfring_zc_add_hw_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_remove_hw_ruleP15pfring_zc_queue9u_int16_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_remove_hw_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_set_rxfh_indirP15pfring_zc_queueP8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_set_rxfh_indir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv422pfring_zc_get_queue_idP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_get_queue_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv428pfring_zc_get_queue_settingsP15pfring_zc_queueP20pfring_zc_queue_info"><code class="docutils literal notranslate"><span class="pre">pfring_zc_get_queue_settings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv425pfring_zc_get_queue_speedP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_get_queue_speed()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv429pfring_zc_get_num_rx_channelsP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_get_num_rx_channels()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv415pfring_zc_statsP15pfring_zc_queueP14pfring_zc_stat"><code class="docutils literal notranslate"><span class="pre">pfring_zc_stats()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv427pfring_zc_get_packet_handleP17pfring_zc_cluster"><code class="docutils literal notranslate"><span class="pre">pfring_zc_get_packet_handle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv431pfring_zc_release_packet_handleP17pfring_zc_clusterP18pfring_zc_pkt_buff"><code class="docutils literal notranslate"><span class="pre">pfring_zc_release_packet_handle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv428pfring_zc_create_multi_queueA_P15pfring_zc_queue9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_create_multi_queue()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_send_pkt_multiP21pfring_zc_multi_queuePP18pfring_zc_pkt_buff9u_int64_t8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_send_pkt_multi()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv427pfring_zc_send_pkt_multi_v3P21pfring_zc_multi_queuePP18pfring_zc_pkt_buff10__int128_t8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_send_pkt_multi_v3()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv425pfring_zc_run_balancer_v2A_P15pfring_zc_queueA_P15pfring_zc_queue9u_int32_t9u_int32_tP21pfring_zc_buffer_pool21pfring_zc_recv_policy23pfring_zc_idle_callback24pfring_zc_filtering_funcPv27pfring_zc_distribution_funcPv9u_int32_t7int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_run_balancer_v2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv422pfring_zc_run_balancerA_P15pfring_zc_queueA_P15pfring_zc_queue9u_int32_t9u_int32_tP21pfring_zc_buffer_pool21pfring_zc_recv_policy23pfring_zc_idle_callback27pfring_zc_distribution_funcPv9u_int32_t7int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_run_balancer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv423pfring_zc_run_fanout_v3A_P15pfring_zc_queueP21pfring_zc_multi_queue9u_int32_tP21pfring_zc_buffer_pool21pfring_zc_recv_policy23pfring_zc_idle_callback24pfring_zc_filtering_funcPv30pfring_zc_distribution_func_v3Pv9u_int32_t7int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_run_fanout_v3()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv423pfring_zc_run_fanout_v2A_P15pfring_zc_queueP21pfring_zc_multi_queue9u_int32_tP21pfring_zc_buffer_pool21pfring_zc_recv_policy23pfring_zc_idle_callback24pfring_zc_filtering_funcPv27pfring_zc_distribution_funcPv9u_int32_t7int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_run_fanout_v2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv420pfring_zc_run_fanoutA_P15pfring_zc_queueP21pfring_zc_multi_queue9u_int32_tP21pfring_zc_buffer_pool21pfring_zc_recv_policy23pfring_zc_idle_callback27pfring_zc_distribution_funcPv9u_int32_t7int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_run_fanout()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv418pfring_zc_run_fifoA_P15pfring_zc_queueP15pfring_zc_queue9u_int32_tP21pfring_zc_buffer_pool23pfring_zc_idle_callback27pfring_zc_distribution_funcPv9u_int32_t7int32_t7int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_run_fifo()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv421pfring_zc_kill_workerP16pfring_zc_worker"><code class="docutils literal notranslate"><span class="pre">pfring_zc_kill_worker()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv428pfring_zc_create_buffer_poolP17pfring_zc_cluster9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_create_buffer_pool()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv421pfring_zc_get_pool_idP21pfring_zc_buffer_pool"><code class="docutils literal notranslate"><span class="pre">pfring_zc_get_pool_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv437pfring_zc_get_packet_handle_from_poolP21pfring_zc_buffer_pool"><code class="docutils literal notranslate"><span class="pre">pfring_zc_get_packet_handle_from_pool()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv439pfring_zc_release_packet_handle_to_poolP21pfring_zc_buffer_poolP18pfring_zc_pkt_buff"><code class="docutils literal notranslate"><span class="pre">pfring_zc_release_packet_handle_to_pool()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv418pfring_zc_ipc_initPKc"><code class="docutils literal notranslate"><span class="pre">pfring_zc_ipc_init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv432pfring_zc_ipc_attach_buffer_pool9u_int32_t9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_ipc_attach_buffer_pool()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv432pfring_zc_ipc_detach_buffer_poolP21pfring_zc_buffer_pool"><code class="docutils literal notranslate"><span class="pre">pfring_zc_ipc_detach_buffer_pool()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv426pfring_zc_ipc_attach_queue9u_int32_t9u_int32_t20pfring_zc_queue_mode"><code class="docutils literal notranslate"><span class="pre">pfring_zc_ipc_attach_queue()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv426pfring_zc_ipc_detach_queueP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_ipc_detach_queue()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv426pfring_zc_ipc_queue_in_use9u_int32_t9u_int32_t20pfring_zc_queue_mode"><code class="docutils literal notranslate"><span class="pre">pfring_zc_ipc_queue_in_use()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv439pfring_zc_ipc_queue_in_use_from_clusterP17pfring_zc_cluster9u_int32_t20pfring_zc_queue_mode"><code class="docutils literal notranslate"><span class="pre">pfring_zc_ipc_queue_in_use_from_cluster()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv437pfring_zc_ipc_queue_in_use_from_queueP15pfring_zc_queue20pfring_zc_queue_mode"><code class="docutils literal notranslate"><span class="pre">pfring_zc_ipc_queue_in_use_from_queue()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv421pfring_zc_vm_registerP17pfring_zc_clusterPKc"><code class="docutils literal notranslate"><span class="pre">pfring_zc_vm_register()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv427pfring_zc_vm_backend_enableP17pfring_zc_cluster"><code class="docutils literal notranslate"><span class="pre">pfring_zc_vm_backend_enable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv423pfring_zc_vm_guest_initPKc"><code class="docutils literal notranslate"><span class="pre">pfring_zc_vm_guest_init()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv425pfring_zc_builtin_ip_hashP18pfring_zc_pkt_buffP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_builtin_ip_hash()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv429pfring_zc_builtin_5tuple_hashP18pfring_zc_pkt_buffP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_builtin_5tuple_hash()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv426pfring_zc_builtin_gtp_hashP18pfring_zc_pkt_buffP15pfring_zc_queueP9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_builtin_gtp_hash()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv426pfring_zc_builtin_gre_hashP18pfring_zc_pkt_buffP15pfring_zc_queue"><code class="docutils literal notranslate"><span class="pre">pfring_zc_builtin_gre_hash()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv424pfring_zc_set_proc_statsP17pfring_zc_clusterPc"><code class="docutils literal notranslate"><span class="pre">pfring_zc_set_proc_stats()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv422pfring_zc_set_app_nameP17pfring_zc_clusterPKc"><code class="docutils literal notranslate"><span class="pre">pfring_zc_set_app_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv431pfring_zc_set_device_proc_statsP15pfring_zc_queuePKc"><code class="docutils literal notranslate"><span class="pre">pfring_zc_set_device_proc_stats()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv429pfring_zc_set_device_app_nameP15pfring_zc_queuePKc"><code class="docutils literal notranslate"><span class="pre">pfring_zc_set_device_app_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv417pfring_zc_versionv"><code class="docutils literal notranslate"><span class="pre">pfring_zc_version()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv423pfring_zc_check_licensev"><code class="docutils literal notranslate"><span class="pre">pfring_zc_check_license()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv430pfring_zc_check_device_licenseP15pfring_zc_queueP9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_check_device_license()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv438pfring_zc_check_device_license_by_namePcP9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_zc_check_device_license_by_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv427pfring_zc_numa_get_cpu_nodei"><code class="docutils literal notranslate"><span class="pre">pfring_zc_numa_get_cpu_node()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv432pfring_zc_numa_set_numa_affinityi"><code class="docutils literal notranslate"><span class="pre">pfring_zc_numa_set_numa_affinity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv415pfring_zc_debugv"><code class="docutils literal notranslate"><span class="pre">pfring_zc_debug()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv414pfring_zc_stat"><code class="docutils literal notranslate"><span class="pre">pfring_zc_stat</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv418pfring_zc_timespec"><code class="docutils literal notranslate"><span class="pre">pfring_zc_timespec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv418pfring_zc_pkt_buff"><code class="docutils literal notranslate"><span class="pre">pfring_zc_pkt_buff</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv420pfring_zc_queue_info"><code class="docutils literal notranslate"><span class="pre">pfring_zc_queue_info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv422pfring_zc_cluster_info"><code class="docutils literal notranslate"><span class="pre">pfring_zc_cluster_info</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_zc.html#_CPPv426pfring_zc_cluster_mem_info"><code class="docutils literal notranslate"><span class="pre">pfring_zc_cluster_mem_info</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pfring_ft.html">4. PF_RING FT API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv415pfring_ft_table"><code class="docutils literal notranslate"><span class="pre">pfring_ft_table</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv414pfring_ft_list"><code class="docutils literal notranslate"><span class="pre">pfring_ft_list</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv414pfring_ft_flow"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv416pfring_ft_action"><code class="docutils literal notranslate"><span class="pre">pfring_ft_action</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv418pfring_ft_in4_addr"><code class="docutils literal notranslate"><span class="pre">pfring_ft_in4_addr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv426pfring_ft_export_list_func"><code class="docutils literal notranslate"><span class="pre">pfring_ft_export_list_func</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv426pfring_ft_export_flow_func"><code class="docutils literal notranslate"><span class="pre">pfring_ft_export_flow_func</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv426pfring_ft_flow_packet_func"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_packet_func</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv419pfring_ft_direction"><code class="docutils literal notranslate"><span class="pre">pfring_ft_direction</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv421pfring_ft_flow_status"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_status</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv422pfring_ft_create_table9u_int32_t9u_int32_t9u_int32_t9u_int32_t9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_ft_create_table()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv423pfring_ft_destroy_tableP15pfring_ft_table"><code class="docutils literal notranslate"><span class="pre">pfring_ft_destroy_table()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv431pfring_ft_flow_set_flow_slicingP15pfring_ft_table9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_set_flow_slicing()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv431pfring_ft_set_new_flow_callbackP15pfring_ft_table26pfring_ft_export_flow_funcPv"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_new_flow_callback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv434pfring_ft_set_flow_packet_callbackP15pfring_ft_table26pfring_ft_flow_packet_funcPv"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_flow_packet_callback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv434pfring_ft_set_l7_detected_callbackP15pfring_ft_table26pfring_ft_flow_packet_funcPv"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_l7_detected_callback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv434pfring_ft_set_flow_export_callbackP15pfring_ft_table26pfring_ft_export_flow_funcPv"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_flow_export_callback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv439pfring_ft_set_flow_list_export_callbackP15pfring_ft_table26pfring_ft_export_list_funcPv"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_flow_list_export_callback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv417pfring_ft_processP15pfring_ft_tablePK6u_charPK21pfring_ft_pcap_pkthdrPK20pfring_ft_ext_pkthdr"><code class="docutils literal notranslate"><span class="pre">pfring_ft_process()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv422pfring_ft_housekeepingP15pfring_ft_table9u_int32_t"><code class="docutils literal notranslate"><span class="pre">pfring_ft_housekeeping()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv415pfring_ft_flushP15pfring_ft_table"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flush()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv423pfring_ft_list_get_nextP14pfring_ft_list"><code class="docutils literal notranslate"><span class="pre">pfring_ft_list_get_next()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv421pfring_ft_flow_get_idP14pfring_ft_flow"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_get_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv422pfring_ft_flow_get_keyP14pfring_ft_flow"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_get_key()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv424pfring_ft_flow_get_valueP14pfring_ft_flow"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_get_value()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv430pfring_ft_flow_get_ndpi_handleP14pfring_ft_flow"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_get_ndpi_handle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv425pfring_ft_flow_set_actionP14pfring_ft_flow16pfring_ft_action"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_set_action()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv425pfring_ft_flow_get_actionP14pfring_ft_flow"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_get_action()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv424pfring_ft_flow_get_usersP14pfring_ft_flow"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_get_users()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv419pfring_ft_flow_freeP14pfring_ft_flow"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_free()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv430pfring_ft_zmq_export_configureP15pfring_ft_tablePKcPKc8u_int8_t8u_int8_t8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_ft_zmq_export_configure()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv425pfring_ft_zmq_export_flowP14pfring_ft_flowPv"><code class="docutils literal notranslate"><span class="pre">pfring_ft_zmq_export_flow()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv426pfring_ft_zmq_export_statsP15pfring_ft_tablePKc9u_int16_tPKcPKc"><code class="docutils literal notranslate"><span class="pre">pfring_ft_zmq_export_stats()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv423pfring_ft_zmq_get_statsP15pfring_ft_tableP22pfring_ft_export_stats"><code class="docutils literal notranslate"><span class="pre">pfring_ft_zmq_get_stats()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv428pfring_ft_set_default_actionP15pfring_ft_table16pfring_ft_action"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_default_action()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv428pfring_ft_load_configurationP15pfring_ft_tablePKc"><code class="docutils literal notranslate"><span class="pre">pfring_ft_load_configuration()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv432pfring_ft_load_configuration_extP15pfring_ft_tablePKcP21pfring_ft_flow_filter"><code class="docutils literal notranslate"><span class="pre">pfring_ft_load_configuration_ext()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv436pfring_ft_set_shunt_protocol_by_nameP15pfring_ft_tablePKc8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_shunt_protocol_by_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv434pfring_ft_set_filter_all_protocolsP15pfring_ft_table16pfring_ft_action"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_filter_all_protocols()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv437pfring_ft_set_filter_protocol_by_nameP15pfring_ft_tablePKc16pfring_ft_action"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_filter_protocol_by_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv436pfring_ft_set_shunt_category_by_nameP15pfring_ft_tablePKc8u_int8_t"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_shunt_category_by_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv435pfring_ft_set_filter_all_categoriesP15pfring_ft_table16pfring_ft_action"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_filter_all_categories()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv437pfring_ft_set_filter_category_by_nameP15pfring_ft_tablePKc16pfring_ft_action"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_filter_category_by_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv423pfring_ft_category_nameP15pfring_ft_tableiPci"><code class="docutils literal notranslate"><span class="pre">pfring_ft_category_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv421pfring_ft_category_idP15pfring_ft_tablePKc"><code class="docutils literal notranslate"><span class="pre">pfring_ft_category_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv426pfring_ft_l7_protocol_nameP15pfring_ft_tableP23pfring_ft_ndpi_protocolPci"><code class="docutils literal notranslate"><span class="pre">pfring_ft_l7_protocol_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv424pfring_ft_l7_protocol_idP15pfring_ft_tablePKc"><code class="docutils literal notranslate"><span class="pre">pfring_ft_l7_protocol_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv425pfring_ft_set_ndpi_handleP15pfring_ft_tableP28ndpi_detection_module_struct"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_ndpi_handle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv425pfring_ft_get_ndpi_handleP15pfring_ft_table"><code class="docutils literal notranslate"><span class="pre">pfring_ft_get_ndpi_handle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv429pfring_ft_load_ndpi_protocolsP15pfring_ft_tablePKc"><code class="docutils literal notranslate"><span class="pre">pfring_ft_load_ndpi_protocols()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv430pfring_ft_load_ndpi_categoriesP15pfring_ft_tablePKc"><code class="docutils literal notranslate"><span class="pre">pfring_ft_load_ndpi_categories()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv427pfring_ft_is_ndpi_availablev"><code class="docutils literal notranslate"><span class="pre">pfring_ft_is_ndpi_available()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv419pfring_ft_get_statsP15pfring_ft_table"><code class="docutils literal notranslate"><span class="pre">pfring_ft_get_stats()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv417pfring_ft_versionPc"><code class="docutils literal notranslate"><span class="pre">pfring_ft_version()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv421pfring_ft_api_versionv"><code class="docutils literal notranslate"><span class="pre">pfring_ft_api_version()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv417pfring_ft_licensePcP6time_tP6time_t"><code class="docutils literal notranslate"><span class="pre">pfring_ft_license()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv421pfring_ft_set_licensePKc"><code class="docutils literal notranslate"><span class="pre">pfring_ft_set_license()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv415pfring_ft_debugv"><code class="docutils literal notranslate"><span class="pre">pfring_ft_debug()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv421pfring_ft_flow_filter"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_filter</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv421pfring_ft_pcap_pkthdr"><code class="docutils literal notranslate"><span class="pre">pfring_ft_pcap_pkthdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv420pfring_ft_ext_pkthdr"><code class="docutils literal notranslate"><span class="pre">pfring_ft_ext_pkthdr</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv425pfring_ft_packet_metadata"><code class="docutils literal notranslate"><span class="pre">pfring_ft_packet_metadata</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv420pfring_ft_ip_address"><code class="docutils literal notranslate"><span class="pre">pfring_ft_ip_address</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv423pfring_ft_ndpi_protocol"><code class="docutils literal notranslate"><span class="pre">pfring_ft_ndpi_protocol</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv418pfring_ft_flow_key"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_key</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv424pfring_ft_flow_dir_value"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_dir_value</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv420pfring_ft_flow_value"><code class="docutils literal notranslate"><span class="pre">pfring_ft_flow_value</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv415pfring_ft_stats"><code class="docutils literal notranslate"><span class="pre">pfring_ft_stats</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfring_ft.html#_CPPv422pfring_ft_export_stats"><code class="docutils literal notranslate"><span class="pre">pfring_ft_export_stats</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="libpcap.html">5. Libpcap API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="libpcap.html#api-extensions">5.1. API Extensions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../intel.html" class="btn btn-neutral float-left" title="Intel Processors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pfring_k.html" class="btn btn-neutral float-right" title="1. PF_RING Kernel Internal API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/api/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:50:40 GMT -->
+</html>

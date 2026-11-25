@@ -1,0 +1,1866 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>ntop</title>
+	<atom:link href="https://www.ntop.org/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Tue, 10 Nov 2026 08:06:11 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>ntop</title>
+	<link>https://www.ntop.org/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Sharkfest 26EU: HowTo Detect Stealth VPN and AI Inference Traffic</title>
+		<link>https://www.ntop.org/sharkfest-26eu-howto-detect-stealth-vpn-and-ai-inference-traffic/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sat, 07 Nov 2026 16:56:21 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=47415</guid>
+
+					<description><![CDATA[<p>Earlier this week we have presented at Sharkfest Europe 2026 a presentation of our work about traffic detection of Stealth VPNs and AI Inference. The presentation addresses the challenges of detecting modern obfuscated network traffic, specifically from stealth VPNs and custom/local artificial intelligence (AI) services. While traditional signature methods (like JA4) face instability and hash collisions, the [&#8230;]</p>
+<p>The post <a href="https://www.ntop.org/sharkfest-26eu-howto-detect-stealth-vpn-and-ai-inference-traffic/">Sharkfest 26EU: HowTo Detect Stealth VPN and AI Inference Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="47415" class="elementor elementor-47415">
+				<div class="elementor-element elementor-element-7cee628a e-flex e-con-boxed e-con e-parent" data-id="7cee628a" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-527d1950 elementor-widget elementor-widget-text-editor" data-id="527d1950" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									
+<p class="wp-block-paragraph">Earlier this week we have presented at <a href="https://sharkfest.wireshark.org/sfeu/agenda/">Sharkfest Europe 2026</a> a presentation of our work about traffic detection of Stealth VPNs and AI Inference. The presentation addresses the challenges of detecting modern obfuscated network traffic, specifically from stealth VPNs and custom/local artificial intelligence (AI) services. While traditional signature methods (like JA4) face instability and hash collisions, the presenters introduce a breakthrough data-driven approach using machine learning and AI transformers (specifically a &#8220;Context Transformer&#8221;<strong>)</strong> to identify traffic patterns accurately without decrypting payloads.</p>
+
+<h6 class="wp-block-heading">Part I: Introduction to Passive Traffic Fingerprinting</h6>
+
+<ul class="wp-block-list">
+<li>Network Fingerprinting: Extracting unique, observable characteristics from standard protocols (TCP, IP, TLS) to passively identify a specific device, operating system, or network protocol without altering traffic.</li>
+
+<li>Active vs. Passive Probing:
+<ul class="wp-block-list">
+<li>Passive: Invisible, zero overhead, ideal for fragile environments (OT/medical devices), but dependent on active traffic flow.</li>
+
+<li>Active: Triggers packets to force a response (e.g., <code>nmap</code>, <code>JARM</code>), offering high accuracy but risking disruption or firewall detection.</li>
+</ul>
+</li>
+
+<li>IP Stack Elements: Security tools look at headers such as Time-To-Live (TTL), initial TCP Window Sizes, and the wire-order of TCP Options to fingerprint operating systems.</li>
+
+<li>The Encryption Paradox: While encryption hides raw payload data, the unencrypted handshake negotiations (Cipher Suites and TLS Extensions) provide rich criteria to generate application-level signatures like JA4.</li>
+</ul>
+<hr class="wp-block-separator has-alpha-channel-opacity" />
+<h6 class="wp-block-heading">Part II: Stealth VPN and AI Traffic Analysis</h6>
+
+<ul class="wp-block-list">
+<li>What is a Stealth VPN?: A service that actively modifies or strips handshake signatures and routes over regular web ports (like Port 443 or Port 80) to disguise VPN usage as ordinary HTTPS web browsing.</li>
+
+<li>The Limitation of JA4: The presenters discovered that JA4 hashes are unstable on a single device across multiple connections and can experience massive hash collisions with highly popular, benign traffic (e.g., standard Google Android services). This creates massive false-positive risks if used for active traffic blocking.</li>
+
+<li>The nDPI TLS Fingerprint: As a workaround, they preview a stable, collision-resistant successor to JA4 integrated into ntop&#8217;s <code>nDPI</code> library.</li>
+
+<li>AI Traffic Profiling: Traffic to major AI APIs (like OpenAI or Anthropic) is easily spotted via Server Name Indication (SNI). However, local instances powered by tools like <code>llama.cpp</code> or <code>vllm</code> require deeper flow analytics because their traffic patterns differ significantly based on whether the AI model response is Streamed or Non-Streamed.</li>
+</ul>
+<hr class="wp-block-separator has-alpha-channel-opacity" />
+<h6 class="wp-block-heading">Part III: From Fingerprints to Transformers</h6>
+
+<p class="wp-block-paragraph">When static signatures fail or are unknown in the wild, Machine Learning offers a data-driven approach by looking at network behavior patterns over time.</p>
+
+<ul class="wp-block-list">
+<li>Feature Engineering: The proposed framework transforms network traffic flows into 9 numerical features spanning:
+<ol class="wp-block-list">
+<li><em>Traffic Volume:</em> Forward/backward bytes and packet counts.</li>
+
+<li><em>Packet Statistics:</em> Average size and length variations.</li>
+
+<li><em>Payload Patterns:</em> Entropy of payload lengths.</li>
+
+<li><em>Timing:</em> Mean and standard deviation of packet inter-arrival times (IAT).</li>
+</ol>
+</li>
+
+<li>Windows and Bins: Flows are segmented into overlapping 100-second windows divided into 10-second temporal bins to capture traffic shape trends over time.</li>
+
+<li>The Context Transformer: Recognizing that an isolated stream might lack clarity, their transformer architecture enriches the target flow by evaluating up to 20 temporally nearby &#8220;context elements&#8221; (surrounding network activities) and identifying shared IP endpoints.</li>
+
+<li>Evaluation Metrics:
+<ul class="wp-block-list">
+<li>Tested using public datasets (VNAT, ISCXVPN2016) alongside their own smartphone captures of stealth applications like <em>HA Tunnel Plus, XU Tunnel, TLS Tunnel, Psiphon, and Geph</em>.</li>
+
+<li>Achieved an impressive 90.44% F1-score at the Window level and 85.71% at the Flow level, catching all 15 targeted VPN flows with only 5 false positives.</li>
+</ul>
+</li>
+</ul>
+
+<p class="wp-block-paragraph">The pipeline can be actively deployed by users as a lightweight FastAPI service leveraging <code>TShark</code> and <code>nDPI</code> parser utilities.</p>
+
+<p class="wp-block-paragraph"><a href="https://www.ntop.org/wp-content/uploads/2026/11/SF26EU_Fingerprints_Deri_Sartiano.pdf">SF26EU_Fingerprints_Deri_Sartiano</a></p>
+<p>Enjoy and contact us for questions !</p>
+<hr class="wp-block-separator has-alpha-channel-opacity" />								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/sharkfest-26eu-howto-detect-stealth-vpn-and-ai-inference-traffic/">Sharkfest 26EU: HowTo Detect Stealth VPN and AI Inference Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Detecting CVE-2026-98432 using nDPI/ntopng</title>
+		<link>https://www.ntop.org/detecting-cve-2026-98432-using-ndpi-ntopng/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sat, 07 Nov 2026 16:54:27 +0000</pubDate>
+				<category><![CDATA[nDPI]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=47413</guid>
+
+					<description><![CDATA[<p>CVE-2026-98432 is a critical, 9.8-severity use-after-free (UAF) vulnerability in the Linux kernel’s IPv4 TCP networking stack. It allows an unauthenticated remote attacker to potentially cause system crashes, memory corruption, or execute arbitrary commands with root privileges.  From a network standpoint, the attack occurs during a manipulated TCP three-way handshake using a carefully timed sequence of packets: 1. The Target Packets: The attacker sends [&#8230;]</p>
+<p>The post <a href="https://www.ntop.org/detecting-cve-2026-98432-using-ndpi-ntopng/">Detecting CVE-2026-98432 using nDPI/ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="47413" class="elementor elementor-47413">
+				<div class="elementor-element elementor-element-2542a2b9 e-flex e-con-boxed e-con e-parent" data-id="2542a2b9" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-2d89808 elementor-widget elementor-widget-text-editor" data-id="2d89808" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p><a href="https://nvd.nist.gov/vuln/detail/cve-2026-98432">CVE-2026-98432</a> is a critical, 9.8-severity use-after-free (UAF) vulnerability in the Linux kernel’s IPv4 TCP networking stack. It allows an unauthenticated remote attacker to potentially cause system crashes, memory corruption, or execute arbitrary commands with root privileges. </p>
+<p><!-- /wp:paragraph --><!-- wp:paragraph --></p>
+<p>From a network standpoint, the attack occurs during a manipulated TCP three-way handshake using a carefully timed sequence of packets:</p>
+<p><!-- /wp:paragraph --><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>1. The Target Packets: The attacker sends a standard connection request (SYN) packet, but includes rare, legacy IPv4 Options inside the packet header.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>2. The Race Condition: The attacker immediately floods the server with a duplicate SYN packet. On modern multi-core servers, different CPU cores process these two rapid packets at the same time.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>3. The Memory Error: One CPU core handles the connection and frees the memory holding the IPv4 options. Due to a lack of proper software locking, the second CPU core tries to read that exact same memory address at the same fraction of a second.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>The Result: The server reads &#8220;dirty&#8221; memory. It either packages that memory into a response packet (leaking secret kernel data back to the attacker) or executes malicious instructions embedded in the memory, granting the attacker remote root access.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --><!-- wp:paragraph --></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.01.02.jpg"><img fetchpriority="high" decoding="async" class="alignnone size-full wp-image-47469" src="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.01.02.jpg" alt="" width="1280" height="170" /></a> <a href="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.02.30.jpg"><img decoding="async" class="alignnone size-full wp-image-47472" src="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.02.30.jpg" alt="" width="1280" height="199" /></a><img decoding="async" class="wp-image-46563" src="https://www.ntop.org/wp-content/uploads/2026/11/telegram-cloud-photo-size-4-6014667563213721147-y-1024x136.jpg" alt="" /></p>
+<p>We have been asked if it was possible to detect attacks based on this vulnerability, and for this reason we <a href="https://github.com/ntop/nDPI/commit/b0a23109069ccea09e302319409f2e5aa73b0f7e">have enhanced nDPI</a> to recognize it. Thanks to this extension, application (e.g. ntopng or nProbe) are automatically detecting it reporting the issue in the web interface or exported flows.</p>
+<p>Enjoy !</p>
+<p><!-- /wp:paragraph --><!-- wp:image {"id":46563} --></p>
+<p><!-- /wp:image --><!-- wp:image --></p>
+<p><!-- /wp:image --></p>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/detecting-cve-2026-98432-using-ndpi-ntopng/">Detecting CVE-2026-98432 using nDPI/ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How we Redesigned Search in ntopng</title>
+		<link>https://www.ntop.org/how-we-redesigned-search-in-ntopng/</link>
+		
+		<dc:creator><![CDATA[Gabriele Deri]]></dc:creator>
+		<pubDate>Thu, 08 Oct 2026 16:37:08 +0000</pubDate>
+				<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46494</guid>
+
+					<description><![CDATA[<p>ntopng has had a search box for a while, but it we made it better to allow search for menu entries too! This to speed up and improve the user experience and…</p>
+<p>The post <a href="https://www.ntop.org/how-we-redesigned-search-in-ntopng/">How we Redesigned Search in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="46494" class="elementor elementor-46494">
+				<div class="elementor-element elementor-element-64e16d1 e-flex e-con-boxed e-con e-parent" data-id="64e16d1" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-7ecf820 elementor-widget elementor-widget-text-editor" data-id="7ecf820" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p>ntopng has had a search box for a while, but it we made it better to allow search for menu entries too! This to speed up and improve the user experience and navigation in ntopng. We added a short guided tour so you know what it can do.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-2faf3cf e-flex e-con-boxed e-con e-parent" data-id="2faf3cf" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-f2a4c7d elementor-widget elementor-widget-image" data-id="f2a4c7d" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img decoding="async" width="1024" height="27" src="https://www.ntop.org/wp-content/uploads/2026/10/ntopng_search_topbar.png" class="attachment-large size-large wp-image-46496" alt="Ntopng search topbar" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-da0cdec e-flex e-con-boxed e-con e-parent" data-id="da0cdec" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-6a139b9 elementor-widget elementor-widget-text-editor" data-id="6a139b9" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2>What You Can Search For</h2><p>It&#8217;s one box for two jobs. First, it filters every entry of the ntopng menu, so you can jump to a page or a setting by typing a few letters instead of hunting through the sidebar. Second, it looks up live and historical network objects as you type:</p><ul><li>hosts and MAC addresses</li><li>networks and ASNs</li><li>SNMP devices</li><li>historical flows</li></ul><p>Type a name or an address, use the arrow keys to move through the results, and press Enter to open one. Matching text is highlighted, and menu entries you can&#8217;t open on your edition show a lock with the reason.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-2d6a3f0 e-flex e-con-boxed e-con e-parent" data-id="2d6a3f0" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-7d6bb6b elementor-widget elementor-widget-image" data-id="7d6bb6b" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="467" src="https://www.ntop.org/wp-content/uploads/2026/10/ntopng_search_box.png" class="attachment-large size-large wp-image-46497" alt="Ntopng search box" />															</div>
+		<div class="elementor-element elementor-element-559ccdf e-con-full e-flex e-con e-child" data-id="559ccdf" data-element_type="container" data-e-type="container">
+				<div class="elementor-element elementor-element-1e0cfb1 elementor-widget elementor-widget-image" data-id="1e0cfb1" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="954" src="https://www.ntop.org/wp-content/uploads/2026/10/ntopng_search_host.png" class="attachment-large size-large wp-image-46498" alt="Ntopng search host" />															</div>
+				</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-f146f9b e-flex e-con-boxed e-con e-parent" data-id="f146f9b" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-e2d670e elementor-widget elementor-widget-text-editor" data-id="e2d670e" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2>One shortcut, Any page</h2><p>Press Ctrl+F (Cmd+F on macOS) on any ntopng page and the search box opens, instead of the browser&#8217;s search. Esc closes it.</p><p>The first time you load the dashboard after the update, a two slide tour points at the new button: what the search covers, then the shortcut. You can replay it any time from <strong>Preferences &gt; Demo Tours</strong>.</p><p>The tour uses the same guided demo engine as the ntopng and nAnalyst overviews, so if you&#8217;ve seen those, it will feel familiar.</p><p>As always, let us know what you&#8217;d like to find with one keystroke. Feedback and bug reports are welcome on <a href="https://github.com/ntop/ntopng">GitHub</a> or in the community discord.</p><p>Enjoy finding things faster!</p>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/how-we-redesigned-search-in-ntopng/">How we Redesigned Search in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>October 20th: Join us for the ntopng 7.0 Webinar</title>
+		<link>https://www.ntop.org/october-20th-join-us-for-the-ntopng-7-0-webinar/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Mon, 05 Oct 2026 13:32:37 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[Webinar]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46368</guid>
+
+					<description><![CDATA[<p>Is your network monitoring keeping pace with AI, larger infrastructures, and the growing need for real observability? We're excited to introduce ntopng 7.0, alongside new releases of the rest of the ntop…</p>
+<p>The post <a href="https://www.ntop.org/october-20th-join-us-for-the-ntopng-7-0-webinar/">October 20th: Join us for the ntopng 7.0 Webinar</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p dir="ltr">Is your network monitoring keeping pace with AI, larger infrastructures, and the growing need for real observability? We&#8217;re excited to introduce <strong>ntopng 7.0</strong>, alongside new releases of the rest of the ntop suite.</p>
+<p dir="ltr">This is one of the biggest ntopng releases to date: a new AI-assisted analysis engine, native SIEM integration, a network-to-site hierarchy for large deployments, BGP visibility, a completely rebuilt observability/timeseries backend on ClickHouse, and a modernized Vue.js frontend. We want to walk you through it live, with a Q&amp;A session at the end of the event.</p>
+<p><img loading="lazy" decoding="async" src="https://www.ntop.org/wp-content/uploads/2026/09/Screenshot-2026-09-09-151028-1.png" alt="October 20th, figure 1" width="1024" height="685" /></p>
+<h5 dir="ltr"><strong>Here is what we will cover:</strong></h5>
+<ul dir="ltr">
+<li><strong>nAnalyst — AI-assisted traffic analysis.</strong> A brand-new chat-based assistant that lets you query live and historical flows and alerts in different languages, define AI-driven alert policies, and get AI-generated dashboards, all through an agentic loop that supports multiple LLM providers (Anthropic, OpenAI, Google, Qwen, and local models) plus a built-in MCP server for connecting external AI agents to ntopng.</li>
+<li><strong>Wazuh XDR/SIEM integration.</strong> Native collection and correlation of Wazuh alerts into ClickHouse, with asset enrichment, dedicated alert pages, MITRE-mapped rules, and configurable retention, bringing SIEM-grade security visibility directly into ntopng.</li>
+<li><strong>Sites: hierarchy for large networks.</strong> A new network-to-site model designed for ISPs, MSPs, and large infrastructures, with a sites dashboard, geomap, matrix/heatmap views, and per-site timeseries and statistics.</li>
+<li><strong>BGP &amp; BMP support.</strong> A new Looking Glass page, RPKI validation, prefix-change alerts, and full BGP context surfaced directly in live and historical flows, a big step for routing observability.</li>
+<li><strong>A rebuilt Observability backend.</strong> A new ClickHouse-based timeseries engine, including a High-Resolution counters driver, a redesigned Observability dashboard, and out-of-the-box Grafana integration.</li>
+<li><strong>Modern authentication &amp; a new frontend.</strong> SSO via OpenID Connect, Multi-Factor Authentication, Passkeys, and API key support, alongside a full migration to a Vue.js frontend with D3-based charts replacing the legacy UI.</li>
+<li><b>Plus</b>: user-defined host Tags, automatic flow deduplication, extended OT visibility (new S7comm and Profinet support), the new nEdge Lite, and a long list of performance and security hardening improvements across the board.</li>
+</ul>
+<h5 dir="ltr"><strong>Who should attend?</strong></h5>
+<ul dir="ltr">
+<li>Network engineers and SREs who want deeper, AI-assisted visibility into their infrastructure.</li>
+<li>Security and SOC teams looking to leverage the new Wazuh integration and AI-driven alerting.</li>
+<li>ISPs, service providers, and enterprises managing large, multi-site networks or their own Autonomous Systems.</li>
+<li>Existing ntopng users who want a guided tour of what&#8217;s new before upgrading.</li>
+</ul>
+<h5 dir="ltr"><strong>Secure your spot</strong></h5>
+<p dir="ltr">The webinar is scheduled for <strong>Tuesday, October 20th, 15:00 CET / 9 AM EDT</strong> and will be run online via Microsoft Teams. Participation is free, but space is limited: <a href="https://events.teams.microsoft.com/event/1e40da1a-beb8-411e-996f-6cc8dba4138e@03099206-608b-40d0-9032-b5cf198c536d?source=copyLinkOneEventsShareDialog">please register at this page</a>.</p>
+<p dir="ltr">The event will be recorded and shared with our community for those who cannot attend live.</p>
+<p dir="ltr">Looking forward to seeing you there!</p>
+<p class="wp-block-paragraph">
+<p>The post <a href="https://www.ntop.org/october-20th-join-us-for-the-ntopng-7-0-webinar/">October 20th: Join us for the ntopng 7.0 Webinar</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>AI Dashboards in ntopng: Build Charts by Asking</title>
+		<link>https://www.ntop.org/ai-dashboards-in-ntopng-build-charts-by-asking/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 30 Sep 2026 09:00:39 +0000</pubDate>
+				<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46332</guid>
+
+					<description><![CDATA[<p>If you've opened ntopng recently you may have noticed a new entry under the dashboards menu: AI Dashboards. Instead of picking a metric, a chart type and a time range from a…</p>
+<p>The post <a href="https://www.ntop.org/ai-dashboards-in-ntopng-build-charts-by-asking/">AI Dashboards in ntopng: Build Charts by Asking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="46332" class="elementor elementor-46332">
+				<div class="elementor-element elementor-element-bdb8a34 e-flex e-con-boxed e-con e-parent" data-id="bdb8a34" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-bd58550 elementor-widget elementor-widget-text-editor" data-id="bd58550" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									If you&#8217;ve opened ntopng recently you may have noticed a new entry under the dashboards menu: <strong>AI Dashboards</strong>. Instead of picking a metric, a chart type and a time range from a form, you describe what you want to see in plain language and nAnalyst writes the query, picks the visualization and drops the widget on the page. This post walks through what they are, how to use them, and how to edit what you build. Similar to <a href="https://grafana.com" target="_blank" rel="noopener">Grafana </a>dashboards, we wanted to add a customizable interface to create custom dashbaords. Simple SQL language can be used to define how widgets extract data from the
+<a href="https://clickhouse.com/" target="_blank" rel="noopener">Clickhouse</a> database.								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-decb09b e-flex e-con-boxed e-con e-parent" data-id="decb09b" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-1e5cc34 elementor-widget elementor-widget-image" data-id="1e5cc34" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="576" src="https://www.ntop.org/wp-content/uploads/2026/09/ai_dashboard_overview.png" class="attachment-large size-large wp-image-46334" alt="Ai dashboard overview" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-0e9339f e-flex e-con-boxed e-con e-parent" data-id="0e9339f" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-11a7993 elementor-widget elementor-widget-text-editor" data-id="11a7993" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2>What an AI Dashboard actually is</h2>
+An AI Dashboard is a saved layout of widgets, each backed by a ClickHouse query against your historical flow and alert tables (and Wazuh alert data, when that integration is enabled>. To read more about Wazuh and ntopng integration please read: <a href="https://www.ntop.org/merging-ntopng-asset-inventory-with-wazuh/" target="_blank" rel="noopener">this blogpost</a>
+). A widget can be a single number, a bar or line chart, a pie/donut, a Sankey diagram, a geomap or a plain table. The dashboard carries its own time range and an optional filter bar, so every widget on it reacts to the same window and the same filters at once. The same filters as the historical flows are used, so users do not feel confused.
+
+Dashboards live under the <em>My Dashboards</em> tab. Pick one from the selector, set the time range, and read. Each widget has an info icon that shows the exact SQL behind it — useful when you want to know precisely what &#8220;top talker&#8221; means in that chart, or when you want to reuse the query elsewhere.								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-750b3b9 e-flex e-con-boxed e-con e-parent" data-id="750b3b9" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-bf04a68 elementor-widget elementor-widget-image" data-id="bf04a68" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="850" src="https://www.ntop.org/wp-content/uploads/2026/09/Screenshot-2026-09-08-at-12.00.30.png" class="attachment-large size-large wp-image-46335" alt="AI Dashboards in ntopng, figure 1" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-5aefddc e-flex e-con-boxed e-con e-parent" data-id="5aefddc" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-9ed3ef1 elementor-widget elementor-widget-text-editor" data-id="9ed3ef1" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2>Building a dashboard</h2><p>Switch to the <em>Create Dashboard</em> tab. You either start a new dashboard or open an existing one to extend it. On the right there&#8217;s a prompt box with a few starting points — &#8220;Top 10 talkers by bytes in the last hour&#8221;, &#8220;Pie chart of alert severity distribution&#8221;, &#8220;Sankey of top talker to top server traffic&#8221; — and the LLM model ntopng is configured to use.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-4efb3ee e-flex e-con-boxed e-con e-parent" data-id="4efb3ee" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-fa201c7 elementor-widget elementor-widget-image" data-id="fa201c7" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="603" src="https://www.ntop.org/wp-content/uploads/2026/09/ai_create_dashboard_widget.png" class="attachment-large size-large wp-image-46336" alt="Ai create dashboard widget" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-79d2617 e-flex e-con-boxed e-con e-parent" data-id="79d2617" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-d0cfe07 elementor-widget elementor-widget-text-editor" data-id="d0cfe07" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p><br />Type a request and send it. nAnalyst inspects the relevant tables, builds a query, validates the SQL, runs it and renders a preview. You can see its reasoning as it goes — which table it chose, why a bar chart fits a ranking, what the query returned — and then a &#8220;1 widget(s) ready — review below&#8221; line with the new widget marked <em>Needs review</em>.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-e04f9ac e-flex e-con-boxed e-con e-parent" data-id="e04f9ac" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-4896e32 elementor-widget elementor-widget-text-editor" data-id="4896e32" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p>Nothing is committed until you review the new widget and hit <strong>Save Dashboard</strong>. That review step matters: it&#8217;s your chance to check the generated query against what you actually asked for before it becomes part of the layout.</p><h2>Editing what you built</h2><p>Every widget on the <em>Create Dashboard</em> grid has an edit (pencil) and a delete (trash) control. The build flow is a four-step wizard <em>Component</em>, <em>Configure</em>, <em>Query</em>, <em>Preview</em> so you can edit any widget and change the chart type, change the SQL by hand, adjust the title, resize the widget size before saving. The layout grid is drag and arrange, simply use the mouse to drag from the widget title and to resize, hover the bottom right of the widget to resize.</p><p>Because the widget is just a query plus a chart definition, an AI Dashboard is not a black box. The LLM gets you to a working widget quickly; the wizard lets you test and modify if something is wrong.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-686a2c0 e-flex e-con-boxed e-con e-parent" data-id="686a2c0" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-8f52e4c elementor-widget elementor-widget-image" data-id="8f52e4c" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="745" src="https://www.ntop.org/wp-content/uploads/2026/09/Screenshot-2026-09-08-at-12.05.50.png" class="attachment-large size-large wp-image-46337" alt="AI Dashboards in ntopng, figure 1" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-553e8518 e-grid e-con-full e-con e-child" data-id="553e8518" data-element_type="container" data-e-type="container">
+				<div class="elementor-element elementor-element-3122ef9a elementor-widget elementor-widget-lte-button" data-id="3122ef9a" data-element_type="widget" data-e-type="widget" data-widget_type="lte-button.default">
+				<div class="elementor-widget-container">
+					<div class="lte-btn-wrap">
+	<a href="https://www.ntop.org/guides/ntopng/nanalyst/index.html"  target="_blank"  class="lte-btn btn-main color-hover-default lte-icon-style-default"><span class="lte-btn-inner"><span class="lte-btn-before"></span>nAnalyst Documentation<span class="lte-btn-after"></span></span></a></div>				</div>
+				</div>
+				<div class="elementor-element elementor-element-323c7642 elementor-widget elementor-widget-lte-button" data-id="323c7642" data-element_type="widget" data-e-type="widget" data-widget_type="lte-button.default">
+				<div class="elementor-widget-container">
+					<div class="lte-btn-wrap">
+	<a href="https://www.ntop.org/support/documentation/software-installation/"  class="lte-btn color-hover-default lte-icon-style-default"><span class="lte-btn-inner"><span class="lte-btn-before"></span>Download ntopng<span class="lte-btn-after"></span></span></a></div>				</div>
+				</div>
+				<div class="elementor-element elementor-element-366a038a elementor-widget elementor-widget-lte-button" data-id="366a038a" data-element_type="widget" data-e-type="widget" data-widget_type="lte-button.default">
+				<div class="elementor-widget-container">
+					<div class="lte-btn-wrap">
+	<a href="mailto:sales@ntop.org"  class="lte-btn color-hover-default lte-icon-style-default"><span class="lte-btn-inner"><span class="lte-btn-before"></span>Talk With An Expert<span class="lte-btn-after"></span></span></a></div>				</div>
+				</div>
+				</div>
+		<div class="elementor-element elementor-element-e55cafe e-flex e-con-boxed e-con e-parent" data-id="e55cafe" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-7008fd3 elementor-widget elementor-widget-text-editor" data-id="7008fd3" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									AI Dashboards are part of the broader nAnalyst work in ntopng the same engine that answers questions about your traffic also builds the charts. If you try them and something doesn&#8217;t come out the way you expected, tell us: the prompts, the model choice and the generated queries all give us useful signal. Bug reports and feedback are welcome as always on
+
+<a href="https://github.com/ntop/ntopng/issues">GitHub</a> 
+
+
+Enjoy building dashboards — and as always, enjoy monitoring your network!								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/ai-dashboards-in-ntopng-build-charts-by-asking/">AI Dashboards in ntopng: Build Charts by Asking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing the nDPI TCP Fingerprint: A Stable, Patent-Free Way to Fingerprint TCP Stacks</title>
+		<link>https://www.ntop.org/introducing-the-ndpi-tcp-fingerprint-a-stable-patent-free-way-to-fingerprint-tcp-stacks/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 29 Sep 2026 09:19:01 +0000</pubDate>
+				<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46475</guid>
+
+					<description><![CDATA[<p>Every TCP connection starts with a SYN, and that first packet says a lot about the machine that sent it. The Linux, Windows, macOS and Android stacks each set different flags, choose…</p>
+<p>The post <a href="https://www.ntop.org/introducing-the-ndpi-tcp-fingerprint-a-stable-patent-free-way-to-fingerprint-tcp-stacks/">Introducing the nDPI TCP Fingerprint: A Stable, Patent-Free Way to Fingerprint TCP Stacks</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p class="wp-block-paragraph">Every TCP connection starts with a SYN, and that first packet says a lot about the machine that sent it. The Linux, Windows, macOS and Android stacks each set different flags, choose different initial TTLs, advertise different receive windows, and, above all, lay out their TCP options in different orders. Passive TCP fingerprinting turns those differences into a compact signature.</p>
+<p class="wp-block-paragraph">Today we are announcing the nDPI TCP Fingerprint (TCPFP), a modern, open, patent-free TCP fingerprint format that has been included in nDPI for a few years now. It is implemented in <a href="https://github.com/ntop/nDPI">nDPI</a> and specified in a public draft (<a href="https://github.com/ntop/nDPI/blob/dev/fingerprint/README.ndpi_tcp_fingerprint.md">spec, v0.4</a>). This post covers what NTF is, how it differs from other popular TCP fingerprints (JA4T and MuonFP), and how to use it alongside <a href="https://www.ntop.org/introducing-tlsfp-a-stable-collision-resistant-successor-to-ja4/" data-type="post" data-id="46419">nDPI TLS Fingerprint</a> (TLSFP) to reduce false positives and catch inconsistencies.</p>
+<h6 class="wp-block-heading">Why another TCP fingerprint?</h6>
+<p class="wp-block-paragraph">Existing formats have three limitations:</p>
+<ol class="wp-block-list">
+<li>Instability. If a fingerprint includes values that change with the path or the session, the same device produces many different fingerprints. This inflates fingerprint databases and makes matching brittle.</li>
+<li>Licensing. Some fingerprinting methods come with license terms that restrict certain commercial uses, which is a problem if you want to embed them in a product.</li>
+<li>Limited coverage. Some formats ignore signals such as ECN negotiation (TCP flags) and the initial TTL, which are strong OS discriminators.</li>
+</ol>
+<p class="wp-block-paragraph">NTF addresses all three.</p>
+<h6 class="wp-block-heading">Open and patent-free</h6>
+<p class="wp-block-paragraph">NTF is a patent-free format. The specification is released under CC BY 4.0, so anyone can implement, adapt and redistribute it with attribution. The reference implementation in nDPI is released under the LGPLv3. Third parties can build producers that generate byte-identical fingerprints, since the spec documents the exact algorithm, its behavior on malformed input, and a set of test vectors, plus a reference implementation in Python.</p>
+<p class="wp-block-paragraph">For comparison, the JA4+ suite publishes JA4 (TLS client) under the BSD 3-Clause license, while the other JA4+ methods, including JA4T, are under the FoxIO License 1.1, which restricts some commercial uses. If you plan to embed a fingerprint in a commercial product, check the terms of each format first.</p>
+<h6 class="wp-block-heading">What an NTF looks like</h6>
+<p class="wp-block-paragraph">NTF is computed from a <strong>single packet</strong>, the first SYN of a flow. It needs no completed handshake, no payload, and no bidirectional visibility. The result is a short ASCII string with four underscore-separated fields:</p>
+<pre class="wp-block-code"><code>&lt;tcp_flags&gt;_&lt;ttl_bucket&gt;_&lt;tcp_window&gt;_&lt;options_hash&gt;</code></pre>
+<figure class="wp-block-table">
+<table class="has-fixed-layout">
+<thead>
+<tr>
+<th>Field</th>
+<th>What it captures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tcp_flags</code></td>
+<td>The numeric 12-bit flag field. This exposes ECN negotiation (<code>2</code> = plain SYN, <code>194</code> = SYN+ECE+CWR) and AccECN-capable stacks (<code>450</code>).</td>
+</tr>
+<tr>
+<td><code>ttl_bucket</code></td>
+<td>The observed TTL / Hop Limit rounded up to <code>32</code>, <code>64</code>, <code>128</code>, <code>192</code> or <code>255</code>. This recovers the likely initial TTL and removes the dependence on hop count.</td>
+</tr>
+<tr>
+<td><code>tcp_window</code></td>
+<td>The advertised window, verbatim and unscaled (window scaling doesn&#8217;t apply to SYNs).</td>
+</tr>
+<tr>
+<td><code>options_hash</code></td>
+<td>The first 48 bits of a SHA-256 over a hex serialization of the TCP options in wire order.</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<p class="wp-block-paragraph">For example, a Linux client sending an IPv4 SYN produces:</p>
+<pre class="wp-block-code"><code>2_64_64240_5ec4846073b9</code></pre>
+<p class="wp-block-paragraph"><code>ndpiReader</code> prints it together with the OS hint:</p>
+<pre class="wp-block-code"><code>&#91;TCP Fingerprint: 2_64_64240_5ec4846073b9/Linux]</code></pre>
+<h6 class="wp-block-heading">Designed for Stability</h6>
+<p class="wp-block-paragraph">NTF follows the same philosophy as TLSFC, which strips ephemeral inputs from TLS fingerprints: <strong>one stack should produce one fingerprint</strong>. NTF removes every input that is a property of the path, the connection or the destination, rather than of the sending stack:</p>
+<figure class="wp-block-table">
+<table class="has-fixed-layout">
+<thead>
+<tr>
+<th>Removed from the hash</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MSS value</td>
+<td>Depends on path MTU, IPv4 vs IPv6, VPNs and MSS clamping</td>
+</tr>
+<tr>
+<td>Timestamp values</td>
+<td>Per-connection clock and echo</td>
+</tr>
+<tr>
+<td>TCP-MD5 / TCP-AO MACs</td>
+<td>Per-segment digests</td>
+</tr>
+<tr>
+<td>MPTCP keys, tokens, nonces</td>
+<td>Per-connection. The version and flags are kept as a stack signal.</td>
+</tr>
+<tr>
+<td>TCP Fast Open (including its NOP padding)</td>
+<td>Depends on the per-server cookie cache</td>
+</tr>
+<tr>
+<td>Everything after the first EOL</td>
+<td>Padding</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<p class="wp-block-paragraph">What remains is what actually identifies the stack: the flags, the initial TTL, the window, the option layout and order (including NOP placement), and constant option values such as the window-scale shift.</p>
+<h6 class="wp-block-heading">Same Stack, Same Fingerprint</h6>
+<p class="wp-block-paragraph">The Linux stack shows the effect well. Here is the same operating system in different situations:</p>
+<figure class="wp-block-table">
+<table class="has-fixed-layout">
+<thead>
+<tr>
+<th>Case</th>
+<th>NTF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux, IPv4</td>
+<td><code>2_64_64240_5ec4846073b9</code></td>
+</tr>
+<tr>
+<td>Linux, IPv4, with a TFO cookie request</td>
+<td><code>2_64_64240_5ec4846073b9</code></td>
+</tr>
+<tr>
+<td>Linux, IPv4, with a TFO cookie</td>
+<td><code>2_64_64240_5ec4846073b9</code></td>
+</tr>
+<tr>
+<td>Linux, IPv6 (different MSS and window)</td>
+<td><code>2_64_64800_5ec4846073b9</code></td>
+</tr>
+</tbody>
+</table>
+</figure>
+<p class="wp-block-paragraph">The options hash stays identical across all four. The IPv6 case differs only in the window field, because Linux picks the largest multiple of the MSS that fits in 65535 (64240 = 44×1460, 64800 = 45×1440). Consumers that need to match across IPv4 and IPv6 can compare only the flags, TTL and options-hash fields.</p>
+<p class="wp-block-paragraph">The effect on the nDPI built-in database was substantial. When we converted the database to the new format, 24 of the 63 distinct previous fingerprints differed from another entry <em>only</em> in the MSS value. The 65 active entries collapsed into 46. On the nDPI regression corpus (4,524 fingerprinted flows), distinct fingerprints dropped from 141 to 115, the number of flows with an OS hint rose from 1,878 to 1,907, and no flow changed from one OS to another.</p>
+<p class="wp-block-paragraph">The spec also documents the remaining sources of drift: TTLs near a bucket edge, and middleboxes that bleach ECN bits (which flips the flags field between <code>194</code> and <code>2</code>). It also handles crafted or malformed options deterministically, so a crafted SYN yields a well-defined fingerprint instead of undefined behavior.</p>
+<h6 class="wp-block-heading">How NTF Compares to Other Formats</h6>
+<p class="wp-block-paragraph">NTF sits alongside two other passive TCP fingerprints that use the same SYN-derived inputs: JA4T from FoxIO&#8217;s JA4+ suite, and MuonFP, which nDPI also supports (<code>metadata.tcp_fingerprint_format = 1</code>).</p>
+<figure class="wp-block-table">
+<table class="has-fixed-layout">
+<thead>
+<tr>
+<th>Aspect</th>
+<th><strong>NTF</strong></th>
+<th><strong>JA4T</strong></th>
+<th><strong>MuonFP</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Packet</td>
+<td>Client SYN</td>
+<td>Client SYN (JA4TS: server SYN-ACK)</td>
+<td>Client SYN</td>
+</tr>
+<tr>
+<td>Layout</td>
+<td><code>flags_ttl_win_hash12</code></td>
+<td><code>window_kinds_mss_wscale</code></td>
+<td><code>window:kinds:mss:wscale</code></td>
+</tr>
+<tr>
+<td>Human-readable</td>
+<td>No (needs the raw string)</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Length</td>
+<td>Fixed</td>
+<td>Variable</td>
+<td>Variable</td>
+</tr>
+<tr>
+<td>TCP flags (ECN)</td>
+<td>Included</td>
+<td>Not included</td>
+<td>Not included</td>
+</tr>
+<tr>
+<td>Initial TTL</td>
+<td>Included (bucketed)</td>
+<td>Not included</td>
+<td>Not included</td>
+</tr>
+<tr>
+<td>MSS</td>
+<td>Excluded</td>
+<td>Included</td>
+<td>Included</td>
+</tr>
+<tr>
+<td>Window-scale shift</td>
+<td>Included (in hash)</td>
+<td>Included</td>
+<td>Included</td>
+</tr>
+<tr>
+<td>TFO / ephemeral options</td>
+<td>Removed, with NOP padding</td>
+<td>Kept as option kinds</td>
+<td>Kept as option kinds</td>
+</tr>
+<tr>
+<td>Other option values (MPTCP flags, ExIDs, unknown options)</td>
+<td>Included (in hash)</td>
+<td>Kind only</td>
+<td>Kind only</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<p class="wp-block-paragraph">A few points from the comparison:</p>
+<ul class="wp-block-list">
+<li>The MSS trade-off is deliberate. JA4T keeps the MSS on purpose, because an MSS below what the link MTU would allow can reveal VPNs, tunnels and proxies on the path. NTF drops it so that one stack yields one fingerprint regardless of path. NTF is therefore the better key for OS and stack identification and for database lookups, while JA4T is the better signal for path analysis. The two are complementary.</li>
+<li>NTF sees more of the stack. A macOS SYN with and without ECN negotiation gets the same JA4T, but NTF separates them (<code>2_64_65535_fa6f8edaadeb</code> vs <code>194_64_65535_fa6f8edaadeb</code>). NTF also hashes MPTCP versions and flags, RFC 6994 experiment IDs and the values of unknown options, which the other two record only by kind.</li>
+<li>JA4T sees TFO; NTF deliberately does not. A client&#8217;s JA4T changes depending on whether it holds a TFO cookie for a given server. This is the same session-state drift that TLSFC removes for TLS, and NTF removes it for TCP.</li>
+<li>Readability vs compactness. JA4T and MuonFP can be read and wildcarded by eye. NTF&#8217;s fixed layout suits hash-table lookups and flow export, and you can export the pre-hash raw options string (<code>metadata.tcp_fingerprint_raw</code>) when you need to audit or rebuild a database.</li>
+</ul>
+<h6 class="wp-block-heading">NTF + TLSFC: Better Together</h6>
+<p class="wp-block-paragraph">TLS fingerprints such as TLSFC describe the <strong>application&#8217;s TLS library and configuration</strong>. NTF describes the <strong>operating system&#8217;s TCP/IP stack</strong>. Because they come from different layers, combining them gives you information that neither has on its own.</p>
+<h6 class="wp-block-heading">Reducing False Positives</h6>
+<p class="wp-block-paragraph">Many applications share the same TLS library and configuration, so a TLS fingerprint alone can be ambiguous. Adding the TCP fingerprint lets you check whether the TLS fingerprint is plausible for the OS that the flow appears to come from. This narrows candidate matches and cuts false positives in classification and detection rules. For this reason, nDPI uses NTF by default as the L4 component of its composite client fingerprint. You can turn this off with <code>metadata.ndpi_fingerprint_ignore_tcp_fp</code>.</p>
+<h6 class="wp-block-heading">Detecting Inconsistencies</h6>
+<p class="wp-block-paragraph">A mismatch between layers is often more interesting than either layer alone. Suppose a flow&#8217;s TLS fingerprint matches Apple Mail, but the TCP fingerprint of the same flow is <code>2_64_65535_5ec4846073b9</code>, which nDPI&#8217;s built-in database maps to <strong>Android</strong>. Apple Mail doesn&#8217;t run on Android, so something is off:</p>
+<ul class="wp-block-list">
+<li>a spoofed TLS client fingerprint,</li>
+<li>a tool or proxy re-originating the connection, or</li>
+<li>a mislabeled or misconfigured device.</li>
+</ul>
+<p class="wp-block-paragraph">The same reasoning applies to a &#8220;Windows browser&#8221; whose SYN carries a Linux or network-device stack, or to a fleet device that suddenly presents a different stack.</p>
+<p class="wp-block-paragraph">Two caveats apply:</p>
+<ul class="wp-block-list">
+<li>The OS hint is a <strong>hint</strong>, not an identification. The mapping is many-to-one, and one fingerprint may legitimately match several OS families (for example, macOS and iOS/iPadOS share an options hash).</li>
+<li>Every NTF input is sender-controlled, so a crafted SYN can impersonate any fingerprint. NTF <strong>must not</strong> be used as an authentication signal. It works best as one input to a scoring or correlation pipeline.</li>
+</ul>
+<h6 class="wp-block-heading">Bonus: Scanner Detection</h6>
+<p class="wp-block-paragraph">While computing NTF, nDPI also flags characteristic scanner behavior. A SYN with no options at all raises a &#8220;Massive scanner detected&#8221; risk (with a <code>masscan</code>/<code>zmap</code> hint based on the window), and an MSS-only SYN from a public address raises &#8220;Unusual TCP fingerprint (scanner detected?)&#8221;. These risks are independent of the fingerprint string.</p>
+<h6 class="wp-block-heading">Getting Started</h6>
+<p class="wp-block-paragraph">NTF is the default TCP fingerprint in nDPI (<code>metadata.tcp_fingerprint_format = 0</code>).</p>
+<ul class="wp-block-list">
+<li><strong>C API:</strong> <code>flow-&gt;metadata.l4.tcp.fingerprint</code>, <code>flow-&gt;metadata.l4.tcp.fingerprint_raw</code>, and <code>flow-&gt;metadata.l4.tcp.os_hint</code></li>
+<li><strong>JSON / TLV export:</strong> <code>tcp_fingerprint</code> and <code>tcp_fingerprint_raw</code></li>
+<li><strong>ndpiReader:</strong> <code>[TCP Fingerprint: &lt;NTF&gt;/&lt;OS&gt;]</code></li>
+<li><strong>Wireshark:</strong> the <code>ntop.tcp_fingerprint</code> field via <code>wireshark/ndpi.lua</code></li>
+<li><strong>Custom databases:</strong> load your own entries with <code>ndpi_add_tcp_fingerprint()</code> or <code>ndpi_load_tcp_fingerprint_file()</code>. Each line has the form <code>&lt;NTF&gt;,&lt;numeric ndpi_os&gt;</code>, for example <code>2_64_14600_b88686e220ac,5</code>.</li>
+</ul>
+<p class="wp-block-paragraph">If you maintain a custom fingerprint database built with an earlier nDPI version, <strong>it must be regenerated</strong>. This revision of the format changed the option serialization, so old and new fingerprints are not comparable.</p>
+<p class="wp-block-paragraph">The full specification, including the ABNF grammar, the serialization algorithm, malformed-input behavior, test vectors and a Python reference implementation, is in the <a href="https://github.com/ntop/nDPI/blob/dev/fingerprint/README.ndpi_tcp_fingerprint.md">nDPI repository</a>. The spec is currently a draft (v0.4), and we welcome feedback, test vectors from new stacks, and independent implementations.</p>
+<p class="wp-block-paragraph">Enjoy !</p>
+<p class="wp-block-paragraph">
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p>
+<p>The post <a href="https://www.ntop.org/introducing-the-ndpi-tcp-fingerprint-a-stable-patent-free-way-to-fingerprint-tcp-stacks/">Introducing the nDPI TCP Fingerprint: A Stable, Patent-Free Way to Fingerprint TCP Stacks</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>AS/IXP Traffic Observability: From Flows to AI-Assisted Root-Cause Analysis</title>
+		<link>https://www.ntop.org/as-ixp-traffic-observability-from-flows-to-ai-assisted-root-cause-analysis/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 25 Sep 2026 12:53:44 +0000</pubDate>
+				<category><![CDATA[ISP/BGP]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46462</guid>
+
+					<description><![CDATA[<p>For most network operators, traffic visibility is not mandated by regulation, so it tends to be reactive rather than continuous: a "manual" investigation happens only after something breaks. Combined with limited time…</p>
+<p>The post <a href="https://www.ntop.org/as-ixp-traffic-observability-from-flows-to-ai-assisted-root-cause-analysis/">AS/IXP Traffic Observability: From Flows to AI-Assisted Root-Cause Analysis</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="46462" class="elementor elementor-46462">
+				<div class="elementor-element elementor-element-25d2d024 e-flex e-con-boxed e-con e-parent" data-id="25d2d024" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-164c9618 elementor-widget elementor-widget-text-editor" data-id="164c9618" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2 class="wp-block-heading">&nbsp;</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>For most network operators, traffic visibility is not mandated by regulation, so it tends to be reactive rather than continuous: a &#8220;manual&#8221; investigation happens only after something breaks. Combined with limited time to review telemetry and the cost/data-sovereignty concerns of cloud-based visibility platforms, this leaves a real gap for AS operators and IXP participants who need to understand what is actually happening on their transit and peering links.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":46464,"sizeSlug":"large","linkDestination":"none"} --></p>
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="569" class="wp-image-46464" src="https://www.ntop.org/wp-content/uploads/2026/09/ixp_sankey-1024x569.png" alt="" srcset="https://www.ntop.org/wp-content/uploads/2026/09/ixp_sankey-1024x569.png 1024w, https://www.ntop.org/wp-content/uploads/2026/09/ixp_sankey-300x167.png 300w, https://www.ntop.org/wp-content/uploads/2026/09/ixp_sankey-767x426.png 767w, https://www.ntop.org/wp-content/uploads/2026/09/ixp_sankey-500x278.png 500w, https://www.ntop.org/wp-content/uploads/2026/09/ixp_sankey-1536x853.png 1536w, https://www.ntop.org/wp-content/uploads/2026/09/ixp_sankey-100x56.png 100w, https://www.ntop.org/wp-content/uploads/2026/09/ixp_sankey-1250x694.png 1250w, https://www.ntop.org/wp-content/uploads/2026/09/ixp_sankey.png 2002w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p><a href="https://www.ntop.org/guides/ntopng/asmode/index.html">ntop&#8217;s response is an open-source, on-premise stack</a> (free at the community tier, with a paid enterprise tier funding development ) built specifically to close that gap for networks scaling from single routers to 100+ routers and multi-100 Gbit/s links.<span style="background-color: transparent;">&nbsp;</span></p>
+<p>
+<iframe src="https://www.ntop.org/wp-content/uploads/2026/09/NONOG_HRNOG_0926.pdf" height="600px" title="IXMp Observability"></iframe>
+</p>
+<h6 class="wp-block-heading">Anatomy of a Flow</h6>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The foundation is the classic IPFIX/NetFlow/sFlow flow record: packet/byte counters, timestamps, 5-tuple (source/destination IP, L4 ports), ingress/egress <code>ifIndex</code>, and, critically for AS-level observability, next-hop address, source/destination AS number, and source/destination prefix mask. These routing-and-peering fields are what let the platform reason about <em>where</em> traffic enters and leaves an autonomous system, not just how much of it there is.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":6} --></p>
+<h6 class="wp-block-heading">Architecture</h6>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The pipeline is vendor-neutral and composed of a small number of well-defined stages:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>Router/Switch (SNMP, sFlow/NetFlow/IPFIX)
+        │
+        ▼
+     nProbe  ────►
+        │
+        ▼ (flows + light DPI)
+     ntopng ──► Redis (cache) ──► Grafana
+              └─► ClickHouse / Elastic (timeseries, flows)
+              └─► Wazuh (SIEM integration)</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li><strong>PF_RING</strong> provides the high-speed packet capture layer (1/10/40/100 Gbit).</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li><strong>nProbe</strong> collects flow data — either generated natively from packets or received as sFlow/NetFlow/IPFIX from routers/switches (Cisco, MikroTik, Huawei, Juniper/HPE, etc., normalized for vendor &#8220;dialects&#8221;).</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li><strong>ntopng</strong> is the analysis engine, correlating flows with SNMP-derived infrastructure data, storing time series in ClickHouse or Elastic, and exposing dashboards directly or via Grafana.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading {"level":6} --></p>
+<h6 class="wp-block-heading">BGP/BMP Integration: Correlating Flows with Routing State</h6>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>A key architectural addition is a dedicated <code>bgp_server</code> component that peers with routers via BGP and BMP (BGP Monitoring Protocol):</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Routers send BMP/BGP session data and withdraws to <code>bgp_server</code>.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li><code>bgp_server</code> exchanges RIB state with nProbe over ZMQ and a Redis-like protocol.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>ntopng queries <code>bgp_server</code> for RIB lookups and receives push notifications, allowing it to enrich live and historical flow records with BGP peer ID, peer ASN, origin, next hop, AS path, MED, local preference, and communities, turning a flow view into a routing-aware view.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>This is what makes it possible to click into a single flow and see not just &#8220;who talked to whom&#8221; but the actual BGP path, local preference and MED that determined how the traffic was routed including a BGP Looking Glass with RPKI validation for prefix lookups.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":6} --></p>
+<h6 class="wp-block-heading">Configuring the AS/IXP View</h6>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Operators define three ASN sets in the configuration:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li><strong>My ASNs</strong> — the organization&#8217;s own AS numbers.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li><strong>Customer ASNs</strong> — ASNs of customers interconnected via the operator&#8217;s network.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li><strong>Relevant Remote ASNs</strong> — external ASNs worth tracking for monitoring purposes.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>SNMP interfaces are then tagged with a <strong>traffic role</strong> — <em>Customer</em>, <em>IX (Internet Exchange)</em>, <em>Internal LAN</em>, <em>Internet Connectivity (Uplink)</em>, <em>Peering</em>, <em>Transit</em>, or <em>Other</em> — which drives automatic breakdowns of traffic into transit vs. peering vs. customer categories, plus interface-level alerting (operational status changes, duplex changes, discard/error counters). With ASN sets and interface roles configured, ntopng exposes several purpose-built views:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>ASN visibility: throughput and traffic breakdown per ASN, filterable by <em>My ASNs</em>, <em>Customer ASNs</em>, <em>Relevant Remote ASNs</em>, or <em>All ASNs</em>, with live and historical time series.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Router/interface Sankey diagrams: a flow view from ingress interface → router → egress interface → destination ASN, making it immediately visible, for example, which peering or transit sessions are carrying traffic to/from a given ASN (e.g., visualizing how traffic to Netflix, Amazon or Cloudflare is distributed across MIX peering, NAMEX peering and Cogent transit).</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Exporter/interface stats: bytes sent/received per flow exporter and per interface, broken down by role (peering, IX, uplink), for capacity and cost analysis across multiple routers.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Flow-level BGP detail: for any given flow, the BGP client and server-side prefix, peer ID, peer ASN, AS path, MED, local preference and communities.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>Deployed against a real network (ASN 62275), the resulting Sankey visualizations make traffic engineering questions — &#8220;how much of our Netflix/Amazon/Bytedance traffic rides on paid transit vs. settlement-free peering?&#8221; — directly answerable rather than requiring ad hoc CLI digging across multiple routers.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":6} --></p>
+<h6 class="wp-block-heading">Capabilities Summary</h6>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>As of this iteration, the stack delivers:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Passive BGP/BMP session analysis.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Live and historical AS-path visualization per flow.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Automatic transit vs. peering traffic breakdown.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Network prefix change alerting.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Correlation of SNMP infrastructure data with NetFlow/IPFIX traffic data.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Lightweight DPI-based traffic classification.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Scalability to 100+ routers and 100 Gbit+ links via distributed collection.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading {"level":6} --></p>
+<h6 class="wp-block-heading">The Next Challenge: Too Much Telemetry, Not Enough Time</h6>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Even with all this instrumentation, the talk is candid about the residual pain points:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Gigabytes of metrics generated daily.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Difficulty setting meaningful alarm thresholds against dynamic, bursty traffic.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Poorly correlated data sources — BGP state and flow data don&#8217;t always line up cleanly in time or granularity.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Limited operator time to actually review telemetry.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>The stated bottom line: network analysis has no value if nobody has time to look at it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":6} --></p>
+<h6 class="wp-block-heading">Closing the Loop with AI: nAnalyst</h6>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>ntop&#8217;s answer is to treat ntopng as a telemetry engine and structured data source for LLMs, rather than trying to build alerting heuristics that generalize across every network. Concretely:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>ntopng&#8217;s REST API returns structured, AI-friendly JSON suitable for direct LLM consumption.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Live and historical telemetry is inserted into LLM prompts as context.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>An agent orchestrates the analysis, calling into ntopng&#8217;s tool catalog (currently ~52 read/write tools — e.g., <em>Get Live Flows Summary</em>, <em>Get Country Stats</em>, <em>List Active Monitoring Scripts</em>, <em>Add Active Monitoring</em> — each gated by license tier and read-only/write annotations).</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>Two concrete integration patterns were demonstrated:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>1. MCP-based AI assistant (e.g., Claude Code). ntopng exposes an embedded MCP server over its REST API (<code>/lua/rest/v2/exec/llm/mcp.lua</code>), authenticated with a per-user token:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>claude mcp add-json myntop '{"type":"http",
+  "url":"https://ntopng.example.ch/lua/rest/v2/exec/llm/mcp.lua",
+  "headers":{"Authorization":"Token XXXXXXXX"}}' --scope user</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>An assistant can then ask natural-language questions (&#8220;Which hosts queried malicious-domain.com in the last 24 hours?&#8221; or &#8220;What are the top hosts that triggered alerts on transit interfaces?&#8221;) and receive answers derived from live Lua API calls against the flow/alert database — with follow-up reasoning (e.g., investigating why specific hosts were flagged as NTP attackers) handled conversationally.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>2. <a href="https://www.ntop.org/products/traffic-analysis/nanalyst/">nAnalyst</a>, a built-in analyst chat with a local LLM. Rather than depending on an external assistant, ntopng ships nAnalyst, which runs against a local model (the deck shows Qwen3.8-27B) and exposes:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>A query history panel and investigation evidence panel showing the exact tool-call sequence executed (database access, SQL generation, chart drawing) for auditability.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Visible internal reasoning — the model&#8217;s stated plan for mapping a natural-language question to a SQL query against the flows table, including how it decides to filter by <code>INTERFACE_ROLE</code>, aggregate by ASN, and pick a chart type.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Multi-language support — the same demo asked &#8220;What are the top 10 ASNs in inter-network media traffic in the last hour?&#8221; in Greek and received a correctly localized, correctly computed answer.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li><strong>Expert-style narrative output</strong>, not just numbers: e.g. for a Google (AS15169) throughput chart, nAnalyst reports TX/RX ranges and averages, flags that outbound traffic dominates inbound with an unexplained spike, and proposes concrete next steps (&#8220;break down Google TX by application to see which nDPI protocol — TLS, QUIC — is driving the spike&#8221;; &#8220;identify the top client hosts generating that traffic&#8221;).</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading {"level":6} --></p>
+<h6 class="wp-block-heading">Use Case: Playbooks for Repeatable Investigations</h6>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Beyond ad hoc chat, ntopng lets operators codify recurring investigative logic as playbooks, natural-language descriptions that are compiled by an LLM into a multi-stage SQL pipeline and re-run on demand or on a schedule. Example prompt: <em>&#8220;Alert me if TLS traffic on transit interfaces exceeds peering interfaces. If so, tell me which ASNs are responsible for the problem.&#8221;</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The generated playbook in the demo compiled to three stages:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol class="wp-block-list">
+<li style="list-style-type: none;">
+<ol class="wp-block-list"><!-- wp:list-item --></ol>
+</li>
+</ol>
+<ol class="wp-block-list">
+<li style="list-style-type: none;">
+<ol class="wp-block-list">
+<li>Interface Volume Comparison — aggregate TLS (<code>L7_PROTO=91</code>) byte totals per interface role (transit vs. peering vs. other) over a given time window.</li>
+</ol>
+</li>
+</ol>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ol class="wp-block-list">
+<li style="list-style-type: none;">
+<ol class="wp-block-list">
+<li>Top Transit Source ASNs — drill into the source ASNs driving the transit volume.</li>
+</ol>
+</li>
+</ol>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ol class="wp-block-list">
+<li style="list-style-type: none;">
+<ol class="wp-block-list">
+<li>Top Transit Destination ASNs — same, for destination ASNs.</li>
+</ol>
+</li>
+</ol>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>Each stage is stored as auditable SQL (visible and editable before saving), with configurable parameters (time range, volume threshold in bytes) and can be executed on demand via an &#8220;Executor&#8221; view that shows per-stage row counts and results — turning what used to be a manual, recurring diagnostic task into a parameterized, repeatable pipeline.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":6} --></p>
+<h6 class="wp-block-heading">Cost and Usage Accountability</h6>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Because every playbook run and chat turn consumes LLM tokens, ntopng includes a dedicated <strong>usage tracking</strong> view: total LLM calls, total tokens (prompt vs. completion), average response time, and cost broken down by provider, model and user — necessary once AI-assisted analysis becomes part of routine operations rather than an occasional experiment.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":6} --></p>
+<h6 class="wp-block-heading">Takeaways</h6>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Telemetry alone is necessary but not sufficient. Raw flow/BGP/SNMP data is a precondition for observability, not the end goal.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>Reasoning over the data is where the value is — dashboards and Sankey diagrams are useful, but turning them into decisions still requires either expert time or automated reasoning.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>ntopng&#8217;s flow + BGP/BMP + SNMP correlation provides the structured substrate; its REST/MCP APIs and playbook system provide the mechanism for AI agents (local or external) to consume that substrate directly.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>The stated direction is human-AI collaboration in NetOps: experts encode investigative know-how once as a playbook or prompt, and the system executes and interprets it repeatably, surfacing evidence rather than opaque conclusions.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --></p>
+<p><!-- wp:separator --></p>
+<hr class="wp-block-separator has-alpha-channel-opacity">
+<p><!-- /wp:separator --></p>
+<p><!-- wp:paragraph --></p>
+<p><em>Code repositories referenced in the talk: <a href="https://github.com/ntop/">github.com/ntop</a>, including <a href="https://github.com/ntop/ntopng">ntopng</a> and the <a href="https://github.com/ntop/nProbe/tree/master/bgp">nProbe BGP module</a>. This work was presented as part of ntop&#8217;s 2026 summer tour of network operator groups (NOGs), including <a href="https://www.ntop.org/ntop-summer-tour-interop-japan-italy-greece-norway-croatia/">ITNOG, Interop Tokyo, GRNOG, NONOG and NOG.HR</a> as described in this blog earlier this year.</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Enjoy !</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/as-ixp-traffic-observability-from-flows-to-ai-assisted-root-cause-analysis/">AS/IXP Traffic Observability: From Flows to AI-Assisted Root-Cause Analysis</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing nDPI TLS Fingerprint: A Stable, Collision-Resistant Successor to JA4</title>
+		<link>https://www.ntop.org/introducing-tlsfp-a-stable-collision-resistant-successor-to-ja4/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 21 Sep 2026 21:16:13 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46419</guid>
+
+					<description><![CDATA[<p>TLS client fingerprinting has become one of the workhorse techniques in network security, and JA4 (FoxIO) has been the de facto standard for identifying TLS clients from their ClientHello messages. But recent…</p>
+<p>The post <a href="https://www.ntop.org/introducing-tlsfp-a-stable-collision-resistant-successor-to-ja4/">Introducing nDPI TLS Fingerprint: A Stable, Collision-Resistant Successor to JA4</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">TLS client fingerprinting has become one of the workhorse techniques in network security, and JA4 (<a href="https://foxio.io/">FoxIO</a>) has been the de facto standard for identifying TLS clients from their ClientHello messages. But recent production experience at ntop surfaced two real limitations, and today we&#8217;re announcing nDPI TLS Fingerprint (TLSFP in short), an open, patent-free extension of JA4 that addresses both.</p>
+
+
+
+<h6 class="wp-block-heading">Ephemeral Extensions Break Hash Stability</h6>
+
+
+
+<p class="wp-block-paragraph">JA4 builds its fingerprint from the full set of TLS extensions a client presents, hashed together with the cipher suite list. The trouble is that not every extension reflects something stable about the client&#8217;s TLS stack. Extensions like <code>session_ticket</code>, <code>pre_shared_key</code>, and <code>padding</code> can appear or disappear from one connection to the next for the <em>same</em> client build, simply because of session-resumption state or record-size padding heuristics and not because the client changed.</p>
+
+
+
+<p class="wp-block-paragraph">We first documented this in <a href="https://www.ntop.org/is-ja4-now-obsolete/"><em>&#8220;Is JA4 Now Obsolete?&#8221;</em></a> blog article, where a single macOS Safari instance produced multiple different JA4 values across consecutive connections to the same site, purely because Safari opportunistically resumes sessions via the TLS 1.3 PSK extension (<a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC 8446</a>). This is a real problem for security use cases: an analyst or a detection rule relying on JA4 for allow-listing or threat-hunting sees the same client &#8220;change identity&#8221; for no meaningful reason, which either causes false negatives or forces defenders to loosen matching rules in ways that also let attackers blend in more easily. As ephemeral TLS extensions become more common (session resumption in particular is increasingly the norm rather than the exception) this instability only gets worse over time. This is exactly the gap the community discussion in the <a href="https://github.com/FoxIO-LLC/ja4/issues/303">FoxIO JA4 issue tracker</a> later converged on independently.</p>
+
+
+
+<h6 class="wp-block-heading">Blindness to Supported TLS Groups</h6>
+
+
+
+<p class="wp-block-paragraph">A separate, subtler issue is that JA4 only ever looks at <em>which</em> extensions are present, never at the <em>values</em> carried inside them. In particular, the <code>supported_groups</code> extension (it lists the elliptic curves and key-exchange groups a client is willing to negotiate) is invisible to JA4&#8217;s hash beyond the bare fact that the extension exists. That means two TLS stacks can end up with an identical JA4 fingerprint even though they support completely different curve sets. This is exactly the kind of gap that fingerprint-evasion tooling can exploit, cloning a browser&#8217;s published JA4 value while leaving a generic TLS library&#8217;s default curve list untouched underneath.</p>
+
+
+
+<h6 class="wp-block-heading">What TLSFP Does</h6>
+
+
+
+<p class="wp-block-paragraph">TLSFP keeps JA4&#8217;s overall structure and cipher-suite handling intact, and adds two things:</p>
+
+
+
+<ol class="wp-block-list">
+<li>Ephemeral-extension sanitization<strong>.</strong> A curated, versioned registry of ephemeral extension types (<code>padding</code>, <code>session_ticket</code>, <code>pre_shared_key</code>, <code>early_data</code>, <code>cookie</code>, <code>psk_key_exchange_modes</code>) is excluded from both the extension <em>count</em> and the extension <em>hash</em> before fingerprint computation. The result is a fingerprint that stays stable for the same client across resumption-heavy sessions, without discarding any of JA4&#8217;s other signal.</li>
+
+
+
+<li>A fourth hash field,<strong> </strong><code>TLSFP_d</code>, computed from the sorted, GREASE-filtered <code>supported_groups</code> values. This gives TLSFP visibility into curve/group selection that JA4 never had, which directly helps reduce false positives and hash collisions between TLS stacks that otherwise look identical to JA4.</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">The result is a four-field string, <code>TLSFP_a_TLSFP_b_TLSFP_c_TLSFP_d</code>, where <code>TLSFP_b</code> (the cipher-suite hash) is byte-identical to JA4_b for backward compatibility, and the extension and supported-groups handling do the new work.</p>
+
+
+
+<h6 class="wp-block-heading">Example: JA4 vs. TLSFP on the same ClientHello</h6>
+
+
+
+<p class="wp-block-paragraph">The spec&#8217;s test vectors illustrate the difference concretely. For a client whose ClientHello includes <code>padding</code> and <code>pre_shared_key</code> among 16 total extensions, and that advertises five supported groups:</p>
+
+
+
+<pre class="wp-block-code"><code># JA4 (unsanitized): extension count includes padding + PSK
+JA4 = t13d1516h2_acb858a92679_562e8b7393e5
+
+# TLSFP: same client, ephemeral extensions excluded from count and hash,
+# plus a new supported-groups hash appended
+TLSFP = t13d1514h2_acb858a92679_7dc829385eb9_0a47a2b05960</code></pre>
+
+
+
+<p class="wp-block-paragraph">A few things to note in that output:</p>
+
+
+
+<ul class="wp-block-list">
+<li><code>TLSFP_b</code> (<code>acb858a92679</code>) is identical in both cipher-suite handling is unchanged.</li>
+
+
+
+<li>The extension-count digits in <code>_a</code> drop from <code>16</code> to <code>14</code> once <code>padding</code> and <code>pre_shared_key</code> are excluded, and <code>JA5_c</code> changes accordingly since it hashes the sanitized extension list instead of the raw one.</li>
+
+
+
+<li><code>TLSFP_d</code> (<code>0a47a2b05960</code>) is brand new: a truncated SHA-256 of the sorted, GREASE-filtered <code>supported_groups</code> list. When <code>supported_groups</code> is absent (legacy RSA-only clients), this field is left empty rather than hashed, so &#8220;absent&#8221; stays distinguishable from &#8220;present but sparse&#8221;:</li>
+</ul>
+
+
+
+<h6 class="wp-block-heading">Open and Patent-Free by Design</h6>
+
+
+
+<p class="wp-block-paragraph">We&#8217;re publishing the TLSFP specification openly, under a permissive license, specifically so it can be adopted widely without licensing friction, the same spirit that made JA4 useful across the ecosystem, but without the ambiguity we&#8217;ve seen crop up around JA4+ naming and licensing. The draft specification, including the full byte-level algorithm, ephemeral extension registry, and worked test vectors, is maintained alongside nDPI.</p>
+
+
+
+<h6 class="wp-block-heading">References</h6>
+
+
+
+<ul class="wp-block-list">
+<li>ntop, <a href="https://github.com/ntop/nDPI/blob/dev/fingerprint/nDPI_TLS_Fingerprint.md">nDPI TLS Client Fingerprint Format</a></li>
+
+
+
+<li>ntop, <a href="https://www.ntop.org/is-ja4-now-obsolete/">Is JA4 Now Obsolete?</a></li>
+
+
+
+<li><a href="https://github.com/FoxIO-LLC/ja4/issues/303">FoxIO JA4 issue #303</a>, community discussion on the same ephemeral-extension problem</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/introducing-tlsfp-a-stable-collision-resistant-successor-to-ja4/">Introducing nDPI TLS Fingerprint: A Stable, Collision-Resistant Successor to JA4</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>ntopng User Interface: Introducing the New Navigation Bar</title>
+		<link>https://www.ntop.org/ntopng-user-interface-introducing-the-new-navigation-bar/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Mon, 21 Sep 2026 09:17:05 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46378</guid>
+
+					<description><![CDATA[<p>In our continuous effort to improve user experience and make network monitoring more intuitive, we have completely redesigned the ntopng Navigation Bar. As our feature set expands—with crucial additions like the nAnalyst…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-user-interface-introducing-the-new-navigation-bar/">ntopng User Interface: Introducing the New Navigation Bar</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="46378" class="elementor elementor-46378">
+				<div class="elementor-element elementor-element-a0ec4bf e-flex e-con-boxed e-con e-parent" data-id="a0ec4bf" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-be7b86c elementor-widget elementor-widget-text-editor" data-id="be7b86c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<div class="n6owBd awi2gc" style="font-family: 'Google Sans', Arial, sans-serif, 'Noto Color Emoji'; margin: 12px 0px 16px; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">In our continuous effort to improve user experience and make network monitoring more intuitive, we have completely redesigned the <span class="rQesXe MPyX" style="font-weight: bold; margin: 0px; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">ntopng Navigation Bar<!--TgQPHd|||[]--></span>. As our feature set expands—with crucial additions like the <span class="rQesXe MPyX" style="font-weight: bold; margin: 0px; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><a href="https://www.ntop.org/products/traffic-analysis/nanalyst/">nAnalyst</a><!--TgQPHd|||[]--></span> automated pipeline, specialized <span class="rQesXe MPyX" style="font-weight: bold; margin: 0px; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">AI Dashboards<!--TgQPHd|||[]--></span>, and high-resolution <span class="rQesXe MPyX" style="font-weight: bold; margin: 0px; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Observability<!--TgQPHd|||[]--></span> analytics—the legacy menu structure needed a logical evolution to reduce deep nesting and facilitate daily operations.<br /><span style="background-color: transparent;"><br /></span></div><div class="n6owBd awi2gc" style="font-family: 'Google Sans', Arial, sans-serif, 'Noto Color Emoji'; margin: 12px 0px 16px; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span style="background-color: transparent;">We have completely rearranged the main categories to help you find what you need faster, drawing a clear line between operational network monitoring, analysis tools, and security/alerting policies.</span></div>								</div>
+				<div class="elementor-element elementor-element-4ef04b5 elementor-widget elementor-widget-image" data-id="4ef04b5" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="658" src="https://www.ntop.org/wp-content/uploads/2026/09/Screenshot-2026-09-09-163410-1.png" class="attachment-large size-large wp-image-46381" alt="" />															</div>
+				<div class="elementor-element elementor-element-3f3a0e9 elementor-widget elementor-widget-text-editor" data-id="3f3a0e9" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<div class="n6owBd awi2gc" style="font-family: 'Google Sans', Arial, sans-serif, 'Noto Color Emoji'; margin: 12px 0px 16px; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><h5 class="otQkpb" role="heading" aria-level="3" data-wiz-attrbind="aria-level=ERcHe_2l/fLk2Md" data-sfc-root="ep" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 20px; font-weight: 600; margin: 24px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 20px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Key Structural Updates<!--TgQPHd|||[]--></strong><!--TgQPHd|||[]--></h5><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwi99aqZ2eGWAxXk_wIHHVnVLhYQ-7AUegYIAAgREAA" data-hveid="CAAIERAA" data-processed="true" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li style="list-style-type: none;"><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwi99aqZ2eGWAxXk_wIHHVnVLhYQ-7AUegYIAAgREAA" data-hveid="CAAIERAA" data-processed="true" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAB" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Dashboard &amp; Advanced Analytics<!--TgQPHd|||[]--></strong><!--TgQPHd|||[]--></span><br /><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwi99aqZ2eGWAxXk_wIHHVnVLhYQ-7AUegYIAAgREAI" data-hveid="CAAIERAC" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li style="list-style-type: none;"><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwi99aqZ2eGWAxXk_wIHHVnVLhYQ-7AUegYIAAgREAI" data-hveid="CAAIERAC" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAD" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">AI Dashboard<!--TgQPHd|||[]--></strong> &amp; <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Observability<!--TgQPHd|||[]--></strong>: Fully integrated as dedicated entries under the core <em class="zhvwWe" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Dashboard<!--TgQPHd|||[]--></em> section.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAE" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Assets Inventory<!--TgQPHd|||[]--></strong> &amp; <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Sites<!--TgQPHd|||[]--></strong>: Promoted to the main <em class="zhvwWe" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Dashboard<!--TgQPHd|||[]--></em> area for quick, high-level business infrastructure overviewing.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li></ul></li></ul><p><!--TgQPHd|||[]--></p><p><!--TgQPHd|||[]--></p></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAH" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">nAnalyst (New Dedicated Section)<!--TgQPHd|||[]--></strong><!--TgQPHd|||[]--></span><br /><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwi99aqZ2eGWAxXk_wIHHVnVLhYQ-7AUegYIAAgREAg" data-hveid="CAAIERAI" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li style="list-style-type: none;"><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwi99aqZ2eGWAxXk_wIHHVnVLhYQ-7AUegYIAAgREAg" data-hveid="CAAIERAI" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAJ" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">An entirely new root menu entry dedicated to our automated AI workflows, grouping <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">nAnalyst (Brain)<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">AI Policy<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Analyst Pipeline<!--TgQPHd|||[]--></strong>, and related usage statistics/auditing tools.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li></ul></li></ul><p><!--TgQPHd|||[]--></p><p><!--TgQPHd|||[]--></p></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAM" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Network &amp; Interface Unification<!--TgQPHd|||[]--></strong><!--TgQPHd|||[]--></span><br /><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwi99aqZ2eGWAxXk_wIHHVnVLhYQ-7AUegYIAAgREA0" data-hveid="CAAIERAN" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li style="list-style-type: none;"><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwi99aqZ2eGWAxXk_wIHHVnVLhYQ-7AUegYIAAgREA0" data-hveid="CAAIERAN" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAO" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Submenus like <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Hosts<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">MAC Addresses<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Interface Details<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Autonomous Systems<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Countries<!--TgQPHd|||[]--></strong>, and <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">VLANs<!--TgQPHd|||[]--></strong> have been consolidated under a much cleaner, unified layout layout split logically across the main navigation paths.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAP" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Custom analysis layouts such as <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Geo Maps<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Service Maps<!--TgQPHd|||[]--></strong>, and <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Hosts Maps<!--TgQPHd|||[]--></strong> are now directly accessible here.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li></ul></li></ul><p><!--TgQPHd|||[]--></p><p><!--TgQPHd|||[]--></p></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAS" data-sae="" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Settings vs. Policies Separation<!--TgQPHd|||[]--></strong><!--TgQPHd|||[]--></span><br /><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwi99aqZ2eGWAxXk_wIHHVnVLhYQ-7AUegYIAAgREBM" data-hveid="CAAIERAT" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li style="list-style-type: none;"><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwi99aqZ2eGWAxXk_wIHHVnVLhYQ-7AUegYIAAgREBM" data-hveid="CAAIERAT" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAU" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Settings<!--TgQPHd|||[]--></strong>: Restructured to focus strictly on system configurations, user administration, preferences, tags, and threat intelligence list management.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIERAV" data-sae="" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Policies<!--TgQPHd|||[]--></strong> <em class="zhvwWe" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">(New Category)<!--TgQPHd|||[]--></em>: To isolate the behaviors that trigger alerts, pages like <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Access Control Lists (ACL)<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Allowed Applications<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Network Configuration<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Traffic Rules<!--TgQPHd|||[]--></strong>, <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Behavioral Checks<!--TgQPHd|||[]--></strong>, and <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Traffic Profiles<!--TgQPHd|||[]--></strong> have been migrated into this brand-new dedicated space.</span></li></ul></li></ul></li></ul></li></ul></div><div class="n6owBd awi2gc" style="font-family: 'Google Sans', Arial, sans-serif, 'Noto Color Emoji'; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDxAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><!--TgQPHd|||[]--></div>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-dbf2d6c e-flex e-con-boxed e-con e-parent" data-id="dbf2d6c" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-9a2e05f elementor-widget elementor-widget-text-editor" data-id="9a2e05f" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<div class="table-container" style="overflow-x: auto; margin: 20px 0;">
+<p></p><p><!-- === SEZIONE: REMOVED === --></p><p><!-- === SEZIONE: RENAMED === --></p><p><!-- === SEZIONE: MOVED === --></p><table class="wp-block-table is-style-stripes" style="width: 100%; border-collapse: collapse; text-align: left; font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+<thead>
+<tr style="background-color: #1a1a1a; color: #ffffff; border-bottom: 2px solid #dddddd;">
+<th style="padding: 12px; border: 1px solid #dddddd; width: 25%;">Section / Page Name</th>
+<th style="padding: 12px; border: 1px solid #dddddd; width: 15%;">Layout Status</th>
+<th style="padding: 12px; border: 1px solid #dddddd; width: 25%;">Old Menu Path (menubar.lua)</th>
+<th style="padding: 12px; border: 1px solid #dddddd; width: 35%;">New Navbar Path (JSON sections)</th>
+</tr>
+</thead>
+<tbody><!-- === SEZIONE: NEW === -->
+<tr style="background-color: #f1fcf1; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>User Dropdown Menu (Theme, Blog, Updates, Logout)</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">NEW</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd; color: #777;">Scattered topbar options</td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>User Profile Icon Menu</strong> → [Toggle Dark Theme / News from the ntop Blog / Software Updates / Login-Logout]</td>
+</tr>
+<tr style="background-color: #f1fcf1; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>nAnalyst (Brain, Pipeline, AI Policy, Stats)</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">NEW</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd; color: #777;">Not Present</td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>nAnalyst</strong> → [Dedicated Submenus]</td>
+</tr>
+<tr style="background-color: #f1fcf1; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>AI Dashboard</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #28a745; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">NEW</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd; color: #777;">Not Present</td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Dashboard</strong> → AI Dashboard</td>
+</tr>
+
+<tr style="background-color: #fff5f5; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Collection / Flow Exporters</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">REMOVED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Collection / Flow Exporters</td>
+<td style="padding: 12px; border: 1px solid #dddddd; color: #c82333;">Consolidated under the new <strong>Network</strong> menu</td>
+</tr>
+<tr style="background-color: #fff5f5; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Maps</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">REMOVED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Maps</td>
+<td style="padding: 12px; border: 1px solid #dddddd; color: #c82333;">Consolidated under the new <strong>Network</strong> menu</td>
+</tr>
+<tr style="background-color: #fff5f5; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Interface Details</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">REMOVED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Interface</td>
+<td style="padding: 12px; border: 1px solid #dddddd; color: #c82333;">Consolidated inside the unified <strong>Network</strong> menu</td>
+</tr>
+<tr style="background-color: #fff5f5; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Policies / Rules &amp; Policies</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #dc3545; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">REMOVED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Rules &amp; Policies</td>
+<td style="padding: 12px; border: 1px solid #dddddd; color: #c82333;">Consolidated entirely under <strong>Settings</strong> with specific dividers</td>
+</tr>
+
+<tr style="background-color: #fffaf0; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Threat Intelligence</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #ff9800; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">RENAMED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Admin → Blacklists</td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Settings</strong> → Threat Intelligence</td>
+</tr>
+<tr style="background-color: #fffaf0; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>nProbe</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #ff9800; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">RENAMED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Collection → Probe</td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Network</strong> → nProbe</td>
+</tr>
+
+<tr style="border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Manage Users</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #007bff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">MOVED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Admin → Manage Users</td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Settings</strong> → Manage Users<br><small>(Also accessible directly by clicking on the <strong>User Profile / Name</strong>)</small></td>
+</tr>
+<tr style="background-color: #f9f9f9; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Observation Points</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #007bff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">MOVED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Collection → Observation Points</td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Network</strong> → Observation Points</td>
+</tr>
+<tr style="border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>sFlow Counter Exporters</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #007bff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">MOVED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Collection → sFlow Exporters</td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Network</strong> → sFlow Counter Exporters</td>
+</tr>
+<tr style="background-color: #f9f9f9; border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Geo Map / Service Maps</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #007bff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">MOVED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Maps → [Geo Map / Analysis Map]</td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Network</strong> → [Geo Map / Analysis]</td>
+</tr>
+<tr style="border-bottom: 1px solid #dddddd;">
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>VLANs / Interface Details / AS / Countries</strong></td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><span style="background-color: #007bff; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-weight: bold;">MOVED</span></td>
+<td style="padding: 12px; border: 1px solid #dddddd;">Interface → [VLANs / Interface / AS / Country]</td>
+<td style="padding: 12px; border: 1px solid #dddddd;"><strong>Network</strong> → [VLANs / Interface Details / AS / Countries]</td>
+</tr>
+</tbody>
+</table>
+</div>								</div>
+				<div class="elementor-element elementor-element-570f6de elementor-widget elementor-widget-text-editor" data-id="570f6de" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<div class="n6owBd awi2gc" style="font-family: 'Google Sans', Arial, sans-serif, 'Noto Color Emoji'; margin: 12px 0px 16px; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><h5 class="otQkpb" role="heading" aria-level="3" data-wiz-attrbind="aria-level=vXqy8c_2g/fLk2Md" data-sfc-root="ep" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 20px; font-weight: 600; margin: 24px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 20px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">The New User Dropdown Menu &amp; Account Management</strong></h5><div class="otQkpb" role="heading" aria-level="3" data-animation-nesting="" data-sfc-cp="" data-wiz-attrbind="aria-level=vXqy8c_2g/fLk2Md" data-sfc-root="ep" data-complete="true" data-processed="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 20px; font-weight: 600; margin: 24px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 20px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><!--TgQPHd|||[]--></strong><!--TgQPHd|||[]-->We have completely centralized user preferences, system notifications, diagnostic actions, and authentication controls into a clean, modern <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">User Dropdown Menu<!--TgQPHd|||[]--></strong>. This menu collapses all loose administrative shortcuts into a unified, vertical layout accessible directly by clicking on your profile area:<!--TgQPHd|||[]--></div><ul class="KsbFXc U6u95" data-sfc-cp="" data-sfc-root="ep" data-ved="2ahUKEwj8pqal5-GWAxW5gf0HHcOqBRAQ-7AUegYIAAgOEAA" data-hveid="CAAIDhAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAB" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Profile Shortcut<!--TgQPHd|||[]--></strong>: Provides immediate access to your personal account settings and user profile details.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAC" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Quick Theme Toggle<!--TgQPHd|||[]--></strong>: A native <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Toggle Dark Theme<!--TgQPHd|||[]--></strong> switch allows you to seamlessly flip between light and dark modes with a single click.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAD" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Software Updates Center<!--TgQPHd|||[]--></strong>: Integrates live diagnostic status tracking, displaying <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">&#8220;No updates available&#8221;<!--TgQPHd|||[]--></strong> (or pending update alerts) alongside a quick <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">&#8220;Check for updates&#8221;<!--TgQPHd|||[]--></strong> trigger button.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAE" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">System Restart<!--TgQPHd|||[]--></strong>: Includes a dedicated <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Restart<!--TgQPHd|||[]--></strong> action right inside the menu, allowing administrators to reboot the ntopng service instantly without leaving the GUI.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAF" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Interactive ntop Blog Feed<!--TgQPHd|||[]--></strong>: Features an embedded <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">&#8220;News from the ntop Blog&#8221;<!--TgQPHd|||[]--></strong> section with a live notification counter. It lists the latest official articles (such as flow collection guides or architectural changes) complete with unread notification badges so you can stay updated directly from your instance.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li><li class="Z1qcYe" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAG" data-complete="true" data-sae="" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" aria-owns="action-menu-parent-container" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Session Controls<!--TgQPHd|||[]--></strong>: The traditional <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Logout<!--TgQPHd|||[]--></strong> function is cleanly anchored at the very bottom of the dropdown.</span><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li></ul><p><!--TgQPHd|||[]--></p><div class="yhAwj" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-processed="true" data-sfc-inited="2" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 14px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><!--TgQPHd|||[]--></div></div><div class="n6owBd awi2gc" style="font-family: 'Google Sans', Arial, sans-serif, 'Noto Color Emoji'; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDxAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><!--TgQPHd|||[]--></div>								</div>
+				<div class="elementor-element elementor-element-a3ce0b3 elementor-widget elementor-widget-image" data-id="a3ce0b3" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="658" src="https://www.ntop.org/wp-content/uploads/2026/09/Screenshot-2026-09-09-172352.png" class="attachment-large size-large wp-image-46382" alt="" />															</div>
+				<div class="elementor-element elementor-element-5160452 elementor-widget elementor-widget-text-editor" data-id="5160452" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<div class="n6owBd awi2gc" style="font-family: 'Google Sans', Arial, sans-serif, 'Noto Color Emoji'; margin: 12px 0px 16px; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDhAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><h5><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Where is User Management now?</strong></h5><div class="n6owBd awi2gc" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIGBAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Administrative actions have been made much more accessible. You can now jump into <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Manage Users<!--TgQPHd|||[]--></strong> in two quick ways:<!--TgQPHd|||[]--></div><ol><li><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">By navigating to the new consolidated path: <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Settings<!--TgQPHd|||[]--></strong> → <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Manage Users<!--TgQPHd|||[]--></strong>.<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li><li><span class="iNqyIf" data-sfc-cp="" data-sfc-root="ep" data-complete="true" aria-owns="action-menu-parent-container" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Or simply by <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">clicking directly on your Username or Profile avatar<!--TgQPHd|||[]--></strong> at the corner of the screen, which acts as an instant shortcut to your account configuration.</span></li></ol></div><div class="n6owBd awi2gc" style="font-family: 'Google Sans', Arial, sans-serif, 'Noto Color Emoji'; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px #eef0ff;" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDxAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><!--TgQPHd|||[]--></div>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-e9a54e4 e-flex e-con-boxed e-con e-parent" data-id="e9a54e4" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-c0d334c elementor-widget elementor-widget-text-editor" data-id="c0d334c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h5 class="otQkpb" role="heading" aria-level="3" data-wiz-attrbind="aria-level=iKNrEd_t/fLk2Md" data-sfc-root="ep" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 20px; font-weight: 600; margin: 24px 0px 12px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 20px; font-weight: 600; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">Wrap Up<!--TgQPHd|||[]--></strong><!--TgQPHd|||[]--></h5><div class="n6owBd awi2gc" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDRAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><div class="n6owBd awi2gc" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIDRAA" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">These layout updates are part of our ongoing commitment to making <strong class="rQesXe MPyX" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 700; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">ntopng<!--TgQPHd|||[]--></strong> not just more powerful, but faster and more pleasant to use every day. By grouping tools into cleaner logical hubs and centralizing profile management, you can spend less time navigating menus and more time focusing on your network performance and security.<!--TgQPHd|||[]--></div><div class="n6owBd awi2gc" data-sfc-cp="" data-sfc-root="ep" data-hveid="CAAIEBAA" data-processed="true" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);">We are excited for you to try out this new interface! As always, we would love to hear your feedback, thoughts, or suggestions. Connect with us on our official <span class="" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-processed="true" data-sfc-inited="2" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><a class="H23r4e" href="https://t.me/ntop_community" target="_blank" rel="noopener" data-ved="2ahUKEwjI9fG-6OGWAxV79bsIHcEqD5sQy_kOegYIAAgQEAE" data-hveid="CAAIEBAB" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(153, 195, 255); border-bottom: 0px rgb(153, 195, 255);">Telegram community</a><!--TgQPHd|||[[&quot;https://t.me/ntop_community&quot;,null,null,[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,[{&quot;1218&quot;:[16,null,null,null,[7]]}]],16,null,null,null,null,null,null,[[1788967827307208,146535803,2601462465],null,null,null,null,[[0,14]]],null,&quot;308d1d1a-b847-4078-a161-2d501719f0b0&quot;]]--></span> or file issues and contributions directly on our <span class="" data-sfc-cp="" data-sfc-root="ep" data-complete="true" data-processed="true" data-sfc-inited="2" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 0px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><a class="H23r4e" href="https://github.com/ntop/ntopng" target="_blank" rel="noopener" data-ved="2ahUKEwjI9fG-6OGWAxV79bsIHcEqD5sQy_kOegYIAAgQEAI" data-hveid="CAAIEBAC" data-processed="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 500; margin: 0px; text-decoration: underline 1px rgb(153, 195, 255); border-bottom: 0px rgb(153, 195, 255);">GitHub repository</a><!--TgQPHd|||[[&quot;https://github.com/ntop/ntopng&quot;,null,null,[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,[{&quot;1218&quot;:[16,null,null,null,[7]]}]],16,null,null,null,null,null,null,[[1788967827307208,146535803,2601462465],null,null,null,null,[[0,15]]],null,&quot;c9d4a49b-d8ba-49c3-b371-a54754ca8872&quot;]]--></span>.</div><h6 class="n6owBd awi2gc" data-sfc-root="ep" data-hveid="CAAIEBAA" data-processed="true" data-complete="true" data-copy-service-computed-style="font-family: &quot;Google Sans&quot;, Arial, sans-serif, &quot;Noto Color Emoji&quot;; font-size: 16px; font-weight: 400; margin: 12px 0px 16px; text-decoration: none; border-bottom: 0px rgb(238, 240, 255);"><!--TgQPHd|||[]--><span style="font-size: 18px; font-weight: bold;">Happy monitoring!</span></h6></div>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/ntopng-user-interface-introducing-the-new-navigation-bar/">ntopng User Interface: Introducing the New Navigation Bar</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Elevate Your Network Visibility with ntop Professional Training November 2026</title>
+		<link>https://www.ntop.org/elevate-your-network-visibility-with-ntop-professional-training-november-2026/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 16 Sep 2026 19:36:32 +0000</pubDate>
+				<category><![CDATA[Technologies and Trends]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46404</guid>
+
+					<description><![CDATA[<p>As network architectures evolve, staying ahead of performance issues and modern cybersecurity threats requires deep visibility and mastery of your tools. Here at ntop, our product range spans from high-speed packet capture…</p>
+<p>The post <a href="https://www.ntop.org/elevate-your-network-visibility-with-ntop-professional-training-november-2026/">Elevate Your Network Visibility with ntop Professional Training November 2026</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p class="wp-block-paragraph">As network architectures evolve, staying ahead of performance issues and modern cybersecurity threats requires deep visibility and mastery of your tools. Here at ntop, our product range spans from high-speed packet capture to advanced traffic analysis. With our continuous updates and feature additions, keeping up with the ecosystem can be a challenge. Whether you are configuring large enterprise installations or looking to minimize the learning curve for new team members, this structured training will equip you with everything you need to build a tailored monitoring infrastructure.</p>
+<h6 class="wp-block-heading">What’s New? Mastering ntopng 7.0</h6>
+<p class="wp-block-paragraph">Led directly by the creators of the software, the training covers core competencies and advanced deployment strategies, this training cycle is uniquely designed to cover our latest product releases, featuring a deep dive into the ground-breaking&nbsp;<a href="https://www.ntop.org/welcome-to-ntopng-7-0-modern-gui-nassistant-sites-observability-bgp-bmp-pqc-wazuh/" target="_blank" rel="noopener">ntopng 7.0</a>. You will get hands-on guidance on how to leverage:</p>
+<ul class="wp-block-list">
+<li><strong>nAnalyst AI:</strong>&nbsp;Learn how to utilize our new AI-assisted layer for rapid traffic and security analysis.</li>
+<li><strong>ClickHouse Timeseries:</strong>&nbsp;Master the rebuilt, ultra-fast data engine backend.</li>
+<li><strong>Advanced Routing Visibility:</strong>&nbsp;Harness new BGP, BMP, and OT observability features.</li>
+<li><strong>Modernized GUI:</strong>&nbsp;Navigate the completely rebuilt, intuitive user frontend.</li>
+</ul>
+<h6 class="wp-block-heading">Course Schedule &amp; Logistics</h6>
+<p class="wp-block-paragraph">To make it easy to participate without disrupting your daily work responsibilities, the course is split into bite-sized, highly interactive digital sessions.</p>
+<ul class="wp-block-list">
+<li><strong>Time:</strong>&nbsp;3:00 PM CET / 9:00 AM EDT</li>
+<li><strong>Dates:</strong> November 10th, 12th, 17th, 19th, 24th, and 26th.</li>
+<li><strong>Format:</strong>&nbsp;Online via&nbsp;<strong>Microsoft Teams</strong></li>
+<li><strong>Language:</strong>&nbsp;<strong>English</strong></li>
+<li><strong>Structure:</strong>&nbsp;<strong>5 sessions</strong>&nbsp;of&nbsp;<strong>90 minutes</strong>&nbsp;each</li>
+</ul>
+<h6 class="wp-block-heading">Registration Perks &amp; Certification</h6>
+<ul class="wp-block-list">
+<li><strong>Complimentary Pro License:</strong>&nbsp;Every registered attendee will receive a&nbsp;<strong>license of ntopng Pro</strong>&nbsp;to continue practicing and improving their skills long after the webinars end.</li>
+<li><strong>On-Demand Recordings:</strong>&nbsp;Can&#8217;t make a specific time slot? All registrants get full access to the&nbsp;<strong>session recordings</strong>.</li>
+<li><strong>Certificate of Proficiency:</strong>&nbsp;Attendees can opt to take an official exam evaluated by the ntop team to earn a formal Certificate of Proficiency.</li>
+</ul>
+<h6 class="wp-block-heading">Reserve Your Seat</h6>
+<p class="wp-block-paragraph">Spaces are limited to ensure an optimal environment for open discussion and Q&amp;A.</p>
+<p class="wp-block-paragraph">&nbsp;<strong><a href="https://www.ntop.org/services/professional-training/" target="_blank" rel="noopener">Click Here to Book Your Seat</a></strong>&nbsp;and secure your spot today.</p>
+<p class="wp-block-paragraph">Have questions about team discounts or custom installations? Feel free to contact our team directly at&nbsp;<code>training@ntop.org</code>.</p>
+<p>The post <a href="https://www.ntop.org/elevate-your-network-visibility-with-ntop-professional-training-november-2026/">Elevate Your Network Visibility with ntop Professional Training November 2026</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Cento 2.6: ClickHouse Support, Enhanced Tunnel Visibility, PQC, and more</title>
+		<link>https://www.ntop.org/cento-2-6-clickhouse-support-enhanced-tunnel-visibility-pqc-and-more/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 14 Sep 2026 16:41:05 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[cento]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46363</guid>
+
+					<description><![CDATA[<p>We are pleased to announce the release of cento 2.6, bringing a broad set of new capabilities and improvements to high-performance traffic processing and flow export. This release expands cento’s integration with…</p>
+<p>The post <a href="https://www.ntop.org/cento-2-6-clickhouse-support-enhanced-tunnel-visibility-pqc-and-more/">Cento 2.6: ClickHouse Support, Enhanced Tunnel Visibility, PQC, and more</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">We are pleased to announce the release of cento 2.6, bringing a broad set of new capabilities and improvements to high-performance traffic processing and flow export.</p>
+
+
+
+<p class="wp-block-paragraph">This release expands cento’s integration with the ntop ecosystem, adds new visibility into tunneled traffic, introduces Post-Quantum Cryptography (PQC) support, and delivers important improvements across protocol dissection, security, and performance.</p>
+
+
+
+<h5 class="wp-block-heading">ClickHouse Export</h5>
+
+
+
+<p class="wp-block-paragraph">Cento 2.6 introduces ClickHouse export support, using a <strong>schema compatible with ntopng.</strong> This makes it easier to feed high-volume flow data into ClickHouse-based deployments and integrate cento into existing ntopng-oriented data pipelines.</p>
+
+
+
+<p class="wp-block-paragraph">ClickHouse settings can be configured through the new&nbsp;<code>--clickhouse-*</code>&nbsp;options.</p>
+
+
+
+<h5 class="wp-block-heading">Better Visibility into Encapsulated and Tunneled traffic</h5>
+
+
+
+<p class="wp-block-paragraph">Understanding traffic inside tunnels is increasingly important in modern networks. Cento 2.6 adds new Information Elements that expose addresses and ports across encapsulation boundaries.</p>
+
+
+
+<p class="wp-block-paragraph">The new fields include:</p>
+
+
+
+<ul class="wp-block-list">
+<li><code>%ENCAP_IPV4_SRC_ADDR</code>&nbsp;/&nbsp;<code>%ENCAP_IPV4_DST_ADDR</code></li>
+
+
+
+<li><code>%ENCAP_IPV6_SRC_ADDR</code>&nbsp;/&nbsp;<code>%ENCAP_IPV6_DST_ADDR</code></li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These identify the addresses at the first encapsulation hop.</p>
+
+
+
+<p class="wp-block-paragraph">Cento also introduces fields for the traffic after tunnel decapsulation:</p>
+
+
+
+<ul class="wp-block-list">
+<li><code>%UNTUNNELED_IPV4_SRC_ADDR</code></li>
+
+
+
+<li><code>%UNTUNNELED_L4_SRC_PORT</code></li>
+
+
+
+<li><code>%UNTUNNELED_IPV4_DST_ADDR</code></li>
+
+
+
+<li><code>%UNTUNNELED_L4_DST_PORT</code></li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Together, these additions provide more detailed visibility into tunneled traffic and make exported flows more useful for analysis and monitoring.</p>
+
+
+
+<h5 class="wp-block-heading">Application Latency Export</h5>
+
+
+
+<p class="wp-block-paragraph">Cento 2.6 adds application latency export, providing latency information similar to the capabilities available in nProbe. This gives flow collectors additional context for identifying application performance issues and understanding how network conditions affect applications.</p>
+
+
+
+<h5 class="wp-block-heading">Flow Swap Heuristic</h5>
+
+
+
+<p class="wp-block-paragraph">Cento now includes a flow swap heuristic, similar to the one used by ntopng. This helps cento correctly handle flows when the observed direction of traffic needs to be reversed.</p>
+
+
+
+<p class="wp-block-paragraph">Deployments that need the previous behavior can opt out using:</p>
+
+
+
+<pre class="wp-block-code"><code>--disable-flow-swap</code></pre>
+
+
+
+<h5 class="wp-block-heading">Post-Quantum Cryptography support</h5>
+
+
+
+<p class="wp-block-paragraph">With the transition toward post-quantum security gaining momentum, cento 2.6 introduces Post-Quantum Cryptography (PQC) support, extending the platform&#8217;s cryptographic capabilities for future-proof network deployments.</p>
+
+
+
+<h5 class="wp-block-heading">REST API security hardening</h5>
+
+
+
+<p class="wp-block-paragraph">Security is another important focus of this release.</p>
+
+
+
+<p class="wp-block-paragraph">The REST API now has HTTPS enabled by default, using a self-signed certificate when no other certificate is configured. At the same time, the default administrator credentials have been removed.</p>
+
+
+
+<p class="wp-block-paragraph">These changes provide a safer starting point for new installations and reduce the risk associated with leaving default credentials or unencrypted API access in place.</p>
+
+
+
+<h5 class="wp-block-heading">Improved GTP dissection</h5>
+
+
+
+<p class="wp-block-paragraph">GTP processing has been extensively reworked. The new implementation includes:</p>
+
+
+
+<ul class="wp-block-list">
+<li>A tunnelled-packet decode loop</li>
+
+
+
+<li>Support for fragmented tunnelled packets, including encapsulated smart fragments</li>
+
+
+
+<li>Improved handling of packets with sequence-number and length options</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These changes improve the reliability and accuracy of traffic analysis in mobile and other GTP-based environments.</p>
+
+
+
+<h5 class="wp-block-heading">More secure ZMQ defaults</h5>
+
+
+
+<p class="wp-block-paragraph">ZMQ communication is now encrypted by default, using a default encryption key that can be replaced by the user with a dedicated key in production environments. This provides secure communication out of the box while retaining the ability to configure deployments according to their specific requirements.</p>
+
+
+
+<h5 class="wp-block-heading">nDPI Improvements</h5>
+
+
+
+<p class="wp-block-paragraph">Cento 2.6 incorporates several nDPI-related improvements, including enhanced TLS block analysis settings and improved protocol detection. These changes further improve application and protocol identification.</p>
+
+
+
+<h5 class="wp-block-heading">Flow Export and Performance</h5>
+
+
+
+<p class="wp-block-paragraph">The flow export subsystem has been reworked with several performance optimizations, together with new counters to make throughput easier to monitor.</p>
+
+
+
+<p class="wp-block-paragraph">Napatech Flow Manager support for flow offload has also been updated with improved TX offload handling.</p>
+
+
+
+<h5 class="wp-block-heading">Fixes and Reliability Improvements</h5>
+
+
+
+<p class="wp-block-paragraph">Cento 2.6 includes a large number of fixes addressing flow accounting, tunnel processing, protocol handling, exports, and memory management. Among the notable fixes are:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Corrected ICMP type/code encoding in the destination port when exporting through NetFlow v5</li>
+
+
+
+<li>Fixed packet direction and accounting when the first packet of a flow is direction-swapped</li>
+
+
+
+<li>Corrected encapsulation size accounting and tunnel-related flow reversal and fragmentation handling</li>
+
+
+
+<li>Improved handling of IPv6 GTP-encapsulated traffic, untunnelled IP swaps, and downstream tunnel IDs/calculations</li>
+
+
+
+<li>Fixed partial flow resets and several FlowList issues</li>
+
+
+
+<li>Improved DNS record serialization, DNS forwarding, and JSON output with&nbsp;<code>--json-labels</code></li>
+
+
+
+<li>Fixed HTTP export over ZMQ</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These fixes further improve cento&#8217;s stability and correctness, particularly in complex environments involving tunnels, fragmented traffic, and multiple export backends.</p>
+
+
+
+<h5 class="wp-block-heading">Get Cento 2.6</h5>
+
+
+
+<p class="wp-block-paragraph">Cento 2.6 is now available with these new capabilities and improvements.</p>
+
+
+
+<p class="wp-block-paragraph">With ClickHouse integration, richer tunnel visibility, application latency export, PQC support, stronger security defaults, and extensive performance and reliability work, cento 2.6 represents another significant step forward for high-performance flow collection and export.</p>
+
+
+
+<p class="wp-block-paragraph">For the complete list of changes, please refer to the cento 2.6 release notes and documentation.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy!</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/cento-2-6-clickhouse-support-enhanced-tunnel-visibility-pqc-and-more/">Cento 2.6: ClickHouse Support, Enhanced Tunnel Visibility, PQC, and more</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>ntop and the EU Cyber Resilience Act</title>
+		<link>https://www.ntop.org/ntop-and-the-eu-cyber-resilience-act/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sat, 12 Sep 2026 07:31:03 +0000</pubDate>
+				<category><![CDATA[Cybersecurity]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46397</guid>
+
+					<description><![CDATA[<p>Under the EU Cyber Resilience Act (CRA), it has become compulsory for manufacturers of products sold on the EU market to report exploited vulnerabilities and severe incidents. As a result, ntop is…</p>
+<p>The post <a href="https://www.ntop.org/ntop-and-the-eu-cyber-resilience-act/">ntop and the EU Cyber Resilience Act</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">Under the EU Cyber Resilience Act (CRA), it has become compulsory for manufacturers of products sold on the&nbsp;EU market&nbsp;to report exploited vulnerabilities and severe incidents. As a result, ntop is fully committed to compliance with these new requirements. Since September 11, 2026, Article 14 of the CRA requires ntop to report security issues directly to the ENISA Single Reporting Platform (SRP). When a report is submitted here, it is simultaneously routed to both ENISA and the relevant national Computer Security Incident Response Team (CSIRT).</p>
+
+
+
+<p class="wp-block-paragraph">We are required to report two specific types of events:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Actively Exploited Vulnerabilities:&nbsp;Any flaw in ntop software where we have reliable evidence that a malicious actor is currently exploiting it in the wild.</li>
+
+
+
+<li>Severe Incidents:&nbsp;Any security event that seriously compromises the availability, authenticity, integrity, or confidentiality of ntop software.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">For many years, ntop has been committed to secure coding, always doing our best to keep our products safe and bug-free. We perform continuous code testing using AI-based automated processes, code fuzzing, and manual code reviews. However, we are aware that security incidents can happen. Therefore, we invite you to&nbsp;<a target="_blank" rel="noopener" href="https://www.ntop.org/support/need-help/contacts/">contact us</a>&nbsp;to report security issues or ask anything related to cybersecurity and ntop&#8217;s CRA obligations.</p>
+
+
+
+<p class="wp-block-paragraph">Below you can find useful references on this subject:</p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act" target="_blank" rel="noopener">Cyber Resilience Act</a>&nbsp;page</li>
+
+
+
+<li><a href="https://www.ntop.org/support/misc/code-security/" target="_blank" rel="noopener">ntop code security</a></li>
+
+
+
+<li><a href="https://www.ntop.org/support/need-help/bug-report/" target="_blank" rel="noopener">ntop bug report</a></li>
+
+
+
+<li><a href="https://www.ntop.org/introducing-ntop-sbom-software-bom/">ntop</a> <a href="https://www.ntop.org/introducing-ntop-sbom-software-bom/">software BOM</a></li>
+
+
+
+<li>If you need to report or ask about vulnerabilities affecting ntop products, please contact us directly at&nbsp;<a href="mailto:security@ntop.org" target="_blank" rel="noopener">security@ntop.org</a>.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Thank you very much for your help and support.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+<p>The post <a href="https://www.ntop.org/ntop-and-the-eu-cyber-resilience-act/">ntop and the EU Cyber Resilience Act</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

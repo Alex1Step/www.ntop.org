@@ -1,0 +1,1560 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>ZC Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/zc/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/zc/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Mon, 24 Aug 2020 14:11:04 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>ZC Archives - ntop</title>
+	<link>https://www.ntop.org/category/zc/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Introducing PF_RING ZC support for Intel E810-based 100G adapters</title>
+		<link>https://www.ntop.org/introducing-pf_ring-zc-support-for-intel-e810-based-100g-adapters/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 24 Aug 2020 14:11:04 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=8629</guid>
+
+					<description><![CDATA[<p>Last year Intel announced a new family of 100 Gigabit network adapters, code-name Columbiaville. These new adapters, based on the new Intel Ethernet Controller E810, support 10/25/50/100 Gbps link speeds and provide…</p>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-zc-support-for-intel-e810-based-100g-adapters/">Introducing PF_RING ZC support for Intel E810-based 100G adapters</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Last year Intel announced a new family of 100 Gigabit network adapters, code-name Columbiaville. These new adapters, based on the new <a href="https://www.intel.com/content/www/us/en/architecture-and-technology/ethernet.html">Intel Ethernet Controller E810</a>, support 10/25/50/100 Gbps link speeds and provide programmable offload capabilities.</p>
+<h3>Programmability</h3>
+<p>800 Series adapters implement new features to improve connectivity, storage protocols, and programmability, also thanks to the Dynamic Device Personalization (DDP) technology which adds support for a programmable pipeline. In fact, with DDP, a parser embedded in the controller can support the software parsing custom protocols and manipulating outgoing packets, paving the way to adding new offload capabilities, in addition to those usually available in commodity adapters (e.g. Large Receive Offload, L3/L4 checksum computation, VLAN stripping, etc.). The ability, for instance, to classify custom protocols in hardware and distribute packets to specific queues based on custom packet types, improves the application performance in many use cases. It is possible for instance to extend Receive Side Scaling (RSS) and Flow Director (FDIR) capabilities to be able to inspect encapsulated packet headers as in <a href="https://builders.intel.com/docs/networkbuilders/intel-ethernet-controller-700-series-gtpv1-dynamic-device-personalization.pdf">case of GTP traffic</a>. This was firstly introduced in 700 Series controllers, but with the 800 series it is possible to load custom DDP profiles at boot or during run-time.</p>
+<h3>Performance</h3>
+<p>The <em>ice-zc</em> driver, introduced a few weeks ago as part of the <a href="https://www.ntop.org/products/packet-capture/pf_ring/pf_ring-zc-zero-copy/">PF_RING ZC</a> framework, provides Zero-Copy support for 800 Series adapters. Based on initial tests at 100 Gigabit on an <a href="https://ark.intel.com/content/www/us/en/ark/products/134857/intel-xeon-e-2136-processor-12m-cache-up-to-4-50-ghz.html">Intel Xeon E-2136</a> CPU @ 3.30GHz, this controller demonstrated to be capable of capturing traffic at 25 Mpps per queue (it scales almost linearly by enabling <a href="https://www.ntop.org/guides/pf_ring/rss.html#rss-receive-side-scaling">RSS</a> ) and transmitting almost 90 Mpps by using a single core. On an adequate CPU with enough cores this should let us process 100 Gigabit traffic with multi-process/multi-threaded applications that can leverage on RSS to distribute the load to multiple cores like <a href="https://www.ntop.org/products/netflow/nprobe-cento/">nProbe Cento</a>. In the above scenario, nProbe Cento processed with 6 RSS queues 78 Mpps (10k flows, 52 Gbit with 64 byte packets or 100 Gbit line rate with larger packets) with no drops making it suitable for low-cost commodity-hardware based packet processing.</p>
+<h3>Test Run</h3>
+<p>The <em>ice-zc</em> driver is already available in the nightly build <a href="http://packages.ntop.org">repository</a> and it can be installed following the <a href="https://www.ntop.org/guides/pf_ring/get_started/packages_installation.html#">instructions</a> provided in the User&#8217;s Guide, which are the same for all the ZC drivers. The Intel E810 requires a programmable pipeline <a href="https://github.com/ntop/PF_RING/tree/dev/drivers/intel/ice/ice-0.13.8-zc/ddp">DDP package</a> to be loaded by the driver during initialisation to support normal operations. The default DDP package file name is <em>ice.pkg</em>, this is provided with the <em>ice-zc</em> driver and should be placed under <em>/lib/firmware/updates/intel/ice/ddp</em> or <em>/lib/firmware/intel/ice/ddp</em> in order to be found by the driver. Done that your adapter is detected by PF_RING and you can use with tools such as pfcount or zsend.</p>
+<p>Please note that the E810 chipset is currently in pre-release, to get early access to ethernet adapters for testing please <a href="https://www.silicom-usa.com/contact-us/">contact Silicom</a>.</p>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-zc-support-for-intel-e810-based-100g-adapters/">Introducing PF_RING ZC support for Intel E810-based 100G adapters</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Commoditizing 10/25/40/100 Gbit with PF_RING ZC on Intel FM10K</title>
+		<link>https://www.ntop.org/commoditizing-102540100-gbit-with-pf_ring-zc-on-intel-fm10k/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Sat, 14 May 2016 17:16:12 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=4779</guid>
+
+					<description><![CDATA[<p>As you know we're working at 100 Gbit for a while, not just in terms of network speed, but also in terms of redesigning existing applications for being more efficient and powerful…</p>
+<p>The post <a href="https://www.ntop.org/commoditizing-102540100-gbit-with-pf_ring-zc-on-intel-fm10k/">Commoditizing 10/25/40/100 Gbit with PF_RING ZC on Intel FM10K</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>As you know we&#8217;re <a href="https://www.ntop.org/nprobe/towards-100-gbit-flow-based-network-monitoring/">working at 100 Gbit for a while</a>, not just in terms of network speed, but also in terms of redesigning existing applications for being more efficient and powerful (BTW stay tuned as very soon we will <a href="https://www.ntop.org/announce/ntop-2016-roadmap/">introduce nProbe Cento</a>). With the introduction of the new <a href="http://ark.intel.com/products/series/92531/Intel-Ethernet-Multi-host-Controller-FM10000-Series#@Server">Intel FM10K ethernet controller</a> family, it is now possible to support 10/25/40/100 Gbit using one single NIC (just replace QSFP+ to change network speed) on a product that is in the 1k USD range for dual port. Another major feature of this product is the embedded programmable ethernet switch that can be used to filter/load balance/tap traffic using up to 16k rules. In essence a dual port NIC has two external ethernet ports (where you plug the ethernet cables) connected to the two internal ports (those you see with ifconfig on Linux) via the programmable switch. This way you can reduce the amount of traffic that hits the internal ports and cross connect selected traffic to the external ethernet ports.</p>
+<p>This said, we have added support for the FM10K in PF_RING ZC, the <a href="https://github.com/ntop/PF_RING/tree/dev/drivers/ZC/intel/fm10k/">code is available on github</a> so that you can start playing with it while we are still optimising it. We have run some experiments on a <a href="http://www.silicom-usa.com/100_Gigabit_Dual_Port_Fiber_Ethernet_PCI_Express_PE3100G2DQiR_96">FM10420-based NIC</a> provided courtesy of <a href="http://www.silicom-usa.com">Silicom</a> using 40 Gbit direct-attached-cables connected to an Intel XL710, using a low-end Supermicro server based on an <a href="http://ark.intel.com/it/products/75054/Intel-Xeon-Processor-E3-1230-v3-8M-Cache-3_30-GHz">Intel E3-1230 v3</a> @ 3.30GHz.</p>
+<ul>
+<li>RX &#8211; 60-byte &#8211; 1 queue<br class="" />Actual Stats: [16&#8217;632&#8217;029 pkts rcvd][1&#8217;000.05 ms]<strong>[16&#8217;631&#8217;031.13 pps][11.18 Gbps]</strong></li>
+<li>RX 1500-byte (no drop &#8211; 40G traffic generator based on XL710 is the limit) &#8211; 1 queue<br class="" />Actual Stats: [3&#8217;146&#8217;534 pkts rcvd][1&#8217;000.08 ms]<strong>[3&#8217;146&#8217;272.85 pps][38.36 Gbps]</strong></li>
+</ul>
+<ul>
+<li>TX 60-byte &#8211; 1 queue<br class="" />TX rate: [current 19&#8217;076&#8217;813.77 pps/12.82 Gbps]<strong>[average 18&#8217;945&#8217;661.37 pps/12.73 Gbps]</strong></li>
+<li>TX 1500-byte (E3 memory bandwidth is the limit) &#8211; 1 queue<br />
+TX rate: [current 4&#8217;444&#8217;398.66 pps/54.19 Gbps]<strong>[average 4&#8217;377&#8217;213.40 pps/53.37 Gbps]</strong></li>
+</ul>
+<p>The experiments confirmed that with one RSS queue it is possible to handle more than 10 Gbit with minimal size packets so that with 4 queues we can do 40 Gbit line rate. The embedded ethernet switch has been programmed (with a command line tool) to allow external traffic to hit the internal ports, but as you can see from results we have managed to generate ~53 Gbit of traffic that of course won&#8217;t fully hit the external ports running at 40 Gbit.</p>
+<p>These results are preliminary (apparently the Intel drivers do not fully support all features such as jumbo frames for instance), but we&#8217;ve been used for some weeks and it is working reliably. Used at 40 Gbit this new product is better than XL710. We&#8217;re now working at integrating the ethernet switch onto PF_RING so that apps can drive it directly and thus fully benefit of this product.</p>
+<p>If you are planning to monitor 10/25/40/100 Gbit networks, it&#8217;s definitively time to try out this new ZC driver and <a href="https://github.com/ntop/PF_RING/issues">provide us feedback</a>. Enjoy!</p>
+<p>PS. If you are wondering if you can run ntopng/nprobe/n2disk/zsend/zcount at 100 Gbit, the answer is yes.</p>
+<p>The post <a href="https://www.ntop.org/commoditizing-102540100-gbit-with-pf_ring-zc-on-intel-fm10k/">Commoditizing 10/25/40/100 Gbit with PF_RING ZC on Intel FM10K</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Best practices for using Bro IDS with PF_RING ZC. Reliably.</title>
+		<link>https://www.ntop.org/best-practices-for-using-bro_ids-with-pf_ring-zc-reliably/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Wed, 10 Feb 2016 11:20:41 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=4560</guid>
+
+					<description><![CDATA[<p>Zero copy technologies such as PF_RING ZC allow applications to read packets in memory without any actor involved, being it the kernel or a memory copy. This is the reason why using…</p>
+<p>The post <a href="https://www.ntop.org/best-practices-for-using-bro_ids-with-pf_ring-zc-reliably/">Best practices for using Bro IDS with PF_RING ZC. Reliably.</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Zero copy technologies such as PF_RING ZC allow applications to read packets in memory without any actor involved, being it the kernel or a memory copy. This is the reason why using ZC you can easily fill up a 10 Gbit line using a single thread and a single network card queue. The drawback of zero copy is that applications must be well behaved as the same packet is shared across multiple applications and thus if one application pollutes the packet memory, this problem affects all the consumers. The same problem happens in case an application crashes and writes in (unexpected) packet memory locations, corrupting other processe&#8217;s memory.</p>
+<p>You might say &#8220;ok but apps should not crash nor misbehave&#8221;. This is a fair statement but sometimes this might not be the case. For instance many Bro users use PF_RING to accelerate packet capture by leveraging on PF_RING&#8217;s speed and ability to distribute the traffic across multiple consumer queues using the zbalance_ipc clustering application. Unfortunately sometimes Bro workers die unexpectedly  and this requires zbalance_ipc to be restarted as a worker might have corrupted the memory of other workers. Even though in practice our &#8220;zbalance_ipc restart required&#8221; policy is over-safe as Bro is unlikely to corrupt the memory, we cannot risk that a fault on one worker creates problems to all the others.</p>
+<p>In order to overcome this problem, there is a simple solution you can use to isolate the various packet consumers so that they can be restarted independently in case of crash. Load the dummy network driver specifying the number of ‘fake&#8217; interfaces, matching the number of application instances you need for load balancing the traffic.</p>
+<p>Example for 4 consumers, do:</p>
+<pre>modprobe dummy numdummies=4
+ifconfig dummy0 up
+ifconfig dummy1 up
+ifconfig dummy2 up
+ifconfig dummy3 up
+</pre>
+<p>Run zbalance_ipc (make sure you use the <a href="https://github.com/ntop/PF_RING">latest PF_RING code</a>), specifying the number of consumers application, remapping each queue to a &#8216;safe&#8217; dummy interface using -r &lt;queue id&gt;:&lt;dummy interface&gt; for each queue. In the example below zbalance_ipc is load balancing the traffic from p2p2 (-i zc:p2p2) across 4 queues/consumers (-n 4) using an IP-based hash function (-m 1) remapping queue 0 to the dummy interface dummy0 and so on.</p>
+<pre>zbalance_ipc -i zc:p2p2 -n 4 -m 1 -c 2 -r 0:dummy0 -r 1:dummy1 -r 2:dummy2 -r 3:dummy3
+</pre>
+<p>You can now run an application on each &#8216;dummy&#8217; interface.</p>
+<pre># ./pfcount -i dummy0
+Using PF_RING v.6.3.0
+Capturing from dummy0 [86:1E:71:67:FA:40][ifIndex: 56]
+# Device RX channels: 1
+# Polling threads:    1
+Dumping statistics on /proc/net/pf_ring/stats/8712-dummy0.387
+=========================
+Absolute Stats: [1472571 pkts rcvd][0 pkts dropped]
+Total Pkts=1472571/Dropped=0.0 %
+1'472'571 pkts - 123'695'964 bytes
+=========================
+
+=========================
+Absolute Stats: [2947157 pkts rcvd][0 pkts dropped]
+Total Pkts=2947157/Dropped=0.0 %
+2'947'157 pkts - 247'561'188 bytes [2'946'938.92 pkt/sec - 1'980.34 Mbit/sec]
+=========================
+Actual Stats: 1474586 pkts [1'000.07 ms][1'474'476.88 pps/0.99 Gbps]
+=========================
+
+</pre>
+<p>Now all you have to do is to configure Bro to capture packets from the dummy interfaces instead of reading them directly from zbalance_ipc.</p>
+<p>The post <a href="https://www.ntop.org/best-practices-for-using-bro_ids-with-pf_ring-zc-reliably/">Best practices for using Bro IDS with PF_RING ZC. Reliably.</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Not All Servers Are Alike (With PF_RING ZC/DNA) &#8211; Part 3</title>
+		<link>https://www.ntop.org/not-all-servers-are-alike-with-pf_ring-zcdna-part-3/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Fri, 02 May 2014 09:12:00 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=3030</guid>
+
+					<description><![CDATA[<p>We have already discussed on the first and second part of this post some common issues that might be encountered while doing high-performance packet processing. Most of the problems are related to…</p>
+<p>The post <a href="https://www.ntop.org/not-all-servers-are-alike-with-pf_ring-zcdna-part-3/">Not All Servers Are Alike (With PF_RING ZC/DNA) &#8211; Part 3</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We have already discussed on the <a href="https://www.ntop.org/pf_ring/not-all-servers-are-alike-with-dna/">first</a> and <a title="Not All Servers Are Alike (With DNA) – Part 2" href="https://www.ntop.org/pf_ring/not-all-servers-are-alike-with-dna-part-2/">second part</a> of this post some common issues that might be encountered while doing high-performance packet processing. Most of the problems are related to multi-CPU servers (NUMA) and memory configuration. We have spent a lot of time creating the nBox web-GUI that is not just a graphical interface, but it is a way to automatically configure ntop applications as well report common configuration issues. For those who want to live without it, we have some additional lessons learnt to share.</p>
+<h3>Lesson 1: Make sure all your memory channels are populated</h3>
+<hr />
+<p>Every CPU has a number of memory channels that influence the memory bandwidth available to applications. Although most people look only at the total memory (or at most at memory type), it is very important how you populate the memory slots. Using</p>
+<pre>cat /proc/cpuinfo | grep "model name" | head -1
+model name: Intel(R) Xeon(R) CPU <strong>E5-2667</strong> 0 @ 2.90GHz
+
+</pre>
+<p>You can figure out the CPU you own (Xeon E5-2667 in the above case), and then going to http://ark.intel.com and searching for the CPU model, you can learn the number of channels the CPU has. In our case it has 4 memory channels, so we need to make sure that 4 channels per CPU (in case you have a NUMA system with more than one CPU) have been populated.</p>
+<p>Using:</p>
+<pre># dmidecode |grep "Speed:\|Locator:"|grep -v Bank</pre>
+<p>you can see what slots are populated. In the example below the first slot (on the first CPU slot 1) is NOT populated, whereas the second  (on the second CPU slot 9) is populated.</p>
+<pre>Locator: PROC  1 DIMM  1 
+Speed: Unknown
+Configured Clock Speed: Unknown</pre>
+<pre>Locator: PROC  2 DIMM  9 
+Speed: 1600 MHz
+Configured Clock Speed: 1600 MHz</pre>
+<p>Note that depending on the motherboard there is an exact sequence you need to populate, but in general the first slots need to be populated. So in our case as we have 4 channels, we must make sure that each CPU has the first 4 memory slots filled in. Again it does not matter just the total amount of memory, but how you populated the slots. So 1 bank of 16 GB is not the same as 4 banks each of 4G, as in the first case only one channel would be used whereas in the latter all 4 channels will be.</p>
+<p>Of course the type of memory (dual rank etc.) and clock (the faster the better) is also important. There are tools such as <a href="http://www.cs.virginia.edu/stream/">stream</a> you can use to measure the real available bandwidth on your system.</p>
+<p>&nbsp;</p>
+<h3>Lesson 2: Plug your NICs on the correct NUMA node</h3>
+<hr />
+<p>As you know, on <a href="http://en.wikipedia.org/wiki/Non-uniform_memory_access">NUMA</a> systems you must avoid crossing the costly QPI bus so that your apps must be bound to a precise NUMA node. The same applies to PCIe slots. On NUMA systems each node has some PCIe slots directly connected. So if your application runs on such node, you must make sure that such app is accessing packets received from a NIC connected to such node. Supposing you want to know the node to which eth1 is attached you need to do</p>
+<pre># cat /sys/bus/pci/devices/`ethtool -i eth1 | grep bus-info | cut -d ' ' -f 2`/numa_node
+1</pre>
+<p>or you can use the command</p>
+<pre># hwloc-info -v</pre>
+<p>that is a bit more verbose but that provides more detailed information.</p>
+<p>This means that applications opening the device zc:eth1 must run on NUMA node 1 as otherwise they will have to cross QPI for each and every packet. Note that there is no software command you can use to change NIC affinity, as this is a physical/electrical property. If you want to change node you need to change PCIe slot.</p>
+<p>Please note that for dual-port (or even denser) NICs, both ports are on the same NUMA node, so if you want to have one NUMA node taking care of one NIC, you must buy two single-port NICs and install them on a different node.</p>
+<p>&nbsp;</p>
+<h3>Lesson 3: Allocate the memory and bind your application on the correct NUMA node</h3>
+<hr />
+<p>Once you have selected the NUMA node to use and made sure your NIC is properly installed, it is now time to allocate the memory properly. First of all you need to load the driver telling to what cores the memory should be bound. In our <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/drivers/DNA/">DNA</a> and <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/drivers/PF_RING_aware/">ZC</a> drivers you will find a new option named numa_cpu_affinity, that allows you to specify for each NIC port to what core (not NUMA node, but core) the port will be bound to. In essence the core identifies what NUMA node will then use the NIC. Example with</p>
+<pre><span style="color: #000000;">insmod ./ixgbe.ko numa_cpu_affinity=0,0,1,1</span></pre>
+<p>the first two ports will be used by core 0, the second two by core 1. Note that it is not strictly necessary to specify the exact coreId but it must be clear that the coreId is used to figure out the NUMA mode the core is running on, and thus the memory affinity.</p>
+<p>Once the driver memory has been properly allocated, we need to start the application on the exact node. In order to do that, you must first bind your app to the correct node and then allocate memory and spawn threads. In fact if you start your app, open your PF_RING ring and then bind it to the correct node, you have not done a great job. This because the application might have allocated the memory on the wrong node and then you have set the affinity too late. Please pay attention to this fact that is not a minor detail at all.</p>
+<p>If you want to find out what cores are bound to that NUMA node do:</p>
+<pre># numactl --hardware 
+available: 2 nodes (0-1)
+<strong>node 0 cpus: 0 1 2 3 4 5 12 13 14 15 16 17</strong>
+node 0 size: 32733 MB
+node 0 free: 722 MB
+<strong>node 1 cpus: 6 7 8 9 10 11 18 19 20 21 22 23</strong>
+node 1 size: 32767 MB
+node 1 free: 1375 MB
+
+</pre>
+<h3>Lesson 4: RAID controller and NICs must be connected to the same NUMA node</h3>
+<hr />
+<p>If you have decided to use applications like n2disk to dump traffic to disk, there is an extra thing to check. You must make sure that:</p>
+<ol>
+<li>the RAID controller you are using to dump packets to disk</li>
+<li>the NIC from which you are capturing traffic</li>
+<li>n2disk</li>
+</ol>
+<p>are all bound/connected to the same NUMA node. A common mistake is to forget about the RAID controller that can degrade the overall performance although packet capture  is running at full speed.</p>
+<p>&nbsp;</p>
+<h3>Conclusion</h3>
+<hr />
+<p>NUMA might not be your best friend if you expect the OS to do everything on your behalf. There are some things you must do yourself (e.g. PCI slot selection) and others that can be done on software. Make sure you have everything properly configured, before starting to do performance measurements on your application.</p>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/not-all-servers-are-alike-with-pf_ring-zcdna-part-3/">Not All Servers Are Alike (With PF_RING ZC/DNA) &#8211; Part 3</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Migrating from DNA/Libzero to PF_RING ZC</title>
+		<link>https://www.ntop.org/migrating-from-dnalibzero-to-pf_ring-zc/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Sat, 26 Apr 2014 07:31:20 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=3021</guid>
+
+					<description><![CDATA[<p>Since the introduction of PF_RING ZC (Zero Copy), we have received many inquiries about migrating from DNA/LibZero to ZC. Said that at the moment we do not plan to discontinue DNA/LibZero, we…</p>
+<p>The post <a href="https://www.ntop.org/migrating-from-dnalibzero-to-pf_ring-zc/">Migrating from DNA/Libzero to PF_RING ZC</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Since the introduction of <a title="PF_RING ZC (Zero Copy)" href="https://www.ntop.org/products/pf_ring/pf_ring-zc-zero-copy/">PF_RING ZC</a> (Zero Copy), we have received many inquiries about migrating from <a title="DNA (Direct NIC Access)" href="https://www.ntop.org/products/pf_ring/dna/">DNA</a>/<a title="Libzero for DNA" href="https://www.ntop.org/products/pf_ring/libzero-for-dna/">LibZero</a> to ZC. Said that at the moment we do not plan to discontinue DNA/LibZero, we would like to summarise the differences and ease you the migration:</p>
+<ul>
+<li>In PF_RING 5.x (pre-ZC) there were two driver families: DNA-drivers and PF_RING-aware drivers. With the former you could operate at line-rate with DNA/LibZero, with the latter the speed was limited and you were not able to use the packets from LibZero. In ZC, there is one driver family named PF_RING-aware driver (new generation).</li>
+<li>In ZC you can operate in two modes: zero-copy and one-copy mode. In zero-copy you have in essence the same model supported by DNA (packets do not pass throughout the kernel and are read by apps in zero-copy), whereas in one-copy mode the packets pass through the PF_RING kernel module, so there is one copy involved (as well as the overhead of the kernel).</li>
+<li>Like in DNA, ZC PF_RING-aware drivers support zero-copy only for Intel-based interfaces. This does not mean that our technology is Intel-only, and we do not exclude to have non-Intel drivers in zero-copy in the future.</li>
+<li>Contrary to DNA drivers that renamed the interfaces to dnaX, the interface name does not change (e.g. it is still eth1) so that you can do standard networking with it (ping, SSH and so on).  Supposing to use a ZC PF_RING-aware driver, at runtime you can open the interface with its name (e.g. eth1) for using it in one-copy mode, or open it as zc:eth1 for using it in zero-copy mode. Remember that if you plan to use the interface with ZC, you need to configure your huge-pages first as explained in this <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/README.hugepages">README</a>.</li>
+<li>With ZC you can <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples_zc/README.examples">distribute, balance, fan-out</a>, <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples_zc/README.kvm">process from VMs</a> packets in zero-copy and thus at 10 Gbit line rate. This regardless if you have captured the packets from a ZC device, from a one-copy device, or if you have created the packet yourself.</li>
+<li>If you have an old PF_RING-based application (i.e. if you did not use the libzero API at all), moving to ZC means 1) setup the huge-pages and 2) use zc:ethX instead of dnaX. That&#8217;s all.</li>
+<li>If your application used the <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples_libzero/">old LibZero API</a>, either you continue using the<a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/drivers/DNA/"> legacy DNA drivers</a> and the LibZero API, or you need to replace the LibZero API with the ZC API as shown in the <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples_zc/">demo applications</a> we have created.</li>
+<li>If your application is a simple receive-and-process application, you probably do not need to use the ZC API. Instead you will need it if you plan to distribute packets across applications and threads, or receive them on a host and process them on a virtual-machine.</li>
+<li>As described in this <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples/README.stackinjection">README</a>, with ZC you can decide at any time to receive packets in zero-copy and inject them on the IP stack or vice-versa.</li>
+<li>Unless you are a no-profit or research institution to which we offer our commercial products free-of-charge, with ZC you need to pay us a license only if you use our zero-copy drivers. There is no license needed for the one-copy drivers, ZC API, or zero-copy to VM.</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/migrating-from-dnalibzero-to-pf_ring-zc/">Migrating from DNA/Libzero to PF_RING ZC</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing PF_RING ZC (Zero Copy)</title>
+		<link>https://www.ntop.org/introducing-pf_ring-zc-zero-copy/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 14 Apr 2014 17:41:04 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=3011</guid>
+
+					<description><![CDATA[<p>NOTE: The new PF_RING home is hereAfter almost 18 months of development, we are pleased to announce the release of PF_RING ZC (Zero Copy). Based on the lessons learnt with DNA and…</p>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-zc-zero-copy/">Introducing PF_RING ZC (Zero Copy)</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><center>NOTE: <a href="https://github.com/ntop/PF_RING">The new PF_RING home is here</a></center>After almost 18 months of development, we are pleased to announce the release of <a title="PF_RING ZC (Zero Copy)" href="https://www.ntop.org/products/pf_ring/pf_ring-zc-zero-copy/">PF_RING ZC (Zero Copy)</a>. Based on the lessons learnt with DNA and libzero, we have decided to redesign from scratch a new consistent zero-copy API that implements popular network patterns. The goal is to offer you a simple API, able to deliver line-rate performance (from 1 to multi-10 Gbit) to network application developers. We have hidden you all the internals and low-level details, in order to create a developer-centric API rather than a network/hardware-centric API.</p>
+<p>For those familiar with DNA and Libzero, the main differences of ZC with respect to them are:</p>
+<ol>
+<li>We have unified the drivers for both in-kernel (former PF_RING-aware drivers) and kernel-bypass (former DNA) drivers. Now you can open the same device as &#8220;-i eth0&#8221; (in-kernel processing) and as &#8220;-i zc:eth0&#8221; (kernel bypass). In essence you decide at runtime what operating mode you want to use.</li>
+<li>All drivers memory is mapped in <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/README.hugepages">huge-pages</a> for better performance.</li>
+<li>All operations are performed in zero-copy if you open the device as &#8220;zc:ethX&#8221;. You see that very easily doing this simple test (eth3 is a 10 Gbit interface running the PF_RING-aware <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/drivers/PF_RING_aware/intel/ixgbe/ixgbe-3.18.7-zc/">ixgbe</a> driver). The first command is able to send 0.82 Gbit, the second 10 Gbit.
+<ol>
+<li># ./zsend -i eth3 -c 3 -g 0</li>
+<li># ./zsend -i zc:eth3 -c 3 -g 0</li>
+</ol>
+</li>
+<li>ZC is <a href="http://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine">KVM</a> friendly, meaning that you can send/receive packets from applications and threads running on a VM (Virtual Machine) at 10 Gbit line rate, without using techniques such as PCIe passthrough. Note that the same application can run unchanged, both in the VM and the physical host: we&#8217;re really VM friendly with ZC.</li>
+<li>Similar to other network frameworks such as the <a href="http://read.cs.ucla.edu/click/click">Click Modular Router</a>, we offer simple components such as queue, pool, worker, for creating applications in a few lines of code.</li>
+<li>The API has been simplified and rewritten. For instance with as low as 6 lines of code you can create a traffic aggregator and balancer (see <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples_zc/README.examples">examples</a>).</li>
+<li>When operating in kernel-bypass, we allow you to interact with the IP stack and send packets from/to it. This will ease development of applications that need to operate at line rate but that sometimes need to interact with the host IP stack.</li>
+<li>We can operate in one-copy-mode when interacting with low-speed devices (e.g. WiFi adapters) or for allowing NICs for which we do not offer accelerate drivers for, to benefit of the ZC too: there is just one copy when the packet enters ZC, and nothing else.</li>
+<li>For no-for-profit people and research, we offer our products free of charge. For commercial customers, we have simplified the licensing model, so that there is just one license (and not two as before, one for DNA and one for Libzero, so in essence you now pay a lower license fee)</li>
+<li>We want this technology to be pervasive, so you need a license only for accelerated drivers, whereas for all the rest (e.g. KVM and one-copy support) you can use it for free with no license needed.</li>
+</ol>
+<p>If you want to test PF_RING ZC, the best you can do is to read this <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples_zc/README.quickstart">quick start guide</a> to be productive in a matter of minutes.</p>
+<h3>FAQ</h3>
+<hr />
+<p>Q. What is the PF_RING ZC performance?<br />
+A. Line rate, any packet size, multi 10 Gbit. Just try it yourself using apps such as <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples_zc/zsend.c">zcount</a> and <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples_zc/zsend.c">zsend</a>.</p>
+<p>Q. Will you still support DNA and Libzero?<br />
+A. For the time being we will continue to support DNA/Libzero although the future is PF_RING ZC as it offers several new features and a consistent API.</p>
+<p>Q. Does PF_RING ZC support legacy applications such as those based on libpcap?<br />
+A. Yes, similar to its predecessor DNA, we support pcap-based applications as well other apps such as Snort via PF_RING DAQ.</p>
+<p>Q. How do I open a queue from PF_RING ZC/libpcap?<br />
+A. You can use the syntax &#8220;zc:&lt;clusterId&gt;@&lt;queueId&gt;&#8221;. Example: <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples/pcount.c">pcount</a> -i zc:4@0</p>
+<p>Q. What adapters feature native ZC drivers?<br />
+A. We currently support Intel adapters (1 and 10 Gbit) in zero-copy mode, and all other adapters in 1-copy mode. Remember that as soon as the packets have been moved to the ZC world, you can pass them in zero-copy to an arbitrary number of applications, threads and VMs. In essence you pay the copy ticket just at the entrance.</p>
+<p>Q. How do you position ZC with respect to other technologies such as DPDK?<br />
+A. DPDK is designed for developers who are designing applications close to the hardware, who know in detail the X86 architecture, who are willing to call network interfaces with hex PCI ID (eg. 0d:01.0). With PF_RING ZC, devices are called with their name (e.g. eth1), PF_RING ZC manages all the low-level details, as you can run you existing pcap-based apps with no headaches. ZC is a developer-friendly technology.</p>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-zc-zero-copy/">Introducing PF_RING ZC (Zero Copy)</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How to Balance (Mobile) Traffic Across Applications Using PF_RING</title>
+		<link>https://www.ntop.org/how-to-balance-mobile-traffic-across-applications-using-pf_ring/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Sun, 02 Feb 2014 18:40:16 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=2901</guid>
+
+					<description><![CDATA[<p>Traffic monitoring requires packets to be received and processed in a coherent matter. Some people are lucky enough to get all interesting packet on a single interface, but this is unfortunately not…</p>
+<p>The post <a href="https://www.ntop.org/how-to-balance-mobile-traffic-across-applications-using-pf_ring/">How to Balance (Mobile) Traffic Across Applications Using PF_RING</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Traffic monitoring requires packets to be received and processed in a coherent matter. Some people are lucky enough to get all interesting packet on a single interface, but this is unfortunately not a common scenario anymore:</p>
+<ul>
+<li>The use of network taps split one full-duplex interface into two half-duplex interfaces each receiving a direction of the traffic.</li>
+<li>Standby interfaces, require traffic monitoring apps to surveil two interfaces, where traffic flows only on one interface at time.</li>
+<li>Asymmetric traffic (i.e. all protocols similar to HTTP where the traffic in one direction is much more than the traffic on the opposite direction).</li>
+</ul>
+<p>On top of these scenarios, there are some more that are bait more challenging:</p>
+<ul>
+<li>Balance encapsulated traffic (i.e. IP tunnels or <a href="http://en.wikipedia.org/wiki/GPRS_core_network">mobile traffic encapsulated in GTP</a>) using the encapsulated IP or tunnel identifier.</li>
+<li>Merge and then balance traffic received on multiple ingress interfaces. Eventually after merging, forward the traffic onto an egress interface.</li>
+<li>Send the same ingress packet to various applications:
+<ul>
+<li>Some of which need to perform complex monitoring (e.g. <a href="https://www.ntop.org/products/nprobe/">nProbe</a> with <a href="https://www.ntop.org/products/ndpi/">nDPI</a> and various plugins enabled) and thus need the packet to be balanced across a pool of applications.</li>
+<li>Others require packets in the same order as they have been received on the ingress interfaces (i.e. First-In-First-Out based on the ingress interfaces arrival time) and need to be strictly processed in order (e.g. <a href="https://www.ntop.org/products/n2disk/">n2disk</a> that needs to dump packets on disk).</li>
+</ul>
+</li>
+</ul>
+<p>The &#8220;classic&#8221; PF_RING contains the concept of cluster. A set of applications sharing the same clusterId (e.g. 10) will balance ingress packets coming from one or more ingress interfaces. For instance take the <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples/pfcount.c">pfcount</a> application that receives and counts ingress packets, and suppose you want to balance traffic coming from eth1 and eth2 to three pfcount applications, then you need to start three times (this because you decided to have 3 apps, but if you need more apps, you just have to start more) the following commands:</p>
+<ul>
+<li><span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">pfcount -i &#8220;eth1,eth2&#8221; -c 10 -g 0</span></li>
+<li><span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">pfcount -i &#8220;eth1,eth2&#8221; -c 10 -g 1</span></li>
+<li><span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">pfcount -i &#8220;eth1,eth2&#8221; -c 10 -g 2</span></li>
+</ul>
+<p>In essence you start multiple instances of the same application on the same clusterId (the only difference is the -g parameter that binds a specific instance to the specified CPU core). This mechanism is available also on the <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/snort/pfring-daq-module/">PF_RING DAQ for Snort</a> that enables multiple <a href="http://www.snort.org">Snort</a> instances to share ingress traffic. Note that the PF_RING cluster:</p>
+<ul>
+<li>Balances the traffic according to the flow (i.e. the same application sees both directions of the same connection), but you are free to set a different traffic balancing policy if you want (see pfring_set_cluster() in the <a href="https://www.ntop.org/pfring_api/">PF_RING API</a>).</li>
+<li>It is GTP-friendly, so it can effectively balance ingress traffic across multiple GTP-aware applications such as <a href="https://www.ntop.org/products/nprobe/">nProbe</a>.</li>
+</ul>
+<p>Using DNA and libzero, we can have an even more versatile and efficient traffic balancing. As described in <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples/README.libzero">README.libzero</a>, the <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples/pfdnacluster_master.c">pfdnacluster_master</a> application implements a very versatile traffic balancing as depicted below.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2014/02/DNAMaster.png"><img fetchpriority="high" decoding="async" class="aligncenter size-full wp-image-2903" alt="DNAMaster" src="https://www.ntop.org/wp-content/uploads/2014/02/DNAMaster.png" width="496" height="332" /></a>As shown above, it is possible to both balance and fan-out in zero copy (read as: you can handle 2x10G interfaces with no packet drop whatsoever) to multiple applications in a very versatile manner. For example the balancing depicted above is implemented with the following commands:</p>
+<ul>
+<li><span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">pfdnacluster_master -i &#8220;dna0,dna1,dna2&#8221; -c 10 -n 3,1,1 -r 0</span></li>
+<li><span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">nprobe -i dnacluster:10@0 -g 1</span></li>
+<li><span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">nprobe -i dnacluster:10@1 -g 2</span></li>
+<li><span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">nprobe -i dnacluster:10@2 -g 3</span></li>
+<li><span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">n2disk -i dnacluster:10@3  &#8230;.</span></li>
+<li><span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">other_app -i dnacluster:10@4 &#8230;</span></li>
+</ul>
+<p>In essence in pfdnacluster_master the -n parameter is a comma separated list of numbers, where:</p>
+<ul>
+<li>If the number is 1 it means that the aggregation of  the ingress traffic is sent in zero-copy to this application. All the traffic, no balancing.</li>
+<li>If the number is greater than 1, then the traffic is balanced across the consumer applications.</li>
+</ul>
+<p>For mobile, GTP-encapsulated traffic, we have developed a more versatile application named <span style="font-family: Consolas, Monaco, monospace; font-size: 12px; line-height: 18px;">DNALoadBalancer</span>.</p>
+<pre># ./DNALoadBalancer -h
+Usage:
+DNABalancer [-h][-d][-a][-q] -c &lt;id&gt; -i &lt;device&gt;
+[-n &lt;num app&gt; | -o &lt;devices&gt;] [-f &lt;path&gt;]
+[-l &lt;path&gt;] [-p &lt;path&gt;] [-t &lt;level&gt;]
+[-g &lt;core_id&gt;]
+
+-h             | Help
+-c &lt;id&gt;        | Cluster id
+-i &lt;devices&gt;   | Capture device names (comma-separated list) [Default: dna0]
+-n &lt;num app&gt;   | Max number of slave applications (max 32) [Default: 1]
+-o &lt;devices&gt;   | Egress device names (comma-separated list) for balancing packets across interfaces
+-m &lt;dissector&gt; | Dissector to enable:
+               | 0 - n-tuple [Default]
+               | 1 - GTP+RADIUS 
+               | 2 - GRE 
+-q             | Drop non GTP traffic (valid for GTP dissector only)
+-r             | Reserve first application for signaling only
+-s &lt;type&gt;      | n-Tuple type used by the hash algorithm:
+               | 0 - &lt;Src IP, Dst IP&gt; [Default]
+               | 1 - &lt;Src IP, Dst IP, Src Port, Dst Port, Proto, VLAN&gt;
+               | 2 - &lt;Src IP, Dst IP, Src Port, Dst Port, Proto, VLAN&gt; with TCP, &lt;Src IP, Dst IP&gt; otherwise
+-u &lt;mode&gt;      | Behaviour with tunnels:
+               | 0 - Hash on tunnel content [Default]
+               | 1 - Hash on tunnel ID
+               | 2 - Hash on outer headers
+-d             | Run as a daemon
+-l &lt;path&gt;      | Log file path
+-p &lt;path&gt;      | PID file path [Default: /tmp/dna_balancer.pid]
+-t &lt;level&gt;     | Trace level (0..6) [Default: 0]
+-g &lt;core_id&gt;   | Bind to a core
+-a             | Active packet wait
+
+Example:
+DNABalancer -i 'dna0,dna1' -c 5 -n 4</pre>
+<p>As shown in the application help, it implements a versatile dissector (-m) for tunnelled traffic (<a href="http://en.wikipedia.org/wiki/GTP'">GTP</a> and <a href="http://en.wikipedia.org/wiki/Generic_Routing_Encapsulation">GRE</a>), has the ability to drop non-encapsulated traffic (-q) so we can ignore if necessary, non-interesting messages, and decide how to handle tunnelled balancing (-u).</p>
+<p>In essence as long as you have enough cores on your system to allocate to the balancer, you can avoid purchasing costly yet not-so-versatile traffic balancers. As we release the source code of apps such as the <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples/pfdnacluster_master.c">pfdnacluster_master</a>, you can change your traffic balancing policies the way you want/like without relying on any hardware traffic balancer manufacturer. Nice and cheap, isn&#8217;t it?</p>
+<p>The post <a href="https://www.ntop.org/how-to-balance-mobile-traffic-across-applications-using-pf_ring/">How to Balance (Mobile) Traffic Across Applications Using PF_RING</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Accelerating Suricata with PF_RING DNA</title>
+		<link>https://www.ntop.org/accelerating-suricata-with-pf_ring-dna/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Fri, 13 Dec 2013 12:20:19 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=2860</guid>
+
+					<description><![CDATA[<p>Below you can find an excerpt of the "Suricata (and the grand slam of) Open Source IDPS" article written by our friend Peter Manev (Suricata core team) describing how to install and…</p>
+<p>The post <a href="https://www.ntop.org/accelerating-suricata-with-pf_ring-dna/">Accelerating Suricata with PF_RING DNA</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Below you can find an excerpt of the &#8220;Suricata (and the grand slam of) Open Source IDPS&#8221; article written by our friend Peter Manev (<a href="http://suricata-ids.org/about/team/">Suricata core team</a>) describing how to install and configure PF_RING, DNA and <a href="http://suricata-ids.org">Suricata</a>.<br />
+The original <a href="http://pevma.blogspot.se">blog</a> entries can be found at <a href="http://pevma.blogspot.se/2013/12/suricata-and-grand-slam-of-open-source_4.html">Part One &#8211; PF_RING</a> and <a href="http://pevma.blogspot.se/2013/12/suricata-and-grand-slam-of-open-source_7540.html">Part Two &#8211; DNA</a>.<br />
+————-</p>
+<h2><i>Part One &#8211; PF_RING</i></h2>
+<p>If you have pf_ring already installed, you might want to do:</p>
+<blockquote class="tr_bq"><p>sudo rmmod pf_ring</p></blockquote>
+<p>If you are not sure if you have pf_ring installed , you can do:</p>
+<blockquote class="tr_bq"><p>sudo modinfo pf_ring</p></blockquote>
+<p>Get the latest pf_ring sources:</p>
+<blockquote class="tr_bq"><p>svn export https://svn.ntop.org/svn/ntop/trunk/PF_RING/ pfring-svn-latest</p></blockquote>
+<h2><i>Compile and install PF_RING</i></h2>
+<p>Next, enter the following commands for configuration and installation:</p>
+<p>(!!!<span style="text-decoration: underline;"><b> NOT AS ROOT</b></span> !!!)</p>
+<blockquote class="tr_bq"><p>    cd pfring-svn-latest/kernel</p>
+<p>make &amp;&amp; sudo make install</p>
+<p>cd ../userland/lib</p>
+<p>./configure &#8211;prefix=/usr/local/pfring &amp;&amp; make &amp;&amp; sudo make install</p>
+<p>cd ../libpcap-1.1.1-ring</p>
+<p>./configure &#8211;prefix=/usr/local/pfring &amp;&amp; make &amp;&amp; sudo make install</p>
+<p>cd ../tcpdump-4.1.1</p>
+<p>./configure &#8211;prefix=/usr/local/pfring &amp;&amp; make &amp;&amp; sudo make install</p>
+<p>sudo ldconfig</p></blockquote>
+<p>Then we load the module:</p>
+<blockquote class="tr_bq"><p>sudo modprobe pf_ring</p></blockquote>
+<p>Elevate as root and check if you have everything you need -enter:</p>
+<blockquote class="tr_bq"><p>modinfo pf_ring &amp;&amp; cat /proc/net/pf_ring/info</p></blockquote>
+<p>Increase the throttle rate of the ixgbe module:</p>
+<blockquote class="tr_bq"><p>modprobe ixgbe InterruptThrottleRate=4000</p></blockquote>
+<p>The default pf_ring setup will look something like this:</p>
+<blockquote class="tr_bq"><p>root@suricata:/var/og/suricata# cat /proc/net/pf_ring/info</p>
+<p>PF_RING Version          : 5.6.2 ($Revision: exported$)</p>
+<p>Total rings              : 16</p>
+<p>Standard (non DNA) Options</p>
+<p><b>Ring slots               : 4096</b></p>
+<p>Slot version             : 15</p>
+<p>Capture TX               : Yes [RX+TX]</p>
+<p>IP Defragment            : No</p>
+<p>Socket Mode              : Standard</p>
+<p>Transparent mode         : Yes [mode 0]</p>
+<p>Total plugins            : 0</p>
+<p>Cluster Fragment Queue   : 0</p>
+<p>Cluster Fragment Discard : 0</p></blockquote>
+<p>Notice the ring slots above. We would actually like to increase that in order to meet the needs of a high speed network that we are going to monitor with Suricata.</p>
+<p>So we do:</p>
+<blockquote class="tr_bq"><p>rmmod pf_ring</p>
+<p>modprobe pf_ring transparent_mode=0 min_num_slots=65534</p></blockquote>
+<blockquote><p>root@suricata:/home/pevman/pfring-svn-latest# modprobe pf_ring transparent_mode=0 min_num_slots=65534</p></blockquote>
+<blockquote><p>root@suricata:/home/pevman/pfring-svn-latest# cat /proc/net/pf_ring/info</p>
+<p>PF_RING Version          : 5.6.2 ($Revision: exported$)</p>
+<p>Total rings              : 0</p>
+<p>Standard (non DNA) Options</p>
+<p><b>Ring slots               : 65534</b></p>
+<p>Slot version             : 15</p>
+<p>Capture TX               : Yes [RX+TX]</p>
+<p>IP Defragment            : No</p>
+<p>Socket Mode              : Standard</p>
+<p>Transparent mode         : Yes [mode 0]</p>
+<p>Total plugins            : 0</p>
+<p>Cluster Fragment Queue   : 0</p>
+<p>Cluster Fragment Discard : 0</p></blockquote>
+<p>Notice the difference above  &#8211; Ring slots: 65534</p>
+<h2><i>Compile and install Suricata with PF_RING enabled</i></h2>
+<p>Get the latest Suricata dev branch:</p>
+<blockquote class="tr_bq"><p>git<br />
+clone git://phalanx.openinfosecfoundation.org/oisf.git &amp;&amp; cd<br />
+oisf/ &amp;&amp;  git clone https://github.com/ironbee/libhtp.git -b<br />
+0.5.x</p></blockquote>
+<p>Compile and install</p>
+<blockquote><p>./autogen.sh &amp;&amp; LIBS=-lrt ./configure &#8211;enable-pfring &#8211;enable-geoip \</p>
+<p>&#8211;with-libpfring-includes=/usr/local/pfring/include/ \</p>
+<p>&#8211;with-libpfring-libraries=/usr/local/pfring/lib/ \</p>
+<p>&#8211;with-libpcap-includes=/usr/local/pfring/include/ \</p>
+<p>&#8211;with-libpcap-libraries=/usr/local/pfring/lib/ \</p>
+<p>&#8211;with-libnss-libraries=/usr/lib \</p>
+<p>&#8211;with-libnss-includes=/usr/include/nss/ \</p>
+<p>&#8211;with-libnspr-libraries=/usr/lib \</p>
+<p>&#8211;with-libnspr-includes=/usr/include/nspr \</p>
+<p>&amp;&amp; sudo make clean &amp;&amp; sudo make &amp;&amp; sudo make install &amp;&amp; sudo ldconfig</p></blockquote>
+<p>The &#8220;<b>LIBS=-lrt</b>&#8221; infront of &#8220;./configure&#8221; above is in case you get the following error  without the use of  &#8220;LIBS=-lrt &#8221; :</p>
+<blockquote class="tr_bq">
+<pre>checking for pfring_open in -lpfring... no
+
+   ERROR! --enable-pfring was passed but the library was not found or version is &gt;4, go get it
+   from https://www.ntop.org/PF_RING.html</pre>
+</blockquote>
+<h2><i>PF_RING &#8211; suricata.yaml tune up and configuration</i></h2>
+<p>The following values and variables in the default suricata.yaml need to be changed -&gt;</p>
+<p>We make sure we use runmode workers (feel free to try other modes and experiment what is best for your specific set up):</p>
+<blockquote class="tr_bq"><p>#runmode: autofp</p>
+<p>runmode: workers</p></blockquote>
+<p>Adjust the packet size:</p>
+<blockquote class="tr_bq"><p># Preallocated size for packet. Default is 1514 which is the classical</p>
+<p># size for pcap on ethernet. You should adjust this value to the highest</p>
+<p># packet size (MTU + hardware header) on your system.</p>
+<p>default-packet-size: 1522</p></blockquote>
+<p>Use custom profile in detect-engine with a lot more groups (high gives you about 15 groups per variable, but you can customize as needed depending on the network ranges you monitor ):</p>
+<blockquote class="tr_bq"><p>detect-engine:</p>
+<p>&#8211; profile: custom</p>
+<p>&#8211; custom-values:</p>
+<p>toclient-src-groups: 200</p>
+<p>toclient-dst-groups: 200</p>
+<p>toclient-sp-groups: 200</p>
+<p>toclient-dp-groups: 300</p>
+<p>toserver-src-groups: 200</p>
+<p>toserver-dst-groups: 400</p>
+<p>toserver-sp-groups: 200</p>
+<p>toserver-dp-groups: 250</p>
+<p>&#8211; sgh-mpm-context: full</p>
+<p>&#8211; inspection-recursion-limit: 3000</p></blockquote>
+<p>Adjust your defrag settings:</p>
+<p># Defrag settings:</p>
+<blockquote class="tr_bq"><p>defrag:</p>
+<p>memcap: 512mb</p>
+<p>hash-size: 65536</p>
+<p>trackers: 65535 # number of defragmented flows to follow</p>
+<p>max-frags: 65535 # number of fragments to keep</p>
+<p>prealloc: yes</p>
+<p>timeout: 30</p></blockquote>
+<p>Adjust your flow settings:</p>
+<blockquote class="tr_bq"><p>flow:</p>
+<p>memcap: 1gb</p>
+<p>hash-size: 1048576</p>
+<p>prealloc: 1048576</p>
+<p>emergency-recovery: 30</p></blockquote>
+<p>Adjust your per protocol timeout values:</p>
+<blockquote class="tr_bq"><p>flow-timeouts:</p>
+<p>default:</p>
+<p>new: 3</p>
+<p>established: 30</p>
+<p>closed: 0</p>
+<p>emergency-new: 10</p>
+<p>emergency-established: 10</p>
+<p>emergency-closed: 0</p>
+<p>tcp:</p>
+<p>new: 6</p>
+<p>established: 100</p>
+<p>closed: 12</p>
+<p>emergency-new: 1</p>
+<p>emergency-established: 5</p>
+<p>emergency-closed: 2</p>
+<p>udp:</p>
+<p>new: 3</p>
+<p>established: 30</p>
+<p>emergency-new: 3</p>
+<p>emergency-established: 10</p>
+<p>icmp:</p>
+<p>new: 3</p>
+<p>established: 30</p>
+<p>emergency-new: 1</p>
+<p>emergency-established: 10</p></blockquote>
+<p>Adjust your stream engine settings:</p>
+<blockquote class="tr_bq"><p>stream:</p>
+<p>memcap: 12gb</p>
+<p>checksum-validation: no      # reject wrong csums</p>
+<p>prealloc-sesions: 500000     #per thread</p>
+<p>midstream: true</p>
+<p>asyn-oneside: true</p>
+<p>inline: no                  # auto will use inline mode in IPS mode, yes or no set it statically</p>
+<p>reassembly:</p>
+<p>memcap: 20gb</p>
+<p>depth: 12mb                  # reassemble 12mb into a stream</p>
+<p>toserver-chunk-size: 2560</p>
+<p>toclient-chunk-size: 2560</p>
+<p>randomize-chunk-size: yes</p>
+<p>#randomize-chunk-range: 10</p></blockquote>
+<p>Make sure you enable suricata.log for troubleshooting if something goes wrong:</p>
+<p>outputs:</p>
+<p>&#8211; console:</p>
+<p>enabled: yes</p>
+<p>&#8211; file:</p>
+<p>enabled: yes</p>
+<p>filename: /var/log/suricata/suricata.log</p>
+<p>The PF_RING section:</p>
+<blockquote class="tr_bq"><p># PF_RING configuration. for use with native PF_RING support</p>
+<p># for more info see https://www.ntop.org/PF_RING.html</p>
+<p>pfring:</p>
+<p>&#8211; interface: eth3</p>
+<p># Number of receive threads (&gt;1 will enable experimental flow pinned</p>
+<p># runmode)</p>
+<p>threads: 16</p>
+<p># Default clusterid.  PF_RING will load balance packets based on flow.</p>
+<p># All threads/processes that will participate need to have the same</p>
+<p># clusterid.</p>
+<p>cluster-id: 99</p>
+<p># Default PF_RING cluster type. PF_RING can load balance per flow or per hash.</p>
+<p># This is only supported in versions of PF_RING &gt; 4.1.1.</p>
+<p>cluster-type: cluster_flow</p>
+<p># bpf filter for this interface</p>
+<p>#bpf-filter: tcp</p>
+<p># Choose checksum verification mode for the interface. At the moment</p>
+<p># of the capture, some packets may be with an invalid checksum due to</p>
+<p># offloading to the network card of the checksum computation.</p>
+<p># Possible values are:</p>
+<p>#  &#8211; rxonly: only compute checksum for packets received by network card.</p>
+<p>#  &#8211; yes: checksum validation is forced</p>
+<p>#  &#8211; no: checksum validation is disabled</p>
+<p>#  &#8211; auto: suricata uses a statistical approach to detect when</p>
+<p>#  checksum off-loading is used. (default)</p>
+<p># Warning: &#8216;checksum-validation&#8217; must be set to yes to have any validation</p>
+<p>#checksum-checks: auto</p></blockquote>
+<p>We had these rules enabled:</p>
+<blockquote class="tr_bq"><p>rule-files:</p></blockquote>
+<blockquote><p> &#8211; md5.rules # 134 000 specially selected file md5s</p>
+<p>&#8211; dns.rules</p>
+<p>&#8211; malware.rules</p>
+<p>&#8211; local.rules</p>
+<p>&#8211; current_events.rules</p>
+<p>&#8211; mobile_malware.rules</p>
+<p>&#8211; user_agents.rules</p></blockquote>
+<p>Make sure you adjust your Network and Port variables:</p>
+<blockquote class="tr_bq"><p>  # Holds the address group vars that would be passed in a Signature.</p>
+<p># These would be retrieved during the Signature address parsing stage.</p>
+<p>address-groups:</p>
+<p>HOME_NET: &#8220;[ HOME NET HERE ]&#8221;</p>
+<p>EXTERNAL_NET: &#8220;!$HOME_NET&#8221;</p>
+<p>HTTP_SERVERS: &#8220;$HOME_NET&#8221;</p>
+<p>SMTP_SERVERS: &#8220;$HOME_NET&#8221;</p>
+<p>SQL_SERVERS: &#8220;$HOME_NET&#8221;</p>
+<p>DNS_SERVERS: &#8220;$HOME_NET&#8221;</p>
+<p>TELNET_SERVERS: &#8220;$HOME_NET&#8221;</p>
+<p>AIM_SERVERS: &#8220;$EXTERNAL_NET&#8221;</p>
+<p>DNP3_SERVER: &#8220;$HOME_NET&#8221;</p>
+<p>DNP3_CLIENT: &#8220;$HOME_NET&#8221;</p>
+<p>MODBUS_CLIENT: &#8220;$HOME_NET&#8221;</p>
+<p>MODBUS_SERVER: &#8220;$HOME_NET&#8221;</p>
+<p>ENIP_CLIENT: &#8220;$HOME_NET&#8221;</p>
+<p>ENIP_SERVER: &#8220;$HOME_NET&#8221;</p>
+<p># Holds the port group vars that would be passed in a Signature.</p>
+<p># These would be retrieved during the Signature port parsing stage.</p>
+<p>port-groups:</p>
+<p>HTTP_PORTS: &#8220;80&#8221;</p>
+<p>SHELLCODE_PORTS: &#8220;!80&#8221;</p>
+<p>ORACLE_PORTS: 1521</p>
+<p>SSH_PORTS: 22</p>
+<p>DNP3_PORTS: 20000</p></blockquote>
+<p>Your app parsers:</p>
+<blockquote class="tr_bq"><p># Holds details on the app-layer. The protocols section details each protocol.</p>
+<p># Under each protocol, the default value for detection-enabled and &#8221;</p>
+<p># parsed-enabled is yes, unless specified otherwise.</p>
+<p># Each protocol covers enabling/disabling parsers for all ipprotos</p>
+<p># the app-layer protocol runs on.  For example &#8220;dcerpc&#8221; refers to the tcp</p>
+<p># version of the protocol as well as the udp version of the protocol.</p>
+<p># The option &#8220;enabled&#8221; takes 3 values &#8211; &#8220;yes&#8221;, &#8220;no&#8221;, &#8220;detection-only&#8221;.</p>
+<p># &#8220;yes&#8221; enables both detection and the parser, &#8220;no&#8221; disables both, and</p>
+<p># &#8220;detection-only&#8221; enables detection only(parser disabled).</p>
+<p>app-layer:</p>
+<p>protocols:</p>
+<p>tls:</p>
+<p>enabled: yes</p>
+<p>detection-ports:</p>
+<p>tcp:</p>
+<p>toserver: 443</p>
+<p>#no-reassemble: yes</p>
+<p>dcerpc:</p>
+<p>enabled: yes</p>
+<p>ftp:</p>
+<p>enabled: yes</p>
+<p>ssh:</p>
+<p>enabled: yes</p>
+<p>smtp:</p>
+<p>enabled: yes</p>
+<p>imap:</p>
+<p>enabled: detection-only</p>
+<p>msn:</p>
+<p>enabled: detection-only</p>
+<p>smb:</p>
+<p>enabled: yes</p>
+<p>detection-ports:</p>
+<p>tcp:</p>
+<p>toserver: 139</p>
+<p># smb2 detection is disabled internally inside the engine.</p>
+<p>#smb2:</p>
+<p>#  enabled: yes</p>
+<p>dnstcp:</p>
+<p>enabled: yes</p>
+<p>detection-ports:</p>
+<p>tcp:</p>
+<p>toserver: 53</p>
+<p>dnsudp:</p>
+<p>enabled: yes</p>
+<p>detection-ports:</p>
+<p>udp:</p>
+<p>toserver: 53</p>
+<p>http:</p>
+<p>enabled: yes</p></blockquote>
+<p>Libhtp body limits:</p>
+<blockquote class="tr_bq"><p>      libhtp:</p>
+<p>default-config:</p>
+<p>personality: IDS</p>
+<p># Can be specified in kb, mb, gb.  Just a number indicates</p>
+<p># it&#8217;s in bytes.</p>
+<p>request-body-limit: 12mb</p>
+<p>response-body-limit: 12mb</p>
+<p># inspection limits</p>
+<p>request-body-minimal-inspect-size: 32kb</p>
+<p>request-body-inspect-window: 4kb</p>
+<p>response-body-minimal-inspect-size: 32kb</p>
+<p>response-body-inspect-window: 4kb</p></blockquote>
+<h2><i>Run it</i></h2>
+<p>With all that done and in place  &#8211; you can start Suricata like this (change your directory locations and such !)</p>
+<blockquote class="tr_bq"><p> LD_LIBRARY_PATH=/usr/local/pfring/lib suricata &#8211;pfring-int=eth3 \</p>
+<p>&#8211;pfring-cluster-id=99 &#8211;pfring-cluster-type=cluster_flow \</p>
+<p>-c /etc/suricata/peter-yaml/suricata-pfring.yaml -D -v</p></blockquote>
+<p>this would also work:</p>
+<blockquote class="tr_bq"><p>suricata &#8211;pfring-int=eth3  &#8211;pfring-cluster-id=99 &#8211;pfring-cluster-type=cluster_flow \</p>
+<p>-c /etc/suricata/peter-yaml/suricata-pfring.yaml -D -v</p></blockquote>
+<p>After you start Suricata with PF_RING, you could use <b><i>htop</i></b> and the logs info of <i><b>suricata.log</b></i> to determine if everything is ok<br />
+EXAMPLE:</p>
+<blockquote class="tr_bq"><p> [29966] 30/11/2013 &#8212; 14:29:12 &#8211; (util-cpu.c:170) &lt;Info&gt; (UtilCpuPrintSummary) &#8212; CPUs/cores online: 16</p>
+<p>[29966] 30/11/2013 &#8212; 14:29:12 &#8211; (app-layer-dns-udp.c:315) &lt;Info&gt; (DNSUDPConfigure) &#8212; DNS request flood protection level: 500</p>
+<p>[29966] 30/11/2013 &#8212; 14:29:12 &#8211; (defrag-hash.c:212) &lt;Info&gt; (DefragInitConfig) &#8212; allocated 3670016 bytes of memory for the defrag hash&#8230; 65536 buckets of size 56</p>
+<p>[29966] 30/11/2013 &#8212; 14:29:12 &#8211; (defrag-hash.c:237) &lt;Info&gt; (DefragInitConfig) &#8212; preallocated 65535 defrag trackers of size 152</p>
+<p>[29966] 30/11/2013 &#8212; 14:29:12 &#8211; (defrag-hash.c:244) &lt;Info&gt; (DefragInitConfig) &#8212; defrag memory usage: 13631336 bytes, maximum: 536870912</p>
+<p>[29966] 30/11/2013 &#8212; 14:29:12 &#8211; (tmqh-flow.c:76) &lt;Info&gt; (TmqhFlowRegister) &#8212; AutoFP mode using default &#8220;Active Packets&#8221; flow load balancer</p>
+<p>[29967] 30/11/2013 &#8212; 14:29:12 &#8211; (tmqh-packetpool.c:141) &lt;Info&gt; (PacketPoolInit) &#8212; preallocated 65534 packets. Total memory 229106864</p>
+<p>[29967] 30/11/2013 &#8212; 14:29:12 &#8211; (host.c:205) &lt;Info&gt; (HostInitConfig) &#8212; allocated 262144 bytes of memory for the host hash&#8230; 4096 buckets of size 64</p>
+<p>[29967] 30/11/2013 &#8212; 14:29:12 &#8211; (host.c:228) &lt;Info&gt; (HostInitConfig) &#8212; preallocated 1000 hosts of size 112</p>
+<p>[29967] 30/11/2013 &#8212; 14:29:12 &#8211; (host.c:230) &lt;Info&gt; (HostInitConfig) &#8212; host memory usage: 390144 bytes, maximum: 16777216</p>
+<p>[29967] 30/11/2013 &#8212; 14:29:12 &#8211; (flow.c:386) &lt;Info&gt; (FlowInitConfig) &#8212; allocated 67108864 bytes of memory for the flow hash&#8230; 1048576 buckets of size 64</p>
+<p>[29967] 30/11/2013 &#8212; 14:29:13 &#8211; (flow.c:410) &lt;Info&gt; (FlowInitConfig) &#8212; preallocated 1048576 flows of size 280</p>
+<p>[29967] 30/11/2013 &#8212; 14:29:13 &#8211; (flow.c:412) &lt;Info&gt; (FlowInitConfig) &#8212; flow memory usage: 369098752 bytes, maximum: 1073741824</p>
+<p>&#8230;..</p>
+<p>[29967] 30/11/2013 &#8212; 14:30:23 &#8211; (util-runmodes.c:545) &lt;Info&gt; (RunModeSetLiveCaptureWorkersForDevice) &#8212; Going to use 16 thread(s)</p>
+<p>[30000] 30/11/2013 &#8212; 14:30:23 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth31) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30001] 30/11/2013 &#8212; 14:30:23 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth32) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30002] 30/11/2013 &#8212; 14:30:23 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth33) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30003] 30/11/2013 &#8212; 14:30:23 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth34) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30004] 30/11/2013 &#8212; 14:30:24 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth35) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30005] 30/11/2013 &#8212; 14:30:24 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth36) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30006] 30/11/2013 &#8212; 14:30:24 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth37) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30007] 30/11/2013 &#8212; 14:30:24 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth38) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30008] 30/11/2013 &#8212; 14:30:24 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth39) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30009] 30/11/2013 &#8212; 14:30:24 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth310) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30010] 30/11/2013 &#8212; 14:30:24 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth311) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30011] 30/11/2013 &#8212; 14:30:24 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth312) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30012] 30/11/2013 &#8212; 14:30:24 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth313) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30013] 30/11/2013 &#8212; 14:30:24 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth314) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30014] 30/11/2013 &#8212; 14:30:25 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth315) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[30015] 30/11/2013 &#8212; 14:30:25 &#8211; (source-pfring.c:445) &lt;Info&gt; (ReceivePfringThreadInit) &#8212; (RxPFReth316) Using PF_RING v.5.6.2, interface eth3, cluster-id 99</p>
+<p>[29967] 30/11/2013 &#8212; 14:30:25 &#8211; (runmode-pfring.c:555) &lt;Info&gt; (RunModeIdsPfringWorkers) &#8212; RunModeIdsPfringWorkers initialised</p>
+<p>&#8230;..</p>
+<p>[29967] 30/11/2013 &#8212; 14:30:25 &#8211; (tm-threads.c:2191) &lt;Notice&gt; (TmThreadWaitOnThreadInit) &#8212; all 16 packet processing threads, 3 management threads initialized, engine started.</p></blockquote>
+<p>So after running for about 7 hrs:</p>
+<blockquote class="tr_bq"><p>root@suricata:/var/log/suricata# grep kernel stats.log |tail -32</p>
+<p>capture.kernel_packets    | RxPFReth31                | 2313986783</p>
+<p>capture.kernel_drops      | RxPFReth31                | 75254447</p>
+<p>capture.kernel_packets    | RxPFReth32                | 2420204427</p>
+<p>capture.kernel_drops      | RxPFReth32                | 23492323</p>
+<p>capture.kernel_packets    | RxPFReth33                | 2412343682</p>
+<p>capture.kernel_drops      | RxPFReth33                | 71202459</p>
+<p>capture.kernel_packets    | RxPFReth34                | 2249712177</p>
+<p>capture.kernel_drops      | RxPFReth34                | 15290216</p>
+<p>capture.kernel_packets    | RxPFReth35                | 2272653367</p>
+<p>capture.kernel_drops      | RxPFReth35                | 2072826</p>
+<p>capture.kernel_packets    | RxPFReth36                | 2281254066</p>
+<p>capture.kernel_drops      | RxPFReth36                | 118723669</p>
+<p>capture.kernel_packets    | RxPFReth37                | 2430047882</p>
+<p>capture.kernel_drops      | RxPFReth37                | 13702511</p>
+<p>capture.kernel_packets    | RxPFReth38                | 2474713911</p>
+<p>capture.kernel_drops      | RxPFReth38                | 6512062</p>
+<p>capture.kernel_packets    | RxPFReth39                | 2299221265</p>
+<p>capture.kernel_drops      | RxPFReth39                | 596690</p>
+<p>capture.kernel_packets    | RxPFReth310               | 2398183554</p>
+<p>capture.kernel_drops      | RxPFReth310               | 15623971</p>
+<p>capture.kernel_packets    | RxPFReth311               | 2277348230</p>
+<p>capture.kernel_drops      | RxPFReth311               | 62773742</p>
+<p>capture.kernel_packets    | RxPFReth312               | 2693710052</p>
+<p>capture.kernel_drops      | RxPFReth312               | 40213266</p>
+<p>capture.kernel_packets    | RxPFReth313               | 2470037871</p>
+<p>capture.kernel_drops      | RxPFReth313               | 406738</p>
+<p>capture.kernel_packets    | RxPFReth314               | 2236636480</p>
+<p>capture.kernel_drops      | RxPFReth314               | 714360</p>
+<p>capture.kernel_packets    | RxPFReth315               | 2314829059</p>
+<p>capture.kernel_drops      | RxPFReth315               | 1818726</p>
+<p>capture.kernel_packets    | RxPFReth316               | 2271917603</p>
+<p>capture.kernel_drops      | RxPFReth316               | 1200009</p></blockquote>
+<p>about 2% drops, 85% CPU usage , about 3300 rules and inspecting traffic for match on 134 000 file MD5s.</p>
+<h2><i>On a side note</i></h2>
+<p>You could also use linux-tools to do some more analyzing and performance tuning:</p>
+<blockquote class="tr_bq"><p>apt-get install linux-tools</p></blockquote>
+<p>Example: <i><b>perf top</b></i></p>
+<p>(hit enter)</p>
+<div class="separator" style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://2.bp.blogspot.com/-uJwogxK8-es/Up8Nxa3eMrI/AAAAAAAAALY/HwsCj_js5H4/s1600/Perf-top.PNG"><img decoding="async" alt="" src="http://2.bp.blogspot.com/-uJwogxK8-es/Up8Nxa3eMrI/AAAAAAAAALY/HwsCj_js5H4/s1600/Perf-top.PNG" width="236" height="320" border="0" /></a></div>
+<p>Some more info found <a href="https://perf.wiki.kernel.org/index.php/Tutorial" target="_blank" rel="noopener">HERE</a> and thanks to Regit <a href="https://home.regit.org/2013/11/using-linux-perf-tools-for-suricata-performance-analysis/" target="_blank" rel="noopener">HERE</a>.</p>
+<p>Your task of tuning up is not yet done. You could also do a dry test runs with profiling enabled in Suricata and determine the most &#8220;expensive rules&#8221; and tune them accordingly.</p>
+<h2><i>Part Two &#8211; DNA</i></h2>
+<p><i><span style="text-decoration: underline;"><b>If you do not have PF_RING</b></span></i> installed on your system you should follow all of the Part One except the section &#8220;Run it&#8221;. After that come back and continue from here onwards.</p>
+<p><span style="text-decoration: underline;"><b>NOTE:</b></span> Know your network card. This set up uses Intel 82599EB 10-Gigabit SFI/SFP+</p>
+<p><span style="text-decoration: underline;"><b>NOTE:</b></span> When one application is using the DNA interface no other application can use that same interface. Example if you have Suricata running with this guide, if you want to do &#8220;./pfcount&#8221; you would not be able to , since the DNA interface is already used by an application. For cases where you would like multiple applications to use the same DNA interface, you should consider Libzero.</p>
+<h2><i>Compile</i></h2>
+<p>Once you have acquired your DNA license (instructions of &#8220;how to&#8221; are included in the license), cd to the src of your latest pfring pull:</p>
+<blockquote class="tr_bq"><p>cd /home/pevman/pfring-svn-latest/drivers/DNA/ixgbe-3.18.7-DNA/src</p>
+<p>make</p></blockquote>
+<h2><i>Configure</i></h2>
+<p>Elevate as root. <b>EDIT</b> the script <b><i>load_dna_driver.sh</i></b> found in the  directory below</p>
+<p>(/pfring-svn-latest/drivers/DNA/ixgbe-3.18.7-DNA/src/load_dna_driver.sh)</p>
+<p>Make changes in the script <b><i>load_dna_driver.sh </i></b>like so (we use only one dna interface):</p>
+<blockquote class="tr_bq"><p># Configure here the network interfaces to activate</p>
+<p>IF[0]=dna0</p>
+<p>#IF[1]=dna1</p>
+<p>#IF[2]=dna2</p>
+<p>#IF[3]=dna3</p></blockquote>
+<p>Leave rmmod like so (default):</p>
+<blockquote class="tr_bq"><p># Remove old modules (if loaded)</p>
+<p>rmmod ixgbe</p>
+<p>rmmod pf_ring</p></blockquote>
+<p>Leave only two insmod lines uncommented</p>
+<blockquote class="tr_bq"><p># We assume that you have compiled PF_RING</p>
+<p>insmod ../../../../kernel/pf_ring.ko</p></blockquote>
+<p>Adjust the queues, use your own MAC address, increase the buffers, up the laser on the SFP:</p>
+<blockquote class="tr_bq"><p># As many queues as the number of processors</p>
+<p>#insmod ./ixgbe.ko RSS=0,0,0,0</p>
+<p>insmod ./ixgbe.ko RSS=0 mtu=1522 adapters_to_enable=00:e0:ed:19:e3:e1 num_rx_slots=32768 FdirPballoc=3</p></blockquote>
+<p>Above we have 16 CPUs and we want to use 16 queues, enable only this adapter with this MAC address, bump up the rx slots and comment all the other insmod lines (besides these two shown above for pf_ring.ko and ixgbe.ko)</p>
+<p>In the case above we enable 16 queues (cause we have 16 cpus) for the first port of the 10Gbps Intel network card.</p>
+<div style="text-align: center;"> <b>+++++ CORNER CASE +++++ </b></div>
+<p>( the bonus round !! &#8211; with the help of  <span class="gI"><span class="gD">Alfredo Cardigliano from <a href="https://www.ntop.org/" target="_blank" rel="noopener">ntop</a></span></span> )</p>
+<p><span style="text-decoration: underline;"><b>Question:</b></span></p>
+<p>So what should you do if you have this scenario &#8211; 32 core system with a</p>
+<div class="im">10Gbps network card and DNA. The card has  4 ports each port getting 1,2,6,1 Gbps</div>
+<p>of traffic, respectivelly.</p>
+<p>You would like to get 4,8 16,4 queues &#8211; dedicated cpus (as written ) per</p>
+<p>port. In other words:</p>
+<p>Gbps of traffic (port 0,1,2,3) &#8211; &gt;            1,2,6,1</p>
+<p>Number of cpus/queues dedicated &#8211; &gt;  4,8,16,4</p>
+<p><span style="text-decoration: underline;"><b>Answer:</b></span></p>
+<p>Simple -&gt; You should use</p>
+<blockquote class="tr_bq"><p>insmod ./ixgbe.ko RSS=4,8,16,4 &#8230;.</p></blockquote>
+<p>instead of :</p>
+<blockquote class="tr_bq"><p>insmod ./ixgbe.ko RSS=0 &#8230;.</p></blockquote>
+<div style="text-align: center;"><b>+++++ END of the CORNER CASE +++++</b></div>
+<p>Execute load_dna_driver.sh from the same directory it resides in.</p>
+<p>(ex for this tutorial &#8211; /home/pevman/pfring-svn-latest/drivers/DNA/ixgbe-3.18.7-DNA/src) :</p>
+<blockquote class="tr_bq"><p>./ load_dna_driver.sh</p></blockquote>
+<p>Make sure offloading is disabled (substitute the correct interface name below name):</p>
+<blockquote class="tr_bq"><p>ethtool -K dna0 tso off</p>
+<p>ethtool -K dna0 gro off</p>
+<p>ethtool -K dna0 lro off</p>
+<p>ethtool -K dna0 gso off</p>
+<p>ethtool -K dna0 rx off</p>
+<p>ethtool -K dna0 tx off</p>
+<p>ethtool -K dna0 sg off</p>
+<p>ethtool -K dna0 rxvlan off</p>
+<p>ethtool -K dna0 txvlan off</p>
+<p>ethtool -N dna0 rx-flow-hash udp4 sdfn</p>
+<p>ethtool -N dna0 rx-flow-hash udp6 sdfn</p>
+<p>ethtool -n dna0 rx-flow-hash udp6</p>
+<p>ethtool -n dna0 rx-flow-hash udp4</p>
+<p>ethtool -C dna0 rx-usecs 1000</p>
+<p>ethtool -C dna0 adaptive-rx off</p></blockquote>
+<h2><i>Configuration in suricata.yaml</i></h2>
+<p>In suricata.yaml, make sure your pfring section looks like this:</p>
+<blockquote class="tr_bq"><p># PF_RING configuration. for use with native PF_RING support</p>
+<p># for more info see https://www.ntop.org/PF_RING.html  #dna0@0</p>
+<p>pfring:</p>
+<p>&#8211; interface: dna0@0</p>
+<p># Number of receive threads (&gt;1 will enable experimental flow pinned</p>
+<p># runmode)</p>
+<p>#threads: 1</p>
+<p># Default clusterid.  PF_RING will load balance packets based on flow.</p>
+<p># All threads/processes that will participate need to have the same</p>
+<p># clusterid.</p>
+<p>#cluster-id: 1</p>
+<p># Default PF_RING cluster type. PF_RING can load balance per flow or per hash.</p>
+<p># This is only supported in versions of PF_RING &gt; 4.1.1.</p>
+<p>cluster-type: cluster_flow</p>
+<p># bpf filter for this interface</p>
+<p>#bpf-filter: tcp</p>
+<p># Choose checksum verification mode for the interface. At the moment</p>
+<p># of the capture, some packets may be with an invalid checksum due to</p>
+<p># offloading to the network card of the checksum computation.</p>
+<p># Possible values are:</p>
+<p>#  &#8211; rxonly: only compute checksum for packets received by network card.</p>
+<p>#  &#8211; yes: checksum validation is forced</p>
+<p>#  &#8211; no: checksum validation is disabled</p>
+<p>#  &#8211; auto: suricata uses a statistical approach to detect when</p>
+<p>#  checksum off-loading is used. (default)</p>
+<p># Warning: &#8216;checksum-validation&#8217; must be set to yes to have any validation</p>
+<p>#checksum-checks: auto</p>
+<p># Second interface</p>
+<p>&#8211; interface: dna0@1</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@2</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@3</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@4</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@5</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@6</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@7</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@8</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@9</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@10</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@11</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@12</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@13</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@14</p>
+<p>threads: 1</p>
+<p>&#8211; interface: dna0@15</p>
+<p>threads: 1</p>
+<p># Put default values here</p>
+<p>#- interface: default</p>
+<p>#threads: 2</p></blockquote>
+<p>Rules enabled in suricata.yaml:</p>
+<blockquote class="tr_bq"><p>default-rule-path: /etc/suricata/et-config/</p>
+<p>rule-files:</p>
+<p>&#8211; trojan.rules</p>
+<p>&#8211; dns.rules</p>
+<p>&#8211; malware.rules</p>
+<p>&#8211; local.rules</p>
+<p>&#8211; jonkman.rules</p></blockquote>
+<blockquote><p> &#8211; worm.rules</p>
+<p>&#8211; current_events.rules</p>
+<p>&#8211; mobile_malware.rules</p>
+<p>&#8211; user_agents.rules</p></blockquote>
+<p>The rest of the suricata.yaml configuration guide you can take from <a href="http://pevma.blogspot.se/2013/12/suricata-and-grand-slam-of-open-source_4.html" target="_blank" rel="noopener">Part One &#8211; PF_RING</a>&#8211; regarding Suricata&#8217;s specific settings &#8211; timeouts, memory settings, fragmentation , reassembly limits and so on.<br />
+Notice the DNA driver loaded:</p>
+<blockquote class="tr_bq"><p> <i>lshw -c Network</i></p>
+<p>*-network:1</p>
+<p>description: Ethernet interface</p>
+<p>product: 82599EB 10-Gigabit SFI/SFP+ Network Connection</p>
+<p>vendor: Intel Corporation</p>
+<p>physical id: 0.1</p>
+<p>bus info: pci@0000:04:00.1</p>
+<p>logical name: dna0</p>
+<p>version: 01</p>
+<p>serial: 00:e0:ed:19:e3:e1</p>
+<p>width: 64 bits</p>
+<p>clock: 33MHz</p>
+<p>capabilities: pm msi msix pciexpress vpd bus_master cap_list ethernet physical fibre</p>
+<p>configuration: autonegotiation=off broadcast=yes driver=ixgbe <b><span style="text-decoration: underline;"><i>driverversion=3.18.7-DNA</i> </span></b>duplex=full firmware=0x800000cb latency=0 link=yes multicast=yes port=fibre promiscuous=yes</p>
+<p>resources: irq:37 memory:fbc00000-fbc1ffff ioport:e000(size=32) memory:fbc40000-fbc43fff memory:fa700000-fa7fffff memory:fa600000-fa6fffff</p></blockquote>
+<h2><i>Start Suricata with DNA</i></h2>
+<p>(make sure  you adjust your directories in the command below)</p>
+<blockquote class="tr_bq"><p>suricata &#8211;pfring -c /etc/suricata/peter-yaml/suricata-pfring-dna.yaml -v -D</p></blockquote>
+<p>Some stats from suricata.log:</p>
+<blockquote class="tr_bq"><p>root@suricata:/home/pevman/pfring-svn-latest/userland/examples# <i><b>more /var/log/suricata/suricata.log</b></i></p>
+<p>[32055] 27/11/2013 &#8212; 13:31:38 &#8211; (suricata.c:932) &lt;Notice&gt; (SCPrintVersion) &#8212; This is Suricata version 2.0dev (rev 77b09fc)</p>
+<p>[32055] 27/11/2013 &#8212; 13:31:38 &#8211; (util-cpu.c:170) &lt;Info&gt; (UtilCpuPrintSummary) &#8212; CPUs/cores online: 16</p>
+<p>[32055] 27/11/2013 &#8212; 13:31:38 &#8211; (app-layer-dns-udp.c:315) &lt;Info&gt; (DNSUDPConfigure) &#8212; DNS request flood protection level: 500</p>
+<p>[32055] 27/11/2013 &#8212; 13:31:38 &#8211; (defrag-hash.c:209) &lt;Info&gt; (DefragInitConfig) &#8212; allocated 3670016 bytes of memory for the defrag hash&#8230; 65536 buckets of size 56</p>
+<p>[32055] 27/11/2013 &#8212; 13:31:38 &#8211; (defrag-hash.c:234) &lt;Info&gt; (DefragInitConfig) &#8212; preallocated 65535 defrag trackers of size 152</p>
+<p>[32055] 27/11/2013 &#8212; 13:31:38 &#8211; (defrag-hash.c:241) &lt;Info&gt; (DefragInitConfig) &#8212; defrag memory usage: 13631336 bytes, maximum: 536870912</p>
+<p>[32055] 27/11/2013 &#8212; 13:31:38 &#8211; (tmqh-flow.c:76) &lt;Info&gt; (TmqhFlowRegister) &#8212; AutoFP mode using default &#8220;Active Packets&#8221; flow load balancer</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:38 &#8211; (tmqh-packetpool.c:141) &lt;Info&gt; (PacketPoolInit) &#8212; preallocated 65534 packets. Total memory 288873872</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:38 &#8211; (host.c:205) &lt;Info&gt; (HostInitConfig) &#8212; allocated 262144 bytes of memory for the host hash&#8230; 4096 buckets of size 64</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:38 &#8211; (host.c:228) &lt;Info&gt; (HostInitConfig) &#8212; preallocated 1000 hosts of size 112</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:38 &#8211; (host.c:230) &lt;Info&gt; (HostInitConfig) &#8212; host memory usage: 390144 bytes, maximum: 16777216</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:38 &#8211; (flow.c:386) &lt;Info&gt; (FlowInitConfig) &#8212; allocated 67108864 bytes of memory for the flow hash&#8230; 1048576 buckets of size 64</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:38 &#8211; (flow.c:410) &lt;Info&gt; (FlowInitConfig) &#8212; preallocated 1048576 flows of size 376</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:38 &#8211; (flow.c:412) &lt;Info&gt; (FlowInitConfig) &#8212; flow memory usage: 469762048 bytes, maximum: 1073741824</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:38 &#8211; (reputation.c:459) &lt;Info&gt; (SRepInit) &#8212; IP reputation disabled</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:38 &#8211; (util-magic.c:62) &lt;Info&gt; (MagicInit) &#8212; using magic-file /usr/share/file/magic</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:38 &#8211; (suricata.c:1725) &lt;Info&gt; (SetupDelayedDetect) &#8212; Delayed detect disabled</p></blockquote>
+<p>&#8230;..rules loaded  &#8211; 8010 :</p>
+<blockquote class="tr_bq"><p>[32056] 27/11/2013 &#8212; 13:31:40 &#8211; (detect.c:453) &lt;Info&gt; (SigLoadSignatures) &#8212; 9 rule files processed. 8010 rules successfully loaded, 0 rules failed</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:40 &#8211; (detect.c:2589) &lt;Info&gt; (SigAddressPrepareStage1) &#8212; 8017 signatures processed. 1 are IP-only rules, 2147 are inspecting packet payload, 6625 inspect application lay</p>
+<p>er, 0 are decoder event only</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:40 &#8211; (detect.c:2592) &lt;Info&gt; (SigAddressPrepareStage1) &#8212; building signature grouping structure, stage 1: adding signatures to signature source addresses&#8230; complete</p>
+<p>[32056] 27/11/2013 &#8212; 13:31:40 &#8211; (detect.c:3218) &lt;Info&gt; (SigAddressPrepareStage2) &#8212; building signature grouping structure, stage 2: building source address list&#8230; complete</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (detect.c:3860) &lt;Info&gt; (SigAddressPrepareStage3) &#8212; building signature grouping structure, stage 3: building destination address lists&#8230; complete</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-threshold-config.c:1186) &lt;Info&gt; (SCThresholdConfParseFile) &#8212; Threshold config parsed: 0 rule(s) found</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-coredump-config.c:122) &lt;Info&gt; (CoredumpLoadConfig) &#8212; Core dump size set to unlimited.</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-logopenfile.c:168) &lt;Info&gt; (SCConfLogOpenGeneric) &#8212; fast output device (regular) initialized: fast.log</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-logopenfile.c:168) &lt;Info&gt; (SCConfLogOpenGeneric) &#8212; http-log output device (regular) initialized: http.log</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-logopenfile.c:168) &lt;Info&gt; (SCConfLogOpenGeneric) &#8212; tls-log output device (regular) initialized: tls.log</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@0 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@1 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@2 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@3 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@4 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@5 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@6 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@7 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@8 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@9 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@10 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@11 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@12 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@13 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@14 from config file</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (util-device.c:147) &lt;Info&gt; (LiveBuildDeviceList) &#8212; Adding interface dna0@15 from config file</p>
+<p>&#8230;&#8230;..</p>
+<p>&#8230;&#8230;</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (runmode-pfring.c:555) &lt;Info&gt; (RunModeIdsPfringWorkers) &#8212; RunModeIdsPfringWorkers initialised</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:374) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream &#8220;prealloc-sessions&#8221;: 2048 (per thread)</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:390) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream &#8220;memcap&#8221;: 17179869184</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:396) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream &#8220;midstream&#8221; session pickups: enabled</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:402) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream &#8220;async-oneside&#8221;: disabled</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:419) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream &#8220;checksum-validation&#8221;: disabled</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:441) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream.&#8221;inline&#8221;: disabled</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:454) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream &#8220;max-synack-queued&#8221;: 5</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:472) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream.reassembly &#8220;memcap&#8221;: 25769803776</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:490) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream.reassembly &#8220;depth&#8221;: 12582912</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:573) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream.reassembly &#8220;toserver-chunk-size&#8221;: 2509</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (stream-tcp.c:575) &lt;Info&gt; (StreamTcpInitConfig) &#8212; stream.reassembly &#8220;toclient-chunk-size&#8221;: 2459</p>
+<p>[32056] 27/11/2013 &#8212; 13:35:28 &#8211; (tm-threads.c:2191) &lt;Notice&gt; (TmThreadWaitOnThreadInit) &#8212; all 16 packet processing threads, 3 management threads initialized, engine started.</p></blockquote>
+<p>Results: after 45 min running (and counting) on 10Gbps 8010 rules (impressive) -&gt;</p>
+<blockquote class="tr_bq"><p>root@suricata:/var/log/suricata# grep  kernel /var/log/suricata/stats.log | tail -32</p>
+<p>capture.kernel_packets    | RxPFRdna0@01              | 467567844</p>
+<p>capture.kernel_drops      | RxPFRdna0@01              | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@11              | 440973548</p>
+<p>capture.kernel_drops      | RxPFRdna0@11              | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@21              | 435088258</p>
+<p>capture.kernel_drops      | RxPFRdna0@21              | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@31              | 453131090</p>
+<p>capture.kernel_drops      | RxPFRdna0@31              | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@41              | 469334903</p>
+<p>capture.kernel_drops      | RxPFRdna0@41              | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@51              | 430412652</p>
+<p>capture.kernel_drops      | RxPFRdna0@51              | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@61              | 438056484</p>
+<p>capture.kernel_drops      | RxPFRdna0@61              | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@71              | 428234219</p>
+<p>capture.kernel_drops      | RxPFRdna0@71              | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@81              | 452883734</p>
+<p>capture.kernel_drops      | RxPFRdna0@81              | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@91              | 469565553</p>
+<p>capture.kernel_drops      | RxPFRdna0@91              | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@101             | 442010263</p>
+<p>capture.kernel_drops      | RxPFRdna0@101             | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@111             | 451989862</p>
+<p>capture.kernel_drops      | RxPFRdna0@111             | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@121             | 452650397</p>
+<p>capture.kernel_drops      | RxPFRdna0@121             | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@131             | 464907229</p>
+<p>capture.kernel_drops      | RxPFRdna0@131             | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@141             | 443403243</p>
+<p>capture.kernel_drops      | RxPFRdna0@141             | 0</p>
+<p>capture.kernel_packets    | RxPFRdna0@151             | 432499371</p>
+<p>capture.kernel_drops      | RxPFRdna0@151             | 0</p></blockquote>
+<p>Some <i><b>htop</b></i> stats</p>
+<div class="separator" style="clear: both; text-align: center;"><a style="margin-left: 1em; margin-right: 1em;" href="http://4.bp.blogspot.com/-D3rmu9rbPIY/Up8Pa_kJ4HI/AAAAAAAAALk/agMHaWrJ9ok/s1600/htop-DNA-8hrs.PNG"><img decoding="async" alt="" src="http://4.bp.blogspot.com/-D3rmu9rbPIY/Up8Pa_kJ4HI/AAAAAAAAALk/agMHaWrJ9ok/s1600/htop-DNA-8hrs.PNG" width="320" height="90" border="0" /></a></div>
+<p>In the examples directory of your PF_RING sources &#8211; <i><b>/pfring-svn-latest/userland/examples</b></i> you have some tools you can use to look at packets stats and such &#8211; example:</p>
+<blockquote class="tr_bq"><p>root@suricata:/home/pevman/pfring-svn-latest/userland/examples# <i><b>./pfcount_multichannel -i dna0</b></i></p>
+<p>Capturing from dna0</p>
+<p>Found 16 channels</p>
+<p>Using PF_RING v.5.6.2</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=0][280911 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=280911/Dropped=0.0 %</p>
+<p>280911 pkts &#8211; 238246030 bytes [140327.9 pkt/sec &#8211; 952.12 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=0][99895 pkts][1001.8 ms][99715.9 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=1][271128 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=271128/Dropped=0.0 %</p>
+<p>271128 pkts &#8211; 220184576 bytes [135440.8 pkt/sec &#8211; 879.94 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=1][91540 pkts][1001.8 ms][91375.9 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=2][251004 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=251004/Dropped=0.0 %</p>
+<p>251090 pkts &#8211; 210457632 bytes [125430.9 pkt/sec &#8211; 840.91 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=2][85799 pkts][1001.8 ms][85645.2 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=3][256648 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=256648/Dropped=0.0 %</p>
+<p>256648 pkts &#8211; 213116218 bytes [128207.4 pkt/sec &#8211; 851.69 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=3][86188 pkts][1001.8 ms][86033.5 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=4][261802 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=261802/Dropped=0.0 %</p>
+<p>261802 pkts &#8211; 225272589 bytes [130782.1 pkt/sec &#8211; 900.27 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=4][86528 pkts][1001.8 ms][86372.9 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=5][275665 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=275665/Dropped=0.0 %</p>
+<p>275665 pkts &#8211; 239259529 bytes [137707.3 pkt/sec &#8211; 956.17 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=5][91780 pkts][1001.8 ms][91615.5 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=6][295611 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=295611/Dropped=0.0 %</p>
+<p>295611 pkts &#8211; 231543496 bytes [147671.2 pkt/sec &#8211; 925.33 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=6][100521 pkts][1001.8 ms][100340.8 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=7][268374 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=268374/Dropped=0.0 %</p>
+<p>268374 pkts &#8211; 230010930 bytes [134065.1 pkt/sec &#8211; 919.21 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=7][91749 pkts][1001.8 ms][91584.5 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=8][312726 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=312726/Dropped=0.0 %</p>
+<p>312726 pkts &#8211; 286419690 bytes [156220.9 pkt/sec &#8211; 1144.64 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=8][86361 pkts][1001.8 ms][86206.2 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=9][275091 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=275091/Dropped=0.0 %</p>
+<p>275091 pkts &#8211; 229807313 bytes [137420.5 pkt/sec &#8211; 918.39 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=9][91118 pkts][1001.8 ms][90954.6 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=10][289441 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=289441/Dropped=0.0 %</p>
+<p>289441 pkts &#8211; 254843198 bytes [144589.0 pkt/sec &#8211; 1018.45 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=10][95537 pkts][1001.8 ms][95365.7 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=11][241318 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=241318/Dropped=0.0 %</p>
+<p>241318 pkts &#8211; 200442927 bytes [120549.4 pkt/sec &#8211; 801.04 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=11][82011 pkts][1001.8 ms][81864.0 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=12][300209 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=300209/Dropped=0.0 %</p>
+<p>300209 pkts &#8211; 261259342 bytes [149968.1 pkt/sec &#8211; 1044.09 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=12][101524 pkts][1001.8 ms][101342.0 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=13][293733 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=293733/Dropped=0.0 %</p>
+<p>293733 pkts &#8211; 259477621 bytes [146733.0 pkt/sec &#8211; 1036.97 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=13][97021 pkts][1001.8 ms][96847.1 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=14][267101 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=267101/Dropped=0.0 %</p>
+<p>267101 pkts &#8211; 226064969 bytes [133429.1 pkt/sec &#8211; 903.44 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=14][86862 pkts][1001.8 ms][86706.3 pkt/sec]</p>
+<p>=========================</p>
+<p>Absolute Stats: [channel=15][266323 pkts rcvd][0 pkts dropped]</p>
+<p>Total Pkts=266323/Dropped=0.0 %</p>
+<p>266323 pkts &#8211; 232926529 bytes [133040.5 pkt/sec &#8211; 930.86 Mbit/sec]</p>
+<p>=========================</p>
+<p>Actual Stats: [channel=15][91437 pkts][1001.8 ms][91273.1 pkt/sec]</p>
+<p>=========================</p>
+<p>Aggregate stats (all channels): [1463243.0 pkt/sec][15023.51 Mbit/sec][0 pkts dropped]</p>
+<p>=========================</p></blockquote>
+<p>The post <a href="https://www.ntop.org/accelerating-suricata-with-pf_ring-dna/">Accelerating Suricata with PF_RING DNA</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Who (Really) Needs Sub-microsecond Packet Timestamps?</title>
+		<link>https://www.ntop.org/who-really-needs-sub-microsecond-packet-timestamps/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 25 Apr 2013 08:39:36 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=2601</guid>
+
+					<description><![CDATA[<p>Introduction For years network adapter manufacturer companies have educated their customers that network monitoring applications can't live without hardware packet timestamps (i.e. the ability for the network adapter to report to the…</p>
+<p>The post <a href="https://www.ntop.org/who-really-needs-sub-microsecond-packet-timestamps/">Who (Really) Needs Sub-microsecond Packet Timestamps?</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>Introduction</h3>
+<p>For years network adapter manufacturer companies have educated their customers that network monitoring applications can&#8217;t live without <a href="https://www.ntop.org/pf_ring/hardware-timestamps-with-pf_ring/">hardware packet timestamps</a> (i.e. the ability for the network adapter to report to the driver the time a given packet was sent or received). State of the art FPGA-based network adapters [<a href="http://www.endace.com/systems-capabilities.html">1</a>, <a href="http://www.napatech.com/products/capture_adapters/2x10g_pcie__nt20e2.html">2</a>, <a href="http://www.intel.ie/content/dam/www/public/us/en/documents/faqs/ieee1588-faq.pdf">3</a>] have hardware timestamps with a resolution of +/- ~10 nsec and accuracy of +/- ~50 nsec so that monitoring applications can safely assume an accuracy of  100 nsec in measurements, for sub-usec measurements. Commodity adapters such as Intel 1 Gbit provide both RX and TX timestamps out of the box with IEEE 1588 time synchronisation, so the problem is on 10 Gbit (this until Intel comes us with a 10G adapter with hardware timestamps).</p>
+<p>&nbsp;</p>
+<h3>Who Really Needs Sub-microsecond Packet Timestamps?</h3>
+<p>This is a good question. Everyone seems to want it, but they in practice they might not need it. Let&#8217;s clarify this point a bit more in detail. For RTT (Round-Trip Time) measurements (i.e. I want to see how long a packet takes from location X to location Y) measurements on long-distance (e.g. Italy to USA and back) the order of magnitude is msec (actually tenth/hundred of msec) so usec are not needed, for a LAN is not needed either because if the probe packet used to monitor RTT is originated/received on the same adapter, 1 Gbit commodity adapters can do the trick and PF_RING supports them. For one-way delay (i.e. how to measure the time from A-&gt;B) on a WAN, 1G adapters+IEEE 1588 can do the trick (the delay is in msec), on a LAN same as above.</p>
+<p>So who needs really sub-microsecond hardware timestamps at 10 Gbit (at 1 Gbit we have the solution as explained until now)? Reading on the Internet, it seems that one of the few markets where they are needed is in <a href="http://en.wikipedia.org/wiki/Micro-bursting_(networking)">microburst detection</a> [<a href="http://blog.endace.com/2012/01/what-is-a-microburst-really/">1</a>, <a href="http://www.vssmonitoring.com/solutions/microburst_detection.asp">2</a>] in particular on critical networks such as high-frequency trading and industrial plants.</p>
+<p>&nbsp;</p>
+<h3>Can ntop Provide Sub-microsecond Timestamps in Software at 10 Gbit?</h3>
+<p>In short: yes we can. When we developed our <a href="https://www.ntop.org/products/n2disk/">n2disk</a> application at 10 Gbit, we have faced with the problem of  timestamps as no commodity adapter supported them. We have spent quite some time to optimise this application and these are our findings:</p>
+<ul>
+<li><span style="line-height: 14px;">We suppose to use a server machine with a good motherboard (i.e. Dell, Supermicro, HP), no toy PCs. This guarantees that the clock on the board is of good quality.</span></li>
+<li>The call to <a href="http://linux.die.net/man/3/clock_gettime">clock_gettime()</a> used to read the timestamp in software takes ~30 nsec in our tests. As at 10 Gbit the max packet ingress rate is (14.88 Mpps) is 67 nsec, reading the timestamp once the packet is received it overkilling (not to mention that the reported time will be shifted in the future with respect to real packet arrive).</li>
+<li>We decided to create a thread (we called it pulse thread) that calls clock_gettime() at full speed and shares the time with the capture thread.</li>
+</ul>
+<p>On our E3-1230 (CPU cost ~200 USD) starting n2disk as follows</p>
+<pre>n2disk10g -o /tmp/ -p 1024 -b 2048 -i dna0 --active-wait -C 1024 -w 0 -S 2 -c 4  -v -R 6 --nanoseconds</pre>
+<p>we can achieve both 10 Gbit to disk</p>
+<pre>25/Apr/2013 10:20:37 [n2disk.c:576] [PF_RING] Total stats: 90843997 pkts rcvd/90843997 pkts filtered/0 pkts dropped [0.0%]
+25/Apr/2013 10:20:37 [n2disk.c:592] Capture Duration: 00:00:06
+25/Apr/2013 10:20:37 [n2disk.c:594] Average Capture Throughout: 10.00 Gbit / 14.88 Mpps
+25/Apr/2013 10:20:37 [n2disk.c:1593] [writer] Thread terminated
+25/Apr/2013 10:20:37 [n2disk.c:3664] Writer thread terminated
+25/Apr/2013 10:20:37 [n2disk.c:2805] Packet capture thread terminated
+25/Apr/2013 10:20:37 [n2disk.c:3668] Reader thread terminated
+25/Apr/2013 10:20:37 [n2disk.c:3673] Time thread terminated</pre>
+<p>and high-accuracy timestamps. In fact this is what happens:</p>
+<h4>&lt; 30 nsec timestamps (as in the above test)</h4>
+<pre>60 1366418032.342040270 6726 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342040355 6727 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342040430 6728 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342040502 6729 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342040613 6730 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342040728 6731 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342040767 6732 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342040890 6733 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342041036 6734 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342041238 6735 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342041427 6736 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342041610 6737 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342041685 6738 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342041835 6739 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342041982 6740 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342042056 6741 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342042167 6742 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342042327 6743 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342042441 6744 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366418032.342042515 6745 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</pre>
+<p>As you can see all packets have different timestamps</p>
+<h4>100 nsec timestamps</h4>
+<pre>60 1366417070.119899160 5183 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119899386 5184 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119899501 5185 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+<span style="color: #ff6600;">60 1366417070.119899615 5186 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff6600;">60 1366417070.119899615 5187 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+60 1366417070.119899731 5188 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119899846 5189 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119899960 5190 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119900073 5191 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119900187 5192 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119900301 5193 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119900417 5194 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119900532 5195 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+<span style="color: #ff6600;">60 1366417070.119900646 5196 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff6600;">60 1366417070.119900646 5197 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+60 1366417070.119900762 5198 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119900877 5199 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119900989 5200 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119901104 5201 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+60 1366417070.119901218 5202 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</pre>
+<p>Bad: some packets have the same timestamp.</p>
+<h4>500 nsec timestamps</h4>
+<pre>60 1366417709.563877691 3466 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)
+<span style="color: #ff6600;">60 1366417709.563878226 3467 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff6600;">60 1366417709.563878226 3468 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff6600;">60 1366417709.563878226 3469 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff6600;">60 1366417709.563878226 3470 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff6600;">60 1366417709.563878226 3471 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff6600;">60 1366417709.563878226 3472 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #99cc00;">60 1366417709.563878763 3473 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #99cc00;">60 1366417709.563878763 3474 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #99cc00;">60 1366417709.563878763 3475 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #99cc00;">60 1366417709.563878763 3476 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #99cc00;">60 1366417709.563878763 3477 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #99cc00;">60 1366417709.563878763 3478 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff9900;">60 1366417709.563879297 3479 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff9900;">60 1366417709.563879297 3480 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff9900;">60 1366417709.563879297 3481 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff9900;">60 1366417709.563879297 3482 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff9900;">60 1366417709.563879297 3483 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+<span style="color: #ff9900;">60 1366417709.563879297 3484 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</span>
+60 1366417709.563879832 3485 192.85.1.2 -&gt; 192.0.0.1 IP Unknown (0xfd)</pre>
+<p>Very bad: too many packets have the same timestamp.</p>
+<p>&nbsp;</p>
+<h3>Conclusion</h3>
+<p>Using software timestamps and our &#8220;timestamp trick&#8221; you can achieve ~30 nsec timestamp precision, so that at 10 Gbit line rate all packets have a different timestamp (so we&#8217;re below 67 nsec timestamp resolution). This means that you can use n2disk for detecting microbursts at 10 Gbit line rate as:</p>
+<ol>
+<li>It can handle 14.88 Mpps with no drops when dumping them to disk with nsec timestamps</li>
+<li>You can avoid using hardware timestamps for sub-usec precision and leave them only for specific tasks where you need very accurate ~100 nsec timestamps. At this point in time however, we have not received any request from people who really need them, so we&#8217;re confident that our approach can be enough for most people.</li>
+<li>Hardware timestamps still make sense in those cases where you need a NIC with a GPS signal ingress, so that you can accurately sync the time over long distance with an accuracy better than what IEEE 1588 can offer you.</li>
+</ol>
+<p>The post <a href="https://www.ntop.org/who-really-needs-sub-microsecond-packet-timestamps/">Who (Really) Needs Sub-microsecond Packet Timestamps?</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Not All Servers Are Alike (With DNA) &#8211; Part 2</title>
+		<link>https://www.ntop.org/not-all-servers-are-alike-with-dna-part-2/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 13 Dec 2012 18:32:53 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=2399</guid>
+
+					<description><![CDATA[<p>Some time ago, we discussed on the first part of this post, why not all servers spot the same performance with DNA. The conclusion was that beside the CPU, you need a…</p>
+<p>The post <a href="https://www.ntop.org/not-all-servers-are-alike-with-dna-part-2/">Not All Servers Are Alike (With DNA) &#8211; Part 2</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Some time ago, we discussed on the <a href="https://www.ntop.org/pf_ring/not-all-servers-are-alike-with-dna/">first part</a> of this post, why not all servers spot the same performance with DNA. The conclusion was that beside the CPU, you need a great memory bandwidth in order to move packets from/to the NIC. So in essence CPU+memory bandwidth are necessary for granting line-rate performance.</p>
+<p>In this post we want to add some lessons learnt while playing with DNA on modern servers.</p>
+<h3>Lesson 1: Not all PCIe slots are alike</h3>
+<hr />
+<p>With the advent of PCIe gen3, computer manufacturers started to mix (old) PCIe gen2 with gen3 slots onto the same machine. In order to have a smaller set of components, quite often, manufacturers use the same physical PCIe slot connector for gen2/gen3. The same applies to slot speed, where x4 slots are shorter than x8 slots. So in essence, when you need to plug your 10G adapter into your brand new server, do not look at the slot form factor to figure out if this is the correct slot, but do read on the motherboard (or on the companion manual) the slot speed prior to plug your NIC. This will save you headaches.</p>
+<h3>Lesson 2: 2 x single-port 10G NIC != 1 x dual-port 10G NIC</h3>
+<hr />
+<p>After you have selected a PCIe slot on which to plug your 10G card, you need to figure out what are your plans. Considered the little difference in cost between a single and a dual 10G card, many people prefer to buy the dual-port (if not the <a href="http://www.silicom-usa.com/Networking_Adapters/PE310G4SPi9-Quad_Port_Fiber_10_Gigabit_Ethernet_PCI_Express_Server_Adapter_Intel_based_49">quad</a> or <a href="http://www.silicom-usa.com/Networking_Adapters/PE210G6SPi9-Six_Port_Fiber_10_Gigabit_Ethernet_PCI_Express_Server_Adapter_Intel_based_49">six</a> ports) and believe that all those cards are alike. Not quite. In fact you need to understand that beside the NIC form factor, the hardware manufacturer had to interconnect all those ports in some way. Usually this happens via a PCIe bridge that interconnects the various ports similar to what a USB hub does for your PC devices. Whenever you pass through a bridge, the bandwidth available is reduced so this might be a potential bottleneck. So make sure that your 10G NIC uses a PCIe gen3 bridge for your many-ports 10G card, otherwise expect packet drops due to the physical form factor of your NIC.</p>
+<p>With modern Sandy Bridge systems, PCIe slots are connected directly to the CPU. If you use a NUMA system (e.g. you have a system with two physical CPUs), connecting a dual port 10G NIC to a slot, means that you are binding all the two slots to such CPU. If your application accessing the NIC is running on the other CPU (i.e. not the same CPU to which your dual-port is connected) then your application will end up accessing the card via the first CPU and the QPI bus (that interconnects the CPUs). In essence this is a bad idea as your performance will be reduced due to the long journey and memory coherency (a packet memory allocated on the first CPU is accessed by the second CPU). If you plan to use this architecture, you better use instead two single-port 10G NICs, and plug one card on the first CPU, and the second card on the second CPU. This will grant you line-rate any packet size.</p>
+<h3>Lesson 3: Energy efficiency might not be your best friend</h3>
+<hr />
+<p>Modern CPUs such as <a href="http://www.intel.com/p/en_US/embedded/hwsw/hardware/xeon-e5-c604/features">Intel E5</a> have a variable clock speed, that changes according to the amount of work the CPU has to carry on, so that the CPU can save energy when possible. This means that the clock of your CPU is not stable, but it changes based on the CPU load. Tools like <a href="http://code.google.com/p/i7z/">i7z</a> allow you to monitor the CPU clock realtime. In the system BIOS you can set how you plan to use your CPU (energy efficient, performance, balance) and in your Linux system you <a href="http://sourceforge.net/projects/cpufreqd/">can set</a> how software plans to use the CPU. Depending on BIOS and kernel configuration, you can obtain very bad or very good results. For example on our uniprocessor sandy bridge system using <a href="http://ark.intel.com/products/64594/Intel-Xeon-Processor-E5-2620-15M-Cache-2_00-GHz-7_20-GTs-Intel-QPI">E5-2620</a> this is what happens.</p>
+<ol>
+<li>
+CPU Power Management Configuration disabled on BIOS:</p>
+<pre>
+root@nbox:/home/deri/PF_RING/drivers/DNA/ixgbe-3.10.16-DNA/src# /home/deri/PF_RING/userland/examples/pfsend -i dna0 -g 3
+Sending packets on dna0
+Using PF_RING v.5.5.2
+Using zero-copy TX
+TX rate: [current 12'850'010.49 pps/8.64 Gbps][average 12'850'010.49 pps/8.64 Gbps][total 12'850'139.00 pkts]
+TX rate: [current 12'852'422.34 pps/8.64 Gbps][average 12'851'216.44 pps/8.64 Gbps][total 25'703'114.00 pkts]
+</pre>
+</li>
+<li>
+CPU Power Management Configuration set on BIOS to Performance</p>
+<pre>
+root@nbox:/home/deri/PF_RING/drivers/DNA/ixgbe-3.10.16-DNA/src# /home/deri/PF_RING/userland/examples/pfsend -i dna0 -g 3 
+Sending packets on dna0
+Using PF_RING v.5.5.2
+Using zero-copy TX
+TX rate: [current 14'708'669.91 pps/9.88 Gbps][average 14'708'669.91 pps/9.88 Gbps][total 14'708'817.00 pkts]
+TX rate: [current 14'727'932.58 pps/9.90 Gbps][average 14'718'301.54 pps/9.89 Gbps][total 29'437'810.00 pkts]
+</pre>
+</li>
+<li>
+Same as 2 but we add -a (active polling) to pfsend</p>
+<pre>
+root@nbox:/home/deri/PF_RING/drivers/DNA/ixgbe-3.10.16-DNA/src# /home/deri/PF_RING/userland/examples/pfsend -i dna0 -g 3 -a
+Sending packets on dna0
+Using PF_RING v.5.5.2
+Using zero-copy TX
+TX rate: [current 14'880'666.69 pps/10.00 Gbps][average 14'868'674.49 pps/9.99 Gbps][total 29'737'914.00 pkts]
+TX rate: [current 14'880'562.38 pps/10.00 Gbps][average 14'872'637.12 pps/9.99 Gbps][total 44'618'774.00 pkts]
+</pre>
+</li>
+</ol>
+<p>As you can see the performance is very different. The reason is the CPU speed that changes according to the power management configuration. In the 2. case i7z reports</p>
+<pre>Socket [0] - [physical cores=6, logical cores=12, max online cores ever=6]
+ TURBO ENABLED on 6 Cores, Hyper Threading ON
+ Max Frequency without considering Turbo 2098.95 MHz (99.95 x [21])
+ Max TURBO Multiplier (if Enabled) with 1/2/3/4/5/6 Cores is 25x/25x/24x/24x/23x/23x
+ Real Current Frequency 1226.46 MHz [99.95 x 12.27] (Max of below)
+ Core [core-id] :Actual Freq (Mult.) C0% Halt(C1)% C3 % C6 % C7 % Temp
+ Core 1 [0]: 1199.34 (12.00x) 1.22 0.969 0 0 98.3 29
+ Core 2 [1]: 1199.59 (12.00x) 1 0.0213 0 0 100 33
+ Core 3 [2]: 1198.16 (11.99x) 1 0.0263 0 0 100 28
+<span style="color: #ff0000;"> Core 4 [3]: 1199.38 (12.00x) 71 57.4 0 0 0 39</span>
+ Core 5 [4]: 1180.98 (11.82x) 1 0.0362 0 0 99.9 32
+ Core 6 [5]: 1226.46 (12.27x) 1 0.0361 0 0 99.9 30</pre>
+<p>whereas in 3. it reports</p>
+<pre>Socket [0] - [physical cores=6, logical cores=12, max online cores ever=6]
+ TURBO ENABLED on 6 Cores, Hyper Threading ON
+ Max Frequency without considering Turbo 2098.95 MHz (99.95 x [21]) 
+ Max TURBO Multiplier (if Enabled) with 1/2/3/4/5/6 Cores is 25x/25x/24x/24x/23x/23x
+ Real Current Frequency 2498.64 MHz [99.95 x 25.00] (Max of below) 
+ Core [core-id] :Actual Freq (Mult.) C0% Halt(C1)% C3 % C6 % C7 % Temp
+ Core 1 [0]: 2485.39 (24.87x) 1 0.301 0 0 99 31
+ Core 2 [1]: 2390.24 (23.91x) 1 0.041 0 0 99.9 34
+ Core 3 [2]: 2318.51 (23.20x) 0 0.0343 0 0 100 30
+<span style="color: #ff0000;"> Core 4 [3]: 2498.64 (25.00x) 100 0 0 0 0 42</span>
+ Core 5 [4]: 2445.43 (24.47x) 1 0.0328 0 0 99.9 32
+ Core 6 [5]: 2416.29 (24.18x) 1 0.0358 0 0 99.9 31</pre>
+<p>In essence during test 2. the core 3 (where pfsend was running) was running at 1.19 GHz, whereas on test 3. it was running at 2.49 GHz. This explains the difference in performance. If you are monitoring network traffic, you better pay attention to these details, as otherwise you will be disappointed by the performance you achieve. Please note that you can set the CPU speed and scheduler from software using tools such as <a href="https://wiki.archlinux.org/index.php/CPU_Frequency_Scaling">cpufreq-set</a>.</p>
+<h3>Conclusion</h3>
+<hr />
+<p>In addition to what we discussed in the  <a href="https://www.ntop.org/pf_ring/not-all-servers-are-alike-with-dna/">first part</a>, make sure that you understand the topology of your computer and the power configuration of your system, otherwise you might obtain some unexpected results from speedy (and costly) modern computer system.</p>
+<p>The post <a href="https://www.ntop.org/not-all-servers-are-alike-with-dna-part-2/">Not All Servers Are Alike (With DNA) &#8211; Part 2</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>BYO10GPR: Build Your Own 10 Gbit Packet Recorder</title>
+		<link>https://www.ntop.org/byo10gpr-build-your-own-10-gbit-packet-recorder/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 23 Nov 2012 06:33:13 +0000</pubDate>
+				<category><![CDATA[nbox]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=2371</guid>
+
+					<description><![CDATA[<p>Packet recorder appliances are one of the last network components that have insane prices. Years ago this was justified by the fact that in order to capture traffic at high speed it…</p>
+<p>The post <a href="https://www.ntop.org/byo10gpr-build-your-own-10-gbit-packet-recorder/">BYO10GPR: Build Your Own 10 Gbit Packet Recorder</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Packet recorder appliances are one of the last network components that have insane prices. Years ago this was justified by the fact that in order to capture traffic at high speed it was mandatory to use costly custom packet capture cards and often custom-designed hardware. With the advent of multi-10 Gbit packet capture technologies on commodity hardware such as <a href="https://www.ntop.org/products/pf_ring/dna/">PF_RING DNA</a>, and the availability of high-performance computers such as those based on the <a href="http://en.wikipedia.org/wiki/Sandy_Bridge_(microarchitecture)">Intel Sandy Bridge</a> chipset the game has changed. Modern<a href="http://www.wdc.com/wdproducts/library/SpecSheet/ENG/2879-701284.pdf"> 10K RPM 6Gb/s SATA disks</a> enable with 8 disks in RAID-0 the creation of an inexpensive storage system able to write to disk 10 Gbit of traffic. Of course you can use fewer disks if you plan to use <a href="http://en.wikipedia.org/wiki/Solid-state_drive">SSD drives</a>, as SSD duration issues seem to have been mostly solved on the latest drives generation.</p>
+<p>However the hardware is just a part of the game, as putting speedy components into the same box does not make a fast packet recorder system. The reasons are manyfold:</p>
+<ul>
+<li>Modern CPUs are going to be more energy efficient, so the CPU clock changes according to the load. Users must pay attention to configure the system in a way that CPU efficiency is constant (tools like <a href="http://www.thinkwiki.org/wiki/How_to_use_cpufrequtils">cpufreq</a> allows you to specify this, and <a href="http://code.google.com/p/i7z/">i7z</a> allows you to see what happens) or this might lead to packet loss during traffic peaks as the CPU is not quick enough to increase its speed as network traffic changes.</li>
+<li>Latest Intel CPUs such as the E5 series used in high-end (uniprocessor and multiprocessor NUMA) servers, have typically low clock speeds (typically 1.8-2.0 GHz) in its entry/mid-range, whereas if you need clocks <a href="http://ark.intel.com/products/64583/Intel-Xeon-Processor-E5-2680-20M-Cache-2_70-GHz-8_00-GTs-Intel-QPI">over 2.4 GHz</a>, be prepared to spend a significant budget.</li>
+<li>10 Gbit NICs must be attached to the same node (of a NUMA system) where your n2disk application is running. As people often use dual 10 Gbit ports, do not make the mistake to run one n2disk instance per port, each on a different node to balance the system. In fact the dual-10 Gbit NIC is physically attached to a single PCIe slot, and thus to a single node. This way, the second n2disk instance running on the second NUMA node will not access packets directly but via the <a href="http://en.wikipedia.org/wiki/Intel_QuickPath_Interconnect">QPI</a> bus thus decreasing its performance. In this case it&#8217;s way better to use two single-port 10 Gbit NICs, and connect each card to a PCIe slot attached to the node where n2disk is active, thus avoiding to cross the QPI bus. Note that we do not claim that in order to monitor 2 x 10 Gbit links (or a single 10 Gbit link monitored via a network tap that splits the two traffic directions across two ports) you need a two node NUMA system as one uniprocessor system might be enough; instead we want you to realise that simple equations such as one node = one 10 Gbit port, might be more complicated than expected.</li>
+<li>At 10 Gbit, in particular if you want to index packets (for quick packet search without the need to sequentially search your multi-Terabyte archive) during packet capture as n2disk does, you need to use a hardware system able to deliver enough horse-power to carry on the packet capture job. In other words you need to have a CPU that has enough GHz to provide n2disk enough CPU cycles for carrying-on its task. Typically 2 GHz are almost sufficient (i.e. they are sufficient but you are very close to the physical limit of number of cycles available per packet), but at least 2.4 GHz are better to be on the safe side.</li>
+</ul>
+<p>With our reference box based on Supermicro <a href="http://www.supermicro.com/products/motherboard/Xeon/C202_C204/X9SCL-F.cfm">X9SCL</a> powered by a Xeon <a href="http://ark.intel.com/products/52271/">E3-1230</a> (for storage we use a SATA <a href="http://www.lsi.com/products/storagecomponents/Pages/MegaRAIDSAS9265-8i.aspx">LSI raid controller</a>), we can capture to disk on dna0 while indexing packets in realtime with no loss, while injecting 10 Gbit (14.88 Mpps with 60+4 bytes packets) on dna1. The commands we used are:</p>
+<ul>
+<li>
+<pre> n2disk10g -i dna1 -o /tmp -p 1000 -b 2000 -q 0 -C 256 -S 0 -w 1 -c 2 -s 64 -R 3,4,5 -I
+.....</pre>
+<pre>23/Nov/2012 11:09:18 [n2disk.c:1196] [writer] Creating index file /tmp/35.pcap.idx</pre>
+<pre>23/Nov/2012 11:09:18 [n2disk.c:409] [PF_RING] Partial stats: 13760489 pkts rcvd/13760489 pkts filtered/0 pkts dropped [0.0%]</pre>
+<pre>23/Nov/2012 11:09:18 [n2disk.c:1101] [writer] Creating pcap file /tmp/36.pcap</pre>
+<pre>23/Nov/2012 11:09:19 [n2disk.c:1196] [writer] Creating index file /tmp/36.pcap.idx</pre>
+<pre>23/Nov/2012 11:09:19 [n2disk.c:409] [PF_RING] Partial stats: 13759959 pkts rcvd/13759959 pkts filtered/0 pkts dropped [0.0%]
+.....</pre>
+</li>
+<li>
+<pre>pfsend -i dna0 -g 0
+.....</pre>
+<pre>TX rate: [current 14'880'821.24 pps/10.00 Gbps][average 14'877'984.82 pps/10.00 Gbps][total 5'977'466'918.00 pkts]
+.....</pre>
+</li>
+</ul>
+<div></div>
+<div>During this test, i7z was reporting:</div>
+<pre>Cpu speed from cpuinfo 3192.00Mhz
+cpuinfo might be wrong if cpufreq is enabled. To guess correctly try estimating via tsc
+Linux's inbuilt cpu_khz code emulated now
+True Frequency (without accounting Turbo) 3192 MHz
+ CPU Multiplier 32x || Bus clock frequency (BCLK) 99.75 MHz
+
+Socket [0] - [physical cores=4, logical cores=8, max online cores ever=4]
+ TURBO ENABLED on 4 Cores, Hyper Threading ON
+ Max Frequency without considering Turbo 3291.75 MHz (99.75 x [33])
+ Max TURBO Multiplier (if Enabled) with 1/2/3/4 Cores is  36x/35x/34x/33x
+ Real Current Frequency 3291.96 MHz [99.75 x 33.00] (Max of below)
+       Core [core-id]  :Actual Freq (Mult.)      C0%   Halt(C1)%  C3 %   C6 %   C7 %  Temp
+       Core 1 [0]:       3291.75 (33.00x)       100       0       0       0       0    45
+       Core 2 [1]:       3291.96 (33.00x)      21.6    77.8       0       0       0    41
+       Core 3 [2]:       3291.86 (33.00x)      50.3    48.1       0       0       0    39
+       Core 4 [3]:       3291.89 (33.00x)      39.5    59.2       0       0       0    38
+
+C0 = Processor running without halting
+C1 = Processor running with halts (States &gt;C0 are power saver)
+C3 = Cores running with PLL turned off and core cache turned off
+C6 = Everything in C3 + core state saved to last level cache
+ Above values in table are in percentage over the last 1 sec
+[core-id] refers to core-id number in /proc/cpuinfo
+'Garbage Values' message printed when garbage values are read</pre>
+<p>&nbsp;</p>
+<p>In essence if you have a fast storage, 20 Gbit to disk with 60+4 bytes packets is no longer a dream on commodity hardware.</p>
+<p>Just to make this long story short, in order to BYO10GPR you need:</p>
+<ul>
+<li>A fast (but not too fast) storage system.</li>
+<li>Format and mount the disks properly (see the <a href="https://www.ntop.org/products/n2disk/">n2disk user&#8217;s guide</a> that explains you how to do that) as a fast storage handled as a dummy disk won&#8217;t deliver the performance you need.</li>
+<li>A CPU of at least 2.0 GHz, although we suggest 2.4 GHz or better. If you want to save money and be on the safe side, you better consider E3 CPU series (we use <a href="http://ark.intel.com/products/52271/">E3-1230</a> as <a href="https://www.ntop.org/pf_ring/not-all-servers-are-alike-with-dna/">explained previously</a>) that for about 200$ delivers 3.2 GHz. If you want to use an E5 processor with 2.7 GHz, you need to spend almost an order of magnitude more.</li>
+<li>A wise configuration of n2disk, so that the threads are allocated properly on cores.</li>
+<li>Use of DNA drivers on the interfaces used for packet capture.</li>
+</ul>
+<p>For those who do not want to deal with all these low-end details, of course can use one of the <a href="https://www.ntop.org/products/nbox-2/nbox-recorder/">nBox recorders</a> we pre-build for you.</p>
+<p>The post <a href="https://www.ntop.org/byo10gpr-build-your-own-10-gbit-packet-recorder/">BYO10GPR: Build Your Own 10 Gbit Packet Recorder</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Accelerating Snort with PF_RING DNA</title>
+		<link>https://www.ntop.org/accelerating-snort-with-pf_ring-dna/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 10 Sep 2012 22:30:35 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[snort]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=2092</guid>
+
+					<description><![CDATA[<p>Since some time, PF_RING includes a DAQ (Data AcQuisition library) module for the popular Snort IDS/IPS. With respect to Linux AF_PACKET, the use of PF_RING significantly accelerates all snort operations. We have…</p>
+<p>The post <a href="https://www.ntop.org/accelerating-snort-with-pf_ring-dna/">Accelerating Snort with PF_RING DNA</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Since some time, PF_RING includes a DAQ (Data AcQuisition library) module for the popular <A href=http://www.snort.org>Snort</A> IDS/IPS. With respect to Linux AF_PACKET, the use of PF_RING <a href="https://www.metaflows.com/technology/10-gbps-pf_ring-2/">significantly accelerates</a> all snort operations. We have recently created a new DAQ module that adds native PF_RING DNA support, further accelerating the vanilla PF_RING DAQ module <a href="https://www.ntop.org/wp-content/uploads/2012/09/Snort_over_DNA_Silicom_30_07_2012_1.pdf">from 20 to 50%</a>. The support of DNA in addition to greater speed, also has the advantage of exploiting <a href="https://www.ntop.org/pf_ring/hardware-based-symmetric-flow-balancing-in-dna/">symmetric RSS</a>, so that you can run one snort instance per RX queue and be sure that such instance will process a coherent set of packets, property that does not hold with the standard RSS. This is the key for scalability on multi-core systems.</p>
+<p>Conceptually the DNA DAQ module is similar to the PF_RING DAQ module in terms of command line options, so users familiar with it can immediately use the new DAQ module. In order to use DNA DAQ you need a DNA-aware adapter.</p>
+<p>You can get PF_RING DNA DAQ on the <a href="http://shop.ntop.org">ntop shop</a> site for a little fee that allows us to maintain and develop the code. Universities and research institutions can <a href="https://www.ntop.org/support/contact-us/">contact us</a> to get it at no cost.</p>
+<p><div></div>
+<p><h3>Usage Examples</h3>
+<hr />
+<ul>
+<li>Running snort in IDS mode
+<pre># snort --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dnaX -v -e</pre>
+<p>Note that it is possible to specify multiple interfaces by using a comma-separated list.</li>
+<li>Running snort in IPS mode
+<pre># snort --daq-dir=/usr/local/lib/daq --daq pfring_dna  -i dnaX:dnaY -e -Q</pre>
+<p>Note that it is possible to specify multiple interface pairs by using a comma-separated list.</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Example of Symmetric RSS + Core Binding</h3>
+<hr />
+<ul>
+<li>IDS
+<pre>snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-1 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dna2:dna3 --daq-var idsbridge=1 --daq-var bindcpu=1</pre>
+</li>
+<li>IPS
+<pre>snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-1 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode inline -i dna2:dna3 --daq-var bindcpu=1</pre>
+</li>
+<li>IDS with Multiqueue and Symmetric RSS
+<pre>snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-1 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dna2@0:dna3@0 --daq-var idsbridge=1 --daq-var bindcpu=0
+snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-2 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dna2@1:dna3@1 --daq-var idsbridge=1 --daq-var bindcpu=1
+snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-3 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dna2@2:dna3@2 --daq-var idsbridge=1 --daq-var bindcpu=2</pre>
+<pre>snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-4 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dna2@3:dna3@3 --daq-var idsbridge=1 --daq-var bindcpu=3</pre>
+</li>
+<li>IPS with Multiqueue and Symmetric RSS
+<pre>snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-1 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode inline -i dna2@0:dna3@0 --daq-var bindcpu=0
+snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-2 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode inline -i dna2@1:dna3@1 --daq-var bindcpu=1
+snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-3 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode inline -i dna2@2:dna3@2 --daq-var bindcpu=2
+snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-4 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode inline -i dna2@3:dna3@3 --daq-var bindcpu=3</pre>
+<pre></pre>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h3>PF_RING DAQ Specific Options</h3>
+<hr />
+<ul>
+<li>Binding an instance to a core grants snort instances not to step on each other&#8217;s feet. In order to bind an instance to a specific core do:
+<pre> --daq-var bindcpu=&lt;core id&gt;</pre>
+<p>&nbsp;</li>
+<li>IDS forwarding: if you want to forward incoming packets while snort is running in IDS mode, you can enable the ids bridge mode with:
+<pre> --daq-var idsbridge=1</pre>
+</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/accelerating-snort-with-pf_ring-dna/">Accelerating Snort with PF_RING DNA</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

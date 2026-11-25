@@ -1,0 +1,610 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/network_interface/hosts/hosts.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:27:29 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hosts &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Analysis" href="../maps/analysis_map.html" />
+    <link rel="prev" title="Server Ports" href="../flows/server_ports.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">User Interface Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Network Interface</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#dashboard">Dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#alerts">Alerts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#flows">Flows</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#hosts">Hosts</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Hosts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#maps">Maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#interface">Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#alerts">Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#developer">Developer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Network Interface</a></li>
+      <li class="breadcrumb-item active">Hosts</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/user_interface/network_interface/hosts/hosts.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hosts">
+<span id="id1"></span><h1>Hosts<a class="headerlink" href="#hosts" title="Link to this heading"></a></h1>
+<p>Hosts is a menu of the sidebar that contains a bunch of links to host-
+related information pages. The dropdown is as follows:</p>
+<figure class="align-center" id="id4">
+<img alt="Hosts Dropdown" src="../../../_images/web_gui_hosts_dropdown.png" />
+<figcaption>
+<p><span class="caption-text">The Hosts Dropdown Menu</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Host-related information pages available have the following content</p>
+<ul class="simple">
+<li><p>Hosts: shows all hosts seen</p></li>
+<li><p>MAC addresses: shows all MAC addresses seen</p></li>
+<li><p>Assets: shows all the assets available (Active or Inactive)</p></li>
+</ul>
+<section id="id2">
+<h2>Hosts<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>The Hosts page shows the devices (hosts) that ntopng sees on the selected network interface.
+It has two tabs:</p>
+<ul class="simple">
+<li><p><em>Active Hosts</em>: the hosts that are exchanging traffic right now.</p></li>
+<li><p><em>Local Hosts Activity</em>: how much traffic your local hosts made over a period of time.</p></li>
+</ul>
+<p>If you open the page from an Autonomous System (for example from the AS list), an <em>AS Info</em>
+link appears at the top right: it opens the details of that Autonomous System.</p>
+<section id="active-hosts">
+<h3>Active Hosts<a class="headerlink" href="#active-hosts" title="Link to this heading"></a></h3>
+<figure class="align-center" id="id5">
+<img alt="Active Hosts" src="../../../_images/web_gui_hosts_all.png" />
+<figcaption>
+<p><span class="caption-text">The Active Hosts Tab</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>This tab lists all the hosts that are active now, both inside your network (local) and
+outside it (remote). The list refreshes by itself every 10 seconds. Click a column title to
+sort the list by that column.</p>
+<p>For each host you can see:</p>
+<ul class="simple">
+<li><p>its IP address, with small icons that describe it: the operating system, the country flag,
+<strong>L</strong> for a local host, <strong>R</strong> for a remote host, and others (for example a blacklisted host)</p></li>
+<li><p>its name</p></li>
+<li><p>its VLAN (shown only if your network uses VLANs)</p></li>
+<li><p>how many connections (flows) and alerts it has, and its score (the higher, the more
+suspicious its traffic)</p></li>
+<li><p>how long ago it was first seen</p></li>
+<li><p>how much traffic it sends and receives, its current speed and its total traffic</p></li>
+</ul>
+<p>To open all the details of a host, click the button in the <em>Actions</em> column, or the small
+arrow icon next to its IP address. The menu next to the button also shows the connections
+(flows) of the host.</p>
+<section id="finding-hosts">
+<h4>Finding hosts<a class="headerlink" href="#finding-hosts" title="Link to this heading"></a></h4>
+<p>Use the filters above the list to see only some hosts, for example only the local ones, only
+those of a VLAN or of a group (host pool). When there are many filters, they are inside the
+<em>Filters</em> button. Each active filter is shown above the list: click the <strong>x</strong> to remove it,
+or <em>Clear filters</em> to see all the hosts again.</p>
+<p>You can also filter by clicking a value in the list: for example click a country flag to see
+only the hosts of that country, or the <strong>L</strong> badge to see only the local hosts.</p>
+<p>The filters you choose are kept in the address of the page, so you can bookmark it or send it
+to a colleague.</p>
+</section>
+</section>
+<section id="local-hosts-activity">
+<h3>Local Hosts Activity<a class="headerlink" href="#local-hosts-activity" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tab needs an Enterprise M license (or higher), and the host timeseries must be
+enabled in the Preferences. If one of them is missing, the tab is greyed out: move the
+mouse over it to see what is needed.</p>
+</div>
+<p>This tab shows how much traffic each local host made in the period you choose with the time
+selector above the list (<em>Live</em> shows the traffic right now).</p>
+<p>For each host you can see the traffic sent and received, the traffic with other local hosts
+and with remote hosts, and the total. The <em>Availability</em> column shows one square for each part
+of the period: grey means no traffic, and the darker the green, the more traffic the host made.</p>
+<p>With <em>Hosts Type</em> you choose which hosts to list: those with traffic (the default), those
+without traffic, all the visible ones or the hidden ones.</p>
+<p>From the <em>Actions</em> column you can:</p>
+<ul class="simple">
+<li><p>see the traffic chart of the host (only for the hosts that are active now)</p></li>
+<li><p>hide a host you are not interested in, so it no longer appears in the list</p></li>
+<li><p>show a hidden host again (first choose <em>Hidden</em> in <em>Hosts Type</em> to find it)</p></li>
+</ul>
+<p>Only administrators can hide or show hosts.</p>
+</section>
+<section id="host-details">
+<h3>Host Details<a class="headerlink" href="#host-details" title="Link to this heading"></a></h3>
+<p>The host details page shows everything ntopng knows about one host. Its views are the tabs
+below the page title: a view that can never apply to the host is not shown (for example <em>DNS</em>
+for a remote host), a view that is not available yet is greyed out and its tooltip says why
+(no data seen for the host, a license or a preference needed). When there are many views the
+tab bar scrolls sideways.</p>
+<p>Next to the tabs:</p>
+<ul class="simple">
+<li><p><em>Alerts Explorer</em>: the alerts of the host (engaged ones when the host has some).</p></li>
+<li><p><em>Historical Flows</em>: the flows of the host stored in ClickHouse.</p></li>
+<li><p>the <strong>⋮</strong> menu: the <em>Periodicity Map</em> and the <em>Service Map</em> of the host (behaviour analysis).</p></li>
+</ul>
+</section>
+<section id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h3>
+<p><em>Overview</em> is the default view of the Host Details page and provides detailed information including host MAC
+Address (or the last router MAC address if the host is remote) and its device type, IP Address (with network
+mask if detected), host pool, tags, operating system, Autonomous System, symbolic hostname (or IP address)
+with its badges (local or remote, private, blacklisted…), date and time of first and last packet seen
+for the host, traffic breakdown, amount of traffic packets received/sent, score, number of flows and peers
+as client/server, TCP problems, the further names of the host and, for local hosts, the usernames seen in
+its traffic (each with a badge telling the protocol, e.g. Kerberos, and when it was first and last seen).
+The values update by themselves every 3 seconds: the arrow next to a counter shows whether it grew since
+the last update. If the host becomes idle, a message says so and the values stop updating.</p>
+<p>Administrators can reset the counters of the host (all of them, or only the blacklisted hosts counters)
+and, on inline interfaces, drop the traffic or the active flows of a local host. The <em>Active Monitoring</em>
+row adds the host to the ICMP active monitoring, or shows its last round trip time. All of this
+information is also available in JSON format by clicking on the <em>JSON</em> link; on packet interfaces the
+<em>Download pcap</em> button downloads the live traffic of the host.</p>
+<figure class="align-center" id="id6">
+<img alt="Host Details" src="../../../_images/web_gui_host_details.png" />
+<figcaption>
+<p><span class="caption-text">The Overview of the Host Details Page</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Also in case Wazuh is integrated in ntopng (see <a class="reference external" href="../../../third_party_integrations/wazuh.html">Wazuh Integration</a> for more details), a button with the possibility to jump to Wazuh alerts will appear, giving the
+possibility to instatly check the Wazuh Alerts of an host.</p>
+<figure class="align-center" id="id7">
+<img alt="Host Details" src="../../../_images/host_details_wazuh.png" />
+<figcaption>
+<p><span class="caption-text">Wazuh Button</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Wazuh link is enabled only for Local Hosts.</p>
+</div>
+</section>
+<section id="traffic">
+<h3>Traffic<a class="headerlink" href="#traffic" title="Link to this heading"></a></h3>
+<p>The Traffic Page provides Layer-4 protocol statistics for the host. A pie chart showing L-4 protocol
+breakdown is show at the top of page. A table with detailed statistics is shown below the chart.</p>
+<figure class="align-center" id="id8">
+<img alt="Host Traffic View" src="../../../_images/web_gui_host_details_traffic.png" />
+<figcaption>
+<p><span class="caption-text">The Traffic View of the Host Details Page</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="packets">
+<h3>Packets<a class="headerlink" href="#packets" title="Link to this heading"></a></h3>
+<p>Packets page provides pie charts with packet size distribution, both for sent and received packets.</p>
+<figure class="align-center" id="id9">
+<img alt="Host Packets View" src="../../../_images/web_gui_host_details_packets.png" />
+<figcaption>
+<p><span class="caption-text">The Packets View of the Host Details</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="ports">
+<h3>Ports<a class="headerlink" href="#ports" title="Link to this heading"></a></h3>
+<p>Ports page lists the server ports the host answered on and the server ports it contacted, split by UDP and
+TCP, each with its application. Click a server port of the host to open its historical flows (or the live
+flows of that port when ClickHouse is not enabled). Below, pie charts with traffic statistics grouped by port:
+a chart is available for client ports and another one is available for server ports.</p>
+<figure class="align-center" id="id10">
+<img alt="Host Ports View" src="../../../_images/web_gui_host_details_ports.png" />
+<figcaption>
+<p><span class="caption-text">The Ports View of the Host Details Page</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="icmp">
+<h3>ICMP<a class="headerlink" href="#icmp" title="Link to this heading"></a></h3>
+<p>The ICMP messages (type and code) sent and received by the host, with the last peer of each direction and
+the packets. The table updates every 5 seconds. Click a message to see the live flows with that ICMP type
+and code.</p>
+</section>
+<section id="applications">
+<h3>Applications<a class="headerlink" href="#applications" title="Link to this heading"></a></h3>
+<p>Using the DPI information, this page provides in pie chart and tabular format the amount of traffic divided
+by application. An additional pie chart provides a statistics about protocol type. A click on the protocol
+name redirects the user to the page with detailed statistics about the selected protocol.</p>
+<figure class="align-center" id="id11">
+<img alt="Host Protocols View" src="../../../_images/web_gui_host_details_protocols.png" />
+<figcaption>
+<p><span class="caption-text">The Protocols View of the Host Details Page</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="dns">
+<h3>DNS<a class="headerlink" href="#dns" title="Link to this heading"></a></h3>
+<p>The chart and the table displayed on this page report DNS statistics, such as the number of queries, their
+type (e.g., A, AAAA, PTR, and so on), and possible errors, plus the DoH/DoT servers used by the host. The
+values update every 3 seconds. The view is available only for local hosts.</p>
+<figure class="align-center" id="id12">
+<img alt="Host DNS View" src="../../../_images/web_gui_host_details_dns.png" />
+<figcaption>
+<p><span class="caption-text">The DNS View of the Host Details Page</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="tls">
+<h3>TLS<a class="headerlink" href="#tls" title="Link to this heading"></a></h3>
+<figure class="align-center" id="id13">
+<img alt="Host Protocols View" src="../../../_images/web_gui_host_details_tls_info.png" />
+<figcaption>
+<p><span class="caption-text">The TLS View of the Host Details Page</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>ntopng registers the <a class="reference external" href="https://github.com/salesforce/ja3">JA3</a> TLS fingerprints of an host (either when the host is a client or a server) along with their the number of uses.
+As explained in the <a class="reference external" href="../flows/flows.html#tls-information">Flows section</a>, this information is very important in order to uncover possible threats on the encrypted
+traffic. By clicking on the signature it is possible to manually check if the JA3 signature
+corresponds to a known malware into the <a class="reference external" href="https://sslbl.abuse.ch/ja3-fingerprints">abuse.ch database</a>.</p>
+<p>By taking a snapshot of the signatures registered on an host it is possible to know, for example,
+if the host has installed a new program or has updated an existing one. This may be very important
+on environments where the programs installed into an host are not supposed to change.</p>
+<p>By enabling the <a class="reference external" href="../../../using_with_nprobe_agent.html">nProbe Agent integration</a>, this view can be further augmented
+with the name of the process which initiated or received the TLS connection.</p>
+</section>
+<section id="ssh">
+<h3>SSH<a class="headerlink" href="#ssh" title="Link to this heading"></a></h3>
+<p>ntopng registers the <a class="reference external" href="https://engineering.salesforce.com/open-sourcing-hassh-abed3ae5044c">HASSH</a> fingerprints of an host, either when the host initiates or receives an SSH connection,
+along with their the number of uses. As explained in the <a class="reference external" href="../flows/flows.html#ssh-signature">related Flows section</a>, this information can be used to identify
+malicious applications or vulnerable SSH versions.</p>
+</section>
+<section id="http">
+<h3>HTTP<a class="headerlink" href="#http" title="Link to this heading"></a></h3>
+<p>This page provides information about the HTTP protocol in terms of requests done and responses
+received for each HTTP method, together with response codes. Counters are provided both as tables and
+pie charts. In the case of virtual host being detected, a badge with the number of virtual hosts detected for
+the same IP address is displayed in the host bar and an entry for each virtual server is displayed in a
+virtual server table.</p>
+<figure class="align-center" id="id14">
+<img alt="Host HTTP View" src="../../../_images/web_gui_host_details_http.png" />
+<figcaption>
+<p><span class="caption-text">The HTTP View of the Host Details Page with Virtual Hosts</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="sites">
+<span id="id3"></span><h3>Sites<a class="headerlink" href="#sites" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page is only available at lieast with a Pro License.</p>
+</div>
+<p>ntopng can keep track of top visited sites for any monitored local
+host. Enabling the tracking of top visited sites requires preference
+“Top HTTP Sites” to be set using the ntopng preferences page.</p>
+<figure class="align-center" id="id15">
+<img alt="Enabling Visited Sites" src="../../../_images/web_gui_visited_sites_preference.png" />
+<figcaption>
+<p><span class="caption-text">The Preferences Page to Enable Visited Sites</span><a class="headerlink" href="#id15" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Once the preference has been enabled, this page will start showing
+visited websites, which are shown over the two most recent 5-minute
+intervals. Newly visited sites are placed under the “Current
+Sites”. Every 5 minutes ntopng moves the “Current Sites” under “Last 5
+Minute Sites”, and starts over with a clean “Current Sites”.</p>
+<figure class="align-center" id="id16">
+<img alt="Host Sites View" src="../../../_images/web_gui_visited_sites.png" />
+<figcaption>
+<p><span class="caption-text">The Sites View of the Host Details Page</span><a class="headerlink" href="#id16" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Column “Contacts” count the number of time a particular website has
+been visited. Every time the host visit a site, the corresponding
+“Contacts” counter is increased by one. The <em>Time range</em> selector shows
+the sites of another period (the hours of today, yesterday).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Sites tab is greyed out until the preference is enabled and the
+host has visited at least one website: its tooltip says which one.</p>
+</div>
+</section>
+<section id="host-flows">
+<span id="flows"></span><h3>Host Flows<a class="headerlink" href="#host-flows" title="Link to this heading"></a></h3>
+<p>The <em>Host Flows</em> tab lists all the active flows that have the selected host as an endpoint: the same list
+of the Live Flows page, always filtered by the host, with the other filters of the list (application,
+alerted flows…). A section of this manual discuss in greater detail the statistics shown for flows.</p>
+<figure class="align-center" id="id17">
+<img alt="Host HTTP View" src="../../../_images/web_gui_host_details_flows.png" />
+<figcaption>
+<p><span class="caption-text">The Flows View of the Host Details Page</span><a class="headerlink" href="#id17" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="snmp">
+<h3>SNMP<a class="headerlink" href="#snmp" title="Link to this heading"></a></h3>
+<p>SNMP page shows the SNMP devices and ports where the MAC address of the host was seen and, when the host is a
+monitored SNMP device, its system information. Needs an Enterprise M License.</p>
+<figure class="align-center" id="id18">
+<img alt="Host SNMP View" src="../../../_images/web_gui_host_details_snmp.png" />
+<figcaption>
+<p><span class="caption-text">The SNMP View of the Host Details Page</span><a class="headerlink" href="#id18" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="listening-ports">
+<h3>Listening Ports<a class="headerlink" href="#listening-ports" title="Link to this heading"></a></h3>
+<p>The TCP/UDP ports the host listens on, with the process and the package, as reported by the nProbe agent
+running on the host. The tab is greyed out when no listening port was reported.</p>
+</section>
+<section id="geomap">
+<h3>Geomap<a class="headerlink" href="#geomap" title="Link to this heading"></a></h3>
+<p>Geomap page provides an interactive map that shows the selected hosts, its flows, and its
+peers. The map is zoomable, both using the mouse rotor or the buttons at the top right corner. Each dot on the map is a host, by hovering the mouse on a dot a tooltip opens and information about the given host are presented.</p>
+<figure class="align-center" id="id19">
+<img alt="Host Geomap View" src="../../../_images/web_gui_host_details_geo.png" />
+<figcaption>
+<p><span class="caption-text">The Geomap View of the Host Details Page</span><a class="headerlink" href="#id19" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="statistics">
+<h3>Statistics<a class="headerlink" href="#statistics" title="Link to this heading"></a></h3>
+<p>Statistics page (the <em>Charts</em> tab) provides historical traffic statistics for the selected host. The user can choose to filter
+statistics on a protocol basis and display data in several formats (e.g., bytes, packets, flows, and so on).</p>
+<figure class="align-center" id="id20">
+<img alt="Host Statistics View" src="../../../_images/web_gui_host_details_stats.png" />
+<figcaption>
+<p><span class="caption-text">The Statistics View of the Host Details Page</span><a class="headerlink" href="#id20" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id21">
+<img alt="Host Statistics Dropdown" src="../../../_images/web_gui_host_details_stats_dropdown.png" />
+<figcaption>
+<p><span class="caption-text">The Dropdown menu in The Statistics View of the Host Details Page</span><a class="headerlink" href="#id21" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="periodicity-map">
+<h3>Periodicity Map<a class="headerlink" href="#periodicity-map" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page is only available with an Enterprise L License.</p>
+</div>
+<figure class="align-center" id="id22">
+<img alt="Periodicity Map button" src="../../../_images/web_gui_host_details_periodicity_map_entry.png" />
+<figcaption>
+<p><span class="caption-text">The Periodicity Map entry of the <strong>⋮</strong> menu on the Host Details Page</span><a class="headerlink" href="#id22" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The Periodicity Map is used to understand the local communication between hosts in a network.
+More information can be found at <span class="xref std std-ref">Periodicity Map</span>.</p>
+</section>
+<section id="service-map">
+<h3>Service Map<a class="headerlink" href="#service-map" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page is only available with an Enterprise L License.</p>
+</div>
+<figure class="align-center" id="id23">
+<img alt="Service Map button" src="../../../_images/web_gui_host_details_service_map_entry.png" />
+<figcaption>
+<p><span class="caption-text">The Service Map entry of the <strong>⋮</strong> menu on the Host Details Page</span><a class="headerlink" href="#id23" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The Service Map is used to understand the local communication between hosts in a network.
+More information can be found at <span class="xref std std-ref">Service Map</span>.</p>
+</section>
+<section id="historical-flow">
+<h3>Historical Flow<a class="headerlink" href="#historical-flow" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page is only available with an Enterprise License and only if ClickHouse is enabled</p>
+</div>
+<figure class="align-center" id="id24">
+<img alt="Historical Flow button" src="../../../_images/web_gui_host_details_historical_flow_entry.png" />
+<figcaption>
+<p><span class="caption-text">The Historical Flow link on the Host Details Page</span><a class="headerlink" href="#id24" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The Historical Flow is used to understand the local communication between hosts in a network.
+More information can be found at <span class="xref std std-ref">Historical Flow Explorer</span>.</p>
+</section>
+<section id="host-configuration">
+<h3>Host Configuration<a class="headerlink" href="#host-configuration" title="Link to this heading"></a></h3>
+<figure class="align-center" id="id25">
+<img alt="Host Configuration" src="../../../_images/web_gui_host_configuration.png" />
+<figcaption>
+<p><span class="caption-text">The Host Configuration on the Host Details Page</span><a class="headerlink" href="#id25" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>In this page a user is able to give an Alias to an Host (an alternative name for an host that’s going to be used in all ntopng), give a description to an host,
+assign this host to an host pool or hide this host from the Top Talkers computation.</p>
+</section>
+</section>
+<section id="mac-addresses">
+<h2>MAC Addresses<a class="headerlink" href="#mac-addresses" title="Link to this heading"></a></h2>
+<p>The MAC Addresses page lists the network cards (MAC addresses) that ntopng sees on the
+selected network interface. Devices that are idle are not listed.</p>
+<p>For each MAC address you can see:</p>
+<ul class="simple">
+<li><p>the MAC address</p></li>
+<li><p>its manufacturer, and the model when ntopng recognizes it</p></li>
+<li><p>the device type (for example laptop, phone, printer), with an icon</p></li>
+<li><p>its name; when it has none, the first host (IP address) that uses it and how many other
+hosts use it</p></li>
+<li><p>how many hosts use it and how many ARP packets (the messages that link an IP address to
+a MAC address) it sent and received</p></li>
+<li><p>how long ago it was first seen</p></li>
+<li><p>how much traffic it sends and receives, its current speed and its total traffic</p></li>
+</ul>
+<p>On nEdge a <em>Location</em> column also shows whether the device is on the LAN or on the WAN.</p>
+<p>Use the filters above the table to show only the MAC addresses that sent traffic (<em>Source
+Only</em>), or the ones of a manufacturer or of a device type. You can also click a manufacturer,
+a device type or a location in the table to filter by it. <em>Clear filters</em> removes all the
+filters.</p>
+<p>To open all the details of a MAC address, click the button in the <em>Actions</em> column, or the
+small arrow icon next to the MAC address. The menu next to the button also lists the hosts
+that use that MAC address.</p>
+<section id="mac-address-details">
+<h3>MAC Address Details<a class="headerlink" href="#mac-address-details" title="Link to this heading"></a></h3>
+<p>The details page of a MAC address has these views, shown as tabs below the page title. A view
+that is not available is greyed out: move the mouse over it to see why.</p>
+<ul class="simple">
+<li><p><em>Overview</em>: the MAC address and its manufacturer name, the device type (and model when
+known), the hosts (IP addresses) that use it, where it was seen on the monitored SNMP
+switches, its name and host pool, the DHCP fingerprint (a signature of the device built from
+its DHCP requests), when it was first and last seen, the traffic it sent and received
+(updated every few seconds, with an arrow when it grows), its DHCP and ARP packets and when
+its counters were last reset. Administrators can reset its counters from here: the charts
+may have a gap after the reset.</p></li>
+<li><p><em>Packets</em>: how its packets split between IPv4 and IPv6.</p></li>
+<li><p><em>SNMP</em>: the SNMP switches and ports where the MAC address was seen. It needs Enterprise M
+and SNMP devices monitored by ntopng.</p></li>
+<li><p><em>Charts</em>: the traffic of the MAC address over time. Enable the MAC address timeseries in
+<em>Preferences &gt; Timeseries</em> to record them.</p></li>
+<li><p><em>Settings</em> (administrators only): the alias shown instead of the MAC address, the device
+type and the host pool.</p></li>
+</ul>
+<p>The <em>Historical Flows</em> button next to the tabs opens the stored flows of the MAC address
+(it needs ClickHouse).</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../flows/server_ports.html" class="btn btn-neutral float-left" title="Server Ports" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../maps/analysis_map.html" class="btn btn-neutral float-right" title="Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/network_interface/hosts/hosts.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:27:53 GMT -->
+</html>

@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nedgelite/quick_start.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:20 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start Guide &mdash; nEdge Lite dev documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Netfilter Setup" href="netfilter_setup.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nEdge Lite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nedgelite/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-setup-single-interface">Quick Setup (Single Interface)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-set-up-netfilter-rules">Step 1: Set Up Netfilter Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-start-ntopng">Step 2: Start ntopng</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-start-nedge-lite">Step 3: Start nEdge Lite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-verify-operation">Step 4: Verify Operation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-setup-bridge-mode">Quick Setup (Bridge Mode)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-set-up-bridge">Step 1: Set Up Bridge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-start-ntopng-and-nedge-lite">Step 2: Start ntopng and nEdge Lite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-test-connectivity">Step 3: Test Connectivity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-policy-files">Using Policy Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-create-a-policy-file">Step 1: Create a Policy File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-start-nedge-lite-with-policy-file">Step 2: Start nEdge Lite with Policy File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-test-policy-enforcement">Step 3: Test Policy Enforcement</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dynamic-policy-updates">Dynamic Policy Updates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-start-ntopng-with-zmq-publisher">Step 1: Start ntopng with ZMQ Publisher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-start-nedge-lite-with-policy-collector">Step 2: Start nEdge Lite with Policy Collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-configure-policies-in-ntopng">Step 3: Configure Policies in ntopng</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reloading-policies">Reloading Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-use-cases">Common Use Cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#block-social-media">Block Social Media</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#block-gaming">Block Gaming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#block-streaming-services">Block Streaming Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#block-p2p-file-sharing">Block P2P File Sharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#block-traffic-from-specific-countries">Block Traffic from Specific Countries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#block-entire-continents">Block Entire Continents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="netfilter_setup.html">Netfilter Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="policies.html">Policy Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ntopng_integration.html">ntopng Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License Management</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other ntop Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nEdge Lite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quick Start Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/quick_start.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quick-start-guide">
+<h1>Quick Start Guide<a class="headerlink" href="#quick-start-guide" title="Link to this heading"></a></h1>
+<p>This guide will help you get nEdge Lite up and running quickly. We’ll cover a basic deployment scenario with ntopng integration.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before starting, ensure you have:</p>
+<ol class="arabic simple">
+<li><p><strong>Installed nEdge Lite</strong>: Follow the <a class="reference internal" href="install.html"><span class="doc">Installation</span></a> guide if you haven’t already</p></li>
+<li><p><strong>Valid License</strong>: Place your license file at <code class="docutils literal notranslate"><span class="pre">/etc/nedgelite.license</span></code></p></li>
+<li><p><strong>Root Access</strong>: All commands must be run as root or with sudo</p></li>
+<li><p><strong>Network Interfaces</strong>: At least one network interface for traffic inspection</p></li>
+</ol>
+</section>
+<section id="quick-setup-single-interface">
+<h2>Quick Setup (Single Interface)<a class="headerlink" href="#quick-setup-single-interface" title="Link to this heading"></a></h2>
+<p>This is the simplest deployment for testing or protecting traffic on a single interface.</p>
+<section id="step-1-set-up-netfilter-rules">
+<h3>Step 1: Set Up Netfilter Rules<a class="headerlink" href="#step-1-set-up-netfilter-rules" title="Link to this heading"></a></h3>
+<p>Run the setup script for single interface mode:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo /usr/share/nedgelite/scripts/default_setup.sh eth0</span>
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">eth0</span></code> with your actual interface name. This script configures iptables to route packets to NFQUEUE.</p>
+<p><strong>What this does:</strong></p>
+<ul class="simple">
+<li><p>Configures iptables mangle table for CONNMARK save/restore</p></li>
+<li><p>Routes unmarked packets (mark=0) to NFQUEUE 0</p></li>
+<li><p>Drops packets marked with mark=2</p></li>
+<li><p>Allows packets marked with mark=1</p></li>
+</ul>
+</section>
+<section id="step-2-start-ntopng">
+<h3>Step 2: Start ntopng<a class="headerlink" href="#step-2-start-ntopng" title="Link to this heading"></a></h3>
+<p>On the same host (or a different one), start ntopng with ZMQ collector:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ntopng -i tcp://127.0.0.1:1234c</span>
+</pre></div>
+</div>
+<p><strong>Important</strong>: Note the trailing <code class="docutils literal notranslate"><span class="pre">c</span></code> in the endpoint URL. This tells ntopng to act as a ZMQ collector.</p>
+<p>ntopng will listen on port 1234 for flow data from nEdge Lite.</p>
+</section>
+<section id="step-3-start-nedge-lite">
+<h3>Step 3: Start nEdge Lite<a class="headerlink" href="#step-3-start-nedge-lite" title="Link to this heading"></a></h3>
+<p>Start nEdge Lite and connect it to ntopng:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -v</span>
+</pre></div>
+</div>
+<p><strong>Command breakdown:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-q</span> <span class="pre">0</span></code>: Use NFQUEUE ID 0</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-z</span> <span class="pre">tcp://127.0.0.1:1234</span></code>: Send flows to ntopng at this ZMQ endpoint</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span></code>: Verbose logging</p></li>
+</ul>
+</section>
+<section id="step-4-verify-operation">
+<h3>Step 4: Verify Operation<a class="headerlink" href="#step-4-verify-operation" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Check nEdge Lite is running:</strong></p>
+<p>You should see output indicating nEdge Lite has started and is processing packets.</p>
+</li>
+<li><p><strong>Generate some traffic:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ping 8.8.8.8</span>
+<span class="go">curl http://www.example.com</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>View flows in ntopng:</strong></p>
+<p>Open your browser and navigate to <a class="reference external" href="http://localhost:3000/">http://localhost:3000</a> (default ntopng web interface).
+You should see flows appearing in real-time.</p>
+</li>
+<li><p><strong>Check connection tracking:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo conntrack -L | head -20</span>
+</pre></div>
+</div>
+<p>You should see connection marks being applied.</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="quick-setup-bridge-mode">
+<h2>Quick Setup (Bridge Mode)<a class="headerlink" href="#quick-setup-bridge-mode" title="Link to this heading"></a></h2>
+<p>Bridge mode allows nEdge Lite to inspect traffic transparently between two network segments.</p>
+<section id="step-1-set-up-bridge">
+<h3>Step 1: Set Up Bridge<a class="headerlink" href="#step-1-set-up-bridge" title="Link to this heading"></a></h3>
+<p>Run the bridge setup script:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo /usr/share/nedgelite/scripts/bridge_setup.sh eth0 eth1</span>
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">eth0</span></code> (LAN) and <code class="docutils literal notranslate"><span class="pre">eth1</span></code> (WAN) with your actual interface names.</p>
+<p><strong>What this does:</strong></p>
+<ul class="simple">
+<li><p>Creates a bridge interface <code class="docutils literal notranslate"><span class="pre">br0</span></code></p></li>
+<li><p>Adds both interfaces to the bridge</p></li>
+<li><p>Configures iptables for bridge packet filtering</p></li>
+<li><p>Routes packets to NFQUEUE for inspection</p></li>
+</ul>
+</section>
+<section id="step-2-start-ntopng-and-nedge-lite">
+<h3>Step 2: Start ntopng and nEdge Lite<a class="headerlink" href="#step-2-start-ntopng-and-nedge-lite" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Terminal<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>Start<span class="w"> </span>ntopng
+<span class="go">sudo ntopng -i tcp://127.0.0.1:1234c</span>
+
+<span class="gp"># </span>Terminal<span class="w"> </span><span class="m">2</span>:<span class="w"> </span>Start<span class="w"> </span>nEdge<span class="w"> </span>Lite
+<span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -v</span>
+</pre></div>
+</div>
+</section>
+<section id="step-3-test-connectivity">
+<h3>Step 3: Test Connectivity<a class="headerlink" href="#step-3-test-connectivity" title="Link to this heading"></a></h3>
+<p>From a device on the LAN side, test internet connectivity:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ping 8.8.8.8</span>
+<span class="go">curl http://www.google.com</span>
+</pre></div>
+</div>
+<p>Traffic should flow through the bridge and be inspected by nEdge Lite.</p>
+</section>
+</section>
+<section id="using-policy-files">
+<h2>Using Policy Files<a class="headerlink" href="#using-policy-files" title="Link to this heading"></a></h2>
+<p>Instead of relying on ntopng for policies, you can use a static JSON policy file.</p>
+<section id="step-1-create-a-policy-file">
+<h3>Step 1: Create a Policy File<a class="headerlink" href="#step-1-create-a-policy-file" title="Link to this heading"></a></h3>
+<p>Create <code class="docutils literal notranslate"><span class="pre">/etc/nedgelite/policy.json</span></code>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Default Pool&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;192.168.1.0/24&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Default Policy&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Facebook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;YouTube&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;BitTorrent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SocialNetwork&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Streaming&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This policy blocks Facebook, YouTube, BitTorrent, and entire categories like Social Networks and Streaming.</p>
+</section>
+<section id="step-2-start-nedge-lite-with-policy-file">
+<h3>Step 2: Start nEdge Lite with Policy File<a class="headerlink" href="#step-2-start-nedge-lite-with-policy-file" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json -z tcp://127.0.0.1:1234 -v</span>
+</pre></div>
+</div>
+<p><strong>Command breakdown:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-r</span> <span class="pre">/etc/nedgelite/policy.json</span></code>: Load policy rules from this file</p></li>
+<li><p>Other options remain the same</p></li>
+</ul>
+</section>
+<section id="step-3-test-policy-enforcement">
+<h3>Step 3: Test Policy Enforcement<a class="headerlink" href="#step-3-test-policy-enforcement" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Try accessing Facebook:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl https://www.facebook.com</span>
+</pre></div>
+</div>
+<p>The connection should be blocked (or hang).</p>
+</li>
+<li><p><strong>Try accessing allowed sites:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl https://www.wikipedia.org</span>
+</pre></div>
+</div>
+<p>This should work normally.</p>
+</li>
+<li><p><strong>View blocked flows in ntopng:</strong></p>
+<p>Open ntopng and check for dropped flows.</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="dynamic-policy-updates">
+<h2>Dynamic Policy Updates<a class="headerlink" href="#dynamic-policy-updates" title="Link to this heading"></a></h2>
+<p>For dynamic policy management, use ntopng to send policy updates to nEdge Lite.</p>
+<section id="step-1-start-ntopng-with-zmq-publisher">
+<h3>Step 1: Start ntopng with ZMQ Publisher<a class="headerlink" href="#step-1-start-ntopng-with-zmq-publisher" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ntopng -i tcp://127.0.0.1:5556c --zmq-publish-events tcp://127.0.0.1:5557</span>
+</pre></div>
+</div>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-i</span> <span class="pre">tcp://127.0.0.1:5556c</span></code>: ZMQ collector for flows (note the <code class="docutils literal notranslate"><span class="pre">c</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--zmq-publish-events</span> <span class="pre">tcp://127.0.0.1:5557</span></code>: Publish policy events</p></li>
+</ul>
+</section>
+<section id="step-2-start-nedge-lite-with-policy-collector">
+<h3>Step 2: Start nEdge Lite with Policy Collector<a class="headerlink" href="#step-2-start-nedge-lite-with-policy-collector" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:5556 -p tcp://127.0.0.1:5557 -v</span>
+</pre></div>
+</div>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-z</span> <span class="pre">tcp://127.0.0.1:5556</span></code>: Send flows to ntopng</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">tcp://127.0.0.1:5557</span></code>: Subscribe to policy updates from ntopng</p></li>
+</ul>
+</section>
+<section id="step-3-configure-policies-in-ntopng">
+<h3>Step 3: Configure Policies in ntopng<a class="headerlink" href="#step-3-configure-policies-in-ntopng" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Open ntopng web interface: <a class="reference external" href="http://localhost:3000/">http://localhost:3000</a></p></li>
+<li><p>Navigate to the Policies section</p></li>
+<li><p>Create or modify policies</p></li>
+<li><p>nEdge Lite will automatically receive and apply the updates</p></li>
+</ol>
+</section>
+</section>
+<section id="reloading-policies">
+<h2>Reloading Policies<a class="headerlink" href="#reloading-policies" title="Link to this heading"></a></h2>
+<p>If using a static policy file (<code class="docutils literal notranslate"><span class="pre">-r</span></code> option), you can reload the policy without restarting:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Find<span class="w"> </span>the<span class="w"> </span>PID
+<span class="go">ps aux | grep nedgelite</span>
+
+<span class="gp"># </span>Send<span class="w"> </span>SIGHUP
+<span class="go">sudo kill -HUP &lt;PID&gt;</span>
+</pre></div>
+</div>
+<p>nEdge Lite will reload the policy file and apply the new rules.</p>
+<p>If you are configuring policies via ntopng instead, they are automatically reloaded when changing the policy in ntopng.</p>
+</section>
+<section id="common-use-cases">
+<h2>Common Use Cases<a class="headerlink" href="#common-use-cases" title="Link to this heading"></a></h2>
+<section id="block-social-media">
+<h3>Block Social Media<a class="headerlink" href="#block-social-media" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SocialNetwork&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="block-gaming">
+<h3>Block Gaming<a class="headerlink" href="#block-gaming" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="block-streaming-services">
+<h3>Block Streaming Services<a class="headerlink" href="#block-streaming-services" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Netflix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;YouTube&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Hulu&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Disney+&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="block-p2p-file-sharing">
+<h3>Block P2P File Sharing<a class="headerlink" href="#block-p2p-file-sharing" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;BitTorrent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;eDonkey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="block-traffic-from-specific-countries">
+<h3>Block Traffic from Specific Countries<a class="headerlink" href="#block-traffic-from-specific-countries" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;CN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;RU&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;KP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="block-entire-continents">
+<h3>Block Entire Continents<a class="headerlink" href="#block-entire-continents" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Asia&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Africa&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Now that you have nEdge Lite running, explore these topics:</p>
+<ul class="simple">
+<li><p><strong>Netfilter Setup</strong>: Learn more about <a class="reference internal" href="netfilter_setup.html"><span class="doc">Netfilter Setup</span></a> for advanced configurations</p></li>
+<li><p><strong>Configuration</strong>: Explore all <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> options</p></li>
+<li><p><strong>Policies</strong>: Deep dive into <a class="reference internal" href="policies.html"><span class="doc">Policy Rules</span></a> for sophisticated filtering</p></li>
+<li><p><strong>ntopng Integration</strong>: Set up advanced <a class="reference internal" href="ntopng_integration.html"><span class="doc">ntopng Integration</span></a></p></li>
+<li><p><strong>Advanced Features</strong>: Explore <a class="reference internal" href="advanced.html"><span class="doc">Advanced Features</span></a> features like multiple queues</p></li>
+<li><p><strong>Troubleshooting</strong>: If you encounter issues, check <a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="netfilter_setup.html" class="btn btn-neutral float-right" title="Netfilter Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nedgelite/quick_start.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:21 GMT -->
+</html>

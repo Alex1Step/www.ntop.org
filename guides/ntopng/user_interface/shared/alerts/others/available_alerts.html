@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/available_alerts.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:50:09 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Behavioural Checks &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Alerts List per License" href="alerts_list_per_license.html" />
+    <link rel="prev" title="Traffic Rules" href="../../policies/traffic_rules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">User Interface Guide</a></li>
+      <li class="breadcrumb-item active">Behavioural Checks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/user_interface/shared/alerts/others/available_alerts.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="behavioural-checks">
+<span id="behaviouralchecks"></span><h1>Behavioural Checks<a class="headerlink" href="#behavioural-checks" title="Link to this heading"></a></h1>
+<p>Checks are executed for hosts, interfaces, SNMP devices, and other network elements, and are configurable under Checks from the Settings left sidebar.</p>
+<figure class="align-center">
+<img alt="Checks Configuration" src="../../../../_images/alerts_checks_management.png" />
+</figure>
+<p>Checks are desiged to verify specific conditions and when they are not met, trigger an alert.</p>
+<section id="check-tags">
+<span id="checktags"></span><h2>Check Tags<a class="headerlink" href="#check-tags" title="Link to this heading"></a></h2>
+<p>Each check can be given one or more <a class="reference internal" href="../../settings/tags.html#tags"><span class="std std-ref">Tags</span></a>: click on the edit button of the check
+and choose them in the <em>Tags</em> field. The <em>Tags</em> column of the checks list shows the tags of each
+check.</p>
+<p>The tags of a check are added to every alert it triggers, together with the tags the alert
+already has (e.g. the tags of the host). This makes it possible to group checks by topic or by
+team (e.g. tag all the DNS-related checks <em>DNS-Team</em>) and then:</p>
+<ul class="simple">
+<li><p>send their alerts to a dedicated recipient, using the tags as delivery criterion
+(see <a class="reference internal" href="../../settings/tags.html#tags"><span class="std std-ref">Tags</span></a>);</p></li>
+<li><p>find their <a class="reference internal" href="../issues.html"><span class="doc">issues</span></a> (Enterprise XXL) with the <em>Tag</em> filter: an issue gets the
+tags of the check of its alerts.</p></li>
+</ul>
+<p>When a flow (connection) triggers alerts from several checks, the flow alert shows the tags of
+all of them, while each issue only gets the tags of its own check. The tags are added when the
+alert is triggered: changing the tags of a check does not change past alerts and issues.
+Deleting a tag also removes it from the checks.</p>
+</section>
+<section id="interface-types">
+<h2>Interface Types<a class="headerlink" href="#interface-types" title="Link to this heading"></a></h2>
+<p>Checks can be available on both, ZMQ Interfaces and Packets Interfaces, or just on one of them;</p>
+<ul class="simple">
+<li><p>Packet interface: <img alt="packet_interface" src="../../../../_images/packet_interface_icon.png" /></p></li>
+</ul>
+<ul class="simple">
+<li><p>ZMQ interface: <img alt="zmq_interface" src="../../../../_images/zmq_interface_icon.png" /></p></li>
+</ul>
+</section>
+<section id="alerts-list">
+<h2>Alerts List<a class="headerlink" href="#alerts-list" title="Link to this heading"></a></h2>
+<p>Below, the list of all the available alerts divided per family and which license is needed for each one.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="alerts_list_per_license.html">Alerts List per License</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="alerts_list_per_license.html#host-behavioural-checks">Host Behavioural Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alerts_list_per_license.html#interface-behavioural-checks">Interface Behavioural Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alerts_list_per_license.html#local-networks-behavioural-checks">Local Networks Behavioural Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alerts_list_per_license.html#snmp-behavioural-checks">SNMP Behavioural Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alerts_list_per_license.html#flow-behavioural-checks">Flow Behavioural Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alerts_list_per_license.html#system-behavioural-checks">System Behavioural Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alerts_list_per_license.html#autonomous-systems-behavioural-checks">Autonomous Systems Behavioural Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alerts_list_per_license.html#active-monitoring-behavioural-checks">Active Monitoring Behavioural Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alerts_list_per_license.html#syslog-behavioural-checks">Syslog Behavioural Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="host_checks.html">Host Behavioural Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#countries-contacts">Countries Contacts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#dangerous-host">Dangerous Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#dns-flood">DNS Flood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#dns-server-contacts">DNS Server Contacts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#dns-traffic">DNS Traffic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#domain-name-contacts">Domain Name Contacts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#flow-flood">Flow Flood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#flows-anomaly">Flows Anomaly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#host-external-check-rest">Host External Check (REST)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#host-user-check-script">Host User Check Script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#icmp-flood">ICMP Flood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#nat-detected">NAT Detected</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#ntp-server-contacts">NTP Server Contacts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#remote-connection">Remote Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#scan">Scan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#scan-realtime">Scan Realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#score-anomaly">Score Anomaly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#score-threshold-exceeded">Score Threshold Exceeded</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#server-port-detected">Server Port Detected</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#smtp-server-contacts">SMTP Server Contacts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#snmp-flood">SNMP Flood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#syn-flood">SYN Flood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#too-many-rx-only-host-contacts">Too Many RX-only Host Contacts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#unexpected-gateway">Unexpected Gateway</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#vpn-detection">VPN Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="host_checks.html#wazuh-info-changed">Wazuh Info Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interface_checks.html">Interface Behavioural Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#acl-violation-arp">ACL Violation (ARP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#device-mac-address-tracking">Device/MAC Address Tracking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#dhcp-storm">DHCP Storm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#ghost-networks">Ghost Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#interface-alerts-drops">Interface Alerts Drops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#interface-periodic-activity-not-executed">Interface Periodic Activity Not Executed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#interface-slow-periodic-activity">Interface Slow Periodic Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#no-exporter-activity">No Exporter Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#no-traffic-activity">No Traffic Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#packet-drops">Packet Drops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#unexpected-score-behaviour">Unexpected Score Behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface_checks.html#unexpected-traffic-behaviour">Unexpected Traffic Behaviour</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="local_network_checks.html">Local Networks Behavioural Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="local_network_checks.html#broadcast-domain-too-large">Broadcast Domain Too Large</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_network_checks.html#flow-flood-victim">Flow Flood Victim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_network_checks.html#ip-mac-reassoc-spoofing">IP/MAC Reassoc/Spoofing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_network_checks.html#network-discovery">Network Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_network_checks.html#network-issues">Network Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_network_checks.html#network-score-per-host">Network Score per Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_network_checks.html#syn-flood-victim">SYN Flood Victim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_network_checks.html#syn-scan-victim">SYN Scan Victim</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="snmp_checks.html">SNMP Behavioural Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#duplex-status-change">Duplex Status Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#high-interface-discards-errors">High Interface Discards/Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#interface-errors-exceeded">Interface Errors Exceeded</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#lldp-cdp-topology-monitor">LLDP/CDP Topology Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#mac-detection-snmp">MAC Detection (SNMP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#mac-port-changed-snmp">MAC Port Changed (SNMP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#oper-status-change">Oper. Status Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#snmp-device-restart">SNMP Device Restart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#threshold-crossed">Threshold Crossed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#too-many-macs-on-non-trunk">Too Many MACs on Non-Trunk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snmp_checks.html#traffic-change-detected">Traffic Change Detected</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="flow_checks.html">Flow Behavioural Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#acl-violation-icmp-tcp-udp">ACL Violation (ICMP/TCP/UDP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#alpn-sni-mismatch">ALPN/SNI Mismatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#anonymous-subscriber">Anonymous Subscriber</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#binary-app-exe-transfer">Binary App/.exe Transfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#binary-file-data-transfer-attempt">Binary file/data transfer (attempt)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#blacklisted-client-contact">Blacklisted Client Contact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#blacklisted-country">Blacklisted Country</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#blacklisted-flow">Blacklisted Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#blacklisted-server-contact">Blacklisted Server Contact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#broadcast-non-udp-traffic">Broadcast Non-UDP Traffic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#clear-text-credentials">Clear-Text Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#crawler-bot">Crawler/Bot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#desktop-file-sharing">Desktop/File Sharing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#dns-data-exfiltration">DNS Data Exfiltration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#dns-invalid-characters">DNS Invalid Characters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#elephant-flow">Elephant flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#error-code">Error Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#external-alert">External Alert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#flow-user-check-script">Flow User Check Script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#fragmented-dns-message">Fragmented DNS Message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#fully-encrypted-flow">Fully Encrypted Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#host-policy">Host Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#http-obsolete-server">HTTP Obsolete Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#http-susp-content">HTTP Susp. Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#http-susp-header">HTTP Susp. Header</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#http-susp-url">HTTP Susp. URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#http-susp-user-agent">HTTP Susp. User-Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#http-tls-quic-numeric-hostname-sni">HTTP/TLS/QUIC Numeric Hostname/SNI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#icmp-data-exfiltration">ICMP Data Exfiltration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#iec-invalid-command-transition">IEC Invalid Command Transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#iec-invalid-transition">IEC Invalid Transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#iec-unexpected-typeid">IEC Unexpected TypeID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#invalid-dns-query">Invalid DNS Query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#known-proto-on-non-std-port">Known Proto on Non Std Port</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#large-dns-packet-512-bytes">Large DNS Packet (512+ bytes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#long-lived">Long Lived</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#low-goodput">Low Goodput</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#malformed-packets">Malformed packets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#malicious-ja3-fingerp">Malicious JA3 Fingerp.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#malicious-ja3-sha1-cert">Malicious JA3 SHA1 Cert.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#malware-host-contacted">Malware Host Contacted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#minor-issues">Minor Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#mismatching-protocol-with-ip">Mismatching Protocol with IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#missing-sni-tls-extn">Missing SNI TLS Extn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#modbustcp-invalid-transition">ModbusTCP Invalid Transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#modbustcp-too-many-exceptions">ModbusTCP Too Many Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#modbustcp-unexpected-function-code">ModbusTCP Unexpected Function Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#not-purged">Not Purged</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#obfuscated-traffic">Obfuscated Traffic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#obsolete-non-pqc-flow">Obsolete non-PQC Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#obsolete-non-pqc-host">Obsolete non-PQC Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#obsolete-ssh-client-version-or-cipher">Obsolete SSH Client Version or Cipher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#obsolete-ssh-server-version-or-cipher">Obsolete SSH Server Version or Cipher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#old-tls-version">Old TLS Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#periodic-flow">Periodic Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#periodicity-changed">Periodicity Changed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#possible-ai-inference-traffic">Possible AI Inference Traffic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#possible-exploit">Possible Exploit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#possible-remote-code-execution-rce">Possible Remote Code Execution (RCE)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#possible-sql-inj">Possible SQL Inj</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#probing-attempt">Probing Attempt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#profinet-too-many-errors">Profinet Too Many Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#punicody-idn">Punicody  IDN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#qoe-issues">QoE Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#rare-destination">Rare Destination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#remote-access">Remote Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#remote-to-local-insecure-protocol">Remote to Local Insecure Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#remote-to-remote-flow">Remote to Remote Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#risky-asn">Risky ASN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#risky-domain">Risky Domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#s7comm-invalid-transition">S7Comm Invalid Transition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#s7comm-too-many-errors">S7Comm Too Many Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#s7comm-unexpected-function-code">S7Comm Unexpected Function Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#service-map-lateral-movement-detection">Service Map Lateral Movement Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#slow-dos">Slow DoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#smb-insecure">SMB insecure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#susp-device-protocol">Susp. Device Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#susp-dga-domain-name">Susp. DGA Domain name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#susp-dns-traffic">Susp. DNS traffic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#susp-entropy">Susp. Entropy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#susp-domain-scan">Susp. Domain Scan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tcp-connection-issues">TCP connection Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tcp-connection-refused">TCP connection refused</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tcp-flow-reset">TCP Flow Reset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tcp-no-data-exchanged">TCP No Data Exchanged</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tcp-packets-issues">TCP Packets Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tcp-with-no-answer">TCP With No Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tcp-zero-window">TCP Zero Window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-probably-not-carrying-https">TLS (probably) Not Carrying HTTPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-cert-about-to-expire">TLS Cert About To Expire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-cert-expired">TLS Cert Expired</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-cert-issues">TLS Cert Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-cert-self-signed">TLS Cert Self-Signed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-cert-validity-too-long">TLS Cert Validity Too Long</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-fatal-alert">TLS Fatal Alert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-susp-esni-usage">TLS Susp ESNI Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-susp-extension">TLS Susp. Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-uncommon-alpn">TLS Uncommon ALPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#tls-unsafe-ciphers">TLS Unsafe Ciphers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#unexpected-dhcp">Unexpected DHCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#unexpected-dns-server">Unexpected DNS Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#unexpected-ntp-server">Unexpected NTP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#unexpected-smtp-server">Unexpected SMTP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#unidirectional-flow">Unidirectional Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#unresolved-hostname">Unresolved Hostname</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#unsafe-protocol">Unsafe protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#vlan-bidirectional-flow">VLAN Bidirectional Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#web-mining">WEb Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_checks.html#xss-attack">XSS Attack</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="system_checks.html">System Behavioural Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#bgp-prefix-update">BGP Prefix Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#disk-space-low">Disk Space Low</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#exporters-limit-exceeded">Exporters Limit Exceeded</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#intrusion-detection-and-prevention-log">Intrusion Detection and Prevention Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#periodic-activity-not-executed">Periodic Activity Not Executed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#redis-reads-writes-exceeded">Redis Reads Writes Exceeded</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#slow-periodic-activity">Slow Periodic Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#system-alerts-drops">System Alerts Drops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#system-error">System Error</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="system_checks.html#always-enabled-system-alerts">Always Enabled System Alerts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#process">Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#login-failed">Login Failed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#user-activity">User Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#endpoint-shell-script-executed">Endpoint Shell Script Executed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#fail2ban-command-executed">Fail2Ban Command Executed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#misconfigured-app">Misconfigured App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#packets-queue-flushed">Packets Queue Flushed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#list-download-failed">List Download Failed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#list-download-succeeded">List Download Succeeded</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#gateway-unreachable">Gateway Unreachable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_checks.html#misconfigured-dhcp-range">Misconfigured DHCP Range</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="active_monitoring_checks.html">Active Monitoring Behavioural Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="active_monitoring_checks.html#vulnerability-scan"><strong>Vulnerability Scan</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="syslog_checks.html">Syslog Behavioural Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="syslog_checks.html#fortinet">Fortinet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syslog_checks.html#host-log">Host Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syslog_checks.html#kerberos-nxlog">Kerberos/NXLog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syslog_checks.html#nbox">nBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syslog_checks.html#openvpn">OpenVPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syslog_checks.html#opnsense">OPNsense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syslog_checks.html#sonicwall">SonicWALL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syslog_checks.html#sophos">Sophos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syslog_checks.html#suricata">Suricata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="as_checks.html">Autonomous Systems Behavioural Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="as_checks.html#as-exporter-ranking-changed">AS Exporter Ranking Changed</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../policies/traffic_rules.html" class="btn btn-neutral float-left" title="Traffic Rules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="alerts_list_per_license.html" class="btn btn-neutral float-right" title="Alerts List per License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/available_alerts.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:50:25 GMT -->
+</html>

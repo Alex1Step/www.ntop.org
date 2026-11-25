@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/host_checks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Host Behavioural Checks &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Interface Behavioural Checks" href="interface_checks.html" />
+    <link rel="prev" title="Alerts List per License" href="alerts_list_per_license.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="available_alerts.html">Behavioural Checks</a></li>
+      <li class="breadcrumb-item active">Host Behavioural Checks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/user_interface/shared/alerts/others/host_checks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="host-behavioural-checks">
+<span id="hostchecks-target"></span><h1>Host Behavioural Checks<a class="headerlink" href="#host-behavioural-checks" title="Link to this heading"></a></h1>
+<p>Host checks are performed on active hosts.</p>
+<hr class="docutils" />
+<section id="countries-contacts">
+<h2>Countries Contacts<a class="headerlink" href="#countries-contacts" title="Link to this heading"></a></h2>
+<p>Checks for Countries Contacts.</p>
+<p>The endpoint sends too many requests to different countries - the recognition is based on IP location, overcoming the threshold &gt; 100 Contacts (Minute).</p>
+<p>The alert is sent when the threshold is exceeded.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="dangerous-host">
+<h2>Dangerous Host<a class="headerlink" href="#dangerous-host" title="Link to this heading"></a></h2>
+<p>Checks for Dangerous Hosts.</p>
+<p>If the score exceeds the threshold, the host could be consideres dangerous.</p>
+<p>The alert is sent when a dangerous host is detected.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Intrusion Detection and Prevention</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="dns-flood">
+<h2>DNS Flood<a class="headerlink" href="#dns-flood" title="Link to this heading"></a></h2>
+<p>Checks for DNS Flood.</p>
+<p>DNS Flood Alert</p>
+<p>DNS flood is a type of DDoS attack in which the attacker targets one or more DNS servers, attempting to hamper resolution of resource records of that zone and its sub-zones.</p>
+<p>The alert is sent when the number of sent/received SYNs/sec exceeds the threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="dns-server-contacts">
+<h2>DNS Server Contacts<a class="headerlink" href="#dns-server-contacts" title="Link to this heading"></a></h2>
+<p>Checks for DNS Server Contacts.</p>
+<p>DNS servers are sensitive to all network-based attacks. There are many ways attackers can cause a large amount of network traffic to the DNS servers, such as TCP/UDP/ICMP floods, rendering the service unavailable to other network users by saturating the network connection to the DNS servers.</p>
+<p>The alert is sent when number of different DNS servers contacted exceeds the threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="dns-traffic">
+<h2>DNS Traffic<a class="headerlink" href="#dns-traffic" title="Link to this heading"></a></h2>
+<p>Checks for DNS Traffic.</p>
+<p>DNS traffic exceeds the threshold &gt;  (1 MB)</p>
+<p>The alert is sent when the threshold is exceeded.</p>
+<p><em>Category: Network</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="domain-name-contacts">
+<h2>Domain Name Contacts<a class="headerlink" href="#domain-name-contacts" title="Link to this heading"></a></h2>
+<p>Checks for Domain Names Contacts.</p>
+<p>The alert is sent when the number of contacted Domain Names from a host exceeds the threshold. Never triggered for DNS and SMTP servers.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="flow-flood">
+<h2>Flow Flood<a class="headerlink" href="#flow-flood" title="Link to this heading"></a></h2>
+<p>Checks for Flow Flood.</p>
+<p>Flow Flood alert.</p>
+<p>Flow flood is a type of DDoS attack in which the attacker targets one or more hosts by sending a huge amout of flows towards them.</p>
+<p>The alert is sent when the number of flows/sec exceeds the threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="flows-anomaly">
+<h2>Flows Anomaly<a class="headerlink" href="#flows-anomaly" title="Link to this heading"></a></h2>
+<p>Checks for a Flow Anomaly</p>
+<p>Flow-based anomaly detection centers around the concept of the network flow. A flow record is an indicator that a certain network flow took place and that two network endpoints have communicated with each other.</p>
+<p>The alert is sent when the system detects anomalies in active flows number.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="host-external-check-rest">
+<h2>Host External Check (REST)<a class="headerlink" href="#host-external-check-rest" title="Link to this heading"></a></h2>
+<p>Trigger a host alert from an external script via REST API. For further information please visit <a class="reference internal" href="../../../../api/rest/api_v2.html#restapidocv2-target"><span class="std std-ref">RESTful API v2 Specification</span></a> and check the <em>rest/v2/trigger/host/alert.lua</em> API.
+Please note that the Check must be enabled from the Settings as any other Behavioural Checks before pushing alerts via REST API.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="host-user-check-script">
+<h2>Host User Check Script<a class="headerlink" href="#host-user-check-script" title="Link to this heading"></a></h2>
+<p>Trigger a host alert based on a custom Lua user script. For further information please visit <a class="reference internal" href="../../../../api/lua_c/host_checks/index.html#apihostchecks-target"><span class="std std-ref">Host Checks</span></a></p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="icmp-flood">
+<h2>ICMP Flood<a class="headerlink" href="#icmp-flood" title="Link to this heading"></a></h2>
+<p>Checks for ICMP Flood.</p>
+<p>The ICMP flood, is a common Denial of Service (DoS) attack in which an attacker takes down a victim’s computer by overwhelming it with ICMP echo requests, also known as pings.
+The attack involves flooding the victim’s network with request packets, knowing that the network will respond with an equal number of reply packets.</p>
+<p>The alert is sent when the number of sent/received ICMP Flows/sec exceeds the threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="nat-detected">
+<h2>NAT Detected<a class="headerlink" href="#nat-detected" title="Link to this heading"></a></h2>
+<p>Checks for devices operating behind a NAT.</p>
+<p>The alert is sent when a device is detected behind a NAT.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="ntp-server-contacts">
+<h2>NTP Server Contacts<a class="headerlink" href="#ntp-server-contacts" title="Link to this heading"></a></h2>
+<p>Checks for NTP Server Contacts.</p>
+<p>The perpetrator exploits Network Time Protocol (NTP) servers to overwhelm a targeted server with UDP traffic. The attack is defined as an amplification that can easily generate a devastating high-volume DDoS attack.</p>
+<p>The alert is sent when the number of different NTP servers contacted exceeds the threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="remote-connection">
+<h2>Remote Connection<a class="headerlink" href="#remote-connection" title="Link to this heading"></a></h2>
+<p>Checks for Remote Connection.</p>
+<p>In RDP protocol has been found some critical vulnerabilities. RDP is a complex protocol with many extensions and the potential of finding new critical bugs is still high.</p>
+<p>The alert is sent whenever an host has at least one active flow using a remote access protocol.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="scan">
+<h2>Scan<a class="headerlink" href="#scan" title="Link to this heading"></a></h2>
+<p>Detects scanning activities targeting ports, networks, and services. This alert requires Clickhouse.</p>
+<p>The check runs every 5 minutes on the historical flows, taking into account only the flows that did not receive a response. Each detection has its own threshold, that can be configured (or individually disabled) from the check settings; the alert is triggered when the threshold is reached or exceeded.</p>
+<ul class="simple">
+<li><p>Port Scan: a host contacted too many ports of another host. The threshold is the number of distinct ports contacted on the same host (default: 20 ports).</p></li>
+<li><p>Service Scan: an attack targeting multiple hosts on a specific service. The threshold is the number of distinct hosts contacted on the same port (default: 50 hosts).</p></li>
+<li><p>Network Scan: communication with an unusually high number of hosts. The threshold is the number of distinct hosts contacted in the same network (default: 100 hosts). It is not reported for hosts already reported for a Service Scan.</p></li>
+<li><p>Service Down: a host made an excessive number of attempts to contact another host on a specific port, but the target did not respond. This behavior may indicate that the destination service is down or unreachable. The threshold is the number of attempts towards the same host and port (default: 50 flows).</p></li>
+</ul>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="scan-realtime">
+<h2>Scan Realtime<a class="headerlink" href="#scan-realtime" title="Link to this heading"></a></h2>
+<p>A collection of checks to identify hosts performing scanning activities.</p>
+<ul class="simple">
+<li><p>RX-only Host Scan: Detects scans targeting RX-only hosts. An alert is triggered whenever an RX-only host is subject to a scanning attempt.</p></li>
+<li><p>Incomplete Flows Scan: Detects hosts generating an unusually high number of incomplete TCP/UDP flows. These patterns are often indicative of host or network scanning, which can be a precursor to exploits or attacks.</p></li>
+<li><p>SYN Scan: Detects SYN scanning activity. In a SYN scan, similar to port scanning, a threat actor attempts to initiate a TCP connection with each port on a target server by sending a SYN (synchronization) packet. If a port responds with a SYN/ACK, it indicates the port is open. The attacker then sends an RST to avoid completing the handshake.</p></li>
+<li><p>FIN Scan: Detects FIN scan activity. This technique is used by attackers or security analysts to identify open ports by sending packets with only the FIN (finish) flag set. Open ports typically do not respond, while closed ports send a RST.</p></li>
+<li><p>RST Scan: Detects an unusually high number of packets with the RST (reset) flag. A spike in RESET flags can indicate scanning behavior or potential issues within the network.</p></li>
+</ul>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="score-anomaly">
+<h2>Score Anomaly<a class="headerlink" href="#score-anomaly" title="Link to this heading"></a></h2>
+<p>Checks for score anomaly.</p>
+<p>Anomalies score represents how abnormal the behavior of the host is, based on its past behavior.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="score-threshold-exceeded">
+<h2>Score Threshold Exceeded<a class="headerlink" href="#score-threshold-exceeded" title="Link to this heading"></a></h2>
+<p>Checks for Score Threshold</p>
+<p>Each host has a numerical non-negative value used to store the score value. This value is computed over a 1-minute time frame.When the score of an host exceeds the threshold   &gt; 5000 Score (Minute) the alert is triggered.</p>
+<p>The alert is sent when the threshold is passed.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="server-port-detected">
+<h2>Server Port Detected<a class="headerlink" href="#server-port-detected" title="Link to this heading"></a></h2>
+<p>Checks for Server Ports changes.</p>
+<p>When an host opens or closes a port that could mean an issue (a service is down or an host is infected).</p>
+<p>The alert is sent when a change to the server ports is detected.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="smtp-server-contacts">
+<h2>SMTP Server Contacts<a class="headerlink" href="#smtp-server-contacts" title="Link to this heading"></a></h2>
+<p>Checks for SMTP Server Contacts.</p>
+<p>The alert is sent when the number of different SMTP servers contacted exceeds the threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="snmp-flood">
+<h2>SNMP Flood<a class="headerlink" href="#snmp-flood" title="Link to this heading"></a></h2>
+<p>Checks for SNMP Flood.</p>
+<p>SNMP Flood Alert</p>
+<p>An SNMP flood attack exploits the SNMP protocol by sending a high volume of SNMP requests to a target device in a short period. These requests often overwhelm the target device’s CPU or memory resources, leading to performance degradation or even complete failure of the device’s network services.</p>
+<p>The alert is sent when the number SNMP flows/sec exceeds the threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="syn-flood">
+<h2>SYN Flood<a class="headerlink" href="#syn-flood" title="Link to this heading"></a></h2>
+<p>Checks for SYN Flood.</p>
+<p>SYN Flood Alert</p>
+<p>A SYN flood DDoS attack exploits a weakness in the TCP connection (the “three-way handshake”), a SYN request to initiate a TCP connection with a host must be answered by a SYN-ACK response from that host, and then confirmed by an ACK response from the requester. In a SYN flood scenario, the requester sends multiple SYN requests, but does not respond to the host’s SYN-ACK response, or sends the SYN requests from a spoofed IP address. The host system continues to wait for acknowledgement for each of the requests, resulting in denial of service.</p>
+<p>The alert is sent when the number of sent/received SYNs/sec exceeds the threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="too-many-rx-only-host-contacts">
+<h2>Too Many RX-only Host Contacts<a class="headerlink" href="#too-many-rx-only-host-contacts" title="Link to this heading"></a></h2>
+<p>Checks for hosts contacting RX-only hosts.</p>
+<p>An RX-only host only receives traffic and never answers (e.g. an unused address). The alert is sent when a client host contacts too many RX-only hosts, a typical behavior of a host scanning the network.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="unexpected-gateway">
+<h2>Unexpected Gateway<a class="headerlink" href="#unexpected-gateway" title="Link to this heading"></a></h2>
+<p>Checks for unexpected gateways.</p>
+<p>The alert is sent when a gateway not allowed in Policies -&gt; Network Configuration is detected.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="vpn-detection">
+<h2>VPN Detection<a class="headerlink" href="#vpn-detection" title="Link to this heading"></a></h2>
+<p>Checks for hosts connected through a VPN.</p>
+<p>The alert is sent when a host is detected as connected through a VPN tunnel.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="wazuh-info-changed">
+<h2>Wazuh Info Changed<a class="headerlink" href="#wazuh-info-changed" title="Link to this heading"></a></h2>
+<p>Checks the host information exported by Wazuh.</p>
+<p>The alert is sent when an information exported by Wazuh about a host changes, for example a new port is opened or a new network interface is added. See <a class="reference internal" href="../../../../third_party_integrations/wazuh.html#wazuhintegration"><span class="std std-ref">Wazuh Integration</span></a> for the integration.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: System</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="alerts_list_per_license.html" class="btn btn-neutral float-left" title="Alerts List per License" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="interface_checks.html" class="btn btn-neutral float-right" title="Interface Behavioural Checks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/host_checks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:08 GMT -->
+</html>

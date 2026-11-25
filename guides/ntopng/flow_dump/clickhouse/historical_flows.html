@@ -1,0 +1,605 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/flow_dump/clickhouse/historical_flows.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:27:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historical &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Server Ports" href="../../user_interface/network_interface/flows/server_ports.html" />
+    <link rel="prev" title="Flows" href="../../user_interface/network_interface/flows/flows.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../user_interface/network_interface/index.html">Network Interface</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../user_interface/network_interface/index.html#dashboard">Dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user_interface/network_interface/index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user_interface/network_interface/index.html#alerts">Alerts</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../user_interface/network_interface/index.html#flows">Flows</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../user_interface/network_interface/flows/flows.html">Flows</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Historical</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user_interface/network_interface/flows/server_ports.html">Server Ports</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../user_interface/network_interface/index.html#hosts">Hosts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user_interface/network_interface/index.html#maps">Maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user_interface/network_interface/index.html#interface">Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_interface/system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_interface/index.html#alerts">Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_interface/index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_interface/index.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_interface/index.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_interface/index.html#developer">Developer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user_interface/index.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../user_interface/index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="../../user_interface/network_interface/index.html">Network Interface</a></li>
+      <li class="breadcrumb-item active">Historical</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/flow_dump/clickhouse/historical_flows.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="historical">
+<span id="historical-flows"></span><h1>Historical<a class="headerlink" href="#historical" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>MySQL flow explorer is deprecated and it has ben discontinued in favor of the <a class="reference internal" href="index.html#clickhouse"><span class="std std-ref">ClickHouse (Flow Dump)</span></a> flows explorer.
+ClickHouse support is not available on Windows and embedded architectures.</p>
+</div>
+<p>When ClickHouse is enabled, an historical flows explorer becomes available in the ntopng web GUI.
+This page is used to navigate through the flows seen and stored by ntopng.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ClickHouse support including the Historical Flows Explorer is only available in ntopng Enterprise M or above.</p>
+</div>
+<p>The explorer is available from the left sidebar, under the Flows section.</p>
+<figure class="align-center" id="id2">
+<img alt="Historical Flows Explorer" src="../../_images/clickhouse_flow_explorer.png" />
+<figcaption>
+<p><span class="caption-text">Historical Flows Explorer</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>It is possible, as for the Alerts Page, to navigate through the flows by filtering the results.
+Multiple filters are available by clicking the various results (e.g. The host <cite>develv5</cite>, to investigate its activities) or by clicking the <cite>+</cite> symbol in the right upper part of the GUI and selecting the wanted filter.</p>
+<figure class="align-center" id="id3">
+<img alt="Historical Flows Explorer" src="../../_images/add_filters.png" />
+<figcaption>
+<p><span class="caption-text">Filtering</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>It is possible to navigate through the time by adjusting the Date and Time using the Navigation Menu or by dragging the time from the chart.</p>
+<figure class="align-center" id="id4">
+<img alt="Historical Flows Explorer" src="../../_images/historical_flow_nav_menu.png" />
+<figcaption>
+<p><span class="caption-text">Navigation Menu</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Not all the fields are shown by default into the records, to show/hide them click the <cite>eye</cite> below the chart and select the wanted information.</p>
+<figure class="align-center" id="id5">
+<img alt="Historical Flows Explorer" src="../../_images/historical_flow_show_columns.png" />
+<figcaption>
+<p><span class="caption-text">Show/Hide Records Info</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Other actions are possible by clicking the Action button (left most side of the records). For example the <cite>Info</cite> action redirects the user to a new page with detailed information regarding the flow.</p>
+<figure class="align-center" id="id6">
+<img alt="Historical Flows Explorer" src="../../_images/flow_record_example.png" />
+<figcaption>
+<p><span class="caption-text">Flow Example</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Historical flows data can be also accessed from the <a class="reference external" href="web_gui/historical.html">Historical Charts</a> .</p>
+<figure class="align-center">
+<img alt="Historical Flows Top L7 Contacts" src="../../_images/historical_flows_top_l7_contacts.png" />
+</figure>
+<section id="details">
+<h2>Details<a class="headerlink" href="#details" title="Link to this heading"></a></h2>
+<p>By clicking the info button of a flow (inside the action button) its details open in a side panel next
+to the table; the expand icon of the panel opens them as a full page. The details show the hosts and
+ports (click them to search the historical flows of that host, port, application or AS), the protocol,
+when the flow started and ended, its traffic in each direction, network quality, latencies, TCP flags,
+the issues with their score, MITRE ATT&amp;CK technique and remediation guide, and the information of the
+application protocol (DNS, HTTP, TLS, ICMP…).</p>
+<p>Flows of industrial protocols (Modbus, S7Comm, Profinet: Enterprise L), flows with BGP information and,
+when high resolution timeseries are enabled, the charts of the flow have their own tabs next to
+<em>Overview</em>. The tab of an industrial protocol is greyed out when the flow was stored without its
+details: move the mouse over it to see why.</p>
+<figure class="align-center" id="id7">
+<img alt="Historical Flows Details" src="../../_images/historical_flow_details.png" />
+<figcaption>
+<p><span class="caption-text">Historical Flows Details</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>in case Wazuh is enabled and configured (see <a class="reference external" href="../../third_party_integrations/wazuh.html">Wazuh Integration</a> for more details), an icon will be added next to the hosts that
+will add the possibility to jump to the wazuh alerts filtered for the specified host in the same timeframe of the flow.</p>
+<figure class="align-center" id="id8">
+<img alt="Historical Flows Details" src="../../_images/historical_flow_details_wazuh.png" />
+<figcaption>
+<p><span class="caption-text">Historical Flows Details Wazuh Integration</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Wazuh link is enabled only for Local Hosts.</p>
+</div>
+</section>
+<section id="track-flows">
+<h2>Track Flows<a class="headerlink" href="#track-flows" title="Link to this heading"></a></h2>
+<p>Since long-lived flows are periodically dumped to the database in chunks
+(at most every 15 minutes), a single flow lasting, for example, one hour
+will appear as multiple separate entries in the Historical Flows view.
+Click the <strong>Track Flows</strong> button to group all entries sharing the same
+5-tuple, reconstructing the full flow across its entire duration.</p>
+<figure class="align-center" id="id9">
+<img alt="Track Flows button" src="../../_images/historical_flows_track_flows.png" />
+<figcaption>
+<p><span class="caption-text">The Track Flows button in the Historical Flows view</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="enabling-flow-dump">
+<h2>Enabling Flow Dump<a class="headerlink" href="#enabling-flow-dump" title="Link to this heading"></a></h2>
+<p>ntopng can dump flows data to a persistent storage and provides view to browse
+recorded flows data in the past. Check out the <a class="reference external" href="index.html">ClickHouse</a> for more details on
+how to setup the connection and the historical views available for this mode.</p>
+<p>In order to dump flows to disk ntopng requires the <cite>-F clickhouse</cite> option to be
+specified as described in the <a class="reference external" href="index.html">ClickHouse</a>.</p>
+</section>
+<section id="custom-queries">
+<h2>Custom Queries<a class="headerlink" href="#custom-queries" title="Link to this heading"></a></h2>
+<p>In order to analyze historical flows dumped by ntopng on ClickHouse, it is possible
+to use the use additional flows views, with custom queries that can aggregate the
+data according to some criteria, or manipulate the data in any way allowed by SQL.</p>
+<p>The default flows view in the Historical Flows Explorer is “Flows”,
+which shows the full list of raw flows.</p>
+<figure class="align-center">
+<img alt="Historical Flows Query Presets" src="../../_images/historical_flows_query_presets.png" />
+</figure>
+<p>In addition to the raw “Flows”, additional built-in views are available, which are
+built on top of the Custom Queries engine. Here is an overview of the currently
+available flows views:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Flows (Bytes Chart): Displays the flows view with a bytes chart</p></li>
+<li><p>Flows (Score Chart): Displays the flows view with a score chart</p></li>
+<li><p>Alerted Domains: Shows the count of alerted domains</p></li>
+<li><p>Clients: Displays the top hosts as flow clients and their traffic</p></li>
+<li><p>Conversations: Shows the top conversations &lt;client, server&gt; with the highest number of flows and total traffic</p></li>
+<li><p>L7 Contacts: L7 Contacts: Displays the top &lt;client, server, L7 protocol&gt; pairs and their total traffic</p></li>
+<li><p>Latency By AS: Displays the average latency of source and destination Autonomous Systems</p></li>
+<li><p>Number of Hosts: Shows the number of IPv4 Clients, IPv4 Servers, IPv6 Clients, and IPv6 Servers</p></li>
+<li><p>Server Contacts: Displays servers ordered by the number of connections</p></li>
+<li><p>Server Ports: Shows the count of used destination ports</p></li>
+<li><p>Servers: Displays the top hosts as flow servers and their traffic</p></li>
+<li><p>Top Clients Contacts: Shows the clients that contact the highest number of different servers</p></li>
+<li><p>Top Contacted Servers: Shows the servers contacted by the highest number of different clients</p></li>
+<li><p>Top Local Talkers: Displays the top local hosts with the most traffic</p></li>
+<li><p>Top Receiver AS: Displays the top Autonomous Systems with the most received traffic</p></li>
+<li><p>Top Receiver Countries: Displays the top countries with the most received traffic</p></li>
+<li><p>Top Receiver Networks: Displays the top networks with the most received traffic</p></li>
+<li><p>Top Remote Destinations: Displays the top remote destinations with the most traffic</p></li>
+<li><p>Top Sender AS: Displays the top Autonomous Systems with the most sent traffic</p></li>
+<li><p>Top Sender Countries: Displays the top countries with the most sent traffic</p></li>
+<li><p>Top Sender Networks: Displays the top networks with the most sent traffic</p></li>
+<li><p>Visited Sites: Shows the most visited domains</p></li>
+<li><p>Major Connection State: Displays TCP Major Connection State (ATTEMPTED, ESTABLISHED, CLOSED)</p></li>
+<li><p>Minor Connection State: Displays TCP <a class="reference internal" href="../../user_interface/network_interface/flows/flows.html#minor-connection-state"><span class="std std-ref">Major and Minor Connection State</span></a></p></li>
+</ul>
+</div></blockquote>
+<figure class="align-center" id="id10">
+<img alt="Historical Flows Explorer" src="../../_images/historical_flow_explorer_top_l7.png" />
+<figcaption>
+<p><span class="caption-text">Top L7 Contacts Table</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The above built-in Custom Queries can be extended by the user by creating
+simple JSON files containing the query description. The query definitions corresponding
+to the above built-in queries are available on the filesystem as JSON files under
+/usr/share/ntopng/scripts/historical/tables/*.json.
+Adding a new flow view is as simple as placing one more JSON file within the same folder.</p>
+<p>Here is an example JSON file for the Clients flow view.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Clients&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;i18n_name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;clients&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data_source&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;flows&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;show_in_page&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;overview&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;hourly&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;visualization_type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;select&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;items&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VLAN_ID&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IPV4_SRC_ADDR&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IPV6_SRC_ADDR&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SRC_LABEL&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SRC_COUNTRY_CODE&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;total_bytes&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;func&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SUM&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;param&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TOTAL_BYTES&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;value_type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bytes&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;filters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;items&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PROBE_IP&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INPUT_SNMP&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OUTPUT_SNMP&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;groupby&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;items&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VLAN_ID&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IPV4_SRC_ADDR&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IPV6_SRC_ADDR&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SRC_LABEL&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SRC_COUNTRY_CODE&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;sortby&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;items&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;total_bytes&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;order&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DESC&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The JSON format is self-explanatory. It is possible to define the columns to be shown under the select tree,
+the columns on which the group-by is applied under the groupby tree, and the default column on which sorting is
+applied under the sortby tree. Aggregation functions can also be defined, such as the ‘sum’ item in the example.
+For more complicated examples, it is recommended to take a look at the built-in query definitions available in the same folders.</p>
+<p>The complete list of columns is available in the database schema located at /usr/share/ntopng/httpdocs/misc/db_schema_clickhouse.sql</p>
+</section>
+<section id="exporting-flows">
+<h2>Exporting Flows<a class="headerlink" href="#exporting-flows" title="Link to this heading"></a></h2>
+<p>By clicking on the <img alt="flow_export_icon" src="../../_images/flow_export_icon.png" /> icon, it’s possible to download a copy of
+the raw flows in CSV format. Here is the same data shown in the picture above in
+CSV format:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>L7_PROTO<span class="p">|</span>IP_DST_PORT<span class="p">|</span>FLOW_TIME<span class="p">|</span>BYTES<span class="p">|</span>FIRST_SEEN<span class="p">|</span>LAST_SEEN<span class="p">|</span>IP_SRC_PORT<span class="p">|</span>NTOPNG_INSTANCE_NAME<span class="p">|</span>IP_PROTOCOL_VERSION<span class="p">|</span>IPV4_SRC_ADDR<span class="p">|</span>JSON<span class="p">|</span>PACKETS<span class="p">|</span>IPV4_DST_ADDR<span class="p">|</span>INTERFACE_ID<span class="p">|</span>PROFILE<span class="p">|</span>INFO<span class="p">|</span>IPV6_DST_ADDR<span class="p">|</span>VLAN_ID<span class="p">|</span>PROTOCOL<span class="p">|</span>IPV6_SRC_ADDR
+<span class="m">143</span><span class="p">|</span><span class="m">443</span><span class="p">|</span><span class="m">1544712866</span><span class="p">|</span><span class="m">18262</span><span class="p">|</span><span class="m">1544712646</span><span class="p">|</span><span class="m">1544712866</span><span class="p">|</span><span class="m">32886</span><span class="p">|</span>PC<span class="w"> </span>local<span class="p">|</span><span class="m">4</span><span class="p">|</span><span class="m">192</span>.168.1.6<span class="o">||</span><span class="m">53</span><span class="p">|</span><span class="m">17</span>.248.146.148<span class="p">|</span><span class="m">1</span><span class="p">|</span>ssl<span class="p">|</span>feedbackws.icloud.com<span class="p">|</span>::<span class="p">|</span><span class="m">0</span><span class="p">|</span><span class="m">6</span><span class="p">|</span>::
+<span class="m">143</span><span class="p">|</span><span class="m">443</span><span class="p">|</span><span class="m">1544712876</span><span class="p">|</span><span class="m">13958</span><span class="p">|</span><span class="m">1544712749</span><span class="p">|</span><span class="m">1544712876</span><span class="p">|</span><span class="m">34078</span><span class="p">|</span>PC<span class="w"> </span>local<span class="p">|</span><span class="m">4</span><span class="p">|</span><span class="m">192</span>.168.1.6<span class="o">||</span><span class="m">46</span><span class="p">|</span><span class="m">17</span>.248.146.148<span class="p">|</span><span class="m">1</span><span class="p">|</span>ssl<span class="p">|</span>p66-iwmb0.icloud.com<span class="p">|</span>::<span class="p">|</span><span class="m">0</span><span class="p">|</span><span class="m">6</span><span class="p">|</span>::
+<span class="m">143</span><span class="p">|</span><span class="m">443</span><span class="p">|</span><span class="m">1544718548</span><span class="p">|</span><span class="m">203978</span><span class="p">|</span><span class="m">1544718247</span><span class="p">|</span><span class="m">1544718548</span><span class="p">|</span><span class="m">38928</span><span class="p">|</span>PC<span class="w"> </span>local<span class="p">|</span><span class="m">4</span><span class="p">|</span><span class="m">192</span>.168.1.6<span class="o">||</span><span class="m">431</span><span class="p">|</span><span class="m">17</span>.248.146.148<span class="p">|</span><span class="m">1</span><span class="p">|</span>ssl<span class="p">|</span>p66-ckdatabasews.icloud.com<span class="p">|</span>::<span class="p">|</span><span class="m">0</span><span class="p">|</span><span class="m">6</span><span class="p">|</span>::
+<span class="m">143</span><span class="p">|</span><span class="m">443</span><span class="p">|</span><span class="m">1544718821</span><span class="p">|</span><span class="m">175770</span><span class="p">|</span><span class="m">1544718548</span><span class="p">|</span><span class="m">1544718821</span><span class="p">|</span><span class="m">38928</span><span class="p">|</span>PC<span class="w"> </span>local<span class="p">|</span><span class="m">4</span><span class="p">|</span><span class="m">192</span>.168.1.6<span class="o">||</span><span class="m">370</span><span class="p">|</span><span class="m">17</span>.248.146.148<span class="p">|</span><span class="m">1</span><span class="p">|</span>ssl<span class="p">|</span>p66-ckdatabasews.icloud.com<span class="p">|</span>::<span class="p">|</span><span class="m">0</span><span class="p">|</span><span class="m">6</span><span class="p">|</span>::
+<span class="m">143</span><span class="p">|</span><span class="m">443</span><span class="p">|</span><span class="m">1544723738</span><span class="p">|</span><span class="m">14663</span><span class="p">|</span><span class="m">1544723557</span><span class="p">|</span><span class="m">1544723738</span><span class="p">|</span><span class="m">49328</span><span class="p">|</span>PC<span class="w"> </span>local<span class="p">|</span><span class="m">4</span><span class="p">|</span><span class="m">192</span>.168.1.6<span class="o">||</span><span class="m">45</span><span class="p">|</span><span class="m">17</span>.248.146.148<span class="p">|</span><span class="m">1</span><span class="p">|</span>ssl<span class="p">|</span>p66-pushws.icloud.com<span class="p">|</span>::<span class="p">|</span><span class="m">0</span><span class="p">|</span><span class="m">6</span><span class="p">|</span>::
+</pre></div>
+</div>
+</section>
+<section id="data-retention">
+<h2>Data Retention<a class="headerlink" href="#data-retention" title="Link to this heading"></a></h2>
+<p>The retention of the flows dump on disk can be configured from the
+<a class="reference internal" href="../../user_interface/shared/settings/preferences.html#data-retention"><span class="std std-ref">Data Retention</span></a> preferences setting, in days and, optionally, as a maximum
+disk space in GB (see <a class="reference internal" href="../../user_interface/shared/settings/preferences.html#max-disk-space-retention"><span class="std std-ref">Flows/Alerts Max Disk Space</span></a>). When the disk space
+limit is reached, the oldest days of flows and alerts are deleted.</p>
+</section>
+<section id="hourly-historical-flows">
+<h2>Hourly Historical Flows<a class="headerlink" href="#hourly-historical-flows" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Hourly Historical Flows view is exclusive to ntopng Enterprise XL.</p>
+</div>
+<p>Enabling the ‘Hourly’ flag on the Historical Flow Explorer in ntopng displays an aggregated view of the historical flows.</p>
+<figure class="align-center" id="id11">
+<img alt="Hourly Historical Flows Explorer" src="../../_images/clickhouse_hourly_historical_flows.png" />
+<figcaption>
+<p><span class="caption-text">Hourly Historical Flows Explorer</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The historical flows are aggregated by several fields, including:</p>
+<ul class="simple">
+<li><p><strong>Begin</strong> (Start epoch of the flows)</p></li>
+<li><p><strong>End</strong> (End epoch of the flows)</p></li>
+<li><p><strong>Protocol</strong> (L4 Protocol)</p></li>
+<li><p><strong>Application</strong> (L7 Protocol)</p></li>
+<li><p><strong>Flow</strong> (Client IP - Client Port - Server IP - Server Port)</p></li>
+<li><p><strong>Avg Score</strong> (The average score of the aggregated raw flows)</p></li>
+<li><p><strong>Total Flows</strong> (The total number of aggregated flows in the single entry)</p></li>
+<li><p><strong>Pkts</strong> (The total number of packets in the aggregated flows in the single entry)</p></li>
+<li><p><strong>Total Bytes</strong> (The sum of TX and RX traffic of the aggregated flows in the single entry)</p></li>
+<li><p><strong>Client ASN</strong> (Autonomous System Number assigned to the client)</p></li>
+<li><p><strong>Server ASN</strong> (Autonomous System Number assigned to the server)</p></li>
+<li><p><strong>Flow Risk</strong> (Level of risk associated with flow)</p></li>
+<li><p><strong>Flow Exporter</strong> (System or tool exporting flow data)</p></li>
+<li><p><strong>Client Network</strong> (Network associated with the client)</p></li>
+<li><p><strong>Server Network</strong> (Network associated with the server)</p></li>
+<li><p><strong>In SNMP iface</strong> (Input SNMP interface)</p></li>
+<li><p><strong>Out SNMP iface</strong> (Output SNMP interface)</p></li>
+<li><p><strong>Client Country</strong> (Country associated with the client)</p></li>
+<li><p><strong>Server Country</strong> (Country associated with the server)</p></li>
+<li><p><strong>Client MAC</strong> (MAC Address of the client)</p></li>
+<li><p><strong>Server MAC</strong> (MAC Address of the server)</p></li>
+<li><p><strong>ntopng Instance Name</strong></p></li>
+</ul>
+<p>With Hourly Historical Flows, it is possible to better analyze past traffic by providing a summary of historical flows.</p>
+<p>Clicking on the ‘Flows’ entry in the ‘Actions’ menu of a specific hourly historical flow entry allows the user to navigate back to the Historical Flows, filtered by client IP, server IP, server port, flow exporter, and ntopng instance name.</p>
+<figure class="align-center" id="id12">
+<img alt="Hourly Historical Flows - Flows button" src="../../_images/clickhouse_hourly_flows_button.png" />
+<figcaption>
+<p><span class="caption-text">Hourly Historical Flows - Flows button</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>This displays the flows that compose the single entry of the hourly historical flows.</p>
+<p>On the Hourly Historical Flows Explorer, many ‘Top Filters’ are present, including:</p>
+<ul class="simple">
+<li><p><strong>Top Applications</strong> (L7 Protocols with most traffic)</p></li>
+<li><p><strong>Top Protocols</strong> (L4 Protocols with most traffic)</p></li>
+<li><p><strong>Top Clients</strong> (Clients with most traffic)</p></li>
+<li><p><strong>Top Servers</strong> (Servers with most traffic)</p></li>
+<li><p><strong>Top Hosts</strong> (Hosts with most traffic)</p></li>
+</ul>
+</section>
+<section id="aggregation-preferences">
+<h2>Aggregation Preferences<a class="headerlink" href="#aggregation-preferences" title="Link to this heading"></a></h2>
+<p>On the preferences page, in the ClickHouse tab, it is possible to modify the hourly flows aggregation settings.</p>
+<figure class="align-center" id="id13">
+<img alt="Hourly Historical Flows Settings" src="../../_images/clickhouse_hourly_historical_flows_settings.png" />
+<figcaption>
+<p><span class="caption-text">Hourly Historical Flows Settings</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><strong>ClickHouse Aggregated Flows Data Retention</strong>: Number of days to retain aggregated flow information (must be greater than the retention period for unaggregated flows); the default is 60 days.</p></li>
+<li><p><strong>ClickHouse Limit Aggregated Flows</strong>: Maximum number of aggregated flow entries to insert in each hourly dump.</p></li>
+<li><p><strong>ClickHouse Minimum Aggregated Flow Traffic</strong>: Discard aggregated flows with a size less than the specified value (in kilobytes).</p></li>
+<li><p><strong>Include Alerted Flows</strong>: Include all alerted flows in the aggregated flows.</p></li>
+</ul>
+</section>
+<section id="replay-historical-flows">
+<h2>Replay Historical Flows<a class="headerlink" href="#replay-historical-flows" title="Link to this heading"></a></h2>
+<p>Although the Historical Flow Explorer provides a lot of flexibility for analysing historical flows (by means of filtering capabilities, reports, graphical analysis pages, custom queries) it does not provide all the analysis features which are available for live traffic. In order to overcome this, an historical flows replay functionality has been introduced in ntopng 6.2 (and later versions), to be able to restore and analyse historical flows on a virtual “live” ntopng interface.</p>
+<p>In order to replay historical flows, go to the Historical Flow Explorer, select a time frame (and optionally some filters), click on the Replay (play) button in the toolbox and confirm with <em>Analyse</em>. Only administrators can replay historical flows.</p>
+<figure class="align-center" id="id14">
+<img alt="Historical Flows Replay Button" src="../../_images/historical_flows_replay_button.png" />
+<figcaption>
+<p><span class="caption-text">Historical Flows Replay Button</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>This will create a new <em>Database</em> “live” interface, similar to any other physical interface in ntopng, and open its live flows. Please note that:</p>
+<ul class="simple">
+<li><p>Records processing may take a while, depending on the number of records selected from the database. A “Loading” badge appears at the top of the page until records processing completes.</p></li>
+<li><p>Since traffic is analysed as live traffic, there is a maximum number of active flows and hosts that can be stored in memory and thus processed. This depends on the configured flow and host cache size (the same limitation for physical interfaces applies).</p></li>
+</ul>
+<figure class="align-center" id="id15">
+<img alt="Historical Flows Live View" src="../../_images/historical_flows_replay_loading.png" />
+<figcaption>
+<p><span class="caption-text">Historical Flows Live View</span><a class="headerlink" href="#id15" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="historical-flows-archive-for-compliance">
+<h2>Historical Flows Archive for Compliance<a class="headerlink" href="#historical-flows-archive-for-compliance" title="Link to this heading"></a></h2>
+<p>To meet regulatory requirements such as GDPR, SOX, HIPAA, and PCI DSS, network data often needs to be retained for extended periods. ntopng supports exporting flow data from ClickHouse before it is deleted due to the TTL (time-to-live) mechanism, allowing for compliant long-term archiving on external storage systems.</p>
+<p>This document describes how to enable flow data export, configure it, and re-import archived data into ClickHouse when needed.</p>
+</section>
+<section id="benefits">
+<h2>Benefits<a class="headerlink" href="#benefits" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Regulatory Compliance</strong>: Satisfy long-term data retention mandates.</p></li>
+<li><p><strong>Storage Optimization</strong>: Prevent local storage exhaustion by exporting data before TTL deletion.</p></li>
+<li><p><strong>Audit Trail</strong>: Maintain historical records for forensic or compliance analysis.</p></li>
+<li><p><strong>Data Recovery</strong>: Re-import flow data as needed for investigation.</p></li>
+</ul>
+</section>
+<section id="enabling-flow-export">
+<h2>Enabling Flow Export<a class="headerlink" href="#enabling-flow-export" title="Link to this heading"></a></h2>
+<p>Follow these steps to enable flow data export in the ntopng web interface:</p>
+<ol class="arabic simple">
+<li><p>Log in to the ntopng web interface.</p></li>
+<li><p>From the <strong>Left Sidebar</strong>, navigate to: Settings → Preferences → ClickHouse</p></li>
+<li><p>Locate the export option (e.g., “Export Deleted Flows to File”).</p></li>
+<li><p>Enable this option by toggling it on.</p></li>
+</ol>
+<p>Once enabled, ntopng will automatically export flow records before they are deleted by the TTL mechanism. The export happens daily at midnight.</p>
+</section>
+<section id="default-export-location">
+<h2>Default Export Location<a class="headerlink" href="#default-export-location" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Path</strong>: <cite>/var/lib/ntopng</cite></p></li>
+<li><p><strong>File Format</strong>: Native ClickHouse format</p></li>
+<li><p><strong>File Frequency</strong>: One file per day</p></li>
+</ul>
+<p>Each exported file contains all flow data scheduled for TTL deletion that day.</p>
+</section>
+<section id="custom-export-directory">
+<h2>Custom Export Directory<a class="headerlink" href="#custom-export-directory" title="Link to this heading"></a></h2>
+<p>To change the export directory:</p>
+<ul class="simple">
+<li><p>Edit the ntopng configuration file or use the command-line argument: –db-archive-dir|6 &lt;custom_path&gt;</p></li>
+<li><p>Replace <cite>&lt;custom_path&gt;</cite> with your desired export location.</p></li>
+</ul>
+</section>
+<section id="importing-archived-flow-data">
+<h2>Importing Archived Flow Data<a class="headerlink" href="#importing-archived-flow-data" title="Link to this heading"></a></h2>
+<p>You can restore exported flow data to ClickHouse for analysis:</p>
+<p><strong>Prerequisites:</strong></p>
+<ul class="simple">
+<li><p>A machine with <cite>clickhouse-client</cite> installed.</p></li>
+</ul>
+<p><strong>Command:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">clickhouse-client</span> <span class="pre">--query=&quot;INSERT</span> <span class="pre">INTO</span> <span class="pre">ntopng.flows</span> <span class="pre">FORMAT</span> <span class="pre">Native&quot;</span> <span class="pre">&lt;</span> <span class="pre">/path/to/exported_file</span>
+<span class="pre">`</span></code></p>
+<p>Steps:</p>
+<ol class="arabic simple">
+<li><p>Copy the desired archived file to a system with access to ClickHouse.</p></li>
+<li><p>Run the clickhouse-client command as shown above.</p></li>
+<li><p>Confirm that the data has been successfully imported.</p></li>
+</ol>
+</section>
+<section id="viewing-imported-data-in-ntopng">
+<h2>Viewing Imported Data in ntopng<a class="headerlink" href="#viewing-imported-data-in-ntopng" title="Link to this heading"></a></h2>
+<p>Once the data is imported, it becomes visible in the ntopng UI:</p>
+<p>Go to:</p>
+<p>Flows → Historical and select the time range that corresponds to the data you imported.</p>
+</section>
+<section id="important-notes">
+<h2>Important Notes<a class="headerlink" href="#important-notes" title="Link to this heading"></a></h2>
+<p>Timestamps: Each file contains exactly one day of data, with timestamps in UTC. For example, data from X 00:00:00 UTC to X+1 day is in one file.</p>
+<p>Retention: Imported data is subject to the same TTL rules. If the data is already older than the configured TTL window, it will be deleted at the next midnight cycle.</p>
+<p>Import Timing: Ensure you plan imports carefully to avoid losing data immediately after restoration.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../user_interface/network_interface/flows/flows.html" class="btn btn-neutral float-left" title="Flows" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../user_interface/network_interface/flows/server_ports.html" class="btn btn-neutral float-right" title="Server Ports" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/flow_dump/clickhouse/historical_flows.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:27:29 GMT -->
+</html>

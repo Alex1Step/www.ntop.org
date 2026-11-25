@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nDPI/monitoring.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:22:32 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monitoring &mdash; nDPI 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/collapsible-lists/css/tree_viewf00b.css?v=a885cde7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options729d.js?v=3b2dd2c4"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+      <script src="_static/collapsible-lists/js/CollapsibleLists.compressed9c30.js?v=73120307"></script>
+      <script src="_static/collapsible-lists/js/apply-collapsible-listsd910.js?v=660e4f45"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nDPI Protocols List" href="protocols.html" />
+    <link rel="prev" title="Library Initialization" href="library_initialization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nDPI
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nDPI/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="what_is_ndpi.html">What is nDPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/library_root.html">Library API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration_parameters.html">Configuration Knobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library_initialization.html">Library Initialization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Monitoring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#implementation-notes">Implementation notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html">nDPI Protocols List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_risks.html">nDPI Flow Risks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usdt.html">USDT Probes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nDPI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Monitoring</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/monitoring.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="monitoring">
+<h1>Monitoring<a class="headerlink" href="#monitoring" title="Link to this heading"></a></h1>
+<p>nDPI usually needs only a few packets per flow to get full classification and to get all the required metadata/flow_risks. After that point, nDPI stops processing the flow.
+However, in some use cases, it might be useful to allow nDPI to process the <em>entire</em> flow (i.e., <em>all</em> its packets, without any limits). Some examples:</p>
+<ul class="simple">
+<li><p>to extract all the STUN metadata from a STUN flow</p></li>
+<li><p>to extract all the request/replay pairs from a DNS flow</p></li>
+</ul>
+<p>In essence, monitoring allows the application to get the same metadata, multiple times, throughout the entire life of the session.</p>
+<p>If monitoring is enabled in a flow:</p>
+<ul class="simple">
+<li><p>structures <code class="docutils literal notranslate"><span class="pre">ndpi_flow-&gt;protos</span></code>, <code class="docutils literal notranslate"><span class="pre">ndpi_flow-&gt;http</span></code>, <code class="docutils literal notranslate"><span class="pre">ndpi_flow-&gt;stun</span></code>, … are populated as usual, usually with the <em>first</em> instance of the specific metadata. Nothing changed.</p></li>
+<li><p>packet by packet, the new structure <code class="docutils literal notranslate"><span class="pre">ndpi_flow-&gt;monitor</span></code> is populated with the metadata of the <em>current</em> packet. This information is lost when starting processing the next packet in the same flow; it is the responsibility of the application to get it.</p></li>
+</ul>
+<p>In other words:</p>
+<ul class="simple">
+<li><p>“flow metadata” is saved in <code class="docutils literal notranslate"><span class="pre">ndpi_flow-&gt;protos</span></code>, <code class="docutils literal notranslate"><span class="pre">ndpi_flow-&gt;http</span></code>, <code class="docutils literal notranslate"><span class="pre">ndpi_flow-&gt;stun</span></code>, regardless of the monitoring feature being enabled or not. These fields are always available</p></li>
+<li><p>“(current) packet metadata” is saved in <code class="docutils literal notranslate"><span class="pre">ndpi_flow-&gt;monitor</span></code>, only if monitor is enabled.</p></li>
+</ul>
+<p>Monitoring must be explicitly enabled with something like: <code class="docutils literal notranslate"><span class="pre">--cfg=stun,monitoring,1</span></code>.
+To enable/disable monitoring for all protocols you can use <code class="docutils literal notranslate"><span class="pre">--cfg=any,monitoring,1</span></code> but only STUN and S7COMM are supported right now.</p>
+<p>Since monitoring processes <em>all</em> the flow packets, it might have an impact on performances.</p>
+<section id="implementation-notes">
+<h2>Implementation notes<a class="headerlink" href="#implementation-notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Flows move to monitoring state only after extra-dissections end</p></li>
+<li><p>The classification doesn’t change for flows in monitoring state</p></li>
+<li><p>We probably need to improve TCP reassembler to best handle TCP flows in monitoring state</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="library_initialization.html" class="btn btn-neutral float-left" title="Library Initialization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="protocols.html" class="btn btn-neutral float-right" title="nDPI Protocols List" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop and contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nDPI/monitoring.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:22:33 GMT -->
+</html>

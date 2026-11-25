@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/nanalyst/features/policies.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:52:21 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI-Generated Network Policies &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Active Monitoring Automation" href="active_monitoring.html" />
+    <link rel="prev" title="Explainability — No Black Box" href="no_black_box.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">nAnalyst - Agentic AI Network Intelligence</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../what_is_nanalyst.html">What is nAnalyst?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../chat_interface.html">Chat Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ai_dashboards.html">AI Dashboards</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Features</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="no_black_box.html">Explainability — No Black Box</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">AI-Generated Network Policies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-policy-generation-works">How policy generation works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reviewing-and-managing-policies">Reviewing and managing policies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#complex-policy-examples">Complex policy examples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="active_monitoring.html">Active Monitoring Automation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="alert_management.html">Alert Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage_stats.html">Usage Statistics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audit_log.html">Action Audit Log</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools_and_licensing.html">Tools and Licensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../llm_setup.html">LLM Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mcp_server.html">MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../observability.html">Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Features</a></li>
+      <li class="breadcrumb-item active">AI-Generated Network Policies</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/nanalyst/features/policies.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ai-generated-network-policies">
+<span id="nanalystpolicies"></span><h1>AI-Generated Network Policies<a class="headerlink" href="#ai-generated-network-policies" title="Link to this heading"></a></h1>
+<p>nAnalyst can translate a plain-English security or operational requirement into an executable network policy that generates ntopng alerts when violated.</p>
+<figure class="align-center" id="id1">
+<img alt="nAnalyst AI Policy" src="../../_images/nAnalyst_policy.png" />
+<figcaption>
+<p><span class="caption-text">nAnalyst AI Policy</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="how-policy-generation-works">
+<h2>How policy generation works<a class="headerlink" href="#how-policy-generation-works" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>Describe the requirement</strong> — state what behaviour should be detected or forbidden:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;No SSH for host 192.168.2.38 during business hours&quot;
+
+&quot;Alert if any host&#39;s traffic is more than 2x its hourly baseline&quot;
+
+&quot;Detect outbound connections to non-approved countries&quot;
+</pre></div>
+</div>
+</li>
+<li><p><strong>Agent generates the SQL</strong> — nAnalyst writes a ClickHouse query that captures the policy condition. The query is shown to you for review before it is saved.</p></li>
+<li><p><strong>Execution schedule</strong> — you choose how often the policy query runs: every 1 minute, 5 minutes, 1 hour, or daily.</p></li>
+<li><p><strong>Alert registration</strong> — when the query detects a violation, ntopng generates a standard alert that appears in the alert dashboard as a new AI Policy alert and can trigger any configured notification channel (email, Slack, syslog, etc.).</p></li>
+<li><p><strong>Interpretability</strong> — nAnalyst executes the query once immediately and explains the results in plain language so you can validate the policy catches what you expect before it goes live.</p></li>
+</ol>
+</section>
+<section id="reviewing-and-managing-policies">
+<h2>Reviewing and managing policies<a class="headerlink" href="#reviewing-and-managing-policies" title="Link to this heading"></a></h2>
+<p>Saved policies are listed in the nAnalyst policy panel (<strong>nAnalyst -&gt; Policies</strong>, <code class="docutils literal notranslate"><span class="pre">/lua/pro/ai_policy.lua</span></code>). For each policy the table shows:</p>
+<ul class="simple">
+<li><p><strong>Periodicity</strong> — the execution schedule (1 min, 5 min, daily, …)</p></li>
+<li><p><strong>Score</strong> — the severity assigned to alerts this policy generates (e.g. Error 100, Severe 150, Critical 200)</p></li>
+<li><p><strong>Status</strong> — Active/paused</p></li>
+<li><p><strong>Times Triggered</strong> — how many times this policy’s condition matched and fired an alert</p></li>
+<li><p><strong>Times Run</strong> — how many times the policy query has been executed, regardless of whether it matched</p></li>
+<li><p><strong>Name</strong> and <strong>Description</strong> — the plain-English summary</p></li>
+</ul>
+<figure class="align-center" id="id2">
+<img alt="nAnalyst policy panel with Times Triggered and Times Run columns" src="../../_images/nAnalyst_policy_counters.png" />
+<figcaption>
+<p><span class="caption-text">Policy execution debug counters: Times Triggered vs. Times Run</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><strong>Times Run</strong> vs <strong>Times Triggered</strong> is the debug signal for tuning a policy: a policy with a high run count but zero (or very low) trigger count is likely too narrow or checking a condition that rarely occurs, while a policy that triggers on nearly every run is either catching a real, persistent problem or is too broad and needs tightening. Comparing the two numbers side by side lets you spot both cases without digging through the alert log.</p>
+<p>Both counters persist across ntopng restarts and are reset only when the policy itself is deleted.</p>
+<p>Policies can be edited, paused, or deleted from the same panel.</p>
+<figure class="align-center" id="id3">
+<img alt="nAnalyst Policy Edit" src="../../_images/nAnalyst_policy_edit.png" />
+<figcaption>
+<p><span class="caption-text">nAnalyst Policy Edit</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="complex-policy-examples">
+<h2>Complex policy examples<a class="headerlink" href="#complex-policy-examples" title="Link to this heading"></a></h2>
+<p>nAnalyst can express sophisticated conditions that would be time-consuming to write manually:</p>
+<ul class="simple">
+<li><p>Traffic volume anomalies (e.g., 2× hourly baseline)</p></li>
+<li><p>Protocol violations (e.g., unencrypted HTTP from a specific subnet)</p></li>
+<li><p>Geolocation rules (e.g., outbound to sanctioned countries)</p></li>
+<li><p>Time-based access controls (e.g., no RDP outside business hours)</p></li>
+<li><p>Peer relationship changes (e.g., a host contacting a new external IP for the first time)</p></li>
+</ul>
+<p>The agent validates that the SQL it generates is syntactically correct and semantically consistent with the described intent before presenting it for confirmation.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="no_black_box.html" class="btn btn-neutral float-left" title="Explainability — No Black Box" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="active_monitoring.html" class="btn btn-neutral float-right" title="Active Monitoring Automation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/nanalyst/features/policies.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:52:25 GMT -->
+</html>

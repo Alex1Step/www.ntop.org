@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nedgelite/configuration.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; nEdge Lite dev documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Policy Rules" href="policies.html" />
+    <link rel="prev" title="Netfilter Setup" href="netfilter_setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nEdge Lite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nedgelite/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netfilter_setup.html">Netfilter Setup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-options">Command-Line Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-options">Basic Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#policy-options">Policy Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flow-export-options">Flow Export Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connection-tracking-options">Connection Tracking Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connection-label-options">Connection Label Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#license-options">License Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-files">Configuration Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#license-file">License File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#policy-file">Policy File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#label-map-file">Label Map File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#runtime-configuration">Runtime Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#signals">Signals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system-settings">System Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#common-configuration-examples">Common Configuration Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#standalone-with-static-policy">Standalone with Static Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integrated-with-ntopng">Integrated with ntopng</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-queue-for-performance">Multi-Queue for Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bridge-mode-with-policy-file">Bridge Mode with Policy File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connection-labels">Connection Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-ntopng-collectors">Multiple ntopng Collectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#encrypted-flow-export">Encrypted Flow Export</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-tuning">Performance Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="policies.html">Policy Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ntopng_integration.html">ntopng Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License Management</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other ntop Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nEdge Lite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/configuration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
+<p>This section covers all configuration options available in nEdge Lite, including command-line arguments, environment variables, and runtime behavior.</p>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Link to this heading"></a></h2>
+<section id="basic-options">
+<h3>Basic Options<a class="headerlink" href="#basic-options" title="Link to this heading"></a></h3>
+<p><strong>-q, –queue-id &lt;id&gt;[:&lt;num&gt;]</strong></p>
+<p>Specifies the NFQUEUE ID(s) to listen on.</p>
+<ul class="simple">
+<li><p>Single queue: <code class="docutils literal notranslate"><span class="pre">-q</span> <span class="pre">0</span></code></p></li>
+<li><p>Multiple queues: <code class="docutils literal notranslate"><span class="pre">-q</span> <span class="pre">0:4</span></code> (uses queues 0, 1, 2, 3)</p></li>
+</ul>
+<p>The number of queues determines thread count. Each queue is handled by a separate thread.</p>
+<p><strong>Examples</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Single<span class="w"> </span>queue
+<span class="go">sudo nedgelite -q 0</span>
+
+<span class="gp"># </span>Four<span class="w"> </span>queues<span class="w"> </span><span class="o">(</span><span class="m">0</span>-3<span class="o">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>load<span class="w"> </span>balancing
+<span class="go">sudo nedgelite -q 0:4</span>
+
+<span class="gp"># </span>Eight<span class="w"> </span>queues<span class="w"> </span>starting<span class="w"> </span>at<span class="w"> </span>queue<span class="w"> </span><span class="m">10</span>
+<span class="go">sudo nedgelite -q 10:8</span>
+</pre></div>
+</div>
+<p><strong>-v, –verbose</strong></p>
+<p>Enable verbose logging output. Shows detailed information about packet processing, protocol detection, and flow management.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -v</span>
+</pre></div>
+</div>
+<p><strong>-h, –help</strong></p>
+<p>Display help message with all available options.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nedgelite --help</span>
+</pre></div>
+</div>
+<p><strong>-V, –version</strong></p>
+<p>Display version information.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nedgelite --version</span>
+</pre></div>
+</div>
+<p><strong>-H</strong></p>
+<p>Display the verbose help, followed by the lists of supported nDPI protocols, categories
+and flow risks (with their ids, codes and short names), as accepted by the label map
+(see <a class="reference internal" href="advanced.html#connection-labels"><span class="std std-ref">Connection Labels</span></a>).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nedgelite -H</span>
+</pre></div>
+</div>
+</section>
+<section id="policy-options">
+<h3>Policy Options<a class="headerlink" href="#policy-options" title="Link to this heading"></a></h3>
+<p><strong>-r, –rules &lt;path&gt;</strong></p>
+<p>Load policy rules from a JSON file. The file contains pool definitions and policy rules.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json</span>
+</pre></div>
+</div>
+<p>When using this option, you can reload policies by sending SIGHUP to the nEdge Lite process:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo kill -HUP $(pidof nedgelite)</span>
+</pre></div>
+</div>
+<p><strong>-p, –zmq-policy-endpoint &lt;url&gt;</strong></p>
+<p>Subscribe to policy updates from ntopng via ZeroMQ. This enables dynamic policy management through ntopng’s web interface.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -p tcp://127.0.0.1:5557</span>
+</pre></div>
+</div>
+<p>Multiple endpoints are supported for redundancy:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -p tcp://127.0.0.1:5557 -p tcp://10.0.0.1:5557</span>
+</pre></div>
+</div>
+</section>
+<section id="flow-export-options">
+<h3>Flow Export Options<a class="headerlink" href="#flow-export-options" title="Link to this heading"></a></h3>
+<p><strong>-z, –zmq-flow-endpoint &lt;url&gt;</strong></p>
+<p>Send flow data to ntopng via ZeroMQ. This is typically required for monitoring and visualization.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234</span>
+</pre></div>
+</div>
+<p>Multiple endpoints are supported to send flows to multiple ntopng instances:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://192.168.1.10:1234 -z tcp://192.168.1.20:1234</span>
+</pre></div>
+</div>
+<p><strong>-j, –json</strong></p>
+<p>Export flows in JSON format instead of the default TLV (Type-Length-Value) format.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -j</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>: TLV format is more compact and efficient. Use JSON only if required for debugging or custom integrations.</p>
+<p><strong>-f, –flush</strong></p>
+<p>Flush flows immediately over ZMQ without batching. This reduces latency but may increase overhead.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -f</span>
+</pre></div>
+</div>
+<p><strong>-u, –flow-update &lt;seconds&gt;</strong></p>
+<p>Set the interval (in seconds) for periodic flow updates. Default is 30 seconds.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Update<span class="w"> </span>flows<span class="w"> </span>every<span class="w"> </span><span class="m">10</span><span class="w"> </span>seconds
+<span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -u 10</span>
+</pre></div>
+</div>
+<p><strong>Range</strong>: 3-120 seconds</p>
+<p><strong>-y, –zmq-encryption-key &lt;key&gt;</strong></p>
+<p>Enable ZeroMQ CURVE encryption for secure flow export. Provide the server’s public key.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -y &quot;server-public-key&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="connection-tracking-options">
+<h3>Connection Tracking Options<a class="headerlink" href="#connection-tracking-options" title="Link to this heading"></a></h3>
+<p><strong>-s, –skip-ct-reset</strong></p>
+<p>Skip conntrack initialization at startup. By default, nEdge Lite:</p>
+<ul class="simple">
+<li><p>Enables conntrack accounting</p></li>
+<li><p>Enables conntrack timestamps</p></li>
+<li><p>Flushes nfacct counters</p></li>
+</ul>
+<p>Use this option if these settings are already configured or managed externally.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -s</span>
+</pre></div>
+</div>
+</section>
+<section id="connection-label-options">
+<h3>Connection Label Options<a class="headerlink" href="#connection-label-options" title="Link to this heading"></a></h3>
+<p>nEdge Lite can tag connections with conntrack labels (connlabels) describing what nDPI
+detected, so that iptables rules can match on them. See <a class="reference internal" href="advanced.html#connection-labels"><span class="std std-ref">Connection Labels</span></a> for
+details and examples.</p>
+<p><strong>-L, –labels &lt;path&gt;</strong></p>
+<p>Enable connection labels, using the specified label map file. The map selects which nDPI
+protocols, categories and flow risks set which of the 128 available label bits.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -L /etc/nedgelite/labels.conf</span>
+</pre></div>
+</div>
+<p><strong>-o, –connlabel &lt;dir&gt;</strong></p>
+<p>Generate <code class="docutils literal notranslate"><span class="pre">&lt;dir&gt;/connlabel.conf</span></code> from the label map, then exit. The file assigns a name
+to each label bit used by the map and must be installed as <code class="docutils literal notranslate"><span class="pre">/etc/xtables/connlabel.conf</span></code>
+so that iptables and conntrack can refer to labels by name. Requires <code class="docutils literal notranslate"><span class="pre">-L</span></code>. Label names
+contain only letters, digits and <code class="docutils literal notranslate"><span class="pre">-</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nedgelite -L /etc/nedgelite/labels.conf -o /tmp</span>
+<span class="go">sudo mkdir -p /etc/xtables</span>
+<span class="go">sudo cp /tmp/connlabel.conf /etc/xtables/connlabel.conf</span>
+</pre></div>
+</div>
+</section>
+<section id="license-options">
+<h3>License Options<a class="headerlink" href="#license-options" title="Link to this heading"></a></h3>
+<p><strong>–show-system-id</strong></p>
+<p>Display the system ID used for license generation.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nedgelite --show-system-id</span>
+</pre></div>
+</div>
+<p><strong>–check-license</strong></p>
+<p>Check the validity of the installed license.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nedgelite --check-license</span>
+</pre></div>
+</div>
+<p><strong>–check-maintenance</strong></p>
+<p>Check the maintenance expiration date.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nedgelite --check-maintenance</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="configuration-files">
+<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading"></a></h2>
+<section id="license-file">
+<h3>License File<a class="headerlink" href="#license-file" title="Link to this heading"></a></h3>
+<p><strong>Locations</strong> (checked in order):</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nedgelite.license</span></code> (current directory)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/etc/nedgelite.license</span></code></p></li>
+</ol>
+<p><strong>Format</strong>: Binary license file provided by ntop.org</p>
+</section>
+<section id="policy-file">
+<h3>Policy File<a class="headerlink" href="#policy-file" title="Link to this heading"></a></h3>
+<p><strong>Location</strong>: Specified with <code class="docutils literal notranslate"><span class="pre">-r</span></code> option</p>
+<p><strong>Format</strong>: JSON (newline-delimited JSON objects)</p>
+<p><strong>Example</strong>: <code class="docutils literal notranslate"><span class="pre">/etc/nedgelite/policy.json</span></code></p>
+<p>See <a class="reference internal" href="policies.html"><span class="doc">Policy Rules</span></a> for detailed policy file format.</p>
+</section>
+<section id="label-map-file">
+<h3>Label Map File<a class="headerlink" href="#label-map-file" title="Link to this heading"></a></h3>
+<p><strong>Location</strong>: Specified with <code class="docutils literal notranslate"><span class="pre">-L</span></code> option</p>
+<p><strong>Format</strong>: Text, one <code class="docutils literal notranslate"><span class="pre">&lt;bit&gt;</span> <span class="pre">&lt;type&gt;</span> <span class="pre">&lt;name&gt;</span> <span class="pre">[&lt;label&gt;]</span></code> mapping per line</p>
+<p><strong>Example</strong>: <code class="docutils literal notranslate"><span class="pre">/etc/nedgelite/labels.conf</span></code></p>
+<p>See <a class="reference internal" href="advanced.html#connection-labels"><span class="std std-ref">Connection Labels</span></a> for the file format.</p>
+</section>
+</section>
+<section id="runtime-configuration">
+<h2>Runtime Configuration<a class="headerlink" href="#runtime-configuration" title="Link to this heading"></a></h2>
+<section id="signals">
+<h3>Signals<a class="headerlink" href="#signals" title="Link to this heading"></a></h3>
+<p>nEdge Lite responds to POSIX signals:</p>
+<p><strong>SIGINT / SIGTERM</strong></p>
+<p>Gracefully shutdown nEdge Lite:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo kill -TERM $(pidof nedgelite)</span>
+<span class="gp"># </span>or<span class="w"> </span>press<span class="w"> </span>Ctrl+C
+</pre></div>
+</div>
+<p><strong>SIGHUP</strong></p>
+<p>Reload policy rules from file (only if <code class="docutils literal notranslate"><span class="pre">-r</span></code> option was used):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo kill -HUP $(pidof nedgelite)</span>
+</pre></div>
+</div>
+</section>
+<section id="system-settings">
+<h3>System Settings<a class="headerlink" href="#system-settings" title="Link to this heading"></a></h3>
+<p>nEdge Lite requires specific kernel settings for optimal operation:</p>
+<p><strong>Conntrack Accounting</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 1 | sudo tee /proc/sys/net/netfilter/nf_conntrack_acct</span>
+</pre></div>
+</div>
+<p><strong>Conntrack Timestamps</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 1 | sudo tee /proc/sys/net/netfilter/nf_conntrack_timestamp</span>
+</pre></div>
+</div>
+<p><strong>Conntrack Table Size</strong> (for high connection counts):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Increase<span class="w"> </span>conntrack<span class="w"> </span>table<span class="w"> </span>size
+<span class="go">echo 262144 | sudo tee /proc/sys/net/netfilter/nf_conntrack_max</span>
+</pre></div>
+</div>
+<p><strong>Conntrack Timeouts</strong> (adjust as needed):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>TCP<span class="w"> </span>established<span class="w"> </span>timeout<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">5</span><span class="w"> </span>days<span class="o">)</span>
+<span class="go">echo 3600 | sudo tee /proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established</span>
+</pre></div>
+</div>
+<p>Make these settings persistent by adding them to <code class="docutils literal notranslate"><span class="pre">/etc/sysctl.conf</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">net.netfilter.nf_conntrack_acct=1</span>
+<span class="go">net.netfilter.nf_conntrack_timestamp=1</span>
+<span class="go">net.netfilter.nf_conntrack_max=262144</span>
+<span class="go">net.netfilter.nf_conntrack_tcp_timeout_established=3600</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="common-configuration-examples">
+<h2>Common Configuration Examples<a class="headerlink" href="#common-configuration-examples" title="Link to this heading"></a></h2>
+<section id="standalone-with-static-policy">
+<h3>Standalone with Static Policy<a class="headerlink" href="#standalone-with-static-policy" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json -v</span>
+</pre></div>
+</div>
+</section>
+<section id="integrated-with-ntopng">
+<h3>Integrated with ntopng<a class="headerlink" href="#integrated-with-ntopng" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>On<span class="w"> </span>ntopng<span class="w"> </span>host
+<span class="go">sudo ntopng -i tcp://0.0.0.0:5556c --zmq-publish-events tcp://0.0.0.0:5557</span>
+
+<span class="gp"># </span>On<span class="w"> </span>nEdge<span class="w"> </span>Lite<span class="w"> </span>host
+<span class="go">sudo nedgelite -q 0 -z tcp://ntopng-server:5556 -p tcp://ntopng-server:5557</span>
+</pre></div>
+</div>
+</section>
+<section id="multi-queue-for-performance">
+<h3>Multi-Queue for Performance<a class="headerlink" href="#multi-queue-for-performance" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Configure<span class="w"> </span><span class="m">8</span><span class="w"> </span>queues
+<span class="go">sudo nedgelite -q 0:8 -z tcp://127.0.0.1:1234 -u 15</span>
+</pre></div>
+</div>
+</section>
+<section id="bridge-mode-with-policy-file">
+<h3>Bridge Mode with Policy File<a class="headerlink" href="#bridge-mode-with-policy-file" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Set<span class="w"> </span>up<span class="w"> </span>bridge
+<span class="go">sudo /usr/share/nedgelite/scripts/bridge_setup.sh eth0 eth1</span>
+
+<span class="gp"># </span>Start<span class="w"> </span>nEdge<span class="w"> </span>Lite
+<span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json -z tcp://127.0.0.1:1234</span>
+</pre></div>
+</div>
+</section>
+<section id="connection-labels">
+<h3>Connection Labels<a class="headerlink" href="#connection-labels" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Generate<span class="w"> </span>and<span class="w"> </span>install<span class="w"> </span>connlabel.conf<span class="w"> </span><span class="o">(</span>once,<span class="w"> </span>and<span class="w"> </span>after<span class="w"> </span>changing<span class="w"> </span>the<span class="w"> </span>map<span class="o">)</span>
+<span class="go">nedgelite -L /etc/nedgelite/labels.conf -o /tmp</span>
+<span class="go">sudo cp /tmp/connlabel.conf /etc/xtables/connlabel.conf</span>
+
+<span class="gp"># </span>Start<span class="w"> </span>nEdge<span class="w"> </span>Lite<span class="w"> </span>with<span class="w"> </span>labels<span class="w"> </span>enabled
+<span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json -L /etc/nedgelite/labels.conf</span>
+</pre></div>
+</div>
+</section>
+<section id="multiple-ntopng-collectors">
+<h3>Multiple ntopng Collectors<a class="headerlink" href="#multiple-ntopng-collectors" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 \</span>
+<span class="go">  -z tcp://ntopng1.local:5556 \</span>
+<span class="go">  -z tcp://ntopng2.local:5556 \</span>
+<span class="go">  -p tcp://ntopng1.local:5557</span>
+</pre></div>
+</div>
+</section>
+<section id="encrypted-flow-export">
+<h3>Encrypted Flow Export<a class="headerlink" href="#encrypted-flow-export" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 \</span>
+<span class="go">  -z tcp://remote-ntopng:5556 \</span>
+<span class="go">  -y &quot;Yne@$w-vo&lt;fVvi]a&lt;NY6T1ed:M$fCG*[IaLV{hID&quot; \</span>
+<span class="go">  -p tcp://remote-ntopng:5557</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="performance-tuning">
+<h2>Performance Tuning<a class="headerlink" href="#performance-tuning" title="Link to this heading"></a></h2>
+<p>For high-traffic environments:</p>
+<p><strong>Multi-Queue Setup</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Use<span class="w"> </span>one<span class="w"> </span>queue<span class="w"> </span>per<span class="w"> </span>CPU<span class="w"> </span>core
+<span class="go">sudo nedgelite -q 0:$(nproc) -z tcp://127.0.0.1:1234 -u 10</span>
+</pre></div>
+</div>
+<p><strong>Optimize Flow Updates</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Reduce<span class="w"> </span>update<span class="w"> </span>interval<span class="w"> </span><span class="k">for</span><span class="w"> </span>real-time<span class="w"> </span>monitoring
+<span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -u 5</span>
+
+<span class="gp"># </span>Increase<span class="w"> </span>update<span class="w"> </span>interval<span class="w"> </span><span class="k">for</span><span class="w"> </span>high-volume<span class="w"> </span>environments
+<span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -u 60</span>
+</pre></div>
+</div>
+<p><strong>CPU Affinity</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Pin<span class="w"> </span>to<span class="w"> </span>specific<span class="w"> </span>CPU<span class="w"> </span>cores
+<span class="go">sudo taskset -c 0-3 nedgelite -q 0:4 -z tcp://127.0.0.1:1234</span>
+</pre></div>
+</div>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Learn how to write <a class="reference internal" href="policies.html"><span class="doc">Policy Rules</span></a> for traffic filtering</p></li>
+<li><p>Set up <a class="reference internal" href="ntopng_integration.html"><span class="doc">ntopng Integration</span></a> for centralized management</p></li>
+<li><p>Explore <a class="reference internal" href="advanced.html"><span class="doc">Advanced Features</span></a> features and optimizations</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="netfilter_setup.html" class="btn btn-neutral float-left" title="Netfilter Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="policies.html" class="btn btn-neutral float-right" title="Policy Rules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nedgelite/configuration.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:23 GMT -->
+</html>

@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/nanalyst/llm_setup.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:49:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Setup &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MCP Server" href="mcp_server.html" />
+    <link rel="prev" title="Tools and Licensing" href="tools_and_licensing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index-2.html">nAnalyst - Agentic AI Network Intelligence</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="what_is_nanalyst.html">What is nAnalyst?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chat_interface.html">Chat Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ai_dashboards.html">AI Dashboards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features/index.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools_and_licensing.html">Tools and Licensing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LLM Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-backends">Supported backends</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tool-calling-requirement">Tool calling requirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choosing-a-model">Choosing a model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#switching-models">Switching models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#per-provider-settings-and-request-timeout">Per-provider settings and request timeout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#default-provider">Default provider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-providers">Custom providers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcp_server.html">MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="observability.html">Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+      <li class="breadcrumb-item active">LLM Setup</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/nanalyst/llm_setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="llm-setup">
+<span id="nanalystllmsetup"></span><h1>LLM Setup<a class="headerlink" href="#llm-setup" title="Link to this heading"></a></h1>
+<p>nAnalyst requires an LLM backend for reasoning and natural language generation. It supports multiple providers and can run entirely on-premises with a local inference server.</p>
+<section id="supported-backends">
+<h2>Supported backends<a class="headerlink" href="#supported-backends" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Backend</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://www.anthropic.com/api">Anthropic (Claude)</a></p></td>
+<td><p>Pay-per-use cloud API</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://platform.openai.com/docs/overview">OpenAI (GPT models)</a></p></td>
+<td><p>Pay-per-use cloud API</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://aws.amazon.com/bedrock/">AWS Bedrock</a></p></td>
+<td><p>OpenAI-compatible endpoint; regional data residency</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://www.alibabacloud.com/en/solutions/generative-ai/qwen">Qwen (Alibaba Cloud)</a></p></td>
+<td><p>Pay-per-use cloud API; OpenAI-compatible</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/ggml-org/llama.cpp">llama-cpp</a></p></td>
+<td><p>Local inference; OpenAI-compatible server</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://docs.vllm.ai/">vllm</a></p></td>
+<td><p>Local inference; OpenAI-compatible server</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://docs.sglang.ai/">sglang</a></p></td>
+<td><p>Local inference; OpenAI-compatible server</p></td>
+</tr>
+<tr class="row-odd"><td><p>Any OpenAI-compatible API</p></td>
+<td><p>Set a custom endpoint URL</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tool-calling-requirement">
+<h2>Tool calling requirement<a class="headerlink" href="#tool-calling-requirement" title="Link to this heading"></a></h2>
+<p>nAnalyst fetches data through the provider’s native tool calling (function calling). The model and the server must support it, otherwise every request fails with a provider error.</p>
+<ul class="simple">
+<li><p><strong>llama-cpp</strong>: start <code class="docutils literal notranslate"><span class="pre">llama-server</span></code> with <code class="docutils literal notranslate"><span class="pre">--jinja</span></code>.</p></li>
+<li><p><strong>vllm</strong>: start <code class="docutils literal notranslate"><span class="pre">vllm</span> <span class="pre">serve</span></code> with <code class="docutils literal notranslate"><span class="pre">--enable-auto-tool-choice</span> <span class="pre">--tool-call-parser</span> <span class="pre">&lt;parser&gt;</span></code>, using the parser that matches the model family (see the vllm tool calling documentation).</p></li>
+<li><p><strong>sglang</strong>: start the server with <code class="docutils literal notranslate"><span class="pre">--tool-call-parser</span> <span class="pre">&lt;parser&gt;</span></code>.</p></li>
+</ul>
+<p>Cloud providers (Anthropic, OpenAI, Qwen, AWS Bedrock) support tool calling with their current models.</p>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p>LLM settings are configured in ntopng under <strong>Settings -&gt; LLM Providers</strong>.</p>
+<p>Required fields:</p>
+<ul class="simple">
+<li><p><strong>API Key</strong> — your LLM provider API key (not required for local servers)</p></li>
+<li><p><strong>Endpoint URL</strong> — the API base URL (default values are pre-filled for Anthropic and OpenAI)</p></li>
+<li><p><strong>Model name</strong> — the model identifier (e.g., <code class="docutils literal notranslate"><span class="pre">claude-sonnet-4-6</span></code>, <code class="docutils literal notranslate"><span class="pre">gpt-4o</span></code>, <code class="docutils literal notranslate"><span class="pre">qwen3-235b-a22b</span></code>, <code class="docutils literal notranslate"><span class="pre">llama3.2</span></code>)</p></li>
+</ul>
+<p>The API key is stored locally on the ntopng instance and never transmitted to any service other than the configured LLM endpoint.</p>
+<figure class="align-center" id="id1">
+<img alt="nAnalyst LLM Setup" src="../_images/nAnalyst_preferences.png" />
+<figcaption>
+<p><span class="caption-text">nAnalyst LLM Connection Setup</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="choosing-a-model">
+<h2>Choosing a model<a class="headerlink" href="#choosing-a-model" title="Link to this heading"></a></h2>
+<p><strong>Cloud APIs</strong> offer the highest reasoning quality and are recommended for complex investigations and policy generation. Costs depend on usage volume (see <a class="reference internal" href="features/usage_stats.html#nanalystusagestats"><span class="std std-ref">Usage Statistics</span></a>).</p>
+<p><strong>Local inference servers</strong> provide full data privacy — no data leaves your premises at all, including to the LLM — at the cost of lower reasoning quality for complex tasks. They are suitable for high-volume, simpler queries or environments with strict data sovereignty requirements.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For optimal results, use a model with a context window of at least 32k tokens. Larger context windows allow nAnalyst to include more evidence in a single reasoning step.</p>
+</div>
+</section>
+<section id="switching-models">
+<h2>Switching models<a class="headerlink" href="#switching-models" title="Link to this heading"></a></h2>
+<p>You can change the active LLM model at any time from the LLM model panel. Existing conversations retain their original model metadata in the usage log. New messages will use the newly chosen model.</p>
+<figure class="align-center" id="id2">
+<img alt="nAnalyst Switch LLM Model" src="../_images/nAnalyst_switch_LLM_model.png" />
+<figcaption>
+<p><span class="caption-text">nAnalyst Switch LLM Model</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="per-provider-settings-and-request-timeout">
+<h2>Per-provider settings and request timeout<a class="headerlink" href="#per-provider-settings-and-request-timeout" title="Link to this heading"></a></h2>
+<p>Each built-in provider (Local LLM, Qwen, Anthropic, OpenAI) has its own independent configuration block under <strong>Settings -&gt; LLM Providers</strong>: API URL, API Token, Model Name, and <strong>Request Timeout (seconds)</strong>.</p>
+<figure class="align-center" id="id3">
+<img alt="nAnalyst built-in LLM provider settings" src="../_images/nAnalyst_llm_providers_builtin.png" />
+<figcaption>
+<p><span class="caption-text">Per-provider configuration: API URL, token, model name, request timeout</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The request timeout controls how long ntopng waits for a response from that specific provider before giving up, independently of the other configured providers. It accepts values from <strong>10 to 1800 seconds</strong>. Small local models running on limited hardware often need 2-3 minutes or more — raise the timeout accordingly rather than lowering expectations on model choice.</p>
+<p>A <strong>Test</strong> button next to each API URL field sends a lightweight request to confirm the endpoint is reachable and credentials are valid before you save.</p>
+<p>Each provider block also has its own <strong>Reset to default</strong> action (top-right of the block), which clears that provider’s URL, token, model name, and timeout back to the ntopng defaults without touching the other configured providers.</p>
+</section>
+<section id="default-provider">
+<h2>Default provider<a class="headerlink" href="#default-provider" title="Link to this heading"></a></h2>
+<p>Under <strong>General</strong>, the <strong>Default Provider</strong> dropdown selects which configured provider (built-in or custom) is used automatically whenever a new nAnalyst chat is started.</p>
+<figure class="align-center" id="id4">
+<img alt="nAnalyst default provider selector" src="../_images/nAnalyst_llm_default_provider.png" />
+<figcaption>
+<p><span class="caption-text">Default Provider selector, listing built-in and custom providers</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Changing the default provider does not affect conversations already in progress — it only applies to chats created after the change. You can still switch the model for an individual chat from the in-chat LLM model panel (see <a class="reference internal" href="#switching-models">Switching models</a> above), overriding the default for that conversation only.</p>
+</section>
+<section id="custom-providers">
+<h2>Custom providers<a class="headerlink" href="#custom-providers" title="Link to this heading"></a></h2>
+<p>Beyond the four built-in providers, nAnalyst supports adding an arbitrary number of <strong>custom LLM providers</strong> under <strong>Settings -&gt; LLM Providers -&gt; Custom Providers</strong>. This covers any OpenAI-compatible or Anthropic-compatible endpoint not already covered by the built-in list — for example a self-hosted gateway, a second local inference server, or an internal LLM router.</p>
+<figure class="align-center" id="id5">
+<img alt="nAnalyst custom LLM providers" src="../_images/nAnalyst_custom_providers.png" />
+<figcaption>
+<p><span class="caption-text">Custom LLM Providers panel, showing a configured custom provider</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Each custom provider has:</p>
+<ul class="simple">
+<li><p><strong>Name</strong> — a label used to identify the provider in the model switcher and the Default Provider dropdown</p></li>
+<li><p><strong>API URL</strong> — the full chat-completions endpoint (OpenAI/Anthropic-compatible)</p></li>
+<li><p><strong>API Token</strong> — authentication token for the endpoint; leave blank when editing to keep the currently stored token unchanged</p></li>
+<li><p><strong>Model Name</strong> — the model identifier the endpoint expects</p></li>
+<li><p><strong>Request Timeout (seconds)</strong> — independent per-provider timeout, same 10-1800s range as the built-in providers</p></li>
+</ul>
+<p>To add a provider, click <strong>+ Add Provider</strong>, fill in the fields, and click <strong>Save changes</strong>. Multiple custom providers can be configured simultaneously and all appear alongside the built-in providers in the model switcher and the Default Provider dropdown, so you can run investigations across several LLM backends without reconfiguring anything mid-session. A custom provider can be removed with the <strong>Delete</strong> button on its block.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tools_and_licensing.html" class="btn btn-neutral float-left" title="Tools and Licensing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mcp_server.html" class="btn btn-neutral float-right" title="MCP Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/nanalyst/llm_setup.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:49:13 GMT -->
+</html>

@@ -1,0 +1,542 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nDPI/usdt.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:11 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USDT Probes &mdash; nDPI 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/collapsible-lists/css/tree_viewf00b.css?v=a885cde7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options729d.js?v=3b2dd2c4"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+      <script src="_static/collapsible-lists/js/CollapsibleLists.compressed9c30.js?v=73120307"></script>
+      <script src="_static/collapsible-lists/js/apply-collapsible-listsd910.js?v=660e4f45"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="nDPI Flow Risks" href="flow_risks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nDPI
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nDPI/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="what_is_ndpi.html">What is nDPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/library_root.html">Library API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration_parameters.html">Configuration Knobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library_initialization.html">Library Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html">nDPI Protocols List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_risks.html">nDPI Flow Risks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">USDT Probes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-with-usdt-support">Building with USDT Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#available-probes">Available Probes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bpftrace-notes">bpftrace Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#struct-field-access">Struct field access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#btf-generation-known-issues-and-workarounds">BTF Generation — Known Issues and Workarounds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bpftrace-map-size-limits">bpftrace Map Size Limits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#predicates-vs-action-blocks">Predicates vs. action blocks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bpftrace-examples">bpftrace Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow-classified-examples">flow_classified Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hostname-set-examples">hostname_set Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#perf-example">perf Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overhead">Overhead</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nDPI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">USDT Probes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usdt.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usdt-probes">
+<h1>USDT Probes<a class="headerlink" href="#usdt-probes" title="Link to this heading"></a></h1>
+<p>nDPI supports <a class="reference external" href="https://lwn.net/Articles/753601/">USDT</a> (User-level Statically Defined Tracing)
+probes for zero-overhead dynamic tracing in production environments. Each probe compiles down to a
+single NOP instruction and incurs no runtime cost when not actively traced. External tools such as
+<code class="docutils literal notranslate"><span class="pre">bpftrace</span></code>, <code class="docutils literal notranslate"><span class="pre">perf</span></code>, and <code class="docutils literal notranslate"><span class="pre">SystemTap</span></code> can attach to these probes at runtime without restarting
+or recompiling the application.</p>
+<section id="building-with-usdt-support">
+<h2>Building with USDT Support<a class="headerlink" href="#building-with-usdt-support" title="Link to this heading"></a></h2>
+<p>Install the required development headers (Linux):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Debian/Ubuntu</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>systemtap-sdt-dev<span class="w"> </span>dwarves
+
+<span class="c1"># RHEL/CentOS/Fedora</span>
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>systemtap-sdt-devel<span class="w"> </span>dwarves
+</pre></div>
+</div>
+<p>Then configure and build nDPI with USDT support enabled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./autogen.sh
+./configure<span class="w"> </span>--enable-usdt-probes<span class="w"> </span>--enable-debug-build
+make
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On macOS, <code class="docutils literal notranslate"><span class="pre">sys/sdt.h</span></code> is provided by the system. On platforms where it is
+unavailable, the probes compile to no-ops and have no impact whatsoever.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To allow bpftrace to resolve <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">ndpi_flow_struct</span></code> fields by name without
+any <code class="docutils literal notranslate"><span class="pre">--include</span></code> flags, embed BTF into the binaries after building using
+<code class="docutils literal notranslate"><span class="pre">pahole</span> <span class="pre">-J</span></code> (from the <code class="docutils literal notranslate"><span class="pre">dwarves</span></code> package). See <a class="reference internal" href="#struct-field-access">Struct field access</a>
+below. Without BTF, the scalar arguments remain fully usable.</p>
+</div>
+</section>
+<section id="available-probes">
+<h2>Available Probes<a class="headerlink" href="#available-probes" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 40.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Probe Name</p></th>
+<th class="head"><p>Arguments</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">flow_classified</span></code></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">arg0</span></code>: master protocol ID (<code class="docutils literal notranslate"><span class="pre">u16</span></code>)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">arg1</span></code>: application protocol ID (<code class="docutils literal notranslate"><span class="pre">u16</span></code>)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">arg2</span></code>: confidence level (<code class="docutils literal notranslate"><span class="pre">enum</span></code>)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">arg3</span></code>: category (<code class="docutils literal notranslate"><span class="pre">enum</span></code>)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">arg4</span></code>: flow pointer (<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">ndpi_flow_struct</span> <span class="pre">*</span></code>)</div>
+</div>
+</td>
+<td><p>Fires exactly once per flow when classification is finalised.
+Covers all exit paths: successful detection, give-up, max-packets
+reached, nBPF match, and extra-dissector completion.
+The scalar arguments (<code class="docutils literal notranslate"><span class="pre">arg0</span></code>–<code class="docutils literal notranslate"><span class="pre">arg3</span></code>) support efficient filtering
+inside bpftrace predicates; <code class="docutils literal notranslate"><span class="pre">arg4</span></code> provides access to all remaining
+flow fields when deeper inspection is required.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hostname_set</span></code></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">arg0</span></code>: hostname string (<code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">*</span></code>)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">arg1</span></code>: flow pointer (<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">ndpi_flow_struct</span> <span class="pre">*</span></code>)</div>
+</div>
+</td>
+<td><p>Fires whenever a hostname or SNI is extracted from a flow.
+Covers all protocols that carry a hostname: TLS (SNI), DNS,
+HTTP (Host header), QUIC, NetBIOS, DHCP, STUN, and others.
+The hostname is passed directly as a string for convenience;
+the flow pointer provides access to all other flow fields.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fragment_ipv4</span></code></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">arg0</span></code>: pointer to IPv4 header (<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">ndpi_iphdr</span> <span class="pre">*</span></code>)</div>
+</div>
+</td>
+<td><p>Fires when an IPv4 packet processed by the library is fragmented
+at the IP layer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fragment_ipv6</span></code></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">arg0</span></code>: pointer to IPv6 header (<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">ndpi_ipv6hdr</span> <span class="pre">*</span></code>)</div>
+</div>
+</td>
+<td><p>Fires when an IPv6 packet processed by the library is fragmented
+at the IP layer.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bpftrace-notes">
+<h2>bpftrace Notes<a class="headerlink" href="#bpftrace-notes" title="Link to this heading"></a></h2>
+<section id="struct-field-access">
+<h3>Struct field access<a class="headerlink" href="#struct-field-access" title="Link to this heading"></a></h3>
+<p>To dereference userspace pointers (for example, <code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">ndpi_flow_struct</span></code>
+passed as <code class="docutils literal notranslate"><span class="pre">arg1</span></code> in the <code class="docutils literal notranslate"><span class="pre">hostname_set</span></code> probe) you must embed BTF information
+into the shared library or executable. The recommended approach is to run
+<code class="docutils literal notranslate"><span class="pre">pahole</span> <span class="pre">-J</span></code> (from the <code class="docutils literal notranslate"><span class="pre">dwarves</span></code> package) as a post-build step: it reads the
+DWARF debug information already present in the binary and inserts a <code class="docutils literal notranslate"><span class="pre">.BTF</span></code>
+section with full type information.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Debian/Ubuntu</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>dwarves
+
+<span class="c1"># RHEL/CentOS/Fedora</span>
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>dwarves
+
+./configure<span class="w"> </span>--enable-usdt-probes<span class="w"> </span>--enable-debug-build
+make
+pahole<span class="w"> </span>-J<span class="w"> </span>src/lib/libndpi.so
+pahole<span class="w"> </span>-J<span class="w"> </span>example/ndpiReader
+</pre></div>
+</div>
+<p>Once the <code class="docutils literal notranslate"><span class="pre">.BTF</span></code> section is present, bpftrace can resolve
+<code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">ndpi_flow_struct</span></code> fields by name — <strong>without any</strong> <code class="docutils literal notranslate"><span class="pre">--include</span></code>
+<strong>flags</strong> — provided the full binary path is used in the probe specification.
+Note that the <code class="docutils literal notranslate"><span class="pre">::</span></code> shorthand does not trigger BTF lookup:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt:/path/to/ndpiReader:ndpi:flow_classified {</span>
+<span class="s1">  $flow = (struct ndpi_flow_struct *)arg4;</span>
+<span class="s1">  if ($flow-&gt;risk != 0) { @risky[arg0] = count(); }</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Verify that the section is present with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>readelf<span class="w"> </span>-S<span class="w"> </span>example/ndpiReader<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;\.BTF&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="btf-generation-known-issues-and-workarounds">
+<span id="btf-pitfalls"></span><h3>BTF Generation — Known Issues and Workarounds<a class="headerlink" href="#btf-generation-known-issues-and-workarounds" title="Link to this heading"></a></h3>
+<p><strong>C11 ``_Atomic`` types break pahole BTF encoding</strong></p>
+<p>nDPI’s bundled CRoaring library uses <code class="docutils literal notranslate"><span class="pre">_Atomic</span></code> qualifiers, which the
+compiler emits as <code class="docutils literal notranslate"><span class="pre">DW_TAG_atomic_type</span></code> entries in DWARF. All released
+versions of <code class="docutils literal notranslate"><span class="pre">pahole</span></code> (including 1.31) abort BTF encoding upon encountering
+this tag, even when <code class="docutils literal notranslate"><span class="pre">--btf_encode_force</span></code> is passed:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Unsupported</span><span class="w"> </span><span class="n">DW_TAG_atomic_type</span><span class="p">(</span><span class="mh">0x47</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">type</span><span class="o">:</span><span class="w"> </span><span class="mh">0x153c6</span>
+<span class="n">Encountered</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="n">encoding</span><span class="w"> </span><span class="n">BTF</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>The workaround used in nDPI’s CI pipeline is to rebuild with
+<code class="docutils literal notranslate"><span class="pre">CROARING_ATOMIC_IMPL=1</span></code>, which selects a non-atomic code path and
+eliminates the offending DWARF entries:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-DCROARING_ATOMIC_IMPL=1&quot;</span><span class="w"> </span>./configure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--enable-usdt-probes<span class="w"> </span>--enable-debug-build
+make
+</pre></div>
+</div>
+<p><strong>Fallback: generate a C header with bpftool</strong></p>
+<p>Even with BTF information correctly embedded, pointer dereferences may still
+fail with:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="nl">stdin</span><span class="p">:</span><span class="mi">1</span><span class="o">:</span><span class="mi">65-93</span><span class="o">:</span><span class="w"> </span><span class="n">ERROR</span><span class="o">:</span><span class="w"> </span><span class="n">Cannot</span><span class="w"> </span><span class="n">resolve</span><span class="w"> </span><span class="n">unknown</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="s">&quot;struct ndpi_flow_struct&quot;</span>
+</pre></div>
+</div>
+<p>In this case, generate a C header from the BTF information and pass it to
+bpftrace with <code class="docutils literal notranslate"><span class="pre">--include</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate a C header containing the full layout of the userspace structures</span>
+bpftool<span class="w"> </span>btf<span class="w"> </span>dump<span class="w"> </span>file<span class="w"> </span>/path/to/ndpiReader<span class="w"> </span>format<span class="w"> </span>c<span class="w"> </span>&gt;<span class="w"> </span>ndpi_types.h
+
+<span class="c1"># Pass the header to bpftrace</span>
+sudo<span class="w"> </span>bpftrace<span class="w"> </span>--include<span class="w"> </span>ndpi_types.h<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s1">&#39;usdt:/path/to/ndpiReader:ndpi:flow_classified {</span>
+<span class="s1">    $flow = (struct ndpi_flow_struct *)arg4;</span>
+<span class="s1">    if ($flow-&gt;risk != 0) { @risky[arg0] = count(); }</span>
+<span class="s1">  }&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="bpftrace-map-size-limits">
+<h3>bpftrace Map Size Limits<a class="headerlink" href="#bpftrace-map-size-limits" title="Link to this heading"></a></h3>
+<p>When tracing long or high-throughput captures, bpftrace maps can become full
+and emit a kernel-level <code class="docutils literal notranslate"><span class="pre">E2BIG</span></code> warning:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="n">Map</span><span class="w"> </span><span class="n">full</span><span class="p">;</span><span class="w"> </span><span class="n">can</span><span class="err">&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">element</span><span class="p">.</span>
+<span class="n">Additional</span><span class="w"> </span><span class="n">Info</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">helper</span><span class="o">:</span><span class="w"> </span><span class="n">map_update_elem</span><span class="p">,</span><span class="w"> </span><span class="n">retcode</span><span class="o">:</span><span class="w"> </span><span class="mi">-7</span>
+</pre></div>
+</div>
+<p>Increase the map key limit via the environment variable (supported by all
+recent bpftrace versions):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span><span class="nv">BPFTRACE_MAX_MAP_KEYS</span><span class="o">=</span><span class="m">100000</span><span class="w"> </span>bpftrace<span class="w"> </span>--include<span class="w"> </span>ndpi_types.h<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s1">&#39;usdt:/path/to/ndpiReader:ndpi:hostname_set {</span>
+<span class="s1">    @top[str(arg0)] = count();</span>
+<span class="s1">  }&#39;</span>
+</pre></div>
+</div>
+<p>Newer bpftrace builds also accept a <code class="docutils literal notranslate"><span class="pre">config</span></code> block at the top of the
+script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>bpftrace<span class="w"> </span>--include<span class="w"> </span>ndpi_types.h<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s1">&#39;config = { max_map_keys = 100000 }</span>
+<span class="s1">usdt:/path/to/ndpiReader:ndpi:hostname_set {</span>
+<span class="s1">  @top[str(arg0)] = count();</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="predicates-vs-action-blocks">
+<h3>Predicates vs. action blocks<a class="headerlink" href="#predicates-vs-action-blocks" title="Link to this heading"></a></h3>
+<p>bpftrace predicates (<code class="docutils literal notranslate"><span class="pre">/condition/</span></code>) work well for filtering on scalar arguments
+(<code class="docutils literal notranslate"><span class="pre">arg0</span></code>–<code class="docutils literal notranslate"><span class="pre">arg3</span></code> in <code class="docutils literal notranslate"><span class="pre">flow_classified</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:flow_classified /arg0 == 91/ { ... }&#39;</span>
+</pre></div>
+</div>
+<p>Filtering on struct fields via a pointer (e.g., <code class="docutils literal notranslate"><span class="pre">arg4</span></code> in <code class="docutils literal notranslate"><span class="pre">flow_classified</span></code>
+or <code class="docutils literal notranslate"><span class="pre">arg1</span></code> in <code class="docutils literal notranslate"><span class="pre">hostname_set</span></code>) is <strong>not supported in predicates</strong>.</p>
+<p>Use an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement inside the action block instead:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt:/path/to/ndpiReader:ndpi:hostname_set {</span>
+<span class="s1">  $flow = (struct ndpi_flow_struct *)arg1;</span>
+<span class="s1">  if ($flow-&gt;detected_protocol_stack[0] == 5) {</span>
+<span class="s1">    @dns[str(arg0)] = count();</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="bpftrace-examples">
+<h2>bpftrace Examples<a class="headerlink" href="#bpftrace-examples" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Examples that dereference a userspace pointer (<code class="docutils literal notranslate"><span class="pre">arg4</span></code> in <code class="docutils literal notranslate"><span class="pre">flow_classified</span></code>,
+<code class="docutils literal notranslate"><span class="pre">arg1</span></code> in <code class="docutils literal notranslate"><span class="pre">hostname_set</span></code>) require either a <code class="docutils literal notranslate"><span class="pre">.BTF</span></code> section embedded in
+the binary via <code class="docutils literal notranslate"><span class="pre">pahole</span> <span class="pre">-J</span></code> <strong>or</strong> an explicit <code class="docutils literal notranslate"><span class="pre">--include</span> <span class="pre">ndpi_types.h</span></code>
+header (generated via <code class="docutils literal notranslate"><span class="pre">bpftool</span> <span class="pre">btf</span> <span class="pre">dump</span> <span class="pre">...</span> <span class="pre">format</span> <span class="pre">c</span></code>). See
+<a class="reference internal" href="#btf-generation-known-issues-and-workarounds">BTF Generation — Known Issues and Workarounds</a> above.</p>
+<p>Scalar-only examples (those using only <code class="docutils literal notranslate"><span class="pre">arg0</span></code>–<code class="docutils literal notranslate"><span class="pre">arg3</span></code> in <code class="docutils literal notranslate"><span class="pre">flow_classified</span></code>
+or <code class="docutils literal notranslate"><span class="pre">arg0</span></code> in <code class="docutils literal notranslate"><span class="pre">hostname_set</span></code>, without struct dereference) work without BTF
+or headers and can use the <code class="docutils literal notranslate"><span class="pre">::</span></code> shorthand.</p>
+</div>
+<p>List all available probes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-l<span class="w"> </span><span class="s2">&quot;usdt:./src/lib/.libs/libndpi.so:ndpi:*&quot;</span>
+</pre></div>
+</div>
+<section id="flow-classified-examples">
+<h3>flow_classified Examples<a class="headerlink" href="#flow-classified-examples" title="Link to this heading"></a></h3>
+<p>Real-time protocol classification log:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:flow_classified {</span>
+<span class="s1">  printf(&quot;master=%d app=%d confidence=%d category=%d\n&quot;,</span>
+<span class="s1">         arg0, arg1, arg2, arg3);</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Protocol distribution histogram:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:flow_classified {</span>
+<span class="s1">  @proto_master[arg0] = count();</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Confidence level breakdown:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:flow_classified {</span>
+<span class="s1">  @confidence[arg2] = count();</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Category distribution:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:flow_classified {</span>
+<span class="s1">  @category[arg3] = count();</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Count unclassified flows (master protocol == 0):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:flow_classified /arg0 == 0/ {</span>
+<span class="s1">  @unknown = count();</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Flow classification rate (flows/sec):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:flow_classified {</span>
+<span class="s1">  @ = count();</span>
+<span class="s1">} interval:s:1 { print(@); clear(@); }&#39;</span>
+</pre></div>
+</div>
+<p>Filter by a specific protocol (e.g., TLS = 91):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:flow_classified /arg0 == 91/ {</span>
+<span class="s1">  @tls[arg1] = count();</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Flows classified under SocialNetwork (category 6):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:flow_classified /arg3 == 6/ {</span>
+<span class="s1">  @social[arg0, arg1] = count();</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Flows with a non-zero risk bitmap (requires BTF or <code class="docutils literal notranslate"><span class="pre">--include</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt:/path/to/ndpiReader:ndpi:flow_classified {</span>
+<span class="s1">  $flow = (struct ndpi_flow_struct *)arg4;</span>
+<span class="s1">  if ($flow-&gt;risk != 0) {</span>
+<span class="s1">    @risky[arg0] = count();</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="hostname-set-examples">
+<h3>hostname_set Examples<a class="headerlink" href="#hostname-set-examples" title="Link to this heading"></a></h3>
+<p>Real-time hostname log:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt:/path/to/ndpiReader:ndpi:hostname_set {</span>
+<span class="s1">  $flow = (struct ndpi_flow_struct *)arg1;</span>
+<span class="s1">  printf(&quot;%s (master=%d app=%d)\n&quot;,</span>
+<span class="s1">         str(arg0),</span>
+<span class="s1">         $flow-&gt;detected_protocol_stack[0],</span>
+<span class="s1">         $flow-&gt;detected_protocol_stack[1]);</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Top hostnames by flow count:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:hostname_set {</span>
+<span class="s1">  @top[str(arg0)] = count();</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Monitor a specific domain (e.g., all <code class="docutils literal notranslate"><span class="pre">*.google.com</span></code> traffic):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:hostname_set /strcontains(str(arg0), &quot;google.com&quot;)/ {</span>
+<span class="s1">  @google[str(arg0)] = count();</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Hostnames resolved via DNS only (DNS = 5):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt:/path/to/ndpiReader:ndpi:hostname_set {</span>
+<span class="s1">  $flow = (struct ndpi_flow_struct *)arg1;</span>
+<span class="s1">  if ($flow-&gt;detected_protocol_stack[0] == 5) {</span>
+<span class="s1">    @dns[str(arg0)] = count();</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>TLS SNI extraction in real time (TLS = 91):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt:/path/to/ndpiReader:ndpi:hostname_set {</span>
+<span class="s1">  $flow = (struct ndpi_flow_struct *)arg1;</span>
+<span class="s1">  if ($flow-&gt;detected_protocol_stack[0] == 91) {</span>
+<span class="s1">    printf(&quot;TLS SNI: %s\n&quot;, str(arg0));</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Hostname-to-application-protocol breakdown:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt:/path/to/ndpiReader:ndpi:hostname_set {</span>
+<span class="s1">  $flow = (struct ndpi_flow_struct *)arg1;</span>
+<span class="s1">  @host_app[str(arg0), $flow-&gt;detected_protocol_stack[1]] = count();</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+<p>Hostname resolution rate (hostnames/sec):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt::ndpi:hostname_set {</span>
+<span class="s1">  @ = count();</span>
+<span class="s1">} interval:s:1 { print(@); clear(@); }&#39;</span>
+</pre></div>
+</div>
+<p>Detect potential DGA activity (count unique DNS hostnames over time):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bpftrace<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;usdt:/path/to/ndpiReader:ndpi:hostname_set {</span>
+<span class="s1">  $flow = (struct ndpi_flow_struct *)arg1;</span>
+<span class="s1">  if ($flow-&gt;detected_protocol_stack[0] == 5) {</span>
+<span class="s1">    @unique_dns = count();</span>
+<span class="s1">  }</span>
+<span class="s1">} interval:s:10 {</span>
+<span class="s1">  printf(&quot;Unique DNS hostnames in last 10s: %d\n&quot;, @unique_dns);</span>
+<span class="s1">  clear(@unique_dns);</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="perf-example">
+<h2>perf Example<a class="headerlink" href="#perf-example" title="Link to this heading"></a></h2>
+<p>Record probe hits with <code class="docutils literal notranslate"><span class="pre">perf</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perf<span class="w"> </span>probe<span class="w"> </span>-x<span class="w"> </span>./src/lib/.libs/libndpi.so<span class="w"> </span>sdt_ndpi:flow_classified
+perf<span class="w"> </span>record<span class="w"> </span>-e<span class="w"> </span>sdt_ndpi:flow_classified<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>pidof<span class="w"> </span>ndpiReader<span class="k">)</span><span class="w"> </span>--<span class="w"> </span>sleep<span class="w"> </span><span class="m">10</span>
+perf<span class="w"> </span>report
+</pre></div>
+</div>
+</section>
+<section id="overhead">
+<h2>Overhead<a class="headerlink" href="#overhead" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>When not tracing:</strong> zero overhead. Each probe compiles to a single NOP instruction.</p></li>
+<li><p><strong>When actively tracing:</strong> approximately 2–5 microseconds per probe hit, depending on
+the tracing tool and the complexity of the attached script.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flow_classified</span></code> and <code class="docutils literal notranslate"><span class="pre">hostname_set</span></code> fire at most once per flow (not per packet),
+so their overhead remains negligible even under active tracing at high traffic volumes.
+<code class="docutils literal notranslate"><span class="pre">fragment_ipv4</span></code> and <code class="docutils literal notranslate"><span class="pre">fragment_ipv6</span></code> fire once per fragmented packet.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="flow_risks.html" class="btn btn-neutral float-left" title="nDPI Flow Risks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop and contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nDPI/usdt.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:12 GMT -->
+</html>

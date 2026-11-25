@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>ntopng Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/ntopng/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/ntopng/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Thu, 31 Jul 2025 07:21:09 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>ntopng Archives - ntop</title>
+	<link>https://www.ntop.org/tag/ntopng/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Export and Archive ClickHouse Flows in ntopng for Regulatory Compliance</title>
+		<link>https://www.ntop.org/export-and-archive-clickhouse-flows-in-ntopng-for-regulatory-compliance/</link>
+		
+		<dc:creator><![CDATA[Gabriele Deri]]></dc:creator>
+		<pubDate>Thu, 31 Jul 2025 07:10:42 +0000</pubDate>
+				<category><![CDATA[Data Privacy]]></category>
+		<category><![CDATA[Features]]></category>
+		<category><![CDATA[Guides]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<category><![CDATA[clickhouse]]></category>
+		<category><![CDATA[compliance]]></category>
+		<category><![CDATA[data retention]]></category>
+		<category><![CDATA[flow recording]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[ttl]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45002</guid>
+
+					<description><![CDATA[<p>Most ntopng users make extensive use of ClickHouse support for storing historical flow data and running analysis on it. ClickHouse is highly optimized and offers a high compression rate (estimated at an…</p>
+<p>The post <a href="https://www.ntop.org/export-and-archive-clickhouse-flows-in-ntopng-for-regulatory-compliance/">Export and Archive ClickHouse Flows in ntopng for Regulatory Compliance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="45002" class="elementor elementor-45002">
+				<div class="elementor-element elementor-element-b967c46 e-flex e-con-boxed e-con e-parent" data-id="b967c46" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-a68e75a elementor-widget elementor-widget-text-editor" data-id="a68e75a" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p data-start="73" data-end="368">Most ntopng users make extensive use of <strong>ClickHouse support for storing historical flow</strong> data and running analysis on it. ClickHouse is highly optimized and offers a high compression rate (estimated at an average of 60 bytes per flow), allowing for long data retention even with limited storage.</p><p data-start="370" data-end="626">However, to comply with regulations such as GDPR, SOX, HIPAA, and PCI DSS, it is often necessary to retain data for extended periods. This is manageable when flow rates are low to moderate, but can require significant disk space when flow rates are high.</p><p data-start="628" data-end="956">To support long-term data retention on limited storage, we have introduced the ability to <strong>export flow data</strong> from the database. This feature allows administrators to back up data <strong>to external long-term storage</strong> systems before it is deleted due to TTL (time to live), <strong>ensuring regulatory compliance</strong> while freeing up local disk space.</p><div><h5><b>Key Benefits</b></h5></div><ul><li><b></b><b>Regulatory Compliance</b>: Meet data retention requirements for GDPR, SOX, HIPAA, PCI DSS, and other regulations.</li><li><b></b><b>Storage Optimization</b>: Export data before TTL deletion to free up space.</li><li><b></b><b>Audit Trail</b>: Maintain historical network flow records for forensic analysis.</li><li><b></b><b>Data Recovery</b>: Re-import archived flows for compliance investigations.</li></ul><h5><b>Configuration</b></h5><p>Enabling this feature is as simple as enabling the preference from the UI. From the Left navbar in ntopng: Settings <b>→</b> Preferences (Expert View) <b>→</b> Clickhouse, and toggle the option as shown in the picture below. With this configured, at each midnight ntopng will export flow records deleted due to TTL.</p><p>By default, flows are exported to /var/lib/ntopng, one file per each day is created before deleting data from the clickhouse database due to TTL. It is possible to configure a custom export path from the configuration file or from command line by setting the <strong>&#8211;db-archive-dir &lt;path&gt; </strong>parameter.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-4e1a9ea e-flex e-con-boxed e-con e-parent" data-id="4e1a9ea" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-f08285b elementor-widget elementor-widget-image" data-id="f08285b" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img fetchpriority="high" decoding="async" width="1024" height="351" src="https://www.ntop.org/wp-content/uploads/2025/07/Screenshot-2025-07-30-at-08.31.12.png" class="attachment-large size-large wp-image-45010" alt="Export and Archive ClickHouse Flows in ntopng for Regulatory Compliance, figure 1" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-131e54d e-flex e-con-boxed e-con e-parent" data-id="131e54d" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-2e5eeae elementor-widget elementor-widget-text-editor" data-id="2e5eeae" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h5><b>Import Archived Data</b></h5><p>To restore exported flows for analysis, on a machine with clickhouse-client installed, run:<b></b></p><p><strong>clickhouse-client &#8211;query=&#8221;INSERT INTO ntopng.flows FORMAT Native&#8221; &lt; FILE_PATH</strong></p><p><span style="font-size: 16px; font-weight: 400;">After importing the archived flows using the command above, it is possible to inspect them from the UI:</span></p><ol><li>Navigate to <b>Flows </b><b>→</b><b> Historical</b> in the ntopng web interface</li><li>Select the time range of your imported data</li></ol><p>Alternatively then can be imported in any ClickHouse database and inspect them manually with clickhouse-client.</p><h5><b>Important Notes</b></h5><ul><li>Imported data contains 1 day of data with UTC timestamp begin and end, so flows for date X 00:00:00 UTC +24h are stored in a single file.</li><li>Retention rules will delete imported data at midnight if outside the TTL window.</li><li>Plan imports accordingly for compliance analysis.</li></ul><h5><b>Related Documentation</b></h5><ul><li>How to start ntopng from command line or config file <a href="https://www.ntop.org/guides/ntopng/how_to_start/index.html">ntopng Startup Configuration</a></li><li><a href="https://www.ntop.org/guides/ntopng/flow_dump/clickhouse/clickhouse.html">ClickHouse Integration Guide</a></li><li><a href="https://www.ntop.org/using-clickhouse-cloud-with-ntopng/">ClickHouse Cloud Setup</a></li><li>Storage optimization for clickhouse and ntopng <a href="https://github.com/ntop/ntopng/blob/dev/doc/README.clickhouse.md#clickhouse-is-eating-all-my-diskmemory">ClickHouse Storage Optimization</a></li></ul><h5><b>Conclusion</b></h5><p>The new ClickHouse flow export feature enhances ntopng&#8217;s Enterprise capabilities by providing automated compliance archival and storage management. Network administrators can now maintain regulatory compliance while optimizing storage resources through efficient data lifecycle management. <br /><br />Enjoy!</p>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/export-and-archive-clickhouse-flows-in-ntopng-for-regulatory-compliance/">Export and Archive ClickHouse Flows in ntopng for Regulatory Compliance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>New, Fast, Scalable ClickHouse Integration for High-Volume Networks</title>
+		<link>https://www.ntop.org/new-fast-scalable-clickhouse-integration-for-high-volume-networks/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Fri, 11 Jul 2025 09:27:20 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=44874</guid>
+
+					<description><![CDATA[<p>When it comes to monitoring very large networks and the flows' cardinality reaches into the billions, the performance of historical data storage and query systems becomes a critical bottleneck. Network operators, analysts,…</p>
+<p>The post <a href="https://www.ntop.org/new-fast-scalable-clickhouse-integration-for-high-volume-networks/">New, Fast, Scalable ClickHouse Integration for High-Volume Networks</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p class="wp-block-paragraph">When it comes to monitoring very large networks and the flows&#8217; cardinality reaches into the billions, the performance of historical data storage and query systems becomes a critical bottleneck. Network operators, analysts, and engineers need to access flow records quickly and reliably, whether for traffic analysis, security investigations, or compliance reporting. When faced with massive datasets, even small inefficiencies in the data pipeline can result in slow queries, high CPU and disk usage, and poor responsiveness.</p>
+<p class="wp-block-paragraph">At ntop, our mission is to help users gain visibility into their networks with speed and precision. For this reason, over the past few months, we’ve undertaken a complete redesign of our ClickHouse integration in <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, with one clear goal in mind: accelerate queries and improve performance at scale.</p>
+<div class="wp-block-image">
+<figure class="aligncenter size-full is-resized"><img decoding="async" width="1368" height="412" src="https://www.ntop.org/wp-content/uploads/2025/07/ntopng-to-clickhouse.png" alt="Ntopng to clickhouse" class="wp-image-44881" style="width:400px"/></figure>
+</div>
+<p class="wp-block-paragraph">Whether you&#8217;re storing millions or billions of flow records, our new ClickHouse support ensures that queries return faster (much faster), exports scale better, and system resources are used more efficiently than ever before.</p>
+<h5 class="wp-block-heading">Native ClickHouse API: A Clean Break from MySQL</h5>
+<p class="wp-block-paragraph">One of the biggest architectural changes is the move away from using the MySQL API to interact with ClickHouse. While functional, the MySQL API was not designed to support the native data types and high-performance capabilities of ClickHouse. This led to unnecessary in-query data conversions. Also, it was definitely not optimize for high insertion throughput, and for this reason we were using CSV files, stored on disk, to implement batch insert.</p>
+<p class="wp-block-paragraph">For the above reasons, the ClickHouse support in ntopng has now completely reworked to use the native ClickHouse C++ API for all operations, which provides:</p>
+<ul class="wp-block-list">
+<li>Native batch insertion using in-memory ClickHouse blocks.</li>
+<li>High-speed, type-safe querying with no need for runtime data transformations.</li>
+<li>An optimized database schema.</li>
+<li>A cleaner, more robust codebase better aligned with ClickHouse&#8217;s architecture.</li>
+</ul>
+<h5 class="wp-block-heading">Schema Optimizations</h5>
+<p class="wp-block-paragraph">ClickHouse is a columnar database designed for performance, but only if used correctly. We&#8217;ve reworked the database schema to take full advantage of its strengths:</p>
+<ul class="wp-block-list">
+<li>No more NULLABLE columns: in ClickHouse, these are implemented using a hidden indirection table, which <a href="https://clickhouse.com/docs/optimize/avoid-nullable-columns">hurts performance</a>. We&#8217;ve replaced them with proper default values and schema adjustments.</li>
+<li>Improved partitioning and indexing: flows are now partitioned and indexed in a way that accelerates common queries dramatically, especially when dealing with large time ranges or filtering by interface.</li>
+</ul>
+<h5 class="wp-block-heading">Disk I/O Eliminated</h5>
+<p class="wp-block-paragraph">Previously, flow data destined for ClickHouse was first serialized to CSV files and written to disk before being inserted. This approach introduced latency, consumed I/O bandwidth, and increased disk wear.</p>
+<p class="wp-block-paragraph">In the new implementation:</p>
+<ul class="wp-block-list">
+<li>Data goes straight from memory to ClickHouse via native blocks, providing a performance boost from under 100k insert/sec to <strong>over 200k insert/sec</strong>.</li>
+<li>FIFO queues have been introduced to handle traffic peaks and avoid any overhead in the flow processing path.</li>
+<li>No intermediate files are created, reducing latency and system load.</li>
+<li>Batching is now more efficient, with larger payloads sent in parallel.</li>
+</ul>
+<h5 class="wp-block-heading">Built to Scale</h5>
+<p class="wp-block-paragraph">A common ntopng configuration when deployed across large networks includes the introduction of <em>view</em> interfaces, to aggregate multiple capture or collection interfaces into a single logical view. The new implementation has been designed with scalability and flexibility in mind:</p>
+<ul class="wp-block-list">
+<li>Parallel inserts per interface: when multiple interfaces are aggregated into a view, each one now writes data to ClickHouse in parallel, maximizing throughput. An aggregated view is still available in the view interface.</li>
+<li>Simultaneous exports to multiple backends: you can now export flow data to ClickHouse, Kafka, ElasticSearch, and syslog at the same time.</li>
+</ul>
+<h5 class="wp-block-heading">Export Statistics</h5>
+<p class="wp-block-paragraph">To help you monitor and troubleshoot flow exports, we’ve added export statistics that are available:</p>
+<ul class="wp-block-list">
+<li>Per interface</li>
+<li>Per export method (ClickHouse, Kafka, ElasticSearch, Syslog)</li>
+<li>You can now view export statistics directly from the Interface Details page in the GUI, making it easier to understand how each component of your data pipeline is performing.</li>
+</ul>
+<h5 class="wp-block-heading">Cleaner Codebase</h5>
+<p class="wp-block-paragraph">The new implementation is built on a restructured codebase that introduces a single DataBase superclass used across all storage backends, including SQLite and ClickHouse. This brings:</p>
+<ul class="wp-block-list">
+<li>Unified architecture for handling historical flows, alerts, assets, and more.</li>
+<li>Easier future maintenance and expansion, as all database interactions follow the same internal interface.</li>
+<li>Less duplication, fewer bugs, and more predictable behavior across modules.</li>
+</ul>
+<h5 class="wp-block-heading">Built for Today, Ready for Tomorrow</h5>
+<p class="wp-block-paragraph">This work is not just a performance improvement, it&#8217;s a massive upgrade in terms of <strong>performance, scalability, and efficiency</strong>, that changes how we handle historical flow data at scale. </p>
+<p class="wp-block-paragraph">In real-world scenarios involving billions of flow records, we’ve observed dramatic improvements in query responsiveness. In some of the most common use cases, such as filtering flows by interface and time range, query times have dropped from over a minute to just a few seconds, and in many cases, to under one second. A <strong>huge performance boost</strong> that dramatically changes your traffic analysis experience.</p>
+<p class="wp-block-paragraph">We encourage all users to upgrade (if you are running <strong>ntopng 6.5</strong> from nightly builds, otherwise be patient and wait for the next stable release) and experience the performance gains firsthand. As always, we welcome your feedback and are here to help you make the most of your ntop-powered monitoring stack.</p>
+<p class="wp-block-paragraph">Enjoy!</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/new-fast-scalable-clickhouse-integration-for-high-volume-networks/">New, Fast, Scalable ClickHouse Integration for High-Volume Networks</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing ntopng Policy Menu</title>
+		<link>https://www.ntop.org/ntopng-update-moved-pages/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Thu, 23 Jan 2025 09:41:35 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[howto]]></category>
+		<category><![CDATA[visibility]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11539</guid>
+
+					<description><![CDATA[<p>In the past months we have extended our behaviour analysis introducing new features such as the ACL or device policies. For this reason we have rearranged the menus and create a new…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-update-moved-pages/">Introducing ntopng Policy Menu</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>In the past months we have extended our behaviour analysis introducing new features such as the ACL or device policies. For this reason we have rearranged the menus and create a new Policy menu (you can read more <a href="https://www.ntop.org/guides/ntopng/web_gui/policies.html">here</a>) that contains all the configurations used by ntopng to trigger alerts.</p>
+<p>Sue to this, some pages have been moved and changed location. Below you can find the list of the moved pages and how to access them now:</p>
+<ul>
+<li>Server Ports (Previously, <strong>Server Ports Analysis</strong>): Previously in the <strong>Host</strong> entry, moved to the <strong>Flows</strong> one;</li>
+<li>Assets (<em>New, still in dev.</em>): previously into the <strong>Host</strong> page (details), now in the <strong>Hosts </strong>entry;</li>
+<li>Networks: Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>Host/Network/MAC Pool: Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>Autonomous Systems: Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>VLANs: Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>Countries: Previously in the <strong>Hosts</strong> entry, moved to the Interface one;</li>
+<li>Operating Systems: Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>Local HTTP Servers Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>Access Control List: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Allowed Applications (Previously, <strong>Device Applications</strong>): Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Device/MAC Address Tracking: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Network Configuration: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Traffic Rules: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Behavioural Checks: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Behavioural Checks Exclusion: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Traffic Profiles: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>License:&nbsp;Previously in the <strong>Settings</strong> entry, moved to the <strong>About&nbsp;</strong>one;</li>
+<li>License Limits: Previously in the <strong>Settings</strong> entry, moved to the <strong>About</strong> one;</li>
+</ul>
+<p><em>Note</em>: these changes have been made only in the dev version of ntopng (that later will become the next stable).</p>
+<p>Below you can find the pictures of the new menu entries:</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115812.png"><img decoding="async" class="aligncenter size-full wp-image-11547" src="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115812.png" alt="Introducing ntopng Policy Menu, figure 1" width="321" height="111"></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2025/01/web_gui_hosts_dropdown.png"><img loading="lazy" decoding="async" class="size-full wp-image-11541 aligncenter" src="https://www.ntop.org/wp-content/uploads/2025/01/web_gui_hosts_dropdown.png" alt="Web gui hosts dropdown" width="323" height="116"></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2025/01/web_gui_interfaces_home.png"><img loading="lazy" decoding="async" class="size-full wp-image-11542 aligncenter" src="https://www.ntop.org/wp-content/uploads/2025/01/web_gui_interfaces_home.png" alt="Web gui interfaces home" width="325" height="275"></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115508.png"><img loading="lazy" decoding="async" class="size-full wp-image-11544 aligncenter" src="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115508.png" alt="Introducing ntopng Policy Menu, figure 4" width="305" height="240"></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115342.png"><img loading="lazy" decoding="async" class="size-large wp-image-11543 aligncenter" src="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115342.png" alt="Introducing ntopng Policy Menu, figure 5" width="326" height="310"></a></p>
+<p>Enjoy!</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/ntopng-update-moved-pages/">Introducing ntopng Policy Menu</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Using ClickHouse Cloud with ntopng</title>
+		<link>https://www.ntop.org/using-clickhouse-cloud-with-ntopng/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Tue, 07 May 2024 17:00:46 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[alerts]]></category>
+		<category><![CDATA[flows]]></category>
+		<category><![CDATA[howto]]></category>
+		<category><![CDATA[infrastructure monitoring]]></category>
+		<category><![CDATA[security]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11149</guid>
+
+					<description><![CDATA[<p>We are happy to announce that from the latest ntopng dev (6.1) version, ntopng supports exporting data (flows &#038; alerts) to ClickHouse Cloud. Below you can find a step-by-step guide. Quick Start…</p>
+<p>The post <a href="https://www.ntop.org/using-clickhouse-cloud-with-ntopng/">Using ClickHouse Cloud with ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We are happy to announce that from the latest ntopng dev (6.1) version, ntopng supports exporting data (flows &amp; alerts) to ClickHouse Cloud. Below you can find a step-by-step guide.</p>
+<h3>Quick Start</h3>
+<p>First of all let&#8217;s start by creating our account and service on the ClickHouse Cloud (you can find the official guide <a href="https://clickhouse.com/docs/en/cloud-quick-start">here</a>); remember to save the ClickHouse username and password used for accessing your database.</p>
+<p>After that we have to jump to the &#8216;Connect&#8217; section:</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-144403-1.png"><img loading="lazy" decoding="async" class="alignnone wp-image-11152 size-large" src="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-144403-1-1024x392.png" alt="" width="1024" height="392"></a></p>
+<p>Then, we have to select MySQL, turn on &#8220;Enable the MySQL protocol&#8221; and collect 3 information needed to the ntopng configuration file:</p>
+<ul>
+<li>The MySQL Username (it&#8217;s an other username, different from the one configured at the start)</li>
+<li>The Hostname (used to connect to the right Host)</li>
+<li>The Port (MySQL port, to connect in order to run queries)</li>
+</ul>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-155553.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-11156" src="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-155553-1024x694.png" alt="" width="1024" height="694"></a></p>
+<p>After collecting these 3 info, let&#8217;s jump back to ntopng and let&#8217;s edit the configuration file.</p>
+<p>Here we have to add (or modify if already there) the -F option, by following the ntopng documentation (<a href="https://www.ntop.org/guides/ntopng/cli_options/cli_options.html">here</a>):</p>
+<ul>
+<li>
+<div>clickhouse-cloud;&lt;host[@[&lt;tcp-port&gt;,]&lt;mysql-port&gt;s]|socket&gt;;&lt;dbname&gt;;&lt;clickhouse-user&gt;,&lt;mysql-user&gt;;&lt;pw&gt;;</div>
+</li>
+</ul>
+<p>So let&#8217;s suppose that our previously collected info are the following:</p>
+<ul>
+<li>ClickHouse username: CH-USER (by default it should be the &#8216;default&#8217; username, it is&nbsp;provided when creating the Service)</li>
+<li>MySQL username: MYSQL-USER</li>
+<li>TCP-Port: by default it&#8217;s the 9440</li>
+<li>MySQL Port: 3306 (default one). Note that you need to add a <strong>s</strong> after the port as this means that we&#8217;re pushing data over TLS.</li>
+<li>Password: CH-PASSWORD (the password&nbsp; used to access the DB, provided when creating the Service)</li>
+<li>Hostname: CH-HOST</li>
+</ul>
+<p>Then our -F option should look like:</p>
+<p>-F=&#8221;clickhouse-cloud;CH-HOST@9440,3306<strong>s</strong>;ntopng;CH-USER,MYSQL-USER;CH-PASSWORD&#8221;</p>
+<p>Note:</p>
+<ul>
+<li>Both data export and query connections are encrypted and protected by TLS.</li>
+<li>clickhouse-client is needed on the local machine (where ntopng is) in order to correctly push data to the ClickHouse Cloud. This means that you need to install it as <a href="https://www.ntop.org/guides/ntopng/clickhouse/installation.html">described here</a>.</li>
+</ul>
+<p>If you want you can read all this in the ntopng <a href="https://www.ntop.org/guides/ntopng/clickhouse/installation.html#clickhouse-cloud">user&#8217;s guide</a>.</p>
+<p>Enjoy!</p>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/using-clickhouse-cloud-with-ntopng/">Using ClickHouse Cloud with ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>HowTo Monitor SNMP Interfaces Utilisation and Congestion Rate</title>
+		<link>https://www.ntop.org/howto-monitor-snmp-interfaces-utilisation-and-congestion-rate/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Tue, 30 Jan 2024 08:52:33 +0000</pubDate>
+				<category><![CDATA[News]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[active monitoring]]></category>
+		<category><![CDATA[alerts]]></category>
+		<category><![CDATA[security]]></category>
+		<category><![CDATA[snmp]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10961</guid>
+
+					<description><![CDATA[<p>Recently, we added the ability in ntopng to monitor link utilisation using NetFlow/IPFIX. In this post, we want to show you how we further improved those functionalities by leveraging SNMP to monitor…</p>
+<p>The post <a href="https://www.ntop.org/howto-monitor-snmp-interfaces-utilisation-and-congestion-rate/">HowTo Monitor SNMP Interfaces Utilisation and Congestion Rate</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Recently, we added the ability in ntopng to <a href="https://www.ntop.org/ntop/howto-monitor-network-interface-usage-with-netflow-ipfix/">monitor link utilisation using NetFlow/IPFIX</a>. <span data-preserver-spaces="true">In this post, we want to show you how we further improved those functionalities by leveraging SNMP to monitor the status of many devices (interfaces) simply. </span><span data-preserver-spaces="true">SNMP is a well-known protocol used for monitoring network devices, and ntopng uses it to poll and gather information from them. ntopng computes the&nbsp;</span><em><span data-preserver-spaces="true">interface usage</span></em><span data-preserver-spaces="true">&nbsp;by using a simple proportion between the traffic metered via SNMP and the interface speed. The interface speed is read by default from SNMP, but it can be customised by the user as sometimes the physical and actual interface speeds are different.</span></p>
+<p><span data-preserver-spaces="true">Let&#8217;s see now how it is possible to configure SNMP link speeds and monitor them to detect unexpected behaviours with SNMP polled devices.</span></p>
+<p><span data-preserver-spaces="true">Similar to what happens with the Flow Exporters speed, by going to the SNMP page, selecting an interface of a device, and jumping to the configuration page (cog icon) it is possible to configure the link speed (Up and Down independently) of a specific interface.</span></p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-10962 size-large" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-150918-1024x309.png" alt="" width="1024" height="309"></p>
+<p>As already mentioned above, this speed is automatically read using SNMP, however not all the times detected speed is correct, consider the example of being connected to the Internet with a 1 Gbit ethernet link but your SLA has a cap of 100 Mbit, in this case the right speed to configure is 100 Mbit.<br />
+After setting the interface speeds, save the settings, jump to the Preferences (under the Settings menu), in the SNMP section and be sure to have the &#8220;SNMP Devices Timeseries&#8221; preference enabled.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151501.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-10963 size-large" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151501-1024x446.png" alt="" width="1024" height="446"></a></p>
+<p>From now on, a new timeseries is going to be available in the SNMP Interface Timeseries section (accessible from the chart icon, highlighted in green in the above picture) with the interface usage in percentage.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151852.png"><img loading="lazy" decoding="async" class="size-large wp-image-10964 aligncenter" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151852-1024x422.png" alt="" width="1024" height="422"></a></p>
+<p>When the usage is &lt;= 25% the bar is light green, from 25 &lt;= 50% is dark green, from 50 &lt;= 75% is yellow, and above is red. However, while developing this feature, we realised that with hundreds, or even thousands, of interfaces, it is impossible to jump to all of them one by one and check whether everything is ok. In addition to that, having an interface &#8220;Congested&#8221; (i.e. high traffic load) for a short period, may or may not represent a real issue: in most cases, it is not, for example, in the case of a backup we have a couple of hours a week were the bandwidth of the interface is filled.<br />
+For this reason, we decided to gather all this information together and put it on a single page.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-154520-1.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-10968" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-154520-1-1024x496.png" alt="" width="1024" height="496"></a></p>
+<p>Here it is possible to navigate through time (by using the classic time navbar) and find if any interfaces had problems. In addition to the standard information (SNMP IP, Interface Name, etc.) we introduced a new metric called &#8220;Congestion Rate&#8221;, representing how much an Interface is filled in the selected timeframe.<br />
+For those who like formulas, the Congestion Rate is computed in the following way: sum all the points of the timeseries with usage higher than 75% and divide it by the number of total points in timeseries in the selected timeframe. In practice, this is similar to the average.<br />
+After finding some issue with the Congestion Rate of an interface, it is possible to drill down and do follow-up investigations by directly clicking on the bar of the Top Congested Interfaces chart or by clicking on the Actions -&gt; Timeseries button.<br />
+And this is not all. As promised, we also added the ability to trigger conditional alerts based on the interface usage. It is now possible, for both SNMP and Flow Exporters, to trigger alerts when the usage exceeds a specific configurable threshold by using <a href="https://www.ntop.org/ntop/local-traffic-rules-a-new-way-to-define-custom-thresholds/">Traffic Rules</a>.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-152247.png"><img loading="lazy" decoding="async" class="size-large wp-image-10965 aligncenter" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-152247-1024x205.png" alt="" width="1024" height="205"></a></p>
+<p>For you reference you can read more about interface utilisation in the <a href="https://www.ntop.org/guides/ntopng/snmp/usage.html">ntopng user&#8217;s guide</a>.</p>
+<p>Enjoy this new feature, and send us your feedback!</p>
+<p>The post <a href="https://www.ntop.org/howto-monitor-snmp-interfaces-utilisation-and-congestion-rate/">HowTo Monitor SNMP Interfaces Utilisation and Congestion Rate</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How we Improved Alarm Delivery in ntopng</title>
+		<link>https://www.ntop.org/how-we-improved-alarm-delivery-in-ntopng/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Mon, 04 Sep 2023 07:19:20 +0000</pubDate>
+				<category><![CDATA[Features]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[active monitoring]]></category>
+		<category><![CDATA[alerts]]></category>
+		<category><![CDATA[analytics]]></category>
+		<category><![CDATA[infrastructure monitoring]]></category>
+		<category><![CDATA[security]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10648</guid>
+
+					<description><![CDATA[<p>Sometimes, a critical issue shows up in your network and you'd like to be notified by ntopng on Telegram or by E-Mail. ntopng allows you to filter alerts for each recipient based…</p>
+<p>The post <a href="https://www.ntop.org/how-we-improved-alarm-delivery-in-ntopng/">How we Improved Alarm Delivery in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Sometimes, a critical issue shows up in your network and you&#8217;d like to be notified by ntopng on Telegram or by E-Mail. ntopng allows you to filter alerts for each recipient based on a few criteria including alert family, category, severity, or affected hosts. However in some case you want to be notified about a very specific alert, out of all alerts produced with the same family, category, severity.</p>
+<p>For example, it&#8217;s important to be notified when an Interface has no traffic, or when a new device (MAC) connects or disconnects from your network, or if a SYN scan attack is in progress, however all these alerts have the same severity/category as other critical alerts that you could not be interested in receiving a message directly on your Telegram (for example).</p>
+<p>For this reason, we decided to extend the recipients configuration to be able to deliver specific alerts, selected from the user to the endpoint we want. In this way, a user can send a notification (e.g.) on his Telegram, if some interface stops capturing traffic (No Traffic Activity alert).</p>
+<p>Doing that today it&#8217;s simple!</p>
+<p>From the Notification page, it&#8217;s possible to handle it, and when adding/editing a Recipient, a tab is available, from which it&#8217;s possible to select:</p>
+<ul>
+<li>&#8216;By Properties&#8217; if the &#8220;old&#8221; way of filtering alerts is needed, so filter alerts by severity, by category, or by entity;</li>
+<li>&#8216;By Alerts&#8217; if the &#8220;new&#8221; filtering is required and here it&#8217;s possible to select one or more alerts to deliver.</li>
+</ul>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-182010.png"><img loading="lazy" decoding="async" class=" wp-image-10668 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-182010-300x150.png" alt="" width="532" height="266"></a></p>
+<p>After selecting &#8216;By Alerts&#8217; click on the dropdown and select the critical alerts to receive.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-181835.png"><img loading="lazy" decoding="async" class=" wp-image-10667 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-181835-300x151.png" alt="" width="550" height="277"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>An other important point is that, as you wish to receive important alerts on your phone, you do not want to be spammed by ntopng!</p>
+<p>So we added a new preference, still when adding/editing a Recipient, to silence the same exact alert if it triggers more than one time per hour, in this way only one alert of the same kind per hour is going to be delivered to the recipient.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-121213.png"><img loading="lazy" decoding="async" class="wp-image-10653 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-121213-300x74.png" alt="" width="555" height="137"></a></p>
+<p>We hope you enjoy this new feature!</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-122227.png"><img loading="lazy" decoding="async" class=" wp-image-10659 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-122227-300x231.png" alt="" width="397" height="306"></a></p>
+<p>The post <a href="https://www.ntop.org/how-we-improved-alarm-delivery-in-ntopng/">How we Improved Alarm Delivery in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Using Traffic Rules To Supervise Network Traffic</title>
+		<link>https://www.ntop.org/local-traffic-rules-a-new-way-to-define-custom-thresholds/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Tue, 27 Jun 2023 13:50:39 +0000</pubDate>
+				<category><![CDATA[Features]]></category>
+		<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[analytics]]></category>
+		<category><![CDATA[layer7]]></category>
+		<category><![CDATA[local hosts]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[security]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10523</guid>
+
+					<description><![CDATA[<p>The Problem Let's assume that you have a Network where local hosts generate a constant amount of traffic. How do you find if they are misbehaving? It happens that some local host…</p>
+<p>The post <a href="https://www.ntop.org/local-traffic-rules-a-new-way-to-define-custom-thresholds/">Using Traffic Rules To Supervise Network Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>The Problem</h3>
+<p>Let&#8217;s assume that you have a Network where local hosts generate a constant amount of traffic. How do you find if they are misbehaving? It happens that some local host starts behaving strangely, by having an abnormal amount of traffic (sent or received) with respect to their recent past: how can you spot these situations and report them with an alert.</p>
+<p>This is why we have created the Local Traffic Rules page: users can now define custom Volume/Throughput threshold for some (or all) local hosts. You can also set thresholds on score and application protocols 9e.g. WhatsApp).</p>
+<p>For instance, if a DNS server is available in the network, a check for that host regarding the DNS traffic could be added: alert me if the DNS traffic for a host exceeds 1 GB/day.</p>
+<h3>How Thresholds Work</h3>
+<p>The Local Traffic Rules page can be found under the Hosts menù.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/Screenshot-2023-06-26-105400.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-10579" src="https://www.ntop.org/wp-content/uploads/2023/06/Screenshot-2023-06-26-105400-246x300.png" alt="" width="246" height="300"></a></p>
+<p>Here it is possible to set up the rules you like, for every Local Host or Interface you want.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-Local-Traffic-Rules-e-altre-18-pagine-Personale-Microsoft​-Edge-19_06_2023-11_06_30.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10524 size-full" src="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-Local-Traffic-Rules-e-altre-18-pagine-Personale-Microsoft​-Edge-19_06_2023-11_06_30.png" alt="" width="1920" height="924"></a></p>
+<p>The rule is composed by:</p>
+<ul>
+<li>Target (who is monitored)</li>
+<li>Type (Host or Interface)</li>
+<li>Metric (what is monitored)</li>
+<li>Check Frequency (how often it is monitored)</li>
+<li>Threshold (the threshold not be exceeded up/own)</li>
+</ul>
+<p>(In the action column instead, it is possible to edit/delete the rule)</p>
+<p>By clicking the &#8216;+&#8217; icon next to the search bar of the table, it&#8217;s possible to add a new rule</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-2.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10528" src="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-2-300x145.png" alt="" width="643" height="311"></a></p>
+<p>Here it is possible to :</p>
+<ul>
+<li>Set the type of rule.</li>
+<li>Add the Target (what we are monitoring)</li>
+<li>Select the monitored metric: Traffic, Score, and all the Application Protocols (e.g. DNS, HTTP, SMTP, &#8230;)</li>
+<li>Set the check frequency: every five minutes, every hour, or once per day</li>
+<li>Specify the threshold, which can be measured in volume (e.g. 1 GB), throughput (e.g. 1 Gbps), or percentage (e.g. + 20%, meaning that the current value has not to exceed by more than 20% the value of the metric during the previous check).</li>
+</ul>
+<p>So now it’s time for you to monitor your Hosts and Interfaces and be sure they do not misbehave.</p>
+<p>Enjoy this new feature, and send us your feedback</p>
+<p>The post <a href="https://www.ntop.org/local-traffic-rules-a-new-way-to-define-custom-thresholds/">Using Traffic Rules To Supervise Network Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>What’s New in ntopng:  Network Assets</title>
+		<link>https://www.ntop.org/whats-new-in-ntopng-network-assets/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Mon, 05 Dec 2022 10:44:40 +0000</pubDate>
+				<category><![CDATA[Cybersecurity]]></category>
+		<category><![CDATA[Features]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[dns]]></category>
+		<category><![CDATA[imap]]></category>
+		<category><![CDATA[ntp]]></category>
+		<category><![CDATA[pop]]></category>
+		<category><![CDATA[security]]></category>
+		<category><![CDATA[smtp]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10065</guid>
+
+					<description><![CDATA[<p>Hello everybody! Welcome back to the weekly blog post of this serie used to update you with the latest ntopng features and graphical changes. Please let us know your feedback! Today we…</p>
+<p>The post <a href="https://www.ntop.org/whats-new-in-ntopng-network-assets/">What’s New in ntopng:  Network Assets</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Hello everybody!</p>
+<p>Welcome back to the weekly blog post of this serie used to update you with the latest ntopng features and graphical changes. Please let us know your feedback!</p>
+<p>Today we are going to talk about the Asset Map.</p>
+<p>Have you ever asked yourself, what are the NTP servers in your network? Or, are all active DNS servers?</p>
+<p>Well, the Asset Map is useful  exactly in this case.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-10-53-03.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10066" src="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-10-53-03-300x148.png" alt="" width="590" height="291" /></a></p>
+<p>The Asset Map is a map we designed to know what exactly is (are) the DNS, NTP,&#8230; server(s) active in a network. This could be really useful in many case,  just think of a couple of cases:</p>
+<ul>
+<li>If you are an ISP, many users &#8220;use&#8221; your network and you&#8217;d like to know if your network was compromised, or if the users you have are correctly using the resources you gave them, correctly.</li>
+<li>If you instead have a large or small network, you&#8217;d like to know if you configured correctly the entire network with the right DNS, SMTP,&#8230; servers or if by mistake (or not) you have some unwanted server.</li>
+</ul>
+<p>The Asset map is a &#8220;simply&#8221; a map showing the flows with specific protocols used in order to understand and see which are your assets (currently limited to):</p>
+<ul>
+<li>DNS server</li>
+<li>NTP server</li>
+<li>SMTP server</li>
+<li>POP server</li>
+<li>IMAP server</li>
+</ul>
+<p>The asset map will depict the above servers and include service edges. This is both useful to understand if there was some misconfiguration in your network, or if some of your machine is infected (there are many attacks where infected hosts presets themselves as DNS or NTP even if they are not).</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-11-01-49.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10067" src="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-11-01-49-300x148.png" alt="" width="590" height="291" /></a></p>
+<p>This feature is the first step towards asset management support in ntopng. We&#8217;re working hard at developing it, and this will be one of the new features of the upcoming release. Stay tuned !</p>
+<p>&nbsp;</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/whats-new-in-ntopng-network-assets/">What’s New in ntopng:  Network Assets</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>What’s New in ntopng: Periodic Activities (a.k.a beaconing) !</title>
+		<link>https://www.ntop.org/whats-new-in-ntopng-a-periodic-problem/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Mon, 21 Nov 2022 15:11:18 +0000</pubDate>
+				<category><![CDATA[Cybersecurity]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[security]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10032</guid>
+
+					<description><![CDATA[<p>Hello everybody! Welcome back to the weekly blog post of this serie used to update you with the latest ntopng features and graphical changes. Please let us know your feedback! Today we…</p>
+<p>The post <a href="https://www.ntop.org/whats-new-in-ntopng-a-periodic-problem/">What’s New in ntopng: Periodic Activities (a.k.a beaconing) !</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Hello everybody!</p>
+<p>Welcome back to the weekly blog post of this serie used to update you with the latest ntopng features and graphical changes. Please let us know your feedback!</p>
+<p>Today we are going to talk about the Periodicity Map.</p>
+<p>You are probably asking yourself what&#8217;s so bad about periodic activities, right? First of all, let&#8217;s take a look at the Periodicity Map and what are the contained information.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-26-07-1.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10034" src="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-26-07-1-300x148.png" alt="" width="508" height="250" /></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-37-09.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10035" src="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-37-09-300x148.png" alt="" width="510" height="251" /></a></p>
+<p>What we can see here is:</p>
+<ul>
+<li>The last seen &#8211; last time ntopng has seen a periodic activity (flow)</li>
+<li>The quintuplet &#8211; which is used to identify the flow and consists of client IP, server IP, server port and protocol (Transport and Application protocols)</li>
+<li>The number of observations</li>
+<li>The frequency of the observations</li>
+</ul>
+<p>One other important information that you can see in this page is towards whom the most periodic flows are.</p>
+<p>What is nice here is that you can configure ntopng to send an alert whenever a new Periodic Activity shows up in the network, by enabling the corresponding alert as shown in the picture below.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-49-06.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10038" src="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-49-06-300x148.png" alt="" width="509" height="251" /></a></p>
+<p>Let&#8217;s jump back to the first question, what&#8217;s so bad about periodic activities?</p>
+<p>There are many cases in which periodic activities are not legit or expected, this is for instance the case of BotNet activities (an overlay network of machines infected by malicious software and controlled as a group without the owners&#8217; knowledge, e.g. to send spam or launch DDoS attacks).</p>
+<p>A BotNet needs to constantly monitor the infected hosts to see if they are available or not, or to check for new commands, and here comes in hand the Periodicity Map. By finding the presence of periodic flows in your network, ntopng is able to detected these kinds of attacks!</p>
+<p>Awesome isn&#8217;t it? <img src="https://s.w.org/images/core/emoji/17.0.2/72x72/1f609.png" alt="😉" class="wp-smiley" style="height: 1em; max-height: 1em;" /></p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/whats-new-in-ntopng-a-periodic-problem/">What’s New in ntopng: Periodic Activities (a.k.a beaconing) !</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>ntopng 5.0 Is Out: Modern Traffic Monitoring for AIOps and Cybersecurity</title>
+		<link>https://www.ntop.org/ntopng-5-0-is-out-modern-traffic-monitoring-for-aiops-and-cybersecurity/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 18 Aug 2021 20:25:33 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[release]]></category>
+		<category><![CDATA[stable]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9404</guid>
+
+					<description><![CDATA[<p>ntopng was initially designed as a tool for realtime network traffic monitoring. The idea was to create a DPI-based tool able to report traffic statistics. Overtime we have added the ability to…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-5-0-is-out-modern-traffic-monitoring-for-aiops-and-cybersecurity/">ntopng 5.0 Is Out: Modern Traffic Monitoring for AIOps and Cybersecurity</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>ntopng was initially designed as a tool for realtime network traffic monitoring. The idea was to create a DPI-based tool able to report traffic statistics. Overtime we have added the ability to implement active monitoring checks, SNMP, and various other features. However there was a fundamental point that was missing: go beyond traffic reporting, moving towards traffic analysis. The current <a href="https://grafana.com/">Grafana</a>-like trend of having several large screens full of dashboards is the opposite of what we believe we should do. This approach requires network and security administrators to be trained so well to understand whether the network is behaving well or not.</p>
+<p>ntopng instead reverts this perspective by implementing an <a href="https://en.wikipedia.org/wiki/Artificial_Intelligence_for_IT_Operations">AIOps</a> platform, able to analyse network metrics in realtime while being able to collapse thousand signals into a single comprehensive view of your network status, without human intervention or training typical of machine learning tools. For instance below you can see the service map, that is a representation of interactions of local hosts. ntopng learns this map automatically and enforces changes and violations to the policy. Humans can tune the system by selecting what services are not supposed to flow on the network, but the system has already built the knowledge base automatically, also identifying device types (is this a tablet or a router?) and the type of traffic such devices are expected to do.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-9443" src="https://www.ntop.org/wp-content/uploads/2021/07/Screen-Shot-2021-08-18-at-21.48.24-1024x700.png" alt="" width="1024" height="700" /></p>
+<p>In the past months we have introduced the concept of score (you can read this <a href="https://luca.ntop.org/IEEE_CSR.pdf">paper</a> for more information on the topic), that is a way to identify with a numerical value how bad is a host currently behaving. When we account the score, we take into account not only the alerts a host generates but also its behaviour: this way we can both detect changes in behaviour that a human operator would be unable to report, in particular in modern networks where there are several thousand signals to watch.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-9444" src="https://www.ntop.org/wp-content/uploads/2021/07/Screen-Shot-2021-08-18-at-22.03.57-1024x479.png" alt="" width="1024" height="479" /></p>
+<p>Anomalies as well all other alerts, are reported in ntopng on a new alert dashboard that allows you to correlate the event with traffic and drill-down to the flows that created such alerts.</p>
+<p>In essence ntopng is not just reporting what happens, but it also tells you what is wrong or not, and it can notify you on your preferred messaging application. This is a major milestone for ntopng and also for open source software.</p>
+<p>Below you can find all details and changes of the 5.0 release.</p>
+<p>Enjoy !</p>
+<h3>Main New Changes and Breakthroughs</h3>
+<p>During these 9 months we have invested a lot of time and energies to <strong>rework</strong> the way <strong>alerts</strong> are handled in ntopng. Initially, host and flow alerts were completely processed in Lua at fixed intervals of time. This architecture, although very flexible and extensible, had several drawbacks:</p>
+<ul>
+<li>Lua is an interpreted language so it is intrinsically more expensive, in terms of CPU clocks, if compared to a compiled language</li>
+<li>Processing at fixed intervals of time poorly utilizes the CPUs, with periods of high load and periods where the system is almost idle</li>
+</ul>
+<p>To mitigate these drawbacks, we decided to move host and flow alerts from Lua to C++ and to process them continuously, rather than at fixed intervals of time, to better utilize the CPUs. It was a huge architectural change, but it eventually <strong>reduced the average load by 50%</strong> and mitigated significantly the load spikes originally caused by fixed-time processing. <a href="https://www.ntop.org/guides/ntopng/alerts/index.html">Here</a> we describe how the new host and flow alerts work, and provide a <a href="https://www.ntop.org/guides/ntopng/developing_alerts/index.html">guide</a> that an interested developer can used as reference to code new alerts.</p>
+<p>Among the benefits of having less CPU-intensive alerts is the ability to integrate more tightly with nDPI and its <a href="https://www.ntop.org/ndpi/introducing-ndpi-4-0-dpi-for-cybersecurity-and-traffic-analysis/">security risks</a>, with ntopng 5.0 now triggering many novel security-related alerts. Alerts are also augmented with intelligence to detect <a href="https://www.ntop.org/ntopng/how-attackers-and-victims-detection-works-in-ntopng/">attackers and victims</a> and abrupt changes in host behaviors, e.g., when the <a href="https://www.ntop.org/ntopng/how-attackers-and-victims-detection-works-in-ntopng/">score indicator of compromise</a> increase significantly.</p>
+<p>The benefits of having a reduced load, along with a less spiky behavior with reference to the CPU activity, also proved to be fundamental to break the barrier of <a href="https://www.ntop.org/nprobe/netflow-collection-performance-using-ntopng-and-nprobe/">100Kfps NetFlow Collection</a>. Indeed, ntopng and nProbe can collect, analyze, and dump NetFlow data at a rate that exceeds 100K flows per second. Detailed performance figures can be found <a href="https://www.ntop.org/nprobe/netflow-ipfix-at-scale-comparing-nprobe-clickhouse-vs-nprobe-ntopng/">here</a>.</p>
+<p>However, being able to work at 100Kfps is not that useful, unless there are easy and intuitive ways to drill down into the data that quickly becomes humongous. For the sake of example, consider that a system fills by 36M new flows every hours when it operates at 100Kfps. Therefore, to ease the way data can be drilled down, we added support for <a href="https://www.ntop.org/nprobe/collecting-flows-from-hundred-of-routers-using-observation-points/">observation points</a> in ntopng 5.0. This makes it possible to fluidly drill down data originating at hundredths of routers. The rationale is that, although nowadays 100Kfps is becoming a requirement when it comes to NetFlow collection, it is unlikely to have all those flows generated at a single router. In general, flows come from multiple independent routers that together can sum up to 100Kfps.</p>
+<h3>Supported Distributions</h3>
+<p>ntopng 5.0 adds to its <a href="https://packages.ntop.org/">supported distributions</a> also FreeBSD 11 and 12, including the popular firewalls <a href="https://www.ntop.org/guides/nprobe/third_party_integrations/opnsense.html">OPNsense</a> and <a href="https://www.ntop.org/guides/nprobe/third_party_integrations/pfsense.html">pfSense</a>.</p>
+<h3>Breaking Changes</h3>
+<ul>
+<li>To ensure optimal performance and scalability and to prevent uneven resource utilization, the maximum number of interfaces handled by a single ntopng instance has been reduced to
+<ul>
+<li>16 (Enterprise M)</li>
+<li>32 (Enterprise L)</li>
+<li>8 (all other versions)</li>
+</ul>
+</li>
+<li>REST API v1/ is deprecated and will be dropped in the next stable release in favor of REST API v2/</li>
+<li>The old alerts dashboard has been removed and replaced by an advanced alerts drilldown page with integrated charts</li>
+</ul>
+<h3>Changelog</h3>
+<p>The complete list of changes introduced with ntopng 5.0 are:</p>
+<h5>Breakthroughs</h5>
+<ul>
+<li>Advanced alerts engine with security features, including the detection of attackers and victims
+<ul>
+<li>Integration of 30+ nDPI security risks</li>
+<li>Generation of the score indicator of compromise for hosts, interfaces and other network elements</li>
+</ul>
+</li>
+<li>Ability to collect flows from hundredths of routers by means of observation points</li>
+<li>Anomaly detection based on Double Exponential Smoothing (DES) to uncover possibly suspicious behaviors in the traffic and in the score</li>
+<li>Encrypted Traffic Analysis (ETA) with special emphasis on the TLS to uncover self-signed, expired, invalid certificates and other issues</li>
+</ul>
+<h5>New features</h5>
+<ul>
+<li>Ability to configure alert exclusions for individual hosts to mitigate false positives</li>
+<li>FreeBSD / OPNsense / pfSense packages</li>
+<li>Ability to see the TX/RX traffic breakdown both for physical interfaces and when receiving traffic from nProbe</li>
+<li>Add support for ECS when exporting to Syslog</li>
+<li>Improved TCP analysis, including analysis of TCP flows with zero window and low goodput</li>
+<li>Ability to send alerts to Slack</li>
+<li>Implementation of a token-based REST API access</li>
+</ul>
+<h5>Improvements</h5>
+<ul>
+<li>Reworked the execution of hosts and flows checks (formerly user scripts), yielding a reduced CPU load of about 50%</li>
+<li>Improved 100Kfps+ NetFlow/sFlow collection performance</li>
+<li>Drilldown of nIndex historical flows much more flexible</li>
+<li>Migration to Bootstrap 5</li>
+<li>Check malicious JA3 signatures against all TLS-based protocols</li>
+<li>Reworked Doh/DoT handling</li>
+</ul>
+<h5>Fixes</h5>
+<ul>
+<li>Fixes SSRF and stored-XSS injected with malicious SSDP responses</li>
+<li>Fixes several leaks in NetworkInterface</li>
+</ul>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/ntopng-5-0-is-out-modern-traffic-monitoring-for-aiops-and-cybersecurity/">ntopng 5.0 Is Out: Modern Traffic Monitoring for AIOps and Cybersecurity</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>NetFlow Collection Performance Using ntopng and nProbe</title>
+		<link>https://www.ntop.org/netflow-collection-performance-using-ntopng-and-nprobe/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 19 Jul 2021 21:15:10 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[netflow]]></category>
+		<category><![CDATA[netflow collection]]></category>
+		<category><![CDATA[performance]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9285</guid>
+
+					<description><![CDATA[<p>Introduction ntopng, in combination with nProbe, can be used to collect NetFlow. Their use for NetFlow collection is described in detail here. In this post we measure the performance of nProbe and…</p>
+<p>The post <a href="https://www.ntop.org/netflow-collection-performance-using-ntopng-and-nprobe/">NetFlow Collection Performance Using ntopng and nProbe</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>Introduction</h3>
+<p>ntopng, in combination with nProbe, can be used to collect NetFlow. Their use for NetFlow collection is described in detail <a href="https://www.ntop.org/guides/ntopng/using_with_other_tools/nprobe.html#usingntopngwithnprobe">here</a>.</p>
+<p>In this post we measure the performance of nProbe and ntopng when used together to collect, analyze, and dump NetFlow data. The idea is to provide performance figures useful to understand the maximum rate at which NetFlow can be processed without loss of data.</p>
+<p>Before giving the actual figures, it is worth discussing briefly the most relevant unit of measure that will be used, i.e., the number of <strong>flows per second</strong> &#8211; <strong>fps</strong> in short. NetFlow is <em>per se</em> a protocol designed to export communication flows. It carries flows inside UDP datagrams, and each UDP datagram carries multiple flows. For this reason, it is natural to choose the number of flows per unit of time when it comes to analyzing the performance of ntopng and nProbe when dealing with NetFlow. Indeed, we will use fps to quantify the number of flows analysed and written to disk when giving performance figures.</p>
+<p>Knowing how much your NetFlow actually accounts for, in terms of fps, is also fundamental to make sense of the figures we are giving and to understand if ntopng and nProbe perform well enough for your network. In general, a few Mbps of NetFlow are able to carry thousands of flows per second. If you do not know the how many flows per second your NetFlow accounts for, you can consider that, as a ballpark figure, <strong>10 Mbps of NetFlow v9 carry approximately 12,000 fps</strong>. Note that this is just a ballpark as the flow size depends on the flow template for v9 and IPFIX.</p>
+<h3>Performance Figures</h3>
+<p>Finally, it&#8217;s time to look at the figures, that are given both for two and four interfaces.</p>
+<table class="matrix">
+<thead></thead>
+<tbody>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Drop-Free Processing Rate / Interface</th>
+<th style="text-align: center;">Overall Drop-Free Processing Rate</th>
+</tr>
+<tr>
+<td style="text-align: left;">2 Interfaces</td>
+<td style="text-align: right;">42 Kfps</td>
+<td style="text-align: right;">84 Kfps</td>
+</tr>
+<tr>
+<td style="text-align: left;">4 Interfaces</td>
+<td style="text-align: right;">25.5 Kfps</td>
+<td style="text-align: right;">102 Kfps</td>
+</tr>
+</tbody>
+</table>
+<p>The rationale of expressing performance numbers for a variable number of interfaces is that multiple interfaces:</p>
+<ul>
+<li>Can be used to effectively balance the NetFlow across multiple cores</li>
+<li>Can be used to keep the traffic of multiple NetFlow sources separated</li>
+</ul>
+<p>However, to give consistent numbers, results are also expressed in terms of <em>fps per interface</em> in the first column. Note also that results apply when using <a href="https://www.ntop.org/guides/ntopng/advanced_features/view_interfaces.html">interface views</a> too and that, when <a href="https://www.ntop.org/guides/ntopng/advanced_features/flows_dump.html#nindex">nIndex</a> flow dump is enabled, the expected reduction in the processing rate is between 2 and 3 Kfps.</p>
+<h3>Example</h3>
+<p>To give a real example that can help you in making sense of the figures above, let&#8217;s consider a case where you want to collect NetFlow at 85 Mbps, i.e., approximately, 100 Kfps. To collect at 100 Kfps, according to the table above, we need at least 3 interfaces. Let&#8217;s set up an ntopng instance with four interfaces to say on the safe side &#8211; traffic is aggregated together using the view with <code class="EnlighterJSRAW" data-enlighter-language="generic">-i view:all</code>.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">./ntopng -i tcp://*:5556c -i tcp://*:5557c -i tcp://*:5558c -i tcp://*:5559c -iview:all -F"nindex"</pre>
+<p>Assuming NetFlow is arriving on port <code class="EnlighterJSRAW" data-enlighter-language="generic">2056</code> and ntopng is running on host <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.225</code>, we can configure nProbe to collect NetFlow and load-balance flows on the four interfaces above as follow</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"> ./nprobe -i none -n none --collector-port 2056 -b 1 -T "@NTOPNG@" --zmq tcp://192.168.2.225:5556 --zmq tcp://192.168.2.225:5557 --zmq tcp://192.168.2.225:5558 --zmq tcp://192.168.2.225:5559 --zmq-probe-mode --collector-passthrough</pre>
+<h3>Final Remarks</h3>
+<p>In this post we have seen the performance figures of ntopng and nProbe when used to collect NetFlow. We have seen how to quantify the <em>flows per second</em> (fps) carried by NetFlow and have also determined that the combination of nProbe and ntopng is suitable for the collection of NetFlow at 100+ Kfps. Figures given are valid for the latest ntopng 4.3 (soon ntopng 5.0 stable) and nProbe 9.5 (soon 9.6 stable), that represent a significant step towards high-speed flow collection. Indeed, their performance exceeds the performance of the previous versions by at <span style="text-decoration: underline;"><em>least a 15%</em></span>.</p>
+<p>You can read more about high-speed flow collection <a href="https://www.ntop.org/nprobe/best-practices-for-high-speed-flow-collection/">here</a> or directly refer to the <a href="https://www.ntop.org/guides/ntopng/operating_ntopng_on_large_networks.html">user guide</a>.</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p>
+<p>The post <a href="https://www.ntop.org/netflow-collection-performance-using-ntopng-and-nprobe/">NetFlow Collection Performance Using ntopng and nProbe</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>ntopng 4.0: A Refreshed Look with Dark Themes!</title>
+		<link>https://www.ntop.org/ntopng-4-0-a-refreshed-look-with-dark-themes/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 07 Apr 2020 08:29:14 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[themes]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=8334</guid>
+
+					<description><![CDATA[<p>The latest ntopng 4.0 has a renewed look. The main changes we have introduced are: An always-on-top status bar. Key information on the health and status of the network is essential for…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-4-0-a-refreshed-look-with-dark-themes/">ntopng 4.0: A Refreshed Look with Dark Themes!</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>The latest ntopng 4.0 has a renewed look. The main changes we have introduced are:</p>
+<ul>
+<li><strong>An always-on-top status bar</strong>. Key information on the health and status of the network is essential for the analyst and it must be always visible and easily accessible. This is why we have introduced an always-on-top fixed status bar with key information such as network throughput, active hosts, flows, and ongoing alerts. This information was previously placed at the bottom of every page so it was difficult to access it and a lot of scrolling was necessary.</li>
+<li><strong>An optimized layout for wide screens</strong>. 16:9 wide screens are common so it is important to optimize the layout of the pages for this kind of screens. Hence, we have introduced a vertical main menu bar on the left. The main ntopng menu bar was formerly horizontal and this was taking precious space that can now be used for actual page data.</li>
+<li><strong>Dark and light themes</strong>. Being able to choose the colors of the graphical user interface it is not only a matter of personal preferences, it is also very helpful for those who spend a lot of time in front of a screen. Having darker colors helps relieving eyestrain of people who look at screens for hours and hours every day. Therefore, to help those people, we have added a dark theme. Another light theme is also available for those who prefer a bright interface. Those two new themes come in addition to the default one.</li>
+</ul>
+<p>Want to see the results? Here are some screenshots</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2020/04/ntopng_4.0_dark_theme.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-8339" src="https://www.ntop.org/wp-content/uploads/2020/04/ntopng_4.0_dark_theme-1024x681.png" alt="" width="1024" height="681" /></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2020/04/ntopng_4.0_default_theme.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-8338" src="https://www.ntop.org/wp-content/uploads/2020/04/ntopng_4.0_default_theme-1024x664.png" alt="" width="1024" height="664" /></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2020/04/ntopng_4.0_light_theme.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-8337" src="https://www.ntop.org/wp-content/uploads/2020/04/ntopng_4.0_light_theme-1024x666.png" alt="" width="1024" height="666" /></a></p>
+<p>Well, now its time for you to try ntopng 4.0 out! Check this page out to find a package for your distro: <a href="https://packages.ntop.org/">https://packages.ntop.org/</a>.</p>
+<p>The post <a href="https://www.ntop.org/ntopng-4-0-a-refreshed-look-with-dark-themes/">ntopng 4.0: A Refreshed Look with Dark Themes!</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/custom_queries.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:51:37 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Queries &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Mitre Classification" href="mitre_classification.html" />
+    <link rel="prev" title="Alerts Filters" href="alerts_filters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">User Interface Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../network_interface/index.html">Network Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html#alerts">Alerts</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../alerts_explorer.html">Alerts Explorer</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../issues.html">Issues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="alerts_graph.html">Alerts Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../alerts_type/engaged_alerts.html">Engaged Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../alerts_type/past_alerts.html">Past Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../alerts_type/flow_alerts.html">Flow Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="alerts_filters.html">Alerts Filters</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Custom Queries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mitre_classification.html">Mitre Classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../remediations/index.html">Remediations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../available_endpoints.html">Notifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#developer">Developer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="../alerts_explorer.html">Alerts Explorer</a></li>
+      <li class="breadcrumb-item active">Custom Queries</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/user_interface/shared/alerts/others/custom_queries.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="custom-queries">
+<span id="customqueries"></span><h1>Custom Queries<a class="headerlink" href="#custom-queries" title="Link to this heading"></a></h1>
+<p>In a system which analyses traffic of a large network, the amount of alerts
+(in particular those which are about Network issues) can be high, also depending
+on the number of Behavioural Checks we enable, and how we tune them. Checking
+the health of the Network, by looking at those alerts one by one, may definitely
+be a challenging and time-consuming task. For this reason the Alerts Explorer
+computates and display alerts statistics through dropdowns at the top of each page,
+including Top Alert Types, Clients, Servers, etc, to summarize what are the main
+issues affecting our networks, and who are the main actors.</p>
+<p>In order to analyze alerts when cardinality is high, ntopng also provides the ability
+to build additional custom views that can be defined by means of custom queries, and
+that can aggregate alerts according to some criteria, or manipulate them in any way
+allowed by SQL.</p>
+<p>Custom queries can be defined using a simple JSON syntax, placed as .json files on
+the filesystem, and automatically appear in a dropdown under the Queries section in
+the Alerts Explorer. It is possible to build a query which groups alerts based on
+Client, Server and Alert Type for instance, and list all alerts matching a specific
+3-tuple from the table Actions.</p>
+<p>The default view in the Alerts Explorer is “Alerts”, which shows the full list of raw alerts.
+In addition to the raw “Alerts”, additional built-in views are available, which are
+built on top of the Custom Queries engine and include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Alert Type: group and count alerts by Alert Type</p></li>
+<li><p>Cli / Srv: group and count alerts by Client and Server</p></li>
+<li><p>Cli / Srv / Alert Type: group and count alerts by Client, Server and Type</p></li>
+<li><p>Cli / Srv / Srv Port: group and count alerts by Client, Server and Server Port</p></li>
+<li><p>Info: group and count alerts by domain or URL</p></li>
+</ul>
+</div></blockquote>
+<figure class="align-center" id="id1">
+<img alt="Alerts Explorer Queries" src="../../../../_images/alert_explorer_custom_queries.png" />
+<figcaption>
+<p><span class="caption-text">Alerts Explorer Queries</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The above built-in Custom Queries can be extended by the user by creating
+simple JSON files containing the query description. The query definitions corresponding
+to the above built-in queries are available on the filesystem as JSON files under</p>
+<p>/usr/share/ntopng/scripts/historical/alerts/{alert entity}/{query name}.json</p>
+<p>Example:</p>
+<p>/usr/share/ntopng/scripts/historical/alerts/flow/alert_types.json</p>
+<p>Adding a new alerts view is as simple as placing one more JSON file within the same folder.</p>
+<p>Here is an example JSON file for the Clients flow view.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alert Type&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;i18n_name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_types&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;select&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;items&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_id&quot;</span>
+<span class="w">         </span><span class="p">},</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;count&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;func&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;COUNT&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;param&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;value_type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;filters&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;items&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_id&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;groupby&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;items&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_id&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;sortby&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;items&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;count&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;order&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DESC&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The JSON format is self-explanatory. It is possible to define the columns to be shown under the select tree,
+the columns on which the group-by is applied under the groupby tree, and the default column on which sorting is
+applied under the sortby tree. Aggregation functions can also be defined, such as the ‘count’ item, which is
+used in the example to display the number of alerts for each 3-tuple.
+For more complicated examples, it is recommended to take a look at the built-in query definitions available in the same folders.</p>
+<p>The complete list of columns is available in the database schema located at /usr/share/ntopng/httpdocs/misc/alert_store_schema.sql</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="alerts_filters.html" class="btn btn-neutral float-left" title="Alerts Filters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mitre_classification.html" class="btn btn-neutral float-right" title="Mitre Classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/custom_queries.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:51:39 GMT -->
+</html>

@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/usage.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:57:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; n2disk 3.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options02ed.js?v=da8737de"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to Start n2disk" href="how_to_start.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            n2disk
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/n2disk/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="features.html">Main Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#licensing">Licensing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-options">Command Line Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#capture-settings">CAPTURE SETTINGS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filtering">FILTERING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timestamping">TIMESTAMPING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dump-settings">DUMP SETTINGS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#index-settings">INDEX SETTINGS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cpu-affinity">CPU AFFINITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#threads-priority">THREADS PRIORITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#micro-burst-detection">MICRO-BURST DETECTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flows-export">FLOWS EXPORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other">OTHER</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dump-set-format">Dump Set Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">How to Start n2disk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning/index.html">Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage_sizing.html">Storage Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities/index.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Flows Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netflow.html">Netflow and Raw Recording</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Packet Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filesystem.html">Disk Partitioning and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">n2disk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
+<p>In order to save all the traffic into disks, the n2disk application has to be activated on an interface from which it is possible to capture all the traffic you are interested in. Once activated, n2disk will save the traffic data into the specified directory recycling the files already written, starting from the oldest one, this in case the maximum number of created files is reached.</p>
+<p>In the following sections, we discuss all the n2disk command line options and how to efficiently configure n2disk to capture all the traffic flowing in your network.</p>
+<section id="command-line-options">
+<h2>Command Line Options<a class="headerlink" href="#command-line-options" title="Link to this heading"></a></h2>
+<p>Below the available options and a detailed explanation of each option are listed:</p>
+<section id="capture-settings">
+<h3>CAPTURE SETTINGS<a class="headerlink" href="#capture-settings" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[--interface|-i] &lt;device&gt;                     | Ingress packet device. This option supports:
+                                              | - Comma-separated list to aggregate multiple interfaces (e.g. -i eth0,eth1)
+                                              | - Multiple -i to span multiple concurrent captures (e.g. -i eth0 -i eth1)
+                                              | - RSS short notation (e.g. -i eth0@[0-3] means -i eth0@0 -i eth0@1 -i eth0@2 -i eth0@3)
+[--active-wait|-g]                            | Active packet polling.
+[--poll-duration|-q] &lt;poll&gt;                   | Poll time (msec): default 1. Lower more CPU
+                                              | is used, better response time.
+[--snaplen|-s] &lt;len&gt;                          | Max packet capture length. Default: 1536.
+[--packet-slicing|-0] &lt;header level&gt;          | Slice packet after the specified header.
+                                              | 2 - Dump up to L2
+                                              | 3 - Dump up to L3
+                                              | 4 - Dump up to L4
+[--strip-header-bytes|-Y] &lt;len&gt;               | Strip &lt;len&gt; bytes from packet header.
+[--sample-rate|-y] &lt;rate&gt;                     | Packet sample rate (e.g. 100 means 1:100 sampling).
+[--capture-direction|-2] &lt;direction&gt;          | Capture direction: 0=RX+TX, 1=RX only (default), 2=TX only
+[--not-promisc|-3]                            | Do not set the interface in promiscuous mode.
+[--dump-fcs]                                  | Dump the Frame Check Sequence (FCS/CRC)
+[--kernel-cluster-id|-K] &lt;id&gt;                 | Cluster ID for PF_RING Kernel clustering
+[--disable-rss]                               | Send all traffic to queue 0, even if RSS is enabled
+</pre></div>
+</div>
+</section>
+<section id="filtering">
+<h3>FILTERING<a class="headerlink" href="#filtering" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[--filter|-f] &lt;filter&gt;                        | BPF ingress packet filter (tcpdump-like).
+[--fast-filter|-F] &lt;filter&gt;                   | Faster replacement for BPF ingress packet filter.
+                                              | NOTE: If &lt;filter&gt; is a file path, the filter is read from it.
+[--l7-filter-conf] &lt;conf file&gt;                | FT configuration file for L7 filtering.
+</pre></div>
+</div>
+</section>
+<section id="timestamping">
+<h3>TIMESTAMPING<a class="headerlink" href="#timestamping" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[--hw-timestamp|-J] &lt;mode&gt;                    | Hardware timestamp packet strip. Supported modes:
+                                              | arista - Timestamped packets by Arista 7150 series devices.
+                                              | ixia - Timestamped packets by ixiacom.com hardware devices.
+                                              | metawatch - Timestamped packets by Arista Metawatch devices.
+                                              | NOTE: Silicom Hw timestamping NICs are supported automatically.
+[--time-pulse|-S] &lt;core id&gt;                   | Enable time pulse thread and bind it to the specified core.
+[--time-pulse-precision] &lt;usec&gt;               | Specify the required timestamp precision to lower the cpu load for -S.
+[--nanoseconds|-d]                            | Dump timestamps in nsec format.
+[--no-timestamp|-T]                           | Do not compute timestamps in n2disk.
+</pre></div>
+</div>
+</section>
+<section id="dump-settings">
+<h3>DUMP SETTINGS<a class="headerlink" href="#dump-settings" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[--chunk-len|-C] &lt;len&gt;                        | (KB) Size of the chunk written to disk (must be
+                                              | multiple of 4096). Default: 64 KB.
+[--journaling|-j]                             | Enable journaling.
+[--buffer-len|-b] &lt;len&gt;                       | Buffer length (MBytes).
+[--dump-directory|-o] &lt;directory&gt;             | Directory where dump files will be saved. Multiple -o can be specified
+                                              | to write to multiple volumes in round-robin, or in case of multiple -i.
+                                              | Multiple -o for each -i can be also specified, they are assigned in round-robin.
+[--archive-directory|-O] &lt;directory&gt;          | Directory where dump files will be archived (slower disks).
+[--max-file-len|-p] &lt;len&gt;                     | Max pcap file length (MBytes).
+[--max-file-duration|-t] &lt;seconds&gt;            | Max pcap file duration (sec).
+[--max-file-packets|-N] &lt;number&gt;              | Max packets per pcap file.
+                                              | Default is 0 that means no max duration.
+[--disk-limit|-6] &lt;size&gt;                      | Max amount of disk space to use (MBytes or %). Default: 80%.
+[--max-num-files|-m] &lt;number&gt;                 | Max number of files per directory (0 for infinite). Default: 100.
+[--max-nested-dirs|-n] &lt;number&gt;               | Max number of directories. Default: 0. (Deprecated: use --disk-limit)
+[--dynamic-disk-limit-check]                  | Constantly check the disk for the actual disk utilization
+                                              | Note: this adds more stress on the filesystem and should be
+                                              | used only when there are other processes using the same volume.
+[--no-overwriting|-4]                         | Do not overwrite old files to make room for new ones.
+[--file-prefix|-x] &lt;prefix&gt;                   | Dump file prefix (ignored with --disk-limit).
+[--no-tmp-file|-5]                            | Do not write temporary .pcap.tmp files.
+[--seqnum-file-prefix]                        | Add sequence as prefix to dumped file names.
+                                              | Format: &lt;seqnum&gt;-&lt;sec&gt;.&lt;usec&gt;.pcap. Requires --disk-limit.
+[--hugepages|-U]                              | Use hugepages for memory allocation.
+[--disable-direct-io|-r]                      | Disable Direct I/O (experts only).
+[--stop-on-limit|-L][&lt;mode&gt;]                  | Stop capture when the specified limit is reached depending on the mode:
+                                              | 1 - Use the single-file max len/duration/packets as limit (default)
+                                              | 2 - Use the max number of files on disk as limit.
+[--remove-ahead|-H]                           | Delete in advance dumped files that will soon be overwritten.
+                                              | Use this option to reduce file deletion cost.
+[--pcap-compression|-M]                       | Compress pcap files (experimental).
+[--file-mode &lt;mode&gt;]                          | Permissions for created files (default: 640)
+[--dir-mode &lt;mode&gt;]                           | Permissions for created folders (default: 750)
+</pre></div>
+</div>
+</section>
+<section id="index-settings">
+<h3>INDEX SETTINGS<a class="headerlink" href="#index-settings" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[--index|-I][&lt;directory&gt;]                     | Create pcap-index on-the-fly. Optionally it is possible to specify the directory
+                                              | if different from -o. Multiple -I can be specifies in case of multiple -i/-o.
+[--timeline-dir|-A] &lt;directory&gt;               | Time-arranged directory for produced pcaps and indexes.
+                                              | Multiple -A can be specifies in case of multiple -i.
+[--extended-index|-E] &lt;type&gt;                  | Extended index type (combinations are allowed using a mask):
+                                              | 1 - add per-packet timestamp
+                                              | 2 - add L7 protocol (also enabled with --zmq)
+                                              | 4 - add device and port ID (when using --hw-timestamp metawatch)
+[--index-tunnel-content|-G] &lt;mode&gt;            | Compute index on tunnel content (GTP-U, GRE):
+                                              | 1 - Index both inner and outer headers.
+                                              | 2 - Use inner header as outer header.
+[--exec-cmd] &lt;cmd&gt;                            | Execute the specified command when a pcap has been dumped.
+</pre></div>
+</div>
+</section>
+<section id="cpu-affinity">
+<h3>CPU AFFINITY<a class="headerlink" href="#cpu-affinity" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[--reader-cpu-affinity|-c] &lt;core&gt;             | Bind the reader thread to the specified core.
+                                              | Multiple -c can be specified in case of multiple -i.
+[--writer-cpu-affinity|-w] &lt;cores&gt;            | Bind the writer thread(s) to the specified core ids.
+                                              | A comma-separated list of cores (e.g. 0,1,2,3) should be
+                                              | specified in case of multiple dump directories (-o).
+                                              | Multiple -w can be specified in case of multiple -i.
+[--indexer-cpu-affinity|-k] &lt;cores&gt;           | Enable multithread indexing and bind thread(s).
+                                              | to the specified core ids (e.g. 0,1,2,3).
+                                              | Multiple -k can be specified in case of multiple -i.
+                                              | Note: the first available CPU corresponds to 0.
+[--compressor-cpu-affinity|-z] &lt;cores&gt;        | Enable multithread compression (and indexing) and bind thread(s)
+                                              | to the specified core ids (e.g. 0,1,2,3).
+                                              | Multiple -z can be specified in case of multiple -i.
+[--index-on-compressor-threads|-Z]            | Compute index on the same threads used for compression (-z).
+[--other-cpu-affinity] &lt;core&gt;                 | Bind other/service threads to the specified core.
+[--numa-affinity] &lt;node&gt;                      | Numa node (CPU) affinity. This is automatically computed by default.
+</pre></div>
+</div>
+</section>
+<section id="threads-priority">
+<h3>THREADS PRIORITY<a class="headerlink" href="#threads-priority" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[--reader-priority] &lt;priority&gt;                | Set the priority for the reader thread (Default: -15)
+[--writer-priority] &lt;priority&gt;                | Set the priority for the writer thread(s) (Default: 0)
+[--indexer-priority] &lt;priority&gt;               | Set the priority for the indexer thread(s) (Default: 0)
+                                              | Note: priority is a value in the range -20 to 19, where -20 is the highest.
+                                              | A priority outside this range translates into no priority set.
+</pre></div>
+</div>
+</section>
+<section id="micro-burst-detection">
+<h3>MICRO-BURST DETECTION<a class="headerlink" href="#micro-burst-detection" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[--uburst-detection]                          | Enable microburst detection.
+[--uburst-log] &lt;path&gt;                         | Microbursts log file.
+[--uburst-win-size] &lt;usec&gt;                    | Window size for microburst check (usec).
+[--uburst-link-speed] &lt;mbit/s&gt;                | Link speed (Mbit/s).
+[--uburst-threshold] &lt;percent&gt;                | Traffic threshold wrt link speed (percentage).
+</pre></div>
+</div>
+</section>
+<section id="flows-export">
+<h3>FLOWS EXPORT<a class="headerlink" href="#flows-export" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[--zmq &lt;socket&gt;]                              | Deliver flows/stats to subscribers connected to the specified endpoint.
+                                              | Example tcp://*:5556 or ipc://flows.ipc
+                                              | Note: probe mode is used, configure ntopng as collector.
+[--zmq-format &lt;format&gt;]                       | Flows export format (&#39;t&#39; for TLV - default, &#39;j&#39; for JSON)
+[--zmq-encryption-key] &lt;pub key&gt;              | Encrypt ZMQ data using the specified public key.
+[--probe-ip &lt;address&gt;]                        | Probe IP address exported via ZMQ (default: management IP)
+[--lifetime-timeout &lt;sec&gt;]                    | Set maximum flow duration (default: 120 sec)
+[--idle-timeout &lt;sec&gt;]                        | Set maximum flow idle_time (default: 10 sec)
+</pre></div>
+</div>
+</section>
+<section id="other">
+<h3>OTHER<a class="headerlink" href="#other" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[--daemon]                                    | Daemonize this app at startup.
+[--disable-chunk-mode]                        | Do not enable chunk mode on supported adapters
+[--simulation-mode|-e] &lt;mode&gt;                 | Simulation mode (debug only)
+                                              | 1 - Test max dump speed (simulate capture).
+                                              | 2 - Test max capture speed (simulate storage).
+                                              | 3 - Test max capture speed (simulate storage, produce real index).
+                                              | 4 - Test both capture and storage (test the core engine).
+[--hole-detection] &lt;msec&gt;                     | Enable detection of traffic holes (&lt;msec&gt; is the min hole size).
+[--ts-lsb-interf-encoding]                    | Encode ingress interface index in LSB of the timestamp.
+[--unprivileged-user|-u] &lt;username&gt;           | Use &lt;username&gt; instead of nobody when dropping privileges.
+[--pid|-P] &lt;path&gt;                             | Save the pid into the specified path.
+[--version|-V]                                | Print application version.
+[--help|-h]                                   | Help.
+[--verbose|-v]                                | Verbose.
+[--show-system-id]                            | Print the system identifier
+[--check-license]                             | Checks if the license is present and valid
+[--check-maintenance]                         | Checks the maintenance status for the specified license
+[--syslog|-l]                                 | Dump trace messages to syslog
+[--trace-log] &lt;file&gt;                          | Dump trace messages to the specified file
+[--event-log|-Q] &lt;file&gt;                       | Save relevant events (i.e. drops) onto the specified file
+</pre></div>
+</div>
+<p>Basic example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">n2disk -i eth1 -o /storage -b 1024 -p 512 --disk-limit 50% -I -A /storage</span>
+</pre></div>
+</div>
+<p>For performance tuning please read the Tuning section.</p>
+</section>
+</section>
+<section id="dump-set-format">
+<h2>Dump Set Format<a class="headerlink" href="#dump-set-format" title="Link to this heading"></a></h2>
+<p>n2disk uses the industry standard PCAP file format to dump packets into files,
+so the resulting output can be easily integrated with existing third party and
+Open Source analysis tools like <em>ntopng</em> and <em>Wireshark</em>.</p>
+<p>PCAP files are indexed and organized in a timeline to enable on-demand retrieval,
+specifying time interval and BPF criteria.</p>
+<p>n2disk by default changes the user to n2disk. This can be changed using the
+[–unprivileged-user|-u] USER option. As a consequence of this:</p>
+<ul class="simple">
+<li><p>PCAP files are created as 0640 <em>drwxr-x— n2disk n2disk</em></p></li>
+<li><p>Folders are created as 0750 <em>-rw-r—– n2disk n2disk</em></p></li>
+<li><p>In order to read pcap files you need to use n2disk or the n2disk group (npcapextract also supports PAM, please take a look at the <em>Utilities</em> -&gt; <em>npcapextract</em> section)</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="how_to_start.html" class="btn btn-neutral float-right" title="How to Start n2disk" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/usage.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:57:11 GMT -->
+</html>

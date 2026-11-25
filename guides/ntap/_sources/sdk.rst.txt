@@ -1,0 +1,48 @@
+Developing nTap-based Applications
+==================================
+
+nTap can be embedded in non-ntop applications by using the nTap SDK that by means of a simple API, allows the creation of custom collector applications
+
+The SDK is part of the nTap package and ince installed it comes with:
+
+  - /usr/lib/libntap.a (under BSD systems it goes under /usr/local/lib/libntap.a)
+  - /usr/include/libntap.h (under BSD systems it goes under /usr/local/include/libntap.h)
+
+An example application can be found on /usr/share/ntap. Below you can find a simple nTap collector application (libntap_example.c):
+
+.. code:: bash
+
+   #include <stdio.h>
+   #include "libntap.h"
+   
+   /* **************************************** */
+   
+   void process_pkt(unsigned char *pkt, unsigned int pkt_len) {
+     printf("Received %u bytes packet\n", pkt_len);
+   }
+   
+   /* **************************************** */
+   
+   int main(int argc, char *argv[]) {
+     void *ntap_info;
+     unsigned int listening_port = 1234;
+     const char *password = "hello";
+   
+     if(ntaplib_init(password, listening_port, &ntap_info) != 0) {
+       printf("WARNING: Intialization error\n");
+       return(-1);
+     } else
+       printf("Listening for packets on UDP port %u\n", listening_port);
+   
+     while(ntaplib_poll(ntap_info, process_pkt) > 0) {
+       /*  printf("Processed packet"); */
+     }
+   
+     printf("Terminating ntap library\n");
+   
+     ntaplib_term(ntap_info);
+     return(0);
+   }
+
+
+

@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/third_party_integrations/checkmk.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:50:50 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkmk Integration &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Wazuh Integration" href="wazuh.html" />
+    <link rel="prev" title="Grafana" href="grafana.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Third-Party Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="opnsense.html">OPNsense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfsense.html">pfSense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="suricata.html">Suricata Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="suricata.html#suricata-acceleration">Suricata Acceleration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kibana.html">Kibana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grafana.html">Grafana</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Checkmk Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-cases">Use Cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#preparation-configure-ntopng-parameters">Preparation: Configure ntopng Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-1-configure-ntopng-user-in-checkmk">Step 1: Configure ntopng User in Checkmk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-2-add-ntopng-username-to-checkmk-user">Step 2: Add ntopng Username to Checkmk User</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-3-verify-integration">Step 3: Verify Integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-4-add-hosts-to-checkmk">Step 4: Add Hosts to Checkmk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-5-monitor-ntopng-hosts-in-checkmk">Step 5: Monitor ntopng Hosts in Checkmk</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#alert-integration">Alert Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-resources">Additional Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="wazuh.html">Wazuh Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Third-Party Integrations</a></li>
+      <li class="breadcrumb-item active">Checkmk Integration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/third_party_integrations/checkmk.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="checkmk-integration">
+<span id="checkmkintegration"></span><h1>Checkmk Integration<a class="headerlink" href="#checkmk-integration" title="Link to this heading"></a></h1>
+<p>ntopng seamlessly integrates with Checkmk, a popular open-source infrastructure monitoring tool, providing comprehensive traffic visibility alongside traditional IT infrastructure monitoring. This integration combines the big picture perspective of IT infrastructure monitoring with in-depth network usage information from ntopng.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The integration makes data from talkers and listeners detected by ntopng directly available in Checkmk. It adds network flow information from ntopng to respective hosts in Checkmk, consolidating all data into one solution with multiple dashboards and graphing options. This enables faster root cause analysis with less effort.</p>
+<p>By leveraging ntopng’s REST API, the integration eliminates the need to jump between ntopng and your IT infrastructure monitoring tool. Network flow information from ntopng is automatically allocated to hosts in Checkmk monitoring, combining information gathered by Checkmk with the most important traffic information from ntopng.</p>
+</section>
+<section id="use-cases">
+<h2>Use Cases<a class="headerlink" href="#use-cases" title="Link to this heading"></a></h2>
+<p>The integration offers several views and dashboards in Checkmk to support various monitoring scenarios:</p>
+<ul class="simple">
+<li><p>Analyze hosts, applications, or protocols communicating with each other</p></li>
+<li><p>Identify possible bottlenecks or anomalies</p></li>
+<li><p>Identify ‘top talkers’ and ‘top listeners’ in your network</p></li>
+<li><p>View network usage per host and other detailed metrics</p></li>
+<li><p>Import notifications from ntopng and combine them with infrastructure alerting</p></li>
+</ul>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before setting up the integration, ensure you have the correct versions:</p>
+<p><strong>ntopng Requirements:</strong>
+- Professional or Enterprise version 4.2 or higher
+- REST API V1 support (available from version 4.2 onwards)</p>
+<p><strong>Checkmk Requirements:</strong>
+- Enterprise Edition version 2.0 or higher
+- ntopng integration add-on (payable)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A free trial of Checkmk Enterprise Edition is available, which includes all features but is limited to 25 hosts after 30 days.</p>
+</div>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
+<section id="preparation-configure-ntopng-parameters">
+<h3>Preparation: Configure ntopng Parameters<a class="headerlink" href="#preparation-configure-ntopng-parameters" title="Link to this heading"></a></h3>
+<p>Checkmk requires a user account in ntopng to access data. You can limit access by using an ntopng user with restricted privileges, depending on your environment and which network interfaces you want to share with Checkmk.</p>
+<p>For this tutorial, we’ll use the simplest option: an ntopng user with admin access that gives Checkmk full access to all interfaces.</p>
+<p>You’ll need:
+- ntopng username and password
+- ntopng server hostname and TCP port
+- Network connectivity from Checkmk server to ntopng server</p>
+</section>
+<section id="step-1-configure-ntopng-user-in-checkmk">
+<h3>Step 1: Configure ntopng User in Checkmk<a class="headerlink" href="#step-1-configure-ntopng-user-in-checkmk" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Open your Checkmk site and navigate to <strong>Setup → General → Global settings</strong></p></li>
+<li><p>Click on <strong>Ntopng (chargeable add-on)</strong></p></li>
+<li><p>Click on <strong>Ntopng Connection Parameters (chargeable add-on)</strong></p></li>
+<li><p>Configure the following parameters:</p>
+<ul class="simple">
+<li><p><strong>Host address</strong>: hostname of your ntopng server (must be DNS resolvable for TLS)</p></li>
+<li><p><strong>Port number</strong>: TCP port for ntopng (default: 3000 for HTTP, 3001 for HTTPS)</p></li>
+<li><p><strong>Protocol</strong>: Choose HTTPS for security (check SSL validation disable for self-signed certificates)</p></li>
+<li><p><strong>User account for authentication</strong>: ntopng username for data access</p></li>
+<li><p><strong>ntopng username acquire data for</strong>: Select appropriate option based on your username setup</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="step-2-add-ntopng-username-to-checkmk-user">
+<h3>Step 2: Add ntopng Username to Checkmk User<a class="headerlink" href="#step-2-add-ntopng-username-to-checkmk-user" title="Link to this heading"></a></h3>
+<p>If using different usernames for Checkmk and ntopng accounts:</p>
+<ol class="arabic simple">
+<li><p>Navigate to <strong>Setup → Users</strong></p></li>
+<li><p>Select the properties of your Checkmk user by clicking the pencil icon</p></li>
+<li><p>Add the ntopng username in the <strong>ntopng Username</strong> field under <strong>Identity</strong></p></li>
+<li><p>Click <strong>Save</strong></p></li>
+<li><p>Activate changes by clicking the yellow exclamation point and selecting <strong>Activate on selected sites</strong></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Skip this step if using identical usernames in both systems.</p>
+</div>
+</section>
+<section id="step-3-verify-integration">
+<h3>Step 3: Verify Integration<a class="headerlink" href="#step-3-verify-integration" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Click <strong>Monitor</strong> in the sidebar</p></li>
+<li><p>Look for a new topic named <strong>Network statistics</strong></p></li>
+<li><p>This confirms the integration is working correctly</p></li>
+</ol>
+</section>
+<section id="step-4-add-hosts-to-checkmk">
+<h3>Step 4: Add Hosts to Checkmk<a class="headerlink" href="#step-4-add-hosts-to-checkmk" title="Link to this heading"></a></h3>
+<p>Unlike network flow monitoring, infrastructure monitoring requires proactive host addition. If your Checkmk environment already contains communicating network hosts, skip this step.</p>
+<p>For new Checkmk installations:</p>
+<ol class="arabic simple">
+<li><p>Navigate to <strong>Setup → Hosts</strong></p></li>
+<li><p>Click <strong>Add host</strong></p></li>
+<li><p>Configure hostname (add IP address if not DNS resolvable)</p></li>
+<li><p>Under <strong>Monitoring Agents</strong>, configure appropriate monitoring method (e.g., SNMP)</p></li>
+<li><p>Set credentials if required</p></li>
+<li><p>Click <strong>Save &amp; go to service configuration</strong></p></li>
+<li><p>Review automatically discovered services</p></li>
+<li><p>Click <strong>Fix all</strong> to add detected services</p></li>
+<li><p>Activate changes via the yellow exclamation point</p></li>
+</ol>
+</section>
+<section id="step-5-monitor-ntopng-hosts-in-checkmk">
+<h3>Step 5: Monitor ntopng Hosts in Checkmk<a class="headerlink" href="#step-5-monitor-ntopng-hosts-in-checkmk" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Navigate to <strong>Monitor → Network statistics → Ntop Hosts</strong></p></li>
+<li><p>View overview of all hosts monitored in both Checkmk and ntopng</p></li>
+<li><p>Access detailed host information via <strong>Ntopng integration of this host</strong> in the action menu</p></li>
+<li><p>Use various tabs for different perspectives:
+- <strong>Host</strong>: Basic information and summary
+- Additional tabs for specific network insights</p></li>
+<li><p>Click <strong>View data in ntopng</strong> to jump directly to the host in ntopng</p></li>
+</ol>
+</section>
+</section>
+<section id="alert-integration">
+<h2>Alert Integration<a class="headerlink" href="#alert-integration" title="Link to this heading"></a></h2>
+<p>ntopng can export traffic alerts to the Checkmk Event Console, extending monitoring capabilities beyond basic metrics.</p>
+<p>Configuration Process:</p>
+<ol class="arabic simple">
+<li><p><strong>In ntopng</strong>: Configure Endpoints and Recipients under <strong>Alerts → Notifications</strong></p></li>
+<li><p><strong>In Checkmk</strong>: Set up Service Levels and Event Console rules</p></li>
+<li><p><strong>Result</strong>: Receive ntopng notifications in Checkmk Event Console</p></li>
+</ol>
+<p>For detailed alert integration setup, refer to: <a class="reference external" href="../../../howto-export-ntopng-alarms-to-checkmk-event-console/index.html">How to Export ntopng Alarms to Checkmk Event Console</a></p>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading"></a></h2>
+<p>For more comprehensive information:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../../../using-ntopng-with-checkmk-a-tutorial/index.html">Using ntopng with Checkmk - Complete Tutorial</a></p></li>
+<li><p>Checkmk User Guide - ntop integration chapter</p></li>
+<li><p>Checkmk Beginner’s Guide</p></li>
+<li><p>Checkmk Event Console Documentation</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The integration requires proper network connectivity between Checkmk and ntopng servers. Ensure firewall rules allow communication on the configured ports.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Start with a limited number of hosts to test the integration before scaling to your entire infrastructure.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="grafana.html" class="btn btn-neutral float-left" title="Grafana" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="wazuh.html" class="btn btn-neutral float-right" title="Wazuh Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/third_party_integrations/checkmk.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:50:51 GMT -->
+</html>

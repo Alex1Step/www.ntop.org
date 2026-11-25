@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/timeseries/accessing_metrics.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:44 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessing Metrics &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Metrics" href="metrics.html" />
+    <link rel="prev" title="Adding New Metrics" href="adding_new_timeseries.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../rest/index.html">RESTful API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lua_c/index.html">Lua API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/index.html">Python API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Timeseries API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="intro.html">Basic Concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="export.html">Exporting Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change_schema.html">Modify an existing Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adding_new_timeseries.html">Adding New Metrics</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Accessing Metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#interface-metrics">Interface Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#host-metrics">Host Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="queries.html">Querying Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ts_utils.html">ts_utils API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="driver.html">Driver Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../alerts/index.html">Alerts API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recording/index.html">Recording API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index-2.html">API Documentation</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Timeseries API</a></li>
+      <li class="breadcrumb-item active">Accessing Metrics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/timeseries/accessing_metrics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="accessing-metrics">
+<h1>Accessing Metrics<a class="headerlink" href="#accessing-metrics" title="Link to this heading"></a></h1>
+<p>A full list of all the metrics already built-in and exported as timeseries into ntopng is available in the Metrics section.
+This section provides a couple of examples for accessing those metrics.</p>
+<section id="interface-metrics">
+<h2>Interface Metrics<a class="headerlink" href="#interface-metrics" title="Link to this heading"></a></h2>
+<p>Supported metrics for the creation of interface timeseries are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Layer-7 applications bytes sent and received</p></li>
+<li><p>Layer-4 TCP, UDP, ICMP bytes sent and received</p></li>
+<li><p>Total bytes sent and received</p></li>
+<li><p>Total alerts</p></li>
+<li><p>etc.</p></li>
+</ul>
+</div></blockquote>
+<p>An always-updated list of metrics can be determined by inspecting
+method <code class="code docutils literal notranslate"><span class="pre">NetworkInterface::lua</span></code>:
+<a class="reference external" href="https://github.com/ntop/ntopng/blob/dev/src/NetworkInterface.cpp">https://github.com/ntop/ntopng/blob/dev/src/NetworkInterface.cpp</a></p>
+<p>Interface metrics are available as a Lua table. An excerpt of such
+table is shown below:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">speed</span> <span class="n">number</span> <span class="mi">1000</span>
+<span class="n">id</span> <span class="n">number</span> <span class="mi">1</span>
+<span class="n">stats</span> <span class="n">table</span>
+<span class="n">stats</span><span class="p">.</span><span class="n">http_hosts</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">stats</span><span class="p">.</span><span class="n">drops</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">stats</span><span class="p">.</span><span class="n">devices</span> <span class="n">number</span> <span class="mi">2</span>
+<span class="n">stats</span><span class="p">.</span><span class="n">current_macs</span> <span class="n">number</span> <span class="mi">6</span>
+<span class="n">stats</span><span class="p">.</span><span class="n">hosts</span> <span class="n">number</span> <span class="mi">23</span>
+<span class="n">stats</span><span class="p">.</span><span class="n">num_live_captures</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">stats</span><span class="p">.</span><span class="n">bytes</span> <span class="n">number</span> <span class="mi">50559082</span>
+<span class="n">stats</span><span class="p">.</span><span class="n">flows</span> <span class="n">number</span> <span class="mi">30</span>
+<span class="n">stats</span><span class="p">.</span><span class="n">local_hosts</span> <span class="n">number</span> <span class="mi">3</span>
+<span class="n">stats</span><span class="p">.</span><span class="n">packets</span> <span class="n">number</span> <span class="mi">64984</span>
+</pre></div>
+</div>
+</section>
+<section id="host-metrics">
+<h2>Host Metrics<a class="headerlink" href="#host-metrics" title="Link to this heading"></a></h2>
+<p>Supported metrics for the creation of host timeseries are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Layer-7 applications bytes sent and received</p></li>
+<li><p>Layer-4 TCP, UDP, ICMP bytes sent and received</p></li>
+<li><p>Total bytes sent and received</p></li>
+<li><p>Active flows as client and as server</p></li>
+<li><p>Anomalous flows as client and as server</p></li>
+<li><p>Total alerts</p></li>
+<li><p>Number of hosts contacted as client</p></li>
+<li><p>Number of hosts contacts as server</p></li>
+</ul>
+</div></blockquote>
+<p>An always-updated list of host metrics can be determined by inspecting
+this file:
+<a class="reference external" href="https://github.com/ntop/ntopng/blob/dev/src/HostTimeseriesPoint.cpp">https://github.com/ntop/ntopng/blob/dev/src/HostTimeseriesPoint.cpp</a></p>
+<p>Host metrics are available in an handy Lua table such as the one
+exemplified below:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">ndpi_categories</span> <span class="n">table</span>
+<span class="n">ndpi_categories</span><span class="p">.</span><span class="n">Cloud</span> <span class="n">number</span> <span class="mi">2880</span>
+<span class="n">misbehaving_flows</span><span class="p">.</span><span class="n">as_server</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">active_flows</span><span class="p">.</span><span class="n">as_client</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">bytes</span><span class="p">.</span><span class="n">rcvd</span> <span class="n">number</span> <span class="mi">2880</span>
+<span class="n">icmp</span><span class="p">.</span><span class="n">bytes</span><span class="p">.</span><span class="n">rcvd</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">tcp</span><span class="p">.</span><span class="n">bytes</span><span class="p">.</span><span class="n">rcvd</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">total_alerts</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">udp</span><span class="p">.</span><span class="n">bytes</span><span class="p">.</span><span class="n">rcvd</span> <span class="n">number</span> <span class="mi">2880</span>
+<span class="n">icmp</span><span class="p">.</span><span class="n">bytes</span><span class="p">.</span><span class="n">sent</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">other_ip</span><span class="p">.</span><span class="n">bytes</span><span class="p">.</span><span class="n">rcvd</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">other_ip</span><span class="p">.</span><span class="n">bytes</span><span class="p">.</span><span class="n">sent</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">misbehaving_flows</span><span class="p">.</span><span class="n">as_client</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">contacts</span><span class="p">.</span><span class="n">as_server</span> <span class="n">number</span> <span class="mi">1</span>
+<span class="n">bytes</span><span class="p">.</span><span class="n">sent</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">instant</span> <span class="n">number</span> <span class="mi">1550836500</span>
+<span class="n">tcp</span><span class="p">.</span><span class="n">bytes</span><span class="p">.</span><span class="n">sent</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">udp</span><span class="p">.</span><span class="n">bytes</span><span class="p">.</span><span class="n">sent</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">contacts</span><span class="p">.</span><span class="n">as_client</span> <span class="n">number</span> <span class="mi">0</span>
+<span class="n">ndpi</span> <span class="n">table</span>
+<span class="n">ndpi</span><span class="p">.</span><span class="n">Dropbox</span> <span class="n">string</span> <span class="mi">0</span><span class="o">|</span><span class="mi">2880</span>
+<span class="n">active_flows</span><span class="p">.</span><span class="n">as_server</span> <span class="n">number</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Specifically, Layer-7 application protocols are pushed in a table
+<code class="code docutils literal notranslate"><span class="pre">ndpi</span></code>, whose keys are the application names such as
+<code class="code docutils literal notranslate"><span class="pre">Dropbox</span></code>. For every application there are two values separated
+by a pipe, namely, bytes sent and bytes received. For example, in the
+excerpt above, <code class="code docutils literal notranslate"><span class="pre">Dropbox</span></code> application had received 0 bytes and
+had sent 2880 bytes at the time the excerpt was generated.</p>
+<p>The table also contain a field <code class="code docutils literal notranslate"><span class="pre">instant</span></code> that represents the
+time at which metrics have been sampled.</p>
+<p>The table above can be accessed and its contents can be read/modified
+to prepare timeseries points.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="adding_new_timeseries.html" class="btn btn-neutral float-left" title="Adding New Metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="metrics.html" class="btn btn-neutral float-right" title="Metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/timeseries/accessing_metrics.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:45 GMT -->
+</html>

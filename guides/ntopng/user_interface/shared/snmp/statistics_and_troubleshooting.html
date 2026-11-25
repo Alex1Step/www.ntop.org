@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/snmp/statistics_and_troubleshooting.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:52:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Statistics and Troubleshooting &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Access Control List" href="../policies/access_control_list.html" />
+    <link rel="prev" title="Device rules" href="rules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">User Interface Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../network_interface/index.html">Network Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#alerts">Alerts</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#monitoring">Monitoring</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../monitoring/active_monitoring.html">Active Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../monitoring/infrastructure_monitoring.html">Infrastructure Monitoring</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">SNMP</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="configuration.html">Configuration and Discovery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="monitoring.html">Device Monitoring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="monitoring.html#network-interfaces">Network Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="monitoring.html#interface-roles">Interface Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="monitoring.html#interface-label-format">Interface Label Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="monitoring.html#binding-mac-address-to-interface">Binding MAC Address to Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="usage.html">SNMP Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="similarity.html">Interface Similarity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topology.html">Network Topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rules.html">Device rules</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Statistics and Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#developer">Developer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="index.html">SNMP</a></li>
+      <li class="breadcrumb-item active">Statistics and Troubleshooting</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/user_interface/shared/snmp/statistics_and_troubleshooting.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="statistics-and-troubleshooting">
+<h1>Statistics and Troubleshooting<a class="headerlink" href="#statistics-and-troubleshooting" title="Link to this heading"></a></h1>
+<p>ntopng periodically polls configured SNMP devices to collect interface,
+system and performance statistics.</p>
+<p>However there can be some trouble with the polled SNMP devices (delayed polling, no polling, ecc.).</p>
+<p>There are some ways to identify these problems:</p>
+<ul class="simple">
+<li><p>By checking the SNMP page</p></li>
+<li><p>By checking the Statistics Timeseries</p></li>
+</ul>
+<section id="checking-snmp-page">
+<h2>Checking SNMP page<a class="headerlink" href="#checking-snmp-page" title="Link to this heading"></a></h2>
+<p>By jumping to the SNMP Page, it is possible to identify issues in the Polling, by checking three factors:</p>
+<ul class="simple">
+<li><p><strong>Time Since Last Poll</strong>: it is reported the last time the device was polled;</p></li>
+<li><p><strong>Last Poll Duration</strong>: it is report the duration of the last poll;</p></li>
+<li><p><strong>Device IP</strong>: here, in case the Device is not reachable, an icon will pop up reporting the problem (it should be visible from the <strong>Time Since Last Poll</strong>, also reporting some issue)</p></li>
+</ul>
+<figure class="align-center">
+<img alt="SNMP Troubleshooting" src="../../../_images/snmp_page_troubleshooting.png" />
+</figure>
+</section>
+<section id="checking-statistics-timeseries">
+<h2>Checking Statistics Timeseries<a class="headerlink" href="#checking-statistics-timeseries" title="Link to this heading"></a></h2>
+<p>ntopng provides also additional timeseries that tracks whether devices are being polled
+according to the configured polling interval or not.</p>
+<p>To access those charts, jump to the System Interface, Health page and then click on the Timeseries icon;</p>
+<figure class="align-center">
+<img alt="SNMP Timeseries Troubleshooting" src="../../../_images/snmp_troubleshooting_timeseries.png" />
+</figure>
+<p>The chart reports two values over time:</p>
+<ul class="simple">
+<li><p><strong>Polled on Time</strong>: number of devices successfully polled within the
+configured polling interval.</p></li>
+<li><p><strong>Delayed Polling</strong>: number of devices whose polling operation was
+delayed beyond the expected interval.</p></li>
+</ul>
+<p>This information allows administrators to immediately identify situations
+where the polling engine is no longer able to keep up with the configured
+schedule.</p>
+</section>
+<section id="typical-causes-of-delayed-polling">
+<h2>Typical Causes of Delayed Polling<a class="headerlink" href="#typical-causes-of-delayed-polling" title="Link to this heading"></a></h2>
+<p>A growing number of delayed devices usually indicates that the polling
+engine is overloaded. Possible causes include:</p>
+<ul class="simple">
+<li><p>Too many SNMP devices configured</p></li>
+<li><p>Slow or high-latency network connections</p></li>
+<li><p>SNMP agents responding slowly</p></li>
+<li><p>Excessive CPU utilization on the ntopng host</p></li>
+<li><p>Disk or database I/O bottlenecks</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rules.html" class="btn btn-neutral float-left" title="Device rules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../policies/access_control_list.html" class="btn btn-neutral float-right" title="Access Control List" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/snmp/statistics_and_troubleshooting.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:52:19 GMT -->
+</html>

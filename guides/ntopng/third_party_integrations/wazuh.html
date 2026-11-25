@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/third_party_integrations/wazuh.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:50:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wazuh Integration &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Performance and Hardware Sizing" href="../performances/index.html" />
+    <link rel="prev" title="Checkmk Integration" href="checkmk.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Third-Party Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="opnsense.html">OPNsense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pfsense.html">pfSense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="suricata.html">Suricata Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="suricata.html#suricata-acceleration">Suricata Acceleration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kibana.html">Kibana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grafana.html">Grafana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checkmk.html">Checkmk Integration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Wazuh Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#wazuh-alerts-collection">Wazuh Alerts Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#alerts-lifecycle">Alerts Lifecycle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wazuh-assets-collection">Wazuh Assets Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#step-1-merge-assets-from-wazuh">Step 1: Merge Assets from Wazuh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-2-review-enriched-assets">Step 2: Review Enriched Assets</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#alerts">Alerts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#alert-triggers">Alert triggers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#new-assets">New assets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alert-format">Alert format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keeping-data-up-to-date">Keeping Data Up to Date</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Third-Party Integrations</a></li>
+      <li class="breadcrumb-item active">Wazuh Integration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/third_party_integrations/wazuh.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="wazuh-integration">
+<span id="wazuhintegration"></span><h1>Wazuh Integration<a class="headerlink" href="#wazuh-integration" title="Link to this heading"></a></h1>
+<p>ntopng integrates with <a class="reference external" href="https://wazuh.com/">Wazuh</a>, an open-source security platform that provides threat detection, integrity monitoring, incident response, and compliance capabilities. This integration enriches the ntopng asset inventory by merging endpoint security information, collected by Wazuh agents, directly into ntopng host assets, giving operators a unified view of both network traffic and host security posture.
+Currently ntopng uses Wazuh for both collecting Wazuh-generated alerts, and accessing the Wazuh endpoint to fetch information about known assets.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to use Wazuh you need to use an Enterprise edition of ntopng and enable ClickHouse for storing data persistently.</p>
+</div>
+<p>In order to enable Wazuh you need to</p>
+<ul>
+<li><p>Open ntopng and navigate to <strong>Settings → Preferences → External Integrations → Wazuh</strong></p></li>
+<li><p>Enable Wazuh and fill in the following fields:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Wazuh URL</strong>: The base URL of the Wazuh Manager API, including the protocol and port (e.g. <code class="docutils literal notranslate"><span class="pre">https://WAZUH_HOST:55000</span></code>). Note that if your Wazuh server is accessed over https without a valid certificate (e.g. a self-signed certificate), you need to start ntopng using –insecure.</p></li>
+<li><p><strong>Username</strong>: The Wazuh user account that ntopng will use to authenticate against the API (Usually wazuh-wui)</p></li>
+<li><p><strong>Password</strong>: The password for the above account</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<figure class="align-center">
+<img alt="Wazuh Preferences" src="../_images/wazuh_prefs.png" />
+</figure>
+<section id="wazuh-alerts-collection">
+<h2>Wazuh Alerts Collection<a class="headerlink" href="#wazuh-alerts-collection" title="Link to this heading"></a></h2>
+<p>The Wazuh manager collects raw security events and logs from the endpoints that run a local wazuh agent. These alerts are useful for correlating them with network events produced by ntopng. Alerts are exported periodically by the Wazuh manager to ntopng via redis using filebeats. The trick is to export Wazuh collected alerts stored on /var/ossec/logs/alerts/alerts.json and deliver them to the remote ntopng redis instance via filebeat.</p>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p>You can do that as follows:</p>
+<ul class="simple">
+<li><p>Duplicate the filebeat systemd service and name it <cite>filebeat-ntop</cite></p></li>
+<li><p>Create /etc/filebeat-ntop/filebeat.yml and in the filebeat.inputs section <a class="reference external" href="https://www.elastic.co/docs/reference/beats/filebeat/configuration-filebeat-options">https://www.elastic.co/docs/reference/beats/filebeat/configuration-filebeat-options</a> add something like</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-<span class="w"> </span>type:<span class="w"> </span>filestream
+<span class="w">   </span>id:<span class="w"> </span>wazuh-ntop
+<span class="w">   </span>paths:
+<span class="w">   </span>-<span class="w"> </span>/var/ossec/logs/alerts/alerts.json
+output.redis:
+<span class="w"> </span>hosts:<span class="w"> </span><span class="o">[</span><span class="s2">&quot;ntop.remote.host&quot;</span><span class="o">]</span>
+<span class="w"> </span>key:<span class="w"> </span><span class="s2">&quot;filebeat&quot;</span>
+<span class="w"> </span>db:<span class="w"> </span><span class="m">0</span>
+<span class="w"> </span>timeout:<span class="w"> </span><span class="m">5</span>
+<span class="w">   </span><span class="c1">#output.console:</span>
+<span class="w">   </span><span class="c1">#  pretty: true</span>
+seccomp:
+<span class="w"> </span>default_action:<span class="w"> </span>allow<span class="w">   </span>syscalls:
+<span class="w"> </span>-<span class="w"> </span>action:<span class="w"> </span>allow
+<span class="w">   </span>names:
+<span class="w">   </span>-<span class="w"> </span>rseq
+logging.level:<span class="w"> </span>info
+logging.to_files:<span class="w"> </span><span class="nb">true</span>
+logging.files:
+<span class="w"> </span>path:<span class="w"> </span>/var/log/filebeat-ntop
+<span class="w"> </span>name:<span class="w"> </span>filebeat
+</pre></div>
+</div>
+<p>Please note that:</p>
+<ul class="simple">
+<li><p>you need to replace ntop.remote.host with the hostname or IP address of the host where ntopng (and the redis instance used by ntopng) is running.</p></li>
+<li><p>the redis port (6379/tcp) need to be open and reachable to the Wazuh manager host that has to deliver alerts on the remote queue.</p></li>
+</ul>
+<p>Done this you can find Wazuh alert in the left sidebar from hich you can access the Wazuh pages</p>
+<figure class="align-center">
+<img alt="Wazuh Alerts" src="../_images/wazuh_alerts.png" />
+</figure>
+<p>During the ntop installation, some default rules are installed in order to have a ready-to-go configuration</p>
+<figure class="align-center">
+<img alt="Wazuh Alert Rules" src="../_images/wazuh_alert_rules.png" />
+</figure>
+<p>You can edit a rule</p>
+<figure class="align-center">
+<img alt="Wazuh Rule Edit" src="../_images/wazuh_edit_rule.png" />
+</figure>
+<p>specifying parameters such as</p>
+<ul class="simple">
+<li><p>Priority: it specified the rule evaluation order (lower first)</p></li>
+<li><p>Minumum Level: the rule has no effect on alerts with level less than the specified valie</p></li>
+<li><p>Groups: if empty it will apply to all alert groups, otherwise only to the specified alert groups</p></li>
+<li><p>Subject: Subject of the notification that will be sent if this rule triggers. Note that you can specify some wildcards in the subject that are expanded at runtime.</p></li>
+<li><p>Immediate: if set an alert is trigger per alert, if not it is cumulated with other alerts.</p></li>
+<li><p>Enabled: you can temporarely disable a rule by using this slider</p></li>
+<li><p>Comment: human readeable comment for this rule.- Priority: it specified the rule evaluation order (lower first)</p></li>
+<li><p>Minumum Level: the rule has no effect on alerts with level less than the specified valie</p></li>
+<li><p>Groups: if empty it will apply to all alert groups, otherwise only to the specified alert groups</p></li>
+<li><p>Subject: Subject of the notification that will be sent if this rule triggers. Note that you can specify some wildcards in the subject that are expanded at runtime.</p></li>
+<li><p>Immediate: if set an alert is trigger per alert, if not it is cumulated with other alerts.</p></li>
+<li><p>Enabled: you can temporarely disable a rule by using this slider</p></li>
+<li><p>Comment: human readeable comment for this rule.</p></li>
+</ul>
+<p>Finally you can see the list of collected alerts in the main page.</p>
+<figure class="align-center">
+<img alt="Wazuh Alerts" src="../_images/wazuh_alerts_list.png" />
+</figure>
+<p>Note that in the ntopng preferences page, you can set the alert retention time (by default is one year).</p>
+</section>
+<section id="alerts-lifecycle">
+<h2>Alerts Lifecycle<a class="headerlink" href="#alerts-lifecycle" title="Link to this heading"></a></h2>
+<p>Every minute ntopng polls redis for new incoming alerts are processes them accordingly</p>
+<ul class="simple">
+<li><p>Alerts are store permanently in the database</p></li>
+<li><p>A notification is triggered if an alert rule matches the received alert. No alerts are generated in the ntopng alerts page, this to avoid duplicating data.</p></li>
+</ul>
+<p>In order to deliver notifications to remote users, you need to configure an Endpoint and a Recipient:</p>
+<ul class="simple">
+<li><p>Go to left menubar, Alerts -&gt; Notifications and create an Endpoint</p></li>
+<li><p>Then click on the Recipients and associate it to the Endpoint. Please make sure you set the “Notification Type” to “Wazuh Alerts”.</p></li>
+</ul>
+<figure class="align-center">
+<img alt="Wazuh Alert Recipient" src="../_images/wazuh_recipient.png" />
+</figure>
+</section>
+<section id="wazuh-assets-collection">
+<h2>Wazuh Assets Collection<a class="headerlink" href="#wazuh-assets-collection" title="Link to this heading"></a></h2>
+<p>Wazuh deploys agents on monitored endpoints that continuously report status, operating system details, connectivity information, and security events to a central Wazuh Manager. By connecting ntopng to the Wazuh Manager REST API, the asset inventory can be automatically enriched with this agent-level data.</p>
+<p>The merge process matches Wazuh agents to ntopng assets based on their IP addresses. When a match is found, the asset is updated with security metadata retrieved from Wazuh, including the agent status, operating system, registration date, and last keep-alive timestamp. Assets enriched with Wazuh data are visually distinguishable in the inventory and can be filtered separately from assets without Wazuh information.</p>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before enabling the integration, ensure the following requirements are met:</p>
+<p><strong>ntopng Requirements:</strong></p>
+<ul class="simple">
+<li><p>ntopng with asset inventory support enabled (Enterprise M or better).</p></li>
+<li><p>Network connectivity from the ntopng host to the Wazuh Manager API endpoint.</p></li>
+<li><p>Host assets already present in the ntopng asset inventory (the integration updates existing assets only; it does not create new ones)</p></li>
+</ul>
+<p><strong>Wazuh Requirements:</strong></p>
+<ul class="simple">
+<li><p>A running Wazuh Manager instance</p></li>
+<li><p>A Wazuh user account with read access to the <code class="docutils literal notranslate"><span class="pre">/agents</span></code> API endpoint</p></li>
+<li><p>The Wazuh Manager API reachable on its configured port (default: <code class="docutils literal notranslate"><span class="pre">55000</span></code>)</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The integration performs a read-only query against the Wazuh API. No data is written to Wazuh.</p>
+</div>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
+<section id="step-1-merge-assets-from-wazuh">
+<h3>Step 1: Merge Assets from Wazuh<a class="headerlink" href="#step-1-merge-assets-from-wazuh" title="Link to this heading"></a></h3>
+<p>Once the credentials are saved, you can trigger the merge at any time from the asset inventory.</p>
+<ol class="arabic simple">
+<li><p>Navigate to <strong>Network → Assets Inventory</strong></p></li>
+<li><p>Click the <strong>Merge Assets from Wazuh</strong> button above the table (administrators only)</p></li>
+<li><p>ntopng will authenticate against the Wazuh Manager API, retrieve the full list of registered agents, and update all matching assets</p></li>
+</ol>
+<figure class="align-center" id="id1">
+<img alt="Wazuh Merge Check" src="../_images/wazuh_merge_check.png" />
+<figcaption>
+<p><span class="caption-text">Wazuh Merge Check</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The operation runs synchronously and returns a brief summary indicating how many assets were updated, how many agents had no matching ntopng asset, and whether any errors occurred.</p>
+<figure class="align-center" id="id2">
+<img alt="Wazuh Merge Completed" src="../_images/wazuh_merge.png" />
+<figcaption>
+<p><span class="caption-text">Wazuh Merge Completed</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only assets that already exist in the ntopng inventory are updated. Wazuh agents whose IP address does not match any known ntopng asset are silently skipped and counted as “not found” in the summary.</p>
+</div>
+<p>In case you want to nightly automatically synchronize Wazuh with ntopng, you can avoid manual import and set this option in the wazuh preferences.</p>
+</section>
+<section id="step-2-review-enriched-assets">
+<h3>Step 2: Review Enriched Assets<a class="headerlink" href="#step-2-review-enriched-assets" title="Link to this heading"></a></h3>
+<p>After the merge completes, enriched assets can be identified and inspected in two ways.</p>
+<p><strong>Visual indicator in the inventory</strong></p>
+<p>Assets that have been successfully enriched with Wazuh data display a <strong>W</strong> badge next to their name in the asset inventory table, making them immediately recognisable at a glance.</p>
+<p><strong>Filtering by Wazuh status</strong></p>
+<p>The asset inventory provides a dedicated filter to narrow the view to:</p>
+<ul class="simple">
+<li><p>Assets <strong>with</strong> Wazuh information (merge was performed and data is available)</p></li>
+<li><p>Assets <strong>without</strong> Wazuh information (no merge has been performed, or no matching Wazuh agent was found)</p></li>
+</ul>
+<p>This filter is useful to quickly identify which endpoints in your network are covered by Wazuh monitoring and which are not.</p>
+<p><strong>Wazuh detail panel</strong></p>
+<p>Clicking on an enriched asset opens its detail page, where a dedicated <strong>Wazuh</strong> section is displayed. This section contains a table with the following information retrieved from the Wazuh agent record:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Status</strong></p></td>
+<td><p>Current agent status as reported by Wazuh (e.g. <code class="docutils literal notranslate"><span class="pre">active</span></code>, <code class="docutils literal notranslate"><span class="pre">disconnected</span></code>, <code class="docutils literal notranslate"><span class="pre">never_connected</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Version</strong></p></td>
+<td><p>Version of the Wazuh agent installed on the endpoint</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Date Added (First Seen)</strong></p></td>
+<td><p>Date and time the agent was first registered with the Wazuh Manager</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Last Keep-Alive (Last Seen)</strong></p></td>
+<td><p>Date and time of the most recent heartbeat received from the agent</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>OS</strong></p></td>
+<td><p>Operating system information of the monitored endpoint</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Timestamp fields are stored and displayed in UTC, consistent with the rest of ntopng.</p>
+</div>
+<figure class="align-center" id="id3">
+<img alt="Wazuh Agent Information" src="../_images/wazuh_agent.png" />
+<figcaption>
+<p><span class="caption-text">Wazuh Agent Information</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Above you can see an example of the information reported by Wazuh that includes (but not limited to)</p>
+<ul class="simple">
+<li><p>Operating System and Architecture</p></li>
+<li><p>Available resources (memory and CPU)</p></li>
+<li><p>Network Interfaces</p></li>
+<li><p>Open TCP/UDP server ports including process name</p></li>
+</ul>
+</section>
+</section>
+<section id="alerts">
+<h2>Alerts<a class="headerlink" href="#alerts" title="Link to this heading"></a></h2>
+<p>Every time a Wazuh merge is performed, ntopng compares the newly retrieved agent data against the previously stored state for each asset and automatically generates <strong>informative alerts</strong> for any change detected. These alerts are visible under the <strong>network interface</strong> and are labelled with the IP address of the affected host.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/wazuh_alerts.png"><img alt="Wazuh Alerts" src="../_images/wazuh_alerts.png" style="width: 156.5px; height: 164.0px;" />
+</a>
+</figure>
+<section id="alert-triggers">
+<h3>Alert triggers<a class="headerlink" href="#alert-triggers" title="Link to this heading"></a></h3>
+<p>An alert is generated for each of the following events:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Event</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>New open port</strong></p></td>
+<td><p>A TCP or UDP port that was not previously open is now reported as open by the Wazuh agent.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Port no longer open</strong></p></td>
+<td><p>A TCP or UDP port that was previously open is no longer present in the agent report.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Process behind a port changed</strong></p></td>
+<td><p>A port is still open, but the process (application) listening on it has changed since the last merge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Network interface added</strong></p></td>
+<td><p>A new network interface has appeared on the endpoint. Virtual interfaces whose name starts with <code class="docutils literal notranslate"><span class="pre">veth</span></code> are excluded from this check as they are not considered meaningful (e.g. container-generated interfaces).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Network interface removed</strong></p></td>
+<td><p>A previously known network interface is no longer reported by the agent. As above, <code class="docutils literal notranslate"><span class="pre">veth</span></code>-prefixed interfaces are ignored.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="new-assets">
+<h3>New assets<a class="headerlink" href="#new-assets" title="Link to this heading"></a></h3>
+<p>When a Wazuh agent is matched to an ntopng asset <strong>for the first time</strong> (i.e. the asset has no prior Wazuh data), ntopng treats the entire set of data received as new and generates a single alert that summarises all ports, processes, and network interfaces discovered on that endpoint. This provides an immediate baseline notification whenever a previously unknown host is enrolled.</p>
+</section>
+<section id="alert-format">
+<h3>Alert format<a class="headerlink" href="#alert-format" title="Link to this heading"></a></h3>
+<p>All Wazuh-generated alerts share the following properties:</p>
+<ul class="simple">
+<li><p><strong>Severity</strong>: Informative</p></li>
+<li><p><strong>Interface</strong>: The network interface where ntopng observes the host</p></li>
+<li><p><strong>Label</strong>: IP address of the affected host</p></li>
+</ul>
+<p>This makes it straightforward to correlate alerts with specific hosts directly from the ntopng alert view, and to filter or aggregate them by IP address across the fleet.</p>
+</section>
+<section id="keeping-data-up-to-date">
+<h3>Keeping Data Up to Date<a class="headerlink" href="#keeping-data-up-to-date" title="Link to this heading"></a></h3>
+<p>The Wazuh integration does not poll the Wazuh API continuously. The merge must be triggered manually from the asset inventory, or scheduled nightly via the automatic synchronization option in the Wazuh preferences.</p>
+</section>
+<section id="troubleshooting">
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h3>
+<p><strong>The “Merge Assets from Wazuh” button returns an error</strong></p>
+<ul class="simple">
+<li><p>Verify that the Wazuh URL, username, and password saved are correct</p></li>
+<li><p>Confirm that the Wazuh Manager API is reachable from the ntopng host on the configured port</p></li>
+<li><p>Check that the Wazuh user account has permission to call the <code class="docutils literal notranslate"><span class="pre">/agents</span></code> endpoint</p></li>
+<li><p>Inspect the ntopng log for additional error details</p></li>
+</ul>
+<p><strong>Agents are retrieved but no assets are updated</strong></p>
+<ul class="simple">
+<li><p>The merge matches agents to assets exclusively by IP address. Ensure that the IP addresses reported by Wazuh agents correspond to IPs already present in the ntopng asset inventory</p></li>
+<li><p>Assets that have never been seen by ntopng cannot be created by the merge; traffic must be observed first for an asset to exist in the inventory</p></li>
+</ul>
+<p><strong>The “W” badge does not appear after the merge</strong></p>
+<ul class="simple">
+<li><p>Reload the asset inventory page; the badge is rendered client-side and may require a page refresh</p></li>
+<li><p>Confirm the merge summary reported at least one updated asset</p></li>
+</ul>
+<p><strong>No alerts are generated after the merge</strong></p>
+<ul class="simple">
+<li><p>Alerts are only generated when a change is detected relative to the previous merge. If this is the first merge ever performed, a baseline alert is created for each newly matched asset. If no changes occurred since the last merge, no alerts are produced.</p></li>
+<li><p>Confirm that the alerts view is filtered to show the correct network interface, as Wazuh alerts are associated with the interface on which the host is observed by ntopng.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="checkmk.html" class="btn btn-neutral float-left" title="Checkmk Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../performances/index.html" class="btn btn-neutral float-right" title="Performance and Hardware Sizing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/third_party_integrations/wazuh.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:01 GMT -->
+</html>

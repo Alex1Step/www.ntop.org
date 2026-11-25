@@ -1,0 +1,1717 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>nDPI Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/ndpi/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/ndpi/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Tue, 10 Nov 2026 08:06:11 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>nDPI Archives - ntop</title>
+	<link>https://www.ntop.org/category/ndpi/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Sharkfest 26EU: HowTo Detect Stealth VPN and AI Inference Traffic</title>
+		<link>https://www.ntop.org/sharkfest-26eu-howto-detect-stealth-vpn-and-ai-inference-traffic/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sat, 07 Nov 2026 16:56:21 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=47415</guid>
+
+					<description><![CDATA[<p>Earlier this week we have presented at Sharkfest Europe 2026 a presentation of our work about traffic detection of Stealth VPNs and AI Inference. The presentation addresses the challenges of detecting modern obfuscated network traffic, specifically from stealth VPNs and custom/local artificial intelligence (AI) services. While traditional signature methods (like JA4) face instability and hash collisions, the [&#8230;]</p>
+<p>The post <a href="https://www.ntop.org/sharkfest-26eu-howto-detect-stealth-vpn-and-ai-inference-traffic/">Sharkfest 26EU: HowTo Detect Stealth VPN and AI Inference Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="47415" class="elementor elementor-47415">
+				<div class="elementor-element elementor-element-7cee628a e-flex e-con-boxed e-con e-parent" data-id="7cee628a" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-527d1950 elementor-widget elementor-widget-text-editor" data-id="527d1950" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									
+<p class="wp-block-paragraph">Earlier this week we have presented at <a href="https://sharkfest.wireshark.org/sfeu/agenda/">Sharkfest Europe 2026</a> a presentation of our work about traffic detection of Stealth VPNs and AI Inference. The presentation addresses the challenges of detecting modern obfuscated network traffic, specifically from stealth VPNs and custom/local artificial intelligence (AI) services. While traditional signature methods (like JA4) face instability and hash collisions, the presenters introduce a breakthrough data-driven approach using machine learning and AI transformers (specifically a &#8220;Context Transformer&#8221;<strong>)</strong> to identify traffic patterns accurately without decrypting payloads.</p>
+
+<h6 class="wp-block-heading">Part I: Introduction to Passive Traffic Fingerprinting</h6>
+
+<ul class="wp-block-list">
+<li>Network Fingerprinting: Extracting unique, observable characteristics from standard protocols (TCP, IP, TLS) to passively identify a specific device, operating system, or network protocol without altering traffic.</li>
+
+<li>Active vs. Passive Probing:
+<ul class="wp-block-list">
+<li>Passive: Invisible, zero overhead, ideal for fragile environments (OT/medical devices), but dependent on active traffic flow.</li>
+
+<li>Active: Triggers packets to force a response (e.g., <code>nmap</code>, <code>JARM</code>), offering high accuracy but risking disruption or firewall detection.</li>
+</ul>
+</li>
+
+<li>IP Stack Elements: Security tools look at headers such as Time-To-Live (TTL), initial TCP Window Sizes, and the wire-order of TCP Options to fingerprint operating systems.</li>
+
+<li>The Encryption Paradox: While encryption hides raw payload data, the unencrypted handshake negotiations (Cipher Suites and TLS Extensions) provide rich criteria to generate application-level signatures like JA4.</li>
+</ul>
+<hr class="wp-block-separator has-alpha-channel-opacity" />
+<h6 class="wp-block-heading">Part II: Stealth VPN and AI Traffic Analysis</h6>
+
+<ul class="wp-block-list">
+<li>What is a Stealth VPN?: A service that actively modifies or strips handshake signatures and routes over regular web ports (like Port 443 or Port 80) to disguise VPN usage as ordinary HTTPS web browsing.</li>
+
+<li>The Limitation of JA4: The presenters discovered that JA4 hashes are unstable on a single device across multiple connections and can experience massive hash collisions with highly popular, benign traffic (e.g., standard Google Android services). This creates massive false-positive risks if used for active traffic blocking.</li>
+
+<li>The nDPI TLS Fingerprint: As a workaround, they preview a stable, collision-resistant successor to JA4 integrated into ntop&#8217;s <code>nDPI</code> library.</li>
+
+<li>AI Traffic Profiling: Traffic to major AI APIs (like OpenAI or Anthropic) is easily spotted via Server Name Indication (SNI). However, local instances powered by tools like <code>llama.cpp</code> or <code>vllm</code> require deeper flow analytics because their traffic patterns differ significantly based on whether the AI model response is Streamed or Non-Streamed.</li>
+</ul>
+<hr class="wp-block-separator has-alpha-channel-opacity" />
+<h6 class="wp-block-heading">Part III: From Fingerprints to Transformers</h6>
+
+<p class="wp-block-paragraph">When static signatures fail or are unknown in the wild, Machine Learning offers a data-driven approach by looking at network behavior patterns over time.</p>
+
+<ul class="wp-block-list">
+<li>Feature Engineering: The proposed framework transforms network traffic flows into 9 numerical features spanning:
+<ol class="wp-block-list">
+<li><em>Traffic Volume:</em> Forward/backward bytes and packet counts.</li>
+
+<li><em>Packet Statistics:</em> Average size and length variations.</li>
+
+<li><em>Payload Patterns:</em> Entropy of payload lengths.</li>
+
+<li><em>Timing:</em> Mean and standard deviation of packet inter-arrival times (IAT).</li>
+</ol>
+</li>
+
+<li>Windows and Bins: Flows are segmented into overlapping 100-second windows divided into 10-second temporal bins to capture traffic shape trends over time.</li>
+
+<li>The Context Transformer: Recognizing that an isolated stream might lack clarity, their transformer architecture enriches the target flow by evaluating up to 20 temporally nearby &#8220;context elements&#8221; (surrounding network activities) and identifying shared IP endpoints.</li>
+
+<li>Evaluation Metrics:
+<ul class="wp-block-list">
+<li>Tested using public datasets (VNAT, ISCXVPN2016) alongside their own smartphone captures of stealth applications like <em>HA Tunnel Plus, XU Tunnel, TLS Tunnel, Psiphon, and Geph</em>.</li>
+
+<li>Achieved an impressive 90.44% F1-score at the Window level and 85.71% at the Flow level, catching all 15 targeted VPN flows with only 5 false positives.</li>
+</ul>
+</li>
+</ul>
+
+<p class="wp-block-paragraph">The pipeline can be actively deployed by users as a lightweight FastAPI service leveraging <code>TShark</code> and <code>nDPI</code> parser utilities.</p>
+
+<p class="wp-block-paragraph"><a href="https://www.ntop.org/wp-content/uploads/2026/11/SF26EU_Fingerprints_Deri_Sartiano.pdf">SF26EU_Fingerprints_Deri_Sartiano</a></p>
+<p>Enjoy and contact us for questions !</p>
+<hr class="wp-block-separator has-alpha-channel-opacity" />								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/sharkfest-26eu-howto-detect-stealth-vpn-and-ai-inference-traffic/">Sharkfest 26EU: HowTo Detect Stealth VPN and AI Inference Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Detecting CVE-2026-98432 using nDPI/ntopng</title>
+		<link>https://www.ntop.org/detecting-cve-2026-98432-using-ndpi-ntopng/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sat, 07 Nov 2026 16:54:27 +0000</pubDate>
+				<category><![CDATA[nDPI]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=47413</guid>
+
+					<description><![CDATA[<p>CVE-2026-98432 is a critical, 9.8-severity use-after-free (UAF) vulnerability in the Linux kernel’s IPv4 TCP networking stack. It allows an unauthenticated remote attacker to potentially cause system crashes, memory corruption, or execute arbitrary commands with root privileges.  From a network standpoint, the attack occurs during a manipulated TCP three-way handshake using a carefully timed sequence of packets: 1. The Target Packets: The attacker sends [&#8230;]</p>
+<p>The post <a href="https://www.ntop.org/detecting-cve-2026-98432-using-ndpi-ntopng/">Detecting CVE-2026-98432 using nDPI/ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="47413" class="elementor elementor-47413">
+				<div class="elementor-element elementor-element-2542a2b9 e-flex e-con-boxed e-con e-parent" data-id="2542a2b9" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-2d89808 elementor-widget elementor-widget-text-editor" data-id="2d89808" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p><a href="https://nvd.nist.gov/vuln/detail/cve-2026-98432">CVE-2026-98432</a> is a critical, 9.8-severity use-after-free (UAF) vulnerability in the Linux kernel’s IPv4 TCP networking stack. It allows an unauthenticated remote attacker to potentially cause system crashes, memory corruption, or execute arbitrary commands with root privileges. </p>
+<p><!-- /wp:paragraph --><!-- wp:paragraph --></p>
+<p>From a network standpoint, the attack occurs during a manipulated TCP three-way handshake using a carefully timed sequence of packets:</p>
+<p><!-- /wp:paragraph --><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>1. The Target Packets: The attacker sends a standard connection request (SYN) packet, but includes rare, legacy IPv4 Options inside the packet header.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>2. The Race Condition: The attacker immediately floods the server with a duplicate SYN packet. On modern multi-core servers, different CPU cores process these two rapid packets at the same time.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>3. The Memory Error: One CPU core handles the connection and frees the memory holding the IPv4 options. Due to a lack of proper software locking, the second CPU core tries to read that exact same memory address at the same fraction of a second.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>The Result: The server reads &#8220;dirty&#8221; memory. It either packages that memory into a response packet (leaking secret kernel data back to the attacker) or executes malicious instructions embedded in the memory, granting the attacker remote root access.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --><!-- wp:paragraph --></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.01.02.jpg"><img fetchpriority="high" decoding="async" class="alignnone size-full wp-image-47469" src="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.01.02.jpg" alt="" width="1280" height="170" /></a> <a href="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.02.30.jpg"><img decoding="async" class="alignnone size-full wp-image-47472" src="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.02.30.jpg" alt="" width="1280" height="199" /></a><img decoding="async" class="wp-image-46563" src="https://www.ntop.org/wp-content/uploads/2026/11/telegram-cloud-photo-size-4-6014667563213721147-y-1024x136.jpg" alt="" /></p>
+<p>We have been asked if it was possible to detect attacks based on this vulnerability, and for this reason we <a href="https://github.com/ntop/nDPI/commit/b0a23109069ccea09e302319409f2e5aa73b0f7e">have enhanced nDPI</a> to recognize it. Thanks to this extension, application (e.g. ntopng or nProbe) are automatically detecting it reporting the issue in the web interface or exported flows.</p>
+<p>Enjoy !</p>
+<p><!-- /wp:paragraph --><!-- wp:image {"id":46563} --></p>
+<p><!-- /wp:image --><!-- wp:image --></p>
+<p><!-- /wp:image --></p>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/detecting-cve-2026-98432-using-ndpi-ntopng/">Detecting CVE-2026-98432 using nDPI/ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing the nDPI TCP Fingerprint: A Stable, Patent-Free Way to Fingerprint TCP Stacks</title>
+		<link>https://www.ntop.org/introducing-the-ndpi-tcp-fingerprint-a-stable-patent-free-way-to-fingerprint-tcp-stacks/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 29 Sep 2026 09:19:01 +0000</pubDate>
+				<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46475</guid>
+
+					<description><![CDATA[<p>Every TCP connection starts with a SYN, and that first packet says a lot about the machine that sent it. The Linux, Windows, macOS and Android stacks each set different flags, choose…</p>
+<p>The post <a href="https://www.ntop.org/introducing-the-ndpi-tcp-fingerprint-a-stable-patent-free-way-to-fingerprint-tcp-stacks/">Introducing the nDPI TCP Fingerprint: A Stable, Patent-Free Way to Fingerprint TCP Stacks</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">Every TCP connection starts with a SYN, and that first packet says a lot about the machine that sent it. The Linux, Windows, macOS and Android stacks each set different flags, choose different initial TTLs, advertise different receive windows, and, above all, lay out their TCP options in different orders. Passive TCP fingerprinting turns those differences into a compact signature.</p>
+
+
+
+<p class="wp-block-paragraph">Today we are announcing the nDPI TCP Fingerprint (TCPFP), a modern, open, patent-free TCP fingerprint format that has been included in nDPI for a few years now. It is implemented in <a href="https://github.com/ntop/nDPI">nDPI</a> and specified in a public draft (<a href="https://github.com/ntop/nDPI/blob/dev/fingerprint/README.ndpi_tcp_fingerprint.md">spec, v0.4</a>). This post covers what NTF is, how it differs from other popular TCP fingerprints (JA4T and MuonFP), and how to use it alongside <a href="https://www.ntop.org/introducing-tlsfp-a-stable-collision-resistant-successor-to-ja4/" data-type="post" data-id="46419">nDPI TLS Fingerprint</a> (TLSFP) to reduce false positives and catch inconsistencies.</p>
+
+
+
+<h6 class="wp-block-heading">Why another TCP fingerprint?</h6>
+
+
+
+<p class="wp-block-paragraph">Existing formats have three limitations:</p>
+
+
+
+<ol class="wp-block-list">
+<li>Instability. If a fingerprint includes values that change with the path or the session, the same device produces many different fingerprints. This inflates fingerprint databases and makes matching brittle.</li>
+
+
+
+<li>Licensing. Some fingerprinting methods come with license terms that restrict certain commercial uses, which is a problem if you want to embed them in a product.</li>
+
+
+
+<li>Limited coverage. Some formats ignore signals such as ECN negotiation (TCP flags) and the initial TTL, which are strong OS discriminators.</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">NTF addresses all three.</p>
+
+
+
+<h6 class="wp-block-heading">Open and patent-free</h6>
+
+
+
+<p class="wp-block-paragraph">NTF is a patent-free format. The specification is released under CC BY 4.0, so anyone can implement, adapt and redistribute it with attribution. The reference implementation in nDPI is released under the LGPLv3. Third parties can build producers that generate byte-identical fingerprints, since the spec documents the exact algorithm, its behavior on malformed input, and a set of test vectors, plus a reference implementation in Python.</p>
+
+
+
+<p class="wp-block-paragraph">For comparison, the JA4+ suite publishes JA4 (TLS client) under the BSD 3-Clause license, while the other JA4+ methods, including JA4T, are under the FoxIO License 1.1, which restricts some commercial uses. If you plan to embed a fingerprint in a commercial product, check the terms of each format first.</p>
+
+
+
+<h6 class="wp-block-heading">What an NTF looks like</h6>
+
+
+
+<p class="wp-block-paragraph">NTF is computed from a <strong>single packet</strong>, the first SYN of a flow. It needs no completed handshake, no payload, and no bidirectional visibility. The result is a short ASCII string with four underscore-separated fields:</p>
+
+
+
+<pre class="wp-block-code"><code>&lt;tcp_flags&gt;_&lt;ttl_bucket&gt;_&lt;tcp_window&gt;_&lt;options_hash&gt;</code></pre>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Field</th><th>What it captures</th></tr></thead><tbody><tr><td><code>tcp_flags</code></td><td>The numeric 12-bit flag field. This exposes ECN negotiation (<code>2</code> = plain SYN, <code>194</code> = SYN+ECE+CWR) and AccECN-capable stacks (<code>450</code>).</td></tr><tr><td><code>ttl_bucket</code></td><td>The observed TTL / Hop Limit rounded up to <code>32</code>, <code>64</code>, <code>128</code>, <code>192</code> or <code>255</code>. This recovers the likely initial TTL and removes the dependence on hop count.</td></tr><tr><td><code>tcp_window</code></td><td>The advertised window, verbatim and unscaled (window scaling doesn&#8217;t apply to SYNs).</td></tr><tr><td><code>options_hash</code></td><td>The first 48 bits of a SHA-256 over a hex serialization of the TCP options in wire order.</td></tr></tbody></table></figure>
+
+
+
+<p class="wp-block-paragraph">For example, a Linux client sending an IPv4 SYN produces:</p>
+
+
+
+<pre class="wp-block-code"><code>2_64_64240_5ec4846073b9</code></pre>
+
+
+
+<p class="wp-block-paragraph"><code>ndpiReader</code> prints it together with the OS hint:</p>
+
+
+
+<pre class="wp-block-code"><code>&#91;TCP Fingerprint: 2_64_64240_5ec4846073b9/Linux]</code></pre>
+
+
+
+<h6 class="wp-block-heading">Designed for Stability</h6>
+
+
+
+<p class="wp-block-paragraph">NTF follows the same philosophy as TLSFC, which strips ephemeral inputs from TLS fingerprints: <strong>one stack should produce one fingerprint</strong>. NTF removes every input that is a property of the path, the connection or the destination, rather than of the sending stack:</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Removed from the hash</th><th>Why</th></tr></thead><tbody><tr><td>MSS value</td><td>Depends on path MTU, IPv4 vs IPv6, VPNs and MSS clamping</td></tr><tr><td>Timestamp values</td><td>Per-connection clock and echo</td></tr><tr><td>TCP-MD5 / TCP-AO MACs</td><td>Per-segment digests</td></tr><tr><td>MPTCP keys, tokens, nonces</td><td>Per-connection. The version and flags are kept as a stack signal.</td></tr><tr><td>TCP Fast Open (including its NOP padding)</td><td>Depends on the per-server cookie cache</td></tr><tr><td>Everything after the first EOL</td><td>Padding</td></tr></tbody></table></figure>
+
+
+
+<p class="wp-block-paragraph">What remains is what actually identifies the stack: the flags, the initial TTL, the window, the option layout and order (including NOP placement), and constant option values such as the window-scale shift.</p>
+
+
+
+<h6 class="wp-block-heading">Same Stack, Same Fingerprint</h6>
+
+
+
+<p class="wp-block-paragraph">The Linux stack shows the effect well. Here is the same operating system in different situations:</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Case</th><th>NTF</th></tr></thead><tbody><tr><td>Linux, IPv4</td><td><code>2_64_64240_5ec4846073b9</code></td></tr><tr><td>Linux, IPv4, with a TFO cookie request</td><td><code>2_64_64240_5ec4846073b9</code></td></tr><tr><td>Linux, IPv4, with a TFO cookie</td><td><code>2_64_64240_5ec4846073b9</code></td></tr><tr><td>Linux, IPv6 (different MSS and window)</td><td><code>2_64_64800_5ec4846073b9</code></td></tr></tbody></table></figure>
+
+
+
+<p class="wp-block-paragraph">The options hash stays identical across all four. The IPv6 case differs only in the window field, because Linux picks the largest multiple of the MSS that fits in 65535 (64240 = 44×1460, 64800 = 45×1440). Consumers that need to match across IPv4 and IPv6 can compare only the flags, TTL and options-hash fields.</p>
+
+
+
+<p class="wp-block-paragraph">The effect on the nDPI built-in database was substantial. When we converted the database to the new format, 24 of the 63 distinct previous fingerprints differed from another entry <em>only</em> in the MSS value. The 65 active entries collapsed into 46. On the nDPI regression corpus (4,524 fingerprinted flows), distinct fingerprints dropped from 141 to 115, the number of flows with an OS hint rose from 1,878 to 1,907, and no flow changed from one OS to another.</p>
+
+
+
+<p class="wp-block-paragraph">The spec also documents the remaining sources of drift: TTLs near a bucket edge, and middleboxes that bleach ECN bits (which flips the flags field between <code>194</code> and <code>2</code>). It also handles crafted or malformed options deterministically, so a crafted SYN yields a well-defined fingerprint instead of undefined behavior.</p>
+
+
+
+<h6 class="wp-block-heading">How NTF Compares to Other Formats</h6>
+
+
+
+<p class="wp-block-paragraph">NTF sits alongside two other passive TCP fingerprints that use the same SYN-derived inputs: JA4T from FoxIO&#8217;s JA4+ suite, and MuonFP, which nDPI also supports (<code>metadata.tcp_fingerprint_format = 1</code>).</p>
+
+
+
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Aspect</th><th><strong>NTF</strong></th><th><strong>JA4T</strong></th><th><strong>MuonFP</strong></th></tr></thead><tbody><tr><td>Packet</td><td>Client SYN</td><td>Client SYN (JA4TS: server SYN-ACK)</td><td>Client SYN</td></tr><tr><td>Layout</td><td><code>flags_ttl_win_hash12</code></td><td><code>window_kinds_mss_wscale</code></td><td><code>window:kinds:mss:wscale</code></td></tr><tr><td>Human-readable</td><td>No (needs the raw string)</td><td>Yes</td><td>Yes</td></tr><tr><td>Length</td><td>Fixed</td><td>Variable</td><td>Variable</td></tr><tr><td>TCP flags (ECN)</td><td>Included</td><td>Not included</td><td>Not included</td></tr><tr><td>Initial TTL</td><td>Included (bucketed)</td><td>Not included</td><td>Not included</td></tr><tr><td>MSS</td><td>Excluded</td><td>Included</td><td>Included</td></tr><tr><td>Window-scale shift</td><td>Included (in hash)</td><td>Included</td><td>Included</td></tr><tr><td>TFO / ephemeral options</td><td>Removed, with NOP padding</td><td>Kept as option kinds</td><td>Kept as option kinds</td></tr><tr><td>Other option values (MPTCP flags, ExIDs, unknown options)</td><td>Included (in hash)</td><td>Kind only</td><td>Kind only</td></tr></tbody></table></figure>
+
+
+
+<p class="wp-block-paragraph">A few points from the comparison:</p>
+
+
+
+<ul class="wp-block-list">
+<li>The MSS trade-off is deliberate. JA4T keeps the MSS on purpose, because an MSS below what the link MTU would allow can reveal VPNs, tunnels and proxies on the path. NTF drops it so that one stack yields one fingerprint regardless of path. NTF is therefore the better key for OS and stack identification and for database lookups, while JA4T is the better signal for path analysis. The two are complementary.</li>
+
+
+
+<li>NTF sees more of the stack. A macOS SYN with and without ECN negotiation gets the same JA4T, but NTF separates them (<code>2_64_65535_fa6f8edaadeb</code> vs <code>194_64_65535_fa6f8edaadeb</code>). NTF also hashes MPTCP versions and flags, RFC 6994 experiment IDs and the values of unknown options, which the other two record only by kind.</li>
+
+
+
+<li>JA4T sees TFO; NTF deliberately does not. A client&#8217;s JA4T changes depending on whether it holds a TFO cookie for a given server. This is the same session-state drift that TLSFC removes for TLS, and NTF removes it for TCP.</li>
+
+
+
+<li>Readability vs compactness. JA4T and MuonFP can be read and wildcarded by eye. NTF&#8217;s fixed layout suits hash-table lookups and flow export, and you can export the pre-hash raw options string (<code>metadata.tcp_fingerprint_raw</code>) when you need to audit or rebuild a database.</li>
+</ul>
+
+
+
+<h6 class="wp-block-heading">NTF + TLSFC: Better Together</h6>
+
+
+
+<p class="wp-block-paragraph">TLS fingerprints such as TLSFC describe the <strong>application&#8217;s TLS library and configuration</strong>. NTF describes the <strong>operating system&#8217;s TCP/IP stack</strong>. Because they come from different layers, combining them gives you information that neither has on its own.</p>
+
+
+
+<h6 class="wp-block-heading">Reducing False Positives</h6>
+
+
+
+<p class="wp-block-paragraph">Many applications share the same TLS library and configuration, so a TLS fingerprint alone can be ambiguous. Adding the TCP fingerprint lets you check whether the TLS fingerprint is plausible for the OS that the flow appears to come from. This narrows candidate matches and cuts false positives in classification and detection rules. For this reason, nDPI uses NTF by default as the L4 component of its composite client fingerprint. You can turn this off with <code>metadata.ndpi_fingerprint_ignore_tcp_fp</code>.</p>
+
+
+
+<h6 class="wp-block-heading">Detecting Inconsistencies</h6>
+
+
+
+<p class="wp-block-paragraph">A mismatch between layers is often more interesting than either layer alone. Suppose a flow&#8217;s TLS fingerprint matches Apple Mail, but the TCP fingerprint of the same flow is <code>2_64_65535_5ec4846073b9</code>, which nDPI&#8217;s built-in database maps to <strong>Android</strong>. Apple Mail doesn&#8217;t run on Android, so something is off:</p>
+
+
+
+<ul class="wp-block-list">
+<li>a spoofed TLS client fingerprint,</li>
+
+
+
+<li>a tool or proxy re-originating the connection, or</li>
+
+
+
+<li>a mislabeled or misconfigured device.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">The same reasoning applies to a &#8220;Windows browser&#8221; whose SYN carries a Linux or network-device stack, or to a fleet device that suddenly presents a different stack.</p>
+
+
+
+<p class="wp-block-paragraph">Two caveats apply:</p>
+
+
+
+<ul class="wp-block-list">
+<li>The OS hint is a <strong>hint</strong>, not an identification. The mapping is many-to-one, and one fingerprint may legitimately match several OS families (for example, macOS and iOS/iPadOS share an options hash).</li>
+
+
+
+<li>Every NTF input is sender-controlled, so a crafted SYN can impersonate any fingerprint. NTF <strong>must not</strong> be used as an authentication signal. It works best as one input to a scoring or correlation pipeline.</li>
+</ul>
+
+
+
+<h6 class="wp-block-heading">Bonus: Scanner Detection</h6>
+
+
+
+<p class="wp-block-paragraph">While computing NTF, nDPI also flags characteristic scanner behavior. A SYN with no options at all raises a &#8220;Massive scanner detected&#8221; risk (with a <code>masscan</code>/<code>zmap</code> hint based on the window), and an MSS-only SYN from a public address raises &#8220;Unusual TCP fingerprint (scanner detected?)&#8221;. These risks are independent of the fingerprint string.</p>
+
+
+
+<h6 class="wp-block-heading">Getting Started</h6>
+
+
+
+<p class="wp-block-paragraph">NTF is the default TCP fingerprint in nDPI (<code>metadata.tcp_fingerprint_format = 0</code>).</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>C API:</strong> <code>flow-&gt;metadata.l4.tcp.fingerprint</code>, <code>flow-&gt;metadata.l4.tcp.fingerprint_raw</code>, and <code>flow-&gt;metadata.l4.tcp.os_hint</code></li>
+
+
+
+<li><strong>JSON / TLV export:</strong> <code>tcp_fingerprint</code> and <code>tcp_fingerprint_raw</code></li>
+
+
+
+<li><strong>ndpiReader:</strong> <code>[TCP Fingerprint: &lt;NTF&gt;/&lt;OS&gt;]</code></li>
+
+
+
+<li><strong>Wireshark:</strong> the <code>ntop.tcp_fingerprint</code> field via <code>wireshark/ndpi.lua</code></li>
+
+
+
+<li><strong>Custom databases:</strong> load your own entries with <code>ndpi_add_tcp_fingerprint()</code> or <code>ndpi_load_tcp_fingerprint_file()</code>. Each line has the form <code>&lt;NTF&gt;,&lt;numeric ndpi_os&gt;</code>, for example <code>2_64_14600_b88686e220ac,5</code>.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">If you maintain a custom fingerprint database built with an earlier nDPI version, <strong>it must be regenerated</strong>. This revision of the format changed the option serialization, so old and new fingerprints are not comparable.</p>
+
+
+
+<p class="wp-block-paragraph">The full specification, including the ABNF grammar, the serialization algorithm, malformed-input behavior, test vectors and a Python reference implementation, is in the <a href="https://github.com/ntop/nDPI/blob/dev/fingerprint/README.ndpi_tcp_fingerprint.md">nDPI repository</a>. The spec is currently a draft (v0.4), and we welcome feedback, test vectors from new stacks, and independent implementations.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/introducing-the-ndpi-tcp-fingerprint-a-stable-patent-free-way-to-fingerprint-tcp-stacks/">Introducing the nDPI TCP Fingerprint: A Stable, Patent-Free Way to Fingerprint TCP Stacks</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing nDPI TLS Fingerprint: A Stable, Collision-Resistant Successor to JA4</title>
+		<link>https://www.ntop.org/introducing-tlsfp-a-stable-collision-resistant-successor-to-ja4/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 21 Sep 2026 21:16:13 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46419</guid>
+
+					<description><![CDATA[<p>TLS client fingerprinting has become one of the workhorse techniques in network security, and JA4 (FoxIO) has been the de facto standard for identifying TLS clients from their ClientHello messages. But recent…</p>
+<p>The post <a href="https://www.ntop.org/introducing-tlsfp-a-stable-collision-resistant-successor-to-ja4/">Introducing nDPI TLS Fingerprint: A Stable, Collision-Resistant Successor to JA4</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">TLS client fingerprinting has become one of the workhorse techniques in network security, and JA4 (<a href="https://foxio.io/">FoxIO</a>) has been the de facto standard for identifying TLS clients from their ClientHello messages. But recent production experience at ntop surfaced two real limitations, and today we&#8217;re announcing nDPI TLS Fingerprint (TLSFP in short), an open, patent-free extension of JA4 that addresses both.</p>
+
+
+
+<h6 class="wp-block-heading">Ephemeral Extensions Break Hash Stability</h6>
+
+
+
+<p class="wp-block-paragraph">JA4 builds its fingerprint from the full set of TLS extensions a client presents, hashed together with the cipher suite list. The trouble is that not every extension reflects something stable about the client&#8217;s TLS stack. Extensions like <code>session_ticket</code>, <code>pre_shared_key</code>, and <code>padding</code> can appear or disappear from one connection to the next for the <em>same</em> client build, simply because of session-resumption state or record-size padding heuristics and not because the client changed.</p>
+
+
+
+<p class="wp-block-paragraph">We first documented this in <a href="https://www.ntop.org/is-ja4-now-obsolete/"><em>&#8220;Is JA4 Now Obsolete?&#8221;</em></a> blog article, where a single macOS Safari instance produced multiple different JA4 values across consecutive connections to the same site, purely because Safari opportunistically resumes sessions via the TLS 1.3 PSK extension (<a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC 8446</a>). This is a real problem for security use cases: an analyst or a detection rule relying on JA4 for allow-listing or threat-hunting sees the same client &#8220;change identity&#8221; for no meaningful reason, which either causes false negatives or forces defenders to loosen matching rules in ways that also let attackers blend in more easily. As ephemeral TLS extensions become more common (session resumption in particular is increasingly the norm rather than the exception) this instability only gets worse over time. This is exactly the gap the community discussion in the <a href="https://github.com/FoxIO-LLC/ja4/issues/303">FoxIO JA4 issue tracker</a> later converged on independently.</p>
+
+
+
+<h6 class="wp-block-heading">Blindness to Supported TLS Groups</h6>
+
+
+
+<p class="wp-block-paragraph">A separate, subtler issue is that JA4 only ever looks at <em>which</em> extensions are present, never at the <em>values</em> carried inside them. In particular, the <code>supported_groups</code> extension (it lists the elliptic curves and key-exchange groups a client is willing to negotiate) is invisible to JA4&#8217;s hash beyond the bare fact that the extension exists. That means two TLS stacks can end up with an identical JA4 fingerprint even though they support completely different curve sets. This is exactly the kind of gap that fingerprint-evasion tooling can exploit, cloning a browser&#8217;s published JA4 value while leaving a generic TLS library&#8217;s default curve list untouched underneath.</p>
+
+
+
+<h6 class="wp-block-heading">What TLSFP Does</h6>
+
+
+
+<p class="wp-block-paragraph">TLSFP keeps JA4&#8217;s overall structure and cipher-suite handling intact, and adds two things:</p>
+
+
+
+<ol class="wp-block-list">
+<li>Ephemeral-extension sanitization<strong>.</strong> A curated, versioned registry of ephemeral extension types (<code>padding</code>, <code>session_ticket</code>, <code>pre_shared_key</code>, <code>early_data</code>, <code>cookie</code>, <code>psk_key_exchange_modes</code>) is excluded from both the extension <em>count</em> and the extension <em>hash</em> before fingerprint computation. The result is a fingerprint that stays stable for the same client across resumption-heavy sessions, without discarding any of JA4&#8217;s other signal.</li>
+
+
+
+<li>A fourth hash field,<strong> </strong><code>TLSFP_d</code>, computed from the sorted, GREASE-filtered <code>supported_groups</code> values. This gives TLSFP visibility into curve/group selection that JA4 never had, which directly helps reduce false positives and hash collisions between TLS stacks that otherwise look identical to JA4.</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">The result is a four-field string, <code>TLSFP_a_TLSFP_b_TLSFP_c_TLSFP_d</code>, where <code>TLSFP_b</code> (the cipher-suite hash) is byte-identical to JA4_b for backward compatibility, and the extension and supported-groups handling do the new work.</p>
+
+
+
+<h6 class="wp-block-heading">Example: JA4 vs. TLSFP on the same ClientHello</h6>
+
+
+
+<p class="wp-block-paragraph">The spec&#8217;s test vectors illustrate the difference concretely. For a client whose ClientHello includes <code>padding</code> and <code>pre_shared_key</code> among 16 total extensions, and that advertises five supported groups:</p>
+
+
+
+<pre class="wp-block-code"><code># JA4 (unsanitized): extension count includes padding + PSK
+JA4 = t13d1516h2_acb858a92679_562e8b7393e5
+
+# TLSFP: same client, ephemeral extensions excluded from count and hash,
+# plus a new supported-groups hash appended
+TLSFP = t13d1514h2_acb858a92679_7dc829385eb9_0a47a2b05960</code></pre>
+
+
+
+<p class="wp-block-paragraph">A few things to note in that output:</p>
+
+
+
+<ul class="wp-block-list">
+<li><code>TLSFP_b</code> (<code>acb858a92679</code>) is identical in both cipher-suite handling is unchanged.</li>
+
+
+
+<li>The extension-count digits in <code>_a</code> drop from <code>16</code> to <code>14</code> once <code>padding</code> and <code>pre_shared_key</code> are excluded, and <code>JA5_c</code> changes accordingly since it hashes the sanitized extension list instead of the raw one.</li>
+
+
+
+<li><code>TLSFP_d</code> (<code>0a47a2b05960</code>) is brand new: a truncated SHA-256 of the sorted, GREASE-filtered <code>supported_groups</code> list. When <code>supported_groups</code> is absent (legacy RSA-only clients), this field is left empty rather than hashed, so &#8220;absent&#8221; stays distinguishable from &#8220;present but sparse&#8221;:</li>
+</ul>
+
+
+
+<h6 class="wp-block-heading">Open and Patent-Free by Design</h6>
+
+
+
+<p class="wp-block-paragraph">We&#8217;re publishing the TLSFP specification openly, under a permissive license, specifically so it can be adopted widely without licensing friction, the same spirit that made JA4 useful across the ecosystem, but without the ambiguity we&#8217;ve seen crop up around JA4+ naming and licensing. The draft specification, including the full byte-level algorithm, ephemeral extension registry, and worked test vectors, is maintained alongside nDPI.</p>
+
+
+
+<h6 class="wp-block-heading">References</h6>
+
+
+
+<ul class="wp-block-list">
+<li>ntop, <a href="https://github.com/ntop/nDPI/blob/dev/fingerprint/nDPI_TLS_Fingerprint.md">nDPI TLS Client Fingerprint Format</a></li>
+
+
+
+<li>ntop, <a href="https://www.ntop.org/is-ja4-now-obsolete/">Is JA4 Now Obsolete?</a></li>
+
+
+
+<li><a href="https://github.com/FoxIO-LLC/ja4/issues/303">FoxIO JA4 issue #303</a>, community discussion on the same ephemeral-extension problem</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/introducing-tlsfp-a-stable-collision-resistant-successor-to-ja4/">Introducing nDPI TLS Fingerprint: A Stable, Collision-Resistant Successor to JA4</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing nDPI 6.0: Licensing Update, Slow DoS Detection and Smarter Fingerprints</title>
+		<link>https://www.ntop.org/introducing-ndpi-6-0-licensing-update-slow-dos-detection-and-smarter-fingerprints/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 28 Aug 2026 14:31:45 +0000</pubDate>
+				<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46309</guid>
+
+					<description><![CDATA[<p>We are proud to announce the release of nDPI 6.0, the latest major update to our open-source Deep Packet Inspection (DPI) toolkit. This release brings an important licensing update, a brand-new detection…</p>
+<p>The post <a href="https://www.ntop.org/introducing-ndpi-6-0-licensing-update-slow-dos-detection-and-smarter-fingerprints/">Introducing nDPI 6.0: Licensing Update, Slow DoS Detection and Smarter Fingerprints</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">We are proud to announce the release of <strong>nDPI 6.0</strong>, the latest major update to our open-source Deep Packet Inspection (DPI) toolkit. This release brings an important licensing update, a brand-new detection logic for Slow DoS attacks, more flexible and reliable traffic fingerprints, and zero-overhead runtime observability via USDT tracepoints — on top of new protocols and dozens of improvements and fixes.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h5 class="wp-block-heading">Updated Licensing Terms</h5>
+
+
+
+<p class="wp-block-paragraph">With nDPI 6.0 we have updated the licensing terms of the project, introducing a distinction between for-profit and not-for-profit usage of some components. Full details are available in our dedicated post: <a href="https://www.ntop.org/announcing-ndpi-dual-license-change/">Announcing nDPI Dual License Change</a>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h5 class="wp-block-heading">Detecting Slow DoS Attacks</h5>
+
+
+
+<p class="wp-block-paragraph">Slow DoS attacks — such as Slowloris, Slow POST and Slow GET — don&#8217;t rely on volumetric floods. Instead, they exhaust a server&#8217;s pool of available connections by opening many requests and completing them as slowly as possible, denying service to legitimate users with very little bandwidth. nDPI 6.0 adds detection of <strong>Slow DoS, SlowDoS 3-Way-Handshake and Slowloris attacks</strong>, exposed as a new flow risk that any application (for example, ntopng, nProbe and nEdge) can use to detect and possibly block this class of attacks. More details are available in <a href="https://www.ntop.org/slow-dos-detection-and-prevention/">Slow DoS Detection and Prevention</a>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h5 class="wp-block-heading">More Flexible and Reliable Fingerprints</h5>
+
+
+
+<p class="wp-block-paragraph">Traffic fingerprints such as JA4 are extremely useful for spotting malware and correlating traffic patterns, but they are not immune to false positives: TLS extensions such as session resumption via Pre-Shared Keys can make JA4 far less unique than expected. nDPI 6.0 makes fingerprint computation <strong>more flexible</strong>, allowing &#8220;ephemeral&#8221; TLS extensions to be excluded from JA4 computation so that fingerprints remain meaningful even in the presence of these edge cases. See <a href="https://www.ntop.org/is-ja4-now-obsolete/">Is JA4 Now Obsolete?</a> for the full story.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h5 class="wp-block-heading">Zero-Overhead Runtime Observability with USDT</h5>
+
+
+
+<p class="wp-block-paragraph">Understanding what nDPI is doing while it is dissecting live traffic has historically meant adding debug prints or attaching a debugger. nDPI 6.0 introduces <strong>USDT (Userland Statically Defined Tracing) probes</strong>, static tracepoints that can be observed with tools such as <code>bpftrace</code> or <code>perf</code> with effectively zero overhead when not in use. This gives developers and integrators an easy, production-safe way to look inside nDPI&#8217;s classification pipeline. Read more in <a href="https://www.ntop.org/observing-ndpi-from-the-inside-introducing-usdt-tracepoints/">Observing nDPI From the Inside: Introducing USDT Tracepoints</a>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h5 class="wp-block-heading">New Supported Protocols and Services</h5>
+
+
+
+<p class="wp-block-paragraph">This release extends protocol coverage with, among others:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Meshtastic</strong>, <strong>libp2p</strong>, <strong>YGGDRASIL</strong> and <strong>Nebula</strong> mesh/overlay networking protocols</li>
+
+
+
+<li>Generic <strong>JSON</strong> and <strong>MsgPack</strong> classification</li>
+
+
+
+<li>Sub-classification for several <strong>GitHub</strong> services (Copilot, Packages, Actions)</li>
+
+
+
+<li>Sub-classification for <strong>Proton</strong> services (Mail, Pass, Drive, Calendar, Docs, Wallet, Lumo, Meet)</li>
+
+
+
+<li>Detection of <strong>Discord audio/video calls</strong></li>
+
+
+
+<li>New content-control categories: <strong>Children</strong>, <strong>Violence</strong>, <strong>Drugs</strong>, <strong>Weapons</strong></li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">The full, up-to-date protocol list is available in the <a href="https://github.com/ntop/nDPI/blob/dev/doc/protocols.rst">protocol documentation</a>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<p class="wp-block-paragraph"><strong>nDPI 6.0 is <a href="https://github.com/ntop/nDPI">available now</a></strong>, and the complete, unabridged changelog — including all the protocol dissector work, API changes, and fixes that came before this release — is <a href="https://github.com/ntop/nDPI/blob/dev/CHANGELOG.md">available on GitHub</a>.</p>
+
+
+
+<p class="wp-block-paragraph">We would like to thank all the contributors, old and new, who helped shape this release with code, bug reports, and testing. As always, we recommend upgrading to the latest release to benefit from all the features and fixes packed into this release.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy!</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/introducing-ndpi-6-0-licensing-update-slow-dos-detection-and-smarter-fingerprints/">Introducing nDPI 6.0: Licensing Update, Slow DoS Detection and Smarter Fingerprints</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Announcing nDPI Dual License Change</title>
+		<link>https://www.ntop.org/announcing-ndpi-dual-license-change/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sun, 23 Aug 2026 07:55:12 +0000</pubDate>
+				<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46293</guid>
+
+					<description><![CDATA[<p>A License Change for nDPI: Protecting the Project We Started in 2012 When we began nDPI back in 2012, the idea was simple: build an open source, high-performance Deep Packet Inspection engine…</p>
+<p>The post <a href="https://www.ntop.org/announcing-ndpi-dual-license-change/">Announcing nDPI Dual License Change</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h5 class="wp-block-heading">A License Change for nDPI: Protecting the Project We Started in 2012</h5>
+
+
+
+<p class="wp-block-paragraph">When we began nDPI back in 2012, the idea was simple: build an open source, high-performance Deep Packet Inspection engine that anyone could use as a foundation layer for network applications. No gatekeeping or strings attached, but just a solid piece of infrastructure that the community could build on, improve, and share back. In order to protect this idea, we have registered the nDPI trademark both in the US and EU to prevent people from using the word nDPI without ntop permission. We have tried to involve companies in nDPI, ask for their support and feedback, but unfortunately beside rare exceptions, companies used nDPI but did not return anything.</p>
+
+
+
+<p class="wp-block-paragraph">Fourteen years later, nDPI is used everywhere including commercial security appliances, network monitoring platforms, cloud services, and countless proprietary products we&#8217;ve never even heard of. In many ways, that&#8217;s exactly the outcome we hoped for. But it has also exposed a problem we can no longer ignore.</p>
+
+
+
+<h5 class="wp-block-heading">The Pattern We Keep Seeing</h5>
+
+
+
+<p class="wp-block-paragraph">Over the years, a recurring pattern has emerged. Commercial companies build proprietary products on top of nDPI, sometimes shipping it as a core detection engine inside a paid appliance or SaaS platform, and then, when they hit a wall (a crash, a misclassification, a new protocol that needs support), they reach out to ntop for help. We&#8217;re generally happy to help the open source community and to make nDPI better as this is a tool the ntop uses too. The trouble is that many of these same companies never contribute anything back: no code, no bug fixes, not even a heads-up about the issues they&#8217;ve found and patched internally. They take, they profit, and the project sees nothing in return, and the funny thing is that often they ask us to sign an NDA (that we didn&#8217;t sign of course) before talking about the library. Yes, for talking about the library we develop and maintain with the help of the whole community.</p>
+
+
+
+<p class="wp-block-paragraph">That&#8217;s not how open source under LGPL is supposed to work, and it&#8217;s not sustainable. DPI is a moving target as protocols evolve, TLS fingerprints shift, new obfuscation and tunnelling techniques show up constantly. For keeping nDPI accurate and current takes real, continuous engineering effort. When companies build revenue on top of that effort while contributing nothing back, they are quietly eroding the very thing they depend on.</p>
+
+
+
+<h5 class="wp-block-heading">What We&#8217;re Changing</h5>
+
+
+
+<p class="wp-block-paragraph">To address this, we&#8217;ve introduced a dual-license model for a subset of nDPI components, described in detail in <a href="https://github.com/ntop/nDPI/blob/dev/README.license.md">README.license.md</a>. Here&#8217;s the short version:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>The core nDPI library stays exactly as it was</strong>: open source, under LGPLv3, free for anyone to use.</li>
+
+
+
+<li><strong>A small number of dissectors we&#8217;ve written and maintained ourselves</strong> (as of today, DNS, QUIC, and TLS) move to a dual-license model:
+<ul class="wp-block-list">
+<li>If your project is <strong>not-for-profit</strong> (nDPI generates no direct or indirect revenue for you), nothing changes. You can keep using these components freely.</li>
+
+
+
+<li>If your project is <strong>for-profit</strong> — meaning nDPI helps generate direct or indirect revenue, whether that&#8217;s a product you sell or a service you charge for — you have two options: stick to the LGPLv3 core only, or sign a commercial license with ntop to keep using the dual-licensed dissectors.</li>
+</ul>
+</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Everything is still open source. Everything is still on GitHub. We&#8217;re not hiding the code or locking it behind a paywall but we&#8217;re asking commercial users who profit from it to have an honest conversation with us about giving back, whether through a license fee, a contribution, or active involvement in the project. In order to make this change clear, we have modified the API call used to initialize nDPI <code>ndpi_init_detection_module()</code> so that you need to pass a new mandatory parameter that specifies the intended use of nDPI: you cannot use the dual-licensed plugins in a for-revenue project without licensing those components from ntop.</p>
+
+
+
+<p class="wp-block-paragraph">It&#8217;s worth being candid about something: from a purely technical standpoint, this change doesn&#8217;t prevent anyone determined to ignore the license from doing so the code is still there to read and use however you&#8217;d like. What it does is remove the ambiguity. Companies that were previously able to plead ignorance about LGPL obligations no longer have that excuse. The terms are explicit, and continuing to build for-profit products on these components without a license is now a clear, unambiguous violation rather than a gray area.</p>
+
+
+
+<h5 class="wp-block-heading">Where the Money Will Go</h5>
+
+
+
+<p class="wp-block-paragraph">Revenues collected from commercial nDPI licenses goes straight back into the project: funding development time to keep pace with new protocols, harden the codebase, and expand detection coverage. This isn&#8217;t about turning nDPI into a commercial product; it&#8217;s about making sure the people who put in the hours to keep it excellent can keep doing so. </p>
+
+
+
+<p class="wp-block-paragraph">We also want to be clear that we value the people who <em>do</em> give back. If you&#8217;re an active contributor, submitting quality code, fixing bugs, extending protocol support ntop reserves the right to waive commercial licensing fees for you entirely. Contribution, not just payment, is a valid way to stay square with the project.</p>
+
+
+
+<h5 class="wp-block-heading">Why This Matters</h5>
+
+
+
+<p class="wp-block-paragraph">We still believe deeply in open source. nDPI&#8217;s core will remain LGPLv3 (the legacy code is now less than 5% and we could like to remove it completely when time allows), and we intend to keep publishing our engineering work openly, the way we always have. But belief in open source has to be a two-way street. When companies quietly extract value from a project for years without ever reinvesting, financially, or through code, they&#8217;re not participating in open source, they&#8217;re just consuming it.</p>
+
+
+
+<p class="wp-block-paragraph">This change is our way of drawing a clear line: use nDPI, build on it, even profit from it, but if you do, come talk to us. Contribute code, report bugs, or get a commercial license. That&#8217;s not too much to ask from companies that have been happy to take advantage of over a decade of unpaid engineering work.</p>
+
+
+
+<p class="wp-block-paragraph">If you have questions about how this affects your project, reach out to us at <a href="mailto:license@ntop.org">license@ntop.org</a>.</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+<p>The post <a href="https://www.ntop.org/announcing-ndpi-dual-license-change/">Announcing nDPI Dual License Change</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Post-Quantum Cryptography (PQC) Analysis</title>
+		<link>https://www.ntop.org/post-quantum-cryptography-pqc-analysis/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 18 May 2026 08:11:12 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45656</guid>
+
+					<description><![CDATA[<p>Modern digital security relies on public-key encryption (like RSA and ECC) to protect global data. The future arrival of a Cryptographically Relevant Quantum Computer (CRQC) will completely break these mathematical foundations. To…</p>
+<p>The post <a href="https://www.ntop.org/post-quantum-cryptography-pqc-analysis/">Post-Quantum Cryptography (PQC) Analysis</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">Modern digital security relies on public-key encryption (like <a href="https://en.wikipedia.org/wiki/RSA_cryptosystem">RSA</a> and <a href="https://en.wikipedia.org/wiki/Elliptic-curve_cryptography">ECC</a>) to protect global data. The future arrival of a&nbsp;Cryptographically Relevant Quantum Computer (CRQC)&nbsp;will completely break these mathematical foundations. To counter this, organizations must migrate to&nbsp;Post-Quantum Cryptography (PQC) — new, math-based algorithms deployed via standard software that quantum computers cannot exploit.</p>
+
+
+
+<p class="wp-block-paragraph">The PQC migration requires to protect data &#8220;at rest&#8221; (i.e. static data stored on physical drives, databases, cloud storage, or backups) and &#8220;in transit&#8221; (i.e. data transmitted on computer networks, including HTTPs and VPNs). In the latter case quantum computers running <a href="https://en.wikipedia.org/wiki/Shor%27s_algorithm">Shor’s Algorithm</a> will easily break these keys hence attackers are currently executing&nbsp;<a href="https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later">&#8220;Harvest Now, Decrypt Later&#8221; (HNDL)&nbsp;attacks</a> — stealing encrypted network traffic today to decrypt it the moment a quantum computer becomes available. In order to mitigate this risk, the National Institute of Standards and Technology (NIST) has finalized its first official Post-Quantum Cryptography (PQC) standards (<a href="https://cloudsecurityalliance.org/blog/2024/08/15/nist-fips-203-204-and-205-finalized-an-important-step-towards-a-quantum-safe-future">FIPS 203, 204, 205</a>) to fully discontinue legacy public-key algorithms by&nbsp;2035.</p>
+
+
+
+<p class="wp-block-paragraph">The work described below on this post comes from months of bootstrapping <a href="https://www.qubitowl.com/"><strong>QubitOwl</strong></a>, our partner startup on which we as taking part as core technology providers in building a comprehensive PQC posture analysis solution. For a complete PQC tool we suggest you to have a look at the <a href="https://www.qubitowl.com">QubitOwl CONTINUUM</a> tool that features a complete PQC analysis including both &#8220;at rest&#8221; and &#8220;in transit&#8221; tools.</p>
+
+
+
+<p class="wp-block-paragraph">At ntop we analyze network traffic hence we focus on PQC in transit. In particular we need to analyze encrypted traffic protocols such as:</p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS (Transport Layer Security)</a></li>
+
+
+
+<li><a href="https://en.wikipedia.org/wiki/QUIC">QUIC (Quick UDP Internet Connections)</a></li>
+
+
+
+<li><a href="https://en.wikipedia.org/wiki/Secure_Shell">SSH (Secure Shell)</a></li>
+
+
+
+<li><a href="https://en.wikipedia.org/wiki/Internet_Key_Exchange">IPSEC (IKE &#8211; Internet Key Exchange)</a></li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These protocols are used for transmitting data in a secure fashion by exchanging encrypted data. Unfortunately with the advent of PQC, network administrators need to identify hosts using non-PQC compliant versions of the above protocols and upgrade them. In order to ease the identification of these obsolete assets, we have enhanced ntop tools (ntopng Enterprise, nProbe, cento) using nDPI Pro in order to spot non-PQC compliant communications and report then.</p>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" width="2476" height="804" src="https://www.ntop.org/wp-content/uploads/2026/05/PQC.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 1" class="wp-image-45657"/></figure>
+
+
+
+<p class="wp-block-paragraph">In the above picture you can see how ntopng has detected a SSH non-PQC compliant communication, and identify the weakness side (the client is PQC ready, whereas the server is using an obsolete SSH version). As you can see detailed protocol information is reported in order to ease migration and identify the exact software version responsible fopr the issue.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="1576" height="556" src="https://www.ntop.org/wp-content/uploads/2026/05/Screenshot-2026-05-18-at-10.06.00.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 2" class="wp-image-45658"/></figure>
+
+
+
+<p class="wp-block-paragraph">If you store flows on ClickHouse you can easily find all non-PQC compliant with a matter of clicks.</p>
+
+
+
+<p class="wp-block-paragraph">At any time you can enable/disable the PQC from the behavioral check page.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="2732" height="446" src="https://www.ntop.org/wp-content/uploads/2026/05/Screenshot-2026-05-18-at-10.50.06.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 3" class="wp-image-45663"/></figure>
+
+
+
+<p class="wp-block-paragraph">If you want to know what network assets are not PQC-ready you can do it in a matter of clicks.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="2122" height="560" src="https://www.ntop.org/wp-content/uploads/2026/05/pqc_host.png" alt="Pqc host" class="wp-image-45669"/></figure>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="1636" height="470" src="https://www.ntop.org/wp-content/uploads/2026/05/Screenshot-2026-05-18-at-17.41.18.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 5" class="wp-image-45668"/></figure>
+
+
+
+<p class="wp-block-paragraph">Please remember that PQC analysis is based on nDPI, hence you can use it only if you monitor packets including nProbe/Cento that monitor packets and send flows to ntopng, but not if you collect flows sent by a router (NetFlow/IPFIX/sFlow).</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/post-quantum-cryptography-pqc-analysis/">Post-Quantum Cryptography (PQC) Analysis</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Observing nDPI from the Inside: Introducing USDT Tracepoints</title>
+		<link>https://www.ntop.org/observing-ndpi-from-the-inside-introducing-usdt-tracepoints/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 17 Mar 2026 20:21:09 +0000</pubDate>
+				<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45497</guid>
+
+					<description><![CDATA[<p>by Ivan Nardi One of the recurring challenges when embedding the nDPI library into a production application is answering a deceptively simple question: what is nDPI actually doing right now? You know…</p>
+<p>The post <a href="https://www.ntop.org/observing-ndpi-from-the-inside-introducing-usdt-tracepoints/">Observing nDPI from the Inside: Introducing USDT Tracepoints</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">by Ivan Nardi</p>
+
+
+
+<p class="wp-block-paragraph">One of the recurring challenges when embedding the nDPI library into a production application is answering a deceptively simple question: <em>what is nDPI actually doing right now?</em> You know packets are coming in, flows are being classified, and risks are being flagged — but at what rate? With what latency? Are some protocols taking longer to classify than usual? Is that CPU spike caused by a wave of TLS flows, a flood of DNS queries, or something else entirely?</p>
+
+
+
+<p class="wp-block-paragraph">Your application or monitoring backend probably already exports <em>some</em> statistics (total flows classified, protocol distribution, and so on). But those numbers are often too coarse to diagnose real problems: aggregated over a reporting interval they can smooth out brief spikes; they tell you <em>what</em> was classified but not <em>how hard</em> it was to get there; and they lump together traffic from different sources into a single counter, hiding potentially important details. The dashboard confirms something went wrong — it rarely tells you <em>why</em>.</p>
+
+
+
+<p class="wp-block-paragraph">Historically, the next step was to add more detailed logging, recompile, redeploy, and hope you can reproduce the issue. Not ideal.</p>
+
+
+
+<p class="wp-block-paragraph">A more principled approach is to use generic Linux tracing tools such as <a href="https://perf.wiki.kernel.org/index.php/Main_Page">perf</a> or the <a href="https://github.com/iovisor/bcc">BCC toolkit</a>. These are powerful for low-level concerns (hot functions, call stacks, memory allocation), but they cannot easily answer questions about application logic. They see instructions and functions, not flows, protocols, or dissectors. Dynamic tracing via <a href="https://www.brendangregg.com/blog/2015-06-28/linux-ftrace-uprobe.html">uprobes</a> is more flexible but does not provide a stable interface.</p>
+
+
+
+<p class="wp-block-paragraph">With the introduction of <strong>USDT (User-Space Statically Defined Tracing)</strong> support in nDPI, there is now a better and simpler way.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h4 class="wp-block-heading">What is USDT?</h4>
+
+
+
+<p class="wp-block-paragraph">USDT is a well-established technique for embedding lightweight, named tracepoints directly into a library or application at compile time. The key word is <em>lightweight</em>: when no tracing tool is attached, a USDT tracepoint costs nothing at runtime. The moment you attach a tracer such as <a href="https://github.com/bpftrace/bpftrace">bpftrace</a> and start collecting data, the overhead is usually still negligible.</p>
+
+
+
+<p class="wp-block-paragraph">This is the same approach used by production systems like PostgreSQL and the Linux kernel itself. It allows you to answer deep internal questions about a running process <strong>without recompiling, without restarting, and without modifying your application code</strong>. Because tracepoints are placed by the developers themselves at meaningful locations, they expose application-level semantics.</p>
+
+
+
+<p class="wp-block-paragraph">For a library like nDPI — often embedded in high-performance traffic analysis pipelines — this kind of introspection can make the difference between guessing and knowing.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h4 class="wp-block-heading">USDT Tracepoints in nDPI</h4>
+
+
+
+<p class="wp-block-paragraph">To enable USDT support, build nDPI with the <code>--enable-usdt-probes</code> flag:</p>
+
+
+
+<pre class="wp-block-code"><code>./autogen.sh &amp;&amp; ./configure --enable-usdt-probes --enable-debug-build &amp;&amp; make</code></pre>
+
+
+
+<p class="wp-block-paragraph">Once compiled, you can list all available tracepoints with:</p>
+
+
+
+<pre class="wp-block-code"><code>bpftrace -l 'usdt:./path/to/libndpi.so:ndpi:*'</code></pre>
+
+
+
+<p class="wp-block-paragraph">The tracepoints are grouped under the <code>ndpi</code> provider and cover key internal events — including flow classification, hostname extraction, and IP fragmentation — giving you a structured view of nDPI’s internal state that any eBPF-based tool can observe at runtime.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h4 class="wp-block-heading">Example 1: Tracing the Source of an IP Fragmentation Spike</h4>
+
+
+
+<p class="wp-block-paragraph">IP fragmentation is a rare but tricky aspect of network operation. When your monitoring backend reports an unusual rise in fragment counters, the number alone does not tell you much: is it a single misconfigured host, a tunnel with a suboptimal MTU, or something more systematic?</p>
+
+
+
+<p class="wp-block-paragraph">The <code>fragment_ipv4</code> probe fires once for every fragmented IPv4 packet processed by nDPI and provides a pointer to the packet’s IP header. This makes it trivial to tally fragment counts per source address in real time — no recompilation, no packet<br>capture, and no tcpdump filter required.</p>
+
+
+
+<pre class="wp-block-code"><code># Count fragmented packets by source IP
+bpftrace -e '
+usdt:./path/to/ndpiReader:ndpi:fragment_ipv4 {
+  $iph = (struct ndpi_iphdr *)arg0;
+  @frags_by_src&#91;ntop($iph-&gt;saddr)] = count();
+}'</code></pre>
+
+
+
+<p class="wp-block-paragraph">During a fragmentation event, the output might look like:</p>
+
+
+
+<pre class="wp-block-code"><code>@frags_by_src&#91;10.0.0.1]:        3
+@frags_by_src&#91;10.0.0.47]:       7
+@frags_by_src&#91;10.0.10.82]:   9841</code></pre>
+
+
+
+<p class="wp-block-paragraph">One host is responsible for nearly all fragments. The investigation immediately narrows: check whether that host is behind a tunnel (GRE, IPsec, IPIP) with an incorrect MTU, whether it is running software that deliberately fragments packets, or whether it is generating anomalies worth escalating to the security team. Without the tracepoint, answering this question typically requires a full packet capture and offline analysis; with it, the answer arrives in seconds on a live system.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h4 class="wp-block-heading">Example 2: Real-Time Protocol Distribution and Unknown Traffic Spikes</h4>
+
+
+
+<p class="wp-block-paragraph">Sometimes the most useful thing you can do is simply observe the protocol mix in real time. The following one-liner counts every classified flow by application protocol ID and prints a fresh distribution every ten seconds:</p>
+
+
+
+<pre class="wp-block-code"><code>bpftrace -e '
+usdt:./path/to/ndpiReader:ndpi:flow_classified {
+  @protos&#91;arg1] = count();
+}
+interval:s:10 {
+  print(@protos);
+  clear(@protos);
+}'</code></pre>
+
+
+
+<p class="wp-block-paragraph">Under normal conditions the output is stable — a predictable mix of TLS, DNS, HTTP, and the application protocols that reflect your traffic baseline:</p>
+
+
+
+<pre class="wp-block-code"><code>@protos&#91;91]:   8341    # TLS
+@protos&#91;5]:    4812    # DNS
+@protos&#91;7]:     923    # HTTP
+@protos&#91;133]:   411    # Netflix
+@protos&#91;0]:      14    # Unknown</code></pre>
+
+
+
+<p class="wp-block-paragraph">What you are watching for is a sudden rise in protocol ID <code>0</code> (Unknown). This bucket contains flows that nDPI could not classify, and a spike there — without a corresponding increase in total flow volume — is often an early indicator that something new or unusual is present on the network.</p>
+
+
+
+<p class="wp-block-paragraph">This matters beyond pure visibility. Unknown flows are processed up to the maximum packet budget before classification fails. Under normal conditions this path is rare. When Unknown traffic surges, however, the additional dissection work can  significantly increase CPU usage. In other words, the unexplained CPU spike reported by your monitoring system may be caused not by higher traffic volume but by a qualitative change in traffic composition.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h4 class="wp-block-heading">Get Involved</h4>
+
+
+
+<p class="wp-block-paragraph">USDT support in nDPI is still at an early stage. If you are embedding nDPI in your own tools or workflows, we would love to hear whether you find this feature useful and how it could be improved.</p>
+
+
+
+<p class="wp-block-paragraph">For the full list of available probes, their arguments, and additional examples, see the <a href="https://www.ntop.org/guides/nDPI/usdt.html">official documentation</a>.</p>
+
+
+
+<p class="wp-block-paragraph">The source code is available on <a href="https://github.com/ntop/nDPI">GitHub</a>. Give it a try and let us know what you discover.</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a>, <a href="https://www.ntop.org/open-source-network-monitoring/">Open source network monitoring</a></p><p>The post <a href="https://www.ntop.org/observing-ndpi-from-the-inside-introducing-usdt-tracepoints/">Observing nDPI from the Inside: Introducing USDT Tracepoints</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Slow DoS Detection and Prevention</title>
+		<link>https://www.ntop.org/slow-dos-detection-and-prevention/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 27 Jan 2026 09:34:57 +0000</pubDate>
+				<category><![CDATA[Cybersecurity]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45431</guid>
+
+					<description><![CDATA[<p>A slow DoS (Denial of Service) attack is a type of cyberattack designed to overwhelm a server or web application by exploiting protocol weaknesses—not through high-volume traffic, but by sending requests very…</p>
+<p>The post <a href="https://www.ntop.org/slow-dos-detection-and-prevention/">Slow DoS Detection and Prevention</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">A slow DoS (Denial of Service) attack is a type of cyberattack designed to overwhelm a server or web application by exploiting protocol weaknesses—not through high-volume traffic, but by sending requests very slowly or keeping connections open as long as possible. This consumes server resources (like concurrent connection limits, memory, or threads) with minimal bandwidth usage by the attacker. Instead of flooding the target with huge amounts of data, the attacker sends legitimate-looking requests at an extremely slow pace, or sends partial requests and delays completing them.<br>The server keeps these connections open, waiting for the request to finish, which eventually exhausts its pool of available connections—blocking legitimate users. In short, a slow DoS attack denies service by making the server wait, not by flooding as a volumetric DoS/DDoS (Distributed DoS).</p>
+
+
+
+<p class="wp-block-paragraph">Slow DoS attack include:</p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://en.wikipedia.org/wiki/Slowloris_(cyber_attack)">Slowloris</a>: Opens many HTTP connections and sends headers slowly or sends partial requests, never completing them.</li>
+
+
+
+<li>Slow POST/GET Attack: Sends a legitimate POST transmitting the body extremely slowly, or do a GET from the server but reads the response very slowly, keeping the connection alive and consuming server memory.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Unfortunately these attacks are more common than what most people think, and in the last weeks they are raising again. For this reason we have extended all our tools to detect (ntopng, nProbe..) and block (ntopng Edge) these type of attacks. This has been implemented by defining a new flow risk in nDPI named  Slow DoS. This is how it works.</p>
+
+
+
+<p class="wp-block-paragraph">If in your network you have suspicious SlowDoS flows, you can go in the &#8220;Live Flows&#8221; page and select in the status menu the flow connections.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="2300" height="634" src="https://www.ntop.org/wp-content/uploads/2026/01/slow_dos_flows.png" alt="Slow dos flows" class="wp-image-45433"/></figure>
+
+
+
+<p class="wp-block-paragraph">If you go in Actions -> Info you can see more information about the flow, and in the flow risk session you will see what is the problem that has been detected. Below you can see details of one of those flows who has been marked as SlowDoS because in this case past the TCP 3-way-handshake the server has to wait more than 10 seconds before the client issued the request.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="1980" height="218" src="https://www.ntop.org/wp-content/uploads/2026/01/SlowDoS_Flow.png" alt="SlowDoS Flow" class="wp-image-45432"/></figure>
+
+
+
+<p class="wp-block-paragraph">SlowDoS detection is not limited to clear-text protocols such as HTTP, but it also applies to TLS communications where detection works based on the analysis of TCP records.</p>
+
+
+
+<p class="wp-block-paragraph">In summary:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Slow DoS attacks are raising again, both in clear-text and encrypted communications.</li>
+
+
+
+<li>You can use ntop tools such as ntopng or nProbe to spot SlowDoS attackers., or use ntopng Edge to block slow DoS flows.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/ddos-mitigation/nscrub/">nScrub</a>, <a href="https://www.ntop.org/threat-detection-network-security/">Threat detection and network security</a></p><p>The post <a href="https://www.ntop.org/slow-dos-detection-and-prevention/">Slow DoS Detection and Prevention</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Is JA4 Now Obsolete?</title>
+		<link>https://www.ntop.org/is-ja4-now-obsolete/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 02 Jan 2026 14:28:03 +0000</pubDate>
+				<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45365</guid>
+
+					<description><![CDATA[<p>JA4 is a modern network fingerprinting standard used to identify and profile clients initiating encrypted TLS (Transport Layer Security) connections. JA4 it is the successor to the widely used but now deprecated…</p>
+<p>The post <a href="https://www.ntop.org/is-ja4-now-obsolete/">Is JA4 Now Obsolete?</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">JA4 is a modern network fingerprinting standard used to identify and profile clients initiating encrypted TLS (Transport Layer Security) connections. JA4 it is the successor to the widely used but now deprecated JA3 standard.</p>
+
+
+
+<p class="wp-block-paragraph">JA3 is considered obsolete because it cannot provide a stable identifier for modern browsers and is easily bypassed by attackers. Its reliance on the specific sequence of fields in the TLS ClientHello message makes it highly fragile in today&#8217;s networking environment. One (but not the only one) of the main limitations is JA3 is sensitivity to ordering: JA3 generates a hash based on the exact order of TLS extensions and cipher suites. Below you can see a <a href="https://github.com/ntop/nDPI/blob/dev/tests/cfgs/default/pcap/ja4.pcapng">Wireshark packet capture</a> of a macOS workstation that connects to this website using Apple Safari (version 26.2).</p>
+
+
+
+<figure class="wp-block-image size-full is-resized is-style-default"><img loading="lazy" decoding="async" width="2470" height="1780" src="https://www.ntop.org/wp-content/uploads/2026/01/ja4.png" alt="" class="wp-image-45366" style="width:726px;height:auto"/></figure>
+
+
+
+<p class="wp-block-paragraph">As you can see all the requests are issued by the same browser/IP but the JA4 signature is not unique. This is unexpected as JA4 in this case is expected to be the same across all the requests, violating one of the core properties of JA4 fingerprint. </p>
+
+
+
+<figure class="wp-block-image size-full is-resized"><img loading="lazy" decoding="async" width="1208" height="504" src="https://www.ntop.org/wp-content/uploads/2026/01/ja4_1.png" alt="" class="wp-image-45367" style="width:486px;height:auto"/></figure>
+
+
+
+<p class="wp-block-paragraph">Analyzing the request we noticed that Safari uses the pre-shared key TLS extension (RFC 8446) to use the PSKs of  a previously established connection to establish a new connection. This explains why JA4 is not unique, but it also shows a limitation of JA4 that also obsoleted JA3.</p>
+
+
+
+<p class="wp-block-paragraph">Until a JA5 standard is published, in nDPI we have introduced a new option that allows &#8220;ephemeral&#8221; TLS extensions not be to accounted in JA4 computation. For compatibility reason this new feature is disabled, but it can be enabled at command line as follows. This is the standard JA4</p>
+
+
+
+<pre class="wp-block-code"><code>/ndpiReader -i ~/Downloads/ja4.pcapng -K json -k out.json -q ; cat out.json | jq | grep ja4
+      "ja4": "t13d1516h2_8daaf6152771_d8a2da3f94cd",
+      "ja4": "t13d1516h2_8daaf6152771_d8a2da3f94cd",
+      "ja4": "t13d1517h2_8daaf6152771_b6f405a00624",
+      "ja4": "t13d1517h2_8daaf6152771_b6f405a00624",
+      "ja4": "t13d1516h2_8daaf6152771_d8a2da3f94cd",
+      "ja4": "t13d1516h2_8daaf6152771_d8a2da3f94cd",</code></pre>
+
+
+
+<p class="wp-block-paragraph">and this is the new fingerprint where ephemeral extensions are ignored</p>
+
+
+
+<pre class="wp-block-code"><code>ndpiReader --cfg "tls,metadata.ja_ignore_ephemeral_tls_extn,1" -i ~/Downloads/ja4.pcapng -K json -k out.json -q ; cat out.json | jq | grep ja4
+      "ja4": "t13d1515h2_8daaf6152771_31ec0a762479",
+      "ja4": "t13d1515h2_8daaf6152771_31ec0a762479",
+      "ja4": "t13d1515h2_8daaf6152771_31ec0a762479",
+      "ja4": "t13d1515h2_8daaf6152771_31ec0a762479",
+      "ja4": "t13d1515h2_8daaf6152771_31ec0a762479",
+      "ja4": "t13d1515h2_8daaf6152771_31ec0a762479",</code></pre>
+
+
+
+<p class="wp-block-paragraph">As you can see they are all alike, and JA4 is now useful again. </p>
+
+
+
+
+
+<p class="wp-block-paragraph">As of today ephemeral TLS extensions include</p>
+
+
+
+<ul class="wp-block-list">
+<li>Session ticket &#8211; <a href="https://datatracker.ietf.org/doc/html/rfc8447">RFC </a><a href="https://datatracker.ietf.org/doc/html/rfc9149">9149</a></li>
+
+
+
+<li>Pre-shared key &#8211; <a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC 8446</a></li>
+
+
+
+<li>Padding &#8211; <a href="https://datatracker.ietf.org/doc/html/rfc7685">RFC 7685</a></li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">New extensions can be added as they appear. Enjoy JA4 again !</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+<p>The post <a href="https://www.ntop.org/is-ja4-now-obsolete/">Is JA4 Now Obsolete?</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>nDPI 5.0: Enhanced Traffic Fingerprinting and FPC, Many new Protocols</title>
+		<link>https://www.ntop.org/ndpi-5-0-enhanced-traffic-fingerprinting-and-fpc-many-new-protocols/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 17 Nov 2025 10:49:57 +0000</pubDate>
+				<category><![CDATA[nDPI]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45295</guid>
+
+					<description><![CDATA[<p>We are proud to announce the release of nDPI 5.0, the latest major update to our open-source Deep Packet Inspection (DPI) toolkit. This release introduces a powerful new fingerprinting system, unlimited protocol…</p>
+<p>The post <a href="https://www.ntop.org/ndpi-5-0-enhanced-traffic-fingerprinting-and-fpc-many-new-protocols/">nDPI 5.0: Enhanced Traffic Fingerprinting and FPC, Many new Protocols</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">We are proud to announce the release of&nbsp;<strong>nDPI 5.0</strong>, the latest major update to our open-source Deep Packet Inspection (DPI) toolkit. This release introduces&nbsp;<strong>a powerful new fingerprinting system</strong>,&nbsp;<strong>unlimited protocol support</strong>, and&nbsp;<strong>enhanced detection capabilities</strong>&nbsp;that go beyond traditional methods.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h4 class="wp-block-heading">Major Highlights</h4>
+
+
+
+<h6 class="wp-block-heading">A Unified nDPI Fingerprint</h6>
+
+
+
+<p class="wp-block-paragraph">With nDPI 5.0, we are introducing a&nbsp;<strong>new fingerprinting mechanism</strong>&nbsp;that combines multiple layers of flow metadata into a single, robust fingerprint. This unified fingerprint integrates:</p>
+
+
+
+<ul class="wp-block-list">
+<li>TCP fingerprint</li>
+
+
+
+<li>JA4 fingerprint</li>
+
+
+
+<li>TLS SHA1 certificate hash (or JA3S if SHA1 is missing)</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">This new approach allows nDPI to identify and correlate encrypted or obfuscated traffic more accurately than ever before.<br>You can read more about the rationale and implementation in our article: <a href="https://www.ntop.org/beyond-ja3-ja4-introducing-ndpi-traffic-fingerprint/">Beyond JA3/JA4: Introducing nDPI Traffic Fingerprint</a></p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">Detecting Hostnames Without DNS Resolution</h6>
+
+
+
+<p class="wp-block-paragraph">In modern networks, especially with encrypted SNI and DoH/DoQ, not every hostname is resolved through DNS.<br>nDPI 5.0 introduces&nbsp;<strong>a new mechanism to detect (TLS/QUIC/HTTP) flows whose hostnames were not previously resolved via DNS</strong>, helping identify anomalies, evasive behaviors, or covert channels.</p>
+
+
+
+<p class="wp-block-paragraph">More details: <a href="https://www.ntop.org/when-snis-cannot-be-trusted/">When SNIs Cannot Be Trusted</a></p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">(Almost) Unlimited Custom Protocols and Rules</h6>
+
+
+
+<p class="wp-block-paragraph">nDPI 5.0 removes long-standing limits on the number of supported protocols. You can now define <strong>an almost unlimited (2^16) number of protocols</strong>, categories, and breeds at runtime.</p>
+
+
+
+<p class="wp-block-paragraph">Custom rules have also been extended with new matching options, allowing users to classify traffic by:</p>
+
+
+
+<ul class="wp-block-list">
+<li>JA4 fingerprint</li>
+
+
+
+<li>nDPI fingerprint</li>
+
+
+
+<li>HTTP URL</li>
+
+
+
+<li>Categories and breeds</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Examples of custom rules can be found&nbsp;<a href="https://github.com/ntop/nDPI/blob/dev/example/protos.txt">here</a>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">API and Build System Changes</h6>
+
+
+
+<p class="wp-block-paragraph">With this major release, we’ve modernized several core API and build components:</p>
+
+
+
+<ul class="wp-block-list">
+<li>You now need to explicitly configure your build:<code>./autogen.sh &amp;&amp; ./configure --$OPTIONS &amp;&amp; make</code></li>
+
+
+
+<li>All protocols are&nbsp;<strong>enabled by default</strong>; the deprecated&nbsp;<code>ndpi_set_protocol_detection_bitmask2()</code>&nbsp;function has been removed.</li>
+
+
+
+<li>The defines&nbsp;<code>NDPI_MAX_SUPPORTED_PROTOCOLS</code>&nbsp;and&nbsp;<code>NDPI_MAX_NUM_CUSTOM_PROTOCOLS</code>&nbsp;are gone — protocol limits are now&nbsp;<strong>dynamic and determined at runtime</strong>&nbsp;via&nbsp;<code>ndpi_get_num_protocols()</code>.</li>
+
+
+
+<li>The old static&nbsp;<code>NDPI_PROTOCOL_BITMASK</code>&nbsp;has been replaced with a&nbsp;<strong>dynamic&nbsp;<code>ndpi_bitmask</code></strong>&nbsp;structure.</li>
+
+
+
+<li>The return type of&nbsp;<code>ndpi_detection_process_packet()</code>&nbsp;has been simplified, and&nbsp;<code>ndpi_extra_dissection_possible()</code>&nbsp;has been removed.</li>
+
+
+
+<li>Some pseudo-protocols (<code>ADULT_CONTENT</code>,&nbsp;<code>LLM</code>, and&nbsp;<code>ADS_ANALYTICS_TRACK</code>) have been dropped and replaced with category-based classification.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These changes improve scalability, simplify the API, and make it easier to extend nDPI in future releases.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">New Protocols and Services</h6>
+
+
+
+<p class="wp-block-paragraph">This release adds support for many new and updated protocols and services, including:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Microsoft Delivery Optimization</strong>,&nbsp;<strong>Rockstar Games</strong>,&nbsp;<strong>Kick.com</strong>,&nbsp;<strong>MELSEC</strong>,&nbsp;<strong>Hamachi</strong>,&nbsp;<strong>GLBP</strong>,&nbsp;<strong>Matter</strong>,&nbsp;<strong>TriStation</strong>,&nbsp;<strong>Samsung SDP</strong>,&nbsp;<strong>ESPN</strong>,&nbsp;<strong>Akamai</strong>, and many more.</li>
+
+
+
+<li>New classification and sub-categories for&nbsp;<strong>Amazon/AWS</strong>&nbsp;services.</li>
+
+
+
+<li>Around&nbsp;<strong>30 new content categories</strong>, improving granularity in traffic analytics.</li>
+
+
+
+<li>Cleanup of outdated or obsolete protocols (e.g., older games like Warcraft 3, Half-Life 2).</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Full list available in the&nbsp;<a href="https://github.com/ntop/nDPI/blob/dev/doc/protocols.rst">protocol documentation</a>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">New Features and Algorithms</h6>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Out-of-tree builds</strong>&nbsp;are now supported.</li>
+
+
+
+<li><strong>Explicit flow classification states</strong>&nbsp;make debugging and analysis easier.</li>
+
+
+
+<li><strong>Protocol stacks</strong>&nbsp;are now supported — flows can include more than two protocols in classification.</li>
+
+
+
+<li>New API functions for hex encoding/decoding and ranking-based traffic analysis.</li>
+
+
+
+<li>A&nbsp;<strong>ranking detection API</strong>&nbsp;helps determine relative rank changes between epochs, useful for analytics and anomaly detection.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">New Configuration Options</h6>
+
+
+
+<p class="wp-block-paragraph">New configuration parameters have been added, such as:</p>
+
+
+
+<ul class="wp-block-list">
+<li><code>hostname_dns_check</code>&nbsp;– detect flows without prior DNS resolution</li>
+
+
+
+<li><code>metadata.tcp_fingerprint</code>&nbsp;and&nbsp;<code>metadata.tcp_fingerprint_format</code>&nbsp;– enable raw TCP fingerprint export and format selection</li>
+
+
+
+<li><code>http,metadata.resp.content_type</code>&nbsp;/&nbsp;<code>http,metadata.resp.server</code>&nbsp;– toggle HTTP metadata export</li>
+
+
+
+<li><code>tls,blocks_analysis</code>&nbsp;– enable TLS block size analysis</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Full documentation: <a href="https://github.com/ntop/nDPI/blob/dev/doc/configuration_parameters.md">Configuration Parameters</a></p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">Improvements and Optimizations</h6>
+
+
+
+<p class="wp-block-paragraph">This release includes&nbsp;<strong>hundreds of smaller improvements</strong>, optimizations, and refactorings:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Smarter protocol guessing and faster lookups</li>
+
+
+
+<li>Updated lists for bots, scanners, and mining pools</li>
+
+
+
+<li>Improved HTTP, TLS, and STUN dissectors</li>
+
+
+
+<li>Faster initialization and memory management</li>
+
+
+
+<li>Simplified API, better modularization, and improved internal consistency</li>
+
+
+
+<li>Updated croaring to v4.3.6</li>
+
+
+
+<li>Refined fingerprinting for Android and macOS</li>
+
+
+
+<li>New flow risks like&nbsp;<code>NDPI_MISMATCHING_PROTOCOL_WITH_IP</code></li>
+
+
+
+<li>Added TLS block analysis for deeper encrypted flow insight</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These refinements make nDPI 5.0 not only more capable but also&nbsp;<strong>faster and more memory-efficient</strong>.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<p class="wp-block-paragraph">By merging transport and encryption-level fingerprints into a unified identifier, supporting unlimited protocols, and enhancing flow intelligence, nDPI continues to lead in open-source DPI innovation. We invite developers, researchers, and integrators to explore the new release and share feedback or contributions. nDPI 5.0 is now <strong>available on</strong> <a href="https://github.com/ntop/nDPI"><strong>GitHub</strong></a>.<br><br>The complete changelog is <a href="https://github.com/ntop/nDPI/blob/dev/CHANGELOG.md">available here</a>. This said stay tuned as we&#8217;re working at a new version of nDPI suitable for professionals, and companies willing to embed it in their products.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy!</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/ndpi-5-0-enhanced-traffic-fingerprinting-and-fpc-many-new-protocols/">nDPI 5.0: Enhanced Traffic Fingerprinting and FPC, Many new Protocols</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>When SNIs Cannot be Trusted</title>
+		<link>https://www.ntop.org/when-snis-cannot-be-trusted/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 07 Oct 2025 20:59:09 +0000</pubDate>
+				<category><![CDATA[Cybersecurity]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45231</guid>
+
+					<description><![CDATA[<p>SNI (Server Name Indication) is an optional extension in TLS/QUIC that contains the symbolic host name we're connecting to. For instance, during the TLS handshake, the SNI allows the server to identify…</p>
+<p>The post <a href="https://www.ntop.org/when-snis-cannot-be-trusted/">When SNIs Cannot be Trusted</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">SNI (Server Name Indication) is an optional extension in TLS/QUIC that contains the symbolic host name we&#8217;re connecting to. For instance, during the TLS handshake, the SNI allows the server to identify the correct TLS certificate of a server hosting multiple websites. nDPI reports SNIs in order to make it possible to detect name-based services deployed on the same server IP address. Below you can see an example of how nDPI reports SNIs in encrypted traffic.</p>
+
+
+
+<pre class="wp-block-code"><code>
+TCP 192.168.1.29:52663 &lt;-&gt; 116.203.142.127:443 &#91;proto: 91.26/TLS.ntop]&#91;Stack: TLS.ntop]&#91;IP: 0/Unknown]&#91;Encrypted]&#91;Confidence: DPI]&#91;FPC: 0/Unknown, Confidence: Unknown]&#91;DPI packets: 8]&#91;cat: Network/14]&#91;Breed: Safe]&#91;23 pkts/4503 bytes &lt;-&gt; 24 pkts/25933 bytes]&#91;Goodput ratio: 66/94]&#91;0.36 sec]&#91;<strong>Hostname/SNI: www.ntop.org</strong>]&#91;(Advertised) ALPNs: h2;http/1.1]&#91;TLS Supported Versions: GREASE;TLSv1.3;TLSv1.2]&#91;bytes ratio: -0.704 (Download)]&#91;IAT c2s/s2c min/avg/max/stddev: 0/0 20/16 263/219 60/49]&#91;Pkt Len c2s/s2c min/avg/max/stddev: 66/66 196/1081 1506/1506 363/627]&#91;nDPI Fingerprint: 09a4ff6a891e0364e7cd1b08c0825fc3]&#91;TCP Fingerprint: 194_64_65535_d29295416479/macOS]&#91;TLSv1.3]&#91;JA4: t13d1516h2_8daaf6152771_d8a2da3f94cd]&#91;JA3S: f4febc55ea12b31ae17cfb7e614afda8]&#91;ECH: version 0xfe0d]&#91;Chrome]&#91;Cipher: TLS_AES_128_GCM_SHA256]&#91;Plen Bins: 0,0,12,0,0,4,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,4,0,0,0,0,0,0,0,0,0,0,71,0,0]</code></pre>
+
+
+
+<p class="wp-block-paragraph">Client applications use the SNI to verify that the website it is connecting to matches the symbolic website, and in case this is not happening errors such as &#8216;Your connection is not private&#8217; are reported. This said, it is not wise to assume that clients will always check name mismatches. In fact there are many applications that do not check them at all as this allows them to bypass network security policies. For instance, there are many VPN-like applications that connect to malicious IPs using popular SNIs (e.g. www.google.com) to hide their activities. While passively monitoring traffic, assuming that SNI maps.google.com means Google Maps isn&#8217;t safe without checking it.</p>
+
+
+
+<p class="wp-block-paragraph">As in TLS 1.3, the server certificate exchange is encrypted, in order to passively validate a connection, we have introduced in nDPI a DNS cache. Such cache keeps track of DNS resolution &lt;numeric IP&gt;:&lt;symbolic hostname&gt; in order to detect</p>
+
+
+
+<ul class="wp-block-list">
+<li>Connections to SNIs that have not been previously DNS-resolved.</li>
+
+
+
+<li>Mismatches numeric vs symbolic IP address</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Below you can see an example of nDPI flow risk NDPI_UNRESOLVED_HOSTNAME reported by ntopng when a mismatch is detected.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="3236" height="258" src="https://www.ntop.org/wp-content/uploads/2025/10/mismatch.png" alt="Mismatch" class="wp-image-45232"/></figure>
+
+
+
+<p class="wp-block-paragraph">In order to reduce cache memory size, we hash values in a bloom-filter-like data structure, so enabling this feature has a limited computational cost. Note that when DoH/DoT is in use, nDPI can report false positives as it has not observed the query, so enable this feature only on networks where it can be safely used.</p>
+
+
+
+<p class="wp-block-paragraph">In nEdge, host pools use the above feature to create a dynamic blacklist whenever a mismatch is reported. This means that hosts relying on SNI mismatch to bypass network policies can be spotted and blocked automatically.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="2436" height="134" src="https://www.ntop.org/wp-content/uploads/2025/10/Screenshot-2025-10-07-at-22.50.46.png" alt="When SNIs Cannot be Trusted, figure 2" class="wp-image-45234"/></figure>
+
+
+
+<p class="wp-block-paragraph">Bottom line: trusting SNIs is not a good idea as some malicious applications can use them to overcome network security measures. nDPI (hence all ntop applications) implements a mechanism to detect malicious SNI usage and eventually (in nEdge) block this traffic. Now you can safely monitor network traffic and trust SNIs again.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/when-snis-cannot-be-trusted/">When SNIs Cannot be Trusted</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

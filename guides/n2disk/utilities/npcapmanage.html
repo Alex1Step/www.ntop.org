@@ -1,0 +1,215 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/utilities/npcapmanage.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:57:28 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. npcapmanage &mdash; n2disk 3.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options02ed.js?v=da8737de"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. npcapmove" href="npcapmove.html" />
+    <link rel="prev" title="5. npcapprintindex" href="npcapprintindex.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            n2disk
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/n2disk/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Main Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html#licensing">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start.html">How to Start n2disk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning/index.html">Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../storage_sizing.html">Storage Sizing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="disk2n.html">1. disk2n</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npcapindex.html">2. npcapindex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npcapextract.html">3. npcapextract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npcapdecompress.html">4. npcapdecompress</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npcapprintindex.html">5. npcapprintindex</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6. npcapmanage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-it-works">6.1. How It Works</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-usage">6.2. Example Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#important-notes">6.3. Important Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="npcapmove.html">7. npcapmove</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npcaprepair.html">8. npcaprepair</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ndedup.html">9. ndedup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_ntopng.html">Flows Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../netflow.html">Netflow and Raw Recording</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Packet Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filesystem.html">Disk Partitioning and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">n2disk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Utilities</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6. </span>npcapmanage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/utilities/npcapmanage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="npcapmanage">
+<h1><span class="section-number">6. </span>npcapmanage<a class="headerlink" href="#npcapmanage" title="Link to this heading"></a></h1>
+<p>This utility is used for managing data retention by listing or deleting traffic older than a specified time interval. It operates on the timeline directory structure created by n2disk and can efficiently remove pcap files, their indexes, and associated timeline links within a given time range.</p>
+<p>npcapmanage is particularly useful for implementing data retention policies, freeing up disk space, and maintaining compliance with data storage requirements.</p>
+<p>Available options are:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[-d]                  | Delete all PCAPs in the specified time interval
+[-t] &lt;timeline dir&gt;   | Timeline directory created by n2disk
+[-b] &lt;begin time&gt;     | Begin time (format: YYYY-MM-DD HH:MM:SS)
+[-e] &lt;end time&gt;       | End time (format: YYYY-MM-DD HH:MM:SS)
+[-v] &lt;verbosity&gt;      | Verbosity level (0-6, default: 2)
+[-h]                  | Help
+</pre></div>
+</div>
+<section id="how-it-works">
+<h2><span class="section-number">6.1. </span>How It Works<a class="headerlink" href="#how-it-works" title="Link to this heading"></a></h2>
+<p>When run with the <code class="docutils literal notranslate"><span class="pre">-d</span></code> flag, npcapmanage performs the following operations for each pcap file in the specified time range:</p>
+<ol class="arabic simple">
+<li><p>Scans the timeline directory structure in 10-minute intervals</p></li>
+<li><p>Identifies pcap files within the specified time range based on their timestamps</p></li>
+<li><p>Follows symbolic links from timeline to actual storage locations</p></li>
+<li><p>Deletes the pcap file from storage</p></li>
+<li><p>Deletes the corresponding index file (.idx)</p></li>
+<li><p>Removes timeline symbolic links (.timeline files)</p></li>
+<li><p>Cleans up empty timeline subdirectories</p></li>
+</ol>
+<p>The tool is designed to handle the bidirectional symbolic link structure used by n2disk, where:</p>
+<ul class="simple">
+<li><p>Timeline directory contains links pointing to storage files</p></li>
+<li><p>Storage files contain reverse links (.timeline) pointing back to timeline entries</p></li>
+</ul>
+</section>
+<section id="example-usage">
+<h2><span class="section-number">6.2. </span>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h2>
+<p>Delete all pcap files captured between specific times:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">npcapmanage -t /storage/n2disk/timeline -b &quot;2024-09-01 00:00:00&quot; -e &quot;2024-09-15 23:59:59&quot; -d</span>
+</pre></div>
+</div>
+<p>List files that would be deleted (without -d flag, the tool will scan and log but not delete):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">npcapmanage -t /storage/n2disk/timeline -b &quot;2024-09-01 00:00:00&quot; -e &quot;2024-09-15 00:00:00&quot; -v 3</span>
+</pre></div>
+</div>
+<p>Delete the last 5 minutes of captured traffic:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">npcapmanage -t /timeline -b &quot;2024-09-30 14:55:00&quot; -e &quot;2024-09-30 15:00:00&quot; -d</span>
+</pre></div>
+</div>
+</section>
+<section id="important-notes">
+<h2><span class="section-number">6.3. </span>Important Notes<a class="headerlink" href="#important-notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">-d</span></code> flag is required to actually delete files. Without it, npcapmanage will only scan and report.</p></li>
+<li><p>Time format must be exactly: <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span> <span class="pre">HH:MM:SS</span></code></p></li>
+<li><p>The begin time is inclusive, the end time is exclusive (files with timestamp &gt;= end time are not deleted)</p></li>
+<li><p>The tool handles both absolute and relative symbolic links</p></li>
+<li><p>Empty timeline directories are automatically removed after file deletion</p></li>
+<li><p>Use higher verbosity levels (<code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">6</span></code>) to see detailed information about each file operation</p></li>
+<li><p>The tool reports the total number of files deleted and processing time upon completion</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="npcapprintindex.html" class="btn btn-neutral float-left" title="5. npcapprintindex" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="npcapmove.html" class="btn btn-neutral float-right" title="7. npcapmove" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/utilities/npcapmanage.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:57:29 GMT -->
+</html>

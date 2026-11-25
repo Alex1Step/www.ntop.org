@@ -1,0 +1,1642 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/remediations/ntopng_flow_risks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:02 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remediations for ntopng Flow Risks &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Remediations for Host Risks" href="host_risks.html" />
+    <link rel="prev" title="Remediations for nDPI Risks" href="ndpi_flow_risks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">User Interface Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../network_interface/index.html">Network Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html#alerts">Alerts</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../alerts_explorer.html">Alerts Explorer</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../issues.html">Issues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../others/alerts_graph.html">Alerts Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../alerts_type/engaged_alerts.html">Engaged Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../alerts_type/past_alerts.html">Past Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../alerts_type/flow_alerts.html">Flow Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../others/alerts_filters.html">Alerts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../others/custom_queries.html">Custom Queries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../others/mitre_classification.html">Mitre Classification</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">Remediations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../available_endpoints.html">Notifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#developer">Developer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="../alerts_explorer.html">Alerts Explorer</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Remediations</a></li>
+      <li class="breadcrumb-item active">Remediations for ntopng Flow Risks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/user_interface/shared/alerts/remediations/ntopng_flow_risks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="remediations-for-ntopng-flow-risks">
+<h1>Remediations for ntopng Flow Risks<a class="headerlink" href="#remediations-for-ntopng-flow-risks" title="Link to this heading"></a></h1>
+</section>
+<section id="remediations-for-ntopng-risks">
+<span id="risk-084"></span><h1>Remediations for ntopng Risks<a class="headerlink" href="#remediations-for-ntopng-risks" title="Link to this heading"></a></h1>
+<section id="normal">
+<span id="risk-001"></span><h2>NORMAL<a class="headerlink" href="#normal" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert signifies that no unusual activity or deviations from standard network behavior have been detected.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert indicates a stable and nominal security posture within the monitored network, as it suggests that no notable threats or vulnerabilities have been identified at this time.</p>
+</section>
+<section id="blacklisted">
+<span id="id1"></span><h2>BLACKLISTED<a class="headerlink" href="#blacklisted" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a device on the monitored network attempts to communicate with an IP address or domain that matches entries in the system’s predefined blacklist.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate unauthorized access attempts, malware communications, or command and control (C2) activity directed towards compromised systems within the network. It could also signify a misconfiguration or infection by malicious software on devices attempting to communicate with blacklisted entities.</p>
+<ol class="arabic simple">
+<li><p><strong>Triggering conditions</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>Outbound traffic from any device on the monitored network matches an entry in the system’s predefined blacklist.</p>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Malware infection on devices within the network attempting to communicate with command and control servers.</p></li>
+<li><p>Misconfigured devices or systems accidentally communicating with blacklisted entities.</p></li>
+<li><p>Unauthorized access attempts by threat actors targeting vulnerable devices in the network.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source device(s) triggering the alert for signs of compromise, such as the presence of malware or unusual activity.</p></li>
+<li><p>Implement additional security measures, like whitelisting trusted entities or enforcing strict outbound traffic policies.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert has a severity level of medium to high, depending on the frequency and nature of detections. It is particularly significant in networks with strict security requirements or those prone to malware infections.</p>
+</section>
+<section id="blacklisted-country">
+<span id="risk-002"></span><h2>BLACKLISTED COUNTRY<a class="headerlink" href="#blacklisted-country" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a communication flow is detected between an internal network and a country that is present in a blacklist.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate unauthorized access attempts, data exfiltration, or command and control (C2) traffic by threat actors leveraging compromised devices in the blacklisted country. It poses a significant security risk as it could enable further network infiltration or data theft.</p>
+<p>#. <strong>Triggering conditions:</strong>
+- Any outgoing or incoming traffic to/from a blacklisted country’s IP address.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Internal users unintentionally accessing malicious or untrusted resources hosted in blacklisted countries.</p></li>
+<li><p>Misconfiguration of network policies allowing unauthorized traffic to/from blacklisted countries.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Block traffic to/from the involved IP address ranges and monitor for any attempted bypasses.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is particularly significant in networks with strict access control policies or industries subject to specific regulatory requirements (e.g., finance, healthcare).</p>
+</section>
+<section id="flow-blocked">
+<span id="risk-003"></span><h2>FLOW BLOCKED<a class="headerlink" href="#flow-blocked" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert indicates that a network flow has been abruptly terminated by the system before completing its natural lifecycle, which could be due to various reasons such as network congestion, configuration issues, or malicious activity.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may suggest potential denial-of-service (DoS) attacks, misconfigured network devices, or other underlying network vulnerabilities that could impact availability and performance.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Network congestion leading to flow blocking for Quality of Service (QoS) enforcement.</p></li>
+<li><p>Misconfigured network devices causing unintentional flow blocking.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the cause of network congestion or misconfiguration, and address it promptly to minimize false positives.</p></li>
+<li><p>Monitor for patterns indicative of DoS attacks, such as sudden high volumes of blocked flows from a single source.</p></li>
+<li><p>Consult network device logs and system metrics to identify potential points of failure causing flow blocking.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="data-exfiltration">
+<span id="risk-004"></span><h2>DATA EXFILTRATION<a class="headerlink" href="#data-exfiltration" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when there’s a suspected unauthorized transfer of data outside the network, potentially indicating an exfiltration attempt.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate that an attacker is actively attempting to steal valuable data, posing significant risks such as data leakage and potential compliance violations.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Unauthorized insider attempting to steal data.</p></li>
+<li><p>Compromised internal host acting as an exfiltration agent controlled by external attacker.</p></li>
+<li><p>Accidental misconfiguration leading to unintended data transfer outside the network.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate source IP address and user associated with the suspicious traffic.</p></li>
+<li><p>Review recent logs and changes for signs of compromise or unauthorized access.</p></li>
+<li><p>Implement Data Loss Prevention (DLP) mechanisms if not already in place.</p></li>
+<li><p>Consider blocking outbound traffic to unknown external IP addresses until further investigation.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Severity level:</strong> High, prompt investigation is recommended upon detection.</p></li>
+<li><p><strong>Network environments:</strong> Particularly significant in finance, healthcare, and other sectors handling confidential information.</p></li>
+</ol>
+</section>
+<section id="device-protocol-not-allowed">
+<span id="risk-005"></span><h2>DEVICE PROTOCOL NOT ALLOWED<a class="headerlink" href="#device-protocol-not-allowed" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a device in the monitored network attempts to initiate or participate in communication using a protocol that has been explicitly disallowed by network policies.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detection of this alert may indicate unauthorized or malicious activity attempting to bypass established security protocols, potentially exposing sensitive data or allowing unauthorized access to network resources.</p>
+<p>#. <strong>Triggering conditions:</strong>
+A device sends a packet with an unsupported or disallowed protocol in the payload, header, or as the transport protocol.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfigured devices attempting to communicate using forbidden protocols.</p></li>
+<li><p>Malicious software or actors exploiting unknown vulnerabilities in network devices.</p></li>
+<li><p>Outdated device firmware leading to unintended usage of disallowed protocols.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source device and its configuration to identify any misconfigurations or unauthorized changes.</p></li>
+<li><p>Review network logs for additional related alerts or unusual activities from the same device or subnet.</p></li>
+<li><p>Update device firmware and enforce strict access controls to prevent further occurrences.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>device_policy_violation</strong>:
+This alert may co-occur if the device has other policy violations, suggesting potential misconfiguration or malicious activity.</p>
+<p>#. <strong>Additional Notes:</strong>
+This alert should be considered moderate severity in most environments. It is particularly significant in highly secure networks with strict protocol restrictions (e.g., military, government, or finance sectors). Frequent occurrences of this alert may warrant a full network security audit.</p>
+</section>
+<section id="dns-data-exfiltration">
+<span id="risk-006"></span><h2>DNS DATA EXFILTRATION<a class="headerlink" href="#dns-data-exfiltration" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when an unusual amount of DNS query traffic is detected, potentially indicating unauthorized data exfiltration via DNS tunneling.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may signify a potential data breach where sensitive information is being covertly transmitted out of the network using DNS queries, posing significant confidentiality and compliance risks.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>DNS tunneling for data exfiltration or command and control communication.</p></li>
+<li><p>Malware infection causing unusual DNS activity.</p></li>
+<li><p>Misconfiguration of DNS servers leading to unexpected query spikes.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source IP address(es) exhibiting anomalous behavior, including checking open ports, running processes, and network connections.</p></li>
+<li><p>Inspect traffic for signs of DNS tunneling by analyzing query patterns and content.</p></li>
+<li><p>Consult with security teams or external experts if evidence of malicious activity is found.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Additional Notes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Frequency: Rare, but critical when triggered.</p></li>
+<li><p>Severity level: High - immediate investigation is required to prevent data loss and mitigate potential risks.</p></li>
+<li><p>Significance: This alert is particularly relevant in environments with high security requirements or strict data governance policies.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="dns-invalid-query">
+<span id="risk-007"></span><h2>DNS INVALID QUERY<a class="headerlink" href="#dns-invalid-query" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a DNS query contains invalid characters, exceeds its maximum length, or has other formatting issues that violate the DNS specification RFC 1035.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate attempts to bypass or exploit DNS servers through deliberate injection of malformed queries, potentially leading to denial-of-service conditions or unauthorized access to data stored within DNS records.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Deliberate injection of malformed queries to cause denial-of-service conditions.</p></li>
+<li><p>Software bugs or misconfigurations leading to improperly formed DNS requests.</p></li>
+<li><p>Unintended use of non-standard characters in domain names due to software encoding issues.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source IP address and user agent for signs of malicious activity.</p></li>
+<li><p>Check the DNS server configuration for any discrepancies or evidence of unauthorized access attempts.</p></li>
+<li><p>Implement packet filtering to drop malformed queries before they reach the DNS server.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Additional Notes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Severity level: Medium</p></li>
+<li><p>Frequency of occurrence: Low to moderate, typically associated with targeted attacks or software bugs.</p></li>
+<li><p>This alert is particularly significant in environments with stringent security requirements and where DNS servers are critical components.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="elephant-flow">
+<span id="risk-008"></span><h2>ELEPHANT FLOW<a class="headerlink" href="#elephant-flow" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when an unusually high volume of traffic (higher than predefined threshold) from a single source IP address is detected over an extended period (&gt;60 seconds).</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate data exfiltration or Distributed Denial of Service (DDoS) attack in progress, or could suggest a compromised device being used as a spam source within the network.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Hosts downloading big size files (file transfer)</p></li>
+<li><p>Compromised device exfiltrating data</p></li>
+<li><p>Software updates</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Immediately investigate the identified source IP address for signs of compromise.</p></li>
+<li><p>Implement rate-limiting on network hardware and software to prevent future occurrences.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Additional Notes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Severity level: High</p></li>
+<li><p>Frequency of occurrence: Low, but can lead to significant network disruption when triggered</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="blacklisted-client-contact">
+<span id="risk-009"></span><h2>BLACKLISTED CLIENT CONTACT<a class="headerlink" href="#blacklisted-client-contact" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a blacklisted client (flow source IP) attempts to establish contact with a destination IP address which belongs to the local network.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert suggests that potentially malicious traffic is trying to initiate communication within your network, indicating possible command and control (C2) activity from known threat actors. It may also imply that your blacklist needs updating or that there are unknown infected systems, these systems could be the source IPs that triggered this alert or other IPs that contacted the same destination IP as this within your network attempting to communicate with external threats.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>An infected system within your network is attempting to communicate with a known threat actor.</p></li>
+<li><p>Outdated blacklists leading to false positives.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source IP address to determine if it’s compromised and isolate it if necessary.</p></li>
+<li><p>Verify that your blacklist is up-to-date, and update it as needed.</p></li>
+<li><p>Review network configurations to ensure no legitimate systems are communicating with blacklisted entities.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert is considered high severity, as it indicates potential C2 activity. It’s particularly significant in enterprise environments where maintaining an up-to-date blacklist and monitoring network communications are crucial. The frequency of this alert may vary depending on the size of your network and its exposure to threats.</p>
+</section>
+<section id="external-alert">
+<span id="risk-010"></span><h2>EXTERNAL ALERT<a class="headerlink" href="#external-alert" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert is triggered when an event is received from an external third-party security tool. An example of this is when ntopng is integrated with Suricata, which exports alerts in EVE JSON format to syslog. ntopng collects Suricata alerts though the syslog interface and exports them as ntopng alerts to the configured endpoints for dispatching.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate a multitude of different issues, depending on the source.</p>
+<p>#. <strong>Recommended Actions:</strong>
+Investigate and identify any security risk based on the reported message, which comes from the alert source.
+In case the alert comes from Suricata, check the signature matching the specific alert for remediation.</p>
+</section>
+<section id="long-lived-flow">
+<span id="risk-011"></span><h2>LONG LIVED FLOW<a class="headerlink" href="#long-lived-flow" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+The long lived flow alert is triggered when a flow is active for at least a configurable period of time (e.g. 5 minutes), potentially indicating a botnet or other persistent threat.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate the presence of compromised devices or systems engaged in data exfiltration, command and control (C&amp;C) communications, or other malicious activities using long-lived, idle connections to avoid detection.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Botnet C&amp;C communications using long-lived idle connections to evade detection.</p></li>
+<li><p>Compromised systems used as proxies or zombies for further attacks.</p></li>
+<li><p>Misconfiguration or improper usage of network services leading to unnecessary long-lived idle connections.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source and destination IP addresses, ports, and other relevant packet metadata to identify potential compromised hosts or malicious activities.</p></li>
+<li><p>Review the traffic patterns associated with these long-lived idle connections for anomalies that may indicate command and control communications.</p></li>
+<li><p>Implement rate-limiting or connection time-out policies to mitigate the risk of excessive long-lived idle connections.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert is particularly significant in enterprise environments with strict network access controls and large numbers of connected devices. Regular monitoring and threshold tuning may be necessary to adapt to normal traffic patterns during peak usage hours. The severity level associated with this alert should be configurable based on the organization’s risk tolerance and the specific threshold values for idle connection duration and count.</p>
+</section>
+<section id="low-goodput">
+<span id="risk-012"></span><h2>LOW GOODPUT<a class="headerlink" href="#low-goodput" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+The <cite>low_goodput</cite> alert triggers when the ratio of goodput to throughput for a network flow falls below a predefined threshold, indicating potential congestion or efficiency issues.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Low goodput may indicate resource exhaustion attacks, misconfigured QoS settings, or denial-of-service conditions that could degrade network performance and availability.</p>
+<p>#. <strong>Potential Causes:</strong>
+1. <strong>Congestion:</strong> High traffic load or insufficient bandwidth leading to queuing delays and reduced goodput.
+2. <strong>Misconfigured QoS:</strong> Incorrect Quality of Service settings causing preferential treatment for other flows, starving the monitored flow of resources.
+3. <strong>DoS/DDoS attacks:</strong> Targeted flooding of network links or services, consuming available bandwidth and lowering goodput.</p>
+<p>#. <strong>Recommended Actions:</strong>
+1. Investigate traffic sources and patterns contributing to congestion; consider rate-limiting, traffic shaping, or load balancing techniques to manage high-traffic flows.
+2. Review QoS settings for accurate prioritization of critical services and applications.
+3. Monitor for signs of DoS/DDoS attacks, such as sudden spikes in traffic volume or source IP addresses, and implement appropriate countermeasures.</p>
+<p>#. <strong>Additional Notes:</strong>
+- <a href="#id2"><span class="problematic" id="id3">*</span></a>Frequency:<a href="#id4"><span class="problematic" id="id5">**</span></a>Moderate to high frequency in high-traffic environments.
+- <a href="#id6"><span class="problematic" id="id7">*</span></a>Severity:<a href="#id8"><span class="problematic" id="id9">**</span></a>Medium; persistent low goodput may impact service performance but is less critical than complete denial of service.</p>
+</section>
+<section id="blacklisted-server-contact">
+<span id="risk-013"></span><h2>BLACKLISTED SERVER CONTACT<a class="headerlink" href="#blacklisted-server-contact" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a localhost (source IP address) on the monitored network initiates contact with an IP destination address or domain listed in the system’s predefined blacklist.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate that an infected machine within the network is attempting to communicate with command and control (C2) servers, potentially facilitating unauthorized data exfiltration or receiving malicious commands. It could also suggest that an attacker has compromised a device and is using it to reach out to their own infrastructure.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Compromised devices within the network attempting to communicate with blacklisted servers.</p></li>
+<li><p>Inadvertent inclusion of legitimate internal IP addresses or domains in the blacklist, leading to false positives.</p></li>
+<li><p>Misconfiguration or errors during blacklist maintenance causing irrelevant entries.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the originating device(s) to identify any signs of infection or unauthorized changes.</p></li>
+<li><p>Check the blacklist for accuracy and remove any false-positive entries if necessary.</p></li>
+<li><p>Monitor further network activity from the affected devices for related threats, such as data exfiltration or lateral movement.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- The frequency of occurrence and severity level depend on the size of the blacklist and the number of infected or compromised devices within the network.
+- This alert is particularly significant in environments with strict security policies regarding outbound traffic.</p>
+</section>
+<section id="internal-data-leakage">
+<span id="risk-014"></span><h2>INTERNAL DATA LEAKAGE<a class="headerlink" href="#internal-data-leakage" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when internal network data, such as sensitive information or confidential communications, is exfiltrated via unusual or unauthorized channels like unsanctioned cloud services or unknown external hosts.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate a potential data breach due to compromised credentials, malicious insiders, or advanced persistent threats (APTs). It could also reveal unauthorized data sharing practices that violate regulatory compliance policies.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Malware infection on internal systems leading to data exfiltration.</p></li>
+<li><p>Insider threats intentionally leaking sensitive information.</p></li>
+<li><p>Configuration errors or misinterpretations of access policies.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source IP address and system that initiated the data transfer.</p></li>
+<li><p>Review access logs for suspicious user activities or unauthorized access attempts.</p></li>
+<li><p>Inspect the affected systems for signs of infection by malware or other malicious software.</p></li>
+<li><p>Implement strict access controls and whitelisting policies for cloud services.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is typically considered high severity due to the potential loss of sensitive data.
+- It is particularly significant in environments with strict regulatory compliance requirements, such as finance or healthcare sectors.</p>
+</section>
+<section id="remote-to-remote">
+<span id="risk-016"></span><h2>REMOTE TO REMOTE<a class="headerlink" href="#remote-to-remote" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a device on the monitored network is detected to be communicating directly with another device outside of its normal subnet, potentially indicating an attempt at unauthorized inter-VLAN routing or bypassing network segmentation controls.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may suggest that an attacker has gained unauthorized access to restricted segments of the network, leading to potential data leakage or lateral movement of threats. It could also indicate a misconfiguration in network segmentation controls.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfigured network segmentation controls.</p></li>
+<li><p>Attempted unauthorized access or lateral movement of threats within the network.</p></li>
+<li><p>Potential existence of rogue devices or unauthorized VLANs.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate and verify if the communication is authorized and necessary. If not, block the traffic at the network level.</p></li>
+<li><p>Review and reconfigure network segmentation controls to prevent unauthorized direct communication between subnets.</p></li>
+<li><p>Consider conducting a thorough network scan to identify any unknown devices or rogue VLANs.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert is particularly significant in environments with strict network segmentation policies or those containing sensitive data, such as data centers and financial institutions. The frequency of occurrence depends on the network’s traffic patterns and security posture.</p>
+</section>
+<section id="tcp-packet-issues">
+<span id="risk-019"></span><h2>TCP PACKET ISSUES<a class="headerlink" href="#tcp-packet-issues" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert is triggered when Deep Packet Inspection (DPI) identifies inconsistent or improper handling of TCP packets, such as missing flags, unexpected options, or invalid sequence numbers.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate misconfigured network devices, protocol anomalies that could facilitate attacks like session hijacking or denial-of-service, or even malicious activity exploiting TCP vulnerabilities to disrupt communications or gather sensitive data.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfigured network devices (firewalls, routers) resulting in improper packet handling.</p></li>
+<li><p>Malicious activity exploiting TCP vulnerabilities or implementing custom TCP protocols for evasive purposes.</p></li>
+<li><p>Network congestion or interference causing TCP sequence number wraparound.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source and destination IP addresses of suspicious packets to identify potential problematic hosts or network segments.</p></li>
+<li><p>Analyze traffic patterns between these hosts to determine if there are any suspicious activities or anomalies.</p></li>
+<li><p>Review and update configurations of relevant network devices to ensure proper TCP handling and mitigate potential vulnerabilities.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is typically considered medium severity, as it may indicate both benign misconfigurations and serious security threats.
+- It is particularly significant in environments with high network traffic loads or critical systems relying on secure TCP communications.</p>
+</section>
+<section id="tcp-connection-refused">
+<span id="risk-020"></span><h2>TCP CONNECTION REFUSED<a class="headerlink" href="#tcp-connection-refused" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a TCP connection attempt is refused by the target host, indicating potential issues with network connectivity or service availability.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+A high number of refused connections could indicate a DoS attack, misconfiguration, or service outage, potentially disrupting network services and impacting users.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Network misconfiguration or firewall rules blocking connections.</p></li>
+<li><p>Service outage or unavailability on the target host.</p></li>
+<li><p>DoS attack targeting network services with refused connection attempts.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Check the target host’s service status and network connectivity.</p></li>
+<li><p>Review and update firewall rules to allow legitimate traffic.</p></li>
+<li><p>Implement rate-limiting or other countermeasures against potential DoS attacks.</p></li>
+<li><p>Monitor refused connections over time to identify persistent issues or trends.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- High frequency of this alert may indicate a network under stress or under attack.
+- Severity level is typically low to medium, depending on the context and number of refused connections.</p>
+</section>
+<section id="tcp-severe-connection-issues">
+<span id="risk-021"></span><h2>TCP SEVERE CONNECTION ISSUES<a class="headerlink" href="#tcp-severe-connection-issues" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a TCP connection experiences severe issues such as excessive retransmissions, resets, or timeouts, indicating potential network problems or malicious activity.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may suggest a Denial of Service (DoS) attack targeting network availability, or it could indicate misconfigured or faulty network devices that need immediate attention to prevent service disruptions.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>TCP state exhaustion attacks.</p></li>
+<li><p>Misconfigured or failing network devices, such as load balancers or firewalls.</p></li>
+<li><p>High traffic volumes causing temporary network congestion.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source IP addresses triggering the alert for suspicious activity or patterns.</p></li>
+<li><p>Check network devices’ logs and configurations for signs of misconfiguration or failures.</p></li>
+<li><p>Monitor CPU and memory usage on affected systems to identify potential resource exhaustion issues.</p></li>
+<li><p>Consider implementing rate-limiting or connection throttling measures to protect against future attacks.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert has a high severity level ( Critical ). It is particularly significant in networks with strict availability requirements, such as data centers or financial institutions. Frequent occurrences of this alert may warrant network infrastructure upgrades to improve performance and reliability.</p>
+</section>
+<section id="tls-certificate-expired">
+<span id="risk-022"></span><h2>TLS CERTIFICATE EXPIRED<a class="headerlink" href="#tls-certificate-expired" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert is triggered when a Transport Layer Security (TLS) certificate used in network communication is found to be expired during deep packet inspection.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+An expired TLS certificate can compromise secure communications by allowing man-in-the-middle attacks and potentially exposing sensitive data, indicating a high-risk vulnerability in the monitored network.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Negligence in renewing the certificate before expiration.</p></li>
+<li><p>Misconfiguration of certificate renewal processes or automated systems.</p></li>
+<li><p>Spoofed or malicious certificates intended to disrupt secure communications.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Immediately replace the expired certificate with a valid one from a trusted Certificate Authority (CA).</p></li>
+<li><p>Review and update certificate management procedures to ensure timely renewals.</p></li>
+<li><p>Investigate potential indicators of compromise, as expired certificates may be signs of tampering or unauthorized access attempts.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- Severity level: High
+- Frequency of occurrence: Low to moderate in well-maintained networks, but may increase due to misconfigurations or neglect.
+- Environments where this alert is particularly significant: Critical infrastructure and high-security networks handling sensitive data.</p>
+</section>
+<section id="tls-certificate-mismatch">
+<span id="risk-023"></span><h2>TLS CERTIFICATE MISMATCH<a class="headerlink" href="#tls-certificate-mismatch" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a TLS/SSL handshake contains a mismatch between the expected and presented server certificate, indicating potential man-in-the-middle attacks or misconfigured servers.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may suggest that an attacker is impersonating a legitimate service (e.g., via certificate spoofing) to intercept sensitive data or disrupt communication. Alternatively, it could indicate a misconfiguration on the server side where certificates do not match the expected hostnames.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Man-in-the-middle (MitM) attacks using certificate spoofing or certificate authority (CA) compromise.</p></li>
+<li><p>Incorrectly issued or renewed server certificates not matching the expected hostnames.</p></li>
+<li><p>Misconfigured load balancers or proxy servers causing certificate mismatch.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Verify server certificates and ensure they match the intended hostnames. Renew or update them if necessary.</p></li>
+<li><p>Investigate potential MitM attacks by examining network traffic for unusual behavior, such as unexpected intermediate certificates or unauthorized proxies.</p></li>
+<li><p>Monitor certificate revocation lists (CRLs) and Certificate Transparency logs to detect compromised or tampered certificates.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert is particularly significant in environments where strict certificate validation policies are enforced. It should be investigated promptly due to the potential severity of MitM attacks targeting sensitive data or critical systems.</p>
+</section>
+<section id="tls-unsafe-cipher">
+<span id="risk-025"></span><h2>TLS UNSAFE CIPHER<a class="headerlink" href="#tls-unsafe-cipher" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when deep packet inspection detects Transport Layer Security (TLS) connections using weak or deprecated cipher suites that do not meet current security standards.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting tls_unsafe_ciphers  alerts indicates potential man-in-the-middle attacks, data interception, and unauthorized access to sensitive information being transmitted over the network. Weak cipher suites can be exploited by attackers due to their lower encryption strengths or known vulnerabilities.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Outdated client software that supports only weak cipher suites.</p></li>
+<li><p>Misconfiguration of servers, allowing connections with weak ciphers.</p></li>
+<li><p>Intentional use of weak cipher suites for compatibility purposes in legacy systems.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Identify and upgrade/downgrade clients supporting weak cipher suites to newer versions that support strong cipher suites like AES-GCM or ChaCha20-Poly1305.</p></li>
+<li><p>Review server configurations to disallow connections using weak cipher suites.</p></li>
+<li><p>Monitor network traffic regularly for <cite>tls_unsafe_ciphers</cite> alerts and investigate any recurring occurrences.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- Severity level: Medium to High
+- Frequency of occurrence: Moderate to High in environments with legacy systems and software
+- This alert is particularly significant in financial institutions, e-commerce websites, and other organizations handling sensitive data.</p>
+</section>
+<section id="web-mining">
+<span id="risk-027"></span><h2>WEB MINING<a class="headerlink" href="#web-mining" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a device on the network engages in crypto mining activities</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Web mining can lead to unauthorized access of user data, privacy violations, and potentially enable targeted phishing attacks against individuals within the monitored network. It may also indicate the presence of malicious insiders or compromised devices used for illicit crypto mining and resource harvesting.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Unauthorized use of hardware resources for personal financial gain.</p></li>
+<li><p>Compromised devices infected with malware that mines crypto currencies.</p></li>
+<li><p>Compromised devices infected with malware used by C2</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source device and user to determine if unauthorized activities are taking place.</p></li>
+<li><p>Consider deploying web content filtering solutions to block known malicious URLs used for mining.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- <strong>Frequency:</strong> Medium to low frequency, depending on the specific environment and user behavior.
+- <strong>Severity:</strong> Medium. While not immediately critical, unauthorized web mining could lead to significant resources utilizationover time.
+- <strong>Significance:</strong> Particularly relevant in environments with strict data protection regulations.</p>
+</section>
+<section id="tls-self-signed-certificate">
+<span id="risk-028"></span><h2>TLS SELF SIGNED CERTIFICATE<a class="headerlink" href="#tls-self-signed-certificate" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert is triggered when a TLS/SSL certificate presented by a server during a handshake is self-signed, indicating it was not issued by a trusted Certificate Authority (CA).</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate that an unauthorized or untrusted service is running on the network, potentially exposing sensitive data to eavesdropping or manipulation. It could also suggest the presence of malware or a man-in-the-middle attack.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfigured or unauthorized service running on the network, presenting its own certificate instead of one issued by a trusted CA.</p></li>
+<li><p>Man-in-the-middle attack using a self-signed certificate to intercept communication between clients and legitimate servers.</p></li>
+<li><p>Malware or malicious software attempting to masquerade as a trusted service.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source IP address and port number associated with the self-signed certificate to identify the unauthorized service or potential threat.</p></li>
+<li><p>Verify that all services running on the network are configured correctly and present valid certificates issued by trusted CAs.</p></li>
+<li><p>Consider deploying network security solutions like certificate pinning or public key infrastructure (PKI) enforcement to prevent man-in-the-middle attacks.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is considered high severity as it may indicate significant security risks on the network.
+- It is particularly significant in environments where strict certificate validation policies are enforced.</p>
+</section>
+<section id="binary-application-transfer">
+<span id="risk-029"></span><h2>BINARY APPLICATION TRANSFER<a class="headerlink" href="#binary-application-transfer" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when an unencrypted transfer happens on the monitoried network.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert could indicate the presence of advanced persistent threats (APTs), malware, or other malicious activities attempting to evade detection by hiding in legitimate application traffic. It may also suggest that an attacker is exfiltrating sensitive data from the network. Another possibility is a misconfigured web server with old serving engines which lack encryption.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Exfiltration: Unauthorized transfer of sensitive data from the network, such as stolen credentials, proprietary information, or personal data.</p></li>
+<li><p>Legitimate binary transfers: While rare, some legitimate applications may trigger this alert due to their nature (e.g., file-sharing application or legacy applications which lack encrypted transfers).</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Isolate and analyze the affected hosts to identify any malicious processes or unusual activity.</p></li>
+<li><p>Investigate the application(s) involved in the transfer to determine if they are legitimate and properly configured, or if they have been compromised.</p></li>
+<li><p>Review firewall and intrusion prevention system (IPS) logs for related alerts or suspicious traffic.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert is typically considered high severity in environments with strict data loss prevention (DLP) policies, such as finance, healthcare, or government networks.</p>
+</section>
+<section id="known-protocol-on-non-standard-port">
+<span id="risk-030"></span><h2>KNOWN PROTOCOL ON NON STANDARD PORT<a class="headerlink" href="#known-protocol-on-non-standard-port" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a known protocol is detected using an uncommon or non-standard port number.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+The use of non-standard ports for well-known protocols may indicate attempts to evade security measures, hide malicious activity, or facilitate unauthorized communication channels within the network. It could potentially expose hidden backdoors, command and control (C2) traffic, or data exfiltration activities.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfiguration or experimental testing by internal users. In this case the event is not relevant and can be silenced.</p></li>
+<li><p>Malicious activity attempting to evade security controls by using non-standard ports for covert communication.</p></li>
+<li><p>Internal applications or services running on non-standard ports due to port conflicts or explicit configuration. In this case the event is not relevant and can be silenced if the network administrator are sure regarding the service running.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the purpose and origin of the observed traffic to determine if it is legitimate or malicious.</p></li>
+<li><p>Review network configuration and access logs to identify any unauthorized changes or activities related to the detected ports.</p></li>
+<li><p>Consider implementing stricter port controls or application layer filtering rules to prevent unwanted traffic on non-standard ports.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is particularly significant in network environments where strict security policies are enforced, as it can help uncover potential evasion attempts or misconfigurations.
+- The severity level of this alert may vary depending on the specific well-known protocol and port combination detected.</p>
+</section>
+<section id="invalid-source-ip">
+<span id="risk-031"></span><h2>INVALID SOURCE IP<a class="headerlink" href="#invalid-source-ip" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert is triggered when a device sends network traffic with an invalid or reserved IP address as the source IP, indicating potential spoofing attempts or misconfigured devices.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate IP address spoofing, allowing attackers to hide their true origin and launch denial-of-service (DoS) attacks or perform unauthorized activities within the network. It could also signify misconfiguration of devices, leading to unwanted traffic and potential vulnerabilities.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>IP spoofing attempts by attackers to hide their true origin and bypass security measures.</p></li>
+<li><p>Misconfigured devices sending traffic with incorrect or reserved IP addresses.</p></li>
+<li><p>Network misconfigurations leading to overlapping or conflicting IP address assignments.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the device(s) using the invalid source IP addresses to determine if it’s a configuration error or malicious activity.</p></li>
+<li><p>Check for any unusual traffic patterns associated with the invalid IP addresses and block them if necessary.</p></li>
+<li><p>Implement ingress/egress filtering on network edges to prevent IP spoofing attempts.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert is considered high severity due to the potential security risks associated with IP address spoofing. It may occur frequently in networks with misconfigured devices or inadequate ingress/egress filtering.</p>
+</section>
+<section id="unexpected-dhcp-server">
+<span id="risk-032"></span><h2>UNEXPECTED DHCP SERVER<a class="headerlink" href="#unexpected-dhcp-server" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when an unexpected DHCP server is detected on the network, i.e., a DHCP server other than those configured in the system’s trusted DHCP servers list.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate a rogue DHCP server operating on the network, which could lead to unauthorized IP address assignments, man-in-the-middle attacks, or denial-of-service conditions. Unauthorized DHCP servers can also facilitate unauthorized devices joining the network undetected.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>A misconfigured or unauthorized DHCP server has been introduced onto the network. .Please configure the list of expected DHCP servers</p></li>
+<li><p>Someone is attempting to spoof DHCP packets to redirect network traffic.</p></li>
+<li><p>A buggy DHCP client software is acting as a rogue server.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate and locate the source of the unexpected DHCP traffic, and determine if it’s authorized or not.</p></li>
+<li><p>Update the trusted DHCP servers list in the system’s configuration to include any newly identified legitimate servers.</p></li>
+<li><p>Implement stricter network access controls to prevent unauthorized devices from introducing rogue services.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- High severity alert due to its potential impact on network integrity and security.
+- This alert is particularly significant in networks with strict access controls or highly sensitive data.
+- Frequency of occurrence may vary depending on the network’s size, complexity, and security measures in place.</p>
+</section>
+<section id="unexpected-dns-server">
+<span id="risk-033"></span><h2>UNEXPECTED DNS SERVER<a class="headerlink" href="#unexpected-dns-server" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a client sends DNS queries to an IP address other than its configured DNS server(s), indicating potential misconfiguration or suspicious activity.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate that the client is attempting to bypass standard DNS resolution, potentially for malware communication or data exfiltration purposes. It could also signify a misconfigured network setting, leaving the client vulnerable to DNS hijacking attacks.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Malware infection: The client may be infected with malware that changes its DNS settings for command-and-control communication.</p></li>
+<li><p>Misconfiguration: The client’s network configuration might have been inadvertently changed, causing it to use an incorrect DNS server. Please configure the list of expected DHCP servers</p></li>
+<li><p>Internal DNS hijacking: An attacker on the same network could be intercepting and altering DNS queries.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the client’s network configuration for signs of tampering or misconfiguration.</p></li>
+<li><p>Check for malware infection using up-to-date antivirus software.</p></li>
+<li><p>Analyze network traffic around the affected client for any unusual patterns or outliers that might indicate an internal attack.</p></li>
+<li><p>Monitor DNS queries globally on your network to identify potential hijacking attempts.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is particularly significant in networks with strict security policies and limited outbound traffic.
+- The frequency of occurrence depends on the specific network environment; it may be rare under normal conditions but could spike during malware outbreaks.</p>
+</section>
+<section id="unexpected-smtp-server">
+<span id="risk-034"></span><h2>UNEXPECTED SMTP SERVER<a class="headerlink" href="#unexpected-smtp-server" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a client communicates with an IP address other than its configured SMTP server(s), indicating potential misconfiguration or suspicious activity.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate that the SMTP server is not a know SMTP server due to improper configuration or it being targeted by malicious actors attempting to disrupt mail services.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfigured SMTP server software causing unexpected responses.</p></li>
+<li><p>Malware infection on the mail server resulting in anomalous behavior.</p></li>
+<li><p>Attempts by threat actors to exploit vulnerabilities or disrupt services.</p></li>
+<li><p>False positive due to the IP address not being configured as expected SMTP server</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the affected SMTP server’s configuration and logs for signs of misconfiguration or compromise.</p></li>
+<li><p>If no apparent issues are found, consider restricting network access to the SMTP server to minimize potential threats.</p></li>
+<li><p>Monitor traffic patterns around the SMTP server to detect any suspicious activity following an unexpected response.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Additional Notes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Critical in enterprise networks with centralized SMTP servers and service providers offering email hosting.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="unexpected-ntp-server">
+<span id="risk-035"></span><h2>UNEXPECTED NTP SERVER<a class="headerlink" href="#unexpected-ntp-server" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a device on your monitored network communicates with an NTP server that is not part of your predefined trusted NTP server list.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate potential DNS poisoning or man-in-the-middle attacks, where an attacker has spoofed legitimate NTP servers to disrupt time synchronization and compromise network security. It could also suggest unauthorized use of external NTP services for evading internal restrictions or data exfiltration.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Malicious activity: Attackers may be attempting DNS poisoning or man-in-the-middle attacks.</p></li>
+<li><p>Misconfiguration: A device may have been incorrectly configured with an untrusted NTP server.</p></li>
+<li><p>Software updates: Recent software changes might have introduced new, unknown dependencies on external NTP servers which is not present in the configured values of expected NTP servers</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the unknown NTP server to determine its legitimacy and potential security implications.</p></li>
+<li><p>If deemed malicious or unauthorized, block further communication with that server using your network’s firewalls or access controls.</p></li>
+<li><p>Update your trusted NTP server list to include any legitimate new dependencies.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="zero-tcp-window">
+<span id="risk-036"></span><h2>ZERO TCP WINDOW<a class="headerlink" href="#zero-tcp-window" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert is triggered when a TCP connection has a window size of zero, indicating that no data can be sent or received by either endpoint.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+A persistent zero window condition may suggest a denial-of-service attack, where an adversary exhausts resources by opening numerous idle connections, or it could indicate a misconfiguration issue leading to network instability and performance degradation.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Denial-of-service attack using idle connections (“SYN flood”)</p></li>
+<li><p>Network congestion or high load causing temporary resource exhaustion</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Analyze the affected hosts and applications to identify any abnormal behavior, such as sudden spikes in connection attempts.</p></li>
+<li><p>Inspect firewall and intrusion detection system logs for related alerts indicating suspicious activity.</p></li>
+<li><p>Investigate potential software misconfigurations that could cause excessive TCP connections.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- <strong>Frequency of occurrence:</strong> This alert may occur infrequently but can become significant during peak hours or under heavy load.
+- <strong>Severity level:</strong> Medium. While not indicative of a critical threat, persistent zero window conditions can lead to network instability and performance issues.</p>
+</section>
+<section id="iec-invalid-transition">
+<span id="risk-037"></span><h2>IEC INVALID TRANSITION<a class="headerlink" href="#iec-invalid-transition" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when there’s an unexpected transition between states in devices adhering to the International Electrotechnical Commission (IEC) protocol standards, such as IEC 62351 used in power line communication networks.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detection of this alert may indicate potential attacks exploiting vulnerabilities like state machine bypass or unauthorized access attempts, posing risks like data tampering, command injection, or denial-of-service conditions within the affected network segments.</p>
+<p>#. <strong>Potential Causes:</strong>
+1. Malicious manipulation of IEC devices to bypass security checks.
+2. Compatibility issues between different IEC-compliant implementations.
+3. Misconfigured network equipment leading to unintended state transitions.</p>
+<p>#. <strong>Recommended Actions:</strong>
+1. Thoroughly investigate the source IP address and device ID triggering the alert for signs of unauthorized access or malicious activity.
+2. Review the firmware versions and configurations of affected devices, ensuring they are up-to-date and properly secured.
+3. Implement strict access controls and network segmentation to prevent unauthorized communication between IEC devices.</p>
+<p>#. <strong>Additional Notes:</strong>
+This alert is more likely to occur in power line communication networks with a mix of different vendors’ implementations. Regular network monitoring and updating firmware can help mitigate potential risks associated with this alert.</p>
+</section>
+<section id="remote-to-local-insecure-proto">
+<span id="risk-038"></span><h2>REMOTE TO LOCAL INSECURE PROTO<a class="headerlink" href="#remote-to-local-insecure-proto" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when insecure protocols are used in remote-to-local communication patterns.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate potential data interception or unauthorized access to sensitive information. It could also suggest misconfiguration or ignorance of best security practices within the monitored network.</p>
+<ol class="arabic simple">
+<li><p><strong>Technical Details:</strong></p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Source IP address is not local to the monitored network.</p></li>
+<li><p>Destination port corresponds to an insecure protocol.</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfigured client software using insecure protocols for remote access.</p></li>
+<li><p>Legacy systems that rely on outdated, unencrypted communication methods.</p></li>
+<li><p>Malicious activity attempting to intercept sensitive information.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Identify and migrate any uses of insecure protocols to secure alternatives (e.g., SSH instead of Telnet).</p></li>
+<li><p>Implement strong authentication measures and encrypt data in transit.</p></li>
+<li><p>Regularly review and update network access policies to enforce best security practices.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert has a HIGH severity level as it directly impacts the confidentiality of transmitted data.
+- It is particularly significant in environments where sensitive information (e.g., financial, healthcare) is handled or transferred.</p>
+</section>
+<section id="iec-unexpected-type-id">
+<span id="risk-055"></span><h2>IEC UNEXPECTED TYPE ID<a class="headerlink" href="#iec-unexpected-type-id" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when an unexpected type identifier (type ID) is encountered in an Industrial Ethernet Communication (IEC) protocol data unit (PDU), indicating a potential deviation from standard or configured behaviors.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert could indicate misconfigured or malicious devices attempting to communicate using unrecognized or unauthorized types, posing risks such as unauthorized access, command injection, or disruption of industrial control systems.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfiguration: Incorrect configuration of devices resulted in transmission of unknown type IDs.</p></li>
+<li><p>Malicious activity: An attacker attempting to exploit unknown types for unauthorized access or command injection.</p></li>
+<li><p>Device malfunction: A faulty device transmitting incorrect type IDs due to hardware or software issues.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Identify and investigate the source device(s) transmitting unexpected type IDs.</p></li>
+<li><p>Verify the configuration of identified devices; update or reconfigure if necessary.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is significant in industrial control networks where unauthorized access can result in severe consequences.
+- Severity level: Medium to High, based on the potential impact on industrial control systems.</p>
+</section>
+<section id="tcp-no-data-exchanged">
+<span id="risk-056"></span><h2>TCP NO DATA EXCHANGED<a class="headerlink" href="#tcp-no-data-exchanged" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a TCP connection remains idle for an extended period without exchanging any data, indicating potential reconnaissance or dormant malicious activity.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Prolonged inactive TCP connections may suggest network scanning or probing activities by potential attackers attempting to gather information about the target environment. Additionally, such connections could be used as a backdoor into the network for future unauthorized access attempts.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Network scanning: Attackers may open idle connections to enumerate targets and map out network services.</p></li>
+<li><p>Dormant malware: Malicious software could maintain dormant TCP connections awaiting commands from a C&amp;C server.</p></li>
+<li><p>Misconfigured systems: Some systems might have persistent TCP connections configured incorrectly, leading to unnecessary idle connections.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source and destination IP addresses of the idle connection to identify any suspicious activities or misconfigured systems.</p></li>
+<li><p>Implement a time-out policy for TCP connections to automatically close inactive connections after a specified duration.</p></li>
+<li><p>Monitor network traffic for sudden spikes in idle TCP connections, which may indicate scanning activities.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- The frequency of this alert depends on the network’s normal activity level and idle connection threshold settings. Adjusting these thresholds may help reduce false positives.
+- In high-traffic networks with many legitimate idle connections, this alert might have a higher severity level due to increased potential for malicious activities hiding among normal traffic.</p>
+</section>
+<section id="remote-access">
+<span id="risk-057"></span><h2>REMOTE ACCESS<a class="headerlink" href="#remote-access" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when the source IP address initiates Remote Desktop Protocol (RDP) connections to destination IP addresses, potentially indicating unauthorized access attempts or brute-force attacks such as scanning.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may suggest that the network is under attack by threat actors attempting to gain unauthorized remote access to devices, leading to potential data breaches, lateral movement of attackers within the network, or establishment of persistent backdoors.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Brute-force attacks targeting weak or default Remote Desktop credentials</p></li>
+<li><p>Unauthorized access attempts by insider threats or external attackers with stolen credentials</p></li>
+<li><p>Malware infections attempting to establish remote command and control (C&amp;C) communication</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the device(s) involved in the alert and review their network connections before and after the event.</p></li>
+<li><p>Temporarily restrict RDP access from external sources until further investigation is complete, and consider implementing multi-factor authentication (MFA) to enhance security.</p></li>
+<li><p>Review and strengthen Remote Desktop credentials across the network, ensuring they meet complexity requirements and are not based on default values.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="lateral-movement">
+<span id="risk-058"></span><h2>LATERAL MOVEMENT<a class="headerlink" href="#lateral-movement" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when there’s evidence of unauthorized movement of data or credentials between devices within a network segment, suggesting potential internal threat propagation.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate that an entity is moving laterally to escalate privileges or spread malware, posing significant threats to the network’s confidentiality and integrity.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Malware infection propagating through the network.</p></li>
+<li><p>Insider threat moving laterally to escalate privileges or access sensitive data.</p></li>
+<li><p>Misconfigured systems or software vulnerabilities allowing unauthorized access.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Isolate affected devices and perform a thorough scan for malware infections.</p></li>
+<li><p>Review user accounts and permissions to identify any anomalies or unauthorized access.</p></li>
+<li><p>Implement strict access controls, consider using the principle of least privilege (PoLP), and keep all systems and software patched up-to-date.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is particularly significant in environments with high user mobility or Bring Your Own Device (BYOD) policies.
+- Severity level: High</p>
+</section>
+<section id="periodicity-changed">
+<span id="risk-059"></span><h2>PERIODICITY CHANGED<a class="headerlink" href="#periodicity-changed" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when there’s a change in the periodicity of specific flows.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+An abrupt change in periodicity could signify a man-in-the-middle attack, a denial-of-service attack, or an attacker attempting to evade detection by varying their traffic patterns. It may also indicate unexpected network congestion or hardware failures.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Man-in-the-middle attacks: An attacker may interleave packets to disrupt communication.</p></li>
+<li><p>Denial-of-service attacks: An attacker might flood the network with irregular traffic to cause congestion or disruption.</p></li>
+<li><p>Traffic evasion techniques: An attacker could vary packet intervals to avoid detection by signature-based intrusion prevention systems.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the host(s) involved for any suspicious activity or unauthorized access attempts.</p></li>
+<li><p>Review network infrastructure health, as hardware failures or misconfigurations may cause unexpected traffic patterns.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is typically low to medium severity, depending on the configured thresholds and the network environment.
+- It’s particularly significant in networks with strict quality-of-service (QoS) requirements, where even small deviations in packet interval can cause noticeable impacts.</p>
+</section>
+<section id="broadcast-non-udp-traffic">
+<span id="risk-067"></span><h2>BROADCAST NON UDP TRAFFIC<a class="headerlink" href="#broadcast-non-udp-traffic" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when non-UDP traffic is detected on a broadcast IP address, which deviates from standard network protocols and could indicate malicious activity.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate the presence of unauthorized network scanning tools or worms exploiting network vulnerabilities by using non-UDP traffic over broadcasts, potentially leading to unauthorized access attempts or data compromise.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Unauthorized network scanning tools probing for vulnerable hosts.</p></li>
+<li><p>Worm or malware propagation exploiting vulnerable systems on the broadcast IP address.</p></li>
+<li><p>Misconfigured network devices accidentally broadcasting non-UDP traffic.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Identify and isolate affected systems to contain any potential infection or unauthorized access attempts.</p></li>
+<li><p>Investigate source of non-UDP broadcast traffic, including checking for misconfigurations in network devices or protocols.</p></li>
+<li><p>Implement strict egress filtering to prevent unwanted outbound traffic on broadcast IP addresses.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is particularly significant in environments with strict network access controls or where worm propagation risks are high. It has a severity level of MEDIUM to HIGH, depending on the frequency and scope of detected incidents.</p>
+</section>
+<section id="iec-invalid-command-transition">
+<span id="risk-074"></span><h2>IEC INVALID COMMAND TRANSITION<a class="headerlink" href="#iec-invalid-command-transition" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a device on the network performs an invalid or out-of-sequence command transition according to the International Electrotechnical Commission (IEC) protocol standards.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may indicate misconfiguration or malfunction of devices, potentially leading to unexpected behavior or vulnerabilities that could be exploited by attackers. It might also suggest a compromised device attempting to issue unauthorized commands.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfigured devices sending commands out of sequence.</p></li>
+<li><p>Attempted unauthorized access by malicious actors exploiting software vulnerabilities.</p></li>
+<li><p>Malware or viruses manipulating network traffic to trigger false alerts.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the affected device(s) and review their configuration settings.</p></li>
+<li><p>Implement strict access controls to prevent unauthorized command transitions.</p></li>
+<li><p>Consider upgrading or patching vulnerable devices to protect against known exploits.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is particularly significant in industrial control systems (ICS) and critical infrastructure networks where IEC protocols are commonly used.</p>
+</section>
+<section id="connection-failed">
+<span id="risk-075"></span><h2>CONNECTION FAILED<a class="headerlink" href="#connection-failed" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when deep packet inspection detects a failure in establishing a TCP connection.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting connection_failed alerts could indicate potential Denial of Service (DoS) attacks, misconfiguration issues, or network instability that might allow adversaries to exploit these failures for further attacks.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Resource exhaustion attacks (e.g., SYN flood)</p></li>
+<li><p>Network congestion or latency issues</p></li>
+<li><p>Remote host unreachable due to firewall rules, routing issues, or target offline</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source and destination of failed connections for unusual patterns or suspicious activity.</p></li>
+<li><p>Check network infrastructure for signs of resource exhaustion, congestion, or misconfiguration.</p></li>
+<li><p>Implement rate-limiting mechanisms to mitigate SYN flood attacks.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- Severity level: Medium low, depending on the cause and frequency of occurrences
+- Significant environments: Web servers, VPN gateways, and other network services with high connection rates</p>
+</section>
+<section id="unidirectional-traffic">
+<span id="risk-077"></span><h2>UNIDIRECTIONAL TRAFFIC<a class="headerlink" href="#unidirectional-traffic" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when there’s one-way traffic between source IP address and destination IP address, indicating potential disservices if the destionation IP address is not responding (service down), possible communication limiting such as firewall that prevents responses or simply the service being off.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Unidirectional traffic could indicate an infected host acting as a bot, communicating with its command and control server but not receiving any response due to blocking or tampering. This could also signify data exfiltration where only outgoing traffic is permitted.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Botnet communication where infected hosts receive commands but don’t respond due to network restrictions or command &amp; control server tampering.</p></li>
+<li><p>Data exfiltration where an attacker sends data out but doesn’t receive any response from the external server.</p></li>
+<li><p>Misconfigured or compromised load balancers or firewalls causing unidirectional traffic.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source of the unidirectional traffic to identify potentially infected hosts.</p></li>
+<li><p>Check if there’s a known legitimate cause for the one-way communication, such as a specific application’s behavior.</p></li>
+<li><p>Inspect firewall rules and other network policies to ensure they’re not inadvertently blocking responses.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is particularly significant in enterprise networks with strict firewall rules or in environments where botnet activity is prevalent.
+- The severity level of this alert depends on the threshold set for unidirectional traffic and the duration over which it occurs.</p>
+</section>
+<section id="custom-lua-script">
+<span id="risk-087"></span><h2>CUSTOM LUA Script<a class="headerlink" href="#custom-lua-script" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a custom Lua script generates an alert based on a user custom alert definition.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Depends on the lua script content</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Depends on what the lua script is designed to trigger alerts on</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Depends on what the lua script is designed to trigger alerts on</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="vlan-bidirectional-traffic">
+<span id="risk-091"></span><h2>VLAN BIDIRECTIONAL TRAFFIC<a class="headerlink" href="#vlan-bidirectional-traffic" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when bi-directional traffic is detected within a single VLAN, indicating potential spanning tree loop or misconfiguration issues.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Bi-directional traffic in a VLAN may suggest loops or improper configuration, leading to broadcast storms and increased susceptibility to Denial of Service (DoS) attacks. It could also indicate an attacker manipulating the network topology for malicious purposes.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfigured STP or RSTP settings, leading to loops.</p></li>
+<li><p>Physical layer issues such as cross-over cables or hubs connected to switches.</p></li>
+<li><p>Manipulation of network topology by an attacker for illicit activities like DoS attacks.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate and rectify any potential spanning tree loops using tools like <cite>show spanning-tree interface</cite> (Cisco) or check STP/RSTP configuration for inconsistencies.</p></li>
+<li><p>Monitor traffic patterns and inspect physical cabling to ensure correct connections and detect anomalies.</p></li>
+<li><p>Implement port security measures to prevent unauthorized MAC address changes.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is particularly significant in environments with high VLAN segmentation, as it can help identify potential misconfigurations or attacks targeting specific broadcast domains.</p>
+</section>
+<section id="rare-destination">
+<span id="risk-092"></span><h2>RARE DESTINATION<a class="headerlink" href="#rare-destination" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a monitored device communicates with a destination IP address which is not frequent in the monitored network.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may suggest that the source IP address communicated with a new destination IP address, suggesting a behaviour change.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Internal threat: Compromised devices or malware communicating with a new destination IP address which is rare in the context of the monitored network.</p></li>
+<li><p>Brute-force attack: External attackers scanning the network for vulnerabilities or weak points.</p></li>
+<li><p>Misconfigured applications: Legitimate applications incorrectly configured to connect excessively to external destinations.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div></div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert is designed to be rare, hence its name; therefore, false positives are less likely. However, network administrators should still validate alerts with low occurrence rates before taking action. This alert has a severity level of high and is particularly significant in environments with tight security controls or critical systems.</p>
+</section>
+<section id="modbus-unexpected-function-code">
+<span id="risk-093"></span><h2>MODBUS UNEXPECTED FUNCTION CODE<a class="headerlink" href="#modbus-unexpected-function-code" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a MODBUS message contains an unexpected function code, indicating either a protocol error or potentially malicious activity.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may suggest a configuration error, misbehaving device, or a sophisticated attack attempting to exploit unknown or undocumented MODBUS functionality. It could allow unauthorized data access or manipulation, leading to system compromise or disruption of service availability.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfigured MODBUS device sending invalid messages.</p></li>
+<li><p>Attempted exploit of undocumented MODBUS functionality by a malicious actor.</p></li>
+<li><p>Software bug or implementation error in MODBUS client/server.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Identify and isolate the source device(s) generating unexpected function codes.</p></li>
+<li><p>Investigate and validate the configuration and software version of the offending device(s).</p></li>
+<li><p>Review MODBUS message logs for any suspicious patterns or repeated occurrences of this alert.</p></li>
+<li><p>Consider implementing access control lists (ACLs) to restrict MODBUS traffic to trusted sources and destinations.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+- This alert is particularly significant in industrial networks, building automation systems, and other environments where MODBUS devices are prevalent.
+- Frequency of occurrence may vary depending on the network’s size and complexity.</p>
+</section>
+<section id="modbus-too-many-exceptions">
+<span id="risk-094"></span><h2>MODBUS TOO MANY EXCEPTIONS<a class="headerlink" href="#modbus-too-many-exceptions" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert is triggered when an excessive number of Modbus exceptions are observed within a short time frame, indicating potential communication issues or malicious activity.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+A high frequency of Modbus exceptions may suggest either misconfiguration or tampering attempts targeting Modbus-enabled devices. Prolonged abnormal behavior could lead to device malfunction or unauthorized access to sensitive data.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Device malfunction or misconfiguration causing frequent errors.</p></li>
+<li><p>Denial-of-service (DoS) attacks targeting Modbus devices to disrupt operations.</p></li>
+<li><p>Malicious attempts to exploit vulnerabilities via exception-based attacks.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source of excessive exceptions and address any device configuration issues promptly.</p></li>
+<li><p>Implement intrusion detection/prevention mechanisms to safeguard against DoS attacks or unauthorized access.</p></li>
+<li><p>Monitor Modbus devices for unusual behavior patterns indicative of potential threats.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert is particularly significant in industrial control systems (ICS) and supervisory control and data acquisition (SCADA) environments where Modbus is prevalent. It has a severity level of MEDIUM, as frequent exceptions may indicate ongoing issues but are not necessarily immediately critical.</p>
+</section>
+<section id="modbus-invalid-transition">
+<span id="risk-095"></span><h2>MODBUS INVALID TRANSITION<a class="headerlink" href="#modbus-invalid-transition" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when an invalid transition in a Modbus Protocol Data Unit (PDU), indicating potential protocol violations or malformed packets.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting modbus_invalid_transition alerts may suggest network reconnaissance activities, protocol attacks such as replay or spoofing attempts, or misconfigured devices introducing instability and vulnerabilities into the monitored network.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Misconfiguration errors in Modbus devices leading to incorrect message structures.</p></li>
+<li><p>Protocol attacks such as replay attacks or spoofing attempts targeting Modbus networks.</p></li>
+<li><p>Unpatched vulnerabilities or software bugs in Modbus implementations causing unexpected behavior.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Verify the integrity of Modbus messages by inspecting the function codes, sub-function codes, and PDU lengths for compliance with RFC 6418 standards.</p></li>
+<li><p>Isolate affected devices or networks pending further investigation and apply necessary patches or firmware updates to address potential vulnerabilities.</p></li>
+<li><p>Implement protocol filtering and intrusion prevention mechanisms on network perimeter devices to protect against Modbus-specific attacks.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert is particularly significant in Industrial Control Systems (ICS) and Supervisory Control and Data Acquisition (SCADA) environments where Modbus protocols are widely used. Frequent occurrences of this alert may warrant closer scrutiny for signs of targeted attacks or widespread misconfigurations.</p>
+</section>
+<section id="tcp-flow-reset">
+<span id="risk-100"></span><h2>TCP FLOW RESET<a class="headerlink" href="#tcp-flow-reset" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert triggers when a TCP connection is abruptly terminated by the peer without completing the standard closure sequence, indicating an unexpected disconnection or possible denial-of-service attack.</p>
+<p>#. <strong>Implied Security Risk:</strong>
+Detecting this alert may suggest potential Distributed Denial of Service (DDoS) attacks using state exhaustion techniques, or unauthorized network scanning activities targeting vulnerable TCP services.</p>
+<ol class="arabic simple">
+<li><p><strong>Potential Causes:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Distributed Denial of Service (DDoS) attacks targeting TCP services to exhaust resources and degrade performance.</p></li>
+<li><p>Unauthorized network scanning activities or probes attempting to identify open ports and vulnerable services.</p></li>
+<li><p>Software bugs or misconfigurations causing unintended abrupt disconnections.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p><strong>Recommended Actions:</strong></p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source IP address(es) associated with the reset packets to identify potential malicious activity or misconfigured devices.</p></li>
+<li><p>Check for any ongoing DDoS attacks targeting TCP services on your network and implement appropriate countermeasures.</p></li>
+</ol>
+</div></blockquote>
+<p>#. <strong>Additional Notes:</strong>
+This alert is more relevant in networks with high volumes of TCP traffic or where TCP-based services are exposed to the internet. Regular monitoring and thresholding can help identify abnormal reset patterns indicative of potential attacks. The severity level of this alert is typically considered MEDIUM.</p>
+</section>
+<section id="access-control-list">
+<span id="risk-102"></span><h2>ACCESS CONTROL LIST<a class="headerlink" href="#access-control-list" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert is triggered whenever a network flow violates the specified ACL policy defined under Settings -&gt; Network Configuration</p>
+<p>#. <strong>Potential Causes:</strong>
+Detecting this alert may suggest a potential host misbehaviour, misconfiguration or security problem.</p>
+<p>#. <strong>Recommended Actions:</strong>
+Check if the configured policy is properly configured, or if the host that triggered the alerted host is misconfigured or it has been infected by some malware.</p>
+</section>
+<section id="host-policy">
+<span id="risk-103"></span><h2>HOST POLICY<a class="headerlink" href="#host-policy" title="Link to this heading"></a></h2>
+<p>#. <strong>Description:</strong>
+This alert is triggered whenever a network flow violates the specified policy defined under Settings -&gt; Network Configuration -&gt; Policies</p>
+<p>#. <strong>Potential Causes:</strong>
+Detecting this alert may suggest a potential host misbehaviour, misconfiguration or security problem.</p>
+<p>#. <strong>Recommended Actions:</strong>
+Check if the configured policy is properly configured, or if the host that triggered the alerted host is misconfigured or it has been infected by some malware. Typically these issues might also be caused by network devices that perform unexpected activites (e.g. silent softwrae updates): if acceptable, the contacted hosts need to be added to the whitelisted hosts list (see the host policy configuration).</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ndpi_flow_risks.html" class="btn btn-neutral float-left" title="Remediations for nDPI Risks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="host_risks.html" class="btn btn-neutral float-right" title="Remediations for Host Risks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/remediations/ntopng_flow_risks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:03 GMT -->
+</html>

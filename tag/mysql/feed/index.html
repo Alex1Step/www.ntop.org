@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>mysql Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/mysql/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/mysql/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 26 Oct 2016 09:54:16 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>mysql Archives - ntop</title>
+	<link>https://www.ntop.org/tag/mysql/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>ntopng MySQL Flow Export: Increase the Maximum Number of Open Files</title>
+		<link>https://www.ntop.org/ntopng-mysql-flow-export-increase-the-maximum-number-of-open-files/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 26 Oct 2016 09:54:16 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[flows]]></category>
+		<category><![CDATA[mysql]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5180</guid>
+
+					<description><![CDATA[<p>ntopng uses partitioned MySQL tables when storing flows. As MySQL needs a file handle for each partition and its index, it is important to make sure that the open_files_limit is large enough…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-mysql-flow-export-increase-the-maximum-number-of-open-files/">ntopng MySQL Flow Export: Increase the Maximum Number of Open Files</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><strong>ntopng</strong> uses partitioned MySQL tables when storing flows. As MySQL needs a file handle for each partition and its index, it is important to make sure that the <code class="EnlighterJSRAW" data-enlighter-language="generic">open_files_limit</code> is large enough to allow the process to keep all these files open. Typically, <code class="EnlighterJSRAW" data-enlighter-language="generic">open_files_limit</code>  default value works out-of-the-box but there are some packages/distributions that keeps this number pretty low.</p>
+<p>When the current value is too low, ntopng can show errors such as</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">[MySQLDB.cpp:55] ERROR: MySQL error: Out of resources when opening file './ntopng/flowsv6#P#p23.MYD' (Errcode: 24 - Too many open files) [rc=-1]</pre>
+<p>The current value can be checked from a MySQL shell</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">mysql&gt; SHOW VARIABLES LIKE 'open%';
++------------------+-------+
+| Variable_name    | Value |
++------------------+-------+
+| open_files_limit | 256   |
++------------------+-------+
+1 row in set (0.02 sec)
+
+mysql&gt;</pre>
+<p>In order to increase the <code class="EnlighterJSRAW" data-enlighter-language="generic">open_files_limit</code> it can be necessary to tweak the MySQL configuration file &#8212; and, sometimes, also the kernel &#8212; to increase it.</p>
+<p>To increase that value it is necessary to change the MySQL configuration file adding an entry under [mysqld]</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">[mysqld]
+open_files_limit = 1024</pre>
+<p>Editing the configuration file may not be sufficient. Depending on the OS/platform it can also be necessary to tune the system-wide resources limits using <code class="EnlighterJSRAW" data-enlighter-language="generic">ulimit</code>.</p>
+<p>The post <a href="https://www.ntop.org/ntopng-mysql-flow-export-increase-the-maximum-number-of-open-files/">ntopng MySQL Flow Export: Increase the Maximum Number of Open Files</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/basic_concepts/alerts.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:48:29 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alerts &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Timeseries" href="timeseries.html" />
+    <link rel="prev" title="Statistics" href="stats.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../what_is_ntopng.html#releases-and-features">Releases and Features</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../what_is_ntopng.html#basic-concepts-use-cases">Basic Concepts &amp; Use Cases</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Basic Concepts</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="geolocation.html">Geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interfaces.html">Network Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system_interface.html">System Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hosts.html">Hosts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="host_pools.html">Host Pools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stats.html">Statistics</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="timeseries.html">Timeseries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts.html">Scripts and Checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local_broadcast_domain.html">Local Broadcast Domain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="disk_space.html">Disk Space Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../use_cases/index.html">Use Cases</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../what_is_ntopng.html">What is ntopng</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Basic Concepts</a></li>
+      <li class="breadcrumb-item active">Alerts</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/basic_concepts/alerts.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="alerts">
+<span id="basicconceptalerts"></span><h1>Alerts<a class="headerlink" href="#alerts" title="Link to this heading"></a></h1>
+<p>ntopng generates alerts to report the occurrence of events and user-configurable thresholds. Bahavioral Checks are responsible for the generation of most alerts. Enabling and disabling a Check enables or disables the corresponding alerts. A few system alerts are not generated by a Check and are always enabled (see <a class="reference internal" href="../user_interface/shared/alerts/others/system_checks.html#alertsalwaysenabled"><span class="std std-ref">Always Enabled System Alerts</span></a>).</p>
+<p>Alerts include, but are not limited to:</p>
+<ul class="simple">
+<li><p>The detection of a new device</p></li>
+<li><p>The status change of a switch port detected via SNMP</p></li>
+<li><p>The contact of a malware host</p></li>
+<li><p>A user activity</p></li>
+</ul>
+<p>Certain alerts are configurable. For example, alerts can be triggered when certain user-configurable thresholds are crossed. As soon as ntopng detects a certain threshold is crossed, it immediately triggers the corresponding alert.</p>
+<p>Examples of thresholds include:</p>
+<ul class="simple">
+<li><p>“The traffic generated by an host falls below a certain threshold”</p></li>
+<li><p>“The number of SYN sent by an host exceeds a certain number so it is considered a scanner”</p></li>
+<li><p>“Packet drops of an interface exceeds a given percentage of the total number of monitored packets”</p></li>
+<li><p>“The total traffic originated at a network exceeds a certain threshold”</p></li>
+</ul>
+<p>ntopng checks perform the evaluation of thresholds periodically, at predefined time intervals.</p>
+<p>Alerts associated with a threshold have a duration, that is, they are active for a certain period of time. This period of time starts then the threshold is first met and stops when the threshold is no longer met. For this reason, such alerts are said to be <em>engaged</em> or <em>past</em>, depending on whether the triggering threshold is still met or not.</p>
+<section id="behavioral-alerts">
+<h2>Behavioral Alerts<a class="headerlink" href="#behavioral-alerts" title="Link to this heading"></a></h2>
+<figure class="align-center" id="id1">
+<img alt="Alert of a Network Interface with an Unexpected Behavior" src="../_images/behavior_alert_example.png" />
+<figcaption>
+<p><span class="caption-text">Alert of a Network Interface with an Unexpected Behavior</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Unlike other alert families, usually based on a static threshold or check, bahavioral checks have the ability to learn throught the time and change their threshold dinamically.</p>
+<p>This is achived by using one of the three foresighting alghoritm developed by nDPI: Simple Exponential Smoothing, Double Exponential Smoothing, Triple Exponential Smoothing (Holt-Winters alghoritm).</p>
+<p>These alghoritms have the ability to foresight the future and give a prediction of the analized value. Based on this foresighted value the alert is triggered.</p>
+<p>The alert is triggered only if the real value is lesser or greater then certain thresholds that nDPI calculates (it gives a lower and upper bound).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Behavior Alerts are available only with ntopng Enterprise L license.</p>
+</div>
+<figure class="align-center" id="id2">
+<img alt="Timeserie of a Network Interface with an Unexpected Behavior" src="../_images/behavior_graph_example.png" />
+<figcaption>
+<p><span class="caption-text">Timeserie of a Network Interface with an Unexpected Behavior</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="user-activities">
+<h2>User Activities<a class="headerlink" href="#user-activities" title="Link to this heading"></a></h2>
+<p>ntopng keeps track of user activities that are related to system management and security, storing them as alerts.
+These activities include:</p>
+<ul class="simple">
+<li><p>Users management: user added or remove, password changed</p></li>
+<li><p>Live traffic downloaded</p></li>
+<li><p>Traffic extraction (live or PCAP downloaded)</p></li>
+<li><p>Host JSON downloaded</p></li>
+<li><p>Flows data downloaded</p></li>
+<li><p>Alerts settings changes: alerts disabled or enabled, alerts data deleted</p></li>
+<li><p>Failed or successful logins</p></li>
+<li><p>Traffic recording enabled or disabled</p></li>
+<li><p>Hosts/interfaces data deleted</p></li>
+<li><p>SNMP device added or removed</p></li>
+</ul>
+<p>User activities are available in the <a class="reference internal" href="system_interface.html#basicconceptsysteminterface"><span class="std std-ref">System Interface</span></a>, under the <em>Past Alerts</em> page:</p>
+<figure class="align-center" id="id3">
+<img alt="Past Alerts Page with User Activities" src="../_images/web_gui_alerts_user_activities.png" />
+<figcaption>
+<p><span class="caption-text">Past Alerts Page with User Activities</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="severity">
+<h2>Severity<a class="headerlink" href="#severity" title="Link to this heading"></a></h2>
+<p>Event and threshold alerts are always associated with a severity that tells the importance of such occurrence. For example, the contact of a blacklisted host is emphasized with a <em>warning</em>, whereas a threshold crossed by an host is highlighted with an <em>error</em>. Currently, severity levels available those defined in RFC 3164, namely:</p>
+<ul class="simple">
+<li><p><em>Emergency</em>: system is unusable</p></li>
+<li><p><em>Critical</em>: critical conditions</p></li>
+<li><p><em>Error</em>: error conditions</p></li>
+<li><p><em>Warning</em>: warning conditions</p></li>
+<li><p><em>Notice</em>: normal but significant condition</p></li>
+</ul>
+</section>
+<section id="entities">
+<h2>Entities<a class="headerlink" href="#entities" title="Link to this heading"></a></h2>
+<p>Every alert has an entity (subject for which the alert has been generated). The list of entities supported by ntopng are:</p>
+<ul class="simple">
+<li><p><strong>Host</strong>: Layer-3 IP address</p></li>
+<li><p><strong>Interface</strong>: monitored ntopng interface</p></li>
+<li><p><strong>Network</strong>: ntopng local network</p></li>
+<li><p><strong>SNMP device</strong>: device added to ntopng from the SNMP page</p></li>
+<li><p><strong>SNMP device interface</strong>: device added to ntopng from the SNMP page</p></li>
+<li><p><strong>Flow</strong>: monitored flow</p></li>
+<li><p><strong>MAC Address</strong>: Layer-2 Mac address</p></li>
+<li><p><strong>Host Pool</strong>: the user-created host pool</p></li>
+<li><p><strong>Process</strong>: the ntopng process itself</p></li>
+<li><p><strong>User</strong>: the ntopng GUI user</p></li>
+</ul>
+<p>For example, an alert triggered for host <code class="code docutils literal notranslate"><span class="pre">192.168.1.2</span></code> that has exceeded a traffic threshold will have <em>“host”</em> as entity and “<em>192.168.1.2”</em> as entity value. Similarly, network <code class="code docutils literal notranslate"><span class="pre">192.168.2.0/24</span></code> that has exceeded a traffic threshold will have <em>“network</em>” as entity and <em>“192.168.2.0/24”</em> as entity value.</p>
+<p>Entities are not shown when browsing ntopng alert pages as they are clear from the context and alert messages. Understanding how entities work can be useful when propagating alerts to third-party endpoints such as syslog.</p>
+</section>
+<section id="type">
+<h2>Type<a class="headerlink" href="#type" title="Link to this heading"></a></h2>
+<p>The full list of alerts is available under the Settings section, page <em>Behavioral Checks</em>, except the <a class="reference internal" href="../user_interface/shared/alerts/others/system_checks.html#alertsalwaysenabled"><span class="std std-ref">Always Enabled System Alerts</span></a>.</p>
+<figure class="align-center">
+<img alt="Alert Types" src="../_images/basic_concepts_alert_definitions.png" />
+</figure>
+</section>
+<section id="recipients">
+<h2>Recipients<a class="headerlink" href="#recipients" title="Link to this heading"></a></h2>
+<p>Alerts are not only available within the ntopng web GUI, they can also be propagated to the outside using recipients that include mail, slack and syslog. To see the configuration details necessary to use recipients refer to <span class="xref std std-ref">DeliveringAlertsToRecipients</span>.</p>
+</section>
+<section id="alerts-explorer">
+<h2>Alerts Explorer<a class="headerlink" href="#alerts-explorer" title="Link to this heading"></a></h2>
+<p>ntopng features a built-in Alerts Explorer for navigating and analysing alerts, for further information please read the <a class="reference internal" href="../user_interface/shared/alerts/alerts_explorer.html#alertsexplorer"><span class="std std-ref">Alerts Explorer</span></a> section.</p>
+<figure class="align-center" id="id4">
+<img alt="Alerts Explorer" src="../_images/basic_concepts_alerts_flow_alerts.png" />
+<figcaption>
+<p><span class="caption-text">Alerts Explorer</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="stats.html" class="btn btn-neutral float-left" title="Statistics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="timeseries.html" class="btn btn-neutral float-right" title="Timeseries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/basic_concepts/alerts.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:48:36 GMT -->
+</html>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>snmp Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/snmp/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/snmp/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Tue, 30 Jan 2024 08:52:33 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>snmp Archives - ntop</title>
+	<link>https://www.ntop.org/tag/snmp/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>HowTo Monitor SNMP Interfaces Utilisation and Congestion Rate</title>
+		<link>https://www.ntop.org/howto-monitor-snmp-interfaces-utilisation-and-congestion-rate/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Tue, 30 Jan 2024 08:52:33 +0000</pubDate>
+				<category><![CDATA[News]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[active monitoring]]></category>
+		<category><![CDATA[alerts]]></category>
+		<category><![CDATA[security]]></category>
+		<category><![CDATA[snmp]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10961</guid>
+
+					<description><![CDATA[<p>Recently, we added the ability in ntopng to monitor link utilisation using NetFlow/IPFIX. In this post, we want to show you how we further improved those functionalities by leveraging SNMP to monitor…</p>
+<p>The post <a href="https://www.ntop.org/howto-monitor-snmp-interfaces-utilisation-and-congestion-rate/">HowTo Monitor SNMP Interfaces Utilisation and Congestion Rate</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Recently, we added the ability in ntopng to <a href="https://www.ntop.org/ntop/howto-monitor-network-interface-usage-with-netflow-ipfix/">monitor link utilisation using NetFlow/IPFIX</a>. <span data-preserver-spaces="true">In this post, we want to show you how we further improved those functionalities by leveraging SNMP to monitor the status of many devices (interfaces) simply. </span><span data-preserver-spaces="true">SNMP is a well-known protocol used for monitoring network devices, and ntopng uses it to poll and gather information from them. ntopng computes the&nbsp;</span><em><span data-preserver-spaces="true">interface usage</span></em><span data-preserver-spaces="true">&nbsp;by using a simple proportion between the traffic metered via SNMP and the interface speed. The interface speed is read by default from SNMP, but it can be customised by the user as sometimes the physical and actual interface speeds are different.</span></p>
+<p><span data-preserver-spaces="true">Let&#8217;s see now how it is possible to configure SNMP link speeds and monitor them to detect unexpected behaviours with SNMP polled devices.</span></p>
+<p><span data-preserver-spaces="true">Similar to what happens with the Flow Exporters speed, by going to the SNMP page, selecting an interface of a device, and jumping to the configuration page (cog icon) it is possible to configure the link speed (Up and Down independently) of a specific interface.</span></p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-10962 size-large" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-150918-1024x309.png" alt="" width="1024" height="309"></p>
+<p>As already mentioned above, this speed is automatically read using SNMP, however not all the times detected speed is correct, consider the example of being connected to the Internet with a 1 Gbit ethernet link but your SLA has a cap of 100 Mbit, in this case the right speed to configure is 100 Mbit.<br />
+After setting the interface speeds, save the settings, jump to the Preferences (under the Settings menu), in the SNMP section and be sure to have the &#8220;SNMP Devices Timeseries&#8221; preference enabled.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151501.png"><img decoding="async" class="aligncenter wp-image-10963 size-large" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151501-1024x446.png" alt="" width="1024" height="446"></a></p>
+<p>From now on, a new timeseries is going to be available in the SNMP Interface Timeseries section (accessible from the chart icon, highlighted in green in the above picture) with the interface usage in percentage.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151852.png"><img decoding="async" class="size-large wp-image-10964 aligncenter" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151852-1024x422.png" alt="" width="1024" height="422"></a></p>
+<p>When the usage is &lt;= 25% the bar is light green, from 25 &lt;= 50% is dark green, from 50 &lt;= 75% is yellow, and above is red. However, while developing this feature, we realised that with hundreds, or even thousands, of interfaces, it is impossible to jump to all of them one by one and check whether everything is ok. In addition to that, having an interface &#8220;Congested&#8221; (i.e. high traffic load) for a short period, may or may not represent a real issue: in most cases, it is not, for example, in the case of a backup we have a couple of hours a week were the bandwidth of the interface is filled.<br />
+For this reason, we decided to gather all this information together and put it on a single page.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-154520-1.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-10968" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-154520-1-1024x496.png" alt="" width="1024" height="496"></a></p>
+<p>Here it is possible to navigate through time (by using the classic time navbar) and find if any interfaces had problems. In addition to the standard information (SNMP IP, Interface Name, etc.) we introduced a new metric called &#8220;Congestion Rate&#8221;, representing how much an Interface is filled in the selected timeframe.<br />
+For those who like formulas, the Congestion Rate is computed in the following way: sum all the points of the timeseries with usage higher than 75% and divide it by the number of total points in timeseries in the selected timeframe. In practice, this is similar to the average.<br />
+After finding some issue with the Congestion Rate of an interface, it is possible to drill down and do follow-up investigations by directly clicking on the bar of the Top Congested Interfaces chart or by clicking on the Actions -&gt; Timeseries button.<br />
+And this is not all. As promised, we also added the ability to trigger conditional alerts based on the interface usage. It is now possible, for both SNMP and Flow Exporters, to trigger alerts when the usage exceeds a specific configurable threshold by using <a href="https://www.ntop.org/ntop/local-traffic-rules-a-new-way-to-define-custom-thresholds/">Traffic Rules</a>.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-152247.png"><img loading="lazy" decoding="async" class="size-large wp-image-10965 aligncenter" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-152247-1024x205.png" alt="" width="1024" height="205"></a></p>
+<p>For you reference you can read more about interface utilisation in the <a href="https://www.ntop.org/guides/ntopng/snmp/usage.html">ntopng user&#8217;s guide</a>.</p>
+<p>Enjoy this new feature, and send us your feedback!</p>
+<p>The post <a href="https://www.ntop.org/howto-monitor-snmp-interfaces-utilisation-and-congestion-rate/">HowTo Monitor SNMP Interfaces Utilisation and Congestion Rate</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Monitoring Network Devices with ntopng and SNMP</title>
+		<link>https://www.ntop.org/monitoring-network-devices-with-ntopng-and-snmp/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 15 May 2017 19:46:58 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[snmp]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5496</guid>
+
+					<description><![CDATA[<p>Summary SNMP is widely used for network monitoring. Being able to remotely monitor network devices is fundamental to have a clear picture of present and past network health. ntopng systematically interacts with…</p>
+<p>The post <a href="https://www.ntop.org/monitoring-network-devices-with-ntopng-and-snmp/">Monitoring Network Devices with ntopng and SNMP</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>Summary</h3>
+<ul>
+<li>SNMP is widely used for network monitoring.</li>
+<li>Being able to remotely monitor network devices is fundamental to have a clear picture of present and past network health.</li>
+<li>ntopng systematically interacts with SNMP devices to provide historical and real-time insights on the network.</li>
+</ul>
+<h3></h3>
+<h3>ntopng SNMP support</h3>
+<p>Simple Network Management Protocol (SNMP) is one of the de-facto standards used to remotely monitor network devices such as routers, switches and servers, just to name a few. With ntopng Enterprise it is possible to consistently and programmatically interact with those devices to have a real-time view of their status, as well as to build historical record for future investigations and trouble shootings.</p>
+<h4></h4>
+<h4>Overview of configured SNMP devices</h4>
+<p>ntopng represent an effective way to have a clear, centralized view of multiple devices. Indeed, a dedicated SNMP menu provides instantaneous access to all the configured devices, and allow the administrator to add/remove devices from the pool.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-01-SNMP-header.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-5503" src="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-01-SNMP-header-1024x107.png" alt="SNMP 01 SNMP header" width="1024" height="107" /></a></p>
+<p>Configured devices are listed along with their address, description, location, and other information. The rightmost column gives access to device-specific actions.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-02-devices-list.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-5504" src="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-02-devices-list-1024x266.png" alt="SNMP 02 devices list" width="1024" height="266" /></a></p>
+<h4></h4>
+<h4>Adding a new SNMP device</h4>
+<p>An &#8220;Add New Device&#8221; link is available at the bottom of the &#8220;SNMP Devices&#8221; page. The addition of a new SNMP is straightforward as it only requires to specify device IP address and SNMP community. Upon successful addition, the device will appear in the list of devices.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-03-Add-new-SNMP-device.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-5511" src="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-03-Add-new-SNMP-device.png" alt="SNMP 03 Add new SNMP device" width="651" height="222" /></a></p>
+<p>&nbsp;</p>
+<h4>Real-time inspection of an SNMP device</h4>
+<p>A details page is available for every SNMP device configured simply by clicking on the &#8220;Device IP&#8221; hyperlink. The access to the details page triggers a series of SNMP queries aimed at retrieving the health and status of the device of interest. Retrieved information include, but is not limited to, device description, contact, and uptime, along with its interfaces, connected MAC addresses and transferred bytes. An handy warning is shown when a non-trunk port has multiple mac addresses seen, or when slow devices are attached to high-speed ports.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-04-SNMP-device-details.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-5514" src="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-04-SNMP-device-details-1024x679.png" alt="SNMP 04 SNMP device details" width="1024" height="679" /></a></p>
+<h4></h4>
+<h4>Historical inspection of an SNMP device</h4>
+<p>Historical SNMP data is accessible by clicking the &#8220;Chart&#8221; icon that is available for any SNMP device as well as for every of its interfaces. Chart icon may not be visible. In that case, historical SNMP timeseries have to be enabled from ntopng preferences.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-5517" src="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-05-SNMP-chart.png" alt="SNMP 05 SNMP chart" width="875" height="638" /></p>
+<p>The chart above shows a stacked view of all the device interfaces. Single devices interfaces can be selected as well. In this case, a breakdown between ingress and egress traffic is visualized.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-06-SNMP-chart-ingress-egress.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-5518" src="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-06-SNMP-chart-ingress-egress.png" alt="SNMP 06 SNMP chart ingress egress" width="872" height="636" /></a></p>
+<p>&nbsp;</p>
+<h4>Mapping an host to SNMP devices</h4>
+<p>Another useful feature provided by ntopng is the ability to probe SNMP devices with the aim of detecting on which devices and interfaces a particular host has been seen. This lookup is automatically performed when accessing every host details page, provided that there is at least one SNMP device configured.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-07-SNMP-host-lookup.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-5520" src="https://www.ntop.org/wp-content/uploads/2017/05/SNMP-07-SNMP-host-lookup-1024x203.png" alt="SNMP 07 SNMP host lookup" width="1024" height="203" /></a></p>
+<p>In the image above, host 192.168.2.222 has been found to be connected to interface 3 of the SNMP device 192.168.2.169.</p>
+<h3>Conclusion</h3>
+<p>This post demonstrates how ntopng can be used to systematically interact with SNMP devices to monitor their health and status. Data is visualized in real-time but also recorded for historical analyses. Currently both SNMP v1 and v2c are supported. In the near future we will add the ability to trigger alerts based on SNMP (e.g. when a port changes status), and we&#8217;ll add support for proprietary MIBs out of the box so that you can use ntopng alerts to be notified when a paper is running out of paper, or the router CPU is too heavily loaded.</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/monitoring-network-devices-with-ntopng-and-snmp/">Monitoring Network Devices with ntopng and SNMP</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

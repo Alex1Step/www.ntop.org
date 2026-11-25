@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:46:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Interface Guide &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Network Interface" href="network_interface/index.html" />
+    <link rel="prev" title="Configuration File Example" href="../cli_options/cli_options_example.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Interface Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="network_interface/index.html">Network Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alerts">Alerts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shared/alerts/alerts_explorer.html">Alerts Explorer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/alerts/available_endpoints.html">Notifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring">Monitoring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shared/monitoring/active_monitoring.html">Active Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/monitoring/infrastructure_monitoring.html">Infrastructure Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/snmp/index.html">SNMP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#policies">Policies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shared/policies/access_control_list.html">Access Control List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/policies/allowed_applications.html">Allowed Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/policies/device_mac_address_tracking.html">Device/MAC Address Tracking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/policies/network_configuration.html">Host Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/policies/traffic_rules.html">Traffic Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/alerts/others/available_alerts.html">Behavioural Checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/alerts/others/behavioural_checks_exclusion.html">Behavioural Checks Exclusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/policies/traffic_profiles.html">Traffic Profiles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#settings">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shared/settings/users.html">Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/settings/preferences.html">Preferences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/settings/blacklists.html">Blacklists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/settings/configurations.html">Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/settings/applications_and_categories.html">Applications and Categories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/settings/tags.html">Tags</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#developer">Developer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shared/developer/rest_api.html">REST API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/developer/analyze_pcap_file.html">Analyze PCAP File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/developer/manage_data.html">Manage Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/developer/clickhouse_explorer.html">ClickHouse Explorer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/developer/behavioural_checks.html">Behavioural Checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/developer/alert_and_flow_status_definitions.html">Alert and Flow Status Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/developer/directories.html">Directiories</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#help">Help</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shared/help/about.html">About</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/help/ntop_blog.html">ntop Blog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shared/help/report_an_issue.html">Report an Issue</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">User Interface Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/user_interface/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="user-interface-guide">
+<h1>User Interface Guide<a class="headerlink" href="#user-interface-guide" title="Link to this heading"></a></h1>
+<p>After ntopng has started you can view the GUI. By default, the GUI can be accessed from any web browser at <code class="code docutils literal notranslate"><span class="pre">http://&lt;ntopng</span> <span class="pre">IP&gt;:3000/</span></code>. A different port can be specified as a command line option during ntopng startup. The first page that always pops out contains the login form - provided that the user has not decided to turn authentication off during startup.</p>
+<figure class="align-center" id="id2">
+<img alt="The Login Page" src="../_images/web_gui_login_page.png" />
+<figcaption>
+<p><span class="caption-text">The Login Page</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The default login is</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>username</strong></p></td>
+<td><p>admin</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>password</strong></p></td>
+<td><p>admin</p></td>
+</tr>
+</tbody>
+</table>
+<p>During the first access, a page asks to change the default password: type the new password twice
+(from 5 to 128 characters, different from <em>admin</em>) and, if you want, choose the language of the
+interface. Until the password is changed every other page leads back here; after the change you go
+to the page you asked for. <em>Logout</em> leaves without changing it.</p>
+<p>Administrator privileges are granted to user <em>admin</em>. If an unauthenticated user attempts to access a specific ntopng URL, the system will redirect the browser to the login page and then, upon successful authentication, to the requested resource. Ntopng GUI web pages have a common structure the user will soon be familiar with. The pages are mostly composed of an always-on-top status bar and some body content.</p>
+<figure class="align-center" id="id3">
+<img alt="The Header Bar" src="../_images/web_gui_header_bar.png" />
+<figcaption>
+<p><span class="caption-text">The Header Bar</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The header bar show the ntopng status information, in particular:</p>
+<ul class="simple">
+<li><p>The currently <a class="reference external" href="../basic_concepts/interfaces.html">selected interface</a>.</p></li>
+<li><p>The interface Up/Down throughput chart.</p></li>
+<li><p>A series of coloured badges.</p></li>
+<li><p>The Search button (or <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">F</kbd></kbd>), which finds pages, preferences, hosts and more (see <a class="reference internal" href="shared/other_components.html#globalsearch"><span class="std std-ref">Search</span></a>).</p></li>
+<li><p>The notifications bell and the <a class="reference external" href="shared/settings/users.html">user administration menu</a>.</p></li>
+</ul>
+<p>The coloured indicate the status of many components in ntopng. The badges in the above picture have the following meaning (from left to right):</p>
+<ul class="simple">
+<li><p>Yellow triangle with the <a class="reference external" href="../basic_concepts/alerts.html#engaged-alerts">Engaged alerts</a> count.</p></li>
+<li><p>Yellow triangle with the Warning <a class="reference external" href="../basic_concepts/alerts.html#flow-alerts">Alerted Flows</a> count.</p></li>
+<li><p>Red triangle with the Error <a class="reference external" href="../basic_concepts/alerts.html#flow-alerts">Alerted Flows</a> count.</p></li>
+<li><p>Green badge with the number of active local hosts.</p></li>
+<li><p>Gray badge with the number of active remote hosts.</p></li>
+<li><p>Gray badge with the number of active devices.</p></li>
+<li><p>Gray badge with the number of active flows.</p></li>
+</ul>
+<p>Red badges are often symptoms of problems. For example, if the active hosts ore flows badges are red
+it means that the ntopng hash tables are full and some statistics can be lost
+(<a class="reference external" href="../operating_ntopng_on_large_networks.html#red-badges">here</a> can be found more information on this topic).</p>
+<p>A menu bar is always available on the left to navigate across ntopng pages.
+Entries in the menu bar change depending on the currently selected interface. The <a class="reference internal" href="../basic_concepts/system_interface.html#basicconceptsysteminterface"><span class="std std-ref">System Interface</span></a> has menu entries which are different from the other interfaces.
+Each individual menu bar entry will be discussed below.</p>
+<p>The Interfaces dropdown menu entry in the top toolbar contains lists all the interfaces that are currently
+monitored by ntopng. Among all interfaces listed, one has a check mark that indicates the interface is
+currently selected. A special interface is always present in ntopng, the <a class="reference external" href="../basic_concepts/system_interface.html">System Interface</a>.
+Most of the data and information shown in ntopng web GUI is related to the currently selected
+interface. Any interface listed can be selected simply by clicking on its name.</p>
+<figure class="align-center" id="id4">
+<img alt="Interface Dropdown" src="../_images/web_gui_interfaces_dropdown.png" />
+<figcaption>
+<p><span class="caption-text">The Interfaces Dropdown Menu</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The dropdown menu is only used to switch between selected interfaces, it is also used to actually see
+interface traffic statistics.</p>
+<p>When two or more interfaces are monitored, the dropdown also lists the <a class="reference external" href="lightview/index.html">Overview</a>
+entry, which combines the data of all the local interfaces in a single view.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="network_interface/index.html">Network Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="network_interface/index.html#dashboard">Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network_interface/index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network_interface/index.html#alerts">Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network_interface/index.html#flows">Flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network_interface/index.html#hosts">Hosts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network_interface/index.html#maps">Maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network_interface/index.html#interface">Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="system_interface/index.html">System Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system_interface/index.html#health">Health</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="alerts">
+<h2>Alerts<a class="headerlink" href="#alerts" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="shared/alerts/alerts_explorer.html">Alerts Explorer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/issues.html">Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/others/alerts_graph.html">Alerts Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/alerts_type/engaged_alerts.html">Engaged Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/alerts_type/past_alerts.html">Past Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/alerts_type/flow_alerts.html">Flow Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/others/alerts_filters.html">Alerts Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/others/custom_queries.html">Custom Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/others/mitre_classification.html">Mitre Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/remediations/index.html">Remediations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/alerts/available_endpoints.html">Notifications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/available_endpoints.html#builtin">Builtin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/available_endpoints.html#delivery-criteria">Delivery Criteria</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/available_endpoints.html#sending-issues">Sending Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/available_endpoints.html#available-endpoints">Available Endpoints</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="shared/monitoring/active_monitoring.html">Active Monitoring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/monitoring/active_monitoring.html#measure-alerts">Measure Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/monitoring/active_monitoring.html#measure-timeseries">Measure Timeseries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/monitoring/infrastructure_monitoring.html">Infrastructure Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/snmp/index.html">SNMP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/configuration.html">Configuration and Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/monitoring.html">Device Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/monitoring.html#network-interfaces">Network Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/monitoring.html#interface-roles">Interface Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/monitoring.html#interface-label-format">Interface Label Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/monitoring.html#binding-mac-address-to-interface">Binding MAC Address to Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/usage.html">SNMP Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/similarity.html">Interface Similarity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/topology.html">Network Topology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/rules.html">Device rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/snmp/statistics_and_troubleshooting.html">Statistics and Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="policies">
+<h2>Policies<a class="headerlink" href="#policies" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="shared/policies/access_control_list.html">Access Control List</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/access_control_list.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/access_control_list.html#adding-rules">Adding Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/access_control_list.html#editing-rules">Editing Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/access_control_list.html#delete-rules">Delete Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/access_control_list.html#alert">Alert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/access_control_list.html#scope-filters">Scope Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/policies/allowed_applications.html">Allowed Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/policies/device_mac_address_tracking.html">Device/MAC Address Tracking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/policies/network_configuration.html">Host Policy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/network_configuration.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/network_configuration.html#alert-generation">Alert Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/policies/traffic_rules.html">Traffic Rules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/traffic_rules.html#available-rules">Available Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/traffic_rules.html#configure-rules">Configure Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/traffic_rules.html#monitor-all-local-hosts">Monitor All Local Hosts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/traffic_rules.html#edit-delete-rules">Edit/Delete Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/alerts/others/available_alerts.html">Behavioural Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/others/available_alerts.html#check-tags">Check Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/others/available_alerts.html#interface-types">Interface Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/others/available_alerts.html#alerts-list">Alerts List</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/alerts/others/behavioural_checks_exclusion.html">Behavioural Checks Exclusion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/alerts/others/behavioural_checks_exclusion.html#exclude-risks-domain-networks-with-ndpi">Exclude Risks Domain/Networks with nDPI</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/policies/traffic_profiles.html">Traffic Profiles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/traffic_profiles.html#realtime-profiles">Realtime Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/policies/traffic_profiles.html#historical-profiles-statistics">Historical Profiles Statistics</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="settings">
+<h2>Settings<a class="headerlink" href="#settings" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="shared/settings/users.html">Users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/users.html#multitenancy">Multitenancy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/settings/preferences.html">Preferences</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/preferences.html#change-ntopng-index-page">Change ntopng Index Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/preferences.html#data-retention">Data Retention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/preferences.html#user-authentication">User Authentication</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/settings/blacklists.html">Blacklists</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/blacklists.html#custom-blacklists">Custom Blacklists</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/settings/configurations.html">Configurations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/configurations.html#pool-import-via-csv">Pool Import via CSV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/configurations.html#import-export-via-api">Import/Export via API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/settings/applications_and_categories.html">Applications and Categories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/applications_and_categories.html#category">Category</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/applications_and_categories.html#custom-applications">Custom Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/applications_and_categories.html#custom-categories">Custom Categories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/applications_and_categories.html#adding-a-rule-from-a-flow">Adding a Rule from a Flow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shared/settings/tags.html">Tags</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/tags.html#built-in-tags">Built-in Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/tags.html#user-defined-tags">User-Defined Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/tags.html#application-and-risk-based-tagging">Application- and Risk-Based Tagging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/tags.html#asset-tag-expiration-ttl">Asset Tag Expiration (TTL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/tags.html#tags-on-flows">Tags on Flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/tags.html#where-tags-are-shown">Where Tags Are Shown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shared/settings/tags.html#using-tags-for-notifications">Using Tags for Notifications</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="developer">
+<h2>Developer<a class="headerlink" href="#developer" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="shared/developer/rest_api.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/developer/analyze_pcap_file.html">Analyze PCAP File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/developer/manage_data.html">Manage Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/developer/clickhouse_explorer.html">ClickHouse Explorer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/developer/behavioural_checks.html">Behavioural Checks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/developer/alert_and_flow_status_definitions.html">Alert and Flow Status Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/developer/directories.html">Directiories</a></li>
+</ul>
+</div>
+</section>
+<section id="help">
+<h2>Help<a class="headerlink" href="#help" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="shared/help/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/help/ntop_blog.html">ntop Blog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared/help/report_an_issue.html">Report an Issue</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../cli_options/cli_options_example.html" class="btn btn-neutral float-left" title="Configuration File Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="network_interface/index.html" class="btn btn-neutral float-right" title="Network Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:47:05 GMT -->
+</html>

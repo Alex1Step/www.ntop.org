@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/assets_journal.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:50:44 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12. Assets Journal &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Third-Party Integrations" href="../third_party_integrations/index.html" />
+    <link rel="prev" title="11. Observability" href="high_resolution_timeseries.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bridging_and_policing.html">1. Bridging and Traffic Policing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ids_acceleration.html">2. IDS Acceleration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces/index.html">3. Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lightview/index.html">4. Light View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="live_pcap_download.html">5. Live Pcap Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deduplication.html">6. Flow Deduplication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oem.html">7. OEM Customizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snapshots.html">8. Snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syslog.html">9. Syslog Log Ingestion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clickhouse_timeseries.html">10. ClickHouse Timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="high_resolution_timeseries.html">11. Observability</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">12. Assets Journal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#viewing-the-journal">12.1. Viewing the Journal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#entries">12.2. Entries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#causes">12.3. Causes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#storage">12.4. Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-api">12.5. Lua API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Advanced Features</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">12. </span>Assets Journal</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advanced_features/assets_journal.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="assets-journal">
+<span id="assetsjournal"></span><h1><span class="section-number">12. </span>Assets Journal<a class="headerlink" href="#assets-journal" title="Link to this heading"></a></h1>
+<p>The assets inventory keeps the current state of the hosts seen on the
+network. The <strong>assets journal</strong> records how that state has changed over time:
+one entry for every event (an asset created or deleted, a field changed, a tag
+added or removed), with <strong>who</strong> caused it and <strong>why</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature is available only from Enterprise L license, with the assets
+inventory enabled.</p>
+</div>
+<p>The journal is disabled by default. It can be enabled from <em>Settings &gt;
+Preferences &gt; Behaviour Analysis</em> (section <em>Assets</em>), with the <em>Enable Assets Journal</em>
+preference. When it is enabled a <em>Baseline</em> entry is written for every asset
+already in the inventory; while it is disabled nothing is recorded, and when it
+is enabled again a new <em>Baseline</em> is written.</p>
+<section id="viewing-the-journal">
+<h2><span class="section-number">12.1. </span>Viewing the Journal<a class="headerlink" href="#viewing-the-journal" title="Link to this heading"></a></h2>
+<p>The journal is shown in two places:</p>
+<ul class="simple">
+<li><p>The <em>Journal</em> tab of the <em>Assets Inventory</em> page (<em>Network</em> menu, see
+<a class="reference internal" href="../user_interface/network_interface/interface/assets.html#assets"><span class="std std-ref">Assets Inventory</span></a>): the events of all the assets of the selected interface.</p></li>
+<li><p>The <em>Journal</em> tab of the details page of an asset: the events of that asset
+only.</p></li>
+</ul>
+<figure class="align-center" id="id1">
+<a class="reference external image-reference" href="../_images/assets_journal_inventory.png"><img alt="Journal tab of the Assets Inventory page" src="../_images/assets_journal_inventory.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">The Journal tab of the Assets Inventory page</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id2">
+<a class="reference external image-reference" href="../_images/assets_journal_asset_details.png"><img alt="Journal of a single asset" src="../_images/assets_journal_asset_details.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">The Journal tab of the details page of an asset</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Each row is an event, newest first:</p>
+<ul class="simple">
+<li><p><strong>Time</strong>: when the event happened.</p></li>
+<li><p><strong>Asset</strong>: the asset (only in the <em>Assets Inventory</em> page). Click it to open
+its details.</p></li>
+<li><p><strong>Action</strong>: <em>Baseline</em>, <em>New</em>, <em>Update</em>, <em>Delete</em> or <em>Note</em> (see below).</p></li>
+<li><p><strong>About</strong>: what has changed, e.g. <em>MAC address</em>, <em>DNS name</em>,
+<em>TCP fingerprint</em>, <em>Operating System</em> or <em>Tag</em>. Empty when the event is
+about the asset as a whole.</p></li>
+<li><p><strong>Who</strong>: <code class="docutils literal notranslate"><span class="pre">ntopng</span></code> for the events detected automatically, otherwise the
+user that caused the event (e.g. <code class="docutils literal notranslate"><span class="pre">admin</span></code> for a tag set by hand).</p></li>
+<li><p><strong>Event</strong>: what happened and why (see <a class="reference internal" href="#causes">Causes</a>). For an event seen in the
+traffic, it shows the flow (connection) where it has been seen.</p></li>
+</ul>
+<p>By default the last month is shown: choose another time interval with the
+selector above the table and click <em>Apply</em>. The table can be searched (the
+IP of the asset, the user, the action, the subaction and the values of the
+event), and the columns shown can be
+chosen with the eye icon.</p>
+<p>The tabs are enabled only when the journal is enabled (see above): otherwise
+they are disabled, and a tooltip says how to enable it. Without an Enterprise L
+license the tooltip says that an upgrade is needed.</p>
+</section>
+<section id="entries">
+<h2><span class="section-number">12.2. </span>Entries<a class="headerlink" href="#entries" title="Link to this heading"></a></h2>
+<p>Every entry has:</p>
+<ul class="simple">
+<li><p><strong>Event time</strong>: when the event happened (epoch).</p></li>
+<li><p><strong>Created time</strong>: when the entry has been written (epoch).</p></li>
+<li><p><strong>Who</strong>: <code class="docutils literal notranslate"><span class="pre">ntopng</span></code> for the events detected automatically, otherwise the
+name of the user that caused the event from the GUI or the REST API.</p></li>
+<li><p><strong>Action</strong>: see below.</p></li>
+<li><p><strong>Subaction</strong> (<em>About</em> in the GUI): what the entry is about: <code class="docutils literal notranslate"><span class="pre">os</span></code> (the
+Operating System tags), <code class="docutils literal notranslate"><span class="pre">tag</span></code> (the other tags), the name of the field
+(<code class="docutils literal notranslate"><span class="pre">ip</span></code>, <code class="docutils literal notranslate"><span class="pre">mac</span></code>, <code class="docutils literal notranslate"><span class="pre">vlan</span></code>, <code class="docutils literal notranslate"><span class="pre">tcp_fingerprint</span></code>, <code class="docutils literal notranslate"><span class="pre">dhcp_fingerprint</span></code>,
+<code class="docutils literal notranslate"><span class="pre">dns_name</span></code>, <code class="docutils literal notranslate"><span class="pre">kerberos_name</span></code>), <code class="docutils literal notranslate"><span class="pre">usernames</span></code> (the usernames of the
+host), empty for the asset as a whole (Baseline, New, Delete, Manual).</p></li>
+<li><p><strong>Asset</strong>: the interface id, the type of the asset (<code class="docutils literal notranslate"><span class="pre">host</span></code>) and its key,
+as in the assets inventory.</p></li>
+<li><p><strong>Message</strong>: what happened, and its cause.</p></li>
+</ul>
+<p>Actions:</p>
+<ul class="simple">
+<li><p><strong>Baseline</strong>: the asset was already in the inventory when the journal has
+been enabled (one entry per asset, no details).</p></li>
+<li><p><strong>New</strong>: the asset has been created. The entry is followed by one <em>Update</em>
+entry for each field with a value (except the ones in the key of the asset,
+i.e. IP address and VLAN) and for each tag of the new asset.</p></li>
+<li><p><strong>Update</strong>: one property of the asset changed or has been added/removed (i.e.
+a new tag has been set or a fingerprint changed).</p></li>
+<li><p><strong>Delete</strong>: the asset has been deleted.</p></li>
+<li><p><strong>Manual</strong> (<em>Note</em> in the GUI): a free text note, written by a user or by an integration.</p></li>
+</ul>
+<p>The fields of the host assets currently recorded are: IP address, MAC
+address, VLAN, TCP fingerprint, DHCP fingerprint, DNS name, Kerberos machine
+account, the usernames and the tags. The name of the host is not recorded, as
+it is derived from the other names of the host (DNS, DHCP, mDNS, …).</p>
+<p>The usernames are the users seen in the traffic of the host, each with the
+protocol it has been seen with (e.g. <code class="docutils literal notranslate"><span class="pre">alice&#64;corp.local</span> <span class="pre">(Kerberos)</span></code>, the
+client of a Kerberos authentication accepted by the KDC). A host keeps the 3
+most recent ones: a new one replaces the one seen least recently. Each username
+added or removed has its own entry and cause.</p>
+</section>
+<section id="causes">
+<h2><span class="section-number">12.3. </span>Causes<a class="headerlink" href="#causes" title="Link to this heading"></a></h2>
+<p>The message always tells the cause of the event, with all the information
+available. An event caused by the traffic reports the flow it has been seen in,
+with the interface that has seen it (with a view interface, the viewed
+interface the flow belongs to):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>New asset: UDP 192.168.1.93:51409-&gt;192.168.1.1:53 eth0 (0)
+Set MAC address to &quot;10:13:31:F1:39:76&quot;: UDP 192.168.1.93:51409-&gt;192.168.1.1:53 eth0 (0)
+Add tag 0 (0x00) DNS Server: UDP 192.168.1.93:52340-&gt;192.168.1.1:53 eth0 (0) [DNS]
+Add tag 13 (0x0d) Non-PQC Compliant: risk Non PQC Compliant Flow - TCP 192.168.1.93:61562-&gt;92.122.247.92:443 eth0 (0) [TLS]
+Update TCP fingerprint from &quot;2_128_64240_47466ece&quot; to &quot;2_64_64240_789c1d1f&quot;: TCP 172.16.1.137:39970-&gt;116.203.142.127:80 eth0 (0) [HTTP.ntop]
+Remove tag 31 (0x1f) Windows: replaced by tag 28 (0x1c) Linux, Linux (TCP Fingerprint) - TCP 172.16.1.137:39970-&gt;116.203.142.127:80 eth0 (0)
+Add username dave@corp.local (Kerberos): UDP 10.0.0.5:50012-&gt;10.0.0.1:88 eth0 (0) [Kerberos]
+Remove username alice@corp.local (Kerberos): replaced by dave@corp.local (Kerberos) - UDP 10.0.0.5:50012-&gt;10.0.0.1:88 eth0 (0) [Kerberos]
+</pre></div>
+</div>
+<p>A flow is shown as <code class="docutils literal notranslate"><span class="pre">&lt;protocol&gt;</span> <span class="pre">&lt;client&gt;-&gt;&lt;server&gt;</span> <span class="pre">&lt;interface</span> <span class="pre">name&gt;</span> <span class="pre">(&lt;interface</span> <span class="pre">id&gt;)</span> <span class="pre">[&lt;application&gt;]</span></code>,
+the application only when it is known. When the cause has an evidence other
+than the flow (the risk of a tag bound to a risk, the fingerprint or the
+User-Agent an Operating System has been learnt from) the evidence comes first,
+followed by a dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>) and the flow.</p>
+<p>The flow of a <em>New</em> entry is the first flow of the host (the one that has
+created it), shown without application, as it was not yet known when the host
+has been created.</p>
+<p>The other causes:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Event</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tag set or unset by a user on a host</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">tag</span> <span class="pre">41</span> <span class="pre">(0x29)</span> <span class="pre">Servers:</span> <span class="pre">manually</span> <span class="pre">set</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Tag deleted</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Remove</span> <span class="pre">tag</span> <span class="pre">41</span> <span class="pre">(0x29)</span> <span class="pre">Servers:</span> <span class="pre">the</span> <span class="pre">tag</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">deleted</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Tag expired (see <a class="reference internal" href="../user_interface/shared/settings/tags.html#assettagsttl"><span class="std std-ref">Asset Tag Expiration (TTL)</span></a>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Remove</span> <span class="pre">tag</span> <span class="pre">8</span> <span class="pre">(0x08)</span> <span class="pre">SSH</span> <span class="pre">Server:</span> <span class="pre">TTL</span> <span class="pre">(30</span> <span class="pre">days)</span> <span class="pre">expiration,</span> <span class="pre">last</span> <span class="pre">seen</span> <span class="pre">on</span> <span class="pre">01/10/2026</span> <span class="pre">10:00:00</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Tag of a host in the network configuration</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">tag</span> <span class="pre">0</span> <span class="pre">(0x00)</span> <span class="pre">DNS</span> <span class="pre">Server:</span> <span class="pre">from</span> <span class="pre">network</span> <span class="pre">configuration</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Name resolved by ntopng</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Set</span> <span class="pre">DNS</span> <span class="pre">name</span> <span class="pre">to</span> <span class="pre">&quot;www.example.com&quot;:</span> <span class="pre">reverse</span> <span class="pre">DNS</span> <span class="pre">lookup</span> <span class="pre">by</span> <span class="pre">ntopng</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Asset deleted by a user</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Asset</span> <span class="pre">deleted</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Assets not seen for a while deleted</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Asset</span> <span class="pre">deleted:</span> <span class="pre">not</span> <span class="pre">seen</span> <span class="pre">since</span> <span class="pre">01/09/2026</span> <span class="pre">00:00:00</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Duplicated asset deleted</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Asset</span> <span class="pre">deleted:</span> <span class="pre">duplicate</span> <span class="pre">of</span> <span class="pre">asset</span> <span class="pre">0_192.168.1.10&#64;0</span> <span class="pre">(same</span> <span class="pre">IP</span> <span class="pre">address</span> <span class="pre">and</span> <span class="pre">VLAN)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Assets imported</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">asset:</span> <span class="pre">imported</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="storage">
+<h2><span class="section-number">12.4. </span>Storage<a class="headerlink" href="#storage" title="Link to this heading"></a></h2>
+<p>The entries are stored in the <code class="docutils literal notranslate"><span class="pre">assets_journal</span></code> table, in ClickHouse when
+available, otherwise in the SQLite database of the interface. Entries are
+<strong>never deleted</strong>: not by the data retention, and not when their asset is
+deleted, so that the history of a deleted asset is still available.</p>
+<p>Besides the <em>Journal</em> tabs (see <a class="reference internal" href="#viewing-the-journal">Viewing the Journal</a>), the entries of an
+asset can also be read with SQL, e.g. with ClickHouse:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">event_time</span><span class="p">,</span><span class="w"> </span><span class="n">who</span><span class="p">,</span><span class="w"> </span><span class="n">action</span><span class="p">,</span><span class="w"> </span><span class="n">subaction</span><span class="p">,</span><span class="w"> </span><span class="n">message_id</span><span class="p">,</span><span class="w"> </span><span class="n">message_values</span><span class="p">,</span><span class="w"> </span><span class="n">message</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">ntopng</span><span class="p">.</span><span class="n">assets_journal</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">ifid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;0_192.168.1.1@0&#39;</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">event_time</span><span class="p">,</span><span class="w"> </span><span class="n">created_time</span>
+</pre></div>
+</div>
+<p>The messages are stored as a template (<code class="docutils literal notranslate"><span class="pre">message_id</span></code>) and its values
+(<code class="docutils literal notranslate"><span class="pre">message_values</span></code>, JSON), and shown in the language of the user; free text
+notes are stored in <code class="docutils literal notranslate"><span class="pre">message</span></code>.</p>
+</section>
+<section id="lua-api">
+<h2><span class="section-number">12.5. </span>Lua API<a class="headerlink" href="#lua-api" title="Link to this heading"></a></h2>
+<p>The journal can be read and written by Lua code (e.g. by integrations) with the
+<code class="docutils literal notranslate"><span class="pre">assets_journal</span></code> module (<code class="docutils literal notranslate"><span class="pre">pro/scripts/lua/modules/assets_journal.lua</span></code>):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">assets_journal.get(ifid,</span> <span class="pre">key,</span> <span class="pre">from,</span> <span class="pre">to)</span></code>: the entries of an asset in a
+time interval (epochs in seconds, both ends included), oldest first,
+with the text of their messages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">assets_journal.add(entry)</span></code> and <code class="docutils literal notranslate"><span class="pre">assets_journal.addBatch(entries)</span></code>:
+write one or more entries. They can be called concurrently, never raise an
+error, and do nothing while the journal is disabled. An entry has an
+<code class="docutils literal notranslate"><span class="pre">action</span></code> (<code class="docutils literal notranslate"><span class="pre">assets_journal.actions</span></code>), an optional <code class="docutils literal notranslate"><span class="pre">subaction</span></code> (e.g. the
+name of the integration), and either a free text <code class="docutils literal notranslate"><span class="pre">message</span></code> or a template
+(<code class="docutils literal notranslate"><span class="pre">message_id</span></code>, <code class="docutils literal notranslate"><span class="pre">message_values</span></code>).</p></li>
+</ul>
+<p>An entry written by an integration:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">assets_journal</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;assets_journal&quot;</span>
+
+<span class="n">assets_journal</span><span class="p">.</span><span class="n">add</span><span class="p">({</span>
+   <span class="n">ifid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+   <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;0_192.168.1.1@0&quot;</span><span class="p">,</span>
+   <span class="n">who</span> <span class="o">=</span> <span class="n">assets_journal</span><span class="p">.</span><span class="n">currentUser</span><span class="p">(),</span> <span class="c1">-- &quot;ntopng&quot; outside of a request</span>
+   <span class="n">action</span> <span class="o">=</span> <span class="n">assets_journal</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">manual</span><span class="p">,</span>
+   <span class="n">subaction</span> <span class="o">=</span> <span class="s2">&quot;wazuh&quot;</span><span class="p">,</span>
+   <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Moved to the server room&quot;</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="high_resolution_timeseries.html" class="btn btn-neutral float-left" title="11. Observability" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../third_party_integrations/index.html" class="btn btn-neutral float-right" title="Third-Party Integrations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/assets_journal.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:50:47 GMT -->
+</html>

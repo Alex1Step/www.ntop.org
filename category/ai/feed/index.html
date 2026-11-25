@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>AI Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/ai/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/ai/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Sat, 07 Nov 2026 17:48:44 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>AI Archives - ntop</title>
+	<link>https://www.ntop.org/category/ai/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Sharkfest 26EU: HowTo Detect Stealth VPN and AI Inference Traffic</title>
+		<link>https://www.ntop.org/sharkfest-26eu-howto-detect-stealth-vpn-and-ai-inference-traffic/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sat, 07 Nov 2026 16:56:21 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=47415</guid>
+
+					<description><![CDATA[<p>Earlier this week we have presented at Sharkfest Europe 2026 a presentation of our work about traffic detection of Stealth VPNs and AI Inference. The presentation addresses the challenges of detecting modern obfuscated network traffic, specifically from stealth VPNs and custom/local artificial intelligence (AI) services. While traditional signature methods (like JA4) face instability and hash collisions, the [&#8230;]</p>
+<p>The post <a href="https://www.ntop.org/sharkfest-26eu-howto-detect-stealth-vpn-and-ai-inference-traffic/">Sharkfest 26EU: HowTo Detect Stealth VPN and AI Inference Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="47415" class="elementor elementor-47415">
+				<div class="elementor-element elementor-element-7cee628a e-flex e-con-boxed e-con e-parent" data-id="7cee628a" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-527d1950 elementor-widget elementor-widget-text-editor" data-id="527d1950" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									
+<p class="wp-block-paragraph">Earlier this week we have presented at <a href="https://sharkfest.wireshark.org/sfeu/agenda/">Sharkfest Europe 2026</a> a presentation of our work about traffic detection of Stealth VPNs and AI Inference. The presentation addresses the challenges of detecting modern obfuscated network traffic, specifically from stealth VPNs and custom/local artificial intelligence (AI) services. While traditional signature methods (like JA4) face instability and hash collisions, the presenters introduce a breakthrough data-driven approach using machine learning and AI transformers (specifically a &#8220;Context Transformer&#8221;<strong>)</strong> to identify traffic patterns accurately without decrypting payloads.</p>
+
+<h6 class="wp-block-heading">Part I: Introduction to Passive Traffic Fingerprinting</h6>
+
+<ul class="wp-block-list">
+<li>Network Fingerprinting: Extracting unique, observable characteristics from standard protocols (TCP, IP, TLS) to passively identify a specific device, operating system, or network protocol without altering traffic.</li>
+
+<li>Active vs. Passive Probing:
+<ul class="wp-block-list">
+<li>Passive: Invisible, zero overhead, ideal for fragile environments (OT/medical devices), but dependent on active traffic flow.</li>
+
+<li>Active: Triggers packets to force a response (e.g., <code>nmap</code>, <code>JARM</code>), offering high accuracy but risking disruption or firewall detection.</li>
+</ul>
+</li>
+
+<li>IP Stack Elements: Security tools look at headers such as Time-To-Live (TTL), initial TCP Window Sizes, and the wire-order of TCP Options to fingerprint operating systems.</li>
+
+<li>The Encryption Paradox: While encryption hides raw payload data, the unencrypted handshake negotiations (Cipher Suites and TLS Extensions) provide rich criteria to generate application-level signatures like JA4.</li>
+</ul>
+<hr class="wp-block-separator has-alpha-channel-opacity" />
+<h6 class="wp-block-heading">Part II: Stealth VPN and AI Traffic Analysis</h6>
+
+<ul class="wp-block-list">
+<li>What is a Stealth VPN?: A service that actively modifies or strips handshake signatures and routes over regular web ports (like Port 443 or Port 80) to disguise VPN usage as ordinary HTTPS web browsing.</li>
+
+<li>The Limitation of JA4: The presenters discovered that JA4 hashes are unstable on a single device across multiple connections and can experience massive hash collisions with highly popular, benign traffic (e.g., standard Google Android services). This creates massive false-positive risks if used for active traffic blocking.</li>
+
+<li>The nDPI TLS Fingerprint: As a workaround, they preview a stable, collision-resistant successor to JA4 integrated into ntop&#8217;s <code>nDPI</code> library.</li>
+
+<li>AI Traffic Profiling: Traffic to major AI APIs (like OpenAI or Anthropic) is easily spotted via Server Name Indication (SNI). However, local instances powered by tools like <code>llama.cpp</code> or <code>vllm</code> require deeper flow analytics because their traffic patterns differ significantly based on whether the AI model response is Streamed or Non-Streamed.</li>
+</ul>
+<hr class="wp-block-separator has-alpha-channel-opacity" />
+<h6 class="wp-block-heading">Part III: From Fingerprints to Transformers</h6>
+
+<p class="wp-block-paragraph">When static signatures fail or are unknown in the wild, Machine Learning offers a data-driven approach by looking at network behavior patterns over time.</p>
+
+<ul class="wp-block-list">
+<li>Feature Engineering: The proposed framework transforms network traffic flows into 9 numerical features spanning:
+<ol class="wp-block-list">
+<li><em>Traffic Volume:</em> Forward/backward bytes and packet counts.</li>
+
+<li><em>Packet Statistics:</em> Average size and length variations.</li>
+
+<li><em>Payload Patterns:</em> Entropy of payload lengths.</li>
+
+<li><em>Timing:</em> Mean and standard deviation of packet inter-arrival times (IAT).</li>
+</ol>
+</li>
+
+<li>Windows and Bins: Flows are segmented into overlapping 100-second windows divided into 10-second temporal bins to capture traffic shape trends over time.</li>
+
+<li>The Context Transformer: Recognizing that an isolated stream might lack clarity, their transformer architecture enriches the target flow by evaluating up to 20 temporally nearby &#8220;context elements&#8221; (surrounding network activities) and identifying shared IP endpoints.</li>
+
+<li>Evaluation Metrics:
+<ul class="wp-block-list">
+<li>Tested using public datasets (VNAT, ISCXVPN2016) alongside their own smartphone captures of stealth applications like <em>HA Tunnel Plus, XU Tunnel, TLS Tunnel, Psiphon, and Geph</em>.</li>
+
+<li>Achieved an impressive 90.44% F1-score at the Window level and 85.71% at the Flow level, catching all 15 targeted VPN flows with only 5 false positives.</li>
+</ul>
+</li>
+</ul>
+
+<p class="wp-block-paragraph">The pipeline can be actively deployed by users as a lightweight FastAPI service leveraging <code>TShark</code> and <code>nDPI</code> parser utilities.</p>
+
+<p class="wp-block-paragraph"><a href="https://www.ntop.org/wp-content/uploads/2026/11/SF26EU_Fingerprints_Deri_Sartiano.pdf">SF26EU_Fingerprints_Deri_Sartiano</a></p>
+<p>Enjoy and contact us for questions !</p>
+<hr class="wp-block-separator has-alpha-channel-opacity" />								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/sharkfest-26eu-howto-detect-stealth-vpn-and-ai-inference-traffic/">Sharkfest 26EU: HowTo Detect Stealth VPN and AI Inference Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Welcome to ntopng 7.0: Modern GUI, nAnalyst, Sites, Observability, BGP/BMP, PQC, Wazuh&#8230;</title>
+		<link>https://www.ntop.org/welcome-to-ntopng-7-0-modern-gui-nassistant-sites-observability-bgp-bmp-pqc-wazuh/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 07 Sep 2026 15:29:24 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46323</guid>
+
+					<description><![CDATA[<p>We are excited to announce the release of ntopng 7.0, the most significant update to ntopng in years. This release touches nearly every part of the product: A brand-new AI-assisted (yes you…</p>
+<p>The post <a href="https://www.ntop.org/welcome-to-ntopng-7-0-modern-gui-nassistant-sites-observability-bgp-bmp-pqc-wazuh/">Welcome to ntopng 7.0: Modern GUI, nAnalyst, Sites, Observability, BGP/BMP, PQC, Wazuh&#8230;</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">We are excited to announce the release of ntopng 7.0, the most significant update to ntopng in years. This release touches nearly every part of the product:</p>
+
+
+
+<ul class="wp-block-list">
+<li>A brand-new AI-assisted (yes you can ask ntopng to create dashboard using AI) analysis layer to a rebuilt frontend.</li>
+
+
+
+<li>A new timeseries engine based on ClickHouse</li>
+
+
+
+<li>Expanded routing (BGP/BMP) and OT visibility.</li>
+
+
+
+<li>A long list of hardening and security improvements.</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-full"><img fetchpriority="high" decoding="async" width="2858" height="1902" src="https://www.ntop.org/wp-content/uploads/2026/09/ntopng-7.0.png" alt="Ntopng 7.0" class="wp-image-46324"/></figure>
+
+
+
+<h5 class="wp-block-heading">nAnalyst: AI-Assisted Traffic Analysis</h5>
+
+
+
+<p class="wp-block-paragraph">The headline feature of ntopng 7.0 is nAnalyst, a new layer that brings AI directly into traffic and security analysis. nAnalyst adds:</p>
+
+
+
+<ul class="wp-block-list">
+<li>A chat interface<strong> </strong>for live and historical flows and alerts, so you can ask questions about your traffic in natural language instead of building custom queries by hand. It supports a concise mode, streaming responses, and the ability to download the conversation.</li>
+
+
+
+<li>AI policies, with a dedicated policy runner, a policy page, policy alerts, and execution counters, letting you codify recurring analysis tasks and have them run automatically.</li>
+
+
+
+<li>AI dashboards and an agentic loop that can reason over your data step by step rather than answering in a single pass.</li>
+
+
+
+<li>Support for multiple LLM providers (Anthropic, OpenAI, Google, Qwen, and local models) with preferences for selecting a default provider and the ability to stop a response mid-generation.</li>
+
+
+
+<li>An integrated MCP server, with dedicated ntopng functions split between community and Pro editions, so external AI tools and agents can query ntopng directly.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">nAnalyst is available starting from Enterprise M and above, and requires ClickHouse to be enabled. It&#8217;s also been wired into the Wazuh alerts page and into flow details, so AI-assisted analysis is available wherever you&#8217;re already looking at data.</p>
+
+
+
+<h5 class="wp-block-heading">Wazuh XDR/SIEM Integration: Merging System and Network Data</h5>
+
+
+
+<p class="wp-block-paragraph">ntopng 7.0 adds native integration with <a href="https://wazuh.com/">Wazuh</a>, the open-source XDR/SIEM platform. This includes:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Collection of Wazuh alerts directly into ClickHouse, with day-based partitioning and a configurable retention preference.</li>
+
+
+
+<li>A dedicated Wazuh alerts page, alert details, an info button, and alert exceptions.</li>
+
+
+
+<li>Asset information merge (manual and automatic), with a connection check before saving credentials.</li>
+
+
+
+<li>Wazuh alerts as a recipient/notification target, and MITRE information surfaced directly in alerts. This allows you add fexibility in alert deliver that Wazuh does not natively implement.</li>
+
+
+
+<li>Sample rules and schemas shipped out of the box, for both standalone and cluster Wazuh deployments.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">This lets you correlate ntopng&#8217;s network visibility with Wazuh&#8217;s host-based detections in a single place. Wazuh integration is available starting from the Enterprise M edition.</p>
+
+
+
+<h5 class="wp-block-heading">Sites: A Network-to-Site Hierarchy</h5>
+
+
+
+<p class="wp-block-paragraph">Large, distributed networks are now easier to reason about with the new <strong>Sites</strong> feature: a hierarchy that lets you group networks, exporters, and hosts by physical or logical site.</p>
+
+
+
+<p class="wp-block-paragraph">Sites come with their own dashboard (SNMP, live flows, hosts, assets, exporters, top items, descendant networks), a geomap with edges between sites, matrix/heatmap views, per-site timeseries, and site import/export. Historical flows now carry client/server Site IDs, so you can filter and aggregate by site across flows, reports, and alerts.</p>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" width="2338" height="1474" src="https://www.ntop.org/wp-content/uploads/2026/09/Sites.png" alt="Sites" class="wp-image-46325"/></figure>
+
+
+
+<h5 class="wp-block-heading">BGP and Routing Visibility</h5>
+
+
+
+<p class="wp-block-paragraph">ntopng 7.0 adds full <a href="https://www.ntop.org/observability-and-large-networks-monitoring-webinar-video-and-slides/">BGP/BMP support</a>, including:</p>
+
+
+
+<ul class="wp-block-list">
+<li>A Looking Glass page with RPKI validation, best-path information, and next-hop formatting.</li>
+
+
+
+<li>Prefix-change alerts, with a dedicated preference for the prefix-changes endpoint.</li>
+
+
+
+<li>BGP information surfaced directly in live and historical flow details, and serialized into the flow JSON.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">This is a meaningful step toward giving network and security teams routing-level context alongside flow-level visibility, without needing a separate tool.</p>
+
+
+
+<h5 class="wp-block-heading">A New Timeseries Engine and Observability Dashboard</h5>
+
+
+
+<p class="wp-block-paragraph">We&#8217;ve implemented a new ClickHouse timeseries engine, including a High-Resolution (HR) counters driver for sub-second granularity. The former HR dashboard has been renamed <a href="https://www.ntop.org/network-performance-observability/">Observability</a> and now supports group-by queries, and we ship sample Grafana dashboards you can download directly from the preferences page. Retention is now handled by dropping partitions rather than relying on TTLs, which is both faster and more predictable at scale.</p>
+
+
+
+<h5 class="wp-block-heading">Stronger Authentication and Security</h5>
+
+
+
+<p class="wp-block-paragraph">Security has been a major focus of this release, and we have worked hard to make it <a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act">EU CRA (Cyber Resilience Act)</a> compliant:</p>
+
+
+
+<ul class="wp-block-list">
+<li>SSO with <a href="https://www.ntop.org/single-sign-on-on-ntopng-with-openid-connect-oidc/">OpenID Connect</a>, <a href="https://www.ntop.org/howto-enable-multi-factor-authentication-mfa-in-ntopng/">Multi-Factor Authentication</a>, <a href="https://www.ntop.org/howto-enable-passkey-in-ntopng/">Passkey support</a>, and X-API-Key/bearer token authentication for REST calls.</li>
+
+
+
+<li>A cryptographically strong random source for HTTP session identifiers.</li>
+
+
+
+<li>Administrator capability checks extended to configuration backup, flow filters, notification endpoints, and pools.</li>
+
+
+
+<li>Continued hardening of packet dissectors (DNS, mDNS, NetBIOS, SSDP, Modbus, CAPWAP, EtherNet/IP, RTP, ZMQ, HTTP parameters), backed by continuous fuzzing via ClusterFuzzLite and OSS-Fuzz.</li>
+
+
+
+<li>HTTPS is now enabled by default in the configuration file.</li>
+
+
+
+<li>All ZMQ communications are encrypted by default.</li>
+
+
+
+<li>An official application <a href="https://www.ntop.org/introducing-ntop-sbom-software-bom/">SBOM</a> is now produced with every release.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">The changelog also lists a substantial number of fixed heap and stack overflows, integer overflows, and other memory-safety issues found through this hardening work, all worth a look if you run ntopng in security-sensitive environments.</p>
+
+
+
+<h5 class="wp-block-heading">A Rebuilt Frontend</h5>
+
+
+
+<p class="wp-block-paragraph">ntopng&#8217;s frontend has been substantially modernized in 7.0. The menu, footer, top bar, and preferences pages (along with checks, VLANs, networks, MAC addresses, the service map, backups, configurations, DHCP leases, and more) have all been ported to Vue.js. We&#8217;ve also replaced ApexCharts with D3-based charts (pie, bar, line, stacked, heatmap, bubble, chord, sankey, and geomap), moved the frontend build to Vite, and enabled gzip compression, cutting the size of the shipped frontend assets by roughly 7x. You&#8217;ll also notice a new guided demo, a friendlier startup page, and improved dark mode and mobile rendering throughout.</p>
+
+
+
+<h5 class="wp-block-heading">Expanded OT and Flow Visibility</h5>
+
+
+
+<p class="wp-block-paragraph">OT/ICS visibility has been extended with S7comm and Profinet support, alongside improvements to Modbus statistics and alerting. On the flow-collection side, 7.0 introduces <a href="https://www.ntop.org/how-flow-deduplication-works/">flow deduplication</a> (enabled by default where available), full IPv6 support for flow exporters, the new nDPI flow fingerprint, <a href="https://www.ntop.org/post-quantum-cryptography-pqc-analysis/">PQC</a> (post-quantum) flow detection, VPN and Slow DoS detection, and a reworked exporter implementation with better next-hop and IP handling.</p>
+
+
+
+<h5 class="wp-block-heading">nEdge Lite</h5>
+
+
+
+<p class="wp-block-paragraph">Finally, this release introduces nEdge Lite, a lighter-weight variant of nEdge — more details on this will be announced separately in the coming weeks.</p>
+
+
+
+<h5 class="wp-block-heading">Upgrading</h5>
+
+
+
+<p class="wp-block-paragraph">ntopng 7.0 also brings a number of behavioral changes worth reviewing before you upgradem including the removal of the <code>--community</code> startup option (ntopng now starts in community mode automatically when no license is provided), the move of Wazuh integration to Enterprise M, and the removal of several deprecated components (bundled rrdtool, legacy DoH/DoT code, old database migration code, and the ApexCharts/nvd3/dc/cubism dependencies). We recommend reading through the full <a href="https://github.com/ntop/ntopng/blob/dev/CHANGELOG.md">changelog</a> before rolling this out to production.</p>
+
+
+
+<h5 class="wp-block-heading">We Want to Hear From You</h5>
+
+
+
+<p class="wp-block-paragraph">ntopng 7.0 represents months of work across AI, security, routing, and the frontend, and we&#8217;re proud to put it in your hands. But a release like this is really just the start of a conversation, we&#8217;d love to know what you think.</p>
+
+
+
+<p class="wp-block-paragraph">Tried nAnalyst? Hit a rough edge in the new Vue.js pages? Have a use case for BGP visibility or Sites we haven&#8217;t thought of? Please tell us. You can reach us through the <a href="https://www.ntop.org/support/need-help/community/">ntop community</a>, file a <a href="https://www.ntop.org/support/need-help/bug-report/">bug report</a>, or drop a note in our <a href="https://t.me/ntop_community">Telegram channel</a>. Your feedback is what shapes the next release, thank you for helping us build ntopng.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+
+
+<p class="wp-block-paragraph">P.S. We promise to shorten our development cycles and deliver stable releases more frequently. This means that even if you aren&#8217;t on the development branch, you can enjoy our latest features without the long wait.</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/welcome-to-ntopng-7-0-modern-gui-nassistant-sites-observability-bgp-bmp-pqc-wazuh/">Welcome to ntopng 7.0: Modern GUI, nAnalyst, Sites, Observability, BGP/BMP, PQC, Wazuh&#8230;</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Discussing of LLM and Intelligent Monitoring at GRNOG 20</title>
+		<link>https://www.ntop.org/discussing-of-llm-and-intelligent-monitoring-at-grnog-20/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 03 Jul 2026 14:56:59 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45796</guid>
+
+					<description><![CDATA[<p>Earlier this week ntop attended the GRNOG 20, the annual meeting of Greek Network Operators. This has been a great place to discuss about network visibility in large networks, understand what are…</p>
+<p>The post <a href="https://www.ntop.org/discussing-of-llm-and-intelligent-monitoring-at-grnog-20/">Discussing of LLM and Intelligent Monitoring at GRNOG 20</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">Earlier this week ntop attended the <a href="https://grnog.gr">GRNOG</a> 20, the annual meeting of Greek Network Operators. This has been a great place to discuss about network visibility in large networks, understand what are the problems network operators face with, and see what ntop can do in terms of visibility. ntop has been traditionally a company based on opens open source, and this has been the location where we have demonstrated how ntopng has been enhanced with BGP (Border Gateway Protocol), ASN and infrastructure visibility. </p>
+
+
+
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped wp-block-gallery-1 is-layout-flex wp-block-gallery-is-layout-flex">
+<figure class="wp-block-image size-large"><img decoding="async" width="960" height="1280" data-id="45798" src="https://www.ntop.org/wp-content/uploads/2026/07/HMLBgxeXYAAJBsZ.jpeg" alt="HMLBgxeXYAAJBsZ" class="wp-image-45798"/></figure>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="3072" height="4096" data-id="45797" src="https://www.ntop.org/wp-content/uploads/2026/07/17422-IMG20260630131351.jpg" alt="Discussing of LLM and Intelligent Monitoring at GRNOG 20, figure 2" class="wp-image-45797"/><figcaption class="wp-element-caption">oplus_262176</figcaption></figure>
+</figure>
+
+
+
+<p class="wp-block-paragraph">One of the main topics of the talk (<a href="https://grnog.indico.nogalliance.org/event/13/contributions/184/attachments/122/204/The%20Future%20of%20Network%20Visibility_%20LLM%20and%20Intelligent%20Monitoring.pdf">here you can find the presentation slides</a>) has been how AI can be merged with network visibility, to view what traditional dashboard or alerts cannot show. This is the idea behind our <a href="https://www.ntop.org/previewing-nanalyst-the-layer-that-finally-explains-your-network/" data-type="post" data-id="45766">nAnalyst</a> tool that we have previewed weeks ago. If you re interested to deploy it while we finalize it, and willing to send us a feedback, please <a href="https://www.ntop.org/support/need-help/contacts/" data-type="page" data-id="45204">contact us</a> and we&#8217;ll be in touch with you.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+<p>The post <a href="https://www.ntop.org/discussing-of-llm-and-intelligent-monitoring-at-grnog-20/">Discussing of LLM and Intelligent Monitoring at GRNOG 20</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Interop Tokyo 2026: Showcasing the Future of Network Visibility and AI</title>
+		<link>https://www.ntop.org/interop-tokyo-2026-showcasing-the-future-of-network-visibility-and-ai/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 23 Jun 2026 17:48:49 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[News]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45778</guid>
+
+					<description><![CDATA[<p>We just returned from an incredible week in Japan! Interop Tokyo 2026 is the region’s premier computing and networking event. This year's experience exceeded all our expectations. Connecting with our vibrant community…</p>
+<p>The post <a href="https://www.ntop.org/interop-tokyo-2026-showcasing-the-future-of-network-visibility-and-ai/">Interop Tokyo 2026: Showcasing the Future of Network Visibility and AI</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">We just returned from an incredible week in Japan! <a href="https://www.interop.jp/2026/en/">Interop Tokyo 2026</a> is the region’s premier computing and networking event. This year&#8217;s experience exceeded all our expectations. Connecting with our vibrant community always fuels our passion. It helps us shape the future of network traffic analysis. Here is a look at what went down and what is coming next.</p>
+
+
+
+<h6 class="wp-block-heading">A Sold-Out Seminar with Jupiter Technology</h6>
+
+
+
+<p class="wp-block-paragraph">We owe a massive thank you to our trusted partner, <a href="https://www.jtc-i.co.jp/index.php">Jupiter Technology</a>. Thanks to their support, we hosted a specialized seminar during the event. The response was overwhelming, resulting in a&nbsp;completely sold-out session. During the presentation, we dove deep into the core ecosystem of ntop tools. We walked the audience through our upcoming roadmap. The energy in the room confirmed that the demand for deep packet inspection and network visibility is stronger than ever.</p>
+
+
+
+<h6 class="wp-block-heading">Sneak Peek: AI Extensions Arriving This Summer</h6>
+
+
+
+<p class="wp-block-paragraph">The highlight of our seminar was unveiling our new&nbsp;Artificial Intelligence extensions. Network environments are growing more complex every day. Because of this, we are embedding smart AI capabilities directly into our software. These features will help you:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Detect anomalies faster&nbsp;using predictive pattern analysis.</li>
+
+
+
+<li>Automate root-cause analysis&nbsp;for complex network slowdowns.</li>
+
+
+
+<li>Simplify traffic troubleshooting&nbsp;with intelligent insights.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These breakthrough AI tools are not far off. They are officially part of our next stable release dropping&nbsp;this summer.</p>
+
+
+
+<h6 class="wp-block-heading">Insights from the Exhibition Floor</h6>
+
+
+
+<p class="wp-block-paragraph">When we weren&#8217;t on stage, we were at our busy exhibition booth. Meeting hundreds of engineers, sysadmins, and tech enthusiasts face-to-face was invaluable. We shared our long-term vision for the network monitoring industry. More importantly, we listened. Your real-world challenges give us the exact blueprints we need. We took detailed notes on requested features and unique use cases. Our team is already evaluating how to implement this feedback to make our tools even more effective for you.</p>
+
+
+
+<h6 class="wp-block-heading">Access the Slides &amp; Join Us on the Next Stop</h6>
+
+
+
+<p class="wp-block-paragraph">Did you miss the live session? No problem. We believe in keeping our community informed.</p>
+
+
+
+<div data-wp-interactive="core/file" class="wp-block-file"><object data-wp-bind--hidden="!state.hasPdfPreview" hidden class="wp-block-file__embed" data="https://www.ntop.org/wp-content/uploads/2026/06/Interop_Japan_0626_all.pdf" type="application/pdf" style="width:100%;height:600px" aria-label="Embed of Interop_Japan_0626_all."></object><a id="wp-block-file--media-86d1f415-a46f-42c1-91ca-2bd86c6affc5" href="https://www.ntop.org/wp-content/uploads/2026/06/Interop_Japan_0626_all.pdf">Interop_Japan_0626_all</a><a href="https://www.ntop.org/wp-content/uploads/2026/06/Interop_Japan_0626_all.pdf" class="wp-block-file__button wp-element-button" download aria-describedby="wp-block-file--media-86d1f415-a46f-42c1-91ca-2bd86c6affc5">Download</a></div>
+
+
+
+<p class="wp-block-paragraph">Our Summer Tour 2026 is just getting started. Next week, we are packing our bags and heading to&nbsp;<a href="https://grnog.indico.nogalliance.org/event/13/timetable/">Greece</a>! Meeting our global user base is the best part of what we do. We want to hear from you. What features are you most excited to see in the upcoming summer release? Please drop your comments, ideas, and feedback or <a href="https://www.ntop.org/support/need-help/contacts/" data-type="page" data-id="45204">reach out to us directl</a>y.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy the slides, and see you on the road!</p>
+
+
+
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped wp-block-gallery-2 is-layout-flex wp-block-gallery-is-layout-flex">
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="1920" height="1440" data-id="45780" src="https://www.ntop.org/wp-content/uploads/2026/06/Outlook-PXL_202606-1.jpg" alt="Outlook PXL 202606 1" class="wp-image-45780"/></figure>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="1920" height="1445" data-id="45781" src="https://www.ntop.org/wp-content/uploads/2026/06/Outlook-IMG_202606.jpg" alt="Outlook IMG 202606" class="wp-image-45781"/></figure>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="1920" height="1445" data-id="45782" src="https://www.ntop.org/wp-content/uploads/2026/06/Outlook-IMG_202606-1.jpg" alt="Outlook IMG 202606 1" class="wp-image-45782"/></figure>
+</figure>
+
+
+
+
+
+<ul class="wp-block-list">
+<li></li>
+</ul>
+<p>The post <a href="https://www.ntop.org/interop-tokyo-2026-showcasing-the-future-of-network-visibility-and-ai/">Interop Tokyo 2026: Showcasing the Future of Network Visibility and AI</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Previewing nAnalyst, the layer that finally explains your network</title>
+		<link>https://www.ntop.org/previewing-nanalyst-the-layer-that-finally-explains-your-network/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 09 Jun 2026 20:40:31 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[Announce]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45766</guid>
+
+					<description><![CDATA[<p>Today we have previewed out first AI-based tool named nAnalyst during out webinar taht we have run with support of the Alibaba Qwen team. This tool is designed to (finally) explain what…</p>
+<p>The post <a href="https://www.ntop.org/previewing-nanalyst-the-layer-that-finally-explains-your-network/">Previewing nAnalyst, the layer that finally explains your network</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">Today we have previewed out first AI-based tool named nAnalyst during out webinar taht we have run with support of the Alibaba Qwen team. This tool is designed to (finally) explain what happens in your network, and we&#8217;ll introduce it in September with bet starting on June 22nd.</p>
+
+
+
+<p class="wp-block-paragraph">For those who missed the webinar can see the recording of the event.</p>
+
+
+
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<iframe title="ntop Webinar - AI in ntopng" width="1140" height="641" src="https://www.youtube.com/embed/nEXrITvOsfk?feature=oembed&#038;enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div></figure>
+
+
+
+<p class="wp-block-paragraph">Below you can also find the presentation slides we have used today:</p>
+
+
+
+<div data-wp-interactive="core/file" class="wp-block-file"><object data-wp-bind--hidden="!state.hasPdfPreview" hidden class="wp-block-file__embed" data="https://www.ntop.org/wp-content/uploads/2026/06/AI_Webinar_Introduction.pdf" type="application/pdf" style="width:100%;height:600px" aria-label="Embed of AI_Webinar_Introduction."></object><a id="wp-block-file--media-c1b0fb03-71df-428d-ad5a-8731fd0f1133" href="https://www.ntop.org/wp-content/uploads/2026/06/AI_Webinar_Introduction.pdf">AI_Webinar_Introduction</a><a href="https://www.ntop.org/wp-content/uploads/2026/06/AI_Webinar_Introduction.pdf" class="wp-block-file__button wp-element-button" download aria-describedby="wp-block-file--media-c1b0fb03-71df-428d-ad5a-8731fd0f1133">Download</a></div>
+
+
+
+<div data-wp-interactive="core/file" class="wp-block-file"><object data-wp-bind--hidden="!state.hasPdfPreview" hidden class="wp-block-file__embed" data="https://www.ntop.org/wp-content/uploads/2026/06/Ntop_Qwen_0626.pdf" type="application/pdf" style="width:100%;height:600px" aria-label="Embed of Ntop_Qwen_0626."></object><a id="wp-block-file--media-2a59eeb0-429b-4b3f-bb2f-a9adb28525b6" href="https://www.ntop.org/wp-content/uploads/2026/06/Ntop_Qwen_0626.pdf">Ntop_Qwen_0626</a><a href="https://www.ntop.org/wp-content/uploads/2026/06/Ntop_Qwen_0626.pdf" class="wp-block-file__button wp-element-button" download aria-describedby="wp-block-file--media-2a59eeb0-429b-4b3f-bb2f-a9adb28525b6">Download</a></div>
+
+
+
+<div data-wp-interactive="core/file" class="wp-block-file"><object data-wp-bind--hidden="!state.hasPdfPreview" hidden class="wp-block-file__embed" data="https://www.ntop.org/wp-content/uploads/2026/06/nAnalyst_webinar.pdf" type="application/pdf" style="width:100%;height:600px" aria-label="Embed of nAnalyst_webinar."></object><a id="wp-block-file--media-6df993eb-0b7e-422f-8116-2e0599d3277c" href="https://www.ntop.org/wp-content/uploads/2026/06/nAnalyst_webinar.pdf">nAnalyst_webinar</a><a href="https://www.ntop.org/wp-content/uploads/2026/06/nAnalyst_webinar.pdf" class="wp-block-file__button wp-element-button" download aria-describedby="wp-block-file--media-6df993eb-0b7e-422f-8116-2e0599d3277c">Download</a></div>
+
+
+
+<p class="wp-block-paragraph">Shall you be interested in providing us a feedback and willing to test nAnalyst beta, please <a href="https://forms.gle/qHG98cpUMpdfMraN6">fill up this form</a> and we&#8217;ll contact you.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/nanalyst/">nAnalyst</a>, <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a></p><p>The post <a href="https://www.ntop.org/previewing-nanalyst-the-layer-that-finally-explains-your-network/">Previewing nAnalyst, the layer that finally explains your network</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

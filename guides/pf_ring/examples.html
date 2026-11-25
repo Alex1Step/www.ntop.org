@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/examples.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:36 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample Applications &mdash; PF_RING 9.5.0-4814 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options7c40.js?v=840a9ff6"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Drivers and Modules" href="modules/index.html" />
+    <link rel="prev" title="PF_RING FT (Flow Table)" href="ft.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            PF_RING
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vanilla.html">Vanilla PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zc.html">PF_RING ZC (Zero Copy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ft.html">PF_RING FT (Flow Table)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sample Applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#compiling-the-applications">Compiling the Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-packet-capture">Basic Packet Capture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-packet-transmission">Basic Packet Transmission</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-packet-forwarding">Basic Packet Forwarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#load-balancing">Load Balancing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#multi-threaded">Multi-Threaded</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-process">Multi-Process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#divide-and-conquer">Divide and Conquer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#l7-flow-classification">L7 Flow Classification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/index.html">Drivers and Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rss.html">Load Balancing / RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filtering/index.html">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers/index.html">Containers Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vm/index.html">VM Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thirdparty/index.html">IDS/IPSs Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Hugepages Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="capabilities.html">Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amd.html">AMD Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intel.html">Intel Processors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Crash Debug</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">PF_RING</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Sample Applications</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sample-applications">
+<h1>Sample Applications<a class="headerlink" href="#sample-applications" title="Link to this heading"></a></h1>
+<p>If you are new to PF_RING, you can start with some examples. The <em>PF_RING/userland</em>
+folder is rich of ready-to-use PF_RING applications. They are small standalone applications
+which demonstrate various features of PF_RING. Users interested in getting started with
+PF_RING can test the applications and extend them based on their needs.</p>
+<ul class="simple">
+<li><p><em>PF_RING/userland/examples</em> contains sample application using the PF_RING API</p></li>
+<li><p><em>PF_RING/userland/examples_zc</em> contains sample application using the PF_RING ZC API</p></li>
+<li><p><em>PF_RING/userland/examples_ft</em> contains sample application using the PF_RING FT API</p></li>
+</ul>
+<p>Please note that the applications features many options to try to cover all use cases,
+please check the help (-h) for a full list of options.</p>
+<section id="compiling-the-applications">
+<h2>Compiling the Applications<a class="headerlink" href="#compiling-the-applications" title="Link to this heading"></a></h2>
+<p>To compile the sample application see the <a class="reference external" href="get_started/git_installation.html#libpfring-and-libpcap-installation">Installing From GIT</a>
+section. Please note that if you are installing PF_RING from packages, some of the
+sample applications described here are also distributed in binary format with the
+<em>pfring</em> package.</p>
+</section>
+<section id="basic-packet-capture">
+<h2>Basic Packet Capture<a class="headerlink" href="#basic-packet-capture" title="Link to this heading"></a></h2>
+<p><strong>pfcount</strong> (in <em>PF_RING/userland/examples</em>) is a sample application that allows you
+to capture raw packets and print some statistics. Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./pfcount -i zc:eth1</span>
+<span class="go">=========================</span>
+<span class="go">Absolute Stats: [64415543 pkts rcvd][0 pkts dropped]</span>
+<span class="go">Total Pkts=64415543/Dropped=0.0 %</span>
+<span class="go">64&#39;415&#39;543 pkts - 5&#39;410&#39;905&#39;612 bytes [4&#39;293&#39;748.94 pkt/sec - 2&#39;885.39 Mbit/sec]</span>
+<span class="go">=========================</span>
+<span class="go">Actual Stats: 14214472 pkts [1&#39;000.03 ms][14&#39;214&#39;017.15 pps/9.55 Gbps]</span>
+<span class="go">=========================</span>
+</pre></div>
+</div>
+<p>The same application can also be used to parse packets and extract metadata from L2/L3/L4
+headers, adding the -v option. Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./pfcount -i eth1 -v 1</span>
+<span class="go">Dumping statistics on /proc/net/pf_ring/stats/15773-eno1.279</span>
+<span class="go">11:31:41.968485349 [TX][if_index=6][hash=2169540001][00:26:90:D3:CC:F1 -&gt; 0C:C7:7A:CC:C1:4D] [IPv4][192.168.1.20:22 -&gt; 192.168.1.21:34762] [l3_proto=TCP][hash=2169540001][tos=16][tcp_seq_num=415123802] [caplen=254][len=254][eth_offset=0][l3_offset=14][l4_offset=34][payload_offset=66]</span>
+<span class="go">11:31:41.968557503 [TX][if_index=6][hash=2169540001][00:26:90:D3:CC:F1 -&gt; 0C:C7:7A:CC:C1:4D] [IPv4][192.168.1.20:22 -&gt; 192.168.1.21:34762] [l3_proto=TCP][hash=2169540001][tos=16][tcp_seq_num=415123990] [caplen=166][len=166][eth_offset=0][l3_offset=14][l4_offset=34][payload_offset=66]</span>
+<span class="go">11:31:41.968598956 [TX][if_index=6][hash=2169540001][00:26:90:D3:CC:F1 -&gt; 0C:C7:7A:CC:C1:4D] [IPv4][192.168.1.20:22 -&gt; 192.168.1.21:34762] [l3_proto=TCP][hash=2169540001][tos=16][tcp_seq_num=415124090] [caplen=390][len=390][eth_offset=0][l3_offset=14][l4_offset=34][payload_offset=66]</span>
+</pre></div>
+</div>
+<p><strong>zcount</strong> (in <em>PF_RING/userland/examples_zc</em>) is similar to <strong>pfcount</strong>, however
+it is based on the PF_RING ZC API. Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./zcount -i zc:eth1 -c 10</span>
+<span class="go">=========================</span>
+<span class="go">Absolute Stats: 89415341 pkts (0 drops) - 7510888644 bytes</span>
+<span class="go">Actual Stats: 14&#39;218&#39;113.27 pps (0.00 drops) - 9.55 Gbps</span>
+<span class="go">=========================</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>The interface specified with -i can be any interface (in the example above we are using a ZC driver)</p></li>
+<li><p>The number specified with -c is the cluster ID (the ZC API requires a unique identifier to identify a cluster instance)</p></li>
+</ul>
+</section>
+<section id="basic-packet-transmission">
+<h2>Basic Packet Transmission<a class="headerlink" href="#basic-packet-transmission" title="Link to this heading"></a></h2>
+<p><strong>pfsend</strong> (in <em>PF_RING/userland/examples</em>) allows you to generate traffic, forging synthetic
+packets or replaying a <em>pcap</em> file.
+By default packets are transmitted at the maximum rate supported by the driver, however it is
+possible to use -p &lt;pps&gt; or -r &lt;Gbps&gt; to control the tramsission rate. It is also possible to
+specify the number of packets to send with -n &lt;num&gt;.</p>
+<p>Example with synthetic traffic on a standard interface:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./pfsend -i eth1</span>
+<span class="go">TX rate: [current 1&#39;275&#39;650.89 pps/0.86 Gbps][average 1&#39;275&#39;650.89 pps/0.86 Gbps][total 1&#39;275&#39;656.00 pkts]</span>
+</pre></div>
+</div>
+<p>Useful options:</p>
+<ul class="simple">
+<li><p>-l &lt;length&gt; to specify the packets length</p></li>
+<li><p>-n &lt;num&gt; to stop the transmission after &lt;num&gt; packets</p></li>
+<li><p>-r &lt;gbps&gt; to specify the transmission rate (Gbit/s)</p></li>
+<li><p>-p &lt;pps rate&gt; to specify the transmission rate (Packets/s)</p></li>
+<li><p>-M &lt;mac&gt; to specify the source MAC address</p></li>
+<li><p>-m &lt;mac&gt; to specify the destination MAC address</p></li>
+<li><p>-b &lt;num&gt; specifies the number of different source IPs to be generated</p></li>
+<li><p>-S &lt;ip&gt; to specify the source IP</p></li>
+<li><p>-D &lt;ip&gt; to specify the destination IP</p></li>
+<li><p>-V &lt;version&gt; to specify the IP version (default: 4)</p></li>
+<li><p>-L &lt;num&gt; to add a VLAN header (generate &lt;num&gt; different VLAN IDs)</p></li>
+</ul>
+<p>Example replaying a pcap file on a ZC interface, controlling the rate (5 Gbps), sending in loop (-n 0):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./pfsend -i zc:eth1 -f 64byte_packets.pcap -n 0 -r 5</span>
+<span class="go">TX rate: [current 7&#39;508&#39;239.00 pps/5.05 Gbps][average 7&#39;508&#39;239.00 pps/5.05 Gbps][total 7&#39;508&#39;239.00 pkts]</span>
+</pre></div>
+</div>
+<p><strong>zsend</strong> (in <em>PF_RING/userland/examples_zc</em>) is similar to <strong>pfsend</strong>, however
+it is based on the PF_RING ZC API. Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./zsend -i eth1 -c 10</span>
+<span class="go">=========================</span>
+<span class="go">Absolute Stats: 2&#39;604&#39;538 pkts - 218&#39;781&#39;192 bytes</span>
+<span class="go">Actual Stats: 1&#39;305&#39;510.19 pps - 0.88 Gbps [109672836 bytes / 1.0 sec]</span>
+<span class="go">=========================</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>The interface specified with -i can be any interface (in the example above we are using a standard kernel driver)</p></li>
+<li><p>The number specified with -c is the cluster ID (the ZC API requires a unique identifier to identify a cluster instance)</p></li>
+</ul>
+</section>
+<section id="basic-packet-forwarding">
+<h2>Basic Packet Forwarding<a class="headerlink" href="#basic-packet-forwarding" title="Link to this heading"></a></h2>
+<p><strong>zbounce</strong> (in <em>PF_RING/userland/examples_zc</em>) bridges traffic between an interface pair as a
+bump in the wire.</p>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./zbounce -i zc:eth1 -o zc:eth2 -c 10 -b -g 1:2</span>
+<span class="go">=========================</span>
+<span class="go">Absolute Stats: 360 pkts (0 drops) - 57&#39;340 bytes</span>
+<span class="go">Actual Stats: 57.00 pps (0.00 drops) - 0.00 Gbps</span>
+<span class="go">=========================</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>The number specified with -c is the cluster ID (the ZC API requires a unique identifier to identify a cluster instance)</p></li>
+<li><p>-b specifies that we want to forward traffic in both directions (otherwise it will forward -i to -o only)</p></li>
+<li><p>This sample application uses 1 thread per direction, thus -g requires 2 cores to set the CPU affinity for both threads</p></li>
+</ul>
+</section>
+<section id="load-balancing">
+<h2>Load Balancing<a class="headerlink" href="#load-balancing" title="Link to this heading"></a></h2>
+<section id="multi-threaded">
+<h3>Multi-Threaded<a class="headerlink" href="#multi-threaded" title="Link to this heading"></a></h3>
+<p><strong>zbalance</strong> (in <em>PF_RING/userland/examples_zc</em>) is a sample application able to capture traffic
+from one or multiple interfaces, and load-balance packets to multiple consumer threads.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./zbalance -i eno1 -c 10 -m 1 -r 0 -g 1:2</span>
+<span class="go">Starting balancer with 2 consumer threads..</span>
+<span class="go">=========================</span>
+<span class="go">Thread #0: 17 pkts - 2&#39;723 bytes</span>
+<span class="go">Thread #1: 19 pkts - 3&#39;011 bytes</span>
+<span class="go">=========================</span>
+<span class="go">Absolute Stats: 36 pkts - 5&#39;734 bytes</span>
+<span class="go">Actual Stats: 15.00 pps - 0.00 Gbps</span>
+<span class="go">=========================</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>The interface specified with -i can be a comma-separated list of interfaces</p></li>
+<li><p>The number specified with -c is the cluster ID (the ZC API requires a unique identifier to identify a cluster instance)</p></li>
+<li><p>With -m it is possible to select the hash function for traffic distribution across threads (please see the help with -h for the list). There are a few built-in options, but it is also possible to define custom distribution functions (please see <strong>zbalance_ipc</strong> for more distribution functions examples)</p></li>
+<li><p>The -r option selects the CPU core where the load-balancer thread will be running</p></li>
+<li><p>The -g option selects the CPU cores where the consumer threads will be running (as many threads as the number of cores)</p></li>
+</ul>
+</section>
+<section id="multi-process">
+<h3>Multi-Process<a class="headerlink" href="#multi-process" title="Link to this heading"></a></h3>
+<p><strong>zbalance_ipc</strong> (in <em>PF_RING/userland/examples_zc</em>) is a sample application that can be used
+for capturing traffic from one or multiple interfaces, and load-balance packets to multiple consumer
+processes. Please read the <a class="reference external" href="rss.html#zc-load-balancing-zbalance-ipc">ZC Load-Balancing</a>
+section to learn more about multi-process load-balancing and this application.</p>
+<p>Simple example of traffic aggregation from 2 interfaces, and load-balancing to 2 processes using an IP-based hash:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">zbalance_ipc -i zc:eth1,zc:eth2 -n 2 -m 1 -c 10</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>-n specifies the number of egress queues</p></li>
+<li><p>-m selects the hash function</p></li>
+<li><p>-c specifies the ZC cluster ID</p></li>
+</ul>
+<p>This simple example creates 2 streams. In order to capture traffic from those streams it is possible to use both the standard PF_RING API or the ZC API.
+A consumer application using the standard PF_RING API is able to open each stream as a standard interface passing as name zc:&lt;cluster ID&gt;&#64;&lt;queue ID&gt; (e.g. zc:10&#64;0 and zc:10&#64;1) to the <em>pfring_open</em> API. Example with pfcount:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pfcount -i zc:10@0</span>
+<span class="go">pfcount -i zc:10@1</span>
+</pre></div>
+</div>
+<p>A consumer application using the ZC API, in order to fully take advantage of the flexible ZC API and work in zero-copy, can open each stream attaching to the queue ID directly through the <em>pfring_zc_ipc_attach_queue</em> API. Example with zcount_ipc:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">zcount_ipc -c 10 -i 0</span>
+<span class="go">zcount_ipc -c 10 -i 0</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>-c &lt;id&gt; is the cluster ID specified in zbalance_ipc</p></li>
+<li><p>-i &lt;id&gt; is the queue ID</p></li>
+</ul>
+</section>
+</section>
+<section id="divide-and-conquer">
+<h2>Divide and Conquer<a class="headerlink" href="#divide-and-conquer" title="Link to this heading"></a></h2>
+<p><strong>zbalance_DC_ipc</strong> (in <em>PF_RING/userland/examples_zc</em>) is a sample application able to capture traffic
+from multiple interfaces or RSS queues, filter traffic using multiple capture threads, aggregate filtered
+traffic from all interfaces in a single stream, and load-balance packets to multiple consumer processes.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>eth1 \
+eth2 - (Filtering Thread 0) \                                    / (Consumer Process 0)
+                              (FIFO Thread) - (Collector Thread) - (Consumer Process 1)
+eth2 - (Filtering Thread 1) /                                    \ (Consumer Process 2)
+eth3 /
+</pre></div>
+</div>
+<p>Example capturing traffic from 4 interfaces, using 2 capture/filtering threads, and forwarding load-balanced
+traffic to 3 consumer applications:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./zbalance -i zc:eth1,zc:eth2 -i zc:eth2,zc:eth3 -c 10 -m 1 -g 0:1 -r 2 -n 3</span>
+<span class="go">Run your consumers as follows:</span>
+<span class="go">        pfcount -i zc:10@0</span>
+<span class="go">        pfcount -i zc:10@1</span>
+<span class="go">        pfcount -i zc:10@2</span>
+<span class="go">=========================</span>
+<span class="go">Absolute Stats: Recv 534 pkts (0 drops) - Forwarded 534 pkts (0 drops)</span>
+<span class="go">Actual Stats: Recv 211.00 pps (0.00 drops) - Forwarded 211.00 pps (0.00 drops)</span>
+<span class="go">=========================</span>
+</pre></div>
+</div>
+</section>
+<section id="l7-flow-classification">
+<h2>L7 Flow Classification<a class="headerlink" href="#l7-flow-classification" title="Link to this heading"></a></h2>
+<p><strong>ftflow</strong> (in <em>PF_RING/userland/examples_ft</em>) is a sample application based on the PF_RING FT API
+able to classify traffic up to layer 7. This can also be extended to filter traffic based on the
+application protocol leveraging on the filtering/shunting capabilities of the PF_RING FT API.
+The application prints flows information as soon as flows expire (or terminating the application
+in case of active flows). Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./ftflow -i eno1 -7</span>
+<span class="go">[Flow] l7: SSH, category: 12, srcIp: 192.168.1.222, dstIp: 192.168.1.221, srcPort: 22, dstPort: 34900, protocol: 6, tcpFlags: 0x18, c2s: { Packets: 1, Bytes: 174, First: 1546590146.892275, Last: 1546590146.892275 }, s2c: { Packets: 2, Bytes: 168, First: 1546590146.892518, Last: 1546590150.675197 }, action: default</span>
+<span class="go">[Flow] l7: DHCP, category: 14, srcIp: 0.0.0.0, dstIp: 255.255.255.255, srcPort: 68, dstPort: 67, protocol: 17, tcpFlags: 0x00, c2s: { Packets: 2, Bytes: 684, First: 1546590147.30906, Last: 1546590150.130988 }, s2c: { Packets: 0, Bytes: 0, First: 0.0, Last: 0.0 }, action: default</span>
+<span class="go">[Flow] l7: sFlow, category: 14, srcIp: 192.168.1.222, dstIp: 192.168.1.225, srcPort: 47472, dstPort: 6343, protocol: 17, tcpFlags: 0x00, c2s: { Packets: 2, Bytes: 456, First: 1546590147.324577, Last: 1546590149.308650 }, s2c: { Packets: 0, Bytes: 0, First: 0.0, Last: 0.0 }, action: default</span>
+<span class="go">[Flow] l7: DNS, category: 14, srcIp: 192.168.1.222, dstIp: 8.8.8.8, srcPort: 55522, dstPort: 53, protocol: 17, tcpFlags: 0x00, c2s: { Packets: 1, Bytes: 86, First: 1546590149.13028, Last: 1546590149.13028 }, s2c: { Packets: 1, Bytes: 86, First: 1546590149.30081, Last: 1546590149.30081 }, action: default</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>-7 enables L7 protocol detection through nDPI as described in the <a class="reference external" href="ft.html#ndpi-integration">PF_RING FT - nDPI Integration</a> section</p></li>
+<li><p>-F &lt;file&gt; loads filtering/shunting rules from a configuration file (see the <a class="reference external" href="ft.html#l7-filtering-and-shunting">L7 Filtering and Shunting</a> section)</p></li>
+<li><p>-p &lt;file&gt; loads custom protocols to nDPI from a configuration file (see the <a class="reference external" href="https://github.com/ntop/nDPI/blob/dev/example/protos.txt">example</a>)</p></li>
+<li><p>-c &lt;file&gt; loads custom categories to nDPI from a configuration file (see the <a class="reference external" href="https://github.com/ntop/nDPI/blob/dev/example/mining_hosts.txt">example</a>)</p></li>
+</ul>
+<p>For further information please read the introduction to <a class="reference external" href="ft.html#api-overview">PF_RING FT</a> and the <a class="reference external" href="../pf_ring_api/pfring__ft_8h.html">API documentation</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ft.html" class="btn btn-neutral float-left" title="PF_RING FT (Flow Table)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules/index.html" class="btn btn-neutral float-right" title="Drivers and Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/examples.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:37 GMT -->
+</html>

@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nDPI/flow_risks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:49:42 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nDPI Flow Risks &mdash; nDPI 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/collapsible-lists/css/tree_viewf00b.css?v=a885cde7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options729d.js?v=3b2dd2c4"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+      <script src="_static/collapsible-lists/js/CollapsibleLists.compressed9c30.js?v=73120307"></script>
+      <script src="_static/collapsible-lists/js/apply-collapsible-listsd910.js?v=660e4f45"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="USDT Probes" href="usdt.html" />
+    <link rel="prev" title="nDPI Protocols List" href="protocols.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nDPI
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nDPI/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="what_is_ndpi.html">What is nDPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/library_root.html">Library API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration_parameters.html">Configuration Knobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library_initialization.html">Library Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html">nDPI Protocols List</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nDPI Flow Risks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-url-possible-xss">NDPI_URL_POSSIBLE_XSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-url-possible-sql-injection">NDPI_URL_POSSIBLE_SQL_INJECTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-url-possible-rce-injection">NDPI_URL_POSSIBLE_RCE_INJECTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-binary-application-transfer">NDPI_BINARY_APPLICATION_TRANSFER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-known-protocol-on-non-standard-port">NDPI_KNOWN_PROTOCOL_ON_NON_STANDARD_PORT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-selfsigned-certificate">NDPI_TLS_SELFSIGNED_CERTIFICATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-obsolete-version">NDPI_TLS_OBSOLETE_VERSION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-weak-cipher">NDPI_TLS_WEAK_CIPHER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-certificate-expired">NDPI_TLS_CERTIFICATE_EXPIRED</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-certificate-mismatch">NDPI_TLS_CERTIFICATE_MISMATCH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-http-suspicious-user-agent">NDPI_HTTP_SUSPICIOUS_USER_AGENT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-numeric-ip-host">NDPI_NUMERIC_IP_HOST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-http-suspicious-url">NDPI_HTTP_SUSPICIOUS_URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-http-suspicious-header">NDPI_HTTP_SUSPICIOUS_HEADER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-not-carrying-https">NDPI_TLS_NOT_CARRYING_HTTPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-suspicious-dga-domain">NDPI_SUSPICIOUS_DGA_DOMAIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-malformed-packet">NDPI_MALFORMED_PACKET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-ssh-obsolete-client-version-or-cipher">NDPI_SSH_OBSOLETE_CLIENT_VERSION_OR_CIPHER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-ssh-obsolete-server-version-or-cipher">NDPI_SSH_OBSOLETE_SERVER_VERSION_OR_CIPHER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-smb-insecure-version">NDPI_SMB_INSECURE_VERSION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-mismatching-protocol-with-ip">NDPI_MISMATCHING_PROTOCOL_WITH_IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-unsafe-protocol">NDPI_UNSAFE_PROTOCOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-dns-suspicious-traffic">NDPI_DNS_SUSPICIOUS_TRAFFIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-missing-sni">NDPI_TLS_MISSING_SNI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-http-suspicious-content">NDPI_HTTP_SUSPICIOUS_CONTENT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-risky-asn">NDPI_RISKY_ASN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-risky-domain">NDPI_RISKY_DOMAIN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-malicious-fingerprint">NDPI_MALICIOUS_FINGERPRINT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-malicious-sha1-certificate">NDPI_MALICIOUS_SHA1_CERTIFICATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-desktop-or-file-sharing-session">NDPI_DESKTOP_OR_FILE_SHARING_SESSION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-uncommon-alpn">NDPI_TLS_UNCOMMON_ALPN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-cert-validity-too-long">NDPI_TLS_CERT_VALIDITY_TOO_LONG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-suspicious-extension">NDPI_TLS_SUSPICIOUS_EXTENSION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-fatal-alert">NDPI_TLS_FATAL_ALERT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-suspicious-entropy">NDPI_SUSPICIOUS_ENTROPY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-clear-text-credentials">NDPI_CLEAR_TEXT_CREDENTIALS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-dns-large-packet">NDPI_DNS_LARGE_PACKET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-dns-fragmented">NDPI_DNS_FRAGMENTED</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-invalid-characters">NDPI_INVALID_CHARACTERS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-possible-exploit">NDPI_POSSIBLE_EXPLOIT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-certificate-about-to-expire">NDPI_TLS_CERTIFICATE_ABOUT_TO_EXPIRE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-punycode-idn">NDPI_PUNYCODE_IDN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-error-code-detected">NDPI_ERROR_CODE_DETECTED</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-http-crawler-bot">NDPI_HTTP_CRAWLER_BOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-anonymous-subscriber">NDPI_ANONYMOUS_SUBSCRIBER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-unidirectional-traffic">NDPI_UNIDIRECTIONAL_TRAFFIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-http-obsolete-server">NDPI_HTTP_OBSOLETE_SERVER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-periodic-flow">NDPI_PERIODIC_FLOW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-minor-issues">NDPI_MINOR_ISSUES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tcp-issues">NDPI_TCP_ISSUES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-unresolved-hostname">NDPI_UNRESOLVED_HOSTNAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-tls-alpn-sni-mismatch">NDPI_TLS_ALPN_SNI_MISMATCH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-malware-contacted">NDPI_MALWARE_CONTACTED</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-binary-data-transfer">NDPI_BINARY_DATA_TRANSFER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-probing-attempt">NDPI_PROBING_ATTEMPT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-obfuscated-traffic">NDPI_OBFUSCATED_TRAFFIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-slow-dos">NDPI_SLOW_DOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-non-pqc">NDPI_NON_PQC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-ai-inference-traffic">NDPI_AI_INFERENCE_TRAFFIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ndpi-non-pqc-flow">NDPI_NON_PQC_FLOW</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usdt.html">USDT Probes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nDPI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">nDPI Flow Risks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/flow_risks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ndpi-flow-risks">
+<h1>nDPI Flow Risks<a class="headerlink" href="#ndpi-flow-risks" title="Link to this heading"></a></h1>
+<p>nDPI is designed not just to detect application protocols in traffic flows but also to evaluate potential security risks associated with the traffic. In nDPI parlance this is called a “flow risk”. Flows can have multiple risks detected hence nDPI reports them with a bitmap. Each risk detected corresponds to a bit in the flow risk bitmap. You can read more about <a class="reference external" href="https://github.com/ntop/nDPI/blob/dev/src/include/ndpi_typedefs.h">ndpi_risk_enum</a> for the list of all numeric risks currently supported.</p>
+<p>Below you can find a description of each flow risk so that you can easily understand when a risk is triggered and its meaning. The flow risks are listed in numerical order as they are defined in ndpi_risk_enum.</p>
+<section id="ndpi-url-possible-xss">
+<span id="risk-001"></span><h2>NDPI_URL_POSSIBLE_XSS<a class="headerlink" href="#ndpi-url-possible-xss" title="Link to this heading"></a></h2>
+<p>HTTP only: this risk indicates a possible <a class="reference external" href="https://en.wikipedia.org/wiki/Cross-site_scripting">XSS (Cross Side Scripting)</a> attack.</p>
+</section>
+<section id="ndpi-url-possible-sql-injection">
+<span id="risk-002"></span><h2>NDPI_URL_POSSIBLE_SQL_INJECTION<a class="headerlink" href="#ndpi-url-possible-sql-injection" title="Link to this heading"></a></h2>
+<p>HTTP only: this risk indicates a possible <a class="reference external" href="https://en.wikipedia.org/wiki/SQL_injection">SQL Injection attack</a>.</p>
+</section>
+<section id="ndpi-url-possible-rce-injection">
+<span id="risk-003"></span><h2>NDPI_URL_POSSIBLE_RCE_INJECTION<a class="headerlink" href="#ndpi-url-possible-rce-injection" title="Link to this heading"></a></h2>
+<p>HTTP only: this risk indicates a possible <a class="reference external" href="https://en.wikipedia.org/wiki/Arbitrary_code_execution">RCE (Remote Code Execution) attack</a>.</p>
+</section>
+<section id="ndpi-binary-application-transfer">
+<span id="risk-004"></span><h2>NDPI_BINARY_APPLICATION_TRANSFER<a class="headerlink" href="#ndpi-binary-application-transfer" title="Link to this heading"></a></h2>
+<p>HTTP only: this risk indicates that a binary application is downloaded/uploaded. Detected applications include Windows binaries, Linux executables, Unix scripts and Android apps.</p>
+</section>
+<section id="ndpi-known-protocol-on-non-standard-port">
+<span id="risk-005"></span><h2>NDPI_KNOWN_PROTOCOL_ON_NON_STANDARD_PORT<a class="headerlink" href="#ndpi-known-protocol-on-non-standard-port" title="Link to this heading"></a></h2>
+<p>This risk indicates a known protocol used on a non standard port. Example HTTP is supposed to use TCP/80, and in case it is detected on TCP/1234 this risk is detected.</p>
+</section>
+<section id="ndpi-tls-selfsigned-certificate">
+<span id="risk-006"></span><h2>NDPI_TLS_SELFSIGNED_CERTIFICATE<a class="headerlink" href="#ndpi-tls-selfsigned-certificate" title="Link to this heading"></a></h2>
+<p>TLS/QUIC only: this risk is triggered when a <a class="reference external" href="https://en.wikipedia.org/wiki/Self-signed_certificate">self-signed certificate</a> is used.</p>
+</section>
+<section id="ndpi-tls-obsolete-version">
+<span id="risk-007"></span><h2>NDPI_TLS_OBSOLETE_VERSION<a class="headerlink" href="#ndpi-tls-obsolete-version" title="Link to this heading"></a></h2>
+<p>Risk triggered when TLS version is older than 1.1.</p>
+</section>
+<section id="ndpi-tls-weak-cipher">
+<span id="risk-008"></span><h2>NDPI_TLS_WEAK_CIPHER<a class="headerlink" href="#ndpi-tls-weak-cipher" title="Link to this heading"></a></h2>
+<p>Risk triggered when an unsafe TLS cipher is used. See <a class="reference external" href="https://community.qualys.com/thread/18212-how-does-qualys-determine-the-server-cipher-suites">this page</a> for a list of insecure ciphers.</p>
+</section>
+<section id="ndpi-tls-certificate-expired">
+<span id="risk-009"></span><h2>NDPI_TLS_CERTIFICATE_EXPIRED<a class="headerlink" href="#ndpi-tls-certificate-expired" title="Link to this heading"></a></h2>
+<p>Risk triggered when a TLS certificate is expired, i.e. the current date falls outside of the certificate validity dates.</p>
+</section>
+<section id="ndpi-tls-certificate-mismatch">
+<span id="risk-010"></span><h2>NDPI_TLS_CERTIFICATE_MISMATCH<a class="headerlink" href="#ndpi-tls-certificate-mismatch" title="Link to this heading"></a></h2>
+<p>Risk triggered when a TLS certificate does not match the hostname we’re accessing. Example you do <a class="reference external" href="http://www.aaa.com/">http://www.aaa.com</a> and the TLS certificate returned is for www.bbb.com.</p>
+</section>
+<section id="ndpi-http-suspicious-user-agent">
+<span id="risk-011"></span><h2>NDPI_HTTP_SUSPICIOUS_USER_AGENT<a class="headerlink" href="#ndpi-http-suspicious-user-agent" title="Link to this heading"></a></h2>
+<p>HTTP only: this risk is triggered whenever the user agent contains suspicious characters or its format is suspicious. Example: &lt;?php something ?&gt; is a typical suspicious user agent.</p>
+</section>
+<section id="ndpi-numeric-ip-host">
+<span id="risk-012"></span><h2>NDPI_NUMERIC_IP_HOST<a class="headerlink" href="#ndpi-numeric-ip-host" title="Link to this heading"></a></h2>
+<p>This risk is triggered whenever a HTTP/TLS/QUIC connection is using a literal IPv4 or IPv6 address as ServerName (TLS/QUIC; example: SNI=1.2.3.4) or as Hostname (HTTP; example: <a class="reference external" href="http://1.2.3.4/">http://1.2.3.4</a>.).</p>
+</section>
+<section id="ndpi-http-suspicious-url">
+<span id="risk-013"></span><h2>NDPI_HTTP_SUSPICIOUS_URL<a class="headerlink" href="#ndpi-http-suspicious-url" title="Link to this heading"></a></h2>
+<p>HTTP only: this risk is triggered whenever the accessed URL is suspicious. Example: <a class="reference external" href="http://127.0.0.1/msadc/..%255c../..%255c../..%255c../winnt/system32/cmd.exe">http://127.0.0.1/msadc/..%255c../..%255c../..%255c../winnt/system32/cmd.exe</a>.</p>
+</section>
+<section id="ndpi-http-suspicious-header">
+<span id="risk-014"></span><h2>NDPI_HTTP_SUSPICIOUS_HEADER<a class="headerlink" href="#ndpi-http-suspicious-header" title="Link to this heading"></a></h2>
+<p>HTTP only: this risk is triggered whenever the HTTP header contains suspicious entries such as Uuid, TLS_version, Osname that are unexpected on the HTTP header.</p>
+</section>
+<section id="ndpi-tls-not-carrying-https">
+<span id="risk-015"></span><h2>NDPI_TLS_NOT_CARRYING_HTTPS<a class="headerlink" href="#ndpi-tls-not-carrying-https" title="Link to this heading"></a></h2>
+<p>TLS only: this risk indicates that this TLS flow will not be used to transport HTTP content. Example VPNs use TLS to encrypt data rather to carry HTTP. This is useful to spot this type of cases.</p>
+</section>
+<section id="ndpi-suspicious-dga-domain">
+<span id="risk-016"></span><h2>NDPI_SUSPICIOUS_DGA_DOMAIN<a class="headerlink" href="#ndpi-suspicious-dga-domain" title="Link to this heading"></a></h2>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Domain_generation_algorithm">DGA</a> is used to generate domain names often used by malwares. This risk indicates that this domain name can (but it’s not 100% sure) a DGA as its name is suspicious.</p>
+</section>
+<section id="ndpi-malformed-packet">
+<span id="risk-017"></span><h2>NDPI_MALFORMED_PACKET<a class="headerlink" href="#ndpi-malformed-packet" title="Link to this heading"></a></h2>
+<p>This risk is generated when a packet (e.g. a DNS packet) has an unexpected format. This can indicate a protocol error or more often an attempt to jeopardize a valid protocol to carry other type of data.</p>
+</section>
+<section id="ndpi-ssh-obsolete-client-version-or-cipher">
+<span id="risk-018"></span><h2>NDPI_SSH_OBSOLETE_CLIENT_VERSION_OR_CIPHER<a class="headerlink" href="#ndpi-ssh-obsolete-client-version-or-cipher" title="Link to this heading"></a></h2>
+<p>This risk is generated whenever a SSH client uses an obsolete SSH protocol version or insecure ciphers.</p>
+</section>
+<section id="ndpi-ssh-obsolete-server-version-or-cipher">
+<span id="risk-019"></span><h2>NDPI_SSH_OBSOLETE_SERVER_VERSION_OR_CIPHER<a class="headerlink" href="#ndpi-ssh-obsolete-server-version-or-cipher" title="Link to this heading"></a></h2>
+<p>This risk is generated whenever a SSH server uses an obsolete SSH protocol version or insecure ciphers.</p>
+</section>
+<section id="ndpi-smb-insecure-version">
+<span id="risk-020"></span><h2>NDPI_SMB_INSECURE_VERSION<a class="headerlink" href="#ndpi-smb-insecure-version" title="Link to this heading"></a></h2>
+<p>This risk indicates that the <a class="reference external" href="https://en.wikipedia.org/wiki/Server_Message_Block">SMB</a> version used is insecure (i.e. v1).</p>
+</section>
+<section id="ndpi-mismatching-protocol-with-ip">
+<span id="risk-021"></span><h2>NDPI_MISMATCHING_PROTOCOL_WITH_IP<a class="headerlink" href="#ndpi-mismatching-protocol-with-ip" title="Link to this heading"></a></h2>
+<p>This risk indicates that the nDPI protocol detected for this flow (e.g. Facebook), does not resolve to a numeric flow server IP address that matches the known IPs for such protocol (in the above example the IP address do not belong to Facebook/Meta).</p>
+</section>
+<section id="ndpi-unsafe-protocol">
+<span id="risk-022"></span><h2>NDPI_UNSAFE_PROTOCOL<a class="headerlink" href="#ndpi-unsafe-protocol" title="Link to this heading"></a></h2>
+<p>This risk indicates that the protocol used is insecure and that a secure protocol should be used (e.g. Telnet vs SSH).</p>
+</section>
+<section id="ndpi-dns-suspicious-traffic">
+<span id="risk-023"></span><h2>NDPI_DNS_SUSPICIOUS_TRAFFIC<a class="headerlink" href="#ndpi-dns-suspicious-traffic" title="Link to this heading"></a></h2>
+<p>This risk is returned when DNS traffic returns an unexpected/obsolete <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_DNS_record_types">record type</a>
+or when a suspicious query with a very long host name is detected.</p>
+</section>
+<section id="ndpi-tls-missing-sni">
+<span id="risk-024"></span><h2>NDPI_TLS_MISSING_SNI<a class="headerlink" href="#ndpi-tls-missing-sni" title="Link to this heading"></a></h2>
+<p>TLS needs to carry the <a class="reference external" href="https://en.wikipedia.org/wiki/Server_Name_Indication">SNI</a> of the remote server we’re accessing. Unfortunately SNI is optional in TLS so it can be omitted. In this case this risk is triggered as this is a non-standard situation that indicates a potential security problem or a protocol using TLS for other purposes (or a protocol bug).</p>
+</section>
+<section id="ndpi-http-suspicious-content">
+<span id="risk-025"></span><h2>NDPI_HTTP_SUSPICIOUS_CONTENT<a class="headerlink" href="#ndpi-http-suspicious-content" title="Link to this heading"></a></h2>
+<p>HTTP only: risk reported when HTTP carries content in expected format. Example the HTTP header indicates that the context is text/html but the real content is not readeable (i.e. it can transport binary data). In general this is an attempt to use a valid MIME type to carry data that does not match the type.</p>
+</section>
+<section id="ndpi-risky-asn">
+<span id="risk-026"></span><h2>NDPI_RISKY_ASN<a class="headerlink" href="#ndpi-risky-asn" title="Link to this heading"></a></h2>
+<p>This is a placeholder for traffic exchanged with <a class="reference external" href="https://en.wikipedia.org/wiki/Autonomous_system_(Internet)">ASN</a> that are considered risky. nDPI does not fill this risk that instead should be filled by aplications sitting on top of nDPI (e.g. ntopng).</p>
+</section>
+<section id="ndpi-risky-domain">
+<span id="risk-027"></span><h2>NDPI_RISKY_DOMAIN<a class="headerlink" href="#ndpi-risky-domain" title="Link to this heading"></a></h2>
+<p>This is a placeholder for traffic exchanged with domain names that are considered risky. nDPI does not fill this risk that instead should be filled by aplications sitting on top of nDPI (e.g. ntopng).</p>
+</section>
+<section id="ndpi-malicious-fingerprint">
+<span id="risk-028"></span><h2>NDPI_MALICIOUS_FINGERPRINT<a class="headerlink" href="#ndpi-malicious-fingerprint" title="Link to this heading"></a></h2>
+<p>This risk indicates that the Fingerprint of the TLS connection is considered suspicious. nDPI does not fill this risk that instead should be filled by aplications sitting on top of nDPI (e.g. ntopng).</p>
+</section>
+<section id="ndpi-malicious-sha1-certificate">
+<span id="risk-029"></span><h2>NDPI_MALICIOUS_SHA1_CERTIFICATE<a class="headerlink" href="#ndpi-malicious-sha1-certificate" title="Link to this heading"></a></h2>
+<p>TLS certificates are uniquely identified with a <a class="reference external" href="https://en.wikipedia.org/wiki/SHA-1">SHA1</a> hash value. If such hash is found on a blacklist, this risk can be used. As for other risks, this is a placeholder as nDPI does not fill this risk that instead should be filled by aplications sitting on top of nDPI (e.g. ntopng).</p>
+</section>
+<section id="ndpi-desktop-or-file-sharing-session">
+<span id="risk-030"></span><h2>NDPI_DESKTOP_OR_FILE_SHARING_SESSION<a class="headerlink" href="#ndpi-desktop-or-file-sharing-session" title="Link to this heading"></a></h2>
+<p>This risk is set when the flow carries desktop or file sharing sessions (e.g. TeamViewer or AnyDesk just to mention two).</p>
+</section>
+<section id="ndpi-tls-uncommon-alpn">
+<span id="risk-031"></span><h2>NDPI_TLS_UNCOMMON_ALPN<a class="headerlink" href="#ndpi-tls-uncommon-alpn" title="Link to this heading"></a></h2>
+<p>This risk is set when the <a class="reference external" href="https://en.wikipedia.org/wiki/Application-Layer_Protocol_Negotiation">ALPN</a> (it indicates the protocol carried into this TLS flow, for instance HTTP/1.1) is uncommon with respect to the list of expected values.</p>
+</section>
+<section id="ndpi-tls-cert-validity-too-long">
+<span id="risk-032"></span><h2>NDPI_TLS_CERT_VALIDITY_TOO_LONG<a class="headerlink" href="#ndpi-tls-cert-validity-too-long" title="Link to this heading"></a></h2>
+<p>From 01/09/2020 TLS certificates lifespan is limited to <a class="reference external" href="https://www.appviewx.com/blogs/tls-certificate-lifespans-now-capped-at-13-months/">13 months</a>. This risk is triggered for certificates not respecting this directive.</p>
+</section>
+<section id="ndpi-tls-suspicious-extension">
+<span id="risk-033"></span><h2>NDPI_TLS_SUSPICIOUS_EXTENSION<a class="headerlink" href="#ndpi-tls-suspicious-extension" title="Link to this heading"></a></h2>
+<p>This risk is triggered when the domain name (SNI extension) is not printable and thus it is a problem. In TLS extensions can be dynamically specified by the client in the hello packet.</p>
+</section>
+<section id="ndpi-tls-fatal-alert">
+<span id="risk-034"></span><h2>NDPI_TLS_FATAL_ALERT<a class="headerlink" href="#ndpi-tls-fatal-alert" title="Link to this heading"></a></h2>
+<p>This risk is triggered when a TLS fatal alert is detected in the TLS flow. See <a class="reference external" href="https://techcommunity.microsoft.com/t5/iis-support-blog/ssl-tls-alert-protocol-and-the-alert-codes/ba-p/377132">this page</a> for details.</p>
+</section>
+<section id="ndpi-suspicious-entropy">
+<span id="risk-035"></span><h2>NDPI_SUSPICIOUS_ENTROPY<a class="headerlink" href="#ndpi-suspicious-entropy" title="Link to this heading"></a></h2>
+<p>This risk is used to detect suspicious data carried in ICMP packets whose entropy (used to measure how data is distributed, hence to indirectly guess the type of data carried on) is suspicious and thus that it can indicate a data leak. Suspicious values indicate random entropy or entropy that is similar to encrypted traffic. In the latter case, this can be a suspicious data exfiltration symptom.</p>
+</section>
+<section id="ndpi-clear-text-credentials">
+<span id="risk-036"></span><h2>NDPI_CLEAR_TEXT_CREDENTIALS<a class="headerlink" href="#ndpi-clear-text-credentials" title="Link to this heading"></a></h2>
+<p>Clear text protocols are not intrinsically bad, but they should be avoided when they carry credentials as they can be intercepted by malicious users. This risk is triggered whenever clear text protocols (e.g. FTP, HTTP, IMAP…) contain credentials in clear text (read it as nDPI does not trigger this risk for HTTP connections that do not carry credentials).</p>
+</section>
+<section id="ndpi-dns-large-packet">
+<span id="risk-037"></span><h2>NDPI_DNS_LARGE_PACKET<a class="headerlink" href="#ndpi-dns-large-packet" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Domain_Name_System">DNS</a> packets over UDP should be limited to 512 bytes. DNS packets over this threshold indicate a potential security risk (e.g. use DNS to carry data) or a misconfiguration.</p>
+</section>
+<section id="ndpi-dns-fragmented">
+<span id="risk-038"></span><h2>NDPI_DNS_FRAGMENTED<a class="headerlink" href="#ndpi-dns-fragmented" title="Link to this heading"></a></h2>
+<p>UDP <a class="reference external" href="https://en.wikipedia.org/wiki/Domain_Name_System">DNS</a> packets cannot be fragmented. If so, this indicates a potential security risk (e.g. use DNS to carry data) or a misconfiguration.</p>
+</section>
+<section id="ndpi-invalid-characters">
+<span id="risk-039"></span><h2>NDPI_INVALID_CHARACTERS<a class="headerlink" href="#ndpi-invalid-characters" title="Link to this heading"></a></h2>
+<p>The risk is set whenever a dissected protocol contains characters not allowed in that protocol field.
+For example a DNS hostname must only contain a subset of all printable characters or else this risk is set.
+Additionally, some TLS protocol fields are checked for printable characters as well.</p>
+</section>
+<section id="ndpi-possible-exploit">
+<span id="risk-040"></span><h2>NDPI_POSSIBLE_EXPLOIT<a class="headerlink" href="#ndpi-possible-exploit" title="Link to this heading"></a></h2>
+<p>The risk is set whenever a possible exploit attempt (e.g. <a class="reference external" href="https://en.wikipedia.org/wiki/Log4Shell">Log4J/Log4Shell</a>) is detected.</p>
+</section>
+<section id="ndpi-tls-certificate-about-to-expire">
+<span id="risk-041"></span><h2>NDPI_TLS_CERTIFICATE_ABOUT_TO_EXPIRE<a class="headerlink" href="#ndpi-tls-certificate-about-to-expire" title="Link to this heading"></a></h2>
+<p>The risk is set whenever a TLS certificate is close to the expiration date.</p>
+</section>
+<section id="ndpi-punycode-idn">
+<span id="risk-042"></span><h2>NDPI_PUNYCODE_IDN<a class="headerlink" href="#ndpi-punycode-idn" title="Link to this heading"></a></h2>
+<p>The risk is set whenever a domain name is specified in IDN format as they are sometimes used in <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">IDN homograph attacks</a>.</p>
+</section>
+<section id="ndpi-error-code-detected">
+<span id="risk-043"></span><h2>NDPI_ERROR_CODE_DETECTED<a class="headerlink" href="#ndpi-error-code-detected" title="Link to this heading"></a></h2>
+<p>The risk is set whenever an error code is detected in the underlying protocol (e.g. HTTP and DNS).</p>
+</section>
+<section id="ndpi-http-crawler-bot">
+<span id="risk-044"></span><h2>NDPI_HTTP_CRAWLER_BOT<a class="headerlink" href="#ndpi-http-crawler-bot" title="Link to this heading"></a></h2>
+<p>The risk is set whenever a crawler/bot/robot has been detected</p>
+</section>
+<section id="ndpi-anonymous-subscriber">
+<span id="risk-045"></span><h2>NDPI_ANONYMOUS_SUBSCRIBER<a class="headerlink" href="#ndpi-anonymous-subscriber" title="Link to this heading"></a></h2>
+<p>The risk is set whenever the (source) IP address has been anonymized and it can’t be used to identify the subscriber.
+Example: the flow is generated by an iCloud-private-relay exit node.</p>
+</section>
+<section id="ndpi-unidirectional-traffic">
+<span id="risk-046"></span><h2>NDPI_UNIDIRECTIONAL_TRAFFIC<a class="headerlink" href="#ndpi-unidirectional-traffic" title="Link to this heading"></a></h2>
+<p>The risk is set whenever the flow has unidirectional traffic (typically no traffic on the server to client direction). THis
+risk is not triggered for multicast/broadcast destinations.</p>
+</section>
+<section id="ndpi-http-obsolete-server">
+<span id="risk-047"></span><h2>NDPI_HTTP_OBSOLETE_SERVER<a class="headerlink" href="#ndpi-http-obsolete-server" title="Link to this heading"></a></h2>
+<p>This risk is generated whenever a HTTP server uses an obsolete HTTP server version.</p>
+</section>
+<section id="ndpi-periodic-flow">
+<span id="risk-048"></span><h2>NDPI_PERIODIC_FLOW<a class="headerlink" href="#ndpi-periodic-flow" title="Link to this heading"></a></h2>
+<p>This risk is generated whenever a flow is observed at a specific periodic pace (e.g. every 10 seconds).</p>
+</section>
+<section id="ndpi-minor-issues">
+<span id="risk-049"></span><h2>NDPI_MINOR_ISSUES<a class="headerlink" href="#ndpi-minor-issues" title="Link to this heading"></a></h2>
+<p>Minor packet/flow issues (e.g. DNS traffic with zero TTL) have been detected.</p>
+</section>
+<section id="ndpi-tcp-issues">
+<span id="risk-050"></span><h2>NDPI_TCP_ISSUES<a class="headerlink" href="#ndpi-tcp-issues" title="Link to this heading"></a></h2>
+<p>Relevant TCP connection issues such as connection refused, scan, or probe attempt.</p>
+</section>
+<section id="ndpi-unresolved-hostname">
+<span id="risk-051"></span><h2>NDPI_UNRESOLVED_HOSTNAME<a class="headerlink" href="#ndpi-unresolved-hostname" title="Link to this heading"></a></h2>
+<p>Risk set when talking (TLS, QUIC, HTTP) with a symbolic hostname not previously observed on a DNS resolution. Unless the resolution was not observed as it was performed before nDPI started, it can indicate fake hosts contacted.</p>
+</section>
+<section id="ndpi-tls-alpn-sni-mismatch">
+<span id="risk-052"></span><h2>NDPI_TLS_ALPN_SNI_MISMATCH<a class="headerlink" href="#ndpi-tls-alpn-sni-mismatch" title="Link to this heading"></a></h2>
+<p>Invalid TLS ALPN/SNI mismatch. For instance ALPN advertises the flow as h2 (HTTP/2.0) and no SNI is reported.</p>
+</section>
+<section id="ndpi-malware-contacted">
+<span id="risk-053"></span><h2>NDPI_MALWARE_CONTACTED<a class="headerlink" href="#ndpi-malware-contacted" title="Link to this heading"></a></h2>
+<p>Client contacted a server host labelled as malware.</p>
+</section>
+<section id="ndpi-binary-data-transfer">
+<span id="risk-054"></span><h2>NDPI_BINARY_DATA_TRANSFER<a class="headerlink" href="#ndpi-binary-data-transfer" title="Link to this heading"></a></h2>
+<p>HTTP only: this risk indicates that a binary file/data application transfer (attempt).</p>
+</section>
+<section id="ndpi-probing-attempt">
+<span id="risk-055"></span><h2>NDPI_PROBING_ATTEMPT<a class="headerlink" href="#ndpi-probing-attempt" title="Link to this heading"></a></h2>
+<p>Connection with no data exchaged that looks like a probing attempt.</p>
+</section>
+<section id="ndpi-obfuscated-traffic">
+<span id="risk-056"></span><h2>NDPI_OBFUSCATED_TRAFFIC<a class="headerlink" href="#ndpi-obfuscated-traffic" title="Link to this heading"></a></h2>
+<p>This risk is triggered when a connection is likely using some obfuscation technique to try to “look like” something else, hiding its true nature.</p>
+</section>
+<section id="ndpi-slow-dos">
+<span id="risk-057"></span><h2>NDPI_SLOW_DOS<a class="headerlink" href="#ndpi-slow-dos" title="Link to this heading"></a></h2>
+<p>This risk is triggered when a TCP connection is likely subject to slow DoS attacks.</p>
+</section>
+<section id="ndpi-non-pqc">
+<span id="risk-058"></span><h2>NDPI_NON_PQC<a class="headerlink" href="#ndpi-non-pqc" title="Link to this heading"></a></h2>
+<p>This risk is triggered when an encrypted stream (e.g. TLS, QUIC, SSH, IPSEC) is not using post-quantum cryptography algorithms.</p>
+</section>
+<section id="ndpi-ai-inference-traffic">
+<span id="risk-059"></span><h2>NDPI_AI_INFERENCE_TRAFFIC<a class="headerlink" href="#ndpi-ai-inference-traffic" title="Link to this heading"></a></h2>
+<p>This risk is triggered when TLS/HTTP traffic is likely to be used to access a self-hosted LLM based on applications with ac vLLM or llama.cpp</p>
+</section>
+<section id="ndpi-non-pqc-flow">
+<span id="risk-060"></span><h2>NDPI_NON_PQC_FLOW<a class="headerlink" href="#ndpi-non-pqc-flow" title="Link to this heading"></a></h2>
+<p>For TLS, this risk is triggered only when an observed ClientHello is followed by a TLS 1.3 ServerHello that visibly negotiates a non-post-quantum key-exchange group. It is not set from a ClientHello advertisement, a server-only trace, or a HelloRetryRequest alone. The standardized ML-KEM hybrid groups from <a class="reference external" href="https://www.rfc-editor.org/rfc/rfc10024">RFC 10024</a> are treated as post-quantum. Flows where the handshake is incomplete, resumed with PSK-only, or otherwise does not expose a negotiated key-share are left unclassified.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="protocols.html" class="btn btn-neutral float-left" title="nDPI Protocols List" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usdt.html" class="btn btn-neutral float-right" title="USDT Probes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop and contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nDPI/flow_risks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:49:43 GMT -->
+</html>

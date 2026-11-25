@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/how_to_start/running_as_a_daemon.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:47:58 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Running ntopng as a Daemon &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Running on Windows" href="running_on_windows.html" />
+    <link rel="prev" title="The ntopng Configuration File" href="configuration_file.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">How to Start ntopng</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="configuration_file.html">The ntopng Configuration File</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Running ntopng as a Daemon</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#daemon-configuration-file">Daemon Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-daemon-startup-on-boot">Automatic Daemon Startup on Boot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#daemon-control">Daemon Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#start">start</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stop">stop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#restart">restart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#status">status</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#running-multiple-daemons">Running Multiple Daemons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-ntopng-behind-a-reverse-proxy">Accessing ntopng behind a Reverse Proxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-ntopng-with-a-http-s-proxy">Using ntopng with a HTTP(S) Proxy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="running_on_windows.html">Running on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">How to Start ntopng</a></li>
+      <li class="breadcrumb-item active">Running ntopng as a Daemon</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/how_to_start/running_as_a_daemon.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="running-ntopng-as-a-daemon">
+<h1>Running ntopng as a Daemon<a class="headerlink" href="#running-ntopng-as-a-daemon" title="Link to this heading"></a></h1>
+<p>Ntopng can be run in daemon mode on Unix systems and optionally be run automatically on system startup. Daemon execution and status are controlled with systemd using the <code class="code docutils literal notranslate"><span class="pre">systemctl</span></code> script.
+The systemd script is installed automatically on Unix systems as it is part of any standard ntopng installation procedure.</p>
+<section id="daemon-configuration-file">
+<h2>Daemon Configuration File<a class="headerlink" href="#daemon-configuration-file" title="Link to this heading"></a></h2>
+<p>Ntopng configuration file is required when running it as a daemon. The configuration file has to be named <code class="code docutils literal notranslate"><span class="pre">ntopng.conf</span></code> and must be placed under <code class="code docutils literal notranslate"><span class="pre">/etc/ntopng/</span></code>. The interested reader can find above and example of a configuration file. A default configuration file is created by default when installing ntopng from any binary package.</p>
+</section>
+<section id="automatic-daemon-startup-on-boot">
+<h2>Automatic Daemon Startup on Boot<a class="headerlink" href="#automatic-daemon-startup-on-boot" title="Link to this heading"></a></h2>
+<p>In order to launch ntopng daemon automatically on system startup, an empty file ntopng.start must be created in the same directory of the configuration files. Therefore, the directory will contain both the configuration and the startup files</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@devel:/etc/ntopng$<span class="w"> </span>ls<span class="w"> </span>-lha
+total<span class="w"> </span>28K
+drwxr-xr-x<span class="w">   </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4</span>.0K<span class="w"> </span>Mar<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">15</span>:44<span class="w"> </span>.
+drwxr-xr-x<span class="w"> </span><span class="m">117</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span>12K<span class="w"> </span>Mar<span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">12</span>:16<span class="w"> </span>..
+-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">211</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">17</span>:54<span class="w"> </span>ntopng.conf
+-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">    </span><span class="m">0</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">15</span>:44<span class="w"> </span>ntopng.start
+</pre></div>
+</div>
+<p>The existence of the <code class="code docutils literal notranslate"><span class="pre">ntopng.start</span></code> file is no longer required on systems that have systemd. On those systems, automatic ntopng daemon startup is controlled by enabling/disabling the ntopng service as</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ntopng
+systemctl<span class="w"> </span>disable<span class="w"> </span>ntopng
+</pre></div>
+</div>
+</section>
+<section id="daemon-control">
+<h2>Daemon Control<a class="headerlink" href="#daemon-control" title="Link to this heading"></a></h2>
+<p>On Unix systems the ntopng daemon can be controlled with systemd using the <code class="code docutils literal notranslate"><span class="pre">systemctl</span></code> tool. All the standard options are accepted. The options and the usage of the daemon control script are discussed below.</p>
+<section id="start">
+<h3>start<a class="headerlink" href="#start" title="Link to this heading"></a></h3>
+<p>This option is used to start the ntopng daemon</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>start<span class="w"> </span>ntopng
+</pre></div>
+</div>
+</section>
+<section id="stop">
+<h3>stop<a class="headerlink" href="#stop" title="Link to this heading"></a></h3>
+<p>This option is used to stop an ntopng daemon instance. For example</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>stop<span class="w"> </span>ntopng
+</pre></div>
+</div>
+</section>
+<section id="restart">
+<h3>restart<a class="headerlink" href="#restart" title="Link to this heading"></a></h3>
+<p>This option causes the restart of the ntopng instance.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>ntopng
+</pre></div>
+</div>
+</section>
+<section id="status">
+<h3>status<a class="headerlink" href="#status" title="Link to this heading"></a></h3>
+<p>This options prints the status of the ntopng daemon.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>ntopng
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-multiple-daemons">
+<h2>Running Multiple Daemons<a class="headerlink" href="#running-multiple-daemons" title="Link to this heading"></a></h2>
+<p>Multiple ntopng daemons can be run on the same machine when
+<code class="code docutils literal notranslate"><span class="pre">systemd</span></code> is available. In general, this is not necessary as a
+single ntopng is multi-tenant and can handle multiple
+interfaces. However, there are circumstances under which it is
+desirable to have multiple ntopng instances running.</p>
+<p>To run multiple ntopng daemons, <code class="code docutils literal notranslate"><span class="pre">systemctl</span></code> can be used. Each
+daemon is identified by a <code class="code docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> so that <code class="code docutils literal notranslate"><span class="pre">systemctl</span></code> can
+be used with this identifier when controlling the daemon. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>start<span class="w"> </span>ntopng@eno1
+systemctl<span class="w"> </span>stop<span class="w"> </span>ntopng@eno1
+systemctl<span class="w"> </span>start<span class="w"> </span>ntopng@lo
+systemctl<span class="w"> </span>stop<span class="w"> </span>ntopng@lo
+</pre></div>
+</div>
+<p>Each daemon must have its own configuration file under
+<code class="code docutils literal notranslate"><span class="pre">/etc/ntopng</span></code> and the configuration file name must be named as
+<code class="code docutils literal notranslate"><span class="pre">ntopng-&lt;name&gt;.conf</span></code>. The example above assumes two files
+<code class="code docutils literal notranslate"><span class="pre">ntopng-eno1.conf</span></code> and <code class="code docutils literal notranslate"><span class="pre">ntopng-lo.conf</span></code> exist under
+<code class="code docutils literal notranslate"><span class="pre">/etc/ntopng</span></code>.</p>
+<p>In order to run multiple daemons on the same machine, each daemon
+must be guaranteed to have its own Redis database (option <code class="code docutils literal notranslate"><span class="pre">-r</span></code>), its
+own HTTP/HTTPS ports (options <code class="code docutils literal notranslate"><span class="pre">-w</span></code> and <code class="code docutils literal notranslate"><span class="pre">-W</span></code>), and its own
+data directory (option <code class="code docutils literal notranslate"><span class="pre">-d</span></code>). Those options must be specified in
+each daemon’s configuration file.</p>
+<p>In order to start daemons on boot, it is necessary to enable them as</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ntopng@eno1
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ntopng@eno1
+</pre></div>
+</div>
+<p>Daemons which have been <code class="code docutils literal notranslate"><span class="pre">enable</span></code> d, will be automatically
+restarted after each ntopng update. Note that backup and restore of
+ntopng configuration is not supported when multiple daemons are in use.</p>
+</section>
+<section id="accessing-ntopng-behind-a-reverse-proxy">
+<h2>Accessing ntopng behind a Reverse Proxy<a class="headerlink" href="#accessing-ntopng-behind-a-reverse-proxy" title="Link to this heading"></a></h2>
+<p>If you have many ntopng instances that you want to mask behind a proxy the
+<cite>-Z</cite> option is what you look for. See the man page for more information.</p>
+</section>
+<section id="using-ntopng-with-a-http-s-proxy">
+<h2>Using ntopng with a HTTP(S) Proxy<a class="headerlink" href="#using-ntopng-with-a-http-s-proxy" title="Link to this heading"></a></h2>
+<p>If ntopng is behind a proxy which is used to access the Internet, proxy information
+should be configured into standard environment variables to let ntopng detect them
+and connect to the internet (e.g. for downloading blacklists). Both HTTP and HTTPS
+are supported.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">HTTP_PROXY</span><span class="o">=</span>http://127.0.0.1:3128
+ntopng<span class="w"> </span>-i<span class="w"> </span>eth0
+</pre></div>
+</div>
+<p>When ntopng runs as a service from systemd, environment variables should be configured
+in /etc/systemd/system.conf as below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DefaultEnvironment=&quot;http_proxy=http://127.0.0.1:3128&quot;
+DefaultEnvironment=&quot;https_proxy=http://127.0.0.1:3128&quot;
+</pre></div>
+</div>
+<p>Then run systemctl daemon-reexec to apply the change:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reexec
+</pre></div>
+</div>
+<p>Alternatively, proxy information can be added the the ntopng service only
+by configuring /etc/systemd/system/ntopng.service as below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Service]
+Type=simple
+Environment=&quot;http_proxy=http://127.0.0.1:3128&quot;
+Environment=&quot;https_proxy=http://127.0.0.1:3128&quot;
+</pre></div>
+</div>
+<p>Then run systemctl daemon-reload to apply the change</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+</pre></div>
+</div>
+<p>Then restart ntopng</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>ntopng
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration_file.html" class="btn btn-neutral float-left" title="The ntopng Configuration File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="running_on_windows.html" class="btn btn-neutral float-right" title="Running on Windows" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/how_to_start/running_as_a_daemon.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:47:59 GMT -->
+</html>

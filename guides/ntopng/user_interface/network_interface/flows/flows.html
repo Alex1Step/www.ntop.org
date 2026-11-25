@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/network_interface/flows/flows.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:26:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flows &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Historical" href="../../../flow_dump/clickhouse/historical_flows.html" />
+    <link rel="prev" title="Flow Alerts Analyser" href="../alerts/flow_alerts_analyser.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">User Interface Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Network Interface</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#dashboard">Dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#alerts">Alerts</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#flows">Flows</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Flows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flow_dump/clickhouse/historical_flows.html">Historical</a></li>
+<li class="toctree-l4"><a class="reference internal" href="server_ports.html">Server Ports</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#hosts">Hosts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#maps">Maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#interface">Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#alerts">Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#developer">Developer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Network Interface</a></li>
+      <li class="breadcrumb-item active">Flows</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/user_interface/network_interface/flows/flows.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="flows">
+<span id="webguiflows"></span><h1>Flows<a class="headerlink" href="#flows" title="Link to this heading"></a></h1>
+<section id="live">
+<h2>Live<a class="headerlink" href="#live" title="Link to this heading"></a></h2>
+<p>The ‘Flows’ entry in the top toolbar can be selected to visualize realtime traffic information on the currently
+active flows. A flow can be thought of as a logical, bi-directional communication channel between two
+hosts <a class="footnote-reference brackets" href="#id4" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Multiple simultaneous flows can exist between the same pair of hosts.</p>
+<figure class="align-center" id="id8">
+<img alt="Active Flows" src="../../../_images/web_gui_flows_active.png" />
+<figcaption>
+<p><span class="caption-text">Active Flows Page</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Flows are uniquely identified via a 5-tuple composed of:</p>
+<ul class="simple">
+<li><p>Source and destination IP address</p></li>
+<li><p>Source and destination port</p></li>
+<li><p>Layer-4 protocol</p></li>
+</ul>
+<p>Each flow is shown as a row entry in the flows table. Flows are sortable by application using the rightmost
+dropdown menu at the top right edge of the table. Similarly, the other dropdown menu enables the user
+to choose the number of flows displayed on each page.</p>
+<p>Flows have multiple information fields, namely, Application, Layer-4 Protocol, Client and Server hosts,
+Duration, Client and Server Breakdown, Current Throughput, Total Bytes, and Additional Information.</p>
+<p>When the flows carry process or container information (for example flows exported by nProbe with eBPF), the
+process and container names are shown next to the hosts: click one to see only the flows of that process or
+container. The <a class="reference internal" href="../interface/containers.html#containers"><span class="std std-ref">Pods and Containers</span></a> page opens the flows of a pod or container in the same way; the active filters
+are shown above the table and can be removed one by one.
+Information fields are briefly discussed below.</p>
+<section id="detailed-flow-information">
+<h3>Detailed Flow Information<a class="headerlink" href="#detailed-flow-information" title="Link to this heading"></a></h3>
+<p>By clicking the details button at the beginning of the flow, its details open in a side panel next
+to the table; the expand icon of the panel opens them as a full page. Here all the information ntopng
+has about the flow is displayed, and it is updated every few seconds while the flow is active (an arrow
+next to the counters shows when they grow). When the flow is no longer in memory a message says so.</p>
+<p>Flows of industrial protocols (Modbus, S7Comm, Profinet: Enterprise L) and flows carrying BGP
+information have more tabs next to <em>Overview</em> with their protocol details. The tab is greyed out
+when the details are not available, and its tooltip says why: ntopng decodes Modbus from the traffic
+it captures, while the S7Comm and Profinet details are sent by nProbe for the flows it collects.</p>
+<p>From the details page you can also:</p>
+<ul class="simple">
+<li><p>open the live flows of the same port, application or category, the client and server hosts and
+their MAC addresses;</p></li>
+<li><p>add the server name of the flow to a category or to an application (administrators): click the <em>+</em>
+next to the name, choose the category or application and confirm. A category is applied at once,
+an application after restarting ntopng;</p></li>
+<li><p>in the <em>Issues</em> table, exclude a check for this flow (Enterprise M), open the configuration of the
+check or the alerts of the flow;</p></li>
+<li><p>on inline interfaces (nEdge), drop the traffic of the flow (administrators): a confirmation is asked.</p></li>
+</ul>
+<figure class="align-center" id="id9">
+<img alt="Flow Details" src="../../../_images/web_gui_flows_details.png" />
+<figcaption>
+<p><span class="caption-text">Flow Details Page</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="application">
+<h3>Application<a class="headerlink" href="#application" title="Link to this heading"></a></h3>
+<p>Application is the Layer-7 program which is exchanging data through the flow. This is the piece of
+software that lays closest to the end user. Examples of Applications are Skype, Redis, HTTP, and Bit
+Torrent. Layer-7 applications are detected by the NTOP open source Deep Packet Inspection (DPI) engine
+named nDPI <a class="footnote-reference brackets" href="#id5" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. In case application detection fails, ntopng marks the flow as ‘Unknown’. If the detection
+succeeds, the application name and an informative icon are shown.</p>
+<p>Here is a list of possible informative icons:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The lock icon tells that the protocol carries information in a secure way (e.g. via SSL)</p></li>
+<li><p>The thumb-up icons tells that the protocol is generally not harmful for network performance</p></li>
+<li><p>The thumb-down icons tells that the protocol is generally harmful for network performance</p></li>
+<li><p>The smile face tells that the protocol is generally used for user entertainment</p></li>
+<li><p>The yellow triangle indicates a possible problem on the flow. By clicking a flow details it’s possible to see what the reported problem is (e.g. flow with low goodput)</p></li>
+</ul>
+</div></blockquote>
+<p>The application name can be clicked to see all hosts generating traffic for the application.</p>
+</section>
+<section id="layer-4-protocol-l4-proto">
+<h3>Layer-4 Protocol (L4 Proto)<a class="headerlink" href="#layer-4-protocol-l4-proto" title="Link to this heading"></a></h3>
+<p>The layer-4 protocol is the one used at the transport level. Most common transport protocol are the
+reliable Transmission Control Protocol (TCP) and the best-effort User Datagram Protocol (UDP).</p>
+</section>
+<section id="client">
+<h3>Client<a class="headerlink" href="#client" title="Link to this heading"></a></h3>
+<p>This field contains host and port information regarding the client endpoint of the flow. An host is
+considered a client if it is the initiator of the flow. Information is shown as host:port and both information
+are clickable. If the host has a public IP address, ntopng also shows the country flag for that client <a class="footnote-reference brackets" href="#id6" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> . A blue
+flag is drawn when the host is the ntopng host.</p>
+</section>
+<section id="server">
+<h3>Server<a class="headerlink" href="#server" title="Link to this heading"></a></h3>
+<p>Similarly to the client, this field contains information regarding the server endpoint of the flow. An host is
+considered a server if it is not the initiator of the flow. We refer the reader to the previous paragraph for a
+detailed description.</p>
+</section>
+<section id="duration">
+<h3>Duration<a class="headerlink" href="#duration" title="Link to this heading"></a></h3>
+<p>This is the amount of time that has elapsed since the flow was opened by the client.</p>
+</section>
+<section id="breakdown">
+<h3>Breakdown<a class="headerlink" href="#breakdown" title="Link to this heading"></a></h3>
+<p>Flows are bi-directional, in the sense that traffic flows both from the server to the client and from the client
+to the server. This coloured bar gives and indication on the amount of traffic exchanged in each of the two
+directions. Client to server traffic in shown in orange, while server to client in blue.</p>
+</section>
+<section id="actual-throughput">
+<h3>Actual Throughput<a class="headerlink" href="#actual-throughput" title="Link to this heading"></a></h3>
+<p>The throughput is computed periodically (the refresh time is a few seconds).</p>
+</section>
+<section id="total-bytes">
+<h3>Total Bytes<a class="headerlink" href="#total-bytes" title="Link to this heading"></a></h3>
+<p>The amount of traffic exchanged thought the flow. This total value is the sum of traffic exchanged in each
+of the two directions (client to server and server to client).</p>
+</section>
+<section id="tls-information">
+<h3>TLS Information<a class="headerlink" href="#tls-information" title="Link to this heading"></a></h3>
+<p>ntopng provides detailed information on TLS flows:</p>
+<figure class="align-center">
+<img alt="TLS information" src="../../../_images/web_gui_flows_tls_information.png" />
+</figure>
+<ul class="simple">
+<li><p>The TLS certificate requested by the client and the server names returned by the server</p></li>
+<li><p>The TLS certificate validity time frame</p></li>
+<li><p>Client and server <a class="reference external" href="https://github.com/salesforce/ja3">JA3</a> signatures, which represent a fingerprint of the most relevant
+information in the TLS handshake. By clicking on the signature it is possible to manually
+check if the signature corresponds to a known malware into the <a class="reference external" href="https://sslbl.abuse.ch/ja3-fingerprints">abuse.ch database</a>.</p></li>
+<li><p>The Client <a class="reference external" href="https://en.wikipedia.org/wiki/Application-Layer_Protocol_Negotiation">TLS ALPN</a>, which contains the list of application protocols provided
+by the client during the TLS handshake</p></li>
+<li><p>The supported TLS protocols of the client</p></li>
+</ul>
+<p>This information is very valuable in identifying potential threats on the encrypted traffic,
+which include but are not limited to:</p>
+<ul class="simple">
+<li><p>Malicious clients/server (by matching the JA3 signature)</p></li>
+<li><p>Expired TLS certificates</p></li>
+<li><p>Unsecure TLS protocols in use</p></li>
+<li><p>MITM TLS attacks</p></li>
+</ul>
+<p>ntopng already reports such events with specialized alerts (the available alerts
+depend on the ntopng version used). For an in depth discussion on the challenges with encrypted traffic and how
+the metadata can help in identifying network threats, check out the related ntop
+<a class="reference external" href="../../../../../effective-tls-fingerprinting-beyond-ja3/index.html">blog post</a> and related posts.</p>
+</section>
+<section id="ssh-signature">
+<h3>SSH Signature<a class="headerlink" href="#ssh-signature" title="Link to this heading"></a></h3>
+<p>In a similar way to the JA3 TLS signature, <a class="reference external" href="https://engineering.salesforce.com/open-sourcing-hassh-abed3ae5044c">HASSH</a> is a fingerprint on the SSH handshake.
+ntopng generates the HASSH fingerprint of both the client and the server hosts of the flow.
+ntopng also extracts and visualizes the SSH application banner which usually reports the
+name and version of the SSH client/server application used.</p>
+<p>This information can be used to identify outdated and vulnerable programs, which
+undermine the hosts security. Moreover, the HASSH fingerprint can be matched against
+known malware signatures to identify known threats.</p>
+</section>
+<section id="dns-signature">
+<h3>DNS Signature<a class="headerlink" href="#dns-signature" title="Link to this heading"></a></h3>
+<p>ntopng also extracts and visualizes information regarding DNS application.
+It reports, in the following order, the DNS query type, the DNS query error and DNS query,
+following the standard classification (<a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc1035">RFC1035</a>).</p>
+<figure class="align-center">
+<img alt="DNS information" src="../../../_images/web_gui_flows_dns_information.png" />
+</figure>
+</section>
+<section id="info">
+<h3>Info<a class="headerlink" href="#info" title="Link to this heading"></a></h3>
+<p>Extra information nDPI is able to extract from the detected flow is made available in this field. This field
+may include URLs, traffic profiles (in the Professional Version), contents of DNS requests, and so on.</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Actually, flows may also exist between a host and a multicast group, as well as a broadcast domain.</p>
+</aside>
+<aside class="footnote brackets" id="id5" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/ntop/nDPI">https://github.com/ntop/nDPI</a></p>
+</aside>
+<aside class="footnote brackets" id="id6" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>These data are based on MaxMind databases.</p>
+</aside>
+</aside>
+</section>
+<section id="issues">
+<h3>Issues<a class="headerlink" href="#issues" title="Link to this heading"></a></h3>
+<p>A flow could have some issues (reported in the <a class="reference internal" href="../../../basic_concepts/alerts.html#basicconceptalerts"><span class="std std-ref">Alerts</span></a>).
+All the issues of the flow are reported in the Detailed Flow Information page.</p>
+<figure class="align-center">
+<img alt="DNS information" src="../../../_images/web_gui_flows_issues_information.png" />
+</figure>
+</section>
+<section id="major-and-minor-connection-state">
+<span id="minor-connection-state"></span><h3>Major and Minor Connection State<a class="headerlink" href="#major-and-minor-connection-state" title="Link to this heading"></a></h3>
+<p>A flow using TCP as the L4 Protocol will have major and minor connection state.</p>
+<p>The major connection states are:</p>
+<ul class="simple">
+<li><p><strong>ATTEMPTED</strong></p></li>
+<li><p><strong>ESTABLISHED</strong></p></li>
+<li><p><strong>CLOSED</strong></p></li>
+</ul>
+<p>For each major connection states, there are many minor connection states.</p>
+<p>When the major connection state is <strong>ATTEMPTED</strong>, the minor connection state could be one of the following states:</p>
+<ul class="simple">
+<li><p><strong>S0</strong>: Connection attempt seen, no reply.</p></li>
+<li><p><strong>REJ</strong>: Connection attempt rejected.</p></li>
+<li><p><strong>RSTOS0</strong>: The client sent a SYN followed by a RST, and we never saw a SYN-ACK from the server.</p></li>
+<li><p><strong>RSTRH</strong>: The server sent a SYN ACK followed by a RST, and we never saw a SYN from the (purported) client.</p></li>
+<li><p><strong>SH</strong>: The client sent a SYN followed by a FIN, and we never saw a SYN ACK from the server (hence the connection was “half” open).</p></li>
+<li><p><strong>SHR</strong>: The server sent a SYN ACK followed by a FIN, and we never saw a SYN from the client.</p></li>
+<li><p><strong>OTH</strong>: No SYN seen, just midstream traffic.</p></li>
+</ul>
+<p>If the major connection state is <strong>ESTABLISHED</strong> the minor connection state is</p>
+<ul class="simple">
+<li><p><strong>S1</strong>: Connection established, not terminated.</p></li>
+</ul>
+<p>Finally, if the major connection state is <strong>CLOSED</strong>, the minor connection state could be one of the following states:</p>
+<ul class="simple">
+<li><p><strong>SF</strong>: Normal establishment and termination.</p></li>
+<li><p><strong>S2</strong>: Connection established and close attempt by the client seen (but no reply from the server).</p></li>
+<li><p><strong>S3</strong>: Connection established and close attempt by the server seen (but no reply from the client).</p></li>
+<li><p><strong>RSTO</strong>: Connection established, the client aborted (sent a RST).</p></li>
+<li><p><strong>RSTR</strong>: The server sent a RST.</p></li>
+</ul>
+</section>
+</section>
+<section id="flow-analysis">
+<h2>Flow Analysis<a class="headerlink" href="#flow-analysis" title="Link to this heading"></a></h2>
+<figure class="align-center" id="id10">
+<img alt="Live Flows navigation bar" src="../../../_images/live_flows_nav_bar.png" />
+<figcaption>
+<p><span class="caption-text">Live Flows navigation bar</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The flow analysis page allows flows to be analysed in an aggregated fashion instead of the classical 5-tuple. Basic aggregation criteria are available in all ntopng versions, whereas advanced ones only on selected Enterprise editions.</p>
+<section id="application-protocol">
+<h3>Application Protocol<a class="headerlink" href="#application-protocol" title="Link to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Live Flows Analysis Application Criteria" src="../../../_images/live_flows_analysis_app_criteria.png" />
+</figure>
+<p>This criteria allows you to aggregate flows according to the application protocol (e.g. WhatsApp). This is useful for selecting all flows with a specific protocol.</p>
+</section>
+<section id="id7">
+<h3>Client<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Live Flows Analysis Client Criteria" src="../../../_images/live_flows_analysis_client_criteria.png" />
+</figure>
+<p>You can use this aggregation criteria to cluster all flows originated by a specific client. Clicking on the flows icon, allows you to drill down to 5-tuple flow level.</p>
+</section>
+<section id="server-criteria">
+<h3>Server Criteria<a class="headerlink" href="#server-criteria" title="Link to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Live Flows Analysis Server Criteria" src="../../../_images/live_flows_analysis_server_criteria.png" />
+</figure>
+<p>You can use this aggregation criteria to cluster all flows targeting a specific server. Clicking on the flows icon, allows you to drill down to 5-tuple flow level.</p>
+</section>
+<section id="client-server-destination-port-criteria">
+<h3>Client / Server / Destination Port Criteria<a class="headerlink" href="#client-server-destination-port-criteria" title="Link to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Live Flows Analysis Client Server Dst Port Criteria" src="../../../_images/live_flows_analysis_client_server_dst_port_criteria.png" />
+</figure>
+<p>You can use this aggregation criteria to cluster all flows with the same Client/Server/DstPort. Clicking on the flows icon, allows you to drill down to 5-tuple flow level.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following aggregation criteria are available only from Enterprise M license or superior.</p>
+</div>
+</section>
+<section id="client-server-criteria">
+<h3>Client / Server Criteria<a class="headerlink" href="#client-server-criteria" title="Link to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Live Flows Analysis Client / Server Criteria" src="../../../_images/live_flows_analysis_client_server_criteria.png" />
+</figure>
+<p>You can use this aggregation criteria to cluster all flows with the same Client/Server. Clicking on the flows icon, allows you to drill down to 5-tuple flow level.</p>
+</section>
+<section id="app-proto-client-server-criteria">
+<h3>App. Proto / Client / Server Criteria<a class="headerlink" href="#app-proto-client-server-criteria" title="Link to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Live Flows Analysis App. Proto / Client / Server Criteria" src="../../../_images/live_flows_analysis_app_client_server_criteria.png" />
+</figure>
+<p>You can use this aggregation criteria to cluster all flows with the same Application Protocol/Client/Server. Clicking on the flows icon, allows you to drill down to 5-tuple flow level.</p>
+</section>
+<section id="info-criteria">
+<h3>Info Criteria<a class="headerlink" href="#info-criteria" title="Link to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Live Flows Analysis Info Criteria" src="../../../_images/live_flows_analysis_info_criteria.png" />
+</figure>
+<p>You can use this aggregation criteria to cluster all flows with the same information field (e.g. resolved host name in DNS flows). Clicking on the flows icon, allows you to drill down to 5-tuple flow level.</p>
+</section>
+</section>
+<section id="geo-map-view">
+<h2>Geo Map View<a class="headerlink" href="#geo-map-view" title="Link to this heading"></a></h2>
+<p>An other way to visualize the flows on a Geo Map;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature is available from the Enterprise L. The <a class="reference internal" href="../../../basic_concepts/geolocation.html#geolocation"><span class="std std-ref">Geolocation</span></a> needs to be enabled.</p>
+</div>
+<p>When clicking on an host the flows relative to that node will be highlighted with the information:</p>
+<ul class="simple">
+<li><p>IP Address: IP Address of the host</p></li>
+<li><p>Protocol: protocol used by the flows</p></li>
+<li><p>Total Flows: number of flows by the host</p></li>
+</ul>
+<figure class="align-center">
+<img alt="Live Flows Analysis Info Criteria" src="../../../_images/geomap_live_flows.png" />
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../alerts/flow_alerts_analyser.html" class="btn btn-neutral float-left" title="Flow Alerts Analyser" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../../flow_dump/clickhouse/historical_flows.html" class="btn btn-neutral float-right" title="Historical" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/network_interface/flows/flows.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:27:10 GMT -->
+</html>

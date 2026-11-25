@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/syslog.html?highlight=syslog by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 18:30:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9. Syslog Log Ingestion &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10. ClickHouse Timeseries" href="clickhouse_timeseries.html" />
+    <link rel="prev" title="8. Snapshots" href="snapshots.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bridging_and_policing.html">1. Bridging and Traffic Policing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ids_acceleration.html">2. IDS Acceleration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interfaces/index.html">3. Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lightview/index.html">4. Light View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="live_pcap_download.html">5. Live Pcap Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deduplication.html">6. Flow Deduplication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oem.html">7. OEM Customizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snapshots.html">8. Snapshots</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9. Syslog Log Ingestion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ntopng-configuration">9.1. ntopng Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logs-demultiplexing">9.2. Logs Demultiplexing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#syslog-relay-configuration-optional">9.3. Syslog Relay Configuration (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hosts-log-ingestion">9.4. Hosts Log Ingestion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#network-syslog-ingestion">9.5. Network Syslog Ingestion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#architecture-and-setup">9.5.1. Architecture and setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ingestion-rules">9.5.2. Ingestion rules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#rule-evaluation">9.6. Rule evaluation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#events-view">9.6.1. Events view</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alert-correlation">9.6.2. Alert correlation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nbox-log-ingestion">9.7. nBox Log Ingestion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="clickhouse_timeseries.html">10. ClickHouse Timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="high_resolution_timeseries.html">11. Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assets_journal.html">12. Assets Journal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Advanced Features</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">9. </span>Syslog Log Ingestion</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advanced_features/syslog.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="syslog-log-ingestion">
+<span id="syslog-target"></span><h1><span class="section-number">9. </span>Syslog Log Ingestion<a class="headerlink" href="#syslog-log-ingestion" title="Link to this heading"></a></h1>
+<p>ntopng can collect logs from external sources including IDS systems, Firewalls or
+hosts running a standard syslog server.</p>
+<p>Log collection from IDS systems like <a class="reference external" href="https://suricata-ids.org/">Suricata</a> can be
+used to enrich ntopng with additional security-oriented information including <em>flow</em>
+metadata (extracted files is an example) and <em>alerts</em> detected by means of
+signature-based threat-detection algorithms. For further information about this use
+case please read the Suricata Integration section.</p>
+<p>Firewall logs instead can be ingested by ntopng to provide visibility over firewall
+activities. An example is the <em>Identity Management</em>, in fact it is possible to track
+all connection/disconnection events logged by a VPN server, in order to associate
+traffic to users. ntopng Enterprise L includes plugin for collecting VPN logs and
+correlate network traffic to VPN users supporting multiple devices from the vendors
+below:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../user_interface/shared/alerts/others/syslog_checks.html#fortinet">Fortinet</a></p></li>
+<li><p><a class="reference external" href="../user_interface/shared/alerts/others/syslog_checks.html#kerberos-nxlog">Kerberos/NXLog (Windows Active Directory)</a></p></li>
+<li><p><a class="reference external" href="../user_interface/shared/alerts/others/syslog_checks.html#openvpn">OpenVPN</a></p></li>
+<li><p><a class="reference external" href="../user_interface/shared/alerts/others/syslog_checks.html#opnsense">OPNsense</a></p></li>
+<li><p><a class="reference external" href="../user_interface/shared/alerts/others/syslog_checks.html#sonicwall">SonicWall</a></p></li>
+<li><p><a class="reference external" href="../user_interface/shared/alerts/others/syslog_checks.html#sophos">Sophos</a></p></li>
+</ul>
+<p>For further information about all the VPN plugins please also visit <a class="reference internal" href="../user_interface/shared/alerts/others/syslog_checks.html#syslogchecks-target"><span class="std std-ref">Syslog Behavioural Checks</span></a>.</p>
+<section id="ntopng-configuration">
+<h2><span class="section-number">9.1. </span>ntopng Configuration<a class="headerlink" href="#ntopng-configuration" title="Link to this heading"></a></h2>
+<p>In order to enable log ingestion from syslog in ntopng, a new syslog interface
+should be added to the configuration file, with the syntax <code class="code docutils literal notranslate"><span class="pre">syslog://&lt;ip&gt;:&lt;port&gt;</span></code>
+Note that <code class="code docutils literal notranslate"><span class="pre">*</span></code> is also supported to listen on any IP.
+Example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-i=syslog://*:5140
+-i=eth1
+</pre></div>
+</div>
+<p>By default, ntopng listens both on UDP and TCP, in order to listen on UDP only or TCP
+only, the <code class="code docutils literal notranslate"><span class="pre">&#64;udp</span></code> or <code class="code docutils literal notranslate"><span class="pre">&#64;tcp</span></code> suffix should be appended to the interface name
+(example <code class="code docutils literal notranslate"><span class="pre">syslog://*:5140&#64;udp</span></code>).</p>
+<p>Note:</p>
+<ul class="simple">
+<li><p>Multiple syslog clients can connect simultaneously to the same ntopng instance.</p></li>
+<li><p>Remember to <em>restart</em> the <em>ntopng</em> service to apply the change.</p></li>
+<li><p>Please make sure the firewall (including iptables on the same box) is not blocking
+connections to the configured port.</p></li>
+<li><p>Please note that log demultiplexing should be configured in order to parse and display
+logs as described in the next section.</p></li>
+</ul>
+</section>
+<section id="logs-demultiplexing">
+<h2><span class="section-number">9.2. </span>Logs Demultiplexing<a class="headerlink" href="#logs-demultiplexing" title="Link to this heading"></a></h2>
+<p>ntopng does its best to automatically detect the producer of each log message, and
+base on that parse the content and ingest all the contained information. However,
+in some cases, this is not explicitly specified in the message and an hint is required
+in order to figure out who is the producer of the log message and parse it correctly,
+especially when the same syslog stream contains log messages from multiple producers.
+This is usually not required with logs produced by IDS systems like Suricata for instance,
+however it is mandatory with some Firewalls supporting <em>Identity Management</em> like
+Fortinet and SonicWALL. For this reason, a <em>Syslog Log Producers</em> tab is available in the
+syslog interface in the web GUI, where it is possible to configure all syslog sources by
+providing the source IP address or the device name (as they appear in the log) and the
+source type (e.g. Fortinet, or SonicWALL). Please note that some firewalls do not add
+the IP address and device name to the log, in that case it is possible to use <code class="code docutils literal notranslate"><span class="pre">*</span></code>
+as IP address, it will be used as default in case no configured IP is matching.</p>
+<figure class="align-center" id="id1">
+<img alt="Syslog Log Producers" src="../_images/advanced_features_syslog.png" />
+<figcaption>
+<p><span class="caption-text">Syslog Log Producers Configuration</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Note:</p>
+<ul class="simple">
+<li><p>adding or removing sources does <em>not</em> require an application restart</p></li>
+<li><p>if the <em>Syslog Log Producers</em> tab does not happear, the <em>Identity Management</em>
+plugins are probably not installed or available</p></li>
+</ul>
+</section>
+<section id="syslog-relay-configuration-optional">
+<h2><span class="section-number">9.3. </span>Syslog Relay Configuration (Optional)<a class="headerlink" href="#syslog-relay-configuration-optional" title="Link to this heading"></a></h2>
+<p>ntopng already includes a daemon able to listen for syslog logs on TCP or UDP at one
+(or more) configured endpoint. The log producer should be configured to send logs to
+that endpoint.</p>
+<p>In some cases (e.g. an IDS running on the same host) a syslog client (the same applies
+to relay configurations) like <em>rsyslog</em> should be installed and configured to export logs
+to ntopng. This is possible by creating a new configuration file under <code class="code docutils literal notranslate"><span class="pre">/etc/rsyslog.d</span></code>
+specifying the IP, the port and the protocol where ntopng will listen for connections.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/rsyslog.d/99-remote.conf
+*.*<span class="w">  </span>action<span class="o">(</span><span class="nv">type</span><span class="o">=</span><span class="s2">&quot;omfwd&quot;</span><span class="w"> </span><span class="nv">target</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="w"> </span><span class="nv">port</span><span class="o">=</span><span class="s2">&quot;5140&quot;</span><span class="w"> </span><span class="nv">protocol</span><span class="o">=</span><span class="s2">&quot;tcp&quot;</span><span class="w"> </span>action.resumeRetryCount<span class="o">=</span><span class="s2">&quot;100&quot;</span><span class="w"> </span>queue.type<span class="o">=</span><span class="s2">&quot;linkedList&quot;</span><span class="w"> </span>queue.size<span class="o">=</span><span class="s2">&quot;10000&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>Please remember to <em>restart</em> the <em>rsyslog</em> service in order to apply the configuration.</p>
+<p>Note: if log messages from the IDS are printed to the console by journalctl
+as broadcast messages, you probably want to suppress them by setting
+<code class="code docutils literal notranslate"><span class="pre">ForwardToWall=no</span></code> in <em>/etc/systemd/journald.conf</em>.
+Please remember to <em>restart</em> the <em>systemd-journald</em> service to apply the change.
+It may be also required to edit <em>/etc/rsyslog.d/50-default.conf</em> commenting out
+lines containing <code class="code docutils literal notranslate"><span class="pre">:omusrmsg:*</span></code>.</p>
+</section>
+<section id="hosts-log-ingestion">
+<h2><span class="section-number">9.4. </span>Hosts Log Ingestion<a class="headerlink" href="#hosts-log-ingestion" title="Link to this heading"></a></h2>
+<p>The syslog integration in ntopng can also be used to collect logs from hosts
+in the network, and trigger alerts when some log exceeding the configured severity
+level is exceeded. This can be accomplished by creating the same configuration
+described in the previous section for setting up a Syslog Relay using <em>rsyslog</em>
+on each host. Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/rsyslog.d/99-remote.conf
+*.*<span class="w">  </span>action<span class="o">(</span><span class="nv">type</span><span class="o">=</span><span class="s2">&quot;omfwd&quot;</span><span class="w"> </span><span class="nv">target</span><span class="o">=</span><span class="s2">&quot;10.0.0.1&quot;</span><span class="w"> </span><span class="nv">port</span><span class="o">=</span><span class="s2">&quot;5140&quot;</span><span class="w"> </span><span class="nv">protocol</span><span class="o">=</span><span class="s2">&quot;tcp&quot;</span><span class="w"> </span>action.resumeRetryCount<span class="o">=</span><span class="s2">&quot;100&quot;</span><span class="w"> </span>queue.type<span class="o">=</span><span class="s2">&quot;linkedList&quot;</span><span class="w"> </span>queue.size<span class="o">=</span><span class="s2">&quot;10000&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>Please remember to <em>restart</em> the <em>rsyslog</em> service in order to apply the configuration.</p>
+<p>At this point the host should start sending syslog logs to ntopng.
+In order to instruct ntopng to treat those logs as coming from hosts in
+the monitored network, it is requested to specify the producer IP and
+producer type (in this case Host Log) under <em>Interface</em> -&gt; <em>Syslog Log Producers</em>
+as explained in the <em>Logs Demultiplexing</em> section.</p>
+<p>Please note that it is also possible to change the severity level for
+controlling which log event should actually trigger an alert in ntopng
+under <em>Settings</em> -&gt; <em>Syslog</em> -&gt; <em>Edit</em> -&gt; <em>Host Log</em> -&gt; <em>Edit</em>.</p>
+<p>It’s a common practice to setup syslog ingestion for (important) hosts in the
+monitored network. In this case it is convenient to have alerts generated in
+the same interface (the syslog interface should be used otherwise) where network
+traffic for the corresponding host is analysed. This is possible by configuring
+the syslog interface as companion interface under <em>Interface</em> -&gt; <em>Settings</em> -&gt; <em>Companion Interface</em>.</p>
+</section>
+<section id="network-syslog-ingestion">
+<h2><span class="section-number">9.5. </span>Network Syslog Ingestion<a class="headerlink" href="#network-syslog-ingestion" title="Link to this heading"></a></h2>
+<p>ntopng can ingest syslog messages from network devices and hosts, including
+routers, switches, firewalls, servers, and other syslog capable applications.
+The collector receives messages, evaluates configured ingestion rules, and
+stores accepted events in ClickHouse (thus an enterprise M or greater license, and clickhouse are needed. Start ntopng with <cite>-F clickhouse</cite>). By navigating to the menu entry Network and clicking on**Syslog** page lets operators
+configure those rules and inspect the ingested events.
+ntopng Enterprise XL and clickhouse are required.</p>
+<section id="architecture-and-setup">
+<h3><span class="section-number">9.5.1. </span>Architecture and setup<a class="headerlink" href="#architecture-and-setup" title="Link to this heading"></a></h3>
+<p>The syslog collector listens on the configured syslog interface. For example,
+the interface shown in the UI is <code class="docutils literal notranslate"><span class="pre">syslog://*:5140</span></code>. Configure the collector
+to use the intended address and port for the deployment, then configure
+routers, switches, hosts, and other syslog senders to forward their messages
+to that ntopng endpoint.</p>
+<p>The collector evaluates ingestion rules before writing accepted messages to
+ClickHouse. Rules are reloaded every 10 seconds, so rule changes are picked
+up without requiring a collector restart.</p>
+</section>
+<section id="ingestion-rules">
+<h3><span class="section-number">9.5.2. </span>Ingestion rules<a class="headerlink" href="#ingestion-rules" title="Link to this heading"></a></h3>
+<p>Rules are configured in the <strong>Syslog → Ingestion Rules</strong> tab. Use <strong>Add
+Syslog Rule</strong> to create a rule. The editor exposes these fields:</p>
+<ul class="simple">
+<li><p><strong>Enabled</strong> — enables or disables the rule.</p></li>
+<li><p><strong>Discard</strong> — when enabled, a matching message is dropped instead of being
+stored. Discard rules are evaluated before the other rules.</p></li>
+<li><p><strong>Severity</strong> — the least severe level matched by the rule. A message matches
+when its numeric severity is less than or equal to this value. For example,
+selecting Warning matches Emergency, Alert, Critical, Error, and Warning.
+Selecting Debug (7) matches every severity.</p></li>
+<li><p><strong>Source</strong> — optional sender IP address or CIDR network, such as
+<code class="docutils literal notranslate"><span class="pre">10.0.0.1</span></code> or <code class="docutils literal notranslate"><span class="pre">10.0.0.0/24</span></code>. Leave empty to match any sender.</p></li>
+<li><p><strong>Pattern</strong> — optional RE2 regular expression that must match the message.
+Leave empty to match any message.</p></li>
+<li><p><strong>Comment</strong> — a free text description to help operators identify the rule’s
+purpose.</p></li>
+</ul>
+<p>A rule matches only when all of its configured conditions match: severity,
+source (if specified), and pattern (if specified).</p>
+<figure class="align-center" id="id2">
+<img alt="Syslog Ingestion Rules List" src="../_images/syslog_ingestion_rules_page.png" />
+<figcaption>
+<p><span class="caption-text">Visualize all syslog ingestion rules configured, and add new ones</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id3">
+<img alt="Add Syslog Ingestion Rule" src="../_images/syslog_add_ingestion_rule.png" />
+<figcaption>
+<p><span class="caption-text">Add a rule for syslog ingestion</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="rule-evaluation">
+<h2><span class="section-number">9.6. </span>Rule evaluation<a class="headerlink" href="#rule-evaluation" title="Link to this heading"></a></h2>
+<p>Enabled rules act as an allowlist: when at least one enabled rule exists, a
+message is stored only if it matches an enabled non discard rule and is not
+dropped by a matching discard rule. Discard rules are evaluated first. If no
+rules are enabled, all messages are stored.</p>
+<p>The collector reloads the rules every 10 seconds. Allow for this interval
+when verifying a change.</p>
+<section id="events-view">
+<h3><span class="section-number">9.6.1. </span>Events view<a class="headerlink" href="#events-view" title="Link to this heading"></a></h3>
+<p>The <strong>Syslog → Events</strong> tab displays messages received by the collector and
+stored in ClickHouse. Select a group in the filter panel to narrow the event
+table. Available groups include:</p>
+<ul class="simple">
+<li><p><strong>Severity</strong></p></li>
+<li><p><strong>Source IP</strong></p></li>
+<li><p><strong>Hostname</strong></p></li>
+<li><p><strong>Application</strong></p></li>
+<li><p><strong>Facility</strong></p></li>
+</ul>
+<p>The counts shown beside each group value indicate the number of matching
+events in the current result set. Selecting a value filters the table to that
+group.</p>
+<figure class="align-center" id="id4">
+<img alt="Syslog Events Visualization Table" src="../_images/syslog_events_list.png" />
+<figcaption>
+<p><span class="caption-text">Visualize all collected syslog events in a table with filters</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The page provides the following controls:</p>
+<ul class="simple">
+<li><p><strong>Time range</strong> — select a preset range or specify start and end times, then
+select <strong>Apply</strong> to refresh the results.</p></li>
+<li><p><strong>Source IP</strong> — filter by a sender IP address.</p></li>
+<li><p><strong>Search</strong> — search within the full message text.</p></li>
+<li><p><strong>Table controls</strong> — adjust the number of rows displayed per page, refresh
+the results, and navigate between pages.</p></li>
+</ul>
+<p>The event table includes:</p>
+<ul class="simple">
+<li><p><strong>Time</strong> — time associated with the displayed event.</p></li>
+<li><p><strong>Severity</strong> — numeric severity and its label.</p></li>
+<li><p><strong>Source IP</strong> — sender address.</p></li>
+<li><p><strong>Hostname</strong> — hostname reported in the syslog header.</p></li>
+<li><p><strong>Facility</strong> — syslog facility, such as <code class="docutils literal notranslate"><span class="pre">auth</span></code>, <code class="docutils literal notranslate"><span class="pre">kern</span></code>, <code class="docutils literal notranslate"><span class="pre">daemon</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">user</span></code>.</p></li>
+<li><p><strong>Application</strong> — application name reported in the message, such as
+<code class="docutils literal notranslate"><span class="pre">sshd</span></code>, <code class="docutils literal notranslate"><span class="pre">nginx</span></code>, or <code class="docutils literal notranslate"><span class="pre">cron</span></code>.</p></li>
+<li><p><strong>Message</strong> — the syslog message text.</p></li>
+</ul>
+<p>Use the time range and group filters to isolate events from a device or
+application, then use message search to find a particular error, identifier,
+or text fragment.</p>
+</section>
+<section id="alert-correlation">
+<h3><span class="section-number">9.6.2. </span>Alert correlation<a class="headerlink" href="#alert-correlation" title="Link to this heading"></a></h3>
+<p>Syslog ingestion establishes the event data needed for future alert
+correlation. A planned follow up is to correlate stored syslog events with
+ntopng alerts, allowing operators to investigate network activity alongside
+device and application logs. Until that correlation is implemented, the
+Events page should be treated as a searchable view of ingested syslog
+messages, rather than as proof that a syslog event has triggered or been
+linked to an ntopng alert.</p>
+</section>
+</section>
+<section id="nbox-log-ingestion">
+<h2><span class="section-number">9.7. </span>nBox Log Ingestion<a class="headerlink" href="#nbox-log-ingestion" title="Link to this heading"></a></h2>
+<p>nBox appliances based on the nBox UI are able to export events to syslog. This
+includes the activity of users starting and stopping applications and services,
+and software failures.
+Syslog logs generated by nBox UI can be ingested by ntopng and used to generate
+alerts. This requires the syslog format to be configured to JSON in the nBox UI
+Notifications preferences. The ntopng address (including the port used for listening
+for syslog logs) should be also configured.</p>
+<figure class="align-center" id="id5">
+<img alt="nBox UI Notifications Settings" src="../_images/advanced_features_nboxui_notifications_settings.png" />
+<figcaption>
+<p><span class="caption-text">nBox UI Notifications Settings</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The Syslog Log Producers configuration for the syslog interface in ntopng
+should be configured to decode syslog logs as nBox UI logs by configuring
+nBox as log producer.</p>
+<figure class="align-center" id="id6">
+<img alt="Syslog Log Producers" src="../_images/advanced_features_nboxui_producer_configuration.png" />
+<figcaption>
+<p><span class="caption-text">Syslog Log Producers Configuration</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>At this point, ntopng should be able to ingest and decode events from the nBox
+appliance and the Alerts Notifications can be configured to deliver those events
+to the administrator via any supported Notification Endpoint and Recipient.</p>
+<figure class="align-center" id="id7">
+<img alt="nBox UI Telegram Notification" src="../_images/advanced_features_nboxui_telegram_notification.png" />
+<figcaption>
+<p><span class="caption-text">nBox UI Telegram Notification</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="snapshots.html" class="btn btn-neutral float-left" title="8. Snapshots" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="clickhouse_timeseries.html" class="btn btn-neutral float-right" title="10. ClickHouse Timeseries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/syslog.html?highlight=syslog by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 18:30:10 GMT -->
+</html>

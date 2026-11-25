@@ -1,0 +1,1566 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/flow_dump/clickhouse/clickhouse_schema.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:52:28 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClickHouse DB Schema &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Kafka" href="../kafka/index.html" />
+    <link rel="prev" title="Connect to ClickHouse" href="clickhouse.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Flows Dump (ClickHouse)</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">ClickHouse (Flow Dump)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#clickhouse-tuning">ClickHouse Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clickhouse.html">Connect to ClickHouse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clickhouse.html#what-s-stored-in-clickhouse">What’s Stored in ClickHouse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clickhouse.html#tls-connection">TLS Connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clickhouse.html#strict-startup">Strict Startup</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ClickHouse DB Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="historical_flows.html">Historical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reports.html">Traffic Reports</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kafka/index.html">Kafka</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../syslog/index.html">Syslog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Flows Dump (ClickHouse)</a></li>
+          <li class="breadcrumb-item"><a href="index.html">ClickHouse (Flow Dump)</a></li>
+      <li class="breadcrumb-item active">ClickHouse DB Schema</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/flow_dump/clickhouse/clickhouse_schema.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="clickhouse-db-schema">
+<h1>ClickHouse DB Schema<a class="headerlink" href="#clickhouse-db-schema" title="Link to this heading"></a></h1>
+<p>Here the full list schema available for ClickHouse;
+Four columns are shown in the below table:
+- Field: field used when doing queries on the DB
+- Readable Name: Which information the column contains in a human readable format
+- Type: Value data type
+- Description: Description of the data</p>
+<p>The list of protocols and alert categories can be found below the table.</p>
+<p>Flows table description:</p>
+<p>The list of the Layer 7 protocols can be found <a class="reference external" href="https://github.com/ntop/nDPI/blob/dev/src/include/ndpi_protocol_ids.h">here</a></p>
+<p>The list of the Layer 4 protocols can be found <a href="#id1"><span class="problematic" id="id2">`here https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml`__</span></a></p>
+<p>An updated list of Application Categories can be found <a class="reference external" href="https://github.com/ntop/nDPI/blob/dev/src/include/ndpi_typedefs.h">here</a></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Category</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Unspecified</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Media</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>VPN</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Mail</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Data Transfer</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Web</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>Social Network</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>Download FT</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>Game</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>Chat</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>VoIP</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>Database</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>Remote Access</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>Cloud</p></td>
+</tr>
+<tr class="row-even"><td><p>16</p></td>
+<td><p>Network</p></td>
+</tr>
+<tr class="row-odd"><td><p>17</p></td>
+<td><p>Collaborative</p></td>
+</tr>
+<tr class="row-even"><td><p>18</p></td>
+<td><p>RPC</p></td>
+</tr>
+<tr class="row-odd"><td><p>19</p></td>
+<td><p>Streaming</p></td>
+</tr>
+<tr class="row-even"><td><p>20</p></td>
+<td><p>System OS</p></td>
+</tr>
+<tr class="row-odd"><td><p>21</p></td>
+<td><p>Software Update</p></td>
+</tr>
+<tr class="row-even"><td><p>22</p></td>
+<td><p>Custom Category 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>23</p></td>
+<td><p>Custom Category 2</p></td>
+</tr>
+<tr class="row-even"><td><p>24</p></td>
+<td><p>Custom Category 3</p></td>
+</tr>
+<tr class="row-odd"><td><p>25</p></td>
+<td><p>Custom Category 4</p></td>
+</tr>
+<tr class="row-even"><td><p>26</p></td>
+<td><p>Custom Category 5</p></td>
+</tr>
+<tr class="row-odd"><td><p>27</p></td>
+<td><p>Music</p></td>
+</tr>
+<tr class="row-even"><td><p>28</p></td>
+<td><p>Video</p></td>
+</tr>
+<tr class="row-odd"><td><p>29</p></td>
+<td><p>Shopping</p></td>
+</tr>
+<tr class="row-even"><td><p>30</p></td>
+<td><p>Productivity</p></td>
+</tr>
+<tr class="row-odd"><td><p>31</p></td>
+<td><p>File Sharing</p></td>
+</tr>
+<tr class="row-even"><td><p>32</p></td>
+<td><p>Connectivity Check</p></td>
+</tr>
+<tr class="row-odd"><td><p>33</p></td>
+<td><p>IOT SCADA</p></td>
+</tr>
+<tr class="row-even"><td><p>34</p></td>
+<td><p>Virtual Assistant</p></td>
+</tr>
+<tr class="row-odd"><td><p>35</p></td>
+<td><p>Cybersecurity</p></td>
+</tr>
+<tr class="row-even"><td><p>36</p></td>
+<td><p>Adult Content</p></td>
+</tr>
+<tr class="row-odd"><td><p>99</p></td>
+<td><p>Mining</p></td>
+</tr>
+<tr class="row-even"><td><p>100</p></td>
+<td><p>Malware</p></td>
+</tr>
+<tr class="row-odd"><td><p>101</p></td>
+<td><p>Advertisement</p></td>
+</tr>
+<tr class="row-even"><td><p>102</p></td>
+<td><p>Banned Site</p></td>
+</tr>
+<tr class="row-odd"><td><p>103</p></td>
+<td><p>Site Unavailable</p></td>
+</tr>
+<tr class="row-even"><td><p>104</p></td>
+<td><p>Allowed Site</p></td>
+</tr>
+<tr class="row-odd"><td><p>105</p></td>
+<td><p>AntiMalware</p></td>
+</tr>
+<tr class="row-even"><td><p>106</p></td>
+<td><p>Crypt Currency</p></td>
+</tr>
+<tr class="row-odd"><td><p>107</p></td>
+<td><p>Gambling</p></td>
+</tr>
+<tr class="row-even"><td><p>108</p></td>
+<td><p>Health</p></td>
+</tr>
+</tbody>
+</table>
+<p>The list of Alerts Category Available:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Alert Category</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Interface Alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Host Alert</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Network Alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>SNMP Alert</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Flow Alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>MAC Alert</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>User Alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>Active Monitoring Alert</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>System Alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>15</p></td>
+<td><p>Other Alert</p></td>
+</tr>
+</tbody>
+</table>
+<p>The list of Alert Severities:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Alert Severity</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Debug</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Info</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Notice</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Warning</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Error</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>Critical</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>Emergency</p></td>
+</tr>
+</tbody>
+</table>
+<p>Active monitoring description:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Readable Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rowid</p></td>
+<td><p>Row ID</p></td>
+<td><p>UUID</p></td>
+<td><p>Unique identifier for each row in the table</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_id</p></td>
+<td><p>Alert ID</p></td>
+<td><p>UInt32</p></td>
+<td><p>Unique identifier for each alert</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_status</p></td>
+<td><p>Alert Status</p></td>
+<td><p>UInt8</p></td>
+<td><p>Current status of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface_id</p></td>
+<td><p>Interface ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier of the network interface associated with the alert (nullable)</p></td>
+</tr>
+<tr class="row-even"><td><p>resolved_ip</p></td>
+<td><p>Resolved IP</p></td>
+<td><p>String</p></td>
+<td><p>IP address associated with the alert, if resolved</p></td>
+</tr>
+<tr class="row-odd"><td><p>resolved_name</p></td>
+<td><p>Resolved Name</p></td>
+<td><p>String</p></td>
+<td><p>Hostname associated with the alert, if resolved</p></td>
+</tr>
+<tr class="row-even"><td><p>measurement</p></td>
+<td><p>Measurement</p></td>
+<td><p>String</p></td>
+<td><p>Type or name of the measurement that triggered the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>measure_threshold</p></td>
+<td><p>Measure Threshold</p></td>
+<td><p>UInt32</p></td>
+<td><p>Threshold value that triggered the alert (nullable)</p></td>
+</tr>
+<tr class="row-even"><td><p>measure_value</p></td>
+<td><p>Measure Value</p></td>
+<td><p>REAL</p></td>
+<td><p>Actual measured value that triggered the alert (nullable)</p></td>
+</tr>
+<tr class="row-odd"><td><p>tstamp</p></td>
+<td><p>Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was created or detected</p></td>
+</tr>
+<tr class="row-even"><td><p>tstamp_end</p></td>
+<td><p>End Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was resolved or ended (nullable)</p></td>
+</tr>
+<tr class="row-odd"><td><p>severity</p></td>
+<td><p>Severity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Severity level of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>score</p></td>
+<td><p>Score</p></td>
+<td><p>UInt16</p></td>
+<td><p>Numerical score associated with the alert, possibly indicating its importance or priority</p></td>
+</tr>
+<tr class="row-odd"><td><p>counter</p></td>
+<td><p>Counter</p></td>
+<td><p>UInt32</p></td>
+<td><p>Counter value, possibly indicating the number of times this alert has occurred</p></td>
+</tr>
+<tr class="row-even"><td><p>description</p></td>
+<td><p>Description</p></td>
+<td><p>String</p></td>
+<td><p>Textual description of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>json</p></td>
+<td><p>JSON</p></td>
+<td><p>String</p></td>
+<td><p>JSON-formatted additional data or full representation of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>user_label</p></td>
+<td><p>User Label</p></td>
+<td><p>String</p></td>
+<td><p>Custom label assigned by a user when silencing the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>user_label_tstamp</p></td>
+<td><p>User Label Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Timestamp when the user label was last modified (nullable)</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_category</p></td>
+<td><p>Alert Category</p></td>
+<td><p>UInt8</p></td>
+<td><p>Category of the alert, added in an ALTER TABLE statement</p></td>
+</tr>
+</tbody>
+</table>
+<p>Flow alerts description:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Readable Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rowid</p></td>
+<td><p>Row ID</p></td>
+<td><p>UUID</p></td>
+<td><p>Unique identifier for each row in the table</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_id</p></td>
+<td><p>Alert ID</p></td>
+<td><p>UInt32</p></td>
+<td><p>Unique identifier for each alert</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_status</p></td>
+<td><p>Alert Status</p></td>
+<td><p>UInt8</p></td>
+<td><p>Current status of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface_id</p></td>
+<td><p>Interface ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier of the network interface associated with the alert (nullable)</p></td>
+</tr>
+<tr class="row-even"><td><p>tstamp</p></td>
+<td><p>Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was created</p></td>
+</tr>
+<tr class="row-odd"><td><p>tstamp_end</p></td>
+<td><p>End Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert has ended</p></td>
+</tr>
+<tr class="row-even"><td><p>severity</p></td>
+<td><p>Severity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Severity level of the alert (See the Alert Severities table above)</p></td>
+</tr>
+<tr class="row-odd"><td><p>score</p></td>
+<td><p>Score</p></td>
+<td><p>UInt16</p></td>
+<td><p>Numerical score associated with the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>counter</p></td>
+<td><p>Counter</p></td>
+<td><p>UInt32</p></td>
+<td><p>Counter value, indicating the number of times this alert has occurred</p></td>
+</tr>
+<tr class="row-odd"><td><p>json</p></td>
+<td><p>JSON</p></td>
+<td><p>String</p></td>
+<td><p>JSON-formatted additional data or full representation of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>ip_version</p></td>
+<td><p>IP Version</p></td>
+<td><p>UInt8</p></td>
+<td><p>Version of IP protocol used (4 or 6)</p></td>
+</tr>
+<tr class="row-odd"><td><p>cli_ip</p></td>
+<td><p>Client IP</p></td>
+<td><p>String</p></td>
+<td><p>IP address of the client</p></td>
+</tr>
+<tr class="row-even"><td><p>srv_ip</p></td>
+<td><p>Server IP</p></td>
+<td><p>String</p></td>
+<td><p>IP address of the server</p></td>
+</tr>
+<tr class="row-odd"><td><p>cli_port</p></td>
+<td><p>Client Port</p></td>
+<td><p>UInt16</p></td>
+<td><p>Port number used by the client</p></td>
+</tr>
+<tr class="row-even"><td><p>srv_port</p></td>
+<td><p>Server Port</p></td>
+<td><p>UInt16</p></td>
+<td><p>Port number used by the server</p></td>
+</tr>
+<tr class="row-odd"><td><p>vlan_id</p></td>
+<td><p>VLAN ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>VLAN identifier</p></td>
+</tr>
+<tr class="row-even"><td><p>is_cli_attacker</p></td>
+<td><p>Is Client Attacker</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the client is classified as an attacker</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_cli_victim</p></td>
+<td><p>Is Client Victim</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the client is classified as a victim</p></td>
+</tr>
+<tr class="row-even"><td><p>is_srv_attacker</p></td>
+<td><p>Is Server Attacker</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the server is classified as an attacker</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_srv_victim</p></td>
+<td><p>Is Server Victim</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the server is classified as a victim</p></td>
+</tr>
+<tr class="row-even"><td><p>proto</p></td>
+<td><p>Protocol</p></td>
+<td><p>UInt8</p></td>
+<td><p>IP protocol number (A list of L4 Protocols can be found above)</p></td>
+</tr>
+<tr class="row-odd"><td><p>l7_proto</p></td>
+<td><p>L7 Protocol</p></td>
+<td><p>UInt16</p></td>
+<td><p>Layer 7 protocol identifier</p></td>
+</tr>
+<tr class="row-even"><td><p>l7_master_proto</p></td>
+<td><p>L7 Master Protocol</p></td>
+<td><p>UInt16</p></td>
+<td><p>Master Layer 7 protocol identifier</p></td>
+</tr>
+<tr class="row-odd"><td><p>l7_cat</p></td>
+<td><p>L7 Category</p></td>
+<td><p>UInt16</p></td>
+<td><p>Category of Layer 7 protocol (A list of Application Categories can be found above)</p></td>
+</tr>
+<tr class="row-even"><td><p>cli_name</p></td>
+<td><p>Client Name</p></td>
+<td><p>String</p></td>
+<td><p>Name or hostname of the client</p></td>
+</tr>
+<tr class="row-odd"><td><p>srv_name</p></td>
+<td><p>Server Name</p></td>
+<td><p>String</p></td>
+<td><p>Name or hostname of the server</p></td>
+</tr>
+<tr class="row-even"><td><p>cli_country</p></td>
+<td><p>Client Country</p></td>
+<td><p>String</p></td>
+<td><p>Country of the client</p></td>
+</tr>
+<tr class="row-odd"><td><p>srv_country</p></td>
+<td><p>Server Country</p></td>
+<td><p>String</p></td>
+<td><p>Country of the server</p></td>
+</tr>
+<tr class="row-even"><td><p>cli_blacklisted</p></td>
+<td><p>Client Blacklisted</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the client is blacklisted</p></td>
+</tr>
+<tr class="row-odd"><td><p>srv_blacklisted</p></td>
+<td><p>Server Blacklisted</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the server is blacklisted</p></td>
+</tr>
+<tr class="row-even"><td><p>cli2srv_bytes</p></td>
+<td><p>Client to Server Bytes</p></td>
+<td><p>UInt8</p></td>
+<td><p>Number of bytes transferred from client to server</p></td>
+</tr>
+<tr class="row-odd"><td><p>srv2cli_bytes</p></td>
+<td><p>Server to Client Bytes</p></td>
+<td><p>UInt8</p></td>
+<td><p>Number of bytes transferred from server to client</p></td>
+</tr>
+<tr class="row-even"><td><p>cli2srv_pkts</p></td>
+<td><p>Client to Server Pkts</p></td>
+<td><p>UInt8</p></td>
+<td><p>Number of packets transferred from client to server</p></td>
+</tr>
+<tr class="row-odd"><td><p>srv2cli_pkts</p></td>
+<td><p>Server to Client Pkts</p></td>
+<td><p>UInt8</p></td>
+<td><p>Number of packets transferred from server to client</p></td>
+</tr>
+<tr class="row-even"><td><p>first_seen</p></td>
+<td><p>First Seen</p></td>
+<td><p>DateTime</p></td>
+<td><p>Timestamp when the flow was first observed</p></td>
+</tr>
+<tr class="row-odd"><td><p>community_id</p></td>
+<td><p>Community ID</p></td>
+<td><p>String</p></td>
+<td><p>Community identifier for the flow</p></td>
+</tr>
+<tr class="row-even"><td><p>alerts_map</p></td>
+<td><p>Alerts Map</p></td>
+<td><p>String</p></td>
+<td><p>HEX bitmap of all flow statuses</p></td>
+</tr>
+<tr class="row-odd"><td><p>flow_risk_bitmap</p></td>
+<td><p>Flow Risk Bitmap</p></td>
+<td><p>UInt64</p></td>
+<td><p>Bitmap representing risk factors associated with the flow</p></td>
+</tr>
+<tr class="row-even"><td><p>user_label</p></td>
+<td><p>User Label</p></td>
+<td><p>String</p></td>
+<td><p>Custom label assigned by a user when silencing the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>user_label_tstamp</p></td>
+<td><p>User Label Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Timestamp when the user label was last modified</p></td>
+</tr>
+<tr class="row-even"><td><p>cli_host_pool_id</p></td>
+<td><p>Client Host Pool ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Host pool identifier for the client</p></td>
+</tr>
+<tr class="row-odd"><td><p>srv_host_pool_id</p></td>
+<td><p>Server Host Pool ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Host pool identifier for the server</p></td>
+</tr>
+<tr class="row-even"><td><p>cli_network</p></td>
+<td><p>Client Network</p></td>
+<td><p>UInt16</p></td>
+<td><p>Network identifier for the client</p></td>
+</tr>
+<tr class="row-odd"><td><p>srv_network</p></td>
+<td><p>Server Network</p></td>
+<td><p>UInt16</p></td>
+<td><p>Network identifier for the server</p></td>
+</tr>
+<tr class="row-even"><td><p>info</p></td>
+<td><p>Info</p></td>
+<td><p>String</p></td>
+<td><p>Additional information about the flow alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>cli_location</p></td>
+<td><p>Client Location</p></td>
+<td><p>UInt8</p></td>
+<td><p>Location identifier for the client</p></td>
+</tr>
+<tr class="row-even"><td><p>srv_location</p></td>
+<td><p>Server Location</p></td>
+<td><p>UInt8</p></td>
+<td><p>Location identifier for the server</p></td>
+</tr>
+<tr class="row-odd"><td><p>probe_ip</p></td>
+<td><p>Probe IP</p></td>
+<td><p>String</p></td>
+<td><p>IP address of the probe that detected the flow</p></td>
+</tr>
+<tr class="row-even"><td><p>input_snmp</p></td>
+<td><p>Input SNMP</p></td>
+<td><p>UInt32</p></td>
+<td><p>SNMP interface index for input</p></td>
+</tr>
+<tr class="row-odd"><td><p>output_snmp</p></td>
+<td><p>Output SNMP</p></td>
+<td><p>UInt32</p></td>
+<td><p>SNMP interface index for output</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_category</p></td>
+<td><p>Alert Category</p></td>
+<td><p>UInt8</p></td>
+<td><p>Category of the alert</p></td>
+</tr>
+</tbody>
+</table>
+<p>Host alerts description:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Readable Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rowid</p></td>
+<td><p>Row ID</p></td>
+<td><p>UUID</p></td>
+<td><p>Unique identifier for each row in the table</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_id</p></td>
+<td><p>Alert ID</p></td>
+<td><p>UInt32</p></td>
+<td><p>Identifier for each alert</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_status</p></td>
+<td><p>Alert Status</p></td>
+<td><p>UInt8</p></td>
+<td><p>Current status of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface_id</p></td>
+<td><p>Interface ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier of the network interface associated with the alert (nullable)</p></td>
+</tr>
+<tr class="row-even"><td><p>ip_version</p></td>
+<td><p>IP Version</p></td>
+<td><p>UInt8</p></td>
+<td><p>Version of IP protocol used (4 or 6)</p></td>
+</tr>
+<tr class="row-odd"><td><p>ip</p></td>
+<td><p>IP Address</p></td>
+<td><p>String</p></td>
+<td><p>IP address of the alerted host</p></td>
+</tr>
+<tr class="row-even"><td><p>vlan_id</p></td>
+<td><p>VLAN ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>VLAN identifier</p></td>
+</tr>
+<tr class="row-odd"><td><p>name</p></td>
+<td><p>Host Name</p></td>
+<td><p>String</p></td>
+<td><p>Name or hostname of the host</p></td>
+</tr>
+<tr class="row-even"><td><p>is_attacker</p></td>
+<td><p>Is Attacker</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the host is classified as an attacker</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_victim</p></td>
+<td><p>Is Victim</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the host is classified as a victim</p></td>
+</tr>
+<tr class="row-even"><td><p>is_client</p></td>
+<td><p>Is Client</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the host is acting as a client</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_server</p></td>
+<td><p>Is Server</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the host is acting as a server</p></td>
+</tr>
+<tr class="row-even"><td><p>tstamp</p></td>
+<td><p>Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was created</p></td>
+</tr>
+<tr class="row-odd"><td><p>tstamp_end</p></td>
+<td><p>End Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert has ended</p></td>
+</tr>
+<tr class="row-even"><td><p>severity</p></td>
+<td><p>Severity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Severity level of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>score</p></td>
+<td><p>Score</p></td>
+<td><p>UInt16</p></td>
+<td><p>Numerical score associated with the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>granularity</p></td>
+<td><p>Granularity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Frequency of alert check execution</p></td>
+</tr>
+<tr class="row-odd"><td><p>counter</p></td>
+<td><p>Counter</p></td>
+<td><p>UInt32</p></td>
+<td><p>Counter value, possibly indicating the number of times this alert has occurred</p></td>
+</tr>
+<tr class="row-even"><td><p>description</p></td>
+<td><p>Description</p></td>
+<td><p>String</p></td>
+<td><p>Textual description of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>json</p></td>
+<td><p>JSON</p></td>
+<td><p>String</p></td>
+<td><p>JSON-formatted additional data or full representation of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>user_label</p></td>
+<td><p>User Label</p></td>
+<td><p>String</p></td>
+<td><p>Custom label assigned by a user when silencing the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>user_label_tstamp</p></td>
+<td><p>User Label Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Timestamp when the user label was last modified</p></td>
+</tr>
+<tr class="row-even"><td><p>host_pool_id</p></td>
+<td><p>Host Pool ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier for the pool of hosts this host belongs to</p></td>
+</tr>
+<tr class="row-odd"><td><p>network</p></td>
+<td><p>Network ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier for the network this host belongs to</p></td>
+</tr>
+<tr class="row-even"><td><p>country</p></td>
+<td><p>Country</p></td>
+<td><p>String</p></td>
+<td><p>Country associated with the host’s IP address</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_category</p></td>
+<td><p>Alert Category</p></td>
+<td><p>UInt8</p></td>
+<td><p>Category of the alert</p></td>
+</tr>
+</tbody>
+</table>
+<p>Mac address alerts description:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Readable Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rowid</p></td>
+<td><p>Row ID</p></td>
+<td><p>UUID</p></td>
+<td><p>Unique identifier for each row in the table</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_id</p></td>
+<td><p>Alert ID</p></td>
+<td><p>UInt32</p></td>
+<td><p>Identifier for each alert</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_status</p></td>
+<td><p>Alert Status</p></td>
+<td><p>UInt8</p></td>
+<td><p>Current status of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface_id</p></td>
+<td><p>Interface ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier of the network interface associated with the alert (nullable)</p></td>
+</tr>
+<tr class="row-even"><td><p>address</p></td>
+<td><p>MAC Address</p></td>
+<td><p>String</p></td>
+<td><p>MAC address of the device</p></td>
+</tr>
+<tr class="row-odd"><td><p>device_type</p></td>
+<td><p>Device Type</p></td>
+<td><p>UInt8</p></td>
+<td><p>Type of the device (nullable)</p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>Device Name</p></td>
+<td><p>String</p></td>
+<td><p>Name or hostname of the device</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_attacker</p></td>
+<td><p>Is Attacker</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the device is classified as an attacker</p></td>
+</tr>
+<tr class="row-even"><td><p>is_victim</p></td>
+<td><p>Is Victim</p></td>
+<td><p>UInt8</p></td>
+<td><p>Flag indicating if the device is classified as a victim</p></td>
+</tr>
+<tr class="row-odd"><td><p>tstamp</p></td>
+<td><p>Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was created or detected</p></td>
+</tr>
+<tr class="row-even"><td><p>tstamp_end</p></td>
+<td><p>End Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was resolved or ended</p></td>
+</tr>
+<tr class="row-odd"><td><p>severity</p></td>
+<td><p>Severity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Severity level of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>score</p></td>
+<td><p>Score</p></td>
+<td><p>UInt16</p></td>
+<td><p>Numerical score associated with the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>granularity</p></td>
+<td><p>Granularity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Frequency of alert check execution</p></td>
+</tr>
+<tr class="row-even"><td><p>counter</p></td>
+<td><p>Counter</p></td>
+<td><p>UInt32</p></td>
+<td><p>Counter value, possibly indicating the number of times this alert has occurred</p></td>
+</tr>
+<tr class="row-odd"><td><p>description</p></td>
+<td><p>Description</p></td>
+<td><p>String</p></td>
+<td><p>Textual description of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>json</p></td>
+<td><p>JSON</p></td>
+<td><p>String</p></td>
+<td><p>JSON-formatted additional data or full representation of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>user_label</p></td>
+<td><p>User Label</p></td>
+<td><p>String</p></td>
+<td><p>Custom label assigned by a user when silencing the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>user_label_tstamp</p></td>
+<td><p>User Label Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Timestamp when the user label was last modified</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_category</p></td>
+<td><p>Alert Category</p></td>
+<td><p>UInt8</p></td>
+<td><p>Category of the alert</p></td>
+</tr>
+</tbody>
+</table>
+<p>SNMP alerts description:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Readable Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rowid</p></td>
+<td><p>Row ID</p></td>
+<td><p>UUID</p></td>
+<td><p>Unique identifier for each row in the table</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_id</p></td>
+<td><p>Alert ID</p></td>
+<td><p>UInt32</p></td>
+<td><p>Identifier for each alert</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_status</p></td>
+<td><p>Alert Status</p></td>
+<td><p>UInt8</p></td>
+<td><p>Current status of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface_id</p></td>
+<td><p>Interface ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier of the network interface associated with the alert (nullable)</p></td>
+</tr>
+<tr class="row-even"><td><p>ip</p></td>
+<td><p>IP Address</p></td>
+<td><p>String</p></td>
+<td><p>IP address of the SNMP device</p></td>
+</tr>
+<tr class="row-odd"><td><p>port</p></td>
+<td><p>Port</p></td>
+<td><p>UInt32</p></td>
+<td><p>Port number of the SNMP device</p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>Device Name</p></td>
+<td><p>String</p></td>
+<td><p>Name or hostname of the SNMP device</p></td>
+</tr>
+<tr class="row-odd"><td><p>port_name</p></td>
+<td><p>Port Name</p></td>
+<td><p>String</p></td>
+<td><p>Name of the port on the SNMP device</p></td>
+</tr>
+<tr class="row-even"><td><p>tstamp</p></td>
+<td><p>Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was created or detected</p></td>
+</tr>
+<tr class="row-odd"><td><p>tstamp_end</p></td>
+<td><p>End Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was resolved or ended</p></td>
+</tr>
+<tr class="row-even"><td><p>severity</p></td>
+<td><p>Severity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Severity level of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>score</p></td>
+<td><p>Score</p></td>
+<td><p>UInt16</p></td>
+<td><p>Numerical score associated with the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>granularity</p></td>
+<td><p>Granularity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Frequency of alert check execution</p></td>
+</tr>
+<tr class="row-odd"><td><p>counter</p></td>
+<td><p>Counter</p></td>
+<td><p>UInt32</p></td>
+<td><p>Counter value, indicating the number of times this alert has occurred</p></td>
+</tr>
+<tr class="row-even"><td><p>description</p></td>
+<td><p>Description</p></td>
+<td><p>String</p></td>
+<td><p>Textual description of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>json</p></td>
+<td><p>JSON</p></td>
+<td><p>String</p></td>
+<td><p>JSON-formatted additional data for this alert</p></td>
+</tr>
+<tr class="row-even"><td><p>user_label</p></td>
+<td><p>User Label</p></td>
+<td><p>String</p></td>
+<td><p>Custom label assigned by a user when silencing the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>user_label_tstamp</p></td>
+<td><p>User Label Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Timestamp when the user label was last modified</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_category</p></td>
+<td><p>Alert Category</p></td>
+<td><p>UInt8</p></td>
+<td><p>Category of the alert</p></td>
+</tr>
+</tbody>
+</table>
+<p>Network alerts description:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Readable Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rowid</p></td>
+<td><p>Row ID</p></td>
+<td><p>UUID</p></td>
+<td><p>Unique identifier for each row in the table</p></td>
+</tr>
+<tr class="row-odd"><td><p>local_network_id</p></td>
+<td><p>Local Network ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier for the local network associated with the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_id</p></td>
+<td><p>Alert ID</p></td>
+<td><p>UInt32</p></td>
+<td><p>Identifier for each alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_status</p></td>
+<td><p>Alert Status</p></td>
+<td><p>UInt8</p></td>
+<td><p>Current status of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>interface_id</p></td>
+<td><p>Interface ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier of the network interface associated with the alert (nullable)</p></td>
+</tr>
+<tr class="row-odd"><td><p>name</p></td>
+<td><p>Network Name</p></td>
+<td><p>String</p></td>
+<td><p>Name of the network</p></td>
+</tr>
+<tr class="row-even"><td><p>alias</p></td>
+<td><p>Network Alias</p></td>
+<td><p>String</p></td>
+<td><p>Alias or alternative name for the network</p></td>
+</tr>
+<tr class="row-odd"><td><p>tstamp</p></td>
+<td><p>Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was created or detected</p></td>
+</tr>
+<tr class="row-even"><td><p>tstamp_end</p></td>
+<td><p>End Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was resolved or ended</p></td>
+</tr>
+<tr class="row-odd"><td><p>severity</p></td>
+<td><p>Severity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Severity level of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>score</p></td>
+<td><p>Score</p></td>
+<td><p>UInt16</p></td>
+<td><p>Numerical score associated with the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>granularity</p></td>
+<td><p>Granularity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Frequency of alert check execution</p></td>
+</tr>
+<tr class="row-even"><td><p>counter</p></td>
+<td><p>Counter</p></td>
+<td><p>UInt32</p></td>
+<td><p>Counter value, possibly indicating the number of times this alert has occurred</p></td>
+</tr>
+<tr class="row-odd"><td><p>description</p></td>
+<td><p>Description</p></td>
+<td><p>String</p></td>
+<td><p>Textual description of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>json</p></td>
+<td><p>JSON</p></td>
+<td><p>String</p></td>
+<td><p>JSON-formatted additional data or full representation of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>user_label</p></td>
+<td><p>User Label</p></td>
+<td><p>String</p></td>
+<td><p>Custom label assigned by a user when silencing the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>user_label_tstamp</p></td>
+<td><p>User Label Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Timestamp when the user label was last modified</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_category</p></td>
+<td><p>Alert Category</p></td>
+<td><p>UInt8</p></td>
+<td><p>Category of the alert</p></td>
+</tr>
+</tbody>
+</table>
+<p>Interface alerts description:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Readable Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rowid</p></td>
+<td><p>Row ID</p></td>
+<td><p>UUID</p></td>
+<td><p>Unique identifier for each row in the table</p></td>
+</tr>
+<tr class="row-odd"><td><p>ifid</p></td>
+<td><p>Interface ID</p></td>
+<td><p>UInt8</p></td>
+<td><p>Identifier for the network interface</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_id</p></td>
+<td><p>Alert ID</p></td>
+<td><p>UInt32</p></td>
+<td><p>Identifier for each alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_status</p></td>
+<td><p>Alert Status</p></td>
+<td><p>UInt8</p></td>
+<td><p>Current status of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>interface_id</p></td>
+<td><p>Interface ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Additional identifier of the network interface associated with the alert (nullable)</p></td>
+</tr>
+<tr class="row-odd"><td><p>subtype</p></td>
+<td><p>Alert Subtype</p></td>
+<td><p>String</p></td>
+<td><p>Subtype of alert_id</p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>Interface Name</p></td>
+<td><p>String</p></td>
+<td><p>Name of the network interface</p></td>
+</tr>
+<tr class="row-odd"><td><p>alias</p></td>
+<td><p>Interface Alias</p></td>
+<td><p>String</p></td>
+<td><p>Alias or alternative name for the interface</p></td>
+</tr>
+<tr class="row-even"><td><p>tstamp</p></td>
+<td><p>Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was created or detected</p></td>
+</tr>
+<tr class="row-odd"><td><p>tstamp_end</p></td>
+<td><p>End Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was resolved or ended</p></td>
+</tr>
+<tr class="row-even"><td><p>severity</p></td>
+<td><p>Severity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Severity level of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>score</p></td>
+<td><p>Score</p></td>
+<td><p>UInt16</p></td>
+<td><p>Numerical score associated with the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>granularity</p></td>
+<td><p>Granularity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Frequency of alert check execution</p></td>
+</tr>
+<tr class="row-odd"><td><p>counter</p></td>
+<td><p>Counter</p></td>
+<td><p>UInt32</p></td>
+<td><p>Counter value, possibly indicating the number of times this alert has occurred</p></td>
+</tr>
+<tr class="row-even"><td><p>description</p></td>
+<td><p>Description</p></td>
+<td><p>String</p></td>
+<td><p>Textual description of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>json</p></td>
+<td><p>JSON</p></td>
+<td><p>String</p></td>
+<td><p>JSON-formatted additional data or full representation of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>user_label</p></td>
+<td><p>User Label</p></td>
+<td><p>String</p></td>
+<td><p>Custom label assigned by a user when silencing the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>user_label_tstamp</p></td>
+<td><p>User Label Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Timestamp when the user label was last modified</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_category</p></td>
+<td><p>Alert Category</p></td>
+<td><p>UInt8</p></td>
+<td><p>Category of the alert</p></td>
+</tr>
+</tbody>
+</table>
+<p>User alerts description:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Readable Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rowid</p></td>
+<td><p>Row ID</p></td>
+<td><p>UUID</p></td>
+<td><p>Unique identifier for each row in the table</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_id</p></td>
+<td><p>Alert ID</p></td>
+<td><p>UInt32</p></td>
+<td><p>Identifier for each alert</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_status</p></td>
+<td><p>Alert Status</p></td>
+<td><p>UInt8</p></td>
+<td><p>Current status of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface_id</p></td>
+<td><p>Interface ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier of the network interface associated with the alert (nullable)</p></td>
+</tr>
+<tr class="row-even"><td><p>user</p></td>
+<td><p>User</p></td>
+<td><p>String</p></td>
+<td><p>Username or identifier of the user associated with the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>tstamp</p></td>
+<td><p>Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was created or detected</p></td>
+</tr>
+<tr class="row-even"><td><p>tstamp_end</p></td>
+<td><p>End Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was resolved or ended</p></td>
+</tr>
+<tr class="row-odd"><td><p>severity</p></td>
+<td><p>Severity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Severity level of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>score</p></td>
+<td><p>Score</p></td>
+<td><p>UInt16</p></td>
+<td><p>Numerical score associated with the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>granularity</p></td>
+<td><p>Granularity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Frequency of alert check execution</p></td>
+</tr>
+<tr class="row-even"><td><p>counter</p></td>
+<td><p>Counter</p></td>
+<td><p>UInt32</p></td>
+<td><p>Counter value, possibly indicating the number of times this alert has occurred</p></td>
+</tr>
+<tr class="row-odd"><td><p>description</p></td>
+<td><p>Description</p></td>
+<td><p>String</p></td>
+<td><p>Textual description of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>json</p></td>
+<td><p>JSON</p></td>
+<td><p>String</p></td>
+<td><p>JSON-formatted additional data or full representation of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>user_label</p></td>
+<td><p>User Label</p></td>
+<td><p>String</p></td>
+<td><p>Custom label assigned by a user when silencing the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>user_label_tstamp</p></td>
+<td><p>User Label Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Timestamp when the user label was last modified</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_category</p></td>
+<td><p>Alert Category</p></td>
+<td><p>UInt8</p></td>
+<td><p>Category of the alert</p></td>
+</tr>
+</tbody>
+</table>
+<p>System alerts description:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Readable Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rowid</p></td>
+<td><p>Row ID</p></td>
+<td><p>UUID</p></td>
+<td><p>Unique identifier for each row in the table</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_id</p></td>
+<td><p>Alert ID</p></td>
+<td><p>UInt32</p></td>
+<td><p>Identifier for each alert</p></td>
+</tr>
+<tr class="row-even"><td><p>alert_status</p></td>
+<td><p>Alert Status</p></td>
+<td><p>UInt8</p></td>
+<td><p>Current status of the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface_id</p></td>
+<td><p>Interface ID</p></td>
+<td><p>UInt16</p></td>
+<td><p>Identifier of the network interface associated with the alert (nullable)</p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>System Name</p></td>
+<td><p>String</p></td>
+<td><p>Name or identifier of the system associated with the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>tstamp</p></td>
+<td><p>Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was created or detected</p></td>
+</tr>
+<tr class="row-even"><td><p>tstamp_end</p></td>
+<td><p>End Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Time when the alert was resolved or ended</p></td>
+</tr>
+<tr class="row-odd"><td><p>severity</p></td>
+<td><p>Severity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Severity level of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>score</p></td>
+<td><p>Score</p></td>
+<td><p>UInt16</p></td>
+<td><p>Numerical score associated with the alert</p></td>
+</tr>
+<tr class="row-odd"><td><p>granularity</p></td>
+<td><p>Granularity</p></td>
+<td><p>UInt8</p></td>
+<td><p>Frequency of alert check execution</p></td>
+</tr>
+<tr class="row-even"><td><p>counter</p></td>
+<td><p>Counter</p></td>
+<td><p>UInt32</p></td>
+<td><p>Counter value, indicating the number of times this alert has occurred</p></td>
+</tr>
+<tr class="row-odd"><td><p>description</p></td>
+<td><p>Description</p></td>
+<td><p>String</p></td>
+<td><p>Textual description of the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>json</p></td>
+<td><p>JSON</p></td>
+<td><p>String</p></td>
+<td><p>JSON-formatted additional data</p></td>
+</tr>
+<tr class="row-odd"><td><p>user_label</p></td>
+<td><p>User Label</p></td>
+<td><p>String</p></td>
+<td><p>Custom label assigned by a user when silencing the alert</p></td>
+</tr>
+<tr class="row-even"><td><p>user_label_tstamp</p></td>
+<td><p>User Label Timestamp</p></td>
+<td><p>DateTime</p></td>
+<td><p>Timestamp when the user label was last modified</p></td>
+</tr>
+<tr class="row-odd"><td><p>alert_category</p></td>
+<td><p>Alert Category</p></td>
+<td><p>UInt8</p></td>
+<td><p>Category of the alert</p></td>
+</tr>
+</tbody>
+</table>
+<p>Vulnerability scan data:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Readable Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>HOST</p></td>
+<td><p>Host</p></td>
+<td><p>String</p></td>
+<td><p>The hostname or identifier of the scanned host</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCAN_TYPE</p></td>
+<td><p>Scan Type</p></td>
+<td><p>String</p></td>
+<td><p>The type or method of vulnerability scan performed</p></td>
+</tr>
+<tr class="row-even"><td><p>LAST_SCAN</p></td>
+<td><p>Last Scan Time</p></td>
+<td><p>DateTime</p></td>
+<td><p>The timestamp of when the last scan was performed</p></td>
+</tr>
+<tr class="row-odd"><td><p>JSON_INFO</p></td>
+<td><p>JSON Information</p></td>
+<td><p>String</p></td>
+<td><p>Additional information about the scan in JSON format</p></td>
+</tr>
+<tr class="row-even"><td><p>VS_RESULT_FILE</p></td>
+<td><p>Result File Path</p></td>
+<td><p>String</p></td>
+<td><p>The file path or identifier for the full vulnerability scan results</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="clickhouse.html" class="btn btn-neutral float-left" title="Connect to ClickHouse" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../kafka/index.html" class="btn btn-neutral float-right" title="Kafka" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/flow_dump/clickhouse/clickhouse_schema.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:52:29 GMT -->
+</html>

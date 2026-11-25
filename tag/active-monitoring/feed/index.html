@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>active monitoring Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/active-monitoring/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/active-monitoring/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Tue, 30 Jan 2024 08:52:33 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>active monitoring Archives - ntop</title>
+	<link>https://www.ntop.org/tag/active-monitoring/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>HowTo Monitor SNMP Interfaces Utilisation and Congestion Rate</title>
+		<link>https://www.ntop.org/howto-monitor-snmp-interfaces-utilisation-and-congestion-rate/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Tue, 30 Jan 2024 08:52:33 +0000</pubDate>
+				<category><![CDATA[News]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[active monitoring]]></category>
+		<category><![CDATA[alerts]]></category>
+		<category><![CDATA[security]]></category>
+		<category><![CDATA[snmp]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10961</guid>
+
+					<description><![CDATA[<p>Recently, we added the ability in ntopng to monitor link utilisation using NetFlow/IPFIX. In this post, we want to show you how we further improved those functionalities by leveraging SNMP to monitor…</p>
+<p>The post <a href="https://www.ntop.org/howto-monitor-snmp-interfaces-utilisation-and-congestion-rate/">HowTo Monitor SNMP Interfaces Utilisation and Congestion Rate</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Recently, we added the ability in ntopng to <a href="https://www.ntop.org/ntop/howto-monitor-network-interface-usage-with-netflow-ipfix/">monitor link utilisation using NetFlow/IPFIX</a>. <span data-preserver-spaces="true">In this post, we want to show you how we further improved those functionalities by leveraging SNMP to monitor the status of many devices (interfaces) simply. </span><span data-preserver-spaces="true">SNMP is a well-known protocol used for monitoring network devices, and ntopng uses it to poll and gather information from them. ntopng computes the&nbsp;</span><em><span data-preserver-spaces="true">interface usage</span></em><span data-preserver-spaces="true">&nbsp;by using a simple proportion between the traffic metered via SNMP and the interface speed. The interface speed is read by default from SNMP, but it can be customised by the user as sometimes the physical and actual interface speeds are different.</span></p>
+<p><span data-preserver-spaces="true">Let&#8217;s see now how it is possible to configure SNMP link speeds and monitor them to detect unexpected behaviours with SNMP polled devices.</span></p>
+<p><span data-preserver-spaces="true">Similar to what happens with the Flow Exporters speed, by going to the SNMP page, selecting an interface of a device, and jumping to the configuration page (cog icon) it is possible to configure the link speed (Up and Down independently) of a specific interface.</span></p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-10962 size-large" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-150918-1024x309.png" alt="" width="1024" height="309"></p>
+<p>As already mentioned above, this speed is automatically read using SNMP, however not all the times detected speed is correct, consider the example of being connected to the Internet with a 1 Gbit ethernet link but your SLA has a cap of 100 Mbit, in this case the right speed to configure is 100 Mbit.<br />
+After setting the interface speeds, save the settings, jump to the Preferences (under the Settings menu), in the SNMP section and be sure to have the &#8220;SNMP Devices Timeseries&#8221; preference enabled.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151501.png"><img decoding="async" class="aligncenter wp-image-10963 size-large" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151501-1024x446.png" alt="" width="1024" height="446"></a></p>
+<p>From now on, a new timeseries is going to be available in the SNMP Interface Timeseries section (accessible from the chart icon, highlighted in green in the above picture) with the interface usage in percentage.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151852.png"><img decoding="async" class="size-large wp-image-10964 aligncenter" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151852-1024x422.png" alt="" width="1024" height="422"></a></p>
+<p>When the usage is &lt;= 25% the bar is light green, from 25 &lt;= 50% is dark green, from 50 &lt;= 75% is yellow, and above is red. However, while developing this feature, we realised that with hundreds, or even thousands, of interfaces, it is impossible to jump to all of them one by one and check whether everything is ok. In addition to that, having an interface &#8220;Congested&#8221; (i.e. high traffic load) for a short period, may or may not represent a real issue: in most cases, it is not, for example, in the case of a backup we have a couple of hours a week were the bandwidth of the interface is filled.<br />
+For this reason, we decided to gather all this information together and put it on a single page.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-154520-1.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-10968" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-154520-1-1024x496.png" alt="" width="1024" height="496"></a></p>
+<p>Here it is possible to navigate through time (by using the classic time navbar) and find if any interfaces had problems. In addition to the standard information (SNMP IP, Interface Name, etc.) we introduced a new metric called &#8220;Congestion Rate&#8221;, representing how much an Interface is filled in the selected timeframe.<br />
+For those who like formulas, the Congestion Rate is computed in the following way: sum all the points of the timeseries with usage higher than 75% and divide it by the number of total points in timeseries in the selected timeframe. In practice, this is similar to the average.<br />
+After finding some issue with the Congestion Rate of an interface, it is possible to drill down and do follow-up investigations by directly clicking on the bar of the Top Congested Interfaces chart or by clicking on the Actions -&gt; Timeseries button.<br />
+And this is not all. As promised, we also added the ability to trigger conditional alerts based on the interface usage. It is now possible, for both SNMP and Flow Exporters, to trigger alerts when the usage exceeds a specific configurable threshold by using <a href="https://www.ntop.org/ntop/local-traffic-rules-a-new-way-to-define-custom-thresholds/">Traffic Rules</a>.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-152247.png"><img loading="lazy" decoding="async" class="size-large wp-image-10965 aligncenter" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-152247-1024x205.png" alt="" width="1024" height="205"></a></p>
+<p>For you reference you can read more about interface utilisation in the <a href="https://www.ntop.org/guides/ntopng/snmp/usage.html">ntopng user&#8217;s guide</a>.</p>
+<p>Enjoy this new feature, and send us your feedback!</p>
+<p>The post <a href="https://www.ntop.org/howto-monitor-snmp-interfaces-utilisation-and-congestion-rate/">HowTo Monitor SNMP Interfaces Utilisation and Congestion Rate</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How we Improved Alarm Delivery in ntopng</title>
+		<link>https://www.ntop.org/how-we-improved-alarm-delivery-in-ntopng/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Mon, 04 Sep 2023 07:19:20 +0000</pubDate>
+				<category><![CDATA[Features]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[active monitoring]]></category>
+		<category><![CDATA[alerts]]></category>
+		<category><![CDATA[analytics]]></category>
+		<category><![CDATA[infrastructure monitoring]]></category>
+		<category><![CDATA[security]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10648</guid>
+
+					<description><![CDATA[<p>Sometimes, a critical issue shows up in your network and you'd like to be notified by ntopng on Telegram or by E-Mail. ntopng allows you to filter alerts for each recipient based…</p>
+<p>The post <a href="https://www.ntop.org/how-we-improved-alarm-delivery-in-ntopng/">How we Improved Alarm Delivery in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Sometimes, a critical issue shows up in your network and you&#8217;d like to be notified by ntopng on Telegram or by E-Mail. ntopng allows you to filter alerts for each recipient based on a few criteria including alert family, category, severity, or affected hosts. However in some case you want to be notified about a very specific alert, out of all alerts produced with the same family, category, severity.</p>
+<p>For example, it&#8217;s important to be notified when an Interface has no traffic, or when a new device (MAC) connects or disconnects from your network, or if a SYN scan attack is in progress, however all these alerts have the same severity/category as other critical alerts that you could not be interested in receiving a message directly on your Telegram (for example).</p>
+<p>For this reason, we decided to extend the recipients configuration to be able to deliver specific alerts, selected from the user to the endpoint we want. In this way, a user can send a notification (e.g.) on his Telegram, if some interface stops capturing traffic (No Traffic Activity alert).</p>
+<p>Doing that today it&#8217;s simple!</p>
+<p>From the Notification page, it&#8217;s possible to handle it, and when adding/editing a Recipient, a tab is available, from which it&#8217;s possible to select:</p>
+<ul>
+<li>&#8216;By Properties&#8217; if the &#8220;old&#8221; way of filtering alerts is needed, so filter alerts by severity, by category, or by entity;</li>
+<li>&#8216;By Alerts&#8217; if the &#8220;new&#8221; filtering is required and here it&#8217;s possible to select one or more alerts to deliver.</li>
+</ul>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-182010.png"><img loading="lazy" decoding="async" class=" wp-image-10668 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-182010-300x150.png" alt="" width="532" height="266"></a></p>
+<p>After selecting &#8216;By Alerts&#8217; click on the dropdown and select the critical alerts to receive.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-181835.png"><img loading="lazy" decoding="async" class=" wp-image-10667 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-181835-300x151.png" alt="" width="550" height="277"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>An other important point is that, as you wish to receive important alerts on your phone, you do not want to be spammed by ntopng!</p>
+<p>So we added a new preference, still when adding/editing a Recipient, to silence the same exact alert if it triggers more than one time per hour, in this way only one alert of the same kind per hour is going to be delivered to the recipient.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-121213.png"><img loading="lazy" decoding="async" class="wp-image-10653 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-121213-300x74.png" alt="" width="555" height="137"></a></p>
+<p>We hope you enjoy this new feature!</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-122227.png"><img loading="lazy" decoding="async" class=" wp-image-10659 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-122227-300x231.png" alt="" width="397" height="306"></a></p>
+<p>The post <a href="https://www.ntop.org/how-we-improved-alarm-delivery-in-ntopng/">How we Improved Alarm Delivery in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Active Monitoring in ntopng 4.0: ICMP, ICMPv6, HTTP and HTTPS pings with RTT</title>
+		<link>https://www.ntop.org/active-monitoring-in-ntopng-4-0-icmp-icmpv6-http-and-https-pings-with-rtt/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 02 Apr 2020 17:15:34 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[active monitoring]]></category>
+		<category><![CDATA[round trip time]]></category>
+		<category><![CDATA[rtt]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=8313</guid>
+
+					<description><![CDATA[<p>The latest stable ntopng 4.0 features a Round Trip Time (RTT) monitor which is capable of pinging hosts on a minute-by-minute basis to check: IP reachability with ICMP and ICMPv6 pings Web…</p>
+<p>The post <a href="https://www.ntop.org/active-monitoring-in-ntopng-4-0-icmp-icmpv6-http-and-https-pings-with-rtt/">Active Monitoring in ntopng 4.0: ICMP, ICMPv6, HTTP and HTTPS pings with RTT</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>The latest stable ntopng 4.0 features a Round Trip Time (RTT) monitor which is capable of pinging hosts on a minute-by-minute basis to check:</p>
+<ul>
+<li>IP reachability with <strong>ICMP and ICMPv6 pings</strong></li>
+<li>Web servers functionality with <strong>HTTP and HTTPS pings</strong></li>
+</ul>
+<p>Checks account for the RTT, that is, the time it takes to reach a certain host and receive a response from it. ntopng shows all the RTT-monitored hosts under the System Interface</p>
+<p>&nbsp;</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2020/03/rtt_monitor_table.png"><img loading="lazy" decoding="async" class="size-large wp-image-8316 aligncenter" src="https://www.ntop.org/wp-content/uploads/2020/03/rtt_monitor_table-1024x516.png" alt="" width="1024" height="516" /></a></p>
+<p>For each monitored host ntopng offers the following information</p>
+<ul>
+<li>The full URL of the monitored host. The URL is the concatenation of the host name or IP address with a prefix which indicates the type of probe, namely one <em>icmp</em>, <em>icmpv6</em>, <em>http</em> or <em>https</em></li>
+<li>A link to a RTT chart with all the minute-by-minute historical measures</li>
+<li>A threshold, expressed in milliseconds, used to trigger alerts</li>
+<li>The time of the last measurement performed</li>
+<li>The latest IP address resolved for the host name indicated in the URL</li>
+<li>The value, in milliseconds, of the latest measured RTT</li>
+<li>Buttons to delete or edit the configured host</li>
+</ul>
+<p>Hosts can be added to the RTT monitor using the <em>plus</em> sign in the top-right corner of the table</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2020/03/rtt_monitor_add_record.png"><img loading="lazy" decoding="async" class="size-full wp-image-8314 aligncenter" src="https://www.ntop.org/wp-content/uploads/2020/03/rtt_monitor_add_record.png" alt="" width="793" height="477" /></a></p>
+<p>Hosts can be added either by IP address or with their symbolic host name. In case a symbolic name is specified, ntopng will resolve it before performing the ping. A measurment needs to be specified as well in order to indicate the type of ping desired. Finally, an RTT threshold is requested for the alerts generation.</p>
+<h3>RTT Alerts</h3>
+<p>Alerts are triggered when the measured RTT is above the configured threshold, or when the host is unreachable. Configuring a threshold is contextual to the addition of an host among those monitored. Alerts are shown under the triangle entry of the RTT menu bar.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2020/03/rtt_monitor_alerts.png"><img loading="lazy" decoding="async" class="size-large wp-image-8315 aligncenter" src="https://www.ntop.org/wp-content/uploads/2020/03/rtt_monitor_alerts-1024x311.png" alt="" width="1024" height="311" /></a></p>
+<p>Alerts can either be engaged, for currently ongoing issues, or past, for issues occurred in the past.</p>
+<h3>RTT Timeseries</h3>
+<p>RTT timeseries are written automatically by default for any of the RTT-monitored hosts.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2020/03/rtt_monitor_timeseries.png"><img loading="lazy" decoding="async" class="size-large wp-image-8320 aligncenter" src="https://www.ntop.org/wp-content/uploads/2020/03/rtt_monitor_timeseries-1024x395.png" alt="" width="1024" height="395" /></a></p>
+<h3>Conclusions</h3>
+<p>ntopng 4.0 is becoming an increasingly active monitoring tool. It adds to the active network discovery and SNMP polling of its predecessor ntopng 3.8 also ICMP, ICMPv6, HTTP and HTTPS ping capabilities. Keeping an eye on hosts on a minute-by-minute basis is now a straightforward thing to do using the RTT Monitor.</p>
+<p>Soon we will make this monitoring mechanism more extensible so that people can add their own monitoring tool to make it more flexible than just latency monitoring. Enjoy!</p>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/active-monitoring-in-ntopng-4-0-icmp-icmpv6-http-and-https-pings-with-rtt/">Active Monitoring in ntopng 4.0: ICMP, ICMPv6, HTTP and HTTPS pings with RTT</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>influxdb Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/influxdb/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/influxdb/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 21 Oct 2026 09:30:38 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>influxdb Archives - ntop</title>
+	<link>https://www.ntop.org/tag/influxdb/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Containers and Networks Visibility with ntopng and InfluxDB</title>
+		<link>https://www.ntop.org/containers-and-networks-visibility-with-ntopng-and-influxdb/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 01 Aug 2019 12:37:14 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[containers]]></category>
+		<category><![CDATA[ebpf]]></category>
+		<category><![CDATA[influxdb]]></category>
+		<category><![CDATA[nprobeagent]]></category>
+		<category><![CDATA[visibility]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7760</guid>
+
+					<description><![CDATA[<p>For a while we have investigated how to combine system and network monitoring in a simple and effective way. In 2014 we have done a few experiments with Sysdig, and recently thanks…</p>
+<p>The post <a href="https://www.ntop.org/containers-and-networks-visibility-with-ntopng-and-influxdb/">Containers and Networks Visibility with ntopng and InfluxDB</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>For a while we have investigated how to combine system and network monitoring in a simple and effective way. In 2014 we have done a few experiments with Sysdig, and recently thanks to eBPF we have revamped our work to exploit this technology as well to be able to monitoring containerised environments. Months ago we have shown how to detect, count and measure the network activity which is taking place at a certain host just by leveraging certain functionalities of the linux operating system, without even looking at the traffic packets. Our seminal work has been published in the paper &#8221; <a href="https://www.ntop.org/wp-content/uploads/2019/02/ITASEC2019.pdf">Combining System Visibility and Security Using eBPF</a>&#8220;. Since then, we have given the talk &#8220;<a href="https://fosdem.org/2019/schedule/event/merging_system_and_network_monitoring_with_bpf/">Merging System and Network Monitoring with BPF</a>&#8221; at FOSDEM 2019 and co-authored the article &#8220;<a href="https://www.influxdata.com/blog/it-monitoring-in-the-era-of-containers-tapping-into-ebpf-observability/">IT Monitoring in the Era of Containers: Tapping into eBPF Observability</a>&#8221; with our friends at InfluxDB, among with other activities.</p>
+<p>In this post, we would like to show you how to get started with containers and network visibility, that is, what tools you need to end up in having new fancy metrics delivered straight to your instance of InfluxDB, metrics which will support you in observing, understanding and troubleshooting containerized environments. In essence this is a guide that highlights what you need to install and run in order to combine system and network monitoring.</p>
+<h3>The Tools</h3>
+<p>Three lightweight tools are needed, namely:</p>
+<ul>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">nprobe-agent</code>, formerly known as nProbe Mini, a small application which is responsible for performing system introspection. If you prefer a pure opensource solution (yet more limited) you can have a look at <a href="https://github.com/ntop/libebpfflow">libebpfflow</a>.</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">ntopng</code>, a visualization tool which receives introspected data from the <code class="EnlighterJSRAW" data-enlighter-language="generic">nprobe-agent</code>, and slices and dices it for producing metrics and sending them to InfluxDB. This article assumes that you are using the latest ntopng version available at the date of this blog post.</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">InfluxDB</code>, the popular timeseries database to store metrics generated by <code class="EnlighterJSRAW" data-enlighter-language="generic">ntopng</code>.</li>
+</ul>
+<p>The top-right part of the following picture shows graphically how they work together. The other parts of the picture show also how they relate to the overall ntop visibility ecosystem.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/06/ecosystem.png"><img fetchpriority="high" decoding="async" class="size-large wp-image-7661 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/06/ecosystem-1024x715.png" alt="" width="1024" height="715" /></a></p>
+<p>The tools can run on the same host or on three different and physically independent hosts, it does not matter as they all communicate each other using the network. For simplicity, in the remainder of this post we assume the tools are installed and run on the same host.</p>
+<h4>Installation</h4>
+<p><code class="EnlighterJSRAW" data-enlighter-language="generic">nprobe-agent</code> and <code class="EnlighterJSRAW" data-enlighter-language="generic">ntopng</code> are distributed by ntop. Follow the instructions at <a href="https://packages.ntop.org">https://packages.ntop.org</a> to add the ntop repositories so that you can use the package manager of your distro to do the installation, which is a one-liner</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">$ sudo apt-get -y install nprobe-agent ntopng</pre>
+<p>InfluxDB installation instructions are available at <a href="https://docs.influxdata.com/influxdb/latest/introduction/installation/">https://docs.influxdata.com/influxdb/latest/introduction/installation/</a>.</p>
+<h4>Configuration</h4>
+<p>To configure <code class="EnlighterJSRAW" data-enlighter-language="generic">nprobe-agent</code> copy its default configuration file into <code class="EnlighterJSRAW" data-enlighter-language="generic">/etc/nprobe-agent/nprobe-agent.conf</code></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">$ sudo cp /etc/nprobe-agent/nprobe-agent.conf.example /etc/nprobe-agent/nprobe-agent.conf</pre>
+<p>The default configuration file contains a single <code class="EnlighterJSRAW" data-enlighter-language="generic">-z=tcp://127.0.0.1:1234c</code> which instructs <code class="EnlighterJSRAW" data-enlighter-language="generic">nprobe-agent</code> to export introspected data on <code class="EnlighterJSRAW" data-enlighter-language="generic">localhost</code> port <code class="EnlighterJSRAW" data-enlighter-language="generic">1234</code>. As we want <code class="EnlighterJSRAW" data-enlighter-language="generic">ntopng</code> to consume such data, we have to add line <code class="EnlighterJSRAW" data-enlighter-language="generic">-i=tcp://*:1234c</code> to the ntopng configuration file <code class="EnlighterJSRAW" data-enlighter-language="generic">/etc/ntopng/ntopng.conf</code> so it will listen for incoming data on port <code class="EnlighterJSRAW" data-enlighter-language="generic">1234</code>.</p>
+<p>Now that the configurations are done, we can safely start our tools as follows</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">$ systemctl restart ntopng
+$ systemctl restart nprobe-agent</pre>
+<p>The final step is to tell ntopng to export metrics to InfluxDB, which basically consists in changing a preference as described in the <a href="https://www.ntop.org/guides/ntopng/basic_concepts/timeseries.html?highlight=influxdb#influxdb-driver">documentation</a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/07/01-ntopng-containers-influxdb-configuration.png"><img decoding="async" class="size-large wp-image-7776 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/07/01-ntopng-containers-influxdb-configuration-1024x588.png" alt="" width="1024" height="588" /></a></p>
+<h4>Getting the licenses</h4>
+<p><code class="EnlighterJSRAW" data-enlighter-language="generic">nprobe-agent</code> requires a license to work. <code class="EnlighterJSRAW" data-enlighter-language="generic">ntopng</code> does not require a license but you may want to consider its <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">Professional or Enterprise</a> versions for a richer set of features. Similarly, InfluxDB works without license but an Enterprise version is featured as well.</p>
+<h3>Metrics Metrics Metrics!</h3>
+<p>As all the pieces are working together now, you&#8217;ll start seeing all the network communications which are taking place on the monitored host, including information on users, processes, pods, containers, round trip times, and so on. We have already discussed how this rich information becomes available for browsing within ntopng in an earlier post <a href="https://www.ntop.org/ntop/system-introspected-network-and-container-visibility-a-quick-start-guide/">System-Introspected Network and Container Visibility: A Quick Start Guide</a> of this series.</p>
+<p>In this post we would like to focus more on the metrics which are produced by ntopng and inserted into InfluxDB. Metrics which are not only <em>produced by</em> but also <em>consumed from</em> ntopng. Indeed, ntopng transparently query InfluxDB to produce any of the charts you&#8217;ll see when browsing its graphical user interface.</p>
+<p>Wait, but what if you already have your dashboarding solution such as Grafana or Chronograf in place? Well, this is perfect and it is going to work seamlessly. You don&#8217;t have to stick with the ntopng graphical user interface. You are free to use your favourite solution just by connecting it to InfluxDB which safely stores metrics and will happily serves them as well &#8211; InfluxDB implements out-of-the-box datasource plugins for Grafana and Chronograf.</p>
+<p>Let&#8217;s go back to the ntopng graphical user interface for a moment to have a look at some charts produced by (transparently) querying InfluxDB metrics.</p>
+<p>The following is a stacked chart of all the network interfaces traffic on the host. Interfaces are physical as well as virtual (see for example the <strong>v</strong>eth&#8230; which stands for <strong>v</strong>irtual ethernet&#8230;).</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/07/02-ntopng-containers-interfaces-activity.png"><img decoding="async" class="alignnone size-large wp-image-7779" src="https://www.ntop.org/wp-content/uploads/2019/07/02-ntopng-containers-interfaces-activity-1024x472.png" alt="" width="1024" height="472" /></a></p>
+<p>This is a chart which tells the number of active flows (i.e., network communications) active at a certain container (named <em>heapster</em>) over time, both as client and as server.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/07/05-ntopng-containers-container-flows-chart.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7782" src="https://www.ntop.org/wp-content/uploads/2019/07/05-ntopng-containers-container-flows-chart-1024x460.png" alt="" width="1024" height="460" /></a></p>
+<p>For the same <em>heapster</em> container it is possible to chart the average round trip time in milliseconds over time.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/07/06-ntopng-containers-container-rtt-chart.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7783" src="https://www.ntop.org/wp-content/uploads/2019/07/06-ntopng-containers-container-rtt-chart-1024x461.png" alt="" width="1024" height="461" /></a></p>
+<p>Charts are also available at the level of pod, where values are averages of all the containers of the pod. For example, this is the chart with the average round trip time of pod <em>heapster</em>:</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/07/07-ntopng-containers-pod-rtt-chart.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7784" src="https://www.ntop.org/wp-content/uploads/2019/07/07-ntopng-containers-pod-rtt-chart-1024x460.png" alt="" width="1024" height="460" /></a></p>
+<p>Again, all the charts shown above can be obtained with any other dashboarding solution, it is absolutely not necessary to use ntopng.</p>
+<h4>Metrics in Detail</h4>
+<p>Let&#8217;s have a closer look at the metrics pushed by ntopng into InfluxDB. An exhaustive list of metrics is available <a href="https://www.ntop.org/guides/ntopng/api/timeseries/metrics.html">here</a>. With reference to the container visibility, it is worth mentioning the following:</p>
+<ul>
+<li>Number of flows per Container and POD</li>
+<li>RTT/RTT-Variance per Container and POD</li>
+<li>Number of containers per POD</li>
+</ul>
+<p>Once in InfluxDB, each metric becomes a timeseries as its values are written into the database periodically. In the remainder of this post we discuss the details of the metrics and how they are stored in InfluxDB.</p>
+<h5>Name</h5>
+<p>All metrics are identified with a name. This name is what is also referred to as <a href="https://docs.influxdata.com/influxdb/latest/introduction/getting-started/#writing-and-exploring-data">measurement</a> in the InfluxDB parlance. The convention <code class="EnlighterJSRAW" data-enlighter-language="generic">&lt;prefix&gt;:&lt;suffix&gt;</code> is used by ntopng for metric names:</p>
+<ul>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">&lt;prefix&gt;</code> is the subject of the metric, e.g., an host a container, or an interface</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">&lt;suffix&gt;</code> is what the metric represents, e.g., the traffic, the round trip time or the number of flows.</li>
+</ul>
+<p>Examples of names are:</p>
+<ul>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">pod:rtt</code></li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">pod:num_flows</code></li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">container:num_flows</code></li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">host:ndpi</code></li>
+</ul>
+<h5>Tags</h5>
+<p>Each metric has one or more tags associated. Tags are used to filter a metric as explained <a href="https://docs.influxdata.com/influxdb/latest/concepts/key_concepts/#discussion">here</a>. ntopng uses tags to enrich metrics with the name or the identifier of an interface, the IP address of a host, the identifier of a pod or container, and so on.</p>
+<p>Examples of tags are:</p>
+<ul>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">ifid=0</code></li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">subnet=192.168.2.0/24</code></li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">container=89b0acbdba4b</code></li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">pod=heapster-v1.5.2-6b5d7b57f9-g2cjz</code></li>
+</ul>
+<h5>Resolution</h5>
+<p>ntopng pushes each metric into InfluxDB at regular intervals of time, as low as 10 sec. Hence, each metric has a resolution associated. The higher the resolution, the shorter the regular interval of time the metric is pushed into InfluxDB. Resolution is configurable for <a href="https://www.ntop.org/guides/ntopng/basic_concepts/timeseries.html#influxdb-driver">certain metrics</a> and is documented <a href="https://www.ntop.org/guides/ntopng/api/timeseries/metrics.html">here</a>.</p>
+<h5>Type</h5>
+<p>Metrics are of two types, namely <em>gauges</em> and <em>counters</em>.</p>
+<ul>
+<li>Counters are metrics which always increase in time, such as for example the traffic of a certain network interface.</li>
+<li>Gauges are metrics such as the number of active flows or active hosts at a certain point in time and can have any value without any constraint.</li>
+</ul>
+<p>The <a href="https://www.ntop.org/guides/ntopng/api/timeseries/metrics.html">documentation</a> indicates the type of each metric generated.</p>
+<h5>Examples</h5>
+<p>Now that we have seen all the details behind the metrics, it&#8217;s time to use the influxdb cli <code class="EnlighterJSRAW" data-enlighter-language="generic">influx</code> to execute some queries to give a better idea of how easy it is to query and operate on metrics</p>
+<p>Let&#8217;s connect to InfluxDB and select database ntopng:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">$ influx -precision rfc3339
+Connected to http://localhost:8086 version 1.7.4
+InfluxDB shell version: 1.7.4
+Enter an InfluxQL query
+&gt; use ntopng
+Using database ntopng
+&gt;</pre>
+<p>To list all the measurements involving a container we can do</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">&gt; show measurements with measurement =~ /^container*/
+name: measurements
+name
+----
+container:num_flows
+container:rtt
+container:rtt_variance
+&gt;</pre>
+<p>We have 3 measurements (3 metrics), one for the number of flows and two for the round trip time and its variance, respectively.</p>
+<p>To select the 10 most recent metric values for container:num_flows we can do</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">&gt; select * from "container:num_flows" order by time desc limit 10
+name: container:num_flows
+time as_client as_server container ifid
+---- --------- --------- --------- ----
+2019-07-29T15:42:00Z 1 11 f427db2c87ac 6
+2019-07-29T15:42:00Z 1 0 0a7f0bfa1a2b 6
+2019-07-29T15:42:00Z 0 2 7c983b788320 6
+2019-07-29T15:42:00Z 4 48 4a32234f6c35 6
+2019-07-29T15:42:00Z 2 0 ceaa16daddd5 6
+2019-07-29T15:42:00Z 138 34 1edb6c16e3d2 6
+2019-07-29T15:42:00Z 19 121 f1e6f2b128e9 6
+2019-07-29T15:42:00Z 1 0 a2a9c82c759f 6
+2019-07-29T15:42:00Z 3 12 8a74af30d974 6
+2019-07-29T15:41:00Z 1 0 a2a9c82c759f 6
+&gt;</pre>
+<p>As we see, there are multiple containers. To filter results for a certain container we can use the container tag as follows</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">&gt; select * from "container:num_flows" where "container" = '1edb6c16e3d2' order by time desc limit 10
+name: container:num_flows
+time as_client as_server container ifid
+---- --------- --------- --------- ----
+2019-07-29T15:44:00Z 136 24 1edb6c16e3d2 6
+2019-07-29T15:43:00Z 142 40 1edb6c16e3d2 6
+2019-07-29T15:42:00Z 138 34 1edb6c16e3d2 6
+2019-07-29T15:41:00Z 142 28 1edb6c16e3d2 6
+2019-07-29T15:40:00Z 140 21 1edb6c16e3d2 6
+2019-07-29T15:39:00Z 139 38 1edb6c16e3d2 6
+2019-07-29T15:38:00Z 136 23 1edb6c16e3d2 6
+2019-07-29T15:37:00Z 132 36 1edb6c16e3d2 6
+2019-07-29T15:36:00Z 137 21 1edb6c16e3d2 6
+2019-07-29T15:35:00Z 143 26 1edb6c16e3d2 6
+&gt;</pre>
+<p>Now we believe we have given you the basics to start playing with InfluxDB and system introspection. Don&#8217;t forget to drop us an email or use our official <a href="https://github.com/ntop/">github</a> page for any question!</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/containers-and-networks-visibility-with-ntopng-and-influxdb/">Containers and Networks Visibility with ntopng and InfluxDB</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>ntopng Disk Requirements for Timeseries and Flows</title>
+		<link>https://www.ntop.org/ntopng-disk-requirements-for-timeseries-and-flows/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 14 Dec 2018 21:33:01 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[disk]]></category>
+		<category><![CDATA[influxdb]]></category>
+		<category><![CDATA[rrd]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7173</guid>
+
+					<description><![CDATA[<p>Being able to do a priori estimations of the space that ntopng is going to use in a production environment is fundamental for the provisioning of the storage. In this post we…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-disk-requirements-for-timeseries-and-flows/">ntopng Disk Requirements for Timeseries and Flows</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Being able to do a priori estimations of the space that ntopng is going to use in a production environment is fundamental for the provisioning of the storage.</p>
+<p>In this post we try to estimate the space used by ntopng to store timeseries and flows.</p>
+<h2>Timeseries</h2>
+<p>The number of timeseries generated by ntopng depends almost exclusively on the number of local hosts. Other timeseries generated, including those for the interfaces or SNMP devices, are generally orders of magnitude less than those generated for local hosts. For this reason, it is safe to only take into account local hosts timeseries when doing the math.</p>
+<p>For every local host, ntopng generates a timeseries for the traffic and an extra series of Layer-7 application protocol timeseries, one for each application protocol. These timeseries can be disabled from the preferences but clearly we need them enabled to write this post.</p>
+<p>In the remainder of this section we discuss the space required by ntopng to store timeseries, as a function of the number of local hosts, both for RRDs and InfluxDB. One can either choose to use RRDs or InfluxDB from the ntopng preferences page. We refer the interested reader to the Appendix to see how these numbers are calculated.</p>
+<p>&nbsp;</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/disk-estim-timeseries.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7189" src="https://www.ntop.org/wp-content/uploads/2018/12/disk-estim-timeseries-1024x644.png" alt="" width="1024" height="644" /></a></p>
+<h3>RRD</h3>
+<p>RRD files are fixed in size, this means that they won&#8217;t grow as new data points arrive. ntopng creates one RRD per timeseries. The space required to store data for every local host depends on what timeseries are enabled and is highlighted in the following table.</p>
+<p>&nbsp;</p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<th style="text-align: left;" width="75%">Enabled Timeseries</th>
+<th width="25%">Disk Space</th>
+</tr>
+<tr>
+<td>Host Timeseries &#8220;Light&#8221; <strong>(Default)</strong></td>
+<td style="text-align: center;">92 K / Local Host (2 RRDs / host)</td>
+</tr>
+<tr>
+<td>Host Timeseries &#8220;Full&#8221; and Layer-7 Applications &#8220;None&#8221;</td>
+<td style="text-align: center;">1.3 MB / Local Host (Approx. 25 RRDs / host)</td>
+</tr>
+<tr>
+<td>Host Timeseries &#8220;Full&#8221; and Layer-7 Applications &#8220;Per Category&#8221;</td>
+<td style="text-align: center;">1.6MB / Local Host (Approx. 30 RRDs / host)</td>
+</tr>
+<tr>
+<td>Host Timeseries&#8221; Full&#8221; and Layer-7 Applications &#8220;Per Application&#8221;</td>
+<td style="text-align: center;">Max. 13.8 MB / Local Host<br />
+<small>(50 K * 250 applications + 1.3 MB)</small></td>
+</tr>
+<tr>
+<td>Host Timeseries &#8220;Full&#8221; and Layer-7 Applications &#8220;Both</td>
+<td style="text-align: center;">Max. 14.1 MB / Local Host<br />
+<small>(50K * 250 applications + 1.6 MB)</small></td>
+</tr>
+</tbody>
+</table>
+<h3>InfluxDB</h3>
+<p>Contrary to RRD, InfluxDB timeseries grow in size as the time goes by. For this reason, the following estimation is not only function of the local hosts, but also of the number of days of monitoring. In addition, as InfluxDB allows to choose the monitoring resolution, we give the space required at two different resolutions, namely 10- and 60-seconds.</p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<th style="text-align: left;" width="50%">InfluxDB</th>
+<th width="25%">10-seconds Resolution</th>
+<th width="25%">60-seconds Resolution</th>
+</tr>
+<tr>
+<td>Timeseries storage</td>
+<td style="text-align: center;">450 KB / Local Host / Day</td>
+<td style="text-align: center;">75 KB / Local Host / Day</td>
+</tr>
+</tbody>
+</table>
+<h2>Flows</h2>
+<p>As we are going to announce soon, we have designed and implemented an high-speed/capacity, special purpose database for the storage of flows. With this database, we are able to dump to disk tens of thousands flows per second. The space used to store each flow is shown in the following table.</p>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<th style="text-align: left;" width="75%">Flow Index</th>
+<th width="25%"></th>
+</tr>
+<tr>
+<td>Flows storage</td>
+<td style="text-align: center;">11 Bytes / Flow</td>
+</tr>
+</tbody>
+</table>
+<p>The above value is an average value based on IPv4 traffic with some IPv6 flows. It can increase if you mostly have IPv6 traffic and long metadata strings stored in flows.</p>
+<h2>Appendix</h2>
+<p>In this appendix we discuss the math we have done to calculate the estimations above.</p>
+<h3>InfluxDB</h3>
+<p>To do the estimations of InfluxDB we have considered an ntopng running in production on a real environment, monitoring a SPAN port at an average traffic of 444.84 Mbps, with an average of 22,323 hosts inclusive of approximately 4,000 local hosts. ntopng is monitoring Layer-7 Applications and dumping timeseries data points with a 10-seconds resolution.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/disk-estim-influxdb-ifstats-traf.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7177" src="https://www.ntop.org/wp-content/uploads/2018/12/disk-estim-influxdb-ifstats-traf-1024x540.png" alt="" width="1024" height="540" /></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/disk-estim-influxdb-ifstats-hosts.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7175" src="https://www.ntop.org/wp-content/uploads/2018/12/disk-estim-influxdb-ifstats-hosts-1024x542.png" alt="" width="1024" height="542" /></a></p>
+<p>Data is obtained as follows:</p>
+<ul>
+<li>InfluxDB Storage: 154.14 GB as shown in the ntopng runtime status page.</li>
+<li>Time of monitoring: 3 months as obtained from the ntopng interface stats page.</li>
+</ul>
+<p>Math is the following:</p>
+<ul>
+<li>KB / Local Host / Day @ 10s = 154.14 GB / 3 Months / 4,000 local hosts = ((154.14 * 1024 * 1024) / 4000 / 90) = 450 KB / Local Host / Day</li>
+<li>KB / Local Host / Day @ 60s = (KB / Local Host / Day @ 10s) / 6 = 75 KB / Local Host / Day</li>
+</ul>
+<h3>RRD</h3>
+<p>To do the estimations of RRD we have used an ntopng running in a production system that is collecting sFlow from nProbe. The system has seen approximately 2,000 local hosts and has Layer-7 timeseries generation enabled.</p>
+<p>Data is obtained as follows:</p>
+<ul>
+<li>Number of local hosts: <code class="EnlighterJSRAW" data-enlighter-language="shell">/var/lib/ntopng/0/rrd $ find . -name "bytes.rrd" | wc -l</code> = 1,989</li>
+<li>Number of RRDs: <code class="EnlighterJSRAW" data-enlighter-language="shell">/var/lib/ntopng/0/rrd $ find . -name "*.rrd" | wc -l</code> = 25,506</li>
+<li>Total size of RRDs: <code class="EnlighterJSRAW" data-enlighter-language="shell">/var/lib/ntopng/0/ $ du -hs rrd/</code> = 989M</li>
+</ul>
+<p>Math is the following:</p>
+<ul>
+<li>989 M / 1,989 Local Hosts = (989 / 1989) * 1024 = 500 KB / Local Host</li>
+</ul>
+<h3>Flow Index</h3>
+<p>Flow index estimations have been done using the very same host used for InfluxDB. To compute the number of bytes used by each flow stored in the flow database, we have done the following math.</p>
+<p>First, we have counted the number of flows over an hour</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">$ ./nindex -d /var/lib/ntopng/0/flows/ -b 1544713200 -e 1544716800 -l 0
+14/Dec/2018 21:29:05 [nindex.cpp:346] Search time range [Thu Dec 13 15:00:00 2018 -&gt; Thu Dec 13 16:00:00 2018]
+14/Dec/2018 21:29:05 [nindex.cpp:356] Performing record count (-l 0)
+14/Dec/2018 21:29:05 [nindex.cpp:393] Query completed in 2.1 msec, with 16'962'614 hits returned
+</pre>
+<p>Then, we have counted the disk space used to store data for that particular hour</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">$ du -hs /var/lib/ntopng/0/flows/2018/12/13/15
+175M /var/lib/ntopng/0/flows/2018/12/13/15</pre>
+<p>Finally, we have obtained the Bytes / Flow as = 175M / 16962614 = (175 * 1024 * 1024) / 16962614 = 11 B / Flow.</p>
+<p>PS. Note that we have scan ~17 million records in ~2 msec. Not too bad for a low end system using a SATA drive where ntopng is writing in them meantime.</p>
+<p>The post <a href="https://www.ntop.org/ntopng-disk-requirements-for-timeseries-and-flows/">ntopng Disk Requirements for Timeseries and Flows</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

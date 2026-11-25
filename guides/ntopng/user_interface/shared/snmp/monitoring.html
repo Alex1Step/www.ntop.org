@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/snmp/monitoring.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:51:50 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Device Monitoring &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="SNMP Usage" href="usage.html" />
+    <link rel="prev" title="Configuration and Discovery" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">User Interface Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../network_interface/index.html">Network Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#alerts">Alerts</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#monitoring">Monitoring</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../monitoring/active_monitoring.html">Active Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../monitoring/infrastructure_monitoring.html">Infrastructure Monitoring</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">SNMP</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="configuration.html">Configuration and Discovery</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Device Monitoring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#network-interfaces">Network Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interface-roles">Interface Roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interface-label-format">Interface Label Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#binding-mac-address-to-interface">Binding MAC Address to Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="usage.html">SNMP Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="similarity.html">Interface Similarity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topology.html">Network Topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rules.html">Device rules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="statistics_and_troubleshooting.html">Statistics and Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#developer">Developer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="index.html">SNMP</a></li>
+      <li class="breadcrumb-item active">Device Monitoring</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/user_interface/shared/snmp/monitoring.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="device-monitoring">
+<h1>Device Monitoring<a class="headerlink" href="#device-monitoring" title="Link to this heading"></a></h1>
+<p>ntopng supports several MIBS including (but not limited to):</p>
+<ul class="simple">
+<li><p>MIB-II</p></li>
+<li><p>LLDP / CDP MIB</p></li>
+<li><p>Bridge MIB</p></li>
+<li><p>netSNMP</p></li>
+</ul>
+<p>Below you can see an overview of a device:</p>
+<figure class="align-center">
+<img alt="SNMP Device Overview" src="../../../_images/SNMP_System.png" />
+</figure>
+<p>During device discovery, ntopng automatically detectes the MIBs and in the device menu are displayed icons of those that aare available. In the picture below you can see for instance an overview of the SNMP memory and CPU usage.</p>
+<figure class="align-center">
+<img alt="SNMP Device: CPU and Memory" src="../../../_images/SNMP_CPU.png" />
+</figure>
+</section>
+<section id="network-interfaces">
+<h1>Network Interfaces<a class="headerlink" href="#network-interfaces" title="Link to this heading"></a></h1>
+<p>One of the main uses of SNMP is monitoring of network interfaces. ntopng displays them in a table view:</p>
+<figure class="align-center">
+<img alt="SNMP Network Interfaces" src="../../../_images/SNMP_Interfaces.png" />
+</figure>
+<p>Clicking on an interface id a drill-down page is shown</p>
+<figure class="align-center">
+<img alt="SNMP Network Interface Overview" src="../../../_images/SNMP_Interface.png" />
+</figure>
+</section>
+<section id="interface-roles">
+<h1>Interface Roles<a class="headerlink" href="#interface-roles" title="Link to this heading"></a></h1>
+<p>It is possible to assign a role to a network interface that spcifies the intent for which such interface is used. Roles include:</p>
+<ul class="simple">
+<li><p>Customer</p></li>
+<li><p>IX</p></li>
+<li><p>Internal LAN</p></li>
+<li><p>Internet Connectivity</p></li>
+<li><p>Other</p></li>
+<li><p>Peering</p></li>
+<li><p>Transit</p></li>
+</ul>
+<p>You can set the individual interface role as shown in the figure below</p>
+<figure class="align-center">
+<img alt="SNMP Interface Role" src="../../../_images/snmp_port_role.png" />
+</figure>
+</section>
+<section id="interface-label-format">
+<h1>Interface Label Format<a class="headerlink" href="#interface-label-format" title="Link to this heading"></a></h1>
+<p>From the preferences page it is possible to change the label format displayed
+for SNMP interfaces. By default, ntopng shows the interface alias, but it is
+also possible to display the interface name instead.</p>
+<p>To change this setting, navigate to <strong>Preferences → SNMP → SNMP Interface Label Format</strong>.</p>
+<figure class="align-center">
+<img alt="SNMP Interface Label Format" src="../../../_images/SNMP_Interface_label.png" />
+</figure>
+</section>
+<section id="binding-mac-address-to-interface">
+<h1>Binding MAC Address to Interface<a class="headerlink" href="#binding-mac-address-to-interface" title="Link to this heading"></a></h1>
+<p>If present, ntopng polls the bridge MIB that is used to discover the MAC addresses observed on a network interface.</p>
+<figure class="align-center">
+<img alt="SNMP Interfaces and MAC Addresses" src="../../../_images/SNMP_Bridge.png" />
+</figure>
+<p>As shown above, ntopng reports the list of MAC addresses for each network interface and uses this information in network monitoring.</p>
+<figure class="align-center">
+<img alt="SNMP Interfaces and MAC Addresses" src="../../../_images/SNMP_MacBridge.png" />
+</figure>
+<p>In the above picture you can see how SNMP is used to bind an IP address to SNMP and thus to a physical device.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration and Discovery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="SNMP Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/snmp/monitoring.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:51:59 GMT -->
+</html>

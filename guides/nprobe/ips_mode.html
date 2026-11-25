@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nprobe/ips_mode.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:21:43 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Running nProbe in IPS Mode &mdash; nProbe 10.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options0088.js?v=864e5427"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Agent Mode support in nProbe" href="agent_mode.html" />
+    <link rel="prev" title="BGP/BMP Traffic Monitoring" href="bgp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nProbe
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nprobe/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#what-is-nprobe">What is nProbe?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Versions Comparison Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configurations.html">nProbe Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">How to Start nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Tuning nProbe Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#high-speed-flow-collection">High-Speed Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#expected-collection-performance">Expected Collection Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-flows-from-many-routers">Collecting Flows from Many Routers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Handling Trillion Flows: Dumping Flows into ClickHouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#data-deduplication">Data Deduplication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#snmp-interfaces-polling">SNMP Interfaces Polling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-ntap-traffic">Collecting nTap Traffic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#influxdb-based-timeseries-dump">InfluxDB-based Timeseries Dump</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#howto-create-sflow-timeseries">HowTo Create sFlow Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-relay">Flow Relay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-replication-fanout">Flow Replication / Fanout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#dumping-collected-flows-packets">Dumping Collected Flows/Packets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tls.html">Using TLS In Flow Collection/Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tls.html#tls-certificates-validation">TLS Certificates Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Note on interface indexes and (router) MAC/IP addresses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#further-plugin-available-command-line-options">Further plugin available command line options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX format [-T]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Using nProbe with ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kafka.html">Using Kafka with nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bgp.html">BGP/BMP Traffic Monitoring</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running nProbe in IPS Mode</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ips-use-cases">IPS Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ips-and-ntopng">IPS and ntopng</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#traffic-monitoring">Traffic Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#policy-configuration">Policy Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#freebsd-vs-linux-ips-implementation">FreeBSD vs Linux IPS Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#policies-configuration">Policies Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ips-mode-on-linux">IPS Mode on Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#freebsd-opnsense-pfsense">FreeBSD/OPNsense/pfSense</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="agent_mode.html">Agent Mode support in nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="case_study/index.html">nProbe Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">nProbe Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing_plugins.html">Developing nProbe Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bpf_expressions.html">BPF Packet Filtering Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_information_elements.html">Flow Information Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware_sizing.html">Hardware Sizing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nProbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Running nProbe in IPS Mode</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ips_mode.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="running-nprobe-in-ips-mode">
+<span id="runninginipsmode"></span><h1>Running nProbe in IPS Mode<a class="headerlink" href="#running-nprobe-in-ips-mode" title="Link to this heading"></a></h1>
+<p>nProbe <em>9.5.210610</em> and later features a new IPS mode. This means that
+it is possible to run nProbe inline as a transparent bridge and block
+selected traffic based on configured traffic policies.</p>
+<figure class="align-center">
+<img alt="nProbe Running in IPS Mode" src="_images/ips.png" />
+</figure>
+<p>In this setup you can combine network visibility offered by ntopng with the
+ability to enforce policies and block threats offered by nProbe when running in IPS mode.</p>
+<section id="ips-use-cases">
+<h2>IPS Use Cases<a class="headerlink" href="#ips-use-cases" title="Link to this heading"></a></h2>
+<p>Typical use cases include:</p>
+<ul class="simple">
+<li><p>Ability to cluster omogenerous hosts in pools to which a specialised policy can be applied</p></li>
+<li><p>Block traffic based on the application protocol (DPI). Example: block BitTorrent traffic.</p></li>
+<li><p>Allow/block access based on the country or region, Example: allow SSH access to server 1.2.3.4 only from Italy.</p></li>
+<li><p>Block connections that have security issues. Example: block TLS connections with invalid certificates.</p></li>
+<li><p>(Linux only) Assign a maximum bandwidth to selected protocols. Example: assign 10 Mbit of bandwidth to NetFlix.</p></li>
+</ul>
+</section>
+<section id="ips-and-ntopng">
+<h2>IPS and ntopng<a class="headerlink" href="#ips-and-ntopng" title="Link to this heading"></a></h2>
+<p>nProbe in IPS mode is integrated with ntopng that can act as:</p>
+<ol class="arabic simple">
+<li><p>a monitoring console for visualising policed traffic.</p></li>
+<li><p>a policy configurator for generating traffic policies.</p></li>
+</ol>
+<section id="traffic-monitoring">
+<h3>Traffic Monitoring<a class="headerlink" href="#traffic-monitoring" title="Link to this heading"></a></h3>
+<p>nProbe and ntopng have been enhanced to report information about policed traffic. Flows that
+are not allowed (i.e. dropped in the IPS policies) are depicted with a strikethrough line so
+that you can immediately see what traffic has been dropped and what instead is flowing
+in the network.</p>
+<figure class="align-center">
+<img alt="ntopng as monitoring console for nProbe" src="_images/ips_ntopng.png" />
+</figure>
+<p>The integration is seamlessly via ZMQ. Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>--zmq<span class="w"> </span>tcp://*:1234<span class="w"> </span>--ips-mode<span class="w"> </span>/etc/nprobe/ips-rules.conf<span class="w"> </span>-i<span class="w"> </span>nf:0
+ntopng<span class="w"> </span>-i<span class="w"> </span>tcp://127.0.0.1:1234
+</pre></div>
+</div>
+<p>In the above example, policies are defined in <em>/etc/nprobe/ips-rules.conf</em> according to
+the format described later in this guide.</p>
+</section>
+<section id="policy-configuration">
+<h3>Policy Configuration<a class="headerlink" href="#policy-configuration" title="Link to this heading"></a></h3>
+<p>As an alternative to the manual policy configuration by means of a configuration file,
+ntopng can be used to configure policies and automatically export them to nProbe through
+a ZMQ channel. This can be configured by setting the <em>–ips-mode</em> parameter to <em>none</em> and
+using the <em>–zmq-publish-events</em> option to configure the ntopng ZMQ endpoint for IPS
+events. Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>--zmq<span class="w"> </span>tcp://*:1234<span class="w"> </span>--ips-mode<span class="w"> </span>none<span class="w"> </span>--zmq-publish-events<span class="w"> </span>tcp://127.0.0.1:5557<span class="w"> </span>-i<span class="w"> </span>nf:0
+ntopng<span class="w"> </span>-i<span class="w"> </span>tcp://127.0.0.1:1234<span class="w"> </span>--zmq-publish-events<span class="w"> </span>tcp://*:5557
+</pre></div>
+</div>
+<p>Please refer to the ntopng documentation for more details about the <a class="reference external" href="../ntopng/web_gui/pools.html">Host Pools and Traffic Policies</a>
+configuration using the web GUI.</p>
+</section>
+</section>
+<section id="freebsd-vs-linux-ips-implementation">
+<h2>FreeBSD vs Linux IPS Implementation<a class="headerlink" href="#freebsd-vs-linux-ips-implementation" title="Link to this heading"></a></h2>
+<p>IPS mode is available for both Linux and FreeBSD (including OPNsense and pfSense) operating
+systems and while the command line and configuration file is seamless across platforms its
+operating mode is totally different.</p>
+<p>On Linux, nProbe leverages on NetFilter for speaking with the bridging system: in essence via
+NF_QUEUE the kernel sends nProbe packets to be analyzed/policed. nProbe makes a verdict on such
+packets and reports it to the operating system that will handle packets belonging to
+such flow in the kernel instead of sending them to nProbe for forwarding.
+This guarantees maximum performance as only the first few packets
+(typically until nDPI detects the application protocol) are delivered to nProbe while the rest is
+processed inside the kernel. Combining this with multi-queue, it boosts the nProbe performance that
+outperforms the typical figures of the vanilla bridge infrastructure.</p>
+<p>On FreeBSD this facility is not available, and thus nProbe needs to bridge packets in userspace
+by reducing the performance. The nProbe product page reports typical performance figures.</p>
+</section>
+<section id="policies-configuration">
+<h2>Policies Configuration<a class="headerlink" href="#policies-configuration" title="Link to this heading"></a></h2>
+<p>Different traffic policies can be applied to different hosts by defining
+pools of hosts based on IP, subnet (CIDR), MAC address. Based on the nProbe
+version it is possible to specify a variable number of rules: please refer
+to the nProbe product page for more details about these limits.</p>
+<p>Traffic policies include:</p>
+<ul class="simple">
+<li><p>Traffic blocking based on the application protocol.</p></li>
+<li><p>Traffic blocking based on <em>risks</em> detected by the DPI library.</p></li>
+<li><p>Traffic blocking based on GeoIP information including Country and Continent.</p></li>
+<li><p>Traffic blocking or shaping based on Layer-7 categories.</p></li>
+</ul>
+<p>In order to enable <em>IPS mode</em> in nProbe, a configuration file containing
+the policies definitions in JSON format should be provided using the <em>–ips-mode</em>
+parameter.</p>
+<p>The configuration file should contain:</p>
+<ol class="arabic simple">
+<li><p>The pools definition section, where each pool defines:</p></li>
+</ol>
+<ul class="simple">
+<li><p>An <em>id</em>, which is a numeric and unique identifier for the pool</p></li>
+<li><p>A <em>name</em> for the pool</p></li>
+<li><p>A list of MAC addresses</p></li>
+<li><p>A list of IP or subnets (CIDR format)</p></li>
+<li><p>The <em>id</em> of the <em>policy</em> to be applied to the pool</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my pool 1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;192.168.1.0/24&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>The policies definition section, where each policy defines:</p></li>
+</ol>
+<ul class="simple">
+<li><p>An <em>id</em>, which is a numeric and unique identifier for the policy</p></li>
+<li><p>A <em>name</em> for the policy</p></li>
+<li><p>A <em>default_marker</em> which defines the default action for traffic</p></li>
+<li><p>A <em>flow_risk</em> configuration which defines what traffic matching risks should be dropped</p></li>
+<li><p>A <em>markers</em> section which defines policies based on <em>protocols</em> and <em>categories</em></p></li>
+</ul>
+<p>The action can be <em>pass</em>, <em>drop</em> or a marker (number) that can be used to apply shaping
+policies when NetFilter is used (see the next section <em>IPS Mode on Linux</em>).
+Markers 1 and 2 are used by the <em>pass</em> and <em>drop</em> actions respectively.</p>
+<p>A policy definition can inherit from another policy, in fact it is a good practice
+to define a global <em>root</em> policy with <em>id</em> 0 and define specific policies for eaach
+pool as in the below example.</p>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root rule&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;flow_risk&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;bitmap&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12321</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}}</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root rule&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;Facebook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="w"> </span><span class="p">}},</span><span class="w"> </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;29&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="w"> </span><span class="p">}}}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Additional settings, including:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Custom L7 protocols definition (to extend the built-in nDPI protocols)</p></li>
+<li><p>Categories definition (e.g. to handle list of Malwares)</p></li>
+<li><p>Path of the GeoIP database files (used to filter based on Country/Continent/AS)</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;custom_protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/nprobe/protos.txt&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;category_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/nprobe/lists/nfw_malware_list.txt&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;category_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/nprobe/lists/nfw_mining_list.txt&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;geoip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/data/dbip-asn-lite-2021-04.mmdb&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;city&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/data/dbip-city-lite-2021-04.mmdb&quot;</span><span class="w"> </span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>Full example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="err">###</span><span class="w"> </span><span class="err">Cus</span><span class="kc">t</span><span class="err">om</span><span class="w"> </span><span class="err">pro</span><span class="kc">t</span><span class="err">ocols</span><span class="w"> </span><span class="err">de</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">###</span>
+<span class="err">#</span><span class="w"> </span><span class="err">No</span><span class="kc">te</span><span class="p">:</span><span class="w"> </span><span class="err">keep</span><span class="w"> </span><span class="err">pro</span><span class="kc">t</span><span class="err">ocols</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="err">ca</span><span class="kc">te</span><span class="err">gories</span><span class="w"> </span><span class="err">de</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="err">be</span><span class="kc">f</span><span class="err">ore</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">policy</span><span class="w"> </span><span class="err">de</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;custom_protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/nprobe/protos.txt&quot;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="err">###</span><span class="w"> </span><span class="err">Ca</span><span class="kc">te</span><span class="err">gory</span><span class="w"> </span><span class="kc">f</span><span class="err">iles</span><span class="w"> </span><span class="err">###</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;category_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/nprobe/lists/nfw_malware_list.txt&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;category_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/nprobe/lists/nfw_mining_list.txt&quot;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="err">###</span><span class="w"> </span><span class="err">GeoIP</span><span class="w"> </span><span class="err">###</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;geoip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/data/dbip-asn-lite-2021-04.mmdb&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;city&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/data/dbip-city-lite-2021-04.mmdb&quot;</span><span class="w"> </span><span class="p">}}</span>
+
+<span class="err">###</span><span class="w"> </span><span class="err">Pool</span><span class="w"> </span><span class="err">de</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">###</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my pool 1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;192.168.0.1/24&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;10.0.0.0/8&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;2a03:b0c0:2:d0::360:4001/48&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">1</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my pool 2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;e8:06:88:ff:fe:e4&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;02:81:27:b5:f9:f3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;00:01:01:e4:ba:2c&quot;</span><span class="p">],</span><span class="w">  </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="s2">&quot;172.16.0.0/16&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">2</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my pool 3&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;131.114.0.0/16&quot;</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">}}</span>
+
+<span class="err">###</span><span class="w"> </span><span class="err">Policy</span><span class="w"> </span><span class="err">de</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">###</span>
+<span class="err">#</span><span class="w"> </span><span class="err">Co</span><span class="kc">nt</span><span class="err">i</span><span class="kc">nents</span><span class="p">:</span><span class="w"> </span><span class="err">A</span><span class="kc">fr</span><span class="err">ica</span><span class="w"> </span><span class="err">/</span><span class="w"> </span><span class="err">Asia</span><span class="mi">-</span><span class="err">Paci</span><span class="kc">f</span><span class="err">ic</span><span class="w"> </span><span class="err">/</span><span class="w"> </span><span class="err">Europe</span><span class="w"> </span><span class="err">/</span><span class="w"> </span><span class="err">Nor</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">America</span><span class="w"> </span><span class="err">/</span><span class="w"> </span><span class="err">Sou</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">America</span>
+
+<span class="err">#</span><span class="w"> </span><span class="err">Roo</span><span class="kc">t</span><span class="w"> </span><span class="err">rule</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root rule&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;flow_risk&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;bitmap&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12321</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;TLS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="w"> </span><span class="p">}}}}</span>
+
+<span class="err">#</span><span class="w"> </span><span class="err">Rules</span><span class="w"> </span><span class="err">de</span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">(so</span><span class="kc">n</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">rule</span><span class="w"> </span><span class="mi">0</span><span class="err">)</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my rule 1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;29&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;HTTP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;IT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;CN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;continents&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;Asia&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="w"> </span><span class="p">}}}}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my rule 3&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;HTTP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="w"> </span><span class="p">}}}}</span>
+
+<span class="err">#</span><span class="w"> </span><span class="err">Subrule</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">rule</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="err">(wi</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">res</span><span class="kc">tr</span><span class="err">ic</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="err">)</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my subrule 2 (son of rule 1)&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;53&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;hostnames&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;fundingchoicesmessages.google.com&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;www.gstatic.com&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;www.youtube.com&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="w"> </span><span class="p">}}}}</span>
+</pre></div>
+</div>
+</section>
+<section id="ips-mode-on-linux">
+<h2>IPS Mode on Linux<a class="headerlink" href="#ips-mode-on-linux" title="Link to this heading"></a></h2>
+<p>The <em>IPS mode</em> on Linux is based on NetFilter and requires a Linux bridge configuration. Part of the nProbe package, you can find
+simple configuration files in /usr/share/nprobe/netfilter/scripts/ including:</p>
+<ul class="simple">
+<li><p><em>policy_simple.sh</em> : simple policy implementation that shows how to divert UDP traffic to nProbe via NF_QUEUE. All the remaining traffic will be unpoliced. This script is designed to run on a stand-alone host.</p></li>
+<li><p><em>policy_and_bridge_simple.sh</em> : simple implementation to transparently bridge two network interfaces. This script creates a bridge between two configurable interfaces, and sends their traffic to nProbe via NF_QUEUE.</p></li>
+<li><p><em>policy_on_bridge.sh</em> : example of configuration on a host that is used to transparently bridge network interfaces. This is a typical setup for creating a transparent traffic policer. AS you can read in the script, you need to specify the name for LAN, WAN and BRIDGE devices. This script allows you to silently drop traffic when it does not match the traffic policies.</p></li>
+<li><p><em>policy_with_shaper.sh</em> : same as the previous script with the different that it setups also traffic shaping for assigning traffic to shapers. This script allows you to both drop unwanted traffic and shape allowed traffic.</p></li>
+</ul>
+<p>Please find below a simple NetFilter configuaration creating a queue with ID 0 and diverting DNS traffic to it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iptables<span class="w"> </span>-F
+iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-F
+iptables<span class="w"> </span>-t<span class="w"> </span>mangle<span class="w"> </span>-F
+iptables<span class="w"> </span>-A<span class="w"> </span>OUTPUT<span class="w"> </span>-p<span class="w"> </span>icmp<span class="w"> </span>-j<span class="w"> </span>NFQUEUE<span class="w"> </span>--queue-num<span class="w"> </span><span class="m">0</span><span class="w"> </span>--queue-bypass
+iptables<span class="w"> </span>-A<span class="w"> </span>OUTPUT<span class="w"> </span>-p<span class="w"> </span>udp<span class="w"> </span>--sport<span class="w"> </span><span class="m">53</span><span class="w"> </span>-j<span class="w"> </span>NFQUEUE<span class="w"> </span>--queue-num<span class="w"> </span><span class="m">0</span><span class="w"> </span>--queue-bypass
+iptables<span class="w"> </span>-A<span class="w"> </span>OUTPUT<span class="w"> </span>-p<span class="w"> </span>udp<span class="w"> </span>--dport<span class="w"> </span><span class="m">53</span><span class="w"> </span>-j<span class="w"> </span>NFQUEUE<span class="w"> </span>--queue-num<span class="w"> </span><span class="m">0</span><span class="w"> </span>--queue-bypass
+</pre></div>
+</div>
+<p>As previously stated, sample scripts for configuring NetFilter are installed by the nProbe package under <em>/usr/share/nprobe/netfilter/scripts</em>.
+Please check the help (run the script with the <em>-h</em> parameter) for a description about the script functionalities. All the
+scripts have support for specifying the interfaces via parameters: <em>-W &lt;WAN interface&gt;</em>, <em>-L &lt;LAN interface&gt;</em>, <em>-B &lt;bridge interface&gt;</em>.
+Additional configuration may be available in the script itself, it is recommended to take a look at, and eventually modify, the
+script code according to the use case.</p>
+<p>After configuring NetFilter, it is possible to start nProbe on the NetFilter interface by using nf:ID as interface name (in other words please configure NetFilter first and then start nProbe)..</p>
+<p>Example of nProbe configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-i<span class="o">=</span>nf:0
+-n<span class="o">=</span>none
+--zmq<span class="o">=</span>tcp://*:5556
+-T<span class="o">=</span><span class="s2">&quot;@NTOPNG@&quot;</span>
+--ips-mode<span class="o">=</span>/etc/nprobe/ips-rules.conf
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On Linux (but not on FreeBSD) when you configure NetFilter rules to forward in kernel all packets that have been already marked by nProbe, such packets are invisbile to nProbe.
+This is because such packets are not observed by nProbe as they are hanled in kernel. In this case when attaching ntopng to nProbe, the traffic volumes
+reported by ntopng are smaller than the traffic that has flown in the network.</p>
+</div>
+</section>
+<section id="freebsd-opnsense-pfsense">
+<h2>FreeBSD/OPNsense/pfSense<a class="headerlink" href="#freebsd-opnsense-pfsense" title="Link to this heading"></a></h2>
+<p>The <em>IPS mode</em> on FreeBSD does not require a special configuration, it is only required
+to specify in nProbe as interface the one where policies should be applied.
+Please visit the <a class="reference internal" href="third_party_integrations/opnsense.html#opnsenseintegration"><span class="std std-ref">OPNsense</span></a> and <a class="reference internal" href="third_party_integrations/pfsense.html#pfsenseintegration"><span class="std std-ref">pfsense</span></a> sections for
+further information about the configuration.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="bgp.html" class="btn btn-neutral float-left" title="BGP/BMP Traffic Monitoring" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="agent_mode.html" class="btn btn-neutral float-right" title="Agent Mode support in nProbe" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nprobe/ips_mode.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:22:16 GMT -->
+</html>

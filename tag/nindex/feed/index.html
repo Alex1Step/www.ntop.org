@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>nindex Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/nindex/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/nindex/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Mon, 24 Dec 2018 18:29:34 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>nindex Archives - ntop</title>
+	<link>https://www.ntop.org/tag/nindex/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Say hello to nIndex: Personal Big Data System for Network Flows</title>
+		<link>https://www.ntop.org/say-hello-to-nindex-personal-big-data-system-for-network-flows/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 24 Dec 2018 18:29:34 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[nindex]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7256</guid>
+
+					<description><![CDATA[<p>Being able to store network flows is a very challenging task using generic databases. Networks are becoming faster and faster and, nowadays, flow-based analysis tools should store tens, or even hundreds, of…</p>
+<p>The post <a href="https://www.ntop.org/say-hello-to-nindex-personal-big-data-system-for-network-flows/">Say hello to nIndex: Personal Big Data System for Network Flows</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Being able to store network flows is a very challenging task using generic databases. Networks are becoming faster and faster and, nowadays, flow-based analysis tools should store tens, or even hundreds, of thousands of flows per second, to keep up with SME and enterprise demands. Existing tools, such as relational databases, fail to accomplish this task. Unless you have unlimited resources available, tons of RAM and clusters of machines, chances are your database will choke, quickly becoming too slow to enable queries from being performed in a reasonable time. It was incredible the number of users complaining of slow MySQL instances that both slow when ingesting flows and also when performing queries for the analysis.</p>
+<p>Another option many people use is the so called <a href="https://en.wikipedia.org/wiki/Big_data">big data</a>. In essence instead of solving the problem of efficiently storing data by exploiting the native properties of flows, big data systems maximise performance by distributing the data across various systems shards, tables etc. So in essence they do not solve the problem, but just move the problem and gain in performance as the database is no longer a unique entity but several components contribute to the performance each working on a substantial of the data.</p>
+<p>At ntop we believe in simplicity, as thus we do not see a solution in creating a complex system that leverages on various servers as the big data paradigm dictates. Instead we believe that studying properties of flows and trying to exploit them for efficiently in both speed and storage space, is the solution. For instance an IPv4 address is a special number with high frequency for local IP addresses, of the protocol is not just a 8 bit value but it&#8217;s special as you will see UDP/TCP/ICMP very often and all the other values seldom. For this reason three years ago we have started to design a new flow indexing system able to exploit <a href="https://en.wikipedia.org/wiki/Bitmap_index">bitmap indexes</a>, that we call <strong>nIndex</strong>. However contrary to what you can find in database literature, we do not distinguish between data and index, but the index itself includes the data, so we can save in space simply avoiding to save data but just the index. Having indexes on all columns it allows to have fast queries that are basically limited just by the I/O speed. Thanks to our new indexing system it is possible to deliver performance typical of a big data system, on a single host that can thus be self-contained and do not rely on external systems that might be unreachable in case of network faults (i.e. when the monitoring system is even more important).</p>
+<p>Starting with ntop 3.8 we have bundled nIndex with ntopng Pro/Enterprise, so that you can drill down from alerts/activities to flows and packets on a long-term storage system that does not have external dependencies. Currently we consider this technology still in beta (this until we receive enough feedback from our user base) and we want to consolidate it in the the next major ntopng release scheduled for spring.</p>
+<p>To use ntopng with the database, run it with option  <code class="EnlighterJSRAW" data-enlighter-language="shell">-F "nindex"</code></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">sudo ./ntopng -i eno1 -i tcp://127.0.0.1:5557c -F "nindex"</pre>
+<p>Database flows will appear under the charts, and will reflect the data shown as timeseries.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/nindex-top-clients.png"><img fetchpriority="high" decoding="async" class="alignnone size-large wp-image-7254" src="https://www.ntop.org/wp-content/uploads/2018/12/nindex-top-clients-1024x659.png" alt="" width="1024" height="659" /></a></p>
+<p>&nbsp;</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/nindex-top-l7-contacts.png"><img decoding="async" class="alignnone size-large wp-image-7253" src="https://www.ntop.org/wp-content/uploads/2018/12/nindex-top-l7-contacts-1024x638.png" alt="" width="1024" height="638" /></a></p>
+<p>You can drill down to flows clicking on the magnifier lens or download the raw flows by clicking on the black document icons on the top right corner.</p>
+<p>We encourage you to try and give us feedback on anything you consider it important for improving it.</p>
+<p>&nbsp;</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/say-hello-to-nindex-personal-big-data-system-for-network-flows/">Say hello to nIndex: Personal Big Data System for Network Flows</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nedge/bandwidth_control.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:53:13 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bandwidth Control &mdash; nEdge  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/ntopf127.css?v=8597da58" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options0b7c.js?v=5929fcd5"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Security" href="security.html" />
+    <link rel="prev" title="Policies" href="policies.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nEdge
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nedge/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="policies.html">Policies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bandwidth Control</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#interface-speed">Interface Speed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#global-bandwidth-control">Global Bandwidth Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#per-host-bandwidth-control">Per-Host Bandwidth Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fair-bandwidth">Fair Bandwidth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quotas">Quotas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vlan.html">VLAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dns.html">DNS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="captive_portal.html">Captive Portal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bridging.html">Bridge Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="routing.html">Router Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hw_bypass.html">Hardware Bypass Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_management.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="management.html">Device Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recovery.html">Device Recovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conf_backup.html">Configuration Backup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conf_backup.html#configuration-restore">Configuration Restore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licenses.html">Licenses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nEdge</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Bandwidth Control</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bandwidth_control.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bandwidth-control">
+<span id="id1"></span><h1>Bandwidth Control<a class="headerlink" href="#bandwidth-control" title="Link to this heading"></a></h1>
+<p>nEdge provides extensive per-user, per-protocol bandwidth control capabilities.
+This is a brief overview of the available features:</p>
+<ul class="simple">
+<li><p>Limit the global available bandwidth</p></li>
+<li><p>Reserve bandwidth for a specific user</p></li>
+<li><p>Provide 3 different bandwidth classes: Default, Slow Pass, Slower Pass</p></li>
+<li><p>Limit the per-host bandwidth</p></li>
+</ul>
+<p>A bandwidth class can be assigned to a specific user protocol/category through the
+user policies.</p>
+<section id="interface-speed">
+<h2>Interface Speed<a class="headerlink" href="#interface-speed" title="Link to this heading"></a></h2>
+<p>The global available bandwidth can be configured on a per-interface basis.
+Into the <cite>Interfaces Configuration</cite> section the interface speed indicates what’s
+the globally available bandwidth for traffic flowing from/to the specified interface.</p>
+<figure class="align-center" id="id2">
+<img alt="Interface Speed" src="_images/interface_speed.png" />
+<figcaption>
+<p><span class="caption-text">Interface upload and download speed configuration</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>In the picture above, the traffic flowing through the interface will be limited
+to 10 Mbit/s in both the upload and download directions. Usually the interface speed
+should match the available internet bandwidth.</p>
+</section>
+<section id="global-bandwidth-control">
+<span id="bandwidthcontrol"></span><h2>Global Bandwidth Control<a class="headerlink" href="#global-bandwidth-control" title="Link to this heading"></a></h2>
+<p>After configuring the interfaces speeds, it is possible to fine tune bandwidth
+allocation by the means of the bandwidth classes. nEdge provides 3 configurable
+bandwidth classes. The global bandwidth classes can be configured from the
+<cite>Global Bandwidth Control</cite> settings.</p>
+<figure class="align-center" id="id3">
+<img alt="Global Bandwidth Control" src="_images/global_shapers.png" />
+<figcaption>
+<p><span class="caption-text">Global bandwidth classes configuration</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>A percentage rate can be specified for each available class. The percentage
+is referred to the configured interfaces speed. For example, supposing the nEdge is
+routing mode and with two configured WAN interfaces, one with 10 Mbit/s download speed and
+another with 100 Mbit/s download speed, a 75% rate would limit the
+clients download traffic to 7.5 Mbit/s when going out to the first interface,
+and to 75 Mbit/s traffic when going out the 100 Mbit/s interface.</p>
+<p>It is important to note that, by default, the global bandwidth classes do not limit the traffic
+in advance but rather indicate an allocation share between the classes.
+This means that a 75% class will guarantee a <em>minimum</em> 75% bandwidth allocation when the
+network bandwidth demand is high, but it will not prevent the clients to gain 100%
+bandwidth when such a bandwidth is available. This is the <strong>Minimum Guaranteed</strong> bandwidth
+allocation policy.</p>
+<p>In order to limit the clients bandwidth in advance the <strong>Maximum Enforced</strong> bandwidth
+allocation policy can be used instead.</p>
+</section>
+<section id="per-host-bandwidth-control">
+<h2>Per-Host Bandwidth Control<a class="headerlink" href="#per-host-bandwidth-control" title="Link to this heading"></a></h2>
+<p>In nEdge is also possible to define a per-host maximum rate. This setting does not
+depend on the configured interface speed, so an absolute rate is used.</p>
+<figure class="align-center" id="id4">
+<img alt="Per-Host Bandwidth Control" src="_images/per_host_shapers.png" />
+<figcaption>
+<p><span class="caption-text">Per-host bandwidth classes configuration</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>As an example, by setting a 1 Mbit/s maximum rate on the <em>Default</em> class, the traffic of
+each host with a <em>Default</em> class will be limited to 1 Mbit/s.</p>
+</section>
+<section id="fair-bandwidth">
+<h2>Fair Bandwidth<a class="headerlink" href="#fair-bandwidth" title="Link to this heading"></a></h2>
+<p>Within the same bandwidth class, nEdge will distribute the available bandwidth between the hosts
+in a fair way. For example, when two different hosts belong to <em>Default</em> class,
+they will be guaranteed a 50% minimum share of the <em>Default</em> class bandwidth. If the hosts
+are three, then a 33% of the class bandwidth will be guaranteed, if they are four a 25%
+and so on.</p>
+</section>
+<section id="quotas">
+<h2>Quotas<a class="headerlink" href="#quotas" title="Link to this heading"></a></h2>
+<p>nEdge supports per-user and per-application quotas. Quotas can be configured both in terms of time or in terms of volume of traffic.</p>
+<p>When a quota is exceeded, the user is prevented from doing additional traffic. Quotas can be daily, weekly, or monthly:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A daily quota is reset every day at midnight</p></li>
+<li><p>A weekly quota is reset every week on Sunday at midnight</p></li>
+<li><p>A monthly quota is reset every last day of the month at midnight</p></li>
+</ul>
+</div></blockquote>
+<p>Quotas reset can be configured from the System Setup under Bandwidth Control.</p>
+<figure class="align-center" id="id5">
+<img alt="Quotas Configuration" src="_images/quotas_time_span.png" />
+<figcaption>
+<p><span class="caption-text">Quotas Configuration</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="policies.html" class="btn btn-neutral float-left" title="Policies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="security.html" class="btn btn-neutral float-right" title="Security" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nedge/bandwidth_control.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:53:18 GMT -->
+</html>

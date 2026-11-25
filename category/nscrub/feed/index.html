@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>nScrub Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/nscrub/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/nscrub/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 21 Oct 2026 09:30:37 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>nScrub Archives - ntop</title>
+	<link>https://www.ntop.org/category/nscrub/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>nScrub 1.8: Performance, Flexibility, and Hardware Support</title>
+		<link>https://www.ntop.org/nscrub-1-8-performance-flexibility-and-hardware-support/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 24 Nov 2025 07:55:27 +0000</pubDate>
+				<category><![CDATA[nScrub]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45300</guid>
+
+					<description><![CDATA[<p>We are excited to announce the release of nScrub 1.8, the latest version of our high-performance DDoS protection and traffic scrubbing solution. This update brings significant improvements to the engine, new configuration…</p>
+<p>The post <a href="https://www.ntop.org/nscrub-1-8-performance-flexibility-and-hardware-support/">nScrub 1.8: Performance, Flexibility, and Hardware Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">We are excited to announce the release of&nbsp;<strong>nScrub 1.8</strong>, the latest version of our high-performance DDoS protection and traffic scrubbing solution. This update brings significant improvements to the engine, new configuration options, expanded hardware support, and broader packaging availability.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h4 class="wp-block-heading">Engine Enhancements</h4>
+
+
+
+<p class="wp-block-paragraph">The 1.8 release introduces several performance optimizations and functional upgrades across the nScrub engine:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Optimized SYN-Proxy in symmetric mode</strong><br>The SYN-Proxy now supports whitelisting source IPs and translate the first session only, reducing processing overhead and improving performance in symmetric deployments. When&nbsp;<em>session-only</em>&nbsp;mode is active, IP whitelisting is automatically disabled for consistency.</li>
+
+
+
+<li><strong>NVIDIA/Mellanox ConnectX support</strong><br>nScrub can now operate in&nbsp;<strong>routing mode</strong>&nbsp;on ConnectX interfaces (in addition to bridge mode), expanding hardware acceleration and deployment flexibility.</li>
+
+
+
+<li><strong>Advanced mirroring options</strong><br>Users can now mirror:
+<ul class="wp-block-list">
+<li>Only&nbsp;<strong>WAN</strong>&nbsp;or&nbsp;<strong>LAN</strong>&nbsp;traffic, or both (any direction)</li>
+
+
+
+<li>Only&nbsp;<strong>injected traffic</strong>&nbsp;for deeper analysis or debugging</li>
+</ul>
+</li>
+
+
+
+<li><strong>Improved session handling</strong><br>Established connections now have an extended idle timeout, ensuring smoother session management and reduced reinitialization.</li>
+
+
+
+<li><strong>Fragment management fixes</strong><br>IP fragment handling has been improved for greater reliability and protocol compliance.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">New Options</h6>
+
+
+
+<ul class="wp-block-list">
+<li><strong><code>--rss-rehash</code></strong><br>A new command-line option helps correct asymmetric hardware RSS behavior when using standard drivers, improving packet distribution and flow consistency across cores.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">API Improvements</h6>
+
+
+
+<p class="wp-block-paragraph">The REST API has been extended to give administrators finer control over traffic mirroring:</p>
+
+
+
+<ul class="wp-block-list">
+<li><strong>Direction-based filtering:</strong><br>A new <code>/mirror/[id]/direction</code>&nbsp;configuration endpoint now allows you to specify the traffic direction (<code>wan</code>,&nbsp;<code>lan</code>, or&nbsp;<code>any</code>), allowing you to choose exactly which traffic is mirrored.</li>
+
+
+
+<li><strong>Traffic-type mirroring configuration:</strong><br>You can now configure mirrors for&nbsp;forwarded,&nbsp;discarded, or&nbsp;<strong>injected</strong>&nbsp;traffic.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">Tools and Packaging Updates</h6>
+
+
+
+<ul class="wp-block-list">
+<li><strong>nscrub-export:</strong><br>Fixed dependencies on recent Red Hat-based distributions for smoother operation on the latest systems.</li>
+
+
+
+<li><strong>New packages available:</strong>
+<ul class="wp-block-list">
+<li><strong>Debian 13</strong></li>
+
+
+
+<li><strong>Rocky Linux 10</strong></li>
+</ul>
+</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h6 class="wp-block-heading">Miscellaneous Improvements</h6>
+
+
+
+<ul class="wp-block-list">
+<li>Fixed&nbsp;<strong>logrotate permissions</strong>&nbsp;to ensure proper log management and rotation.</li>
+
+
+
+<li>Improved&nbsp;<strong>debug messages and tracing</strong>&nbsp;to make troubleshooting and performance analysis even easier.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<p class="wp-block-paragraph">nScrub 1.8 is now available! We recommend all users upgrade to benefit from the enhanced performance and improved management capabilities. As always, thank you for your continued feedback and support, it helps us make nScrub even better.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/ddos-mitigation/nscrub/">nScrub</a>, <a href="https://www.ntop.org/threat-detection-network-security/">Threat detection and network security</a></p><p>The post <a href="https://www.ntop.org/nscrub-1-8-performance-flexibility-and-hardware-support/">nScrub 1.8: Performance, Flexibility, and Hardware Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing nScrub 1.6: Broader Support, More Offloads, Improved Algorithms</title>
+		<link>https://www.ntop.org/introducing-nscrub-1-6-broader-support-more-offloads-improved-algorithms/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Thu, 19 Dec 2024 13:19:43 +0000</pubDate>
+				<category><![CDATA[nScrub]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11495</guid>
+
+					<description><![CDATA[<p>We are excited to announce this new release of nScrub, 1.6, packed with new features, expanded hardware support, and key enhancements to strengthen network defense capabilities. This release adds native support for…</p>
+<p>The post <a href="https://www.ntop.org/introducing-nscrub-1-6-broader-support-more-offloads-improved-algorithms/">Introducing nScrub 1.6: Broader Support, More Offloads, Improved Algorithms</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We are excited to announce this new release of nScrub, 1.6, packed with new features, expanded hardware support, and key enhancements to strengthen network defense capabilities.</p>
+<p>This release adds native support for NVIDIA/Mellanox ConnectX adapters, and extends support for Napatech adapters by enabling the TX offload support, which optimizes packet transmission performance and reduces CPU overhead. We also implemented native support for DPDK, making nScrub open to deployments where the users are widely using this SDK.</p>
+<p>We’ve also improved the detection and scrubbing algorithms, including additional checks on TCP packet headers, ensuring better protection against malformed packets and potential attacks. It is now possible to enable per-target thresholds, allowing for granular control of mitigation engagement based on individual targets, while maintaining a global threshold for overarching protection. Enhancements to the auto-engage mechanism result in more intelligent and efficient mitigation activation, ensuring prompt responses to anomalies.</p>
+<p>Also che APIs have been improved. Importing large blacklists is now significantly faster, improving system readiness and scalability for environments with extensive blocklists.</p>
+<p>The new features and improvements in nScrub make it a must-have upgrade, we encourage all users to upgrade to 1.6. Please read the changelog below for the full list of changes and improvements.</p>
+<p>Enjoy!</p>
+<h2>Changelog</h2>
+<h3>Engine</h3>
+<ul>
+<li>Add native NVIDIA/Mellanox ConnectX adapters support</li>
+<li>Add support for TX offload with Napatech adapters</li>
+<li>Add DPDK support (v.20 or later)</li>
+<li>Add IPsec basic policies control</li>
+<li>Add more safety checks on TCP packet headers</li>
+<li>Add check on max MSS</li>
+<li>Add per target threshold (global threshold to engage the mitigation)</li>
+<li>Improve SYN and SYN-ACK rate check (e.g. also check white traffic)</li>
+<li>Improve RFC (more permissive) when always enabled</li>
+<li>Improve auto-engage checks</li>
+<li>Improve blacklist loading to speedup import of huge lists</li>
+<li>Improve hardware bypass support
+<ul>
+<li>Improve watchdog management</li>
+<li>Detect hardware bypass engage (e.g. due to watchdog) and trigger events</li>
+<li>Fix false positives engaging the watchdog and reduce watchdog sensitivity</li>
+</ul>
+</li>
+<li>Check for blacklisted destinations on egress traffic</li>
+<li>Historical data (RRD) improvements and fixes
+<ul>
+<li>Fix folder creation with the right user</li>
+</ul>
+</li>
+<li>Fix egress monitor queue selection with legacy PF_RING API (e.g. NVIDIA/Mellanox)</li>
+<li>Fix GRE detection</li>
+<li>Fix bridging with kernel drivers</li>
+<li>Fix SYN proxy MITM</li>
+<li>Fix conversion of the device name to the system device name in Netlink</li>
+</ul>
+<h2>Options</h2>
+<ul>
+<li>Add &#8211;force-promisc|-4 to force promiscuous in routing mode</li>
+<li>Add &#8211;no-tx-stack-injection|-5 and &#8211;no-rx-stack-injection|-6 options to disable stack injection in routing mode</li>
+</ul>
+<h2>API</h2>
+<ul>
+<li>New API /tcp/syn/noseqnum/drop to drop SYN with no sequence number</li>
+<li>Add threads info to the /status</li>
+<li>Add stats for traffic discarded due to blacklist in the target stats</li>
+<li>Add more bypass info</li>
+<li>Add offset/limit when requesting for attackers on a target</li>
+<li>Add stats for reforged and injected packets</li>
+<li>Add number of hits for dynamically added IP addresses</li>
+<li>Add human-readable discard reasons in stats</li>
+<li>Fix and optimized attackers pagination, added &#8216;limit&#8217; parameter</li>
+<li>Fix port number parsing in the URI for high ports</li>
+<li>Fix listing of dynamic attackers IP addresses</li>
+<li>Fix stats when using regexp or * to match multiple targets</li>
+</ul>
+<h2>GUI</h2>
+<ul>
+<li>Add statistics for fragments</li>
+<li>Add more engage/severity indicators</li>
+<li>Redirection to the monitor page on login
+<ul>
+<li>Open monitor.html by default when requesting / from a browser (use /status for the status)</li>
+</ul>
+</li>
+</ul>
+<h2>Tools</h2>
+<ul>
+<li>nscrub-cli
+<ul>
+<li>Add ability to purge a list by name</li>
+<li>Added CIDR support when loading IP list from file</li>
+</ul>
+</li>
+<li>Improved nscrub-bl in blacklist generation
+<ul>
+<li>Added warn-list support to detect when some IPs are in a blacklist</li>
+<li>Added whitelist support to filter the blacklist</li>
+<li>Duplicated IPs are now removed</li>
+</ul>
+</li>
+</ul>
+<h2>Packages</h2>
+<ul>
+<li>Add packages for Debian 11, 12</li>
+<li>Add packages for Ubuntu 20, 22, 24</li>
+</ul>
+<h2>Misc</h2>
+<ul>
+<li>Add nscrub user to the ntop group</li>
+<li>Add UNIT_NAME and INSTANCE_NAME env var to the systemd service</li>
+<li>Fix nscrub-export support for python3</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/introducing-nscrub-1-6-broader-support-more-offloads-improved-algorithms/">Introducing nScrub 1.6: Broader Support, More Offloads, Improved Algorithms</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>A Step-By-Step Guide for Protecting Your Network with nScrub</title>
+		<link>https://www.ntop.org/a-step-by-step-guide-for-protecting-your-network-with-nscrub/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 28 Dec 2020 15:02:49 +0000</pubDate>
+				<category><![CDATA[nScrub]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=8946</guid>
+
+					<description><![CDATA[<p>Distributed Denial of Service (DDoS) attacks represent a family cyber-attacks that are more and more common nowadays. They aim to make the service unavailable by overwhelming the victim with high traffic volumes…</p>
+<p>The post <a href="https://www.ntop.org/a-step-by-step-guide-for-protecting-your-network-with-nscrub/">A Step-By-Step Guide for Protecting Your Network with nScrub</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Distributed Denial of Service (DDoS) attacks represent a family cyber-attacks that are more and more common nowadays. They aim to make the service unavailable by overwhelming the victim with high traffic volumes (this is the case of volumetric or amplification attacks based on UDP, ICMP, DNS, &#8230;) or an high number of requests (including TCP connection attacks like the SYB flood, or Layer 7 attacks able to exhaust the resources of the service at the application level). This differentiate them from other cyber-attacks like intrusion attacks or malwares aiming to destroying, stealing or compromising data. With the proliferation of IoT devices, the number and entity of these attacks is exploding.</p>
+<p>A traditional security device, like a firewall or an IPS, is not able to cope with such attacks, as they have not been designed to process and filter bad traffic at high volume/rate and with an high number of sessions. Those attacks are usually able to exhaust the resources of such security devices, which become the first point of failure.</p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter size-large wp-image-8958" src="https://www.ntop.org/wp-content/uploads/2020/12/Screen-Shot-2020-12-28-at-10.57.01-1024x597.png" alt="" width="1024" height="597" /></p>
+<p>A dedicated device should be used to protect the network (including traditional security devices) from DDoS attacks. Such device is usually known as mitigator or <em>scrubber</em>, and should be able, during an attack, to filter the traffic in order to make sure that 1. legitimate users are able to reach the service and 2. the service stays up and is able to serve the legitimate requests.</p>
+<p><a href="https://www.ntop.org/products/ddos-mitigation/nscrub/">nScrub</a> is a software-based protection system able to mitigate DDoS attacks on commodity hardware. nScrub is able to process 10+ Gbit full-rate traffic on a low-end 4-6 core Xeon CPU, and scale to Terabit using multiple blades, load balancing the traffic through multiple links with mechanisms like ECMP. nScrub can be easily deployed as bump-in-the-wire (a transparent bridge, with hardware bypass support to handle system failures or maintenance) or as a router to implement on-demand traffic diversion.</p>
+<p>This step-by-step guide aims to get you started with nScrub, guiding you from the software installation to the policy configuration in order to setup a mitigation box protecting your services in minutes.</p>
+<h3>1. Select the Hardware</h3>
+<p>nScrub is multithreaded and able to process more than 10 Gbps full-rate on a low-end CPU load-balancing the traffic to 4-6 cores using <a href="https://www.ntop.org/guides/pf_ring/rss.html#rss-receive-side-scaling">RSS</a> queues on Intel adapters supported by PF_RING ZC accelerated drivers. Just to mention a couple of sample hardware configurations, a Xeon E3-1230 v5 4-cores 3 Ghz or a Xeon E-2136 6-cores 3 Ghz should be fast enough for processing a 10 Gbit segment. As of the Network adapter, Intel 82599 or X520 are usually recommended, and the same chipsets are also available with the <a href="https://www.silicom-usa.com/cats/server-adapters/networking-bypass-adapters/10-gigabit-ethernet-bypass-networking-server-adapters/">hardware bypass</a> extension from Silicom (this would help a lot reducing down-time during maintenance and setup, or in case of system failures).</p>
+<h3>2. Install the Software</h3>
+<p>Instructions for configuring the ntop repository available at <a href="http://packages.ntop.org">packages.ntop.org</a> according to your Linux distribution. In this post we will go through the configuration steps for Ubuntu, similar instructions will also work on other distibutions including Debian and CentOS.<br />
+As first step we need to install at least <em>pfring</em> (the packet capture driver) and <em>nscrub</em> (the mitigation tool):</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">sudo apt-get install pfring nscrub</pre>
+<h3>3. Configure the Driver</h3>
+<p>The <em>pfring</em> package includes a basic packet capture module that can be used with any adapter. In order to take advantage of the full PF_RING ZC acceleration on Intel adapters, a ZC driver needs to be installed, configured and loaded based on the adapter model. The <em>pf_ringcfg</em> tool installed with pfring takes care of this.</p>
+<p>Check the adapter and driver model.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">sudo pf_ringcfg --list-interfaces
+Name: enp2s0f0             Driver: ixgbe      [Supported by ZC]   
+Name: enp2s0f1             Driver: ixgbe      [Supported by ZC]</pre>
+<p>Install and configure the driver. The number of RSS queues (as many as the physical CPU cores available at most) should be configured to load-balance the traffic to multiple CPU cores and get optimal performance.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">sudo pf_ringcfg --configure-driver ixgbe --rss-queues 4</pre>
+<p>Make sure that the driver has been loaded.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">sudo pf_ringcfg --list-interfaces
+Name: enp2s0f0             Driver: ixgbe      [Running ZC]   
+Name: enp2s0f1             Driver: ixgbe      [Running ZC]</pre>
+<h3>4. Configure the nScrub Service</h3>
+<p>The nScrub service configuration may differ a bit depending on the deployment mode (transparent bridge, routing mode with a single or two interfaces, etc.). In this guide we assume the most common configuration is used, which is the transparent bridge (bump in the wire).</p>
+<p><img decoding="async" class="aligncenter size-large wp-image-8959" src="https://www.ntop.org/wp-content/uploads/2020/12/Screen-Shot-2020-12-28-at-10.59.11-1024x686.png" alt="" width="1024" height="686" /></p>
+<p>The <em>/etc/nscrub/nscrub.conf</em> configuration file should be created as below.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"># WAN interface name
+--wan-interface=zc:enp2s0f0
+
+# Internal interface name (optional when using routing mode)
+--lan-interface=zc:enp2s0f1
+
+# Unique ZC cluster ID
+--cluster-id=99
+
+# Processing thread(s) CPU core(s) affinity
+--thread-affinity=2:3:4:5
+
+# Time thread CPU core affinity
+--time-source-affinity=1
+
+# Other threads affinity
+--other-affinity=0
+
+# CLI/REST listening address
+#--http-address=127.0.0.1
+
+# Monitor queues
+--aux-queues=2
+# System log file path
+--log-path=/var/log/nscrub/nscrub.log
+</pre>
+<p>Where:</p>
+<ul>
+<li>&#8211;wan-interface is the interface towards Internet, from which attacks are received</li>
+<li>&#8211;lan-interface is the interface towards the local network, where the victim services are located</li>
+<li>&#8211;thread-affinity is a list of cores that should be used for traffic processing, one for each RSS queue (in this configuration we are assuming a CPU with 6 cores, 4 of which will be used for traffic processing, 2 for auxiliary threads and applications)</li>
+<li>&#8211;http-address specifies the IP address where the service will be listening for controlling the engine and configuring the policies using the CLI tool (<a href="https://www.ntop.org/guides/nscrub/cli.html#nscrub-cli"><em>nscrub-cli</em></a>) or the RESTful API. This is set to localhost only by default for security reasons, preventing the connection from remote boxes.</li>
+<li>&#8211;aux-queues=2 specifies the number of traffic <a href="https://www.ntop.org/guides/nscrub/monitoring.html#traffic-monitoring">mirrors</a> where nScrub will send a (sampled) copy of the traffic for providing more visibility or traffic recording, by analysing the traffic with external tools (e.g. <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a> and <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a>)</li>
+</ul>
+<p>A REST API over HTTPs is provided by nScrub in order to control the engine, which is also used by the <em>nscrub-cli</em> tool. This requires the installation of a SSL certificate, that can be created by running the below commands.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">openssl req -new -x509 -sha1 -extensions v3_ca -nodes -days 365 -out cert.pem
+cat privkey.pem cert.pem &gt; /usr/share/nscrub/ssl/ssl-cert.pem</pre>
+<p>Note: the license for both nScrub and PF_RING ZC for Intel (one for each interface), should be installed before running the service.</p>
+<p>Enable and run the service.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">systemctl enable nscrub
+systemctl start nscrub</pre>
+<p>After running the nScrub service in transparent bridge mode, all the traffic is just forwarded between the two interfaces as in a standard bridge. In order to enable traffic inspection and mitigation, we need to configure the hosts or networks to be protected, by specifying the desired protection policies.</p>
+<h3>5. Configure the Mitigation Policies</h3>
+<p>Configuring the protection policies requires the creation of one (or more) target, which is logically a set of IPs or subnets running homogeneous services. In fact nScrub supports multiple sets of protection policies, which are tied to different targets, implementing multi-tenancy and providing the flexibility of applying different policies based on the target type.</p>
+<p>Targets and protection policies can be created and configured at runtime using the <em>nscrub-cli</em> tool or the REST API. An additional tool, <em>nscrub-add</em>, is also available for the impatient to create a basic configuration, simply specifying the service type and IP/subnet (example: <em>nscrub-add WEBSERVER 192.168.1.1/32 web</em>). In this guide we will use the <em>nscrub-cli</em> tool to create a custom configuration, to be able to fine-tune the target configuration. However the same tool can be used to modify a target configuration previously created with<em> nscrub-add</em>.</p>
+<p>It is possible to run <em>nscrub-cli</em> on the same machine or on a different machine (please make sure you are configuring &#8211;http-address in nscrub.conf with the right listening address), in the latter case please specify the address of nScrub with <em>-c HOST:PORT</em>.</p>
+<p>Running the <em>nscrub-cli</em> command, an interactive prompt with auto-completion is presented where you can issue commands (type <em>h</em> for the help), or alternatively batch mode is also available (create a configuration file and load it with <em>cat policy.conf | nscrub-cli</em>).</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">add target mynet 10.10.10.0/24
+add target mynet 192.168.1.0/24
+
+target mynet type hsp
+
+target mynet profile DEFAULT default drop
+target mynet profile WHITE all accept enable
+target mynet profile BLACK all drop enable
+target mynet profile GRAY default drop
+
+target mynet profile DEFAULT tcp syn check auto
+target mynet profile DEFAULT tcp syn check_method rfc
+
+target mynet profile DEFAULT udp checksum0 drop enable
+target mynet profile DEFAULT udp fragment drop enable
+
+target mynet profile DEFAULT udp dst 123 accept enable
+
+target mynet profile DEFAULT dns request check_method forcetcp
+target mynet profile DEFAULT dns request threshold 1000
+
+target mynet profile DEFAULT icmp type 0 accept enable
+target mynet profile DEFAULT icmp type 8 accept enable</pre>
+<p>In the above example a target <em>mynet</em> is created (an arbitrary name can be used) configuring a couple of subnets. The service type has been set to <em>hsp</em> (Hosting Service Provider), which is just a hint for the mitigation engine, but you should not worry much about the effect of this as we are going to manually configure the protection policies. After that, the default protection policies are configured for the four profiles which are <em>default</em> (unknown traffic), <em>black</em> (bad traffic), <em>white</em> (good traffic) and <em>gray</em> (an extra profile the can be used for special policies). Each profile is tied to a list: IPs can be manually added to those lists (we can blacklist an IP by adding it to the <em>black</em> list). At this point the protection policies for each protocol can be configured (the protection algorithm for TCP, the allowed UDP ports and ICMP types, etc), please check the help or the documentation for a full list of settings.</p>
+<p>At this point the system is up and running, mitigating attacks towards the configured target.</p>
+<h3>6. Monitor the System</h3>
+<p>The easiest way to read statistics and make sure nScrub is actually processing traffic is to run the <em>stats</em> command in <em>nscrub-cli</em>. Statistics about a specific target can also be read by running <em>target mynet stats</em> in <em>nscrub-cli</em>. However this provides the actual statistics only.</p>
+<p>Historical statistics are available from the web GUI which is available using a browser connecting to http://NSCRUB-IP:8880/monitor.html (please make sure you are configuring &#8211;http-address in nscrub.conf to allow connections from remote machines).</p>
+<p><img decoding="async" class="aligncenter size-large wp-image-8961" src="https://www.ntop.org/wp-content/uploads/2020/12/nscrub-screenshot-1024x823.png" alt="" width="1024" height="823" /></p>
+<p>&nbsp;</p>
+<p>In addition to basic traffic statistics, nScrub is able to export a copy of the raw traffic to third-party applications via software queues, for providing enhanced visibility. In the nscrub.conf configuration above we already enabled a couple of traffic mirrors with <em>&#8211;aux-queues=2</em>, thus we are able to use up to two applications to concurrently analyse the traffic.</p>
+<p>It is possible to configure what traffic should be forwarded to both mirrors (respectively with IDs 0 and 1), and the sampling rate to avoid overwhelming the third-party applications with traffic in the worst case.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">mirror 0 type all
+mirror 0 sampling 1000
+mirror 1 type discarded
+mirror 1 sampling 1000</pre>
+<p>Please note that nScrub creates one software queue for each RSS queue/thread, thus in this case we will have 4 queues for each mirror. Please find below a sample configuration file for ntopng that you can use for analysing the traffic that is provided by nScrub. In this case we are configuring ntopng to capture from all queues in the mirror, and setting up a view interface in ntopng to provide aggregated data.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">-i=zc:99@0
+-i=zc:99@2
+-i=zc:99@4
+-i=zc:99@6
+-i=view:all
+-g=0
+-y=1</pre>
+<p>At this point you can <a href="https://www.ntop.org/guides/ntopng/how_to_start/index.html">start ntopng</a> and <a href="https://www.ntop.org/guides/ntopng/web_gui/index.html">connect to the web GUI</a> for analysing the traffic.</p>
+<p>In a similar way it is possible to dump the traffic to a PCAP file using n2disk or tcpdump, capturing from zc:99@1, zc:99@3, zc:99@5, zc:99@7.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">tcpdump -Q in -ni zc:99@1 -c 1000 -w attack.pcap</pre>
+<p>And you can analyse the PCAP in <a href="https://www.wireshark.org">Wireshark</a> or any traffic analysis tool.</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/a-step-by-step-guide-for-protecting-your-network-with-nscrub/">A Step-By-Step Guide for Protecting Your Network with nScrub</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing nScrub 1.4 with IPv6 Support</title>
+		<link>https://www.ntop.org/introducing-nscrub-1-4-with-ipv6-support/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 24 Mar 2020 13:48:56 +0000</pubDate>
+				<category><![CDATA[nScrub]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=8253</guid>
+
+					<description><![CDATA[<p>This is to introduce the new nScrub 1.4 stable. Besides a few bug fixes (mainly to the API) this release introduces many improvements, including: Full IPv6 support both in routing and bridge…</p>
+<p>The post <a href="https://www.ntop.org/introducing-nscrub-1-4-with-ipv6-support/">Introducing nScrub 1.4 with IPv6 Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to introduce the new nScrub 1.4 stable.</p>
+<p>Besides a few bug fixes (mainly to the API) this release introduces many improvements, including:</p>
+<ul>
+<li>Full IPv6 support both in routing and bridge mode.</li>
+<li>Improved TCP protection, it is now possible to use SYN Proxy in asymmetric mode.</li>
+<li>Hardware bypass with watchdog support as failover mechanism in case of system failures or to handle maintenance.</li>
+<li>New plugins SDK to easily extend the core engine with custom protection algorithms.</li>
+<li>Native systemd support for multiple instances to handle multiple network segments.</li>
+<li>Support for Ubuntu 18, Debian 10, CentOS 8.</li>
+</ul>
+<p>We are quite sure you will like and take advantage of every little improvement we made in this release. Enjoy!</p>
+<h1>Changelog</h1>
+<ul>
+<li>
+<h2>Engine</h2>
+<ul>
+<li>Support for IPv6 neigh table</li>
+<li>Support for IPv6 routing table</li>
+<li>Pure SYN Cookie with encryption is used when in SYN Proxy mode is selected in asymmetric mode</li>
+<li>More event types in event notification, sending notificaitons when an event terminates, added the &#8216;status&#8217; field to the events</li>
+<li>Full bypass support in routing mode</li>
+<li>Uniq event identifier</li>
+<li>Added options to use different ports for transmission (this is needed by Napatech as streams are RX only), Napatech is supported in transparent bridge only</li>
+<li>TCP flags sanity check happens only if there is any 3whs check enabled</li>
+<li>Hardware bypass watchdog support, integration with Silicom hw bypass adapters</li>
+<li>Automatically setting hw bypass (if any) on application shutdown</li>
+<li>Introduced HSP service type (Generic Hosting Service Provider)</li>
+</ul>
+</li>
+<li>
+<h2>Plugins</h2>
+<ul>
+<li>New SDK (sample plugin available to get started)</li>
+<li>Traffic blocking with pre/post hooks</li>
+<li>Ability to inject packets</li>
+<li>Inspection of both WAN and LAN traffic</li>
+<li>Callback called on SIGUSR1 for reloading the configuration</li>
+<li>Plugins stats (pre/post discard/forward counters) in the target stats</li>
+</ul>
+</li>
+<li>
+<h2>API</h2>
+<ul>
+<li>API to discard http requests which are not matching a list of hostnames</li>
+<li>API to purge all targets</li>
+<li>API to print the full list of global VLAN mappings</li>
+<li>API to set a limit to the IP whitelist to engage session whitelisting automatically</li>
+<li>API to control the TCP check engage</li>
+<li>API to drop TCP SYN packets with payload</li>
+<li>API to set max DNS subdomain length (block watertorture)</li>
+<li>API to drop TCP SYN with no options</li>
+<li>API to purge all attackers (and delete all lists)</li>
+<li>API and cli command to set the WAN/LAN interface IP address (required with DPDK TAP interfaces in routing mode)</li>
+<li>Support for subnets without mask</li>
+<li>Target stats now supports regex to select targets</li>
+<li>Add bytes stats per protocol per target</li>
+<li>wl_threshold: automatically turn off when IP whitelist size comes back below the threshold</li>
+<li>Add gateway mac address to the arp table returned via REST</li>
+<li>Added ability to overwrite the default virtual scrubber 0.0.0.0/0 &#8211; 0::0/0</li>
+<li>Dynamic purge fix</li>
+<li>Attacker search optimizations</li>
+<li>Attackers list pagination, added list size when listing lists</li>
+<li>String patterns removal using the &#8216;-&#8216; special char</li>
+<li>Add discard reason to target stats</li>
+<li>Fixed lists counters</li>
+<li>Fix all lists purging</li>
+<li>Stats fixes</li>
+</ul>
+</li>
+<li>
+<h2>Tools</h2>
+<ul>
+<li>New nscrub-bl to manage blacklists</li>
+<li>nscrub-cli
+<ul>
+<li>History now keeps also wrong commands</li>
+<li>Add new command to load list from file in nscrub-cli</li>
+<li>Load lists in batch mode</li>
+<li>Fix integer parameters</li>
+</ul>
+</li>
+<li>nscrub-export reworked and improved options
+<ul>
+<li>Full configuration backup/restore</li>
+<li>Add -i option to select the nscrub instance</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h2>Packages</h2>
+<ul>
+<li>New Ubuntu 18 package</li>
+<li>New Debian 10 package</li>
+<li>New CentOS 8 package</li>
+</ul>
+</li>
+<li>
+<h2>Misc</h2>
+<ul>
+<li>Systemd support for multiple nscrub instances</li>
+<li>The nscrub service is now &#8216;PartOf&#8217; the pf_ring service</li>
+<li>Running nscrub as &#8216;nscrub&#8217; by default, and falling back to nobody if it does not exist</li>
+</ul>
+</li>
+</ul>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/introducing-nscrub-1-4-with-ipv6-support/">Introducing nScrub 1.4 with IPv6 Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Protecting a Web Server from DDoS Attacks Using nScrub</title>
+		<link>https://www.ntop.org/protecting-a-web-server-from-dos-attacks-using-nscrub/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Wed, 28 Mar 2018 14:24:23 +0000</pubDate>
+				<category><![CDATA[nScrub]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=6114</guid>
+
+					<description><![CDATA[<p>nScrub is a software-based DDoS mitigation system based on PF_RING ZC, able to operate at 10 Gbit full-rate (or multi 10 Gbit distributing the load across multiple modules) using commodity hardware, making…</p>
+<p>The post <a href="https://www.ntop.org/protecting-a-web-server-from-dos-attacks-using-nscrub/">Protecting a Web Server from DDoS Attacks Using nScrub</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><a href="https://www.ntop.org/products/ddos-mitigation/nscrub/">nScrub</a> is a software-based DDoS mitigation system based on PF_RING ZC, able to operate at 10 Gbit full-rate (or multi 10 Gbit distributing the load across multiple modules) using commodity hardware, making it affordable in terms of price and deployment.</p>
+<p>nScrub is easy to configure even for beginners and companies with no experience with DDoS mitigation, it can be implemented as bump in the wire (i.e. no BGP or traffic tunneling necessary) or as router for on-demand traffic diversion.</p>
+<p>In this post we will go through the installation steps for installing and configuring nScrub as bump in the wire, which is really straightforward. We will also learn how to create a basic configuration for protecting a web server.</p>
+<h3>1. Installation</h3>
+<p>Installation packages are provided at <a href="http://packages.ntop.org/">packages.ntop.org</a>, please follow the steps on the website for configuring the repository. In this post we will go through the configuration steps for Ubuntu 16, however it is possible to do the same also on other Ubuntu/CentOS/Debian systems. As first step we need to install at least the pfring, pfring-drivers-zc-dkms and nscrub packages:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">apt-get install pfring pfring-drivers-zc-dkms nscrub</pre>
+<h3>2. Configuration</h3>
+<p>Assuming that we want to run nScrub on a 4 core CPU, using an Intel ixgbe-based card, we need to configure the driver with 4 <a href="https://www.ntop.org/guides/pf_ring/rss.html">RSS</a> queues for distributing the load across all the CPU cores:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">mkdir -p /etc/pf_ring/zc/ixgbe
+touch /etc/pf_ring/zc/ixgbe/ixgbe.start
+echo “RSS=4,4” &gt; /etc/pf_ring/zc/ixgbe/ixgbe.conf</pre>
+<p><a href="https://www.ntop.org/guides/pf_ring/hugepages.html">Hugepages</a> need to be configured, as they are used for memory allocation. The number of hugepages required mainly depends on the number of interface queues and the MTU. For instance if you configure 4 RSS queues with an MTU of 1500 bytes 1024 hugepages are enough, with 12 RSS queues you need to setup 2048 hugepages.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">echo “node=0 hugepagenumber=1024” &gt; /etc/pf_ring/hugepages.conf
+</pre>
+<p>Now you are ready to load pf_ring:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">systemctl enable pf_ring
+systemctl start pf_ring
+</pre>
+<p>As next step you need to configure the nScrub service, creating the /etc/nscrub/nscrub.conf configuration file. Assuming that you want to run nScrub as bump in the wire, creating a transparent bridge between two interfaces eth1 and eth2, the configuration file is quite simple:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">touch /etc/nscrub/nscrub.start
+cat /etc/nscrub/nscrub.conf
+--wan-interface=zc:eth1
+--lan-interface=zc:eth2
+--log-path=/var/tmp/nscrub.log
+</pre>
+<p>Before starting the nScrub service, we also need to create a SSL certificate, which is needed to enable the RESTful API over HTTPs for configuring the mitigation policies. This is also needed to be able to use nscrub-cli, the CLI tool with auto-completion, which is using the RESTful API as communication channel. Please note that the HTTP server listens on localhost only by default for security reasons, you can bind it to a different IP adding &#8211;http-address <ip> to the configuration file. In order to create a SSL certificate run:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">openssl req -new -x509 -sha1 -extensions v3_ca -nodes -days 365 -out cert.pem
+cat privkey.pem cert.pem &gt; /usr/share/nscrub/ssl/ssl-cert.pem
+</pre>
+<p>Now we are ready to run the nScrub service:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">systemctl start nscrub
+</pre>
+<h3>3. Mitigation Policies Configuration</h3>
+<p>Now the nScrub service is up and running, it’s time to configure traffic mitigation for a target server or subnet. This should be done creating a “target”, which is a nScrub internal instance (nScrub is multi-tenant!), and configuring protection policies based on the target service. Targets and protection policies can be modified at runtime using the RESTful API or the nscrub-cli tool.</p>
+<p>If you are running the nScrub service for the first time, using the default credentials, all you need to do is to run nscrub-cli with no arguments, and you get a command prompt.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">nscrub-cli
+localhost:8880&gt;
+</pre>
+<p>Now you are ready to issue commands, you can start typing ‘help’ for the full list.</p>
+<p>In order to create a simple configuration for protecting a web server, first of all we need to create a target, providing a unique name and an IP or subnet in CIDR format for our server or subnet to protect.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">add target my_web_server 192.168.1.0/24
+</pre>
+<p>We can also specify the service type (a few options are available) in order to help nScrub understanding how to behave (if you are not sure just skip this setting):</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">target my_web_server type web
+</pre>
+<p>At this point we can setup our actual protection policies for this target.</p>
+<p>Each target has a few protection profiles, which is based on the traffic source. Protection profiles are default, black, white, gray. The ‘default’ profile applies to all unknown source IPs, while the other profiles (black, white, gray) apply to the corresponding lists based on source IPs. IPs can be manually added to those lists (e.g. we can blacklist a subnet adding it to the black list, or avoid any mitigation for selected subnets adding them to the white list), and can be automatically added by nScrub to those lists based on the configured protection algorithms.</p>
+<p>It is a common practice to just set the “drop all” policy to the black profile:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">target my_web_server profile black all drop enable
+</pre>
+<p>And set the “accept all” policy to the white profile:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">target my_web_server profile white all accept enable
+</pre>
+<p>All the actual protection policies for unknown sources go to the ‘default’ profile. It’s a common practice to configure this profile to drop traffic by default, unless it is recognized as legitimate traffic:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">target my_web_server profile default default drop
+</pre>
+<p>For a web server we probably want to drop all UDP traffic:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">target my_web_server profile default udp drop enable
+</pre>
+<p>Exception made for DNS, that should be able to work on UDP if we have a server that should be able to answer to requests. We probably want to forward all requests up to a certain rate (pps):</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">target my_web_server profile default dns request threshold 1000
+</pre>
+<p>In case that threshold is reached, we want to check all requests and forward only legitimate ones. We can do this setting the DNS check method:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">target my_web_server profile default dns request check_method forcetcp
+</pre>
+<p>What about TCP? nScrub has multiple active algorithms for checking TCP sessions, and make sure that a only legitimate connections reach the destination server. Those algorithms can be enabled setting the TCP check method, for instance to RFC:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">target my_web_server profile default tcp syn check_method rfc
+</pre>
+<p>Now you are ready to test the mitigation, running attacks towards the destination server.</p>
+<p>It is possible to check live stats running ‘stats’ in the nscrub-cli prompt or using a browser to access the web gui at http://&lt;host&gt;:8880/monitor.html</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/03/nscrub_gui_stats.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-6115 size-large" src="https://www.ntop.org/wp-content/uploads/2018/03/nscrub_gui_stats-1024x659.png" alt="" width="1024" height="659" /></a></p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/protecting-a-web-server-from-dos-attacks-using-nscrub/">Protecting a Web Server from DDoS Attacks Using nScrub</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

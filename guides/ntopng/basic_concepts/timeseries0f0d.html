@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/basic_concepts/timeseries.html?highlight=influxdb by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:50:48 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeseries &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Scripts and Checks" href="scripts.html" />
+    <link rel="prev" title="Alerts" href="alerts.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../what_is_ntopng.html#releases-and-features">Releases and Features</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../what_is_ntopng.html#basic-concepts-use-cases">Basic Concepts &amp; Use Cases</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Basic Concepts</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="geolocation.html">Geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interfaces.html">Network Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system_interface.html">System Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hosts.html">Hosts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="host_pools.html">Host Pools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stats.html">Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="alerts.html">Alerts</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Timeseries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts.html">Scripts and Checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="local_broadcast_domain.html">Local Broadcast Domain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="disk_space.html">Disk Space Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../use_cases/index.html">Use Cases</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../what_is_ntopng.html">What is ntopng</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Basic Concepts</a></li>
+      <li class="breadcrumb-item active">Timeseries</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/basic_concepts/timeseries.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="timeseries">
+<span id="basicconceptstimeseries"></span><h1>Timeseries<a class="headerlink" href="#timeseries" title="Link to this heading"></a></h1>
+<p>Ntopng creates historical timeseries to be visualized in the charts. In order to
+store timeseries data, ntopng supports <a class="reference external" href="https://oss.oetiker.ch/rrdtool">RRD</a>, <a class="reference external" href="https://www.influxdata.com/">InfluxDB</a> and ClickHouse as timeseries drivers.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To access these settings, jump to <em>Settings</em> -&gt; <em>Preferences</em> -&gt; <em>Timeseries</em></p>
+</div>
+<figure class="align-center" id="id2">
+<img alt="Timeseries Preferences" src="../_images/basic_concepts_timeseries_preferences.png" />
+<figcaption>
+<p><span class="caption-text">Timeseries Preferences</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The resolution of data depends on the actual timeseries type. For example, the
+network interfaces traffic is usually recorded with a 1 second resolution, whereas the
+hosts L7 protocols data usually have 5 minutes resolution. Moreover, in same cases (e.g. RRD),
+the resolution of the data depends on how old is the data.</p>
+<section id="rrd-driver">
+<h2>RRD Driver<a class="headerlink" href="#rrd-driver" title="Link to this heading"></a></h2>
+<p>RRD is the default driver used. It writes data in the form of local <cite>.rrd</cite> files.
+RRD automatically aggregates old data to save space, reducing its resolution. Hence older data will be
+aggregated together and finally be removed after 1 year (in fact RRD stands for <em>Round Robin</em>
+Database).</p>
+<p>Querying a single data series is efficient since the data is contained into a single file,
+while performing more complex queries on multiple data series (e.g. when trying to determine
+the top protocols) can take some time. Moreover RRD has shown some limitations when writing
+a large volume of data, usually leading to gaps in the timeseries data points. With a large
+volume of data, the use of InfluxDB is suggested.</p>
+</section>
+<section id="influxdb-driver">
+<span id="id1"></span><h2>InfluxDB Driver<a class="headerlink" href="#influxdb-driver" title="Link to this heading"></a></h2>
+<p>ntopng supports writing and fetching timeseries data from an InfluxDB server.
+Since database communication happens via the network, the server can also be located
+on an external host.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ntopng supports InfluxDB version 1.x (no 2.x series) and the minimum supported version is 1.5.1</p>
+</div>
+<figure class="align-center" id="id3">
+<img alt="InfluxDB Preferences" src="../_images/basic_concepts_influxdb_settings.png" />
+<figcaption>
+<p><span class="caption-text">InfluxDB Preferences</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Here is an overview of the features ntopng provides:</p>
+<ul class="simple">
+<li><p>A database is automatically configured according to the <em>InfluxDB Database</em> field value</p></li>
+<li><p>It is possible to specify authentication credentials if the InfluxDB database is protected</p></li>
+</ul>
+<p>InfluxDB is really suitable to export high frequency data due to the high insertion
+throughput. For this reason it’s possible to increase the timeseries resolution to
+get more detailed historical data. This can be configured from the
+“L7 Application Resolution” preference.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Increasing the timeseries resolution involves more buffering into ntopng. This
+will have a strong impact on the RAM usage on large networks.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In order to avoid “max-values-per-tag limit exceeded” errors with InfluxDB leading to
+new data being rejected, it’s necessary to set <cite>max-values-per-tag = 0</cite> in the
+InfluxDB configuration file, usually located at <cite>/etc/influxdb/influxdb.conf</cite></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In order to avoid “max-series-per-database limit exceeded” errors with InfluxDB leading to
+new data being rejected, it’s necessary to set <cite>max-series-per-database = 0</cite> in the
+InfluxDB configuration file, usually located at <cite>/etc/influxdb/influxdb.conf</cite>. Please note
+that an high cardinality of timeseries may lead to writes/reads performance degradation.
+You can reduce the cardinality by disabling some timeseries and decreasing the maximum
+timeseries <a class="reference internal" href="../user_interface/shared/settings/preferences.html#data-retention"><span class="std std-ref">Data Retention</span></a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to review the current InfluxDB storage size used by ntopng from the
+“Runtime Status” page.</p>
+</div>
+<p>InfluxDB status can be monitored using the  <span class="xref std std-ref">InfluxDB Monitor</span>.</p>
+<section id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Link to this heading"></a></h3>
+<p>InfluxDB supports HTTP/HTTPS authentication. To enable HTTP/HTTPS authentication, use the preferences toggle and specify a valid username/password pair.</p>
+<p>To enable InfluxDB authentication follow the steps highlighted at <a class="reference external" href="https://github.com/influxdata/influxdb/issues/8824#issuecomment-329746475">https://github.com/influxdata/influxdb/issues/8824#issuecomment-329746475</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ntopng creates retention policies and continuous queries. This requires an InfludDB user with admin privileges. It is not possible for non-admin users to create retention policies (<a class="reference external" href="https://stackoverflow.com/a/45656074">https://stackoverflow.com/a/45656074</a>).</p>
+<p>Therefore, an admin user is required the first time ntopng is set up to use InfluxDB to allow creation of retention policies and continuous queries. Once the database has been created, a non-privileged user can used.</p>
+</div>
+</section>
+<section id="using-influxdb-2-x">
+<h3>Using InfluxDB 2.x<a class="headerlink" href="#using-influxdb-2-x" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Support for InfluxDB 2.x is only partial: ntopng talks to it through the
+v1-compatible REST API that InfluxDB 2.x still exposes, rather than through
+native v2 endpoints.</p>
+</div>
+<p>Even though ntopng natively targets InfluxDB 1.x, an InfluxDB 2.x instance can
+still be used as a timeseries backend, because InfluxDB 2.x keeps a subset of
+the v1 REST API available for backward compatibility. To use it, a bucket must
+be created and explicitly exposed through that v1-compatible API, and ntopng
+must then be pointed to it as if it were talking to an InfluxDB 1.x server.</p>
+<p>The following steps describe how to set this up.</p>
+<ol class="arabic simple">
+<li><p>Log into the InfluxDB 2.x web interface and create a new bucket dedicated
+to ntopng (for example, named <code class="docutils literal notranslate"><span class="pre">ntopng</span></code>).</p></li>
+</ol>
+<figure class="align-center" id="id4">
+<img alt="InfluxDB V.2 Create Bucket" src="../_images/basic_concepts_influxdb_create_bucket.png" />
+<figcaption>
+<p><span class="caption-text">InfluxDB V.2 Create Bucket</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<ol class="arabic">
+<li><p>Enable v1 API compatibility for that bucket by running the following
+command from a terminal with access to the InfluxDB 2.x instance:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>influx<span class="w"> </span>v1<span class="w"> </span>auth<span class="w"> </span>create<span class="w"> </span>--read-bucket<span class="w"> </span>BUCKET_ID<span class="w"> </span>--write-bucket<span class="w"> </span>BUCKET_ID<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--username<span class="w"> </span>USERNAME_FOR_NTOPNG<span class="w"> </span>--password<span class="w"> </span>PASSWORD_FOR_NTOPNG<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--org<span class="w"> </span>YOUR_ORGANIZATION<span class="w"> </span>--token<span class="w"> </span>REST_API_TOKEN_PROVIDED_BY_INFLUX
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BUCKET_ID</span></code> is the id of the bucket just created, as shown in the
+InfluxDB 2.x web interface.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USERNAME_FOR_NTOPNG</span></code> and <code class="docutils literal notranslate"><span class="pre">PASSWORD_FOR_NTOPNG</span></code> are credentials of
+your choice, which will be entered later in the ntopng InfluxDB
+Authentication preferences.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">YOUR_ORGANIZATION</span></code> is the organization name configured in InfluxDB
+2.x (typically the one chosen during the first login).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REST_API_TOKEN_PROVIDED_BY_INFLUX</span></code> is an API token, either the one
+shown at first login or one generated from the <em>API Tokens</em> section of
+the InfluxDB 2.x web interface.</p></li>
+</ul>
+</li>
+<li><p>In ntopng, go to <em>Settings</em> -&gt; <em>Preferences</em> -&gt; <em>Timeseries</em> and configure
+the following fields:</p>
+<ul class="simple">
+<li><p><em>Timeseries Driver</em>: select <code class="docutils literal notranslate"><span class="pre">InfluxDB</span> <span class="pre">1.x</span></code>.</p></li>
+<li><p><em>InfluxDB URL</em>: the URL of the InfluxDB 2.x REST API (by default,
+<code class="docutils literal notranslate"><span class="pre">http://localhost:8086</span></code>).</p></li>
+<li><p><em>InfluxDB Database</em>: the name of the bucket created for ntopng (e.g.
+<code class="docutils literal notranslate"><span class="pre">ntopng</span></code>).</p></li>
+<li><p>Enable <em>InfluxDB Authentication</em>.</p></li>
+<li><p><em>Username</em> and <em>Password</em>: the credentials created with the
+<code class="docutils literal notranslate"><span class="pre">influx</span> <span class="pre">v1</span> <span class="pre">auth</span> <span class="pre">create</span></code> command above.</p></li>
+</ul>
+</li>
+</ol>
+<p>Once these preferences are saved, ntopng will start exporting data to the
+InfluxDB 2.x bucket.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>InfluxDB 2.x removed support for the <code class="docutils literal notranslate"><span class="pre">RETENTION</span></code>, <code class="docutils literal notranslate"><span class="pre">CREATE</span></code> and
+<code class="docutils literal notranslate"><span class="pre">DROP</span></code> keywords from the REST API. This means that, unlike with
+InfluxDB 1.x, ntopng cannot manage data retention or drop old data on an
+InfluxDB 2.x backend. Retention policies must instead be configured and
+managed directly from the InfluxDB 2.x web interface.</p>
+</div>
+</section>
+</section>
+<section id="clickhouse-driver">
+<span id="clickhousetimeseries-driver"></span><h2>ClickHouse Driver<a class="headerlink" href="#clickhouse-driver" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ClickHouse timeseries support requires an Enterprise M or better license and ClickHouse
+enabled via configuration file.</p>
+</div>
+<p>ntopng supports writing and querying timeseries data from a <a class="reference external" href="https://clickhouse.com/">ClickHouse</a> server. ClickHouse is a
+database optimized for high-throughput analytical queries, making it well-suited for timeseries
+workloads at scale.</p>
+<p>Unlike RRD (which uses per-entity local files) ClickHouse stores all timeseries data in a single
+centralized table with a flexible tag/metric map layout, making it suitable for third party
+integrations like Grafana. This enables:</p>
+<ul class="simple">
+<li><p>High write throughput: data is buffered in-memory per interface and flushed to ClickHouse
+in batches, avoiding the I/O bottleneck of per-file RRD writes.</p></li>
+<li><p>Flexible retention: a single TTL setting controls when data expires; no pre-defined
+round-robin archives.</p></li>
+<li><p>Efficient top-K queries: aggregations across all entities (e.g. top protocols, top hosts)
+run as a single SQL query rather than scanning many individual files.</p></li>
+<li><p>Cluster and cloud support: the driver supports standalone instances, distributed clusters,
+and ClickHouse Cloud.</p></li>
+</ul>
+<p>To use ClickHouse as the timeseries driver, set the timeseries driver preference to
+<code class="docutils literal notranslate"><span class="pre">clickhouse</span></code> in the ntopng preferences UI, or configure the <code class="code docutils literal notranslate"><span class="pre">-F</span></code> option with a ClickHouse
+mode. See <a class="reference internal" href="../advanced_features/clickhouse_timeseries.html#clickhousetimeseriesadvanced"><span class="std std-ref">ClickHouse Timeseries</span></a> for detailed configuration and architecture.</p>
+<section id="grafana-dashboard">
+<h3>Grafana Dashboard<a class="headerlink" href="#grafana-dashboard" title="Link to this heading"></a></h3>
+<p>When ClickHouse is enabled as the timeseries backend, ntopng provides a sample Grafana
+dashboard that can be downloaded directly from the ntopng Preferences page under the
+<em>Timeseries</em> section. The dashboard is pre-configured to connect to the same ClickHouse
+instance used by ntopng and includes panels for the most common traffic metrics such as
+interface throughput, top applications, and top hosts.</p>
+<figure class="align-center" id="id5">
+<img alt="ClickHouse Grafana Dashboard download button in ntopng Preferences" src="../_images/basic_concepts_timeseries_clickhouse_grafana_dashboard.png" />
+<figcaption>
+<p><span class="caption-text">The Grafana dashboard download button appears in the Timeseries preferences when ClickHouse is selected as the driver.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>To import the dashboard into Grafana, download the JSON file from the Preferences page and
+use the Grafana <em>Import</em> function (<em>Dashboards</em> → <em>Import</em> → <em>Upload JSON file</em>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The dashboard requires the <a class="reference external" href="https://grafana.com/grafana/plugins/grafana-clickhouse-datasource/">grafana-clickhouse-datasource</a> plugin to be
+installed in Grafana.</p>
+<p>Once installed, configure a ClickHouse data source in Grafana pointing to the same server
+and database used by ntopng, then import the downloaded JSON file.</p>
+</div>
+</section>
+</section>
+<section id="timeseries-configuration">
+<h2>Timeseries Configuration<a class="headerlink" href="#timeseries-configuration" title="Link to this heading"></a></h2>
+<p>Individual timeseries can be enabled or disabled based on the user needs or system
+limits. Such limits usually are:</p>
+<ul class="simple">
+<li><p>the storage size (more timeseries means more storage)</p></li>
+<li><p>the storage speed</p></li>
+<li><p>the time needed to write such timeseries to the timeseries database (in particular, this is
+a problem with RRD)</p></li>
+</ul>
+<p>Moreover, having a lot of timeseries usually means slower query time.</p>
+<figure class="align-center">
+<img alt="InfluxDB Preferences" src="../_images/basic_concepts_timeseries_to_enable.png" />
+</figure>
+<p>Enabling a “Traffic” timeseries usually has little impact on the performance. On the
+other hand, enabling the “Layer-7 Applications” (in particular for the local hosts)
+has a high impact since there are many protocols and timeseries must be processed
+for each of them.</p>
+<p>It is possible to skip timeseries generation for a specific network interface
+from the interface settings page. By disabling timeseries generation on a network
+interface, no timeseries data will be written for the interface itself and for
+all the local hosts belonging to it.</p>
+<figure class="align-center">
+<img alt="Per Interface Settings" src="../_images/basic_concepts_timeseries_to_enable_interface.png" />
+</figure>
+<p>ntopng also provides timeseries on other traffic elements such as Autonomous Systems,
+Countries, VLANs and so on, which can be enabled independently.</p>
+<figure class="align-center">
+<img alt="InfluxDB Preferences" src="../_images/basic_concepts_timeseries_to_enable_2.png" />
+</figure>
+</section>
+<section id="network-matrix-timeseries">
+<h2>Network Matrix Timeseries<a class="headerlink" href="#network-matrix-timeseries" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Network Matrix is not available in the community edition.</p>
+<p>ntopng can store timeseries for communicatins across local networks, called Network Matrix.</p>
+</div>
+<p>It represent the traffic done between Local Networks (can be added to ntopng using the <cite>-m</cite> option in the configuration file), both sent and received.</p>
+<figure class="align-center">
+<img alt="Network Matrix Preference" src="../_images/basic_concepts_timeseries_enable_network_matrix.png" />
+</figure>
+<p>It can be found into the Networks timeseries page; to jump to it, access the Networks tab and then click the charts icon.
+This specific timeseries is reported in all time presets except the last 5 minutes.</p>
+<figure class="align-center">
+<img alt="Network Matrix" src="../_images/basic_concepts_timeseries_network_matrix.png" />
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="alerts.html" class="btn btn-neutral float-left" title="Alerts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scripts.html" class="btn btn-neutral float-right" title="Scripts and Checks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/basic_concepts/timeseries.html?highlight=influxdb by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:50:48 GMT -->
+</html>

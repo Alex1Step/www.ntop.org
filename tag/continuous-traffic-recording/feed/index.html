@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>continuous traffic recording Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/continuous-traffic-recording/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/continuous-traffic-recording/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Mon, 24 Dec 2018 18:30:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>continuous traffic recording Archives - ntop</title>
+	<link>https://www.ntop.org/tag/continuous-traffic-recording/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Drill Down Deeper: Using ntopng to Zoom In, Filter Out and Go Straight to the Packets</title>
+		<link>https://www.ntop.org/drill-down-deeper-using-ntopng-to-zoom-in-filter-out-and-go-straight-to-the-packets/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 24 Dec 2018 18:30:24 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[continuous traffic recording]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7274</guid>
+
+					<description><![CDATA[<p>ntopng has grown significantly over the past years, providing an increasingly-interesting set of features to support network analysts and troubleshooters in their decisions. Among the most relevant features, it is worth mentioning…</p>
+<p>The post <a href="https://www.ntop.org/drill-down-deeper-using-ntopng-to-zoom-in-filter-out-and-go-straight-to-the-packets/">Drill Down Deeper: Using ntopng to Zoom In, Filter Out and Go Straight to the Packets</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>ntopng has grown significantly over the past years, providing an increasingly-interesting set of features to support network analysts and troubleshooters in their decisions. Among the most relevant features, it is worth mentioning that timeseries inspection pages <a href="https://www.ntop.org/guides/ntopng/web_gui/historical.html">have been redesigned and reworked profoundly</a> to facilitate the drill-down of historical data. Similarly, a home-grown high-speed special-purpose <a href="https://www.ntop.org/guides/ntopng/historical_flows.html">flow database has been seamlessly integrated in ntopng</a> to ease the storage and retrieval of historical flows.</p>
+<p>However, the circle was not really closed. A piece was missing. Something that could take us down to the packets. A feature that could allow us to start start the drill-down at the timeseries-level and then, step-by-step, after opportune selections and filters, could allow us to fetch the matching traffic packets. Real packets. Those packets responsible for the generation of the timeseries we&#8217;ve started the drill-down from.</p>
+<p>Motivated by this, we have worked hard to add <a href="https://www.ntop.org/guides/ntopng/traffic_recording.html">continuous traffic recording</a> support to ntopng. We have been developing the <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk traffic recording technology</a> for several years now and have finally created a strong tight between n2disk and ntopng.</p>
+<p>Let&#8217;s briefly see how it works. Don&#8217;t forget to go through the manual for <a href="https://www.ntop.org/guides/ntopng/traffic_recording.html">more detailed information</a>.</p>
+<p>First of all, you have to install package <code class="EnlighterJSRAW" data-enlighter-language="shell">n2disk</code> and restart ntopng. An extra &#8220;Traffic Recording&#8221; entry in the &#8220;Runtime Preferences&#8221; menu will appear. You have to add an n2disk license key there. Contact us to get a demo license or use our shop to purchase one (note that licenses are free for non-profit organisations and NGOs).</p>
+<p>&nbsp;</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-license.png"><img fetchpriority="high" decoding="async" class="size-large wp-image-7284 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-license-1024x415.png" alt="" width="1024" height="415" /></a></p>
+<p>&nbsp;</p>
+<p>Once the license is setup, you can visit the interface page, tab &#8220;Traffic Recording&#8221; to configure recording settings. You can tick the checkbox to enable and disable the traffic recording, configure the maximum disk space that should be allocated for the recording of the traffic, and even monitor the current storage utilisation. What happens when the maximum disk space is hit? Pretty simple, oldest traffic will be overwritten by the newest one.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-iface-setup.png"><img decoding="async" class="size-large wp-image-7287 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-iface-setup-1024x512.png" alt="" width="1024" height="512" /></a></p>
+<p>When the traffic recording is enabled, an icon in the bottom-right corner of ntopng will appear to confirm this. Click that icon to access recording statistics and status.</p>
+<p>And now the juicy part! Wondering how to download recorded traffic? Well, open up any of the charts page, including those of interfaces, local hosts and networks. Do the selection of interest, slice and dice using the mouse or the selectors. Finally, do you see the small top-right download button? Use that to download the pcap!</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-download.png"><img decoding="async" class="size-large wp-image-7289 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-download-1024x643.png" alt="" width="1024" height="643" /></a></p>
+<p>&nbsp;</p>
+<p>For the download, a dialog will ask you if you want to download the file immediately or if you want to schedule an extraction job.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-now-or-schedule.png"><img loading="lazy" decoding="async" class="size-large wp-image-7291 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-now-or-schedule-1024x343.png" alt="" width="1024" height="343" /></a></p>
+<p>You can select &#8220;Extract Now&#8221; to immediately start downloading the pcap file. Alternatively, you can select &#8220;Queue as Job&#8221; to let ntopng do the extraction. Once the file is extracted, ntopng archives it on the disk for later download and usage.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-extracted-jobs.png"><img loading="lazy" decoding="async" class="size-large wp-image-7292 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-extracted-jobs-1024x503.png" alt="" width="1024" height="503" /></a></p>
+<p>Wondering if you could also specify BPF filters? The answer is yes! Just click on the &#8220;Advanced&#8221; and specify the filter there!</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-bpf.png"><img loading="lazy" decoding="async" class="size-large wp-image-7294 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-bpf-1024x513.png" alt="" width="1024" height="513" /></a></p>
+<p>&nbsp;</p>
+<p>Finally, some words on the limitations. Currently, the Layer-7 protocols cannot be specified when downloading a pcap. This means that you won&#8217;t be able to download the traffic of a single Layer-7 application protocol as detected by nDPI. The traffic of all Layer-7 protocols will be downloaded unless you create a BPF filter that you know it matches the protocol of interest. But don&#8217;t worry too much, we are already working on this to allow the download of specific nDPI-detected Layer-7 protocols.</p>
+<p>And remember, pcap or it didn&#8217;t happen!</p>
+<p>The post <a href="https://www.ntop.org/drill-down-deeper-using-ntopng-to-zoom-in-filter-out-and-go-straight-to-the-packets/">Drill Down Deeper: Using ntopng to Zoom In, Filter Out and Go Straight to the Packets</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

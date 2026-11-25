@@ -1,0 +1,1381 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>PF_RING Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/pf_ring/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/pf_ring/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 21 Oct 2026 09:30:36 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>PF_RING Archives - ntop</title>
+	<link>https://www.ntop.org/category/pf_ring/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>nProbe Cento at Scale: Flow Offload Acceleration on Napatech</title>
+		<link>https://www.ntop.org/nprobe-cento-at-scale-flow-offload-acceleration-on-napatech/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Sun, 25 Jan 2026 21:56:05 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45418</guid>
+
+					<description><![CDATA[<p>High-speed networks continue to push the limits of software-based monitoring and security applications. As link speeds grow and traffic patterns become more complex, efficiently analyzing packets while maintaining per-flow state, for updating…</p>
+<p>The post <a href="https://www.ntop.org/nprobe-cento-at-scale-flow-offload-acceleration-on-napatech/">nProbe Cento at Scale: Flow Offload Acceleration on Napatech</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">High-speed networks continue to push the limits of software-based monitoring and security applications. As link speeds grow and traffic patterns become more complex, efficiently analyzing packets while maintaining per-flow state, for updating stats and running Deep Packet Inspection, is increasingly challenging. By leveraging on our long term experience with high-speed packet processing, modern architectures, and state of the art data structures, during the past years we developed nProbe Cento, a high-performance NetFlow probe able to keep up with 100+ Gbit/s on adequate servers. However, this requires quite some resources (mainly CPU cores and memory bandwidth), which becomes a limit when trying to build boxes able to scale beyond 100 Gbit or when additional software should run on the same machine.</p>
+
+
+
+<h5 class="wp-block-heading">Scaling Up Beyond Packet Capture</h5>
+
+
+
+<p class="wp-block-paragraph">Napatech provides advanced FPGA-based SmartNICs designed to offload and accelerate specific networking workloads directly in hardware, delivering:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Optimized data transfer to the application</li>
+
+
+
+<li>Enhanced packet parsing</li>
+
+
+
+<li>Hardware load balancing</li>
+
+
+
+<li>Packet filtering</li>
+
+
+
+<li>Programmability (via NTPL, Napatech Programming Language)</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Feeding a monitoring or inline application at more than 100 Gbit/s, with reasonable CPU utilization, requires more than just accelerated packet capture. For this reason, with the latest releases of Cento, we introduced full <strong>Flow Offload support</strong>, by leveraging the <strong>Napatech Flow Manager </strong>to take acceleration to the next level. This pushes the boundary by delegating parts of per-flow state handling to hardware. </p>
+
+
+<div class="wp-block-image">
+<figure class="aligncenter size-full is-resized"><img fetchpriority="high" decoding="async" width="692" height="1046" src="https://www.ntop.org/wp-content/uploads/2026/01/nprobe-cento-napatech-flow-offload.png" alt="Nprobe cento napatech flow offload" class="wp-image-45419" style="width:300px"/></figure>
+</div>
+
+
+<p class="wp-block-paragraph">How this works:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Running DPI on initial packets in software</li>
+
+
+
+<li>Offloading established flows into the adapter’s hardware flow tables</li>
+
+
+
+<li>Periodically retrieving flow counters with minimal CPU intervention</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">This hybrid approach lets Cento operate efficiently even under heavy traffic loads.</p>
+
+
+
+<h5 class="wp-block-heading">Get Started with Flow Offload</h5>
+
+
+
+<p class="wp-block-paragraph">Below are practical examples showing how to configure and run Cento with flow offload support on top of&nbsp;Napatech adapters.</p>
+
+
+
+<h6 class="wp-block-heading">Configure the Adapter (NTPL Script)</h6>
+
+
+
+<p class="wp-block-paragraph">First of all please follow the instructions in the PF_RING documentation for <a href="https://www.ntop.org/guides/pf_ring/modules/napatech.html">installing the Napatech SDK</a>.</p>
+
+
+
+<p class="wp-block-paragraph">Then, before launching Cento, the Napatech adapter must be configured with an NTPL script to enable flow offload. Here’s a simple baseline&nbsp;<strong>flow-offload.ntpl</strong>&nbsp;that prepares one stream, assume both interfaces on the adapter are used.</p>
+
+
+
+<pre class="wp-block-code"><code>Delete = All
+
+// Pair of uplink and downlink ports
+Define UL_PORT = Macro("0")
+Define DL_PORT = Macro("1")
+Define NUMA    = Macro("0")
+
+// Streams (i.e. processing threads/cores)
+Define STREAMS = Macro("(0..0)")
+
+// Other internal macros
+Define TX_FORWARD = Macro("0x00")
+Define TX_DISCARD = Macro("0x08")
+
+Define FLM_HIT       = Macro("0x00")
+Define FLM_MISS      = Macro("0x10")
+Define FLM_UNHANDLED = Macro("0x20")
+
+Define FLM_DISCARD = Macro("3")
+Define FLM_FORWARD = Macro("4")
+
+Define isIPv4    = Macro("Layer3Protocol==IPv4")
+Define isTcpUdp  = Macro("Layer4Protocol==TCP,UDP")
+KeyType&#91;Name=KT_4Tuple] = {32, 32, 16, 16}
+
+Define KeyDefProtoSpec = Macro("(Layer3Header&#91;12]/32, Layer3Header&#91;16]/32, Layer4Header&#91;0]/16, Layer4Header&#91;2]/16)")
+KeyDef&#91;Name=KD_4Tuple; KeyType=KT_4Tuple; IpProtocolField=Outer; KeySort=Sorted] = KeyDefProtoSpec
+
+// Load-balancing
+HashMode = Hash5TupleSorted
+
+// Streams setup
+Setup&#91;NUMANode=NUMA] = StreamId == STREAMS
+
+// Map packets to host for new and unhandled flows
+Assign&#91;StreamId=STREAMS; ColorMask=FLM_UNHANDLED; Descriptor=DYN1] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == UNHANDLED
+Assign&#91;StreamId=STREAMS; ColorMask=FLM_MISS; Descriptor=DYN1] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == MISS
+</code></pre>
+
+
+
+<p class="wp-block-paragraph">Then load this script on the adapter:</p>
+
+
+
+<pre class="wp-block-code"><code>sudo /opt/napatech3/bin/ntpl -f flow-offload.ntpl</code></pre>
+
+
+
+<p class="wp-block-paragraph">This configures the hardware to start tracking flows and send the appropriate packets to the host for further inspection or offload.</p>
+
+
+
+<h6 class="wp-block-heading">Run Cento with Flow Offload</h6>
+
+
+
+<p class="wp-block-paragraph">Once the adapter is configured, launch Cento:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i nt:stream0 --flow-offload --dpi-level 2</code></pre>
+
+
+
+<p class="wp-block-paragraph">This tells Cento to use the Napatech stream with flow offload and DPI enabled.&nbsp;</p>
+
+
+
+<p class="wp-block-paragraph">Note: additional parameters for exporting flows needs to be configured according to the preferred export format.<br><br>Example of export to ntopng:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i nt:stream0 --flow-offload --dpi-level 2 --zmq tcp://127.0.0.1:5556</code></pre>
+
+
+
+<p class="wp-block-paragraph">ntopng configuration:</p>
+
+
+
+<pre class="wp-block-code"><code>ntopng -i tcp://*:5556c</code></pre>
+
+
+
+<h6 class="wp-block-heading">Scale with Multiple Streams</h6>
+
+
+
+<p class="wp-block-paragraph">To scale performance on high-speed links, configure multiple streams in the NTPL script. </p>
+
+
+
+<p class="wp-block-paragraph">For example, to set 4 streams:</p>
+
+
+
+<pre class="wp-block-code"><code>Define STREAMS = Macro("(0..3)")</code></pre>
+
+
+
+<p class="wp-block-paragraph">Reload the script:</p>
+
+
+
+<pre class="wp-block-code"><code>sudo /opt/napatech3/bin/ntpl -f flow-offload.ntpl</code></pre>
+
+
+
+<p class="wp-block-paragraph">Then start Cento on all streams:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i nt:stream&#91;0-3] --flow-offload --dpi-level 2 \
+  --processing-cores 0,1,2,3 --exporting-cores 4,5,6,7 \
+  --max-hash-size 4000000</code></pre>
+
+
+
+<p class="wp-block-paragraph">This spreads work across CPU cores and enlarges the flow cache to handle many concurrent flows.&nbsp;</p>
+
+
+
+<p class="wp-block-paragraph">Data can still be exported to ntopng through a single ZMQ endpoint as in the previous section, or through multiple endpoints (one per interface) for parallel export and optimal performance. Example:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i nt:stream&#91;0-3] --flow-offload --dpi-level 2 \
+  --processing-cores 0,1,2,3 --exporting-cores 4,5,6,7 \
+  --max-hash-size 4000000 \
+  --zmq tcp://127.0.0.1:5556 \
+  --zmq tcp://127.0.0.1:5557 \
+  --zmq tcp://127.0.0.1:5558 \
+  --zmq tcp://127.0.0.1:5559 \
+  --zmq-direct-mapping</code></pre>
+
+
+
+<p class="wp-block-paragraph">On the other side ntopng can be configured with multiple ZMQ endpoints, and a view interface aggregating all traffic into a single logical view:</p>
+
+
+
+<pre class="wp-block-code"><code>ntopng -i tcp://*:5556c -i tcp://*:5557c -i tcp://*:5558c -i tcp://*:5559c -i view:all</code></pre>
+
+
+
+<h6 class="wp-block-heading">Flow Offload in Inline/Bridge Mode</h6>
+
+
+
+<p class="wp-block-paragraph">Cento can also be deployed in&nbsp;<strong>inline bridge mode</strong>&nbsp;using&nbsp;<code>cento-bridge</code>, while still taking advantage of flow offload to combinine packet forwarding with hardware acceleration. </p>
+
+
+
+<p class="wp-block-paragraph">Here’s a simple baseline <strong>NTPL example</strong>&nbsp;optimized for bidirectional forwarding between two ports:</p>
+
+
+
+<pre class="wp-block-code"><code>Delete = All
+
+// Pair of uplink and downlink ports
+Define UL_PORT = Macro("0")
+Define DL_PORT = Macro("1")
+Define NUMA    = Macro("0")
+
+// Streams (i.e. processing threads/cores)
+Define STREAMS = Macro("(0..3)")
+
+Define TX_FORWARD = Macro("0x00")
+Define TX_DISCARD = Macro("0x08")
+Assign&#91;ColorMask=DL_PORT; Descriptor=DYN1] = Port==UL_PORT
+Assign&#91;ColorMask=UL_PORT; Descriptor=DYN1] = Port==DL_PORT
+
+// Forward all packets by default
+Assign&#91;ColorMask=TX_FORWARD; Descriptor=DYN1] = Port==UL_PORT,DL_PORT
+
+// Flow Manager assignments (similar to capture config)
+Assign&#91;StreamId=STREAMS; ColorMask=FLM_UNHANDLED; Descriptor=DYN1] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == UNHANDLED
+Assign&#91;StreamId=STREAMS; ColorMask=FLM_MISS;      Descriptor=DYN1] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == MISS
+</code></pre>
+
+
+
+<p class="wp-block-paragraph">Load it as before:</p>
+
+
+
+<pre class="wp-block-code"><code>sudo /opt/napatech3/bin/ntpl -f flow-offload.ntpl</code></pre>
+
+
+
+<p class="wp-block-paragraph">And start Cento in bridge mode with both TX and flow offload enabled:</p>
+
+
+
+<pre class="wp-block-code"><code>cento-bridge -i nt:stream&#91;0-3],nt:stream&#91;0-3] \
+  --tx-offload --flow-offload --dpi-level 2 --bridge-conf rules.conf</code></pre>
+
+
+
+<p class="wp-block-paragraph">Here,&nbsp;<code>rules.conf</code>&nbsp;may contain traffic policing rules (e.g., forwarding or discarding specific protocols). Please take a look at the Cento documentation for more details. This is an example:</p>
+
+
+
+<pre class="wp-block-code"><code>&#91;bridge]
+default = forward
+
+&#91;bridge.protocol]
+NetFlix = discard
+YouTube = discard</code></pre>
+
+
+
+<h5 class="wp-block-heading">Performance</h5>
+
+
+
+<p class="wp-block-paragraph">The Flow Manager is able to offload ~1.5 Million new flows/sec with one stream, 3+ Million new flows/sec with multiple streams, with a cache capacity of 140 Million active flows.</p>
+
+
+
+<p class="wp-block-paragraph">To give you an idea, assuming a 100 Gbit/s link with 1 Million concurrent flows of mixed Internet traffic, CPU load consumed by Cento usually stays in the 50-80% range, per core, on a 16-core CPU. By leveraging on flow offload support, it goes down to 10-20% (this may change a bit depending on CPU specs). PCI and memory bandwidth is also affected, as this dramatically reduces the amount of data transferred to the CPU, saving resources for processing more traffic on the same machine.</p>
+
+
+
+<p class="wp-block-paragraph">For full configuration reference and advanced options, see the official <a href="https://www.ntop.org/guides/cento/offload.html">NetFlow Flow Offload</a> and <a href="https://www.ntop.org/guides/cento/bridge.html">Bridge/Inline Offload</a> guides.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy!</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p><p>The post <a href="https://www.ntop.org/nprobe-cento-at-scale-flow-offload-acceleration-on-napatech/">nProbe Cento at Scale: Flow Offload Acceleration on Napatech</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Released PF_RING 9.0.0: Fully Fledged Hardware Flow Tracking</title>
+		<link>https://www.ntop.org/released-pf_ring-9-0-0-fully-fledged-hardware-flow-tracking/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 28 Apr 2025 12:28:48 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11667</guid>
+
+					<description><![CDATA[<p>This is to announce a new PF_RING release 9.0.0! This release brings significant improvements for a deeper flow tracking integrations, making PF_RING even more powerful for building high-performance flow processing networking applications…</p>
+<p>The post <a href="https://www.ntop.org/released-pf_ring-9-0-0-fully-fledged-hardware-flow-tracking/">Released PF_RING 9.0.0: Fully Fledged Hardware Flow Tracking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to announce a new PF_RING release 9.0.0!</p>
+<p>This release brings significant improvements for a deeper flow tracking integrations, making PF_RING even more powerful for building high-performance flow processing networking applications able to leverage on state-of-the-art hardware offloads at high speed. In fact we’ve streamlined support for the latest Napatech SmartNIC’s Flow Manager FPGA, now including periodic flow updates to ensure real-time flow visibility and minimal latency for exporting flow stats.</p>
+<p>We also explored DOCA Flow support in NVIDIA &nbsp;BlueField and ConnectX adapters, to provide flow tracking also on ASIC SuperNICs using DOCA Flow Connection Tracking (CT). The source code for a <a href="https://github.com/ntop/bluefield-kryptonite">sample application</a> using this technology is publicly available in our github <a href="https://github.com/ntop/bluefield-kryptonite">repository</a>.</p>
+<p>As always, we welcome your feedback and contributions. Stay tuned for more updates and integration guides coming soon!</p>
+<p>Enjoy!</p>
+<h2>Changelog</h2>
+<h3>Key Features</h3>
+<ul>
+<li>Consolidated Napatech Flow Manager support (now with periodic flow updates)</li>
+<li>Flow tracking on NVIDIA DOCA Flow CT (BlueField 3 and ConnectX 6/7)</li>
+</ul>
+<h3>PF_RING Library</h3>
+<ul>
+<li>Add PF_RING_FLOW_UPDATE_CAUSE_PERIODIC to generic flow offload messages</li>
+<li>Add support for Arista 7280 timestamps</li>
+<li>Add ifindex to interface list returned by pfring_findalldevs()</li>
+<li>Add PF_RING_HW_TIMESTAMP_UNSYNC flag to avoid setting the hw clock using system time (e.g. when using PTP)</li>
+<li>PF_RING Kernel Module
+<ul>
+<li>Set interface name under /proc for non-kernel devices</li>
+<li>Add SO_GET_CLUSTER_OBJECT_INFO to read ZC queue status</li>
+</ul>
+</li>
+</ul>
+<h3>ZC Library</h3>
+<ul>
+<li>New API calls to check if a queue is locked and in use (pfring_zc_ipc_queue_in_use, pfring_zc_ipc_queue_in_use_from_cluster, pfring_zc_ipc_queue_in_use_from_queue)</li>
+<li>Add pfring_zc_get_num_rx_channels API (print number of device queue in zcount and zbalance_ipc)</li>
+<li>Implemented GTPv0 balancing in built-in hash</li>
+<li>Add PF_RING_ZC_DEVICE_HW_TIMESTAMP_UNSYNC flag to avoid setting the hw clock using system time (e.g. when using PTP)</li>
+</ul>
+<h3>FT Library</h3>
+<ul>
+<li>Add PFRING_FT_TABLE_FLAGS_NO_GUESS flag to disable protocol guess</li>
+<li>Add PFRING_FT_IGNORE_VLAN to ignore VLAN in flow key</li>
+<li>Add action to pfring_ft_packet_metadata to be used in packet callbacks</li>
+<li>Fix flow slices export (duration)</li>
+<li>Fix shunting</li>
+</ul>
+<h3>PF_RING Capture Modules and ZC Drivers</h3>
+<ul>
+<li>Napatech improvements
+<ul>
+<li>Add support for periodic flow updates with the latest Flow Manager API</li>
+<li>Add support for NT_TIMESTAMP_TYPE_UNIX_NANOTIME</li>
+<li>Handle PF_RING_FLOW_OFFLOAD_NOUPDATES to disable periodic updates</li>
+<li>Fix flow ID (32-bit on API v2) on new Flow Manager API</li>
+</ul>
+</li>
+<li>NVIDIA (Mellanox) ConnectX improvements
+<ul>
+<li>RSS limit set to 64 queues</li>
+<li>Add PF_RING_RSS env var to set number of rss queues (rather then reading system conf)</li>
+<li>Fix BPF rules</li>
+</ul>
+</li>
+<li>Intel improvements
+<ul>
+<li>Add MAC/VLAN support in RSS</li>
+<li>Add rss_scheme parameter to select rss hash at driver load</li>
+<li>Add irdma kernel module required by ice on some kernel version</li>
+</ul>
+</li>
+<li>Update support for Silicom FPGA (Fiberblaze) adapters</li>
+</ul>
+<h3>Examples</h3>
+<ul>
+<li>zbalance_ipc
+<ul>
+<li>Fail on bad or unsupported BPF</li>
+<li>Add -0 option to disable RSS (all traffic to queue 0)</li>
+</ul>
+</li>
+<li>pfcount
+<ul>
+<li>Add ifindex to interface list (printed with -L -v 1)</li>
+<li>Fix -L header</li>
+</ul>
+</li>
+<li>zcount
+<ul>
+<li>Add -U option to set PF_RING_ZC_DEVICE_HW_TIMESTAMP_UNSYNC</li>
+</ul>
+</li>
+<li>ftflow
+<ul>
+<li>Add -f to ftflow. Update FT libs.</li>
+<li>Fix uninitialized memory and minor leaks</li>
+</ul>
+</li>
+<li>ftflow_pcap
+<ul>
+<li>Add -N option to disable L7 protocol guess</li>
+</ul>
+</li>
+<li>pfflow_offload improvements for Napatech Flow Manager
+<ul>
+<li>Add -u to enable periodic updates</li>
+<li>Print flow updates</li>
+</ul>
+</li>
+</ul>
+<h3>Misc</h3>
+<ul>
+<li>Add ARM support for PF_RING FT</li>
+<li>Add support for /etc/pf_ring/keepoffload (keep interfaces offloads enabled)</li>
+<li>Fix pf_ringctl script execution on Rocky9 and new RH systems based on systemd</li>
+<li>Fix compilation on RH9</li>
+<li>Deprecate apcon/vss timestamps</li>
+</ul>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/packet-capture/pf_ring/">PF_RING</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/released-pf_ring-9-0-0-fully-fledged-hardware-flow-tracking/">Released PF_RING 9.0.0: Fully Fledged Hardware Flow Tracking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Released PF_RING 8.8.0: Flow Table Offload and nVidia BlueField Support</title>
+		<link>https://www.ntop.org/released-pf_ring-8-8-flow-table-offload-and-nvidia-bluefield-support/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 06 Aug 2024 08:46:19 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11289</guid>
+
+					<description><![CDATA[<p>This is to announce a new PF_RING release 8.8.0! This release adds generic support for flow table offload, which is currently supported on Napatech adapters with Flow Manager enabled. This new technology…</p>
+<p>The post <a href="https://www.ntop.org/released-pf_ring-8-8-flow-table-offload-and-nvidia-bluefield-support/">Released PF_RING 8.8.0: Flow Table Offload and nVidia BlueField Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to announce a new PF_RING release 8.8.0!</p>
+<p>This release adds generic support for flow table offload, which is currently supported on Napatech adapters with Flow Manager enabled. This new technology has been successfully used to accelerate <a href="https://www.ntop.org/products/netflow/nprobe-cento/">nProbe Cento</a> when running with DPI enabled on multi 100 Gbit traffic (both passive and inline) and the work has been presented at <a href="https://hpsr2024.ieee-hpsr.org">IEEE HPSR</a> (IEEE International Conference on High Performance Switching and Routing). This also adds support for zero-copy transmission on Napatech adapters, to reduce bandwidth utilisation and latency when forwarding traffic between interfaces.</p>
+<p>In PF_RING 8.8.0 we also introduce support for the NVIDIA BlueField networking platform. It is now possible to run PF_RING on the ARM cores of the DPU and leverage on ZC acceleration for processing traffic in the adapter.</p>
+<p>Many other improvements are available in this release, please check the full changelog below for the whole list.</p>
+<p>Enjoy !</p>
+<h2>Changelog</h2>
+<h3>Key Features</h3>
+<ul>
+<li>Support for Napatech Flow Manager</li>
+<li>&nbsp;Support for nVidia BlueField 2/3</li>
+</ul>
+<h3>PF_RING Library</h3>
+<ul>
+<li>Add pfring_flow_update struct and pfring_recv_flow</li>
+<li>Add PF_RING_FLOW_OFFLOAD flag to enable Flow Table offload on supported adapters</li>
+<li>Add PF_RING_FLOW_OFFLOAD_AUTO_UNLEARN to control tcp auto unlearn</li>
+<li>Add PF_RING_KEEP_CRC flag (required by Napatech)</li>
+<li>Fix pfring_zc_send_pkt_multi return code</li>
+</ul>
+<h3>PF_RING Kernel Module</h3>
+<ul>
+<li>Add flow_id to generic_flow_tuple_hw_rule</li>
+<li>Fix crash with more than 64 rss queues</li>
+<li>Various minor fixes</li>
+</ul>
+<h3>FT Library</h3>
+<ul>
+<li>Add pfring_ft_zmq_get_stats API</li>
+<li>Add slice action</li>
+</ul>
+<h3>PF_RING Capture Modules and ZC Drivers</h3>
+<ul>
+<li>Add support for Napatech Flow Manager (Flow Table offload)</li>
+<li>Add support for NVIDIA BlueField (ARM64)</li>
+<li>Add jumbo support for ice-zc</li>
+<li>Add support for Napatech zero-copy forwarding (pfring_send_last_rx_packet)</li>
+<li>Fix all Intel drivers compilation on latest kernels (including Ubuntu 24)
+<ul>
+<li>ixgbevf-zc driver update v.4.18.9</li>
+<li>i40e-zc driver update v.2.24.6</li>
+<li>iavf-zc driver update v.4.9.5</li>
+</ul>
+</li>
+<li>Extend Napatech interface name to support adapter ID</li>
+<li>Fix drop counter on NVIDIA/Mellanox Connect-X (read phy discards in addition to buffer discards)</li>
+<li>Fix crash with more than 64 rss queues</li>
+<li>Fix iavf (i40e VF) ring initialization</li>
+<li>Fix driver dependency intel_auxiliary</li>
+</ul>
+<h3>PF_RING-aware Libpcap/Tcpdump</h3>
+<ul>
+<li>New pfring-aware tcpdump 4.99.4</li>
+</ul>
+<h3>Examples</h3>
+<ul>
+<li>New pfflow_offload sample app with support for Napatech Flow Manager</li>
+<li>pfsend
+<ul>
+<li>Fix ipv6 packet forging</li>
+<li>Add eth header when replaying RAW capture files</li>
+<li>Add -U / -K options to control flow distribution</li>
+<li>Fix on the fly packets generation</li>
+<li>Fix -A when -O is used</li>
+</ul>
+</li>
+<li>pfsend_multichannel
+<ul>
+<li>Add -C to support multiple TX channels with Napatech</li>
+</ul>
+</li>
+<li>pfbridge
+<ul>
+<li>Add support for Napatech zero-copy forwarding</li>
+</ul>
+</li>
+</ul>
+<h3>Misc</h3>
+<ul>
+<li>Improve pf_ringctl to auto generate hugepages.conf based on numa nodes</li>
+<li>Change MAX_CAPLEN to 65600 to correctly handle max jumbo packet size</li>
+<li>Remove deprecated code for Accolade and fm10k</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/released-pf_ring-8-8-flow-table-offload-and-nvidia-bluefield-support/">Released PF_RING 8.8.0: Flow Table Offload and nVidia BlueField Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Fixing Packet Deduplication: Introducing nDedup</title>
+		<link>https://www.ntop.org/fixing-packet-deduplication-introducing-ndedup/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 23 Apr 2024 09:38:16 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11135</guid>
+
+					<description><![CDATA[<p>When it comes to monitor a busy network, network monitoring tools can become bogged down, or even worse produce misleading information for your analysis, by a hidden culprit: duplicate packets. Imagine a…</p>
+<p>The post <a href="https://www.ntop.org/fixing-packet-deduplication-introducing-ndedup/">Fixing Packet Deduplication: Introducing nDedup</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>When it comes to monitor a busy network, network monitoring tools can become bogged down, or even worse produce misleading information for your analysis, by a hidden culprit: duplicate packets. Imagine a firehose of data streaming across your network, much of this data can be redundant, with identical packets being sent multiple times due to retransmissions or mirroring configurations. As an example, when a SPAN (Switch Port Analyzers) port is used to mirror ingress and egress direction of switch ports, the resulting mirrored traffic might contain up to 50% of duplicates. These duplicates eat up bandwidth and processing power on your monitoring tools, not to mention disk resources when dumping traffic to disk.</p>
+<p>This is where packet deduplication tools come to the rescue.</p>
+<p>A dedicated packet deduplication tool sits between the network source and the monitoring tools, acting as a filter. There are network packet brokers able to remediate this by finding and removing duplicate packets before they can reach the analytics tools. However the higher is their capacity of filtering out duplicated packets, the higher is usually the price. If you look at the specs, there is a time window on which they are able to detect duplicated packets, which is limited by the buffering power of the equipment, and in many cases they are only able to detect them when they are one after the other.</p>
+<p>For this reason we decided to develop a new utility, <a href="https://www.ntop.org/guides/n2disk/utilities/ndedup.html">ndedup</a>, able to detect and eliminate packet duplication in software, on a server with a couple of network interfaces, acting as a bridge. This tool has no hard limit on the buffering power and time window used for detecting duplicates, as it mainly depends on the amount of RAM available on the system (and modern systems have plenty of RAM). Furthermore, it leverages on our kernel-bypass zero-copy drivers and the <a href="https://www.ntop.org/products/packet-capture/pf_ring/pf_ring-zc-zero-copy/">PF_RING ZC</a> library and optimised data structures to implement fast duplicates detection and packet forwarding, achieving high speed even with a large window size. This can run on top of any adapter (Intel, Mellanox/nVidia, Napatech) and natively supports the <a href="https://www.ntop.org/guides/pf_ring/rss.html">RSS</a> technology to scale the performance up to 100 Gbps.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/04/ndedup.png"><img decoding="async" class="alignnone size-large wp-image-11137" src="https://www.ntop.org/wp-content/uploads/2024/04/ndedup-1024x226.png" alt="" width="1024" height="226"></a></p>
+<p>How does it work under the hood?</p>
+<p>When a packet is received by the tool, a one-way hash is used to turn the packet into a strong collision-resistant hash value. This hash is compared to the hash of <strong>every</strong> <strong>packet</strong> that came before it in a pre-configured time window (for example the last 50 msec), and if no match is found, the packet is forwarded to the twin interface to be delivered to the monitoring tools, otherwise it is discarded (duplicate!).</p>
+<p>This makes this tool deployable as transparent bridge in front of any appliance running Network monitoring software, including <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nprobe</a> or <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>.</p>
+<p>Example &#8211; bridge interfaces eth1 and eth2 &#8211; window size 10 msec &#8211; link speed 10 Gbps:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ndedup -i zc:eth1 -o zc:eth2 -d 10 -s 10 -S 0 -g 1 -B</pre>
+<p>Example &#8211; bridge interfaces eth1 and eth2 &#8211; use 4 <a href="https://www.ntop.org/guides/pf_ring/rss.html">RSS</a> queues &#8211; window size 10 msec &#8211; link speed 10 Gbps:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ndedup -i zc:eth1@[0-3] -o zc:eth2@[0-3] -d 10 -s 10 -S 0 -g 1:2:3:4 -B</pre>
+<p>Please check the <a href="https://www.ntop.org/guides/n2disk/utilities/ndedup.html">user&#8217;s guide</a> for the full list of options. Also check the <a href="https://www.ntop.org/guides/pf_ring/get_started/git_installation.html">PF_RING ZC user&#8217;s guide</a> for configuring ZC drivers and RSS.</p>
+<p>The <strong>ndedup</strong> tool is part of (and installed with) the n2disk <a href="https://packages.ntop.org">package</a> and it does not require an additional license to operate.</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/fixing-packet-deduplication-introducing-ndedup/">Fixing Packet Deduplication: Introducing nDedup</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Scaling Up ntopng Flow and Packet Processing</title>
+		<link>https://www.ntop.org/scaling-up-ntopng-flow-and-packet-processing/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 07 Jun 2023 05:08:03 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10500</guid>
+
+					<description><![CDATA[<p>As traffic rate increases, it is important to tune packet processing in order to avoid drops and thus educe visibility. This post will show you a few tricks for improving the overall…</p>
+<p>The post <a href="https://www.ntop.org/scaling-up-ntopng-flow-and-packet-processing/">Scaling Up ntopng Flow and Packet Processing</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>As traffic rate increases, it is important to tune packet processing in order to avoid drops and thus educe visibility. This post will show you a few tricks for improving the overall performance and better exploit modern multicore systems.</p>
+<h3>The Problem</h3>
+<p>ntopng packet processing performance depends on the number of ingress pps (packets per second) as well the number of flows/hosts being monitored and number of enabled behavioural checks. With ntopng you can expect to process (your mileage varies according to the CPU/system you are using) a few (&lt; 5) Mpps (million pps). So if you need to enable more traffic what can you do? Read below.</p>
+<p>&nbsp;</p>
+<h3>Maximising ntopng Packet Processing</h3>
+<p>In order to improve the processing performance it is necessary to configure multiple ntopng network interfaces thus partitioning the workload across multiple interfaces. The easiest way to split ingress packets across network interfaces is by means of RSS (Receive Side Scaling) that can be configured as <a href="https://www.ntop.org/guides/pf_ring/rss.html">explained here</a>. In essence RSS enables hardware-based ingress traffic balancing across multiple virtual network queues. Basically enabling RSS with a value of 4, the (physical) network adapter is partitioned into 4 (logical) virtual network adapters, each receiving a (coherent, i.e. the RX and TX directions of a flow are sent to the same virtual adapter) subset of the traffic. PF_RING identifies RSS queues with &lt;network interface&gt;@&lt;RSS queueId&gt;, so ntopng needs to be configured as follows:</p>
+<ul>
+<li>ntopng -i&nbsp;-i eth0@1 -i eth0@2 -i eth0@3 -i view:all</li>
+</ul>
+<p><img decoding="async" class="alignnone size-full wp-image-10501" src="https://www.ntop.org/wp-content/uploads/2023/06/ntopng_rss.png" alt="" width="503" height="213"></p>
+<p>The view interface allows you too see from a single interface the traffic that is processed by the individual sub-interfaces. Using this technique you can almost scale linearly&#8230; as long as you have enough cores available. Note that a faster version of the above example is based on ZC, and in this case you need to change the command line into:</p>
+<ul>
+<li>ntopng -i zc:eth0@0 -i zc:eth0@1 -i zc:eth0@2 -i zc:eth0@3 -i view:all</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Maximising ntopng Flow Collection</h3>
+<p>Now that you have learnt the trick we can do the same with flow collection, by enabling multiple ntopng collection interfaces. Collecting flows is necessary if flows are generated by a flow-based devices such as a sFlow-enabled switch or NetFlow-based router. Instead using flow as an intermediate format is required for using nProbe/nProbe Cento as packet preprocessor, this to maximise the performance. You can expect nProbe to process about 10 Mpps (using RSS) and nProbe Cento to go above 100 Mpps (or 100 Gbit line rate).</p>
+<h4>nProbe</h4>
+<ul>
+<li>ntopng <span class="s1">-i tcp://127.0.0.1:1234 -i tcp://127.0.0.1:1235 -i tcp://127.0.0.1:1236 -i tcp://127.0.0.1:1237 -i view:all</span></li>
+<li>nprobe <span class="s1">-i mlx:mlx5_0@0 </span><span class="s1">&#8211;zmq tcp://127.0.0.1:1234</span></li>
+<li>nprobe <span class="s1">-i mlx:mlx5_0@1 </span><span class="s1">&#8211;zmq tcp://127.0.0.1:1235</span></li>
+<li>nprobe <span class="s1">-i mlx:mlx5_0@2 </span><span class="s1">&#8211;zmq tcp://127.0.0.1:1236</span></li>
+<li>nprobe <span class="s1">-i mlx:mlx5_0@3 </span><span class="s1">&#8211;zmq tcp://127.0.0.1:1237</span></li>
+</ul>
+<h4>nProbe Cento</h4>
+<ul>
+<li>ntopng <span class="s1">-i tcp://127.0.0.1:5556c </span><span class="s1">-i tcp://127.0.0.1:5557c -i view:all</span></li>
+<li>cento <span class="s1">-i mlx:mlx5_0@[0-3] </span><span class="s1">&#8211;zmq &#8220;tcp://127.0.0.1:5556,tcp://127.0.0.1:5557&#8221;</span></li>
+</ul>
+<p>With the above solution, cento exports flows on two different ZMQ connections (you can define more) and ntopng can collect flows on two ZMQ interfaces. The view interface will then merge the flow coming from the two collector interfaces.</p>
+<p>If you want to read more about the topic of this post, please see the following posts about:</p>
+<ul>
+<li><a href="https://www.ntop.org/guides/ntopng/operating_ntopng_on_large_networks.html">ntopng</a></li>
+<li><a href="https://www.ntop.org/guides/nprobe/tuning.html">nProbe</a></li>
+<li><a href="https://www.ntop.org/guides/cento/usecases.html">nProbe Cento</a></li>
+</ul>
+<p>Enjoy !</p>
+<p>The post <a href="https://www.ntop.org/scaling-up-ntopng-flow-and-packet-processing/">Scaling Up ntopng Flow and Packet Processing</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Enabling Zeek and Suricata On-Demand at 40/100 Gbit using PF_RING</title>
+		<link>https://www.ntop.org/enabling-zeek-and-suricata-on-demand-at-40-100-gbit-using-pf_ring/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 05 Jun 2023 05:58:52 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10475</guid>
+
+					<description><![CDATA[<p>Overview Those of you who have some experience with IDS or IPS systems, like Zeek and Suricata, are probably aware of how CPU intensive and memory consuming those applications are due to…</p>
+<p>The post <a href="https://www.ntop.org/enabling-zeek-and-suricata-on-demand-at-40-100-gbit-using-pf_ring/">Enabling Zeek and Suricata On-Demand at 40/100 Gbit using PF_RING</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>Overview</h3>
+<p>Those of you who have some experience with IDS or IPS systems, like Zeek and Suricata, are probably aware of how CPU intensive and memory consuming those applications are due to the nature of the activities they carry on (e.g. signatures matching). This leads to high system load and packet loss when the packet rate becomes high (10+ Gbi+) making these IDSs unlikely to be to deployed on high-speed networks. As <a href="https://www.ntop.org/products/netflow/nprobe-cento/">nProbe Cento</a> can analyse networks up to 100 Gbit while using nDPI for ETA (Encrypted Traffic Analysis), ntopng can act as a Cento collector to receive and consolidate flow information as well identify attackers and victims hosts. This blog post shows you how using ntop tools it is possible to enable Zeek and Suricata &#8220;on demand&#8221;, i.e. limited to those attackers or host victims. This means that:</p>
+<ul>
+<li>nProbe Cento is started to poll all network traffic on top of a network adapter able to support hardware filters such as nVidia Connect-X.</li>
+<li>Zeek and/or Suricata are started with a hardware filter that does not send them any traffic.</li>
+<li>As soon as ntopng detects an attacker/victim host, it writes its IP in a redis queue that is polled by PF_RING.</li>
+<li>As soon as PF_RING detects an IP to ban/unban it adds a hardware filtering rule on the &#8220;on demand&#8221; connection, so such IP traffic is sent to Zeek/Suricata</li>
+</ul>
+<p>&nbsp;</p>
+<p><img loading="lazy" decoding="async" class="alignnone size-large wp-image-10484" src="https://www.ntop.org/wp-content/uploads/2023/06/suricata-1-1024x357.png" alt="" width="1024" height="357"></p>
+<p>&nbsp;</p>
+<h3>Going Deep</h3>
+<p>The <a class="reference external" href="https://www.ntop.org/guides/pf_ring/">PF_RING</a> framework has demonstrated to play a key role in the acceleration of those tools, by delivering features like:</p>
+<ul>
+<li>packet capture acceleration, to deliver line-rate capture speed and&nbsp;make more CPU cycles available to the tools &nbsp;(if interested please read the <a class="reference external" href="https://www.ntop.org/guides/pf_ring/thirdparty/">IDS/IPS Integration</a> section of the <a class="reference external" href="https://www.ntop.org/guides/pf_ring/">PF_RING documentation</a>)</li>
+<li>filtering, to reduce the input by (statically) defining filtering policies from Layer 2 up to Layer 7, dramatically improving the performance of the tools (please read the <a class="reference external" href="https://www.ntop.org/guides/pf_ring/thirdparty/suricata.html#pf-ring-ft-acceleration">PF_RING FT acceleration</a> section).</li>
+</ul>
+<p>Recently, a new technique has been introduced in PF_RING and ntopng for accelerating IDS systems, whose idea is similar to the <a class="reference external" href="https://www.ntop.org/guides/ntopng/using_with_other_tools/n2disk.html#smart-recording">Smart Recording acceleration</a> used by n2disk and described in a <a href="https://www.ntop.org/announce/introducing-smart-recording-in-n2disk-combining-cybersecurity-with-packet-to-disk/">previous post</a> and <a href="https://www.ntop.org/ntop/how-to-enable-smart-recording-in-ntopng-and-n2disk/">video tutorial.</a>&nbsp;In fact, in order to save resources (that can be &nbsp;disk space in case of n2disk, or CPU cycles in case of an IDS), the best approach is to run the tools <strong>on-demand</strong> on interesting traffic only.</p>
+<p>How to do this? ntopng implements <strong>Behavioural checks</strong> that can detect when a host is misbehaving (as well as classic attacks such as port scans, brute force or invalid protocol requests) , and can be configured to push information about those hosts to external tools for further analysing their traffic.</p>
+<p><strong>PF_RING 8.5</strong>&nbsp;(or later) includes native support for <strong>runtime filtering</strong>, which is the ability to add filtering rules while the application is running.&nbsp;Filtering rules are automatically converted into <em>hardware rules</em> and offloaded to the adapter, to be evaluated in hardware and add zero overhead (available on adapters supporting hardware filtering like the NVIDIA ConnectX). This allows you to run an IDS and receive only selected traffic (only packets matching hosts that require attention), according to rules which are dynamically built and pushed to the capture engine. Please note that unlike other adapter families (e.g. Intel), with nVidia multiple applications can simultaneously open the same network adapter and apply hardware filtering rules selectively (i.e. adding a filter on a connection does not discard packets on the other connections as hardware filters are per connection and not per NIC).</p>
+<p>Let&#8217;s see how this works under the hood.</p>
+<p>Filters are pushed to the capture engine by means of a Redis queue. Host filters can be added and removed by means of commands like “add host” or “remove host”.</p>
+<p>This can be configured in ntopng from the <em>Interface</em> &gt; <em>Details</em> &gt; <em>Settings</em> menu, where it is possible to toggle the <em>Push Alerted Hosts to PF_RING</em> flag.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/alerts_push_alerted_hosts_to_pfring.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-10476" src="https://www.ntop.org/wp-content/uploads/2023/06/alerts_push_alerted_hosts_to_pfring-1024x685.png" alt="" width="1024" height="685"></a></p>
+<p>With this setting enabled, ntopng notifies hosts for which there is an <em>engaged</em> alert to PF_RING, triggering the diversion of the traffic matching those hosts to the IDS (or any other application running on top of PF_RING), which is otherwise discarded by default.</p>
+<p>The name of the Redis queue is&nbsp;<strong>pfring.<em>ID</em>.filter.host.queue</strong> and it&#8217;s reported by the GUI (more details about this queue and how it works are available in the <a class="reference external" href="https://www.ntop.org/guides/pf_ring/filtering/runtime.html">PF_RING Runtime Filtering</a> section of the PF_RING user&#8217;s guide=.</p>
+<p>In order to run the application on top of PF_RING, and enable Runtime Filtering, the PF_RING_RUNTIME_MANAGER environment variable should be set, using as value the name of the Redis queue used by ntopng to push the filtering commands.</p>
+<p>Example with Suricata on top of a NVIDIA/Mellanox adapter:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="bash">PF_RING_RUNTIME_MANAGER="pfring.6.filter.host.queue" suricata --pfring-int=mlx:mlx5_0 -c /etc/suricata/suricata.yaml</pre>
+<p>Obviously, Suricata should be compiled with PF_RING support, please refer to the <a href="https://www.ntop.org/guides/pf_ring/thirdparty/index.html">IDS/IPS Integration</a> section of the PF_RING user&#8217;s guide for instructions.</p>
+<p>As of Zeek you need to compile it using the libpcap library part of PF_RING as <a href="https://github.com/ntop/PF_RING/blob/dev/doc/thirdparty/bro.rst">explained in the user&#8217;s guide</a> and it will work as Suricata.</p>
+<h3>Final Remarks</h3>
+<p>Thanks to the above solution, it is now possible to enable IDSs on demand as soon as an issue is detected by nDPI/nProbe Cento/ntopng. This solution allows Suricata/Zeek to scale at 40/100 Gbit speeds that otherwise would be too high for such tools. We are aware that this solution relies on the ability of ntopng to detect attacks whereas it would have been desirable to run Suricata/Zeek on all network traffic. This can be achieved at a high cost (e.g. partitioning ingress traffic across multiple hosts that run such IDSs) also generating a lot of logs that would probably be too much to handle. We believe that the above solution is a reasonable compromise between speed, costs, and detection accuracy.</p>
+<p>Do not forget that using the architecture described above it is possible to selectively enable from the command line (e.g. &#8216;<span class="s1">redis-cli lpush &#8220;+1.2.3.4/32&#8221; pfring.6.filter.host.queue&#8217;) traffic analysis of selected hosts. This can also be a great solution for discarding in hardware all traffic except the one for critical hosts that instead need to be monitored permanently with an IDS regarded them being under attack or not.</span></p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/enabling-zeek-and-suricata-on-demand-at-40-100-gbit-using-pf_ring/">Enabling Zeek and Suricata On-Demand at 40/100 Gbit using PF_RING</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing PF_RING 8.4: Zero-Copy Promisc Capture on Virtual Functions</title>
+		<link>https://www.ntop.org/introducing-pf_ring-8-4-zero-copy-promisc-capture-on-virtual-functions/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Wed, 01 Feb 2023 07:00:18 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10143</guid>
+
+					<description><![CDATA[<p>This is to announce a new PF_RING release 8.4 ! This stable release adds zero-copy support for a new range of (virtual) adapters from Intel: the iavf-zc driver can be used to…</p>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-8-4-zero-copy-promisc-capture-on-virtual-functions/">Introducing PF_RING 8.4: Zero-Copy Promisc Capture on Virtual Functions</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to announce a new PF_RING release 8.4 !</p>
+<p>This stable release adds zero-copy support for a new range of (virtual) adapters from Intel: the iavf-zc driver can be used to capture traffic from i40e (X710/XL710) and ice (E810) <a href="https://en.wikipedia.org/wiki/Single-root_input/output_virtualization">Virtual Functions</a>. This new driver paves the way for new packet capture architectures as it enables high-speed promiscuous capture on Virtual Functions by leveraging on the SR-IOV <a href="https://www.ntop.org/guides/pf_ring/get_started/packages_installation.html?#virtual-functions-configuration">trust mode</a> available on Intel X710/XL710 adapters. It is now possible for instance to capture all traffic hitting the physical interface from multiple Virtual Functions (promiscuous mode), or filter it based on the VLAN or MAC address.</p>
+<p>This new release also adds full control on the hardware clock availble on E810 adapters, in fact it includes a new API for reading, setting and adjusting the adapter clock, get packet timestamps, send packets and read the exact transmission time. The NVIDIA/Mellanox support has also been improved, by extending the filtering capabilities, and adding more tools/sample code to capture or transmit traffic fully leveraging on the multiqueue/multithread support.</p>
+<p>Many other improvements are available in this release, please check the full changelog below for the whole list! Enjoy!</p>
+<h2>Changelog</h2>
+<h3>PF_RING Library</h3>
+<ul>
+<li>New API pfring_get_ethtool_link_speed</li>
+<li>Add vlan_id to flow rule struct</li>
+<li>Add optimization flags to BPF filters compiled with pcap_compile</li>
+<li>Fix pfring_open_multichannel</li>
+</ul>
+<h3>PF_RING Kernel Module</h3>
+<ul>
+<li><span class="Apple-converted-space">&nbsp;A</span>dd keep_vlan_offload option to avoid reinserting VLAN header on VLAN interfaces when used inline</li>
+</ul>
+<h3>ZC Library</h3>
+<ul>
+<li>New ZC APIs (available on supported adapters)
+<ul>
+<li>pfring_zc_get_device_clock</li>
+<li>pfring_zc_set_device_clock</li>
+<li>pfring_zc_adjust_device_clock</li>
+<li>pfring_zc_send_pkt_get_time</li>
+</ul>
+</li>
+<li>Add new pfring_zc_run_fanout_v3 API to support more than 64 fan-out queues</li>
+<li>Add support for capturing stack packets, used by zcount and zbalance_ipc</li>
+</ul>
+<h3>PF_RING Capture Modules and ZC Drivers</h3>
+<ul>
+<li>New iavf-zc driver to support i40e and ice Virtual Functions
+<ul>
+<li>Support for VF trust mode on ice adapters (promisc with SR-IOV)</li>
+</ul>
+</li>
+<li>Improve ice driver (E810 adapters)
+<ul>
+<li>Update ice driver to v.1.9.11</li>
+<li>Add support to get time, set time, adjust time, send get time</li>
+</ul>
+</li>
+<li>Improve the NVIDIA/Mellanox (mlx) driver
+<ul>
+<li>Extend hardware rules</li>
+<li>Add support for VLAN filtering</li>
+<li>Add set_default_hw_action API</li>
+<li>Fix reported link speed</li>
+<li>Fix bidirectional rules</li>
+<li>Fix pfring_poll support</li>
+</ul>
+</li>
+<li>Improve the Napatech driver
+<ul>
+<li>Add nanosecond timestamp capture when using the packet API in PCAP chunk mode</li>
+</ul>
+</li>
+<li>Improve the ZC drivers API to support more callbacks</li>
+<li>Add socket extensions (getsockopt/setsockopt):
+<ul>
+<li>SO_GET_DEV_STATS (get_stats ZC drivers callback)</li>
+<li>SO_GET_DEV_TX_TIME (get_tx_time ZC drivers callback)</li>
+<li>SO_SET_DEV_TIME (set_time ZC drivers callback)</li>
+<li>SO_SET_ADJ_TIME (adjust_time ZC drivers callback)</li>
+</ul>
+</li>
+<li>Add management_only_mode to allow opening multiple sockets on the same ZC interface</li>
+<li>Update drivers to support latest RH 9.1, Ubuntu 22, Debian kernels</li>
+</ul>
+<h3>FT Library</h3>
+<ul>
+<li><span class="Apple-converted-space">&nbsp;</span>Fix double free</li>
+</ul>
+<h3>nBPF</h3>
+<ul>
+<li>Add icmp protocol primitive support</li>
+</ul>
+<h3>nPCAP</h3>
+<ul>
+<li>Update npcap lib to support for nanosecond time in packet extraction</li>
+</ul>
+<h3>PF_RING-aware Libpcap/Tcpdump</h3>
+<ul>
+<li>Update tcpdump to v.4.99.1</li>
+<li>Update libpcap to v.1.10.1</li>
+</ul>
+<h3>Examples</h3>
+<ul>
+<li>Add ztime example
+<ul>
+<li>Ability to set/adjust the card clock without capturing/transmitting traffic (external process)</li>
+<li>Test for the send-get-time feature</li>
+</ul>
+</li>
+<li>pfsend
+<ul>
+<li>Flush queued packets when waiting at real pcap rate and on shutdown</li>
+<li>Fix headers ranzomization</li>
+<li>Fix crash with -z</li>
+</ul>
+</li>
+<li>pfsend_multichannel
+<ul>
+<li>Add support for controlling IPs generated</li>
+</ul>
+</li>
+<li>pfcount
+<ul>
+<li>Add -I option to print interface info in JSON format</li>
+</ul>
+</li>
+<li>pfcount_multichannel
+<ul>
+<li>Print full packet metadata with -v</li>
+</ul>
+</li>
+<li>zbalance_ipc
+<ul>
+<li>Add support for up to 128 queues with -m 1 and -m 2 (new v3 api)</li>
+<li>Add -X option to capture TX traffic (standard driver only)</li>
+<li>Fix check for queues limit</li>
+</ul>
+</li>
+<li>zdelay
+<ul>
+<li>Fix queue size (power of 2)</li>
+</ul>
+</li>
+</ul>
+<h3>Misc</h3>
+<ul>
+<li>Add pfcount_multichannel and pfsend_multichannel to packages</li>
+<li>Service script (pf_ringctl)
+<ul>
+<li>Add support for configuring RSS via ethtool</li>
+<li>Add pre/post scripts for ZC drivers</li>
+<li>Handle multi-line driver conf file</li>
+</ul>
+</li>
+<li>Removed obsolete fm10k driver</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-8-4-zero-copy-promisc-capture-on-virtual-functions/">Introducing PF_RING 8.4: Zero-Copy Promisc Capture on Virtual Functions</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>HowTo Select the Right Network Adapter for Traffic Monitoring and Cybersecurity</title>
+		<link>https://www.ntop.org/howto-select-the-right-network-adapter-for-traffic-monitoring-and-cybersecurity/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 17 Aug 2022 14:23:55 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9882</guid>
+
+					<description><![CDATA[<p>Since the introduction of PF_RING ZC drivers for Mellanox/NVIDIA, and the new family of Intel E810 adapters, the activity of selecting the best, cost-effective adapter, based on the use case and the…</p>
+<p>The post <a href="https://www.ntop.org/howto-select-the-right-network-adapter-for-traffic-monitoring-and-cybersecurity/">HowTo Select the Right Network Adapter for Traffic Monitoring and Cybersecurity</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Since the introduction of PF_RING ZC drivers for <a href="https://www.ntop.org/pf_ring/introducing-pf_ring-zc-support-for-mellanox-adapters/">Mellanox/NVIDIA</a>, and the new family of<a href="https://www.ntop.org/pf_ring/introducing-pf_ring-zc-support-for-intel-e810-based-100g-adapters/"> Intel E810</a> adapters, the activity of selecting the best, cost-effective adapter, based on the use case and the performance we need to achieve, has become more complicated. Let&#8217;s try to shed some light.</p>
+<h2>Intel Adapters</h2>
+<p>Most commodity adapters, including Intel and Mellanox, are based on ASIC chipsets, which are cheap and provide simple RX/TX operations, with no (or limited) programmability.<br />
+Those adapters have been designed for general purpose connectivity and are not really optimized for moving traffic at high throughput (especially with worst-case traffic). However, by using <a href="https://www.ntop.org/products/packet-capture/pf_ring/pf_ring-zc-zero-copy/">PF_RING ZC</a> drivers, in combination with hardware offloads capabilities like <strong>RSS</strong> (<a href="https://www.ntop.org/guides/pf_ring/rss.html">Receive Side Scaling</a>) it is possible to scale the performance and process traffic up to 100 Gbps.</p>
+<p>There are a few families of Intel adapters, based on the chipset architecture:</p>
+<ul>
+<li>e1000e (Intel 8254x/8256x/8257x/8258x) and igb (Intel 82575/82576/82580/I350) supporting 1 Gbit links</li>
+<li>ixgbe (Intel 82599/X520/X540/X550) supporting up to 10 Gbit links</li>
+<li>i40e (Intel X710/XL710) supporting up to 40 Gbit links</li>
+<li>ice (Intel E810) supporting up to 100 Gbit links</li>
+</ul>
+<p>Intel adapters are good for traffic analysis and can scale up to 100 Gbps by load-balancing traffic to multiple CPU cores with RSS. They can be used in combination with <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe Pro/Enterprise</a> to process up to 10-20 Gbps by spawning multiple processes, or <a href="https://www.ntop.org/products/netflow/nprobe-cento/">nProbe Cento</a> to process up to 100 Gbps (on Intel E810).</p>
+<p>Since Intel adapters implement simple RX operations, and can only work per-packet (there is one PCIe transaction for every packet received), they can be used for traffic recording with <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a> up to 10 Gbps (or a bit more, depending on the hardware configuration). The reason is that RSS cannot be used in this case, as a single stream is required to move data from the wire to disk to preserve packet order (traffic traces that have been manipulated by any mean are not useful for providing real evidence of a Network/Cybersecurity issue, or even for troubleshooting), and working per-packet does not provide enough performance to scale above 10-20 Gbps.</p>
+<p>Please note that access to the Network adapter with ZC drivers is mutually exclusive, as the userspace library running inside the application fully controls the adapter. This means you cannot run multiple applications on the same interface (unless you use traffic duplication in software, running an applications like <a href="https://www.ntop.org/guides/pf_ring/rss.html#zc-cluster-zbalance-ipc">zbalance_ipc</a>, which adds CPU overhead and affects the performance).</p>
+<h2>Mellanox/NVIDIA Adapters</h2>
+<p>Mellanox adapters supported by PF_RING ZC, including ConnectX-5 and ConnectX-6, are also based on ASIC chipsets and they share with Intel similar performance limitation when it comes to dump traffic to disk with <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a> (they can be used up to 10-20 Gbps).</p>
+<p>They are very good for traffic analysis, in fact it is possible to process up to 100 Gbps wire rate when using nProbe Cento. Instead, they cannot be used in combination with <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe Pro/Enterprise</a> when RSS is required, because the RSS implementation on Mellanox adapters supports multithreaded applications (e.g. nProbe Cento), but it cannot be used with multi-process applications (e.g. nProbe Pro/Enterprise).</p>
+<p>On the other hand, Mellanox adapters deliver interesting features as<a href="https://www.ntop.org/pf_ring/introducing-pf_ring-zc-support-for-mellanox-adapters/"> introduced in a previous post</a>, including hardware <strong>packet timestamping</strong> (with nanosecond resolution), hardware <strong>packet filtering</strong> (which is flexible and supports many rules) and <strong>traffic duplication</strong>.</p>
+<p>Traffic duplication means that it is possible to capture the same traffic from multiple applications (e.g. n2disk for traffic recording, and nProbe Cento for traffic analysis), which is not possible with Intel. It is also possible to use a different load-balancing configuration per application (e.g. send all traffic using a single data stream to n2disk, while load-balancing traffic using multiple RSS queues to nProbe Cento).</p>
+<h2>FPGA-Based Adapters</h2>
+<p>FPGA-based Network adapters are specialized, programmable adapters able to deliver high performance and enhanced features. Adapters from different brands, including Napatech and Silicom Denmark (former Fiberblaze), fall into this category. Those adapters are definitely suitable for traffic analysis at high speed, however they are usually not really required with nProbe for instance, as an ASIC-based card (Intel or Mellanox) is already able to scale up to 100 Gbps by leveraging on RSS load-balancing and the price is much lower.</p>
+<p>An interesting features available in most FPGA adapters is the ability to <strong>aggregate</strong> traffic from multiple interfaces in hardware. This is useful when using a Network TAP to monitor a link. In fact in this case the two directions of the full duplex link needs to be aggregated (and eventually load-balanced to multiple CPU cores) for providing the whole traffic to the traffic analysis application. This is something can be done in software up to a few Gbps, but it is mandatory to do this in hardware on 10 Gbps links which are fully loaded.</p>
+<p>In case of <strong>traffic recording</strong> with n2disk instead, those adapters make a difference. In fact, FPGA adapters usually include huge buffers, and some of them are able to move packets to the host memory in blocks (clustering together packets up to several Megabytes per block) rather than individual packets as with ASIC adapters. This dramatically reduces the pressure on the PCIe bus and the memory subsystem, delivering packet capture performance up to 50 Gbps using a single data stream with n2disk. This capture mode, combined with the hardware timestamping support with nanosecond resolution, allows us to <a href="https://www.ntop.org/ntop/howto-build-a-100-gbit-drop-free-continuous-packet-recorder-using-n2disk-part-3/">dump to disk up to 100 Gbps</a>. This is the case of Napatech and Fiberblaze adapters for instance.</p>
+<p>Please note that in most cases access to the Network adapter with FPGA adapters is mutually exclusive, similar to ZC drivers for Intel, especially when you need to use different load-balancing policies per application. The only exception is Fiberblaze, which allows you to <a href="https://www.ntop.org/guides/pf_ring/modules/fiberblaze.html">create different load-balancing groups</a>, similar to Mellanox.</p>
+<h2>Other Adapters</h2>
+<p>If your system is equipped with a network adapter which is not supported by PF_RING ZC or FPGA, please expect (low) capture performance that can range from 100 Mbps to 2-3 Gbps per core, according to the adapter model and system specs. In fact any adapter is supported by PF_RING using standard drivers, with performance limited by the standard kernel mechanisms. On the other side, in this case you can run packet capture from multiple applications using the same Network interface, as interface access is not mutually exclusive (the kernel module takes care of delivering traffic, sending a copy to each application).</p>
+<h2>Conclusions</h2>
+<p>Below we summarise the results of our survey. The tables report the best adapter in terms of price/performance for the use case selected</p>
+<h3>Up to 10 Gbit</h3>
+<table border="">
+<tbody>
+<tr>
+<th>Application</th>
+<th>Best Price/Performance Adapter</th>
+</tr>
+<tr>
+<th style="text-align: left">ntopng</th>
+<td>Any PF_RING ZC supported adapter</td>
+</tr>
+<tr>
+<th style="text-align: left">nProbe</th>
+<td>Any PF_RING ZC supported adapter</td>
+</tr>
+<tr>
+<th style="text-align: left">nProbe Cento</th>
+<td>Any PF_RING ZC supported adapter</td>
+</tr>
+<tr>
+<th style="text-align: left">n2disk</th>
+<td>Any PF_RING ZC supported adapter</td>
+</tr>
+<tr>
+<th style="text-align: left">nScrub</th>
+<td>Any PF_RING ZC supported adapter</td>
+</tr>
+</tbody>
+</table>
+<h3>20-100 Gbit</h3>
+<table border="">
+<tbody>
+<tr>
+<th>Application</th>
+<th>Best Price/Performance Adapter</th>
+</tr>
+<tr>
+<th style="text-align: left">ntopng</th>
+<td>We advise to preprocess traffic with nProbe Cento</td>
+</tr>
+<tr>
+<th style="text-align: left">nProbe</th>
+<td>Intel E810 with PF_RING ZC, with RSS and multiple processes (performance are limited by the nProbe configuration and can range from 10 to 20 Gbps)</td>
+</tr>
+<tr>
+<th style="text-align: left">nProbe Cento</th>
+<td>
+<ul>
+<li>Mellanox with PF_RING ZC</li>
+<li>Intel E810 with PF_RING ZC</li>
+<li>FPGA adapters</li>
+</ul>
+</td>
+</tr>
+<tr>
+<th style="text-align: left">n2disk</th>
+<td>FPGA adapters</td>
+</tr>
+<tr>
+<th style="text-align: left">nScrub</th>
+<td>
+<ul>
+<li>Mellanox with PF_RING ZC</li>
+<li>Intel E810 with PF_RING ZC</li>
+<li>FPGA adapters (bridge mode only)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Enjoy !</p>
+<p>The post <a href="https://www.ntop.org/howto-select-the-right-network-adapter-for-traffic-monitoring-and-cybersecurity/">HowTo Select the Right Network Adapter for Traffic Monitoring and Cybersecurity</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing PF_RING 8.2: New Mellanox Support</title>
+		<link>https://www.ntop.org/introducing-pf_ring-8-2-new-mellanox-support/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Thu, 30 Jun 2022 14:13:26 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9823</guid>
+
+					<description><![CDATA[<p>This is to announce a new PF_RING release 8.2! This new stable version adds support for a new family of ASIC-based adapters from Mellanox/NVIDIA, including ConnectX-5 and ConnectX-6 (please check the User's…</p>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-8-2-new-mellanox-support/">Introducing PF_RING 8.2: New Mellanox Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to announce a new PF_RING release 8.2!</p>
+<p>This new stable version adds support for a new family of ASIC-based adapters from <a href="https://www.nvidia.com/en-us/networking/ethernet-adapters/">Mellanox/NVIDIA</a>, including <a href="https://www.nvidia.com/en-us/networking/ethernet/connectx-5/">ConnectX-5</a> and <a href="https://www.nvidia.com/en-us/networking/ethernet/connectx-6/">ConnectX-6</a> (please check the <a href="https://www.ntop.org/guides/pf_ring/modules/mellanox.html">User&#8217;s Guide</a> for the exact list of supported firmwares). This new driver/adapter combination delivers high performance (in our tests <a href="https://www.ntop.org/products/netflow/nprobe-cento/">nProbe Cento</a> was able to scale up to 100 Gbps with worst case traffic using a few CPU cores) and provides high flexibility, with support for hardware packet filtering, traffic duplication, load-balancing and nanosecond hardware timestamping as described in a <a href="https://www.ntop.org/pf_ring/introducing-pf_ring-zc-support-for-mellanox-adapters/">previous post</a>.</p>
+<p>This release also adds support for the latest kernels for the <a href="https://www.ntop.org/products/packet-capture/pf_ring/pf_ring-zc-zero-copy/">ZC drivers</a> for Intel adapters, including those shipped with RedHat/CentOS compatible Rocky Linux (8.5) and Ubuntu LTS (22) , and it is integrated with the latest SDKs for the FPGA capture modules (<a href="https://www.ntop.org/guides/pf_ring/modules/accolade.html">Accolade</a>, <a href="https://www.ntop.org/guides/pf_ring/modules/napatech.html">Napatech</a>, <a href="https://www.ntop.org/guides/pf_ring/modules/fiberblaze.html">Silicom/Fiberblaze</a>).</p>
+<p>Please check the full changelog below for the whole list of enhancements. Enjoy!</p>
+<h2>Changelog</h2>
+<h3>PF_RING Library</h3>
+<ul>
+<li>New new pfring_get_caplen API</li>
+<li>New pfring_get_link_type API</li>
+<li>Add src_ip_mask and dst_ip_mask to generic_flow_rule</li>
+<li>Add priority to hw_filtering_rule</li>
+<li>Add module version to device info returned by pfring_findalldevs</li>
+<li>Refactor device name parsing</li>
+<li>Use sockaddr_ll in bind (to supports interface names longer than 14 chars)</li>
+</ul>
+<h3>ZC Library</h3>
+<ul>
+<li>New Mellanox support for ConnectX 4/5/6 adapters, including hardware offloads for timestamp, filtering, RSS</li>
+<li>Fix pfring_zc_numa_get_cpu_node</li>
+</ul>
+<h3>FT Library</h3>
+<ul>
+<li>Add native support for flow export over ZMQ</li>
+</ul>
+<h3>PF_RING Kernel Module</h3>
+<ul>
+<li>Add support for VXLAN</li>
+<li>Add support for both sockaddr and sockaddr_ll in bind</li>
+<li>Refactor kernel locking</li>
+<li>Discard VLAN in hash cluster_per_flow_ip_with_dup_tuple calculation</li>
+<li>Detect when a process owning a PF_RING socket changes the PID (e.g. fork)</li>
+<li>Export process PID to userspace</li>
+<li>Fix compilation on latest kernels for Rocky Linux and RH 8.5, Debian 9, 10, 11, Ubuntu 18, 20, 22</li>
+<li>Fix net namespace handling</li>
+<li>Fix crash when renaming /proc entries</li>
+</ul>
+<h3>PF_RING Capture Modules</h3>
+<ul>
+<li>Fix drop statistics on Napatech with HBA set</li>
+</ul>
+<h3>ZC Drivers</h3>
+<ul>
+<li>New igb-zc driver v.5.10.2</li>
+<li>New i40e-zc driver v.2.17.4</li>
+<li>New ice-zc driver v.1.8.8</li>
+</ul>
+<h3>nBPF</h3>
+<ul>
+<li>Fix double free</li>
+</ul>
+<h3>Application Examples</h3>
+<ul>
+<li>New sample application pfsend_multichannel to send traffic using RSS</li>
+<li>New zdelay application to forward traffic between interfaces, adding a configurable delay</li>
+<li>pfcount_multichannel: remove limit on number of threads</li>
+<li>zbalance_ipc: improve hashing modes (e.g. add -Y to control eth type)</li>
+<li>pfcount:
+<ul>
+<li>Add -0 to steer all traffic to RSS queueu 0</li>
+<li>Add -P to set rule priority</li>
+</ul>
+</li>
+<li>ftflow_dpdk:
+<ul>
+<li>Set RSS mode/hf (required on some adapters e.g. Mellanox)</li>
+<li>Use time from hardware timestamp when available</li>
+</ul>
+</li>
+</ul>
+<h3>Misc</h3>
+<ul>
+<li>Add support for Ubuntu 22</li>
+<li>Remove nBroker support (fm10k adapters are EOL)</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-8-2-new-mellanox-support/">Introducing PF_RING 8.2: New Mellanox Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How PF_RING is Used to Fight Internet Censorship: Refraction Networking</title>
+		<link>https://www.ntop.org/how-pf_ring-is-used-to-fight-internet-censorship-refraction-networking-censorship/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sun, 03 Apr 2022 17:26:22 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9744</guid>
+
+					<description><![CDATA[<p>Internet censorship is a global phenomenon (see Figure 1) that aims to throttle or entirely block access to certain Internet resources. National or regional governments impose Internet censorship by using sophisticated networking…</p>
+<p>The post <a href="https://www.ntop.org/how-pf_ring-is-used-to-fight-internet-censorship-refraction-networking-censorship/">How PF_RING is Used to Fight Internet Censorship: Refraction Networking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Internet censorship is a global phenomenon (see Figure 1) that aims to throttle or entirely block access to certain Internet resources. National or regional governments impose Internet censorship by using sophisticated networking appliances—strategically placed at the edge of their networks at various Internet inter-connection points—capable of inspecting and discarding network packets destined to sites with restricted content. Users that try to evade censorship have traditionally relied on techniques based on “domain fronting” and VPNs. However, these censorship circumvention tools are increasingly becoming harder to deploy and do not offer strong censorship resistance guarantees since regimes that impose censorship can also block access to such technologies.<img loading="lazy" decoding="async" class="aligncenter size-full wp-image-9745" src="https://www.ntop.org/wp-content/uploads/2022/04/Screen-Shot-2022-04-03-at-19.23.06.png" alt="" width="686" height="416" /></p>
+<div class="page" title="Page 1">
+<div class="section">
+<div class="layoutArea">
+<div class="column">
+<p><strong>Figure 1</strong>. Internet Censorship has become a global phenomenon. Figure shows prevalence of censorship via DNS injection broken down by country as measured by the Satellite project. Source: <a href="https://censoredplanet.org/">censoredplanet.org</a></p>
+</div>
+<div class="page" title="Page 1">
+<div class="section">
+<div class="layoutArea">
+<div class="column">
+<p><a href="https://refraction.network/">Refraction Networking</a> is a new censorship circumvention technique that addresses some of the shortcomings of existing circumvention tools. Refraction Networking has evolved over the past 10 years from a series of lab prototypes (i.e., <a href="https://www.usenix.org/conference/foci11/decoy-routing-toward-unblockable-internet-communication">Decoy Routing</a>, <a href="https://www.usenix.org/conference/usenix-security-11/telex-anticensorship-network-infrastructure">Telex</a>, <a href="https://caesar.web.engr.illinois.edu/papers/cirripede-ccs11.pdf">Cirripede</a>, <a href="https://www.usenix.org/system/files/conference/usenixsecurity14/sec14-paper-wustrow.pdf">TapDance</a>) to a system that concurrently <a href="https://refraction.network/papers/deployment-pets20.pdf">serves millions of users worldwide</a>. Rather than embracing the “cat and mouse game” that, say, VPN providers and repressive regimes are engaged with (e.g., by constantly recycling VPN endpoints to avoid blockage by censors), Refraction Networking</p>
+</div>
+</div>
+</div>
+</div>
+<div class="page" title="Page 2">
+<div class="section">
+<div class="layoutArea">
+<div class="column">
+<p>places stations at the network’s core (e.g., within friendly ISPs, see Figure 2). Placing these stations in the “middle of the network” deters censoring entities from imposing any kind of practical censorship since their only option is to aggressively block access to the ISPs hosting the Refraction stations. This aggressive blockage would inflict collateral damage to censors themselves since they would be essentially cutting themselves off of large portions of the Internet.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-9746" src="https://www.ntop.org/wp-content/uploads/2022/04/Screen-Shot-2022-04-03-at-19.24.59.png" alt="" width="668" height="309" /></p>
+<div class="page" title="Page 2">
+<div class="section">
+<div class="layoutArea">
+<div class="column">
+<p><strong>Figure 2</strong>. Refraction networking. Placing “Refraction stations” in partnering ISPs allows users to access blocked sites in a covert manner, while elevating the difficulty for censors to block Internet content.</p>
+</div>
+<div class="page" title="Page 2">
+<div class="section">
+<div class="layoutArea">
+<div class="column">
+<p>A key component for the reliable and efficient operation of the Refraction network is the ability to monitor packets at multi-10Gbps speeds and inspect them for the steganographically encoded signal that Refraction clients use to convey their intention to connect with a “blocked” site. The Refraction network currently (passively) monitors an aggregate traffic stream that exceeds 150Gbps, and the team has relied on PF_RING ZC’s unique capabilities to deliver packets to Refraction’s monitoring engines with zero loss, even when using commodity, off-the-shelf hardware and network NICs (such as Intel Ethernet network adapters). Further, the Refraction operators utilize ntop’s <em>zbalance_ipc</em> to efficiently distribute the traffic load into multiple PF_RING-based worker applications that serve Refraction’s global users. The Refraction community is grateful for the support that the PF_RING team has been providing since the onset of this circumvention technology.</p>
+<p>At the moment, the Refraction coalition consists of universities, non-profit organizations and industry partners and serves upwards of one million users worldwide. Refraction monitoring stations are currently hosted at three separate networks, including a mid-size ISP, and the team is actively seeking new partners to expand its network operations and its user population. If you are interested in joining the coalition or contributing in other ways, please reach out at <a href="mailto:team@refraction.network">team@refraction.network</a>.</p>
+</div>
+<p>Many thanks to the members of the Refraction team who contributed to this article and for having used PF_RING to fight Internet censorship.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The post <a href="https://www.ntop.org/how-pf_ring-is-used-to-fight-internet-censorship-refraction-networking-censorship/">How PF_RING is Used to Fight Internet Censorship: Refraction Networking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing PF_RING ZC Support for Mellanox Adapters</title>
+		<link>https://www.ntop.org/introducing-pf_ring-zc-support-for-mellanox-adapters/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 18 Oct 2021 09:43:06 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9547</guid>
+
+					<description><![CDATA[<p>PF_RING ZC is ntop's high-speed zero-copy technology for high speed packet capture and processing. Until now ZC supported 10/40/100 Gbit adapters from Intel based on ASIC chips, in addition to the FPGA-based…</p>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-zc-support-for-mellanox-adapters/">Introducing PF_RING ZC Support for Mellanox Adapters</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>PF_RING ZC is ntop&#8217;s high-speed zero-copy technology for high speed packet capture and processing. Until now ZC supported <a href="https://www.ntop.org/pf_ring/introducing-pf_ring-zc-support-for-intel-e810-based-100g-adapters/">10/40/100 Gbit adapters from Intel</a> based on ASIC chips, in addition to the FPGA-based 100 Gbit adapters already <a href="https://www.ntop.org/guides/pf_ring/modules/index.html">supported by PF_RING</a> including Accolade/Napatech/Silicom.</p>
+<p>This post is to announce a new ZC driver, known as <em>mlx</em>, supporting a new family of 100 Gbit ASIC-based adapters, this time from <a href="https://www.nvidia.com/en-us/networking/ethernet-adapters/">Mellanox/NVIDIA</a>, including <a href="https://www.nvidia.com/en-us/networking/ethernet/connectx-5/">ConnectX-5</a> and <a href="https://www.nvidia.com/en-us/networking/ethernet/connectx-6/">ConnectX-6</a> adapters.</p>
+<p>The supported ConnectX adapters from Mellanox, in combination with the new <em>mlx</em> driver, demonstrated to be capable of high performance, by letting our applications to scale up to 100 Gbps with worst case traffic, and flexibility, with support for hardware <strong>packet filtering</strong>, <strong>traffic duplication</strong> and <strong>load-balancing</strong> as we will see later in this post. All this in addition to interesting and useful features like nanosecond <strong>hardware timestamping</strong>.</p>
+<p>Before diving into details of Mellanox support, we want to list the main differences of this ZC driver with respect to all other adapters, in fact Mellanox NICs can be logically partitioned into <em>multiple independent virtual ports</em>, typically one per application. This means for instance that:</p>
+<ul>
+<li>You can start cento and n2disk on top of the same Mellanox adapter port, and nProbe Cento can tell the adapter to implement 8 queue RSS for its virtual adapter, while n2disk can use its virtual adapter in single queue to avoid shuffling packets.</li>
+<li>Traffic duplication: you can use the adapter to natively implement in-hardware packet duplication (in the above example both nProbe Cento and n2disk receive the same packets that have been duplicated in hardware). This is possible as each virtual adapter (created when an application opens a Mellanox NIC port) receives a (zero) copy of each incoming packet.</li>
+<li>Packet Filtering: as every application opens a virtual adapter, each application can specify independent in-hardware filtering rules (ip to 32k per virtual adapter). This means for instance that cento could instruct the adapter to receive all traffic, while n2disk could discard in-hardware, using a filtering rule, all traffic on TCP/80 and UDP/53 as this is not relevant for the application.</li>
+</ul>
+<p>All this described above happens in hardware, and you can start hundred of applications on top of the same adapter port, each processing a portion or all the traffic, this based on the specified filtering rule. Please note that what is just described is per port, meaning that the same application can open different virtual adapter ports with different configurations. Below in this post you will read more about this feature available on the ZC driver for Mellanox.</p>
+<p>After this overview, it is now time to dig into the details for learning howto use ZC on top of Mellanox NICs.</p>
+<h3>Configuration</h3>
+<p>In addition to the standard <em>pfring</em> package installation (which is available by configuring one of our repositories at <a href="http://packages.ntop.org">packages.ntop.org</a>), the <em>mlx</em> driver requires the <em>Mellanox OFED/EN</em> SDK to be downloaded and installed from the <a href="https://www.mellanox.com/products/infiniband-drivers/linux/mlnx_ofed">Download</a> section on the Mellanox website.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">cd MLNX_OFED_LINUX-5.4-1.0.3.0-ubuntu20.04-x86_64
+./mlnxofedinstall --upstream-libs --dpdk</pre>
+<p>ConnectX-5 and ConnectX-6 adapters are supported by the driver, however there is a minimum firmware version which is recommended for each adapter model. Please check the <a href="https://www.ntop.org/guides/pf_ring/modules/mellanox.html">documentation</a> for an updated list of supported adapters and firmwares. This is the main difference with respect to other drivers: you will not find a dkms package (e.g. ixgbe-zc-dkms_5.5.3.7044_all.deb) as with Intel to install, but once you have installed the Mellanox SDK as described belo, PF_RING ZC will be able to operate without installing any ZC driver for the Mellanox.</p>
+<p>After installing the SDK, it is possible to use the <em>pf_ringcfg</em> tool part of the <em>pfring</em> packet to list the installed devices and check the compatibility.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">apt install pfring
+pf_ringcfg --list-interfaces
+Name: eno1      Driver: e1000e RSS: 1 [Supported by ZC]
+Name: eno2      Driver: igb        RSS:     4    [Supported by ZC]
+Name: enp1s0f0  Driver: mlx5_core  RSS:     8    [Supported by ZC]
+Name: enp1s0f1  Driver: mlx5_core  RSS:     8    [Supported by ZC]</pre>
+<p>The same tool can be used to configure the adapter: this tool loads the required modules, configures the desired number of <a href="https://www.ntop.org/guides/pf_ring/rss.html#rss-receive-side-scaling">RSS</a> queues, and restarts the pf_ring service.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">pf_ringcfg --configure-driver mlx --rss-queues 1</pre>
+<p>The new <em>mlx</em> interfaces should be now available in the applications. The <em>pfcount</em> tool can be used to list them.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">pfcount -L -v 1
+Name       SystemName Module  MAC               BusID         NumaNode  Status  License Expiration
+eno1       eno1       pf_ring B8:CE:F6:8E:DD:5A 0000:01:00.0  -1        Up      Valid   1662797500
+eno2       eno2       pf_ring B8:CE:F6:8E:DD:5B 0000:01:00.1  -1        Up      Valid   1662797500
+mlx:mlx5_0 enp1s0f0   mlx     B8:CE:F6:8E:DD:5A 0000:00:00.0  -1        Up      Valid   1662797500
+mlx:mlx5_1 enp1s0f1   mlx     B8:CE:F6:8E:DD:5B 0000:00:00.0  -1        Up      Valid   1662797500</pre>
+<p data-enlighter-language="generic"><em>pfcount</em> can also be used to run a capture test, using the same interface name reported by the list.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">pfcount -i mlx:mlx5_0</pre>
+<p>If multiple receive queues (RSS) are configured, the <em>pfcount_multichannel</em> tool should be used to capture traffic from all queues (this is using multiple threads).</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">pfcount_multichannel -i mlx:mlx5_0</pre>
+<h3>Performance</h3>
+<p>During the tests we ran in our lab using a Mellanox ConnectX-5 on an Intel Xeon Gold 16-cores @ 2.2/3.5 GHz, this adapter demonstrated to be capable of capturing more than 32 Mpps (20 Gbps with worst-case 60-byte packets, 40 Gbps with an avg packet size of 128 bytes) on a single core, and scale up to 100 Gbps using 16 cores by enabling <a href="https://www.ntop.org/guides/pf_ring/rss.html#rss-receive-side-scaling">RSS</a> support.</p>
+<p>What is really interesting is the <strong>application performance</strong>, in fact some initial test with <a href="https://www.ntop.org/products/netflow/nprobe-cento/">nProbe Cento</a>, the 100 Gbit NetFlow probe part of the ntop suite, shown that it is possible to process <strong>100 Gbps worst-case traffic</strong> (small packet size) using 16 cores, 40 Gbps using just 4 cores. Please note that those performance highly depend on the traffic type (less cores are required for a bigger average packet size for instance) and can change according to the input and the application configuration.</p>
+<p>Packet transmission demonstrated to be quite fast as well in our tests, delivering more than 16 Mpps per core, and scaling linearly with the number of cores when using multiple queues (e.g. 64 Mpps with 4 cores).</p>
+<h3>Flexibility</h3>
+<p>An interesting feature of this adapter is the flexibility it provides when it comes to traffic duplication and load-balancing. In fact, as opposite to ZC drivers for Intel and most FPGA adapters (Silicom Fiberblaze is probably the only exception), access to the device is <strong>non exclusive</strong>, and it is possible to capture (<strong>duplicate</strong>) the traffic from multiple applications. In addition to this, it is also possible to apply a different <strong>load-balancing</strong> (RSS) configuration for each application. As an example, this allows us to run, on the same traffic, nProbe Cento and n2disk, where nProbe Cento is configured to load-balancing the traffic to N streams/cores, while n2disk receives all the traffic in a single data stream.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-9535" src="https://www.ntop.org/wp-content/uploads/2021/10/connectx-duplicate-rss-300x141.png" alt="" width="600" height="282" /></p>
+<p>In order to test this configuration, RSS should be enabled when configuring the adapter with <em>pf_ringcfg</em>, by configuring the number of queues that should be used by cento to load-balance the traffic to multiple threads.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">pf_ringcfg --configure-driver mlx --rss-queues 8</pre>
+<p>Run cento by specifying the queues and the cores affinity.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">cento -i mlx:mlx5_0@[0-7] --processing-cores 0,1,2,3,4,5,6,7</pre>
+<p>Run n2disk on the same interface. Please note n2disk will configure the socket to use a single queue as a single data stream is required for dumping PCPA traffic to disk. Please also note that packet timestamps are provided by the adapter and can be use to dump PCAP files with nanosecond timestamps.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">n2disk -i mlx:mlx5_0 --disable-rss  -o /storage -p 1024 -b 8192 --nanoseconds --disk-limit 50% -c 8 -w 9</pre>
+<h3>Hardware Filtering</h3>
+<p>The last, but not least, feature we want to mention in this post is the hardware filtering capability. The number of filters is pretty high (64 thousand rules on ConnectX-5) and flexible for an ASIC adapter. In fact it is possible to:</p>
+<ul>
+<li>Assign a unique ID that can be used to add and remove specific rules at runtime.</li>
+<li>Compose rules by specifying which packet header field (protocol, src/dst IP, src/dst port, etc) should be used to match the rule.</li>
+<li>Define <em>drop</em> or <em>pass</em> rules.</li>
+<li>Assign a priority to the rule.</li>
+</ul>
+<p>What is interesting here, besides the flexibility of the rules themselves, is the combination of traffic duplication and rule priority, which is applied across sockets. In fact, just to mention an example, two applications capturing traffic from the same interface and setting a <em>pass</em> rule which is matching the same traffic and with the same priority, will both receive the same traffic. Instead, only the application which is setting the higher priority on the rule, would receive the traffic otherwise.</p>
+<p>Please refer to the <a href="https://www.ntop.org/guides/pf_ring/modules/mellanox.html">documentation</a> for learning more about the filtering API and sample code.</p>
+<h3>License</h3>
+<p>The ZC driver for Mellanox requires a license per-port similar to what happens with Intel adapters. The price of Mellanox driver is the same of the Intel ZC, even though much richer in terms of features to what you can do with Intel. You can purchase driver licenses online from the <a href="https://shop.ntop.org">ntop shop</a> or from an authorised <a href="https://www.ntop.org/resellers/">reseller</a>.</p>
+<h3>Final Remarks</h3>
+<p>In summary a sub 1000$ Mellanox NIC can achieve the same performance of FPGA-based adapters at a fraction of the cost, and provide many more features and freedom thanks to the concept of virtual adapter.</p>
+<p>Enjoy ZC for Mellanox !</p>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-zc-support-for-mellanox-adapters/">Introducing PF_RING ZC Support for Mellanox Adapters</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing PF_RING 8.0: Batch Packet Processing and XDP Support</title>
+		<link>https://www.ntop.org/introducing-pf_ring-8-0-batch-packet-processing-and-xdp-support/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Wed, 11 Aug 2021 12:32:55 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9430</guid>
+
+					<description><![CDATA[<p>This is to announce a new PF_RING release 8.0. This new stable version includes enhancements for improving application performances, by adding support for batch processing also in the standard API (it was…</p>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-8-0-batch-packet-processing-and-xdp-support/">Introducing PF_RING 8.0: Batch Packet Processing and XDP Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to announce a new PF_RING release 8.0. This new stable version includes enhancements for improving application performances, by adding support for batch processing also in the standard <a href="https://www.ntop.org/guides/pf_ring/api/pfring.html#_CPPv417pfring_recv_burstP6pfringP18pfring_packet_info8u_int8_t8u_int8_t">API</a> (it was already available in the <a href="https://www.ntop.org/products/packet-capture/pf_ring/pf_ring-zc-zero-copy/">ZC API</a>), and consolidates <a href="https://www.ntop.org/guides/pf_ring/modules/af_xdp.html">XDP</a> support, which has been reworked to fully leverage on the latest Zero-Copy support and buffers management and take full advantage of the native batch capture.</p>
+<p>This release also adds support for the latest kernels to the <a href="https://www.ntop.org/products/packet-capture/pf_ring/pf_ring-zc-zero-copy/">ZC drivers</a> for Intel adapters, including those shipped with CentOS (8.4) and Ubuntu LTS (20) , and it is integrated with the latest SDKs for the FPGA capture modules (<a href="https://www.ntop.org/guides/pf_ring/modules/accolade.html">Accolade</a>, <a href="https://www.ntop.org/guides/pf_ring/modules/napatech.html">Napatech</a>, <a href="https://www.ntop.org/guides/pf_ring/modules/fiberblaze.html">Silicom/Fiberblaze</a>).</p>
+<p>A few more API extensions and improvements are included in this release, please check the full changelog below for the whole list. Enjoy!</p>
+<h2>Changelog</h2>
+<h3>PF_RING Library</h3>
+<ul>
+<li>Add pfring_recv_burst API allowing batch receive (when supported by the capture module/adapter)</li>
+<li>New zero-copy AF_XDP support (reworked), including pfring_recv_burst support</li>
+<li>Fix breakloop when using pfring_loop</li>
+</ul>
+<h3>ZC Library</h3>
+<ul>
+<li>New pfring_zc_pkt_buff_data_from_cluster API to get the packet buffer providing packet handle and cluster</li>
+<li>New pfring_zc_pkt_data_buff API to get the packet handle providing packet buffer and cluster</li>
+<li>New pfring_zc_pkt_buff_pull_only API to remove data from the head room of a packet</li>
+<li>Add PF_RING_ZC_BUFFER_HEAD_ROOM define (buffer head room size)</li>
+<li>Add PF_RING_ZC_SEND_PKT_MULTI_MAX_QUEUES define (max number of queues in queues_mask)</li>
+</ul>
+<h3>FT Library</h3>
+<ul>
+<li>New pfring_ft_api_version API to get the API version</li>
+<li>New pfring_zc_precompute_cluster_settings API to get memory information before allocating resources</li>
+<li>Add VXLAN encapsulation support</li>
+<li>Add tunnel_id to flow metadata<br />
+Add support for compiling examples with DPDK &gt;=20</li>
+<li>Fix L7 metadata with short flows</li>
+</ul>
+<h3>PF_RING-aware Libpcap</h3>
+<ul>
+<li>Set 5-tuple clustering as default when using clustering with libpcap</li>
+</ul>
+<h3>PF_RING Kernel Module</h3>
+<ul>
+<li>Support for kernel &gt;=5.9</li>
+<li>Add more info to /proc, including promisc mode and ZC slots info</li>
+<li>Handle long interface name (error on interface length bigger than 14-char as supported by bind)</li>
+<li>Fix channel selection when channel is unknown (e.g. VM)</li>
+<li>Fix triple VLAN tags with hw offload/acceleration</li>
+<li>Fix check on mapped memory size</li>
+<li>Fix potential data race in SO_SET_APPL_NAME</li>
+<li>Fix OOB access</li>
+</ul>
+<h3>PF_RING Capture Modules</h3>
+<ul>
+<li>Accolade library update (SDK 1_2_20210714)</li>
+<li>Napatech library update (SDK 12.7.2.1)</li>
+<li>Silicom/Fiberblaze library update (SDK 3_5_9_1)</li>
+<li>Add steer_to_ring and ring_id fields to Accolade rules (accolade_hw_rule)</li>
+<li>Add support for recv burst on Napatech adapters in chunk mode</li>
+<li>Add PF_RING_PACKET_CAPTURE_PRIO env var to set hostBufferAllowance on Napatech adapters</li>
+<li>Rename ACCOLADE_RING_BLOCKS env var to ANIC_RING_BLOCKS on Accolade adapters (default is now 16)</li>
+<li>Fix Accolade drop counter when capturing from rings</li>
+<li>Fix extraction of packets with nsec timestamps on Timeline module (n2disk dump)</li>
+</ul>
+<h3>ZC Drivers</h3>
+<ul>
+<li>New ice ZC driver v.1.3.2 (Intel Columbiaville / E810 adapters) with symmetric RSS support</li>
+<li>Support latest kernels, including RH/CentOS 8.4 and Ubuntu 20, for all ZC drivers</li>
+<li>i40e ZC driver update (v.2.13.10)</li>
+<li>e1000e ZC driver update (v.3.8.7)</li>
+</ul>
+<h3>nBPF</h3>
+<ul>
+<li>New nBPF primitives <em>device ID</em> and <em>interface ID</em> to match metadata from Arista MetaWatch devices</li>
+</ul>
+<h3>Application Examples</h3>
+<ul>
+<li>pfcount
+<ul>
+<li>Add -B option (burst mode)</li>
+</ul>
+</li>
+<li>pfsend
+<ul>
+<li>Add -n &lt;num packets&gt; support with -f &lt;pcap&gt;</li>
+<li>Add support to reforge src/dst IP from pcap with -S and -D</li>
+</ul>
+</li>
+<li>ftflow
+<ul>
+<li>Add -E option to run extra DPI dissection (e.g. to print JA3 info)</li>
+</ul>
+</li>
+<li>zbalance_ipc
+<ul>
+<li>Add runtime reload of nDPI protocol configuration file</li>
+<li>Add -m 7 option (sample distribution based on eth type)</li>
+<li>Add default configuration file /etc/cluster/cluster.conf (when no option is specified)</li>
+</ul>
+</li>
+</ul>
+<h3>Misc</h3>
+<ul>
+<li>Move libraries and utility scripts from /usr/local to /usr</li>
+<li>Install pfring-aware tcpdump with packages</li>
+<li>Add revision to pfring-dkms version</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-8-0-batch-packet-processing-and-xdp-support/">Introducing PF_RING 8.0: Batch Packet Processing and XDP Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

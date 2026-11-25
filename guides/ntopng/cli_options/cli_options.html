@@ -1,0 +1,504 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/cli_options/cli_options.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:48:01 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Command Line Options &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration File Example" href="cli_options_example.html" />
+    <link rel="prev" title="Command Line Options" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Command Line Options</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Command Line Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_options_example.html">Configuration File Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Command Line Options</a></li>
+      <li class="breadcrumb-item active">Command Line Options</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/cli_options/cli_options.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="command-line-options">
+<span id="clioptions"></span><h1>Command Line Options<a class="headerlink" href="#command-line-options" title="Link to this heading"></a></h1>
+<p>ntopng supports a large number of command line parameters. To see what they are, simply enter the command ntopng -h and the help information should be printed</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Usage:
+<span class="w">  </span>ntopng<span class="w"> </span>&lt;configuration<span class="w"> </span>file<span class="w"> </span>path&gt;
+<span class="w">  </span>or
+<span class="w">  </span>ntopng<span class="w"> </span>&lt;<span class="nb">command</span><span class="w"> </span>line<span class="w"> </span>options&gt;
+
+Options:
+<span class="o">[</span>--dns-mode<span class="p">|</span>-n<span class="o">]</span><span class="w"> </span>&lt;mode&gt;<span class="w">              </span><span class="p">|</span><span class="w"> </span>DNS<span class="w"> </span>address<span class="w"> </span>resolution<span class="w"> </span>mode
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>-<span class="w"> </span>Decode<span class="w"> </span>DNS<span class="w"> </span>responses<span class="w"> </span>and<span class="w"> </span>resolve
+<span class="w">                                    </span><span class="p">|</span><span class="w">     </span><span class="nb">local</span><span class="w"> </span>numeric<span class="w"> </span>IPs<span class="w"> </span>only<span class="w"> </span><span class="o">(</span>default<span class="o">)</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>-<span class="w"> </span>Decode<span class="w"> </span>DNS<span class="w"> </span>responses<span class="w"> </span>and<span class="w"> </span>resolve<span class="w"> </span>all
+<span class="w">                                    </span><span class="p">|</span><span class="w">     </span>numeric<span class="w"> </span>IPs
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>-<span class="w"> </span>Decode<span class="w"> </span>DNS<span class="w"> </span>responses<span class="w"> </span>but<span class="w"> </span>don<span class="s1">&#39;t</span>
+<span class="s1">                                    |     resolve numeric IPs</span>
+<span class="s1">                                    | 3 - Don&#39;</span>t<span class="w"> </span>decode<span class="w"> </span>DNS/MDNS/HTTP/TLS<span class="w"> </span>responses
+<span class="w">                                    </span><span class="p">|</span><span class="w">     </span>and<span class="w"> </span>don<span class="s1">&#39;t resolve numeric IPs (all hosts)</span>
+<span class="s1">                                    | 4 - Don&#39;</span>t<span class="w"> </span>decode<span class="w"> </span>DNS/MDNS/HTTP/TLS<span class="w"> </span>responses
+<span class="w">                                    </span><span class="p">|</span><span class="w">     </span>and<span class="w"> </span>don<span class="s1">&#39;t resolve numeric IPs (localhost only)</span>
+<span class="s1">[--interface|-i] &lt;interface|pcap&gt;   | Input interface name (numeric/symbolic),</span>
+<span class="s1">                                    | view or pcap file path, including:</span>
+<span class="s1">                                    | zmq://&lt;IP address&gt;         [ZMQ flow collection]</span>
+<span class="s1">                                    | tcp://&lt;IP address&gt;         [Deprecated - use zmq://]</span>
+<span class="s1">                                    | kafka://&lt;brokers list&gt;     [Kafka flow collection]</span>
+<span class="s1">                                    | kafka-ssl://&lt;brokers list&gt; [Kafka flow collection over SSL/TLS]</span>
+<span class="s1">[--data-dir|-d] &lt;path&gt;              | Data directory (must be writable).</span>
+<span class="s1">                                    | Default: /var/lib/ntopng</span>
+<span class="s1">[--install-dir|-t] &lt;path&gt;           | Set the installation directory to &lt;dir&gt;.</span>
+<span class="s1">                                    | Should be set when installing ntopng</span>
+<span class="s1">                                    | under custom directories</span>
+<span class="s1">[--daemon|-e]                       | Daemonize ntopng</span>
+<span class="s1">[--httpdocs-dir|-1] &lt;path&gt;          | HTTP documents root directory.</span>
+<span class="s1">                                    | Default: httpdocs</span>
+<span class="s1">[--scripts-dir|-2] &lt;path&gt;           | Scripts directory.</span>
+<span class="s1">                                    | Default: scripts</span>
+<span class="s1">[--callbacks-dir|-3] &lt;path&gt;         | Callbacks directory.</span>
+<span class="s1">                                    | Default: scripts/callbacks</span>
+<span class="s1">[--pcap-dir|-5] &lt;path&gt;              | Storage directory used for continuous traffic</span>
+<span class="s1">                                    | recording in PCAP format.</span>
+<span class="s1">                                    | Default: /var/lib/ntopng</span>
+<span class="s1">[--no-promisc|-u]                   | Don&#39;</span>t<span class="w"> </span><span class="nb">set</span><span class="w"> </span>the<span class="w"> </span>interface<span class="w"> </span><span class="k">in</span><span class="w"> </span>promisc<span class="w"> </span>mode.
+<span class="o">[</span>--geoip-dir<span class="o">]</span><span class="w"> </span>&lt;dir&gt;<span class="w">                 </span><span class="p">|</span><span class="w"> </span>Load<span class="w"> </span>GeoIP<span class="w"> </span>databases<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>specified<span class="w"> </span>directory.
+<span class="o">[</span>--http-port<span class="p">|</span>-w<span class="o">]</span><span class="w"> </span>&lt;<span class="o">[</span>addr:<span class="o">]</span>port&gt;<span class="w">      </span><span class="p">|</span><span class="w"> </span>HTTP.<span class="w"> </span>Set<span class="w"> </span>to<span class="w"> </span><span class="m">0</span><span class="w"> </span>to<span class="w"> </span>disable<span class="w"> </span>http<span class="w"> </span>server.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Addr<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>an<span class="w"> </span>IPv4<span class="w"> </span><span class="o">(</span><span class="m">192</span>.168.1.1<span class="o">)</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>or<span class="w"> </span>IPv6<span class="w"> </span><span class="o">([</span>3ffe:2a00:100:7031::1<span class="o">])</span><span class="w"> </span>addr.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Surround<span class="w"> </span>IPv6<span class="w"> </span>addr<span class="w"> </span>with<span class="w"> </span>square<span class="w"> </span>brackets.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Prepend<span class="w"> </span>a<span class="w"> </span><span class="s1">&#39;:&#39;</span><span class="w"> </span>without<span class="w"> </span>addr<span class="w"> </span>before<span class="w"> </span>the
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>listening<span class="w"> </span>port<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>loopback<span class="w"> </span>address.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Default<span class="w"> </span>port:<span class="w"> </span><span class="m">3000</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Examples:
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-w<span class="w"> </span>:3000
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-w<span class="w"> </span><span class="m">192</span>.168.1.1:3001
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-w<span class="w"> </span><span class="o">[</span>3ffe:2a00:100:7031::1<span class="o">]</span>:3002
+<span class="o">[</span>--https-port<span class="p">|</span>-W<span class="o">]</span><span class="w"> </span>&lt;<span class="o">[</span>:<span class="o">]</span>https<span class="w"> </span>port&gt;<span class="w">   </span><span class="p">|</span><span class="w"> </span>HTTPS.<span class="w"> </span>See<span class="w"> </span>also<span class="w"> </span>-w<span class="w"> </span>above.<span class="w"> </span>Default:<span class="w"> </span><span class="m">3001</span>
+<span class="o">[</span>--http-log<span class="p">|</span>-L<span class="o">]</span><span class="w"> </span>&lt;path&gt;<span class="w">              </span><span class="p">|</span><span class="w"> </span>Log<span class="w"> </span>HTTP<span class="w"> </span>requests<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>specified<span class="w"> </span>file
+<span class="o">[</span>--local-networks<span class="p">|</span>-m<span class="o">]</span><span class="w"> </span>&lt;<span class="nb">local</span><span class="w"> </span>nets&gt;<span class="w">  </span><span class="p">|</span><span class="w"> </span>Local<span class="w"> </span>networks<span class="w"> </span><span class="k">in</span><span class="w"> </span>CIDR<span class="w"> </span>format<span class="w"> </span>and
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>autonomous<span class="w"> </span>system<span class="w"> </span><span class="k">in</span><span class="w"> </span>asn&lt;number&gt;<span class="w"> </span>format.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>The<span class="w"> </span>file<span class="w"> </span>accepts<span class="w"> </span>multiple<span class="w"> </span>lines<span class="w"> </span>with<span class="w"> </span>networks<span class="w"> </span><span class="k">in</span><span class="w"> </span>CIDR<span class="w"> </span>format.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>An<span class="w"> </span>optional<span class="w"> </span><span class="s1">&#39;=&lt;alias&gt;&#39;</span><span class="w"> </span>is<span class="w"> </span>supported
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>to<span class="w"> </span>specify<span class="w"> </span>an<span class="w"> </span>alias.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Examples:
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;192.168.1.0/24,172.16.0.0/16&quot;</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;192.168.1.0/24=LAN_1,192.168.2.0/24=LAN_2,10.0.0.0/8&quot;</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;/path/to/local_networks_file&quot;</span>
+<span class="o">[</span>--ndpi-protocols<span class="p">|</span>-p<span class="o">]</span><span class="w"> </span>&lt;file&gt;.protos<span class="w"> </span><span class="p">|</span><span class="w"> </span>Specify<span class="w"> </span>a<span class="w"> </span>nDPI<span class="w"> </span>protocol<span class="w"> </span>file
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="o">(</span>eg.<span class="w"> </span>protos.txt<span class="o">)</span>
+<span class="o">[</span>--redis<span class="p">|</span>-r<span class="o">]</span><span class="w"> </span>&lt;fmt&gt;<span class="w">                  </span><span class="p">|</span><span class="w"> </span>Redis<span class="w"> </span>connection.<span class="w"> </span>&lt;fmt&gt;<span class="w"> </span>is<span class="w"> </span>specified<span class="w"> </span>as
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="o">[</span>h<span class="o">[</span>:port<span class="o">[</span>:pwd<span class="o">]]][</span>@db-id<span class="o">]</span><span class="w"> </span>where<span class="w"> </span>db-id
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>identifies<span class="w"> </span>the<span class="w"> </span>database<span class="w"> </span>Id<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="m">0</span><span class="o">)</span>.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>h<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>host<span class="w"> </span>running<span class="w"> </span>Redis<span class="w"> </span><span class="o">(</span>default
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>localhost<span class="o">)</span>,<span class="w"> </span>optionally<span class="w"> </span>followed<span class="w"> </span>by<span class="w"> </span>a
+<span class="w">                                    </span><span class="p">|</span><span class="w">  </span><span class="s1">&#39;:&#39;</span>-separated<span class="w"> </span>port<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="m">6379</span><span class="o">)</span>.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>The<span class="w"> </span>special<span class="w"> </span>characters<span class="w"> </span><span class="se">\ </span>and<span class="w"> </span><span class="sb">`</span><span class="w"> </span>are<span class="w"> </span>not
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>supported<span class="w"> </span>by<span class="w"> </span>ntopng.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>A<span class="w"> </span>password<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>specified<span class="w"> </span>after
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>the<span class="w"> </span>port<span class="w"> </span>when<span class="w"> </span>Redis<span class="w"> </span>auth<span class="w"> </span>is<span class="w"> </span>required.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>By<span class="w"> </span>default<span class="w"> </span>password<span class="w"> </span>auth<span class="w"> </span>is<span class="w"> </span>disabled.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>On<span class="w"> </span>unix<span class="w"> </span>&lt;fmt&gt;<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>be<span class="w"> </span>the<span class="w"> </span>redis<span class="w"> </span>socket<span class="w"> </span>file<span class="w"> </span>path.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Port<span class="w"> </span>is<span class="w"> </span>ignored<span class="w"> </span><span class="k">for</span><span class="w"> </span>socket-based<span class="w"> </span>connections.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Examples:
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-r<span class="w"> </span>@2
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-r<span class="w"> </span><span class="m">129</span>.168.1.3
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-r<span class="w"> </span><span class="m">129</span>.168.1.3:6379@3
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-r<span class="w"> </span><span class="m">129</span>.168.1.3:6379:nt0pngPwD@0
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-r<span class="w"> </span>/var/run/redis/redis.sock
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-r<span class="w"> </span>/var/run/redis/redis.sock@2
+<span class="o">[</span>--core-affinity<span class="p">|</span>-g<span class="o">]</span><span class="w"> </span>&lt;ids&gt;<span class="w">          </span><span class="p">|</span><span class="w"> </span>Bind<span class="w"> </span>the<span class="w"> </span>capture/processing<span class="w"> </span>threads<span class="w"> </span>to
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>specific<span class="w"> </span>CPU<span class="w"> </span>cores<span class="w"> </span><span class="o">(</span>specified<span class="w"> </span>as<span class="w"> </span>a<span class="w"> </span>comma-
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>separated<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>core<span class="w"> </span>id<span class="o">)</span>
+<span class="o">[</span>--other-core-affinity<span class="p">|</span>-y<span class="o">]</span><span class="w"> </span>&lt;ids&gt;<span class="w">    </span><span class="p">|</span><span class="w"> </span>Bind<span class="w"> </span>service<span class="w"> </span>threads<span class="w"> </span>to<span class="w"> </span>specific<span class="w"> </span>CPU<span class="w"> </span>cores
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="o">(</span>specified<span class="w"> </span>as<span class="w"> </span>a<span class="w"> </span>comma-separated<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>core<span class="w"> </span>id<span class="o">)</span>
+<span class="o">[</span>--user<span class="p">|</span>-U<span class="o">]</span><span class="w"> </span>&lt;sys<span class="w"> </span>user&gt;<span class="w">              </span><span class="p">|</span><span class="w"> </span>Run<span class="w"> </span>ntopng<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>specified<span class="w"> </span>user
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>instead<span class="w"> </span>of<span class="w"> </span>ntopng
+<span class="o">[</span>--dont-change-user<span class="p">|</span>-s<span class="o">]</span><span class="w">             </span><span class="p">|</span><span class="w"> </span>Do<span class="w"> </span>not<span class="w"> </span>change<span class="w"> </span>user<span class="w"> </span><span class="o">(</span>debug<span class="w"> </span>only<span class="o">)</span>
+<span class="o">[</span>--disable-purge<span class="o">]</span><span class="w">                   </span><span class="p">|</span><span class="w"> </span>Disable<span class="w"> </span>data<span class="w"> </span>purge<span class="w"> </span><span class="o">(</span>debug<span class="w"> </span>only<span class="o">)</span>
+<span class="o">[</span>--ciphers-list<span class="o">]</span><span class="w"> </span>&lt;list&gt;<span class="w">             </span><span class="p">|</span><span class="w"> </span>Specify<span class="w"> </span>the<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>TLS<span class="w"> </span>ciphers<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>used
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>when<span class="w"> </span>https<span class="w"> </span>is<span class="w"> </span>used.<span class="w"> </span>Default:<span class="w"> </span><span class="s2">&quot;HIGH:!aNULL:!MD5:!RC4&quot;</span>
+<span class="o">[</span>--shutdown-when-done<span class="o">]</span><span class="w">              </span><span class="p">|</span><span class="w"> </span>Terminate<span class="w"> </span>after<span class="w"> </span>reading<span class="w"> </span>the<span class="w"> </span>pcap<span class="w"> </span><span class="o">(</span>debug<span class="w"> </span>only<span class="o">)</span>
+<span class="o">[</span>--offline<span class="o">]</span><span class="w">                         </span><span class="p">|</span><span class="w"> </span>Run<span class="w"> </span><span class="k">in</span><span class="w"> </span>offline<span class="w"> </span>mode<span class="w"> </span><span class="o">(</span>avoid<span class="w"> </span>contacting<span class="w"> </span>remote<span class="w"> </span>sites,<span class="w"> </span>including<span class="w"> </span>blacklists<span class="o">)</span>
+<span class="o">[</span>--insecure<span class="o">]</span><span class="w">                        </span><span class="p">|</span><span class="w"> </span>Allow<span class="w"> </span>connections<span class="w"> </span>to<span class="w"> </span>TLS<span class="w"> </span>sites<span class="w"> </span>with<span class="w"> </span>invalid<span class="w"> </span>certificates
+<span class="o">[</span>--zmq-encryption<span class="o">]</span><span class="w">                  </span><span class="p">|</span><span class="w"> </span>Enable<span class="w"> </span>ZMQ<span class="w"> </span>encryption<span class="w"> </span>with<span class="w"> </span>a<span class="w"> </span>custom<span class="w"> </span>key
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="o">(</span>encryption<span class="w"> </span>is<span class="w"> </span>enabled<span class="w"> </span>by<span class="w"> </span>default<span class="w"> </span>with<span class="w"> </span>a
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>public<span class="w"> </span>fallback<span class="w"> </span>key,<span class="w"> </span>see<span class="w"> </span>note<span class="w"> </span>below<span class="o">)</span>
+<span class="o">[</span>--zmq-encryption-key-priv<span class="w"> </span>&lt;key&gt;<span class="o">]</span><span class="w">   </span><span class="p">|</span><span class="w"> </span>ZMQ<span class="w"> </span><span class="o">(</span>collection<span class="o">)</span><span class="w"> </span>encryption<span class="w"> </span>secret<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>debug<span class="w"> </span>only<span class="o">)</span>
+<span class="o">[</span>--zmq-disable-encryption<span class="o">]</span><span class="w">          </span><span class="p">|</span><span class="w"> </span>Disable<span class="w"> </span>ZMQ<span class="w"> </span>encryption,<span class="w"> </span>which<span class="w"> </span>is<span class="w"> </span>enabled
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>by<span class="w"> </span>default<span class="w"> </span><span class="o">(</span>accept<span class="w"> </span>cleartext<span class="w"> </span>ZMQ<span class="w"> </span>messages<span class="o">)</span>
+<span class="o">[</span>--zmq-publish-events<span class="w"> </span>&lt;URL&gt;<span class="o">]</span><span class="w">        </span><span class="p">|</span><span class="w"> </span>Endpoint<span class="w"> </span><span class="k">for</span><span class="w"> </span>publishing<span class="w"> </span>events<span class="w"> </span><span class="o">(</span>e.g.<span class="w"> </span>IPS<span class="o">)</span>
+<span class="o">[</span>--disable-autologout<span class="p">|</span>-q<span class="o">]</span><span class="w">           </span><span class="p">|</span><span class="w"> </span>Disable<span class="w"> </span>web<span class="w"> </span><span class="nb">logout</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>inactivity
+<span class="o">[</span>--disable-login<span class="p">|</span>-l<span class="o">]</span><span class="w"> </span>&lt;mode&gt;<span class="w">         </span><span class="p">|</span><span class="w"> </span>Disable<span class="w"> </span>user<span class="w"> </span>login<span class="w"> </span>authentication:
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>-<span class="w"> </span>Disable<span class="w"> </span>login<span class="w"> </span>only<span class="w"> </span><span class="k">for</span><span class="w"> </span>localhost
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>-<span class="w"> </span>Disable<span class="w"> </span>login<span class="w"> </span><span class="k">for</span><span class="w"> </span>all<span class="w"> </span>hosts
+<span class="o">[</span>--max-num-flows<span class="p">|</span>-X<span class="o">]</span><span class="w"> </span>&lt;num&gt;<span class="w">          </span><span class="p">|</span><span class="w"> </span>Max<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>active<span class="w"> </span>flows
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">131072</span><span class="o">)</span>
+<span class="o">[</span>--max-num-hosts<span class="p">|</span>-x<span class="o">]</span><span class="w"> </span>&lt;num&gt;<span class="w">          </span><span class="p">|</span><span class="w"> </span>Max<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>active<span class="w"> </span>hosts
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">131072</span><span class="o">)</span>
+<span class="o">[</span>--pcap-reforge-timestamps<span class="p">|</span>-z<span class="o">]</span><span class="w">      </span><span class="p">|</span><span class="w"> </span>Reforge<span class="w"> </span>timestamps<span class="w"> </span>when<span class="w"> </span>reading<span class="w"> </span>from<span class="w"> </span>file
+<span class="o">[</span>--users-file<span class="o">]</span><span class="w"> </span>&lt;path&gt;<span class="w">               </span><span class="p">|</span><span class="w"> </span>Users<span class="w"> </span>configuration<span class="w"> </span>file<span class="w"> </span>path
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Default:<span class="w"> </span>ntopng-users.conf
+<span class="o">[</span>--original-speed<span class="o">]</span><span class="w">                  </span><span class="p">|</span><span class="w"> </span>Reproduce<span class="w"> </span><span class="o">(</span>-i<span class="o">)</span><span class="w"> </span>the<span class="w"> </span>pcap<span class="w"> </span>file<span class="w"> </span>at<span class="w"> </span>original<span class="w"> </span>speed
+<span class="o">[</span>--log-labels<span class="o">}</span><span class="w">                      </span><span class="p">|</span><span class="w"> </span>Enable<span class="w"> </span>dump<span class="w"> </span>of<span class="w"> </span>host<span class="w"> </span>labels<span class="w"> </span><span class="k">in</span><span class="w"> </span>/var/lib/ntopng/labels.log
+<span class="o">[</span>--pid<span class="p">|</span>-G<span class="o">]</span><span class="w"> </span>&lt;path&gt;<span class="w">                   </span><span class="p">|</span><span class="w"> </span>Pid<span class="w"> </span>file<span class="w"> </span>path
+<span class="o">[</span>--packet-filter<span class="p">|</span>-B<span class="o">]</span><span class="w"> </span>&lt;filter&gt;<span class="w">       </span><span class="p">|</span><span class="w"> </span>Ingress<span class="w"> </span>packet<span class="w"> </span>filter<span class="w"> </span><span class="o">(</span>BPF<span class="w"> </span>filter<span class="o">)</span>
+<span class="o">[</span>--dump-flows<span class="p">|</span>-F<span class="o">]</span><span class="w"> </span>&lt;mode&gt;<span class="w">            </span><span class="p">|</span><span class="w"> </span>Dump<span class="w"> </span>expired<span class="w"> </span>flows.<span class="w"> </span>Mode:
+<span class="w">                                    </span><span class="p">|</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>es<span class="w">            </span>Dump<span class="w"> </span><span class="k">in</span><span class="w"> </span>ElasticSearch<span class="w"> </span>database
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Format:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>es<span class="p">;</span>&lt;mapping<span class="w"> </span>type&gt;<span class="p">;</span>&lt;idx<span class="w"> </span>name&gt;<span class="p">;</span>&lt;es<span class="w"> </span>URL&gt;<span class="p">;</span>&lt;username&gt;:&lt;password&gt;
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Example:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>es<span class="p">;</span>ntopng<span class="p">;</span>ntopng-%Y.%m.%d<span class="p">;</span>http://localhost:9200/_bulk<span class="p">;</span>user:pwd
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Notes:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>The<span class="w"> </span>&lt;idx<span class="w"> </span>name&gt;<span class="w"> </span>accepts<span class="w"> </span>the<span class="w"> </span>strftime<span class="o">()</span><span class="w"> </span>format.
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>&lt;mapping<span class="w"> </span>type&gt;<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span><span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>ntopng<span class="w"> </span>and<span class="w"> </span>it<span class="w"> </span>is
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>used<span class="w"> </span><span class="k">until</span><span class="w"> </span>ElasticSearch<span class="w"> </span>version<span class="w"> </span><span class="m">6</span><span class="w"> </span>and<span class="w"> </span>ignored<span class="w"> </span><span class="k">in</span><span class="w"> </span>newer<span class="w"> </span>versions.
+<span class="w">                                    </span><span class="p">|</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>syslog<span class="w">        </span>Dump<span class="w"> </span><span class="k">in</span><span class="w"> </span>syslog
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Format:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>syslog<span class="o">[</span><span class="p">;</span>&lt;facility-text&gt;<span class="o">]</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Example:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>syslog
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>syslog<span class="p">;</span>local3
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Notes:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>&lt;facility-text&gt;<span class="w"> </span>is<span class="w"> </span><span class="k">case</span>-insensitive.
+<span class="w">                                    </span><span class="p">|</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>clickhouse<span class="w">    </span>Dump<span class="w"> </span><span class="k">in</span><span class="w"> </span>ClickHouse<span class="w"> </span><span class="o">(</span>Enterprise<span class="w"> </span>M/L/XL/XXL<span class="o">)</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Format:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>clickhouse<span class="p">;</span>&lt;host<span class="o">[</span>@<span class="o">[</span>&lt;tcp-port&gt;,<span class="o">]</span>&lt;mysql-port<span class="o">]</span><span class="p">|</span>socket&gt;<span class="p">;</span>&lt;dbname&gt;<span class="p">;</span>&lt;user&gt;<span class="p">;</span>&lt;pw&gt;
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Example:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>clickhouse<span class="p">;</span><span class="m">127</span>.0.0.1<span class="p">;</span>ntopng<span class="p">;</span>default<span class="p">;</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>You<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>use<span class="w"> </span>just<span class="w"> </span>-F<span class="w"> </span>clickhouse<span class="w"> </span>as<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>of:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>-F<span class="w"> </span><span class="s2">&quot;clickhouse;127.0.0.1@9000,9004;ntopng;default;&quot;</span>
+<span class="w">                                    </span><span class="p">|</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>clickhouse-cluster<span class="w">    </span>Dump<span class="w"> </span><span class="k">in</span><span class="w"> </span>ClickHouse<span class="w"> </span>Cluster<span class="w"> </span><span class="o">(</span>Enterprise<span class="w"> </span>M/L/XL/XXL<span class="o">)</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Format:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>clickhouse-cluster<span class="p">;</span>&lt;host<span class="o">[</span>@<span class="o">[</span>&lt;tcp-port&gt;,<span class="o">]</span>&lt;mysql-port<span class="o">]</span><span class="p">|</span>socket&gt;<span class="p">;</span>&lt;dbname&gt;<span class="p">;</span>&lt;user&gt;<span class="p">;</span>&lt;pw&gt;<span class="p">;</span>&lt;cluster<span class="w"> </span>name&gt;
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Example:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>clickhouse-cluster<span class="p">;</span><span class="m">127</span>.0.0.1<span class="p">;</span>ntopng<span class="p">;</span>default<span class="p">;</span>ntop_cluster
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>You<span class="w"> </span>can<span class="w"> </span>also<span class="w"> </span>use<span class="w"> </span>just<span class="w"> </span>-F<span class="w"> </span>clickhouse-cluster<span class="w"> </span>as<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>of:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>-F<span class="w"> </span><span class="s2">&quot;clickhouse-cluster;127.0.0.1@9000,9004;ntopng;default;ntop_cluster&quot;</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>NOTE:
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-<span class="w"> </span>tcp-port<span class="w"> </span>used<span class="w"> </span>by<span class="w"> </span>clickhouse-client
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-<span class="w"> </span>mysql-port<span class="w"> </span>used<span class="w"> </span><span class="k">for</span><span class="w"> </span>queries
+<span class="w">                                    </span><span class="p">|</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>clickhouse-cloud<span class="w">    </span>Dump<span class="w"> </span><span class="k">in</span><span class="w"> </span>ClickHouse<span class="w"> </span>Cloud<span class="w"> </span><span class="o">(</span>Enterprise<span class="w"> </span>M/L/XL/XXL<span class="o">)</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Format:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>clickhouse-cloud<span class="p">;</span>&lt;host<span class="o">[</span>@<span class="o">[</span>&lt;tcp-port&gt;,<span class="o">]</span>&lt;mysql-port<span class="o">]</span><span class="p">|</span>socket&gt;<span class="p">;</span>&lt;dbname&gt;<span class="p">;</span>&lt;clickhouse-user&gt;,&lt;mysql-user&gt;<span class="p">;</span>&lt;pw&gt;<span class="p">;</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Example:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>clickhouse-cloud<span class="p">;</span>europe-east15.clickhouse.cloud@9440,3306s<span class="p">;</span>ntopng<span class="p">;</span>default,mysql-user<span class="p">;</span>mych-password
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>NOTE:
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-<span class="w"> </span>clickhouse-user<span class="w"> </span>used<span class="w"> </span>by<span class="w"> </span>clickhouse-client
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-<span class="w"> </span>mysql-user<span class="w"> </span>used<span class="w"> </span><span class="k">for</span><span class="w"> </span>queries
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-<span class="w"> </span>tcp-port<span class="w"> </span>used<span class="w"> </span>by<span class="w"> </span>clickhouse-client
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>-<span class="w"> </span>mysql-port<span class="w"> </span>used<span class="w"> </span><span class="k">for</span><span class="w"> </span>queries
+<span class="w">                                    </span><span class="p">|</span>
+<span class="w">                                    </span><span class="p">|</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>kafka<span class="w">   </span>Dump<span class="w"> </span>to<span class="w"> </span>Kafka<span class="w"> </span><span class="o">(</span>Enterprise<span class="w"> </span>M/L/XL/XXL<span class="o">)</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Format:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>kafka<span class="p">;</span><span class="o">[</span>&lt;brokerIP<span class="o">[</span>:&lt;port&gt;<span class="o">]]</span>+<span class="p">;</span>&lt;topic&gt;<span class="o">[</span><span class="p">;</span>&lt;kafka<span class="w"> </span>option&gt;<span class="o">=</span>&lt;value&gt;<span class="o">]</span>+
+<span class="w">                                    </span><span class="p">|</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>Example:
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span><span class="s2">&quot;kafka;127.0.0.1;flows&quot;</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span><span class="s2">&quot;kafka;127.0.0.1:7689,192.168.1.20,192.168.1.2:9092;flows;compression.codec=gzip&quot;</span>
+<span class="w">                                    </span><span class="p">|</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w">   </span>See<span class="w"> </span>at<span class="w"> </span>the<span class="w"> </span>bottom<span class="w"> </span>of<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>the<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>supported<span class="w"> </span>kafka<span class="w"> </span>configuration<span class="w"> </span>options.
+<span class="w">                                    </span><span class="p">|</span>
+<span class="o">[</span>--hw-timestamp-mode<span class="o">]</span><span class="w"> </span>&lt;mode&gt;<span class="w">        </span><span class="p">|</span><span class="w"> </span>Enable<span class="w"> </span>hw<span class="w"> </span>timestamping/stripping.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Supported<span class="w"> </span>TS<span class="w"> </span>modes<span class="w"> </span>are:
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>apcon<span class="w"> </span>-<span class="w"> </span>Timestamped<span class="w"> </span>pkts<span class="w"> </span>by<span class="w"> </span>apcon.com
+<span class="w">                                    </span><span class="p">|</span><span class="w">         </span>hardware<span class="w"> </span>devices
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>ixia<span class="w">  </span>-<span class="w"> </span>Timestamped<span class="w"> </span>pkts<span class="w"> </span>by<span class="w"> </span>ixiacom.com
+<span class="w">                                    </span><span class="p">|</span><span class="w">         </span>hardware<span class="w"> </span>devices
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>vss<span class="w">   </span>-<span class="w"> </span>Timestamped<span class="w"> </span>pkts<span class="w"> </span>by<span class="w"> </span>vssmonitoring.com
+<span class="w">                                    </span><span class="p">|</span><span class="w">         </span>hardware<span class="w"> </span>devices
+<span class="o">[</span>--capture-direction<span class="o">]</span><span class="w"> </span>&lt;dir&gt;<span class="w">         </span><span class="p">|</span><span class="w"> </span>Specify<span class="w"> </span>packet<span class="w"> </span>capture<span class="w"> </span>direction
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="nv">0</span><span class="o">=</span>RX+TX<span class="w"> </span><span class="o">(</span>default<span class="o">)</span>,<span class="w"> </span><span class="nv">1</span><span class="o">=</span>RX<span class="w"> </span>only,<span class="w"> </span><span class="nv">2</span><span class="o">=</span>TX<span class="w"> </span>only
+<span class="o">[</span>--cluster-id<span class="o">]</span><span class="w"> </span>&lt;cluster<span class="w"> </span>id&gt;<span class="w">         </span><span class="p">|</span><span class="w"> </span>Specify<span class="w"> </span>the<span class="w"> </span>PF_RING<span class="w"> </span>cluster<span class="w"> </span>ID<span class="w"> </span>on<span class="w"> </span>which<span class="w"> </span>incoming<span class="w"> </span>packets<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>bound.
+<span class="o">[</span>--http-prefix<span class="p">|</span>-Z<span class="w"> </span>&lt;prefix&gt;<span class="o">]</span><span class="w">         </span><span class="p">|</span><span class="w"> </span>HTTP<span class="w"> </span>prefix<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>prepended<span class="w"> </span>to<span class="w"> </span>URLs.
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>Useful<span class="w"> </span>when<span class="w"> </span>using<span class="w"> </span>ntopng<span class="w"> </span>behind<span class="w"> </span>a<span class="w"> </span>proxy.
+<span class="o">[</span>--instance-name<span class="p">|</span>-N<span class="w"> </span>&lt;name&gt;<span class="o">]</span><span class="w">         </span><span class="p">|</span><span class="w"> </span>Assign<span class="w"> </span>a<span class="w"> </span>name<span class="w"> </span>to<span class="w"> </span>this<span class="w"> </span>ntopng<span class="w"> </span>instance.
+<span class="o">[</span>--community<span class="o">]</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span>Start<span class="w"> </span>ntopng<span class="w"> </span><span class="k">in</span><span class="w"> </span>community<span class="w"> </span>edition.
+<span class="o">[</span>--fail-invalid-license<span class="o">]</span><span class="w">            </span><span class="p">|</span><span class="w"> </span>Exit<span class="w"> </span>without<span class="w"> </span>a<span class="w"> </span>valid<span class="w"> </span>license.
+<span class="o">[</span>--check-license<span class="o">]</span><span class="w">                   </span><span class="p">|</span><span class="w"> </span>Check<span class="w"> </span><span class="k">if</span><span class="w"> </span>the<span class="w"> </span>license<span class="w"> </span>is<span class="w"> </span>valid.
+<span class="o">[</span>--check-maintenance<span class="o">]</span><span class="w">               </span><span class="p">|</span><span class="w"> </span>Check<span class="w"> </span><span class="k">until</span><span class="w"> </span>maintenance<span class="w"> </span>is<span class="w"> </span>included
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>license.
+<span class="o">[</span>--version<span class="p">|</span>-V<span class="o">]</span><span class="w">                      </span><span class="p">|</span><span class="w"> </span>Print<span class="w"> </span>version<span class="w"> </span>and<span class="w"> </span>license
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>information,<span class="w"> </span><span class="k">then</span><span class="w"> </span>quit
+<span class="o">[</span>--version-json<span class="o">]</span><span class="w">                    </span><span class="p">|</span><span class="w"> </span>Print<span class="w"> </span>version<span class="w"> </span>and<span class="w"> </span>license
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span>info<span class="w"> </span><span class="k">in</span><span class="w"> </span>JSON<span class="w"> </span>format,<span class="w"> </span><span class="k">then</span><span class="w"> </span>quit
+<span class="o">[</span>--verbose<span class="p">|</span>-v<span class="o">]</span><span class="w"> </span>&lt;level&gt;<span class="w">              </span><span class="p">|</span><span class="w"> </span>Verbose<span class="w"> </span>tracing<span class="w"> </span><span class="o">[</span>range<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>min<span class="o">)</span>..<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">(</span>max<span class="o">)]</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>-<span class="w"> </span>Errors<span class="w"> </span>only
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>-<span class="w"> </span>Warning
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>-<span class="w"> </span>Normal<span class="w"> </span><span class="o">(</span>default<span class="w"> </span>value<span class="o">)</span>
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>-<span class="w"> </span>Informative
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>-<span class="w"> </span>Future<span class="w"> </span>use
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">5</span><span class="w"> </span>-<span class="w"> </span>Future<span class="w"> </span>use
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="m">6</span><span class="w"> </span>-<span class="w"> </span>Debug
+<span class="o">[</span>--print-ndpi-protocols<span class="o">]</span><span class="w">            </span><span class="p">|</span><span class="w"> </span>Print<span class="w"> </span>the<span class="w"> </span>nDPI<span class="w"> </span>protocols<span class="w"> </span>list
+<span class="o">[</span>--ignore-macs<span class="o">]</span><span class="w">                     </span><span class="p">|</span><span class="w"> </span>Ignore<span class="w"> </span>packets<span class="w"> </span>MAC<span class="w"> </span>addresses
+<span class="o">[</span>--ignore-vlans<span class="o">]</span><span class="w">                    </span><span class="p">|</span><span class="w"> </span>Ignore<span class="w"> </span>packets<span class="w"> </span>VLAN<span class="w"> </span>tags
+<span class="o">[</span>--pcap-file-purge-flows<span class="o">]</span><span class="w">           </span><span class="p">|</span><span class="w"> </span>Enable<span class="w"> </span>flow<span class="w"> </span>purge<span class="w"> </span>with<span class="w"> </span>pcap<span class="w"> </span>files<span class="w"> </span><span class="o">(</span>debug<span class="w"> </span>only<span class="o">)</span>
+<span class="o">[</span>--simulate-vlans<span class="o">]</span><span class="w">                  </span><span class="p">|</span><span class="w"> </span>Simulate<span class="w"> </span>VLAN<span class="w"> </span>traffic<span class="w"> </span><span class="o">(</span>debug<span class="w"> </span>only<span class="o">)</span>
+<span class="o">[</span>--simulate-macs<span class="o">]</span><span class="w">                   </span><span class="p">|</span><span class="w"> </span>Simulate<span class="w"> </span>MACs<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>traffic<span class="w"> </span><span class="o">(</span>debug<span class="w"> </span>only<span class="o">)</span>
+<span class="o">[</span>--simulate-ips<span class="o">]</span><span class="w"> </span>&lt;num&gt;<span class="w">              </span><span class="p">|</span><span class="w"> </span>Simulate<span class="w"> </span>IPs<span class="w"> </span>by<span class="w"> </span>choosing<span class="w"> </span>clients<span class="w"> </span>and<span class="w"> </span>servers<span class="w"> </span>among<span class="w"> </span>&lt;num&gt;<span class="w"> </span>random<span class="w"> </span>addresses
+<span class="o">[</span>--limit-resources<span class="o">]</span><span class="w">                 </span><span class="p">|</span><span class="w"> </span>Non-essential<span class="w"> </span>features<span class="w"> </span>are<span class="w"> </span>disabled
+<span class="w">                                    </span><span class="p">|</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>order<span class="w"> </span>to<span class="w"> </span>save<span class="w"> </span>memory<span class="w"> </span>and<span class="w"> </span>threads
+<span class="o">[</span>--help<span class="p">|</span>-h<span class="o">]</span><span class="w">                         </span><span class="p">|</span><span class="w"> </span>Help
+</pre></div>
+</div>
+<p>Some of the most important parameters are briefly discussed here.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">[--redis|-r]</span> <span class="pre">&lt;redis</span> <span class="pre">host[:port][&#64;db-id]&gt;</span></code></p>
+<blockquote>
+<div><p>Ntopng uses Redis as a backend database to store user configuration and preferences. Redis must be started before ntopng. By default the location is <code class="code docutils literal notranslate"><span class="pre">localhost</span></code> but this can be changed by specifying host and port where Redis is listening. In case multiple ntopng instances use same Redis server is it important, to prevent data from being overwritten, to specify the <code class="code docutils literal notranslate"><span class="pre">&quot;&#64;db-id&quot;</span></code> string to reserve a single Redis database to every ntopng instance.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">[—interface|-i]</span> <span class="pre">&lt;interface|pcap&gt;</span></code></p>
+<blockquote>
+<div><p>At the end of the help information there a list of all available interfaces. The user can select one or more interfaces from the list so that ntopng will treat them as monitored interfaces. Any traffic flowing though monitored interfaces will be seen and processed by ntopng. The interface is passed using the interface number (e.g., <code class="code docutils literal notranslate"><span class="pre">-i</span> <span class="pre">1</span></code>) on Windows systems, whereas the name is used on Linux / Unix systems (e.g., <code class="code docutils literal notranslate"><span class="pre">-i</span> <span class="pre">eth0</span></code>). A monitoring session using multiple interfaces can be set up as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-i<span class="w"> </span>eth0<span class="w"> </span>-i<span class="w"> </span>eth1
+</pre></div>
+</div>
+<p>To specify a ZMQ interface (that allows to visualize remotely-collected flows by nProbe and cento) you should add an interface like <code class="code docutils literal notranslate"><span class="pre">ntopng</span> <span class="pre">-i</span> <span class="pre">tcp://&lt;endpoint</span> <span class="pre">ip&gt;/</span></code></p>
+<p>An example of ntopng and nprobe communication is</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-i<span class="w"> </span>eth0<span class="w"> </span>-n<span class="w"> </span>none<span class="w"> </span>--zmq<span class="w"> </span><span class="s2">&quot;tcp://*:5556&quot;</span>
+ntopng<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;tcp://&lt;nprobe host ip&gt;:5556&quot;</span>
+</pre></div>
+</div>
+<p>It is also possible to operate ntopng in collector mode and nProbe in probe mode (this can be useful for example when nProbe is behind a NAT) as follows (note the trailing c after the collection port)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>-i<span class="w"> </span>eth0<span class="w"> </span>-n<span class="w"> </span>none<span class="w"> </span>--zmq-probe-mode<span class="w"> </span>--zmq<span class="w"> </span><span class="s2">&quot;tcp://&lt;ntopng host ip&gt;:5556&quot;</span>
+ntopng<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;tcp://*:5556c&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In ntopng 6.7.280831 and later, ZMQ CURVE encryption is enabled by default: ntopng no longer accepts
+cleartext ZMQ traffic out of the box. Until custom keys are configured with
+<code class="code docutils literal notranslate"><span class="pre">--zmq-encryption</span></code> / <code class="code docutils literal notranslate"><span class="pre">--zmq-encryption-key-priv</span></code>, ntopng and nProbe fall back to a
+public builtin key pair, which only prevents accidental cleartext exposure. Use <code class="code docutils literal notranslate"><span class="pre">--zmq-disable-encryption</span></code>
+if you want to revert to the previous behavior and accept cleartext ZMQ messages (old deployments).</p>
+</div>
+<p>ntopng is also able to compute statistics based on pcap traffic files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-i<span class="w"> </span>/tmp/traffic.pcap
+</pre></div>
+</div>
+<p>ntopng is also able (when PF_RING is used) to merge two interfaces into a single stream of traffic. This is useful for example when the two directions (TX+RX) of a network TAP need to be merged together. In this case, the interface name is the comma-separated concatenation of the two interface names that have to be merged, e.g.,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-i<span class="w"> </span>eth0,eth1
+</pre></div>
+</div>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">[--http-prefix|-Z]</span> <span class="pre">&lt;prefix&gt;</span></code></p>
+<blockquote>
+<div><p>Network admins who want to monitor their network, may want to map ntopng web interface using a reverse proxy. The main issue with reverse proxying is that the ‘/‘ URI should not be mapped to the ntopng base. Customizable prefixes for the ntopng base can be chosen using the http-prefix option.</p>
+<p>Generally speaking, when the http-prefix is used, ntopng web interface is accessible by pointing the browser at <code class="code docutils literal notranslate"><span class="pre">http://&lt;host&gt;:&lt;port&gt;/&lt;prefix&gt;/</span></code></p>
+<p>For example, ntopng web interface can be accessed at <code class="code docutils literal notranslate"><span class="pre">http://localhost:3000/myntopng</span></code> if it is executed as</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-Z<span class="w"> </span>/myntopng
+</pre></div>
+</div>
+<p>Using Apache, one would achieve the same behavior with the following http proxypass directives:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ProxyPass<span class="w"> </span>/myntopng/<span class="w"> </span>http://192.168.100.3:3000/myntopng/
+ProxyPassReverse<span class="w"> </span>/myntopng/<span class="w"> </span>http://192.168.100.3:3000/myntopng/
+</pre></div>
+</div>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">[--dns-mode|-n]</span> <span class="pre">&lt;mode&gt;</span></code></p>
+<blockquote>
+<div><p>This option controls the behavior of the name resolution done by ntopng. User can specify whether to use full resolution, local- or remote-only, or even no resolution at all.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">[--data-dir|-d]</span> <span class="pre">&lt;path&gt;</span></code></p>
+<blockquote>
+<div><p>Ntopng uses a data directory to store several kinds of information. Most of the historical information related to hosts and applications is stored in this directory. Historical information includes round robin database (RRD) files for each application/host.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">[--local-networks|-m]</span> <span class="pre">&lt;local</span> <span class="pre">nets&gt;</span></code></p>
+<blockquote>
+<div><blockquote>
+<div><p>Ntopng characterizes networks in two categories, namely local and remote. Consequently, also hosts are characterized in either local or remote hosts. Every host that belongs to a local network is local. Similarly, every host that belongs to a remote network is remote.</p>
+<p>A great deal of information can be stored for local hosts, including their Layer-7 application protocols. However, additional information comes at the cost of extra memory and space used. Therefore, although a user would virtually want to mark all possible networks as local, in practice he/she will have to find a good tradeoff.</p>
+<p>Local networks can be specified as a comma separated list of IPv4 (IPv6) addresses and subnet masks or ASN (Authonomous Systems Number). For example to mark three networks as local ntopng can be executed as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>--local-networks<span class="o">=</span><span class="s2">&quot;192.168.2.0/24,10.0.0.0/8,8.8.8.0/24,asn1234&quot;</span>
+</pre></div>
+</div>
+<p>In the ntopng web interface, local networks and hosts are displayed with green colors while remote networks and hosts hosts with gray colors. Extra information will be available in the contextual menus for local networks.</p>
+<p>Note that you have the option to specify a configuration file that contains the list of networks. Example</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>--local-networks<span class="o">=</span>/etc/ntopng/localnetworks.txt
+</pre></div>
+</div>
+</div></blockquote>
+<p>The file format specifies multiple local networks split with commas or on multiple lines. Example:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">192</span>.168.2.0/24<span class="o">=</span>office,192.168.2.1/32,8.8.8.8/32
+asn5678
+<span class="m">9</span>.9.9.9/32
+<span class="m">10</span>.0.0.0/8
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">[--ciphers-list]</span> <span class="pre">&lt;list&gt;</span></code></p>
+<blockquote>
+<div><p>You can defined the ciphers list as you do with HTTP servers such Apache (see SSLCipherSuite in <a class="reference external" href="https://httpd.apache.org/docs/trunk/en/ssl/ssl_howto.html">https://httpd.apache.org/docs/trunk/en/ssl/ssl_howto.html</a>).</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">[—disable-login|-l]</span></code></p>
+<blockquote>
+<div><p>By default ntopng uses authentication method to access the web GUI. Authentication can be disabled by adding the option disable-login to the startup parameters. In this case any user who access the web interface has administrator privileges.</p>
+<p>As mentioned above, a configuration file can be used in order to start ntopng. All the command line options can be reported in the configuration file, one per line. Options must be separated from their values using a <code class="code docutils literal notranslate"><span class="pre">=</span></code> sign. Comment lines starting with a <code class="code docutils literal notranslate"><span class="pre">#</span></code> sign are allowed as well.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">[--limit-resources]</span></code></p>
+<blockquote>
+<div><p>On systems with limited resources (CPU/RAM) you can use this flag to limit resouces usage. Some features such as network discovery or periodicity traffic analysis will be disabled.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">[--offline]</span></code></p>
+<blockquote>
+<div><p>In case ntopng is placed in a protected environment (e.g. with a firewall limiting Internet connectivity) this can affect the ntopng performance and user experience. ntopng automatically tries to detect if there is limited connectivity, switching to <em>offline</em> mode. It is also possible to force the <em>offline</em> mode in ntopng by adding the <code class="code docutils literal notranslate"><span class="pre">--offline</span></code> option. This mode will stop ntopng from contacing any external services. The list of IP/hosts contacted by ntopng when not offline includes:</p>
+<blockquote>
+<div><p>github.com (for the connectivity check - this can be configured from Settings -&gt; Preferences -&gt; Misc)</p>
+<p>packages.ntop.org</p>
+<p>blog.ntop.org</p>
+<p>blacklists (those can be configured from Settings -&gt; Category Lists)</p>
+</div></blockquote>
+</div></blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Unlike its predecessor, ntopng is not itself a Netflow collector. It can act as Netflow collector combined with nProbe. To perform this connection start nProbe with the <code class="code docutils literal notranslate"><span class="pre">--zmq</span></code> parameter and point ntopng interface parameter to the nProbe ZMQ endpoint. Using this configuration give the admin the possibility to use ntopng as collector GUI to display data either from nProbe captured traffic and Netflow enabled devices as displayed in the following picture.</p>
+<figure class="align-center" id="id1">
+<img alt="ntopng/nprobe setup" src="../_images/cli_options_ntopng_with_nprobe_architecture.png" />
+<figcaption>
+<p><span class="caption-text">ntopng/nprobe setup</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Command Line Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cli_options_example.html" class="btn btn-neutral float-right" title="Configuration File Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/cli_options/cli_options.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:48:03 GMT -->
+</html>

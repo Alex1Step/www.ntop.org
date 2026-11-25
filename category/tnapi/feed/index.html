@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>TNAPI Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/tnapi/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/tnapi/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Thu, 14 May 2026 13:28:34 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>TNAPI Archives - ntop</title>
+	<link>https://www.ntop.org/category/tnapi/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Exploiting Hardware Filtering in PF_RING-aware apps, Snort&#8230;</title>
+		<link>https://www.ntop.org/exploiting-hardware-filtering-in-pf_ring-aware-apps-snort/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 15 Nov 2011 17:09:24 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=1696</guid>
+
+					<description><![CDATA[<p>Introduction PF_RING filters have been designed to be efficient and versatile. PF_RING-based applications can use them for both reducing the amount of packets they need to process, and passing incoming packets to…</p>
+<p>The post <a href="https://www.ntop.org/exploiting-hardware-filtering-in-pf_ring-aware-apps-snort/">Exploiting Hardware Filtering in PF_RING-aware apps, Snort&#8230;</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><span class="Apple-style-span" style="font-size: 28px; line-height: 33px;">Introduction</span></p>
+<p>PF_RING filters have been designed to be efficient and versatile. PF_RING-based applications can use them for both reducing the amount of packets they need to process, and passing incoming packets to kernel plugins for further processing.</p>
+<p>Years ago, hardware packet filtering was limited to costly FPGA-based NICs, whereas today it is available also on commodity adapters such as <a href="http://www.silicom-usa.com/ProductsList.aspx?Category=54&amp;Section=740&amp;ln=en&amp;ln=en">Silicom 1/10 Gbit Director card</a>, and <a href="http://www.intel.com/products/ethernet/resource.htm">Intel 82599</a>-based 10 Gbit network adapters.</p>
+<p>&nbsp;</p>
+<h2>Filtering in PF_RING 5.2</h2>
+<p>Although past PF_RING versions supported limited hardware filtering, in PF_RING 5.2 we have completely redesigned packet filtering so that applications can use a single and consistent packet filtering API, letting PF_RING do the magic based on the hardware NIC being used. This means that you need to code the application once, regardless of the type of NIC being used, and let PF_RING set the native filter type. As you can see from the figure below there are many combinations we support in PF_RING, and using a single API is pre-requisite for avoid wasting time supporting all of them.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2011/11/PF_RING-Filters.png"><img fetchpriority="high" decoding="async" class="aligncenter size-full wp-image-1697" title="PF_RING Filters" src="https://www.ntop.org/wp-content/uploads/2011/11/PF_RING-Filters.png" alt="" width="932" height="457" /></a>When you set a filter, you can either specify it as NIC native filter (e.g. silicom_redirector_hw_rule) or as PF_RING generic filter (e.g. filtering_rule/hash_filtering_rule). In the former case you have full control over the filter at the cost of being unable to seamlessly run the code over various adapter types. In the latter case, you code once and let PF_RING convert the filter format into native, hardware filter, based on the NIC type you use.</p>
+<p>Although all hardware filter types are very efficient being them executed in hardware, they are not all alike. As of today we support:</p>
+<ul>
+<li>82599-based NICs (see the Intel 82599 datasheet for more details)</li>
+<ul>
+<li>Up to 32k FlowDirector filters (IPv4/v6 hash_filtering_rule in PF_RING parlance)</li>
+<li>Up to 128 5-tuple filters (IPv4/v6 filtering_rule in PF_RING parlance)</li>
+</ul>
+<li>Silicom Director</li>
+<ul>
+<li>Up to 1’000 filters per port (IPv4-only flexible filters)</li>
+</ul>
+</ul>
+<p>In the case of Silicom Director, it is also possible to execute in hardware actions across ports (e.g. mirror packets matching a given filters across ports); on non-Director NICs you can do that  too at the cost of doing it in the CPU.</p>
+<p>&nbsp;</p>
+<h2>Using Hardware Filters</h2>
+<p>In order to demonstrate the power and usefulness of PF_RING filters, we have enhanced the pfcount demo application so that it adds a filter (-u command line option) for dropping incoming packets. The pfcount_82599 demo application shows how to set native filters.</p>
+<p>&nbsp;</p>
+<h2>Hardware Filtering in Snort</h2>
+<p>For all snort users, we have enhanced our PF_RING DAQ module, so that snort can transparently set “drop filters” whenever bad packets are detected. This is a fantastic way to address DDoS attacks and drop in hardware nasty packets that would waste too many CPU cycles.As snort PF_RING DAQ can work in both IDS (Intrusion Detection System) and IPS (Intrusion Prevention System) mode, so hardware filtering in IPS mode is a very nice thing to have.</p>
+<p>&nbsp;</p>
+<h2>If You Don&#8217;t Own a Hardware-Filtering NIC&#8230;</h2>
+<p>Software PF_RING filters are still enabled when hardware filtering is used. This because it is not always possible to filter all the traffic you would like in hardware. So you can use PF_RING filtering as you have done so far, although you have to be aware that switching to a hardware filtering NIC allows your CPU to offload filters to the NIC and thus preserve precious CPU cycles for packet processing.</p>
+<p>&nbsp;</p>
+<h2>Notes on 82599 filters</h2>
+<ul>
+<li>In order to enable hardware filters you need to load the ixgbe module with specific parameters. Example: insmod ixgbe.ko  RSS=0,0,0,0 FdirMode=2,2,2,2 FdirPballoc=3,3,3,3</li>
+<li>Filters are not used just for pass/drop actions, but also for steering packets to specific cores/RX queues. For instance you can say: all incoming TCP packets on port 80 must be diverted to RX queue 3. So you can bind you HTTP analysis application to queue ethX@3 and forget all other queues.</li>
+<li>You can simultaneously set both 5-tuple and FlowDirector filters. However there are some limitations in the silicon, so please refer to the <a href="http://download.intel.com/design/network/datashts/82599_datasheet.pdf">82599 datasheet</a> for more information about this subject.</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/exploiting-hardware-filtering-in-pf_ring-aware-apps-snort/">Exploiting Hardware Filtering in PF_RING-aware apps, Snort&#8230;</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Released PF_RING 5.1 and TNAPIv2</title>
+		<link>https://www.ntop.org/released-pf_ring-5-1-and-tnapiv2/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sun, 25 Sep 2011 22:12:01 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=1674</guid>
+
+					<description><![CDATA[<p>PF_RING 5.1 is a maintenance release that addresses some issues we identified in 5.0 that we released early this month. We have listen to your comments and tried to improve our software…</p>
+<p>The post <a href="https://www.ntop.org/released-pf_ring-5-1-and-tnapiv2/">Released PF_RING 5.1 and TNAPIv2</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>PF_RING 5.1 is a maintenance release that addresses some issues we identified in 5.0 that we released early this month. We have listen to your comments and tried to improve our software applications both in terms of stability and speed.</p>
+<p>In this release we introduce (PF_RING 5.0 was lacking TNAPI as we were busy coding this new TNAPIv2) a new version of TNAPI (v2) that has been completely rewritten based on the lessons learnt with DNA. The performance improvement with respect to v1 has been major. Just to give you an idea with a low end Core2Duo and a single RX queue, you can achieve wire-rate 1 Gbit packet capture (with v1 we stopped at 750 Kpps) and over 2.8 Mpps at 10 Gbit (with v1 we could&#8217;t go above 1 Mpps). TNAPI is now able to both receive and send packets; unfortunately we need to work a bit more on the PF_RING side in order to exploit TX, thus even if TNAPIv2 features packet transmission, we have not yet enabled until we complete developments on the PF_RING side.</p>
+<p>We remind you that beside speed, the fundamental difference between DNA and TNAPI is that on DNA the interface is piloted by a single (i.e. quality one) user-space application, whereas TNAPI can be used to capture packets that will be dispatched to multiple PF_RING-based applications. The cost of dispatching is paid on performance as with DNA you can have wire speed with any packet size, whereas TNAPI features wire-rate at 1 Gbit and over 5 Mpps packet capture at 10 Gbit on low-end Xeon boxes. Please note that in order to use TNAPIv2 you must use PF_RING 5.1.</p>
+<p>Finally, in order to figure out immediately what interface type we&#8217;re using, we have renamed the interfaces. The new standard for network interfaces is:</p>
+<ul>
+<li><strong>ethX</strong>: vanilla or PF_RING-aware driver</li>
+<li><strong>tnapiX</strong>: TNAPI driver</li>
+<li><strong>dnaX</strong>: DNA driver</li>
+</ul>
+<p>For instance:</p>
+<pre>tnapi0    Link encap:Ethernet  HWaddr 00:1b:21:a1:cc:20
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+          Memory:e0320000-e0340000 
+
+tnapi1    Link encap:Ethernet  HWaddr 00:1b:21:a1:cc:21
+          inet6 addr: fe80::21b:21ff:fea1:cc21/64 Scope:Link
+          UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+          Memory:e0340000-e0360000</pre>
+<p>The post <a href="https://www.ntop.org/released-pf_ring-5-1-and-tnapiv2/">Released PF_RING 5.1 and TNAPIv2</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>PF_RING 5.0 Introduced: DNA 1/10 Gbit and vPF_RING</title>
+		<link>https://www.ntop.org/pf_ring-5-0-introduced-dna-110-gbit-and-vpf_ring/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Thu, 08 Sep 2011 16:53:59 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<category><![CDATA[vPF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=1458</guid>
+
+					<description><![CDATA[<p>We've just cut the code of PF_RING 5.0. As it contains many changes with respect to the previous version, it deserved a major version number. We refreshed our DNA drivers to 1…</p>
+<p>The post <a href="https://www.ntop.org/pf_ring-5-0-introduced-dna-110-gbit-and-vpf_ring/">PF_RING 5.0 Introduced: DNA 1/10 Gbit and vPF_RING</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We&#8217;ve just cut the code of PF_RING 5.0. As it contains many changes with respect to the previous version, it deserved a major version number.</p>
+<p>We refreshed our DNA drivers to 1 Gbit Intel NICs (e1000e and igb families) in addition to the existing 10 Gbit DNA driver. All the DNA drivers source code is stored inside the <A HREF=https://svn.ntop.org/svn/ntop/trunk/PF_RING/drivers/DNA>PF_RING SVN</A>. You can just install the DNA driver, and use our test applications (pfcount for receiving packets, and pfsend for generating/reproducing traffic) for enjoying 1/10 Gbit RX/TX wire-speed using commodity adapters.</p>
+<p>We&#8217;ve also introduced vPF_RING that is an extension of the popular Linux KVM Hypervisor, for bringing multi-Gbit packet capture on VMs. You can find more information about it on the <A HREF=https://www.ntop.org/products/pf_ring/vpf_ring/>vPF_RING</A> home page.</p>
+<p>Both DNA and vPF_RING can be evaluated at no cost. If you want to use them permanently, you need a license key for unlocking the user-space library. You can find more information on the <A HREF=https://www.ntop.org/products/pf_ring/DNA/>DNA</A> and <A HREF=https://www.ntop.org/products/pf_ring/vpf_ring/>vPF_RING</A> home page.</p>
+<p>While releasing DNA for 1 and 10 Gbit, we have decided to discontinue TNAPI. The main reason is that with DNA we can both send and receive at wire rate with minimum CPU load, whereas TNAPI was limited only to RX. Another reason was to simplify the PF_RING range of options that might confuse some users. We&#8217;re working a a new TNAPI release that will be available within a few weeks and that we&#8217;ll feature TX. We&#8217;ll be back soon.</p>
+<p>Finally as you can see, we&#8217;ve finally retired the old ntop web site in favor of a new one. We hope you will enjoy it.</p>
+<p>The post <a href="https://www.ntop.org/pf_ring-5-0-introduced-dna-110-gbit-and-vpf_ring/">PF_RING 5.0 Introduced: DNA 1/10 Gbit and vPF_RING</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Packet Capture Performance at 10 Gbit: PF_RING vs TNAPI</title>
+		<link>https://www.ntop.org/packet-capture-performance-at-10-gbit-pf_ring-vs-tnapi/</link>
+		
+		<dc:creator><![CDATA[Luca Deri]]></dc:creator>
+		<pubDate>Mon, 09 May 2011 23:21:12 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/blog/?p=449</guid>
+
+					<description><![CDATA[<p>Many of you are using PF_RING and TNAPI for accelerating packet capture performance, but have probably not tested the code for a while. In the past month we have tuned PF_RING performance…</p>
+<p>The post <a href="https://www.ntop.org/packet-capture-performance-at-10-gbit-pf_ring-vs-tnapi/">Packet Capture Performance at 10 Gbit: PF_RING vs TNAPI</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Many of you are using PF_RING and TNAPI for accelerating packet capture performance, but have probably not tested the code for a while. In the past month we have tuned PF_RING performance and squeezed some extra packets captured implementing the quick_mode in PF_RING. When you do i<em>nsmod pf_ring.ko quick_mode=1</em>, PF_RING optimizes its operations for multi-queue RX adapters and applications capturing traffic from several RX queues simultaneously. The idea behind quick_mode is that people should use it whenever they are interested just in maximum packet capture performance, and do not need PF_RING features such as packet filtering and plugins.</p>
+<p>We tested PF_RING vs TNAPI on a low-end server equipped with an entry-level Xeon processor, so that we can test the minimum packet capture performance you can expect. The test result is shown below and it basically says that:</p>
+<ul>
+<li>With packets of 512 bytes or more, TNAPI and PF_RING-over-NAPI show a similar performance, and they can operate at wire rate as they capture all available packets.</li>
+<li>With 64 bytes packets and a multi-threaded/multi-queue poller application such as pfcount_multichannel (you can find all apps in PF_RING/userland/examples) you can capture 5.1 million packets/sec over NAPI, and 6.7 million packets/sec over TNAPI.</li>
+<li>This means that with small packets TNAPI offers a +30% performance increase with respect to NAPI.</li>
+</ul>
+<p>As in our experience 10 Gbit links do not have in average more than 2 million packets/sec, this test shows that the performance offered by PF_RING in combination with TNAPI (and in a way even NAPI) is more than adequate as can capture more that 6.5 million packets/sec.</p>
+<p>Is this enough for you? If not, we&#8217;ll soon introduce a 10 Gbit DNA driver developed with <a href="http://www.silicom-usa.com">Silicom</a>, so you can see to which extents we pushed packet capture limits.</p>
+<p>Stay tuned.</p>
+<p style="text-align: center;"><a href="https://www.ntop.org/blog/wp-content/uploads/2011/05/PFRING_vs_TNAPI.png"><img decoding="async" class="aligncenter size-full wp-image-450" style="margin: 60px;" title="PFRING_vs_TNAPI" src="https://www.ntop.org/wp-content/uploads/2011/05/PFRING_vs_TNAPI.png" alt="" width="461" height="305" /></a></p>
+<p>Test Environment</p>
+<ul>
+<li>Supermicro server equipped with a single Xeon X3450 running at 2.67 GHz (4 real cores with HT, 8 cores in total)</li>
+<li>PF_RING 4.6.4 and ixgbe driver (SVN release 4601)</li>
+<li>Intel 82598/82599-based adapter</li>
+<li>insmod pf_ring.ko transparent_mode=2 quick_mode=1</li>
+<li>Interrupts balanced as follows: PF_RING/drivers/intel/ixgbe/ixgbe-3.1.15-FlowDirector-NoTNAPI/scripts/set_irq_affinity.sh eth4</li>
+<li>pfcount -i eth4 -w 5000 -b 99 -l &lt;packet size (depends on the test)&gt;</li>
+<li>pfcount_multichannel -i eth4 -w 5000 -b 99 -l 64&lt;packet size (depends on the test)&gt;</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/packet-capture-performance-at-10-gbit-pf_ring-vs-tnapi/">Packet Capture Performance at 10 Gbit: PF_RING vs TNAPI</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>ntop and Silicom Inc join the forces</title>
+		<link>https://www.ntop.org/ntop-and-silicom-inc-join-the-forces/</link>
+		
+		<dc:creator><![CDATA[Luca Deri]]></dc:creator>
+		<pubDate>Mon, 28 Mar 2011 19:45:46 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/blog/?p=353</guid>
+
+					<description><![CDATA[<p>Since a few months ntop and Silicom have started to work together on various network-related topics. The idea is to enhance PF_RING and TNAPI in order to offer better products and support…</p>
+<p>The post <a href="https://www.ntop.org/ntop-and-silicom-inc-join-the-forces/">ntop and Silicom Inc join the forces</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Since a few months ntop and <a href="http://www.silicom-usa.com">Silicom</a> have started to work together on various network-related topics. The idea is to enhance <a href="https://www.ntop.org/PF_RING.html">PF_RING</a> and  <a href="https://www.ntop.org/TNAPI.html">TNAPI</a> in order to offer better products and support for both the community and Silicom customers. Furthermore, Silicom produces very advanced products such as the <a href="http://www.silicom-usa.com/default.asp?contentID=1019">content director card</a> and the <a href="http://www.silicom-usa.com/default.asp?contentID=2144">packet processor card</a>, that could solve various network-related tasks including:</p>
+<ul>
+<li>packet mirroring, tapping, duplication</li>
+<li>packet steering</li>
+<li>QoS enforcement</li>
+<li>packet traffic analysis</li>
+</ul>
+<p>As these activities are performed in hardware, they operate at wire-speed (at both 1 and 10 Gbit) without any CPU assistance, turning commodity Linux-based servers into powerful packet processor appliances that can deliver the same performance of costly ad-hoc devices. The main difference between these two approaches is both in price but also in freedom to leverage on open-source software that allows users to adapt the solution to their needs without being locked with costly, proprietary solutions.</p>
+<p>The first results of this joint development effort, will be released in the next few months. Stay tuned.</p>
+<p><strong>Update</strong>: the collaboration ended on Jan 31st 2014.</p>
+<p>The post <a href="https://www.ntop.org/ntop-and-silicom-inc-join-the-forces/">ntop and Silicom Inc join the forces</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>10 Gbit Hardware Packet Filtering Using Commodity Network Adapters</title>
+		<link>https://www.ntop.org/10-gbit-hardware-packet-filtering-using-commonity-network-adapters/</link>
+		
+		<dc:creator><![CDATA[Luca Deri]]></dc:creator>
+		<pubDate>Sat, 04 Sep 2010 12:06:39 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/blog/?p=192</guid>
+
+					<description><![CDATA[<p>The promise of filtering packets in hardware is not new. Unfortunately filtering network adapters are pretty expensive, not to mention if they run at 10 Gbit. Furthermore many commercial FPGA-based NICs feature…</p>
+<p>The post <a href="https://www.ntop.org/10-gbit-hardware-packet-filtering-using-commonity-network-adapters/">10 Gbit Hardware Packet Filtering Using Commodity Network Adapters</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>The promise of filtering packets in hardware is not new. Unfortunately filtering network adapters are pretty expensive, not to mention if they run at 10 Gbit. Furthermore many commercial FPGA-based NICs feature hardware packet filtering, but often require card reconfiguration whenever flow rules are added/removed and have a limited set of rules that can be configured.</p>
+<p>The release of <a href="http://ark.intel.com/ProductCollection.aspx?series=46825">Intel X520,</a> the first NIC based on the 82599-controller, has triggered my interest as this controller is much more powerful than what Linux can do with it. Thanks to support from Intel and in particular Joseph Gasparakis of Intel Shannon, I have jointly developed an extension to the ixgbe driver (used to drive 82599-based NICs) for adding hardware packet filtering support. Thanks to this work, users can specify up to 32K (yes thirty-two thousand) filters that can be added on the fly without any hardware reconfiguration. And if you want the cherry on top, the cost per port of X520 is well below 1000$. So you now have no reason for not jumping on the 10 Gbit wagon.</p>
+<p>The enhanced driver is released free of charge as part of the <a href="https://www.ntop.org/PF_RING.html">PF_RING</a> distribution (inside PF_RING/drivers/intel). If you also want packet capture acceleration in addition to hardware filtering you can use <a href="https://www.ntop.org/TNAPI.html">TNAPI</a> that now supports hardware packet filtering too.</p>
+<p>You can find more information about this work at <a href="https://www.ntop.org/TNAPI_HwFiltering.html">this page</a>.</p>
+<p>The post <a href="https://www.ntop.org/10-gbit-hardware-packet-filtering-using-commonity-network-adapters/">10 Gbit Hardware Packet Filtering Using Commodity Network Adapters</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>10 Gbit PF_RING-based Hardware Packet Filtering and Balancing Previewed at the Intel Europe Conference</title>
+		<link>https://www.ntop.org/10-gbit-pf_ring-based-hardware-packet-filtering-previewed-at-the-intel-europe-conference/</link>
+					<comments>https://www.ntop.org/10-gbit-pf_ring-based-hardware-packet-filtering-previewed-at-the-intel-europe-conference/#respond</comments>
+		
+		<dc:creator><![CDATA[Luca Deri]]></dc:creator>
+		<pubDate>Wed, 05 May 2010 18:29:59 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/blog/?p=86</guid>
+
+					<description><![CDATA[<p>Intel Research Europe Conference, Bruxelles, May 4th 2010 Luca Deri and Joseph Gasparakis, senior Intel engineer, have previewed a new PF_RING-based technology they have co-developed that allows Linux users to fully exploit…</p>
+<p>The post <a href="https://www.ntop.org/10-gbit-pf_ring-based-hardware-packet-filtering-previewed-at-the-intel-europe-conference/">10 Gbit PF_RING-based Hardware Packet Filtering and Balancing Previewed at the Intel Europe Conference</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Intel Research Europe Conference, Bruxelles, May 4th 2010</p>
+<p>Luca Deri and <a href="http://ie.linkedin.com/pub/joseph-gasparakis/5/898/561">Joseph Gasparakis</a>, senior Intel engineer, have previewed a new PF_RING-based technology they have co-developed that allows Linux users to fully exploit the hardware capabilities of the newest<a href="http://www.intel.com/Products/Server/Adapters/X520/ethernet-X520-overview.htm"> Intel X520 10 Gbit adapter</a> (based on <a href="http://download.intel.com/design/network/prodbrf/321731.pdf">Intel 82599</a> controller). This technology that is close to public availability (at no cost), will enable PF_RING users to program the X520 card with (over 32&#8217;000) rules that allow to both balance and filter traffic in hardware with no CPU intervention. Linux users will be able to prioritize traffic, move specific traffic to selected CPU cores, and implement 10Gbit efficient hardware-based firewalls using a low cost commodity adapter. A specific TNAPI version for 82599-based NICs will enable developers to even further accelerate their monitoring and security applications.</p>
+<p>Luca and Joseph thank <a href="http://www.linkedin.com/in/pjwaskiewicz">Peter Waskiewicz Jr</a> for his support during the development of this driver.</p>
+<p style="text-align: center;"><a href="https://www.ntop.org/wp-content/uploads/2010/05/Bruxelles-1.jpg"><img decoding="async" class="alignnone size-full wp-image-82" title="Intel X520 10 Gbit card" src="https://www.ntop.org/wp-content/uploads/2010/05/Bruxelles-1.jpg" alt="Intel X520 10 Gbit card" width="640" height="425" /></a></p>
+<p style="text-align: center;">Intel X520 Card</p>
+<p style="text-align: center;">
+<p style="text-align: center;"><a href="https://www.ntop.org/wp-content/uploads/2010/05/Bruxelles-2.jpg"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-84" title="Intel demo setup" src="https://www.ntop.org/wp-content/uploads/2010/05/Bruxelles-2.jpg" alt="Intel demo setup" width="640" height="426" /></a></p>
+<p style="text-align: center;">Intel Conference &#8211; Demo Setup</p>
+<p style="text-align: center;"><a href="https://www.ntop.org/wp-content/uploads/2010/05/Bruxelles-3.jpg"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-83" title="Intel Fellow Radia Perlman with Luca Deri and Joseph Gasparakis" src="https://www.ntop.org/wp-content/uploads/2010/05/Bruxelles-3.jpg" alt="Intel Fellow Radia Perlman with Luca Deri and Joseph Gasparakis" width="640" height="425" /></a></p>
+<p style="text-align: center;">Intel Fellow and &#8220;Mother of the Internet&#8221; <a href="http://en.wikipedia.org/wiki/Radia_Perlman">Radia Perlman</a> visit Luca and Joseph</p>
+<p style="text-align: center;"><a href="https://www.ntop.org/wp-content/uploads/2010/05/Bruxelles-4.jpg"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-85" title="Luca Deri with Joseph Gasparakis, Senior Intel Engineer" src="https://www.ntop.org/wp-content/uploads/2010/05/Bruxelles-4.jpg" alt="Luca Deri with Joseph Gasparakis, Senior Intel Engineer" width="640" height="480" /></a></p>
+<p style="text-align: center;">Joseph and Luca during the conference</p>
+<p>The post <a href="https://www.ntop.org/10-gbit-pf_ring-based-hardware-packet-filtering-previewed-at-the-intel-europe-conference/">10 Gbit PF_RING-based Hardware Packet Filtering and Balancing Previewed at the Intel Europe Conference</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://www.ntop.org/10-gbit-pf_ring-based-hardware-packet-filtering-previewed-at-the-intel-europe-conference/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>PF_RING and Transparent Mode</title>
+		<link>https://www.ntop.org/pf_ring-and-transparent-mode/</link>
+		
+		<dc:creator><![CDATA[Luca Deri]]></dc:creator>
+		<pubDate>Sun, 07 Mar 2010 09:52:40 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/blog/?p=56</guid>
+
+					<description><![CDATA[<p>PF_RING has been designed for enhancing packet capture performance. This means that the RX path must be accelerated, and in particular a way to accelerate this is by reducing the journey of…</p>
+<p>The post <a href="https://www.ntop.org/pf_ring-and-transparent-mode/">PF_RING and Transparent Mode</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>PF_RING has been designed for enhancing packet capture performance. This means that the RX path must be accelerated, and in particular a way to accelerate this is by reducing the journey of the packet from the adapter to userland. This is obtained by allowing the driver to push the packet from the NIC to PF_RING directly and not through the usual kernel path. For this reason PF_RING has introduced an option named &#8220;transparent mode&#8221; whose goal is to tune how packets are moved from the NIC to PF_RING. This option (that can be specified when inserting the PF_RING module via insmod) can have three values:</p>
+<ol>
+<li>insmod pf_ring.ko transparent_mode=0<br />
+This is the default and it means that packets are sent to PF_RING via the standard kernel mechanisms. In this setup the packets are both sent to PF_RING but to all other kernel components. All NIC drivers support this mode.</li>
+<li> insmod pf_ring.ko transparent_mode=1<br />
+In this mode, packets are sent <em>directly</em> by the NIC driver to PF_RING, packets are <em>still</em> propagated to other kernel components. In this mode packet capture is accelerated because packets are copied by the NIC driver without passing through the usual kernel path. Please note that in order to enable this mode, you must use a NIC driver that supports PF_RING. Available PF_RING-enabled drivers can be found in the drivers/ directory of PF_RING.</li>
+<li>insmod pf_ring.ko transparent_mode=2<br />
+In this mode, packets are sent <em>directly</em> by the NIC driver to PF_RING, packets are <em>not</em> propagated to other kernel components as this slows down packet capture. Please note that:</p>
+<ul>
+<li> in order to enable this mode, you must use a NIC driver that supports PF_RING.</li>
+<li>Packets are <em>not</em> sent to the kernel after they have been delivered to PF_RING. This means that you won&#8217;t have connectivity from NICs driven by PF_RING-aware drivers.</li>
+<li>This mode is the fastest one as packets are quickly copied to PF_RING and immediately discarded after they have been processed.</li>
+</ul>
+</li>
+</ol>
+<p>The post <a href="https://www.ntop.org/pf_ring-and-transparent-mode/">PF_RING and Transparent Mode</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Exploiting Commodity Multi-core Systems for Network Traffic Analysis</title>
+		<link>https://www.ntop.org/exploiting-commodity-multi-core-systems-for-network-traffic-analysis/</link>
+					<comments>https://www.ntop.org/exploiting-commodity-multi-core-systems-for-network-traffic-analysis/#respond</comments>
+		
+		<dc:creator><![CDATA[Luca Deri]]></dc:creator>
+		<pubDate>Sat, 30 Jan 2010 10:22:40 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/blog/?p=36</guid>
+
+					<description><![CDATA[<p>This article Improvement of libpcap for lossless packet capturing in Linux using PF_RING kernel patch positions PF_RING (3.x, so some changes are needed when using version 4) against the Linux standard PF_PACKET…</p>
+<p>The post <a href="https://www.ntop.org/exploiting-commodity-multi-core-systems-for-network-traffic-analysis/">Exploiting Commodity Multi-core Systems for Network Traffic Analysis</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This article I<a href="http://www.industrialcontroldesignline.com/howto/220600017">mprovement of libpcap for lossless packet capturing in Linux using PF_RING kernel patch</a> positions PF_RING (3.x, so some changes are needed when using version 4) against the Linux standard PF_PACKET packet capture facility. In PF_RING v4, due to popular demand, I have decided to move some of the PF_RING accelerations into the NIC driver with the advantage of being now able to compile PF_RING against an unpatched kernel. The PF_RING distribution has now a drivers/ directory that contains accelerated drivers for popular 1 and 10 Gbit adapter. This means that using PF_RING on top of Linux without any accelerated drivers, gives you a little speed advantage when compared with standard Linux. However if you use a PF_RING-aware driver or even better TNAPI, your speed bump will be much better. I summarize some lessons learnt on this field on this research paper named <a href="http://luca.ntop.org/MulticorePacketCapture.pdf">Exploiting Commodity Multi-core Systems for Network Traffic Analysis</a>.</p>
+<p>The post <a href="https://www.ntop.org/exploiting-commodity-multi-core-systems-for-network-traffic-analysis/">Exploiting Commodity Multi-core Systems for Network Traffic Analysis</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://www.ntop.org/exploiting-commodity-multi-core-systems-for-network-traffic-analysis/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Port Mirror vs Network Tap</title>
+		<link>https://www.ntop.org/port-mirror-vs-network-tap/</link>
+		
+		<dc:creator><![CDATA[Luca Deri]]></dc:creator>
+		<pubDate>Fri, 01 Jan 2010 20:09:12 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/wordpress/?p=14</guid>
+
+					<description><![CDATA[<p>In order to analyze network traffic, it's necessary to feed ntop/nProbe with network packets. There are two solutions to the problem: port mirror (also called SPAN in Cisco parlance) network tap Prior…</p>
+<p>The post <a href="https://www.ntop.org/port-mirror-vs-network-tap/">Port Mirror vs Network Tap</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>In order to analyze network traffic, it&#8217;s necessary to feed ntop/nProbe with network packets. There are two solutions to the problem:</p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Port_mirroring">port mirror</a> (also called SPAN in Cisco parlance)</li>
+<li><a href="http://en.wikipedia.org/wiki/Network_tap">network tap</a></li>
+</ul>
+<p>Prior to explain the differences between these two solutions, it&#8217;s important to understand how ethernet works. In 100 Mbit and above, hosts usually speak in full duplex meaning that a hosts can both send and receive simultaneously. This means that on a 100 Mbit cable connected to a host, the total amount of traffic that a host can send/receive is 2 x 100 Mbit = 200 Mbit.</p>
+<p>A port mirror is <em>active</em> packet duplication, meaning that a network device physically has the duty to copy packets onto a mirror port.</p>
+<p style="text-align: center;"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-17" title="span" src="https://www.ntop.org/wp-content/uploads/2010/01/span.png" alt="span" width="473" height="165" /></p>
+<p>This means that the device has to carry on this task by using some resources (e.g. CPU) and that both traffic directions will be copied into the same port. As explained before, in full duplex links this means that the total of A-&gt;B and B-&gt;A can&#8217;t exceed the network speed before packet loss occurs. This because there&#8217;s physically no space to copy packets. The consequence is that a port mirror is a great technique as it can be performed by many switches (but not all) with the drawback of packet loss if you monitor a link with over 50% load, or mirror the ports onto a faster port (e.g. mirror 100 Mbit ports onto a 1 Gbit port). Not to mention that packet mirror might require switch resources that can load the unit and lead to reduced switching performance. Note that you can 1 port onto a port, or 1 VLAN onto 1 port, but usually you can&#8217;t copy many ports to 1. Please note that in this architecture, the switch is a point of failure as if it breaks the connectivity (and packet mirror) is lost.</p>
+<p>A network tap instead is a <em>fully passive</em> device.</p>
+<p style="text-align: center;"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-19" title="tap" src="https://www.ntop.org/wp-content/uploads/2010/01/tap.png" alt="tap" width="472" height="167" /></p>
+<p style="text-align: left;">Electrically or optically (e.g. using a prism) packets are copied onto the tap ports. Unless you use an aggregation tap, a tap has one tap port per direction. This means that in order to monitor 1 link, you need 2 NICs, one for the first and the other for the second direction. In this case you won&#8217;t ever loose a single packet as in the mirror case, because each direction is using a link, instead of merging both directions onto the same link. If you want to merge both directions into one single port, you can use a network switch as depicted below:</p>
+<p style="text-align: center;"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-20" title="TapMerge" src="https://www.ntop.org/wp-content/uploads/2010/01/TapMerge.png" alt="TapMerge" width="194" height="107" /></p>
+<p style="text-align: left;">As tap ports do not receive but transmit only, the switch has no clue who&#8217;s sitting behind the ports. The consequence is that it broadcast the packets to all ports. So if you connect your monitoring device to the switch, such device will receive all packets. Note that this mechanism works if the monitoring device <strong>does not </strong>send any packet to the switch, otherwise the switch will assume that the tapped packets are not for such device. In order to achieve that, you can either use a network cable on which you have not connected the TX wires, or use an IP-less (and DHCP-less) network interface that does not transmit packets at all. Finally note that if you want to use a tap for not loosing packets, then either don&#8217;t merge directions or use a switch where tapped directions are slower (e.g. 100 Mbit) that the merge port (e.g. 1 Gbit).</p>
+<p style="text-align: left;">Bottom line. Packet mirror and tap have both pros and cons. You can select the right solution based on your network (and wallet).</p>
+<p style="text-align: left;">If you want to know more about this topic, I suggest you to read this document named <a href="http://wiki.networksecuritytoolkit.org/nstwiki/index.php/Multi-Tap_Network_Packet_Capturing">Multi-Tap Network Packet Capturing</a>. It describes more in detail how to play with network taps and it highlights how to use <a href="http://www.networksecuritytoolkit.org/">NST</a> (Network Security Toolkit, a Linux distribution that also includes ntop) in common network monitoring scenarios, where very likely your setup is also included.</p>
+<h1 id="firstHeading" style="color: black; background-image: none; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: initial; font-weight: normal; margin-top: 0px; margin-right: 0px; margin-bottom: 0.1em; margin-left: 0px; padding-top: 0.5em; padding-bottom: 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #aaaaaa; font-size: 24px; line-height: 1.2em; background-position: initial initial; background-repeat: initial initial;">Multi-Tap Network Packet Capturing</h1>
+<p style="text-align: left;">
+<p style="text-align: left;">
+<p style="text-align: center;">
+<p>The post <a href="https://www.ntop.org/port-mirror-vs-network-tap/">Port Mirror vs Network Tap</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>IRQ Balancing</title>
+		<link>https://www.ntop.org/irq-balancing/</link>
+		
+		<dc:creator><![CDATA[Luca Deri]]></dc:creator>
+		<pubDate>Sun, 13 Dec 2009 11:42:31 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/wordpress/?p=1</guid>
+
+					<description><![CDATA[<p>On Linux, interrupts are handled automatically by the kernel. In particular there's a process named irqbalancer that is responsible for balancing interrupts across processors. Unfortunately the default is to let all processors…</p>
+<p>The post <a href="https://www.ntop.org/irq-balancing/">IRQ Balancing</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>On Linux, interrupts are handled automatically by the kernel. In particular there&#8217;s a process named irqbalancer that is responsible for balancing interrupts across processors. Unfortunately the default is to let all processors handle interrupts with the result that the overall performance is not optimal in particular on multi-core systems. This is because modern NICs can have multiple RX queues that work perfectly if cache coherency is respected. This means that interrupts for ethX-RX queue Y must be sent to 1 (one) core or at most to a core and its Hyper-Threaded (HT) companion. If multiple processors handle the same RX queue, this invalidates the cache and performance gets worse. For this reason IRQ balancing is the key for performance. In particular what I suggest is to have 1/2 (in case of HT) core(s) handle the same interrupt. For this reason on Linux interrupts are usually send to all processors hence /prox/irq/X/smp_affinity is set to ffffffff that means all processors. Instead as I have just stated above it&#8217;s better to avoid that all processors handle all interrupts. Example</p>
+<p><code><span id="more-1191"></span></code></p>
+<p><code> </code></p>
+<p><code>~# grep eth /proc/interrupts<br />
+191:          0          0          3          0          0          0          2  310630615        454          0          0          0          0          0          2          0   PCI-MSI-edge      eth5-rx-3<br />
+192:          0          3          0          0          0          2          0  314774529          0          0          0          0          0          2          0          0   PCI-MSI-edge      eth5-rx-2<br />
+193:          3          0          0          0          2  309832652        454          0          0          0          0          0          2          0          0          0   PCI-MSI-edge      eth5-rx-1<br />
+194:          0          0          0          2          0  314283930          0          0          0          0          0          2          0          0          0          3   PCI-MSI-edge      eth5-TxRx-0<br />
+195:          0          0          1          0          1          0          0          0          0          0          1          0          0          0          1          0   PCI-MSI-edge      eth5<br />
+196:          0          3          0  311226806          0          0          0          0          0          2          0          0          0<br />
+</code></p>
+<p>where</p>
+<p><code><br />
+# cat /proc/irq/19[12345]/smp_affinity<br />
+00008080<br />
+00008080<br />
+00002020<br />
+00002020<br />
+ffffffff<br />
+</code></p>
+<p>This setup allows to maximize performance, in particular when using PF_RING and TNAPI. Please disable irqbalancer when manually tweaking interrupts, as irqbalancer will restore interrupts the way it likes jeopardizing all your work.</p>
+<p>Further reading:</p>
+<ul>
+<li><a href="http://www.alexonlinux.com/smp-affinity-and-proper-interrupt-handling-in-linux">SMP affinity and proper interrupt handling in Linux</a></li>
+<li><a href="http://www.alexonlinux.com/why-interrupt-affinity-with-multiple-cores-is-not-such-a-good-thing">Why interrupt affinity with multiple cores is not such a good thing</a></li>
+</ul>
+<p>The post <a href="https://www.ntop.org/irq-balancing/">IRQ Balancing</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

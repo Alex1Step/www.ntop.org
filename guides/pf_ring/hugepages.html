@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/hugepages.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:43 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hugepages Support &mdash; PF_RING 9.5.0-4814 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options7c40.js?v=840a9ff6"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Capabilities" href="capabilities.html" />
+    <link rel="prev" title="4. Using Snort with PF_RING ZC" href="thirdparty/snort-daq-zc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            PF_RING
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vanilla.html">Vanilla PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zc.html">PF_RING ZC (Zero Copy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ft.html">PF_RING FT (Flow Table)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Sample Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/index.html">Drivers and Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rss.html">Load Balancing / RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filtering/index.html">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers/index.html">Containers Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vm/index.html">VM Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thirdparty/index.html">IDS/IPSs Integration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Hugepages Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#for-the-impatient">For the impatient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-configure-hugepages-permanently">How to configure Hugepages permanently</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-whole-story">The whole story</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#possible-errors">Possible errors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="capabilities.html">Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amd.html">AMD Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intel.html">Intel Processors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Crash Debug</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">PF_RING</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Hugepages Support</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/hugepages.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hugepages-support">
+<h1>Hugepages Support<a class="headerlink" href="#hugepages-support" title="Link to this heading"></a></h1>
+<p>Hugepages are used by ZC for buffers allocations. This document describes
+how to enable them into your system.</p>
+<section id="for-the-impatient">
+<h2>For the impatient<a class="headerlink" href="#for-the-impatient" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span><span class="m">1024</span><span class="w"> </span>*<span class="w"> </span><span class="nv">2048kB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>GB
+<span class="go">echo 1024 &gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages</span>
+<span class="go">mount -t hugetlbfs nodev /dev/hugepages</span>
+</pre></div>
+</div>
+<p>_Warning: If you accidentally exceed the amount of available RAM, the kernel will round down to the highest number of hugepages possible and grind your system to a halt._</p>
+</section>
+<section id="how-to-configure-hugepages-permanently">
+<h2>How to configure Hugepages permanently<a class="headerlink" href="#how-to-configure-hugepages-permanently" title="Link to this heading"></a></h2>
+<p>As explained in the <a class="reference external" href="get_started/packages_installation.html#manual-configuration">installation</a> section, you need to edit the <cite>/etc/pf_ring/hugepages.conf</cite> file and specify the Hugepages settings there.</p>
+</section>
+<section id="the-whole-story">
+<h2>The whole story<a class="headerlink" href="#the-whole-story" title="Link to this heading"></a></h2>
+<p>Linux typically use memory pages of 4 KBytes, but provides an explicit
+interface to allocate pages with bigger size called hugepages. It is up
+to developers/administrators to decide when they have to be used.</p>
+<p>Hugepages advantages:</p>
+<ul class="simple">
+<li><p>large amounts of physical memory can be reserved for memory allocation,
+that otherwise would fail especially when physically contiguous memory
+is required.</p></li>
+<li><p>reduced overhead: as the TLB (Translation Lookaside Buffer) contains
+per-page virtual to physical address mappings, using a large amount of
+memory with the default page size leads to processing overhead for
+managing the TLB entries.</p></li>
+</ul>
+<p>The default hugepage size is usually 2 MBytes. The hugepage size can be found in /proc/meminfo:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /proc/meminfo | grep Hugepagesize</span>
+<span class="go">Hugepagesize: 2048 kB</span>
+</pre></div>
+</div>
+<p>Hugepages can be dynamically reserved with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 1024 &gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages</span>
+</pre></div>
+</div>
+<p>The above pages are allocated by the system without node affinity. If
+you want to force allocation on a specific NUMA node you have to do:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 1024 &gt; /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages</span>
+<span class="go">echo 1024 &gt; /sys/devices/system/node/node1/hugepages/hugepages-2048kB/nr_hugepages</span>
+</pre></div>
+</div>
+<p>It is possible to change the default hugepages size and reserve large
+amounts of memory at boot time using the following kernel options:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default_hugepagesz=2M hugepagesz=2M hugepages=1024
+</pre></div>
+</div>
+<p>If this commands returns a non-empty string, 2MB pages are supported:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /proc/cpuinfo | grep pse</span>
+</pre></div>
+</div>
+<p>In order to make the hugepages available for use, Linux provides a
+RAM-based filesystem called “hugetlbfs” that have to be mounted with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mount -t hugetlbfs none /dev/hugepages</span>
+</pre></div>
+</div>
+<p>In order to control the maximum amount of memory bound to a mount point
+it is possible to specify the “size=” option (size is rounded down to
+the nearest hugepage size).
+Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mount -t hugetlbfs -o pagesize=2M,size=2G none /dev/hugepages</span>
+</pre></div>
+</div>
+<p>It is possible to see what pages are currently in use using the
+following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /sys/devices/system/node/node*/meminfo | grep Huge</span>
+<span class="go">Node 0 HugePages_Total:  1024</span>
+<span class="go">Node 0 HugePages_Free:   1024</span>
+<span class="go">Node 0 HugePages_Surp:      0</span>
+</pre></div>
+</div>
+</section>
+<section id="possible-errors">
+<h2>Possible errors<a class="headerlink" href="#possible-errors" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>The number of pages reported by HugePages_Total is lower then the configured number of pages.</p></li>
+</ol>
+<p>Causes:</p>
+<p>The memory manager is not able to reserve enough physical memory to allocate the requested number
+of pages. Try with a fresh boot, or even just emptying the buffers cache might help:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 3 &gt; /proc/sys/vm/drop_caches</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>The application prints “error mmap’ing hugepage xxx: Resource temporarily unavailable”</p></li>
+</ol>
+<p>Causes:</p>
+<ul class="simple">
+<li><p>You might not have permissions to mmap hugepages.</p></li>
+<li><p>Increase the “max locked memory” ulimit (see ulimit -l) to accommodate
+the memory needed for buffers and metadata. You can manually increase
+the ulimit value:</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ulimit -l 4194304</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Increase the value in /proc/sys/kernel/shmmax. Please note that on
+32bit systems it will wrap around 4 GBytes.</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 2147483648 &gt; /proc/sys/kernel/shmmax</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="thirdparty/snort-daq-zc.html" class="btn btn-neutral float-left" title="4. Using Snort with PF_RING ZC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="capabilities.html" class="btn btn-neutral float-right" title="Capabilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/hugepages.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:44 GMT -->
+</html>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>icinga2 Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/icinga2/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/icinga2/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 21 Oct 2026 09:30:38 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>icinga2 Archives - ntop</title>
+	<link>https://www.ntop.org/tag/icinga2/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Merging Infrastructure and Traffic Monitoring: Integrating ntopng with Icinga</title>
+		<link>https://www.ntop.org/integrating-ntopng-with-icinga/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 26 Aug 2019 06:17:11 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[icinga2]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7849</guid>
+
+					<description><![CDATA[<p>Icinga2 is an open source monitoring system which checks the availability of hosts and services, notifies users of outages and generates performance data for reporting. Thanks to its scalability and extensibility, it…</p>
+<p>The post <a href="https://www.ntop.org/integrating-ntopng-with-icinga/">Merging Infrastructure and Traffic Monitoring: Integrating ntopng with Icinga</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><a href="https://icinga.com">Icinga2</a> is an open source monitoring system which checks the availability of hosts and services, notifies users of outages and generates performance data for reporting. Thanks to its scalability and extensibility, it has become very popular (as <a href="https://en.wikipedia.org/wiki/Nagios">Nagios</a> successor) and suitable to monitor complex environments, even across multiple locations.</p>
+<p>Although popular, it falls short when it comes to monitor <em>how</em> the network is being used by certain host. There are several <a href="https://icinga.com/docs/icinga2/latest/doc/05-service-monitoring/">plugins</a> for network monitoring available both in the <a href="https://icinga.com/docs/icinga2/latest/doc/05-service-monitoring/#network-monitoring">Icinga Template Library</a> and in the <a href="https://exchange.icinga.com/">Icinga Exchange</a>, however, they only provide very limited checks such as interfaces throughput, errors, or up-or-down status. Other plugins are available to monitor the status of services such as HTTP/HTTPS web servers or DNS servers, but again they don&#8217;t tell anything really valuable apart from a simple green-or-red/working-or-not-working flag.</p>
+<p>We have the experience and the technology to tell additional, valuable information on how a particular host or service is being used, network-wise. For example, we can tell if a particular host is undergoing a SYN flood attack, if a certain webserver is being accessed by a blacklisted or malware IP address, or if a DNS server is being abused. This technology is ready and comes with one of our most popular tools <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>. So the point was, how to deliver this extra knowledge from ntopng straight into Icinga2? Well, writing an Icinga2 plugin could have done the trick.</p>
+<p><em>The basic idea behind writing a plugin is that, given any Icinga2 monitored host with IP address <code class="EnlighterJSRAW" data-enlighter-language="generic">a.b.c.d</code>, it is possible to leverage the plugin to connect to ntopng and extract <code class="EnlighterJSRAW" data-enlighter-language="generic">a.b.c.d</code> network status and health, returning such information to Icinga2 which, in turn, can use it to decide on the status of the host and its services.</em></p>
+<h3>ntopng Icinga2 Plugin</h3>
+<p>The Icinga2 plugin we have decided to write connects to the <a href="https://www.ntop.org/guides/ntopng/api/rest/index.html">ntopng REST AP</a>I to query for host alerts. Specifically, it queries:</p>
+<ul>
+<li>Host Engaged Alerts to capture ongoing host network issues (for example, the host is a victim of a SYN flood attack)</li>
+<li>Host Flow Alerts to capture suspicious or malicious flows involving a particular host (for example, the host has been contacted by a blacklisted IP).</li>
+</ul>
+<p>The plugin code is available at <a href="https://github.com/ntop/ntopng/tree/dev/tools/icinga2">https://github.com/ntop/ntopng/tree/dev/tools/icinga2</a> along with other files necessary for Icinga2 to properly interface with the plugin.</p>
+<h3>Setting Up the ntopng Icinga2 Plugin</h3>
+<p>To set up the plugin, assuming you&#8217;ve already an Icinga2 instance up and running, perform the following steps:</p>
+<p>Download the plugin file <a href="https://raw.githubusercontent.com/ntop/ntopng/dev/tools/icinga2/check_ntopng.py">check_ntopng.py</a> into the <code class="EnlighterJSRAW" data-enlighter-language="generic">PluginContribDir</code> directory. The path to this directory can be found inside Icinga2 <span class="s2"><code class="EnlighterJSRAW" data-enlighter-language="generic">constants.conf</code> file, which is typically located under <code class="EnlighterJSRAW" data-enlighter-language="generic">/etc/icinga2/</code> under Linux.</span></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">cat /etc/icinga2/constants.conf | grep PluginContribDir 
+const PluginContribDir = "/usr/lib/nagios/plugins"
+</pre>
+<p>In this example, the <code class="EnlighterJSRAW" data-enlighter-language="generic">PluginContribDir</code> is <span class="s2"><code class="EnlighterJSRAW" data-enlighter-language="generic">/usr/lib/nagios/plugins</code>.</span></p>
+<p><span class="s2">Once the plugin is in place, it is necessary to download file <a href="https://raw.githubusercontent.com/ntop/ntopng/dev/tools/icinga2/etc/icinga2/conf.d/check_ntopng_command.conf">check_ntopng_command.conf</a> in <code class="EnlighterJSRAW" data-enlighter-language="generic">/etc/icinga2/conf.d/</code> or in any other directory which is read by Icinga2 upon startup. The file contains the definition of a <code class="EnlighterJSRAW" data-enlighter-language="generic">CheckCommand</code> object, necessary to tell Icinga2 how to interface with the plugin.</span></p>
+<p>Then, download and place file <a href="https://raw.githubusercontent.com/ntop/ntopng/dev/tools/icinga2/etc/icinga2/conf.d/check_ntopng_service.conf">check_ntopng_service.conf</a> in <code class="EnlighterJSRAW" data-enlighter-language="generic">/etc/icinga2/conf.d/</code> or in any other directory which Icinga2 is aware of. This file contains the definition of two <code class="EnlighterJSRAW" data-enlighter-language="generic">Service</code> objects, one to check for host engaged alerts (<code class="EnlighterJSRAW" data-enlighter-language="generic">"ntopng-icinga-host-health"</code>) and another one to check for host flow alerts (<code class="EnlighterJSRAW" data-enlighter-language="generic">"ntopng-icinga-host-flows-health"</code>). Those two files will automatically <code class="EnlighterJSRAW" data-enlighter-language="generic">apply</code> the services to all the Icinga2 monitored hosts.</p>
+<p>Finally, a bunch of constants should be configured to tell Icinga2 how to properly reach and authenticate to the ntopng REST API. Such constants go inside file constants.conf, the same file used above to locate the <code class="EnlighterJSRAW" data-enlighter-language="generic">PluginContribDir</code> directory.</p>
+<p>Constants are the following</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"># cat /etc/icinga2/constants.conf | grep Ntopng
+/* Ntopng */
+const NtopngHost = "127.0.0.1"
+const NtopngPort = 3000
+const NtopngInterfaceId = 0
+const NtopngUser = "admin"
+const NtopngPassword = "admin1"
+const NtopngUseSsl = false
+const NtopngUnsecureSsl = false</pre>
+<p><code class="EnlighterJSRAW" data-enlighter-language="generic">NtopngHost</code> and <code class="EnlighterJSRAW" data-enlighter-language="generic">NtopngPort</code> tell Icinga2 how to connect to the ntopng REST API and <code class="EnlighterJSRAW" data-enlighter-language="generic">NtopngUseSsl</code> whether SSL has to be used for the connection (<code class="EnlighterJSRAW" data-enlighter-language="generic">NtopngUnsecureSsl</code> set to true prevents the plugin from checking SSL certificates validity). When the ntopng authentication is enabled, <code class="EnlighterJSRAW" data-enlighter-language="generic">NtopngUser</code> and <code class="EnlighterJSRAW" data-enlighter-language="generic">NtopngPassword</code> are necessary to indicate a user/password pair which will be used by Icinga2 to authenticate to the REST API. Finally, <code class="EnlighterJSRAW" data-enlighter-language="generic">NtopngInterfaceId</code> is used to tell Icinga2 the id of the ntopng interface which is responsible for the monitoring of traffic.</p>
+<h3>Running Plugin Checks</h3>
+<p>Let&#8217;s see now how this plugin works and what we can expect from it. Let&#8217;s assume Icinga2 monitored host with address <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.222</code> is trying to contact a <a href="https://www.ntop.org/ntopng/how-to-track-an-fight-malware-ransomware-botnets-network-traffic-using-ntopng/">malware host</a>, maybe because it has been infected.</p>
+<p>Before the contact, service <code class="EnlighterJSRAW" data-enlighter-language="generic">"ntopng-icinga-host-flows-health"</code> is OK</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/01-ntopng-icinga2-host-flows-OK.png"><img fetchpriority="high" decoding="async" class="size-large wp-image-7868 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/01-ntopng-icinga2-host-flows-OK-1024x556.png" alt="" width="1024" height="556" /></a></p>
+<p>But as soon as <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.222</code> contacts a malware host (contact which has been simulated by pinging one of the hosts in blacklist for the sake of this example), the service becomes CRITICAL and all the necessary notifications will be sent by Icinga2</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/02-ntopng-icinga2-host-flows-CRITICAL.png"><img decoding="async" class="size-large wp-image-7869 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/02-ntopng-icinga2-host-flows-CRITICAL-1024x504.png" alt="" width="1024" height="504" /></a></p>
+<p>At this point, to have additional information, one can jump into the ntopng web user interface to find this malware flow among the host flow alerts</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/03-ntopng-icinga2-host-flows-ntopng-ui.png"><img decoding="async" class="size-large wp-image-7870 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/03-ntopng-icinga2-host-flows-ntopng-ui-1024x292.png" alt="" width="1024" height="292" /></a></p>
+<p>Similarly, let&#8217;s assume <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.222</code> has been configured, in ntopng, to be considered a victim of a SYN flood when it receives more than 10 SYN per second for three consecutive seconds.</p>
+<p>Before the SYN flood, service <code class="EnlighterJSRAW" data-enlighter-language="generic">"ntopng-icinga-host-health"</code> is OK</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/04-ntopng-icinga2-host-OK.png"><img loading="lazy" decoding="async" class="size-large wp-image-7871 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/04-ntopng-icinga2-host-OK-1024x526.png" alt="" width="1024" height="526" /></a></p>
+<p>But as soon as <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.222</code> becomes a victim of the SYN flood (the SYN flood has been simulated, for the sake of this example, with <code class="EnlighterJSRAW" data-enlighter-language="generic">nmap -sS 192.168.2.222</code>), the service becomes CRITICAL</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/05-ntopng-icinga2-host-CRITICAL.png"><img loading="lazy" decoding="async" class="size-large wp-image-7872 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/05-ntopng-icinga2-host-CRITICAL-1024x519.png" alt="" width="1024" height="519" /></a></p>
+<p>Again, to have additional information, one can jump into the ntopng web user interface where this alert will show up among the host engaged alerts</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/06-ntopng-icinga2-host-ntopng-ui.png"><img loading="lazy" decoding="async" class="size-large wp-image-7873 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/06-ntopng-icinga2-host-ntopng-ui-1024x272.png" alt="" width="1024" height="272" /></a></p>
+<h3>Conclusion</h3>
+<p>We believe this plugin is the first step towards making Icinga2 not just a tool which checks the availability of hosts and services, but also a tool which gives extended information on how such hosts and services are being used from a network perspective.</p>
+<p>Feel free to try the plugin and give us feedback!</p>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/integrating-ntopng-with-icinga/">Merging Infrastructure and Traffic Monitoring: Integrating ntopng with Icinga</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

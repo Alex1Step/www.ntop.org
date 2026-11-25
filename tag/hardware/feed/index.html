@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>hardware Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/hardware/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/hardware/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Fri, 26 Jan 2018 09:50:44 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>hardware Archives - ntop</title>
+	<link>https://www.ntop.org/tag/hardware/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Introducing nProbe Cento 1.4 with Hardware Flow Offload</title>
+		<link>https://www.ntop.org/introducing-nprobe-cento-1-4-with-hardware-flow-offload/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 26 Jan 2018 09:50:44 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[cento]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[hardware]]></category>
+		<category><![CDATA[offload]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=6045</guid>
+
+					<description><![CDATA[<p>This is to announce the new 1.4 stable release of nProbe cento. The most important feature that comes with this new version is definitely the support for hardware flow offloading as well…</p>
+<p>The post <a href="https://www.ntop.org/introducing-nprobe-cento-1-4-with-hardware-flow-offload/">Introducing nProbe Cento 1.4 with Hardware Flow Offload</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to announce the new 1.4 stable release of nProbe cento. The most important feature that comes with this new version is definitely the support for hardware flow offloading as well as various bug fixing and improved netflow template definition.</p>
+<p>We recently discussed the benefits of hardware flow offloading in another <a href="https://www.ntop.org/pf_ring/introducing-pf_ring-7-0-with-hardware-flow-offload/">blog post</a>. Hardware flow offloading alleviates, to a great extent, the pressure put on the CPU by intensive tasks such as classification (associating single packets to flows for accounting and deep packet inspection). Basically, hardware flow offloading means that the network adapter keeps a stateful flows table constantly kept updated to account for any single packet. Periodically, flow updates with aggregated information (e.g., total bytes and packets) are reported to nProbe cento that will have to just annotate such information for downstream export. In practical terms, this translates into a less-loaded CPU that can thus be used for other activities such as raw traffic recording as well as for Intrusion Detection and Intrusion Prevention Systems (IDS/IPS).</p>
+<p>Currently hardware flow offload supported by 10/40G Accolade Technology adapters of the ANIC-Ku Series (tested on ANIC-20/40Ku, ANIC-80Ku).</p>
+<p>The full list of changes shipped with 1.4 stable are:</p>
+<p>Main New Features</p>
+<ul>
+<li>Full support for the new systemd service manager</li>
+<li>Support for Accolade adapters with hardware flow offloading capabilities</li>
+<li>Support for multiple aggregated egress queues and devices</li>
+<li>Egress policies can be applied on a per-egress queue/device basis and can be configured with HTTP REST API calls</li>
+<li>Handles HUP signals to reload configuration files and policy rules</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">flowStartMilliseconds</code> and <code class="EnlighterJSRAW" data-enlighter-language="generic">flowEndMilliseconds</code> for precise flow timestamping</li>
+<li>Support for AWS virtual interfaces</li>
+<li>Added support for RFC 5103 to export reverse counters in IPFIX</li>
+<li>Support for IPFIX 64-bit counters</li>
+<li>Added BPF support in ZC</li>
+<li>Added DNS query type in nDPI</li>
+<li>Implements VLAN to interface index mapping</li>
+</ul>
+<p>New Options</p>
+<ul>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">--bpf-filter</code> to filter monitored traffic using BPF syntax</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">--flow-offload</code> to enable hardware flow offload on Accolade adapters</li>
+<li>Implemented IPFIX unidirectional flow support with <code class="EnlighterJSRAW" data-enlighter-language="generic">--uniflow</code></li>
+<li>Added <code class="EnlighterJSRAW" data-enlighter-language="generic">--max-socket-tx-buffer</code> to specify the TX buffer size and to slow down export when the TX buffer is &gt; 50% full</li>
+<li>Non-blocking UDP export is now disabled and it can be enabled with <code class="EnlighterJSRAW" data-enlighter-language="generic">--send-dont-wait</code></li>
+<li>Added <code class="EnlighterJSRAW" data-enlighter-language="generic">--flow-delay</code> and <code class="EnlighterJSRAW" data-enlighter-language="generic">--count-delay</code> to throttle the flow export rate</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">--template-send-pkts</code> to control the export frequence of flow templates</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">--vlan-iface-map</code> to map VLAN IDs to INPUT/OUTPUT interface ids</li>
+<li>Implemented <code class="EnlighterJSRAW" data-enlighter-language="generic">--human-readable-tcpflags</code> to dump TCP flags to text files in a human readable format</li>
+<li>Implemented <code class="EnlighterJSRAW" data-enlighter-language="generic">--sample-rate</code> to perform packet sampling</li>
+<li>Added the ability to specify the binding between id interfaces and networks with <code class="EnlighterJSRAW" data-enlighter-language="generic">--if-networks</code></li>
+<li>Added <code class="EnlighterJSRAW" data-enlighter-language="generic">--iface-id</code> to control INPUT/OUTPUT interface ids in exported flows</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">--csv-separator</code> to control the character that separates columns in generated text files</li>
+<li>Export flows in JSON format to syslog with <code class="EnlighterJSRAW" data-enlighter-language="generic">--json-to-syslog</code></li>
+<li>Added <code class="EnlighterJSRAW" data-enlighter-language="generic">--trace-log</code> to dump traces on a log file</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/introducing-nprobe-cento-1-4-with-hardware-flow-offload/">Introducing nProbe Cento 1.4 with Hardware Flow Offload</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

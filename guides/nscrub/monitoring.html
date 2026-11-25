@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nscrub/monitoring.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:15:17 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traffic Visibility &mdash; nScrub dev documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command line tools" href="cli.html" />
+    <link rel="prev" title="Traffic Enforcement Configuration" href="traffic_enforcement_conf.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nScrub
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nscrub/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="features.html">Main Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Models and Licenses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="engine_conf.html">Engine Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_modes.html">Working Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Performance and Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="traffic_enforcement_conf.html">Traffic Enforcement Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Traffic Visibility</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#statistics">Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#traffic-monitoring">Traffic Monitoring</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#traffic-analysis-with-tcpdump">Traffic Analysis with tcpdump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#traffic-analysis-with-ntopng">Traffic Analysis with ntopng</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#events">Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Utilities and Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hw_bypass.html">Hardware Bypass Support</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nScrub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Traffic Visibility</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/monitoring.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="traffic-visibility">
+<h1>Traffic Visibility<a class="headerlink" href="#traffic-visibility" title="Link to this heading"></a></h1>
+<p>This section shows the options for having visibility of the traffic under mitigation.</p>
+<section id="statistics">
+<h2>Statistics<a class="headerlink" href="#statistics" title="Link to this heading"></a></h2>
+<p>The application provides global and per-victim statistics.</p>
+<p>Global statistics are available through the logs:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">tail -f  /var/tmp/nscrub.log</span>
+</pre></div>
+</div>
+<p>or through the REST API:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/stats&quot;</span>
+</pre></div>
+</div>
+<p>Per-victim stats are available through the REST API:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/targets?action=stats&amp;target_id=&lt;target id&gt;&quot;</span>
+</pre></div>
+</div>
+<p>Historical statistics from RRDs, both global and per-victim, are also available using a browser connecting to <em>https://&lt;host&gt;:&lt;port&gt;/monitor.html</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>nScrub listens on localhost by default, please configure a different address (-G option) to connect using a browser on a remote machine.</p>
+</div>
+<img alt="_images/web_stats.png" src="_images/web_stats.png" />
+</section>
+<section id="traffic-monitoring">
+<h2>Traffic Monitoring<a class="headerlink" href="#traffic-monitoring" title="Link to this heading"></a></h2>
+<p>The software has the ability to export some traffic to software queues for attaching external applications, for traffic analysis or recording:</p>
+<p>In order to enable auxiliary software queues for traffic monitoring, the –aux-queues|-O option has to be added to the nScrub configuration file, specifying the number of queues to allocate, which matches the maximum number of concurrent application that will monitor the traffic (queues are single consumer).</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--aux-queues 1
+</pre></div>
+</div>
+<p>Please note that in order to avoid locking mechanisms, a queue per thread is created (we call it “queue set”), for each consumer application.</p>
+<p>Once auxiliary queues have been enabled, it is possible to configure them for exporting sampled (or all) traffic (good, discarded, or all) to external applications through the API:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/mirror/&lt;queue set id&gt;/type[?action=update&amp;value={forwarded, discarded, injected, all}]&quot;</span>
+<span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/mirror/&lt;queue set id&gt;/direction[?action=update&amp;value={wan, lan, any}]&quot;</span>
+<span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/mirror/&lt;queue set id&gt;/sampling[?action=update&amp;value=&lt;sampling rate (0 for no traffic)&gt;]&quot;</span>
+</pre></div>
+</div>
+<p>The <em>type</em> parameter configures which traffic type to mirror:</p>
+<ul class="simple">
+<li><p><strong>forwarded</strong>: Only forwarded/passed packets</p></li>
+<li><p><strong>discarded</strong>: Only dropped packets</p></li>
+<li><p><strong>injected</strong>: Only injected packets (e.g., SYN cookies, RST responses)</p></li>
+<li><p><strong>all</strong>: All traffic (default)</p></li>
+</ul>
+<p>The <em>direction</em> parameter configures which traffic direction to mirror:</p>
+<ul class="simple">
+<li><p><strong>wan</strong>: Only packets arriving from the WAN interface</p></li>
+<li><p><strong>lan</strong>: Only packets arriving from the LAN interface</p></li>
+<li><p><strong>any</strong>: Packets from both interfaces (default)</p></li>
+</ul>
+<p>The <em>sampling</em> parameter sets the sampling rate (mirror every Nth packet).</p>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/mirror/0/type?action=update&amp;value=all&quot;</span>
+<span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/mirror/0/direction?action=update&amp;value=wan&quot;</span>
+<span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/mirror/0/sampling?action=update&amp;value=100&quot;</span>
+</pre></div>
+</div>
+<p>Using the CLI tool:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nscrub-cli</span>
+<span class="go">localhost:8880&gt; mirror 0 type all</span>
+<span class="go">localhost:8880&gt; mirror 0 direction wan</span>
+<span class="go">localhost:8880&gt; mirror 0 sampling 100</span>
+</pre></div>
+</div>
+<section id="traffic-analysis-with-tcpdump">
+<h3>Traffic Analysis with tcpdump<a class="headerlink" href="#traffic-analysis-with-tcpdump" title="Link to this heading"></a></h3>
+<p>It is possible for instance to use tcpdump for monitoring the traffic running one instance per processing thread, specifying the cluster ID and thread/queue ID in the interface name:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">tcpdump -Q in -ni zc:99@0</span>
+<span class="go">tcpdump -Q in -ni zc:99@1</span>
+<span class="go">tcpdump -Q in -ni zc:99@2</span>
+<span class="go">tcpdump -Q in -ni zc:99@3</span>
+</pre></div>
+</div>
+<p>Alternatively, it is possible to aggregate all traffic to a single queue and run a single tcpdump instance:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">zbalance_ipc -i zc:99@0,zc:99@1,zc:99@2,zc:99@3 -c 100 -n 1</span>
+<span class="go">tcpdump -Q in -ni zc:100@0</span>
+</pre></div>
+</div>
+</section>
+<section id="traffic-analysis-with-ntopng">
+<h3>Traffic Analysis with ntopng<a class="headerlink" href="#traffic-analysis-with-ntopng" title="Link to this heading"></a></h3>
+<p>In the same way it is possible to analyse the traffic using ntopng:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ntopng -i zc:99@0 -i zc:99@1 -i zc:99@2 -i zc:99@3</span>
+</pre></div>
+</div>
+<p>This creates 4 interfaces in ntopng, however it is possible to aggregate all of them in a single view
+to be able to analyse aggregated traffic from all of them:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ntopng -i zc:99@0 -i zc:99@1 -i zc:99@2 -i zc:99@3 -i view:zc:99@0,zc:99@1,zc:99@2,zc:99@3</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="events">
+<h2>Events<a class="headerlink" href="#events" title="Link to this heading"></a></h2>
+<p>nScrub can export events as soon as an abnormal behaviour is detected, for instance a threshold
+has been crossed or one of the automatic detection algorithms engate a protection mechanism.
+Events can be exported (logged, or sent by mail or other endpoints) by means of scripts.
+nScrub already includes sample scripts under /usr/share/nscrub/scripts/callbacks/events, they
+can be customized and enabled by making them executable (chmod +x &lt;script&gt;). Additional custom
+scripts can be created and enabled by placing them in the same folder and making them executable.
+A JSON string representing the event is provided to the script in the standard input. The event
+format is described in the table below.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>uniqid</p></td>
+<td><p>int64</p></td>
+<td><p>Unique event ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>id</p></td>
+<td><p>int</p></td>
+<td><p>Event number since startup</p></td>
+</tr>
+<tr class="row-even"><td><p>target_id</p></td>
+<td><p>int</p></td>
+<td><p>Target ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>status</p></td>
+<td><p>string</p></td>
+<td><p>new, continuation or terminated</p></td>
+</tr>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>int</p></td>
+<td><p>Event type</p></td>
+</tr>
+<tr class="row-odd"><td><p>reason</p></td>
+<td><p>int</p></td>
+<td><p>Event reason</p></td>
+</tr>
+<tr class="row-even"><td><p>epoch</p></td>
+<td><p>int</p></td>
+<td><p>Epoch</p></td>
+</tr>
+<tr class="row-odd"><td><p>time</p></td>
+<td><p>string</p></td>
+<td><p>Time (human readable)</p></td>
+</tr>
+<tr class="row-even"><td><p>duration</p></td>
+<td><p>int</p></td>
+<td><p>Event duration</p></td>
+</tr>
+<tr class="row-odd"><td><p>thread</p></td>
+<td><p>string</p></td>
+<td><p>Internal thread that detected the event</p></td>
+</tr>
+</tbody>
+</table>
+<p>Example for enabling the “logger” script which logs events under /var/tmp/nscrub/events.log</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">chmod +x /usr/share/nscrub/scripts/callbacks/events/logger.sh</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="traffic_enforcement_conf.html" class="btn btn-neutral float-left" title="Traffic Enforcement Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cli.html" class="btn btn-neutral float-right" title="Command line tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nscrub/monitoring.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:15:19 GMT -->
+</html>

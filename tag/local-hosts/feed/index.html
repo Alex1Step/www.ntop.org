@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>local hosts Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/local-hosts/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/local-hosts/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Tue, 27 Jun 2023 13:50:39 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>local hosts Archives - ntop</title>
+	<link>https://www.ntop.org/tag/local-hosts/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Using Traffic Rules To Supervise Network Traffic</title>
+		<link>https://www.ntop.org/local-traffic-rules-a-new-way-to-define-custom-thresholds/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Tue, 27 Jun 2023 13:50:39 +0000</pubDate>
+				<category><![CDATA[Features]]></category>
+		<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[analytics]]></category>
+		<category><![CDATA[layer7]]></category>
+		<category><![CDATA[local hosts]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[security]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10523</guid>
+
+					<description><![CDATA[<p>The Problem Let's assume that you have a Network where local hosts generate a constant amount of traffic. How do you find if they are misbehaving? It happens that some local host…</p>
+<p>The post <a href="https://www.ntop.org/local-traffic-rules-a-new-way-to-define-custom-thresholds/">Using Traffic Rules To Supervise Network Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>The Problem</h3>
+<p>Let&#8217;s assume that you have a Network where local hosts generate a constant amount of traffic. How do you find if they are misbehaving? It happens that some local host starts behaving strangely, by having an abnormal amount of traffic (sent or received) with respect to their recent past: how can you spot these situations and report them with an alert.</p>
+<p>This is why we have created the Local Traffic Rules page: users can now define custom Volume/Throughput threshold for some (or all) local hosts. You can also set thresholds on score and application protocols 9e.g. WhatsApp).</p>
+<p>For instance, if a DNS server is available in the network, a check for that host regarding the DNS traffic could be added: alert me if the DNS traffic for a host exceeds 1 GB/day.</p>
+<h3>How Thresholds Work</h3>
+<p>The Local Traffic Rules page can be found under the Hosts menù.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/Screenshot-2023-06-26-105400.png"><img fetchpriority="high" decoding="async" class="alignnone size-medium wp-image-10579" src="https://www.ntop.org/wp-content/uploads/2023/06/Screenshot-2023-06-26-105400-246x300.png" alt="" width="246" height="300"></a></p>
+<p>Here it is possible to set up the rules you like, for every Local Host or Interface you want.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-Local-Traffic-Rules-e-altre-18-pagine-Personale-Microsoft​-Edge-19_06_2023-11_06_30.png"><img decoding="async" class="alignnone wp-image-10524 size-full" src="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-Local-Traffic-Rules-e-altre-18-pagine-Personale-Microsoft​-Edge-19_06_2023-11_06_30.png" alt="" width="1920" height="924"></a></p>
+<p>The rule is composed by:</p>
+<ul>
+<li>Target (who is monitored)</li>
+<li>Type (Host or Interface)</li>
+<li>Metric (what is monitored)</li>
+<li>Check Frequency (how often it is monitored)</li>
+<li>Threshold (the threshold not be exceeded up/own)</li>
+</ul>
+<p>(In the action column instead, it is possible to edit/delete the rule)</p>
+<p>By clicking the &#8216;+&#8217; icon next to the search bar of the table, it&#8217;s possible to add a new rule</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-2.png"><img decoding="async" class="alignnone wp-image-10528" src="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-2-300x145.png" alt="" width="643" height="311"></a></p>
+<p>Here it is possible to :</p>
+<ul>
+<li>Set the type of rule.</li>
+<li>Add the Target (what we are monitoring)</li>
+<li>Select the monitored metric: Traffic, Score, and all the Application Protocols (e.g. DNS, HTTP, SMTP, &#8230;)</li>
+<li>Set the check frequency: every five minutes, every hour, or once per day</li>
+<li>Specify the threshold, which can be measured in volume (e.g. 1 GB), throughput (e.g. 1 Gbps), or percentage (e.g. + 20%, meaning that the current value has not to exceed by more than 20% the value of the metric during the previous check).</li>
+</ul>
+<p>So now it’s time for you to monitor your Hosts and Interfaces and be sure they do not misbehave.</p>
+<p>Enjoy this new feature, and send us your feedback</p>
+<p>The post <a href="https://www.ntop.org/local-traffic-rules-a-new-way-to-define-custom-thresholds/">Using Traffic Rules To Supervise Network Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

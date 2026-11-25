@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nprobe/bgp.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BGP/BMP Traffic Monitoring &mdash; nProbe 10.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options0088.js?v=864e5427"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Agent Mode support in nProbe" href="agent_mode.html" />
+    <link rel="prev" title="Using Kafka with nProbe" href="kafka.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nProbe
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nprobe/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#what-is-nprobe">What is nProbe?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Versions Comparison Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configurations.html">nProbe Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">How to Start nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Tuning nProbe Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#high-speed-flow-collection">High-Speed Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#expected-collection-performance">Expected Collection Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-flows-from-many-routers">Collecting Flows from Many Routers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Handling Trillion Flows: Dumping Flows into ClickHouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#data-deduplication">Data Deduplication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#snmp-interfaces-polling">SNMP Interfaces Polling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-ntap-traffic">Collecting nTap Traffic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#influxdb-based-timeseries-dump">InfluxDB-based Timeseries Dump</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#howto-create-sflow-timeseries">HowTo Create sFlow Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-relay">Flow Relay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-replication-fanout">Flow Replication / Fanout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#dumping-collected-flows-packets">Dumping Collected Flows/Packets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tls.html">Using TLS In Flow Collection/Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tls.html#tls-certificates-validation">TLS Certificates Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Note on interface indexes and (router) MAC/IP addresses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#further-plugin-available-command-line-options">Further plugin available command line options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX format [-T]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Using nProbe with ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kafka.html">Using Kafka with nProbe</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">BGP/BMP Traffic Monitoring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core-responsibilities">Core Responsibilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-configure-your-physical-virtual-bgp-router">Step 1: Configure Your Physical/Virtual BGP Router</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-2-launch-bgp-server">Step 2: Launch bgp_server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-link-bgp-server-to-nprobe-or-ntopng">Step 3: Link bgp_server to nProbe or ntopng</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="agent_mode.html">Agent Mode support in nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="case_study/index.html">nProbe Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">nProbe Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing_plugins.html">Developing nProbe Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bpf_expressions.html">BPF Packet Filtering Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_information_elements.html">Flow Information Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware_sizing.html">Hardware Sizing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nProbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">BGP/BMP Traffic Monitoring</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bgp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bgp-bmp-traffic-monitoring">
+<span id="bgp"></span><h1>BGP/BMP Traffic Monitoring<a class="headerlink" href="#bgp-bmp-traffic-monitoring" title="Link to this heading"></a></h1>
+<p>BGP (Border Gateway Protocol) is the routing protocol that connects the global Internet by determining the paths data packets take between networks, while BMP (BGP Monitoring Protocol) is a separate, observational protocol used to safely stream real-time data about those BGP routing decisions to a centralized monitoring system.</p>
+<p>BGP and BMP improve network visibility by transforming complex, hidden internet routing data into real-time, readable insights.While BGP generates the data that maps the internet, BMP acts as the window into that map, allowing network engineers to spot hidden routing errors, track external path changes, and prevent outages.</p>
+<p>Starting with Enterprise M, nProbe integrates a new toold called bgp_server that implements both BGP and BMP protocols. As nProbe is a visibity tool, we have decided not to implement advertisements into the BGP protocol implementation so that ther is no risk that using bgp_server will advertise routes.</p>
+<p>The bgp_server application is responsible for talking with one or more routers over BGP/BMP, receive the advertised routes and disribute them to applications such as nProbe that need to know more about traffic routing.</p>
+<p>By establishing a peering session with actual network BGP routers, it maps traffic flows to their exact routing paths.</p>
+<section id="core-responsibilities">
+<h2>Core Responsibilities<a class="headerlink" href="#core-responsibilities" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>BGP Peering: It acts as a lightweight BGP peer that establishes a session with your infrastructure’s BGP routers to natively receive live routing updates.</p></li>
+<li><p>AS Path Extraction: It parses mandatory BGP attributes from those updates, specifically looking for the Autonomous System (AS) paths.</p></li>
+<li><p>Flow Enrichment: It passes this routing information to nProbe or ntopng. This allows the network analyzer to attach the first ten Autonomous Systems (AS-path) to both the client and server sides of every monitored network flow.</p></li>
+<li><p>Asymmetric Routing Visibility: Traditional tools like traceroute only track forward paths. The bgp_server framework helps map ingress (return) path routing, giving engineers visual clarity on how traffic is actually flowing across the internet.</p></li>
+</ul>
+<p>To configure the bgp_server framework for your ntopng or nProbe deployment, you must complete a three-step configuration: allow passive BGP listening or active BMP, configure the execution arguments, and enable ZeroMQ delivery to pipe the AS data back to your monitoring dashboard.</p>
+</section>
+<section id="step-1-configure-your-physical-virtual-bgp-router">
+<h2>Step 1: Configure Your Physical/Virtual BGP Router<a class="headerlink" href="#step-1-configure-your-physical-virtual-bgp-router" title="Link to this heading"></a></h2>
+<p>Before starting the software daemon, configure your core network router (Cisco, Juniper, FRRouting, etc.) to treat your ntop server machine as a standard peer.</p>
+<ul class="simple">
+<li><p>BGP Version: Ensure it uses BGPv4.</p></li>
+<li><p>Peering Mode: Configure it as an Internal BGP (iBGP) or External BGP (eBGP) neighbor targeting the IP of your ntop collection server.</p></li>
+<li><p>Alternatively (BMP): If your router supports the BGP Monitoring Protocol (BMP), configure it to stream BMP data to your server on TCP port 11019.</p></li>
+</ul>
+</section>
+<section id="step-2-launch-bgp-server">
+<h2>Step 2: Launch bgp_server<a class="headerlink" href="#step-2-launch-bgp-server" title="Link to this heading"></a></h2>
+<p>Run the bgp_server binary tool from the command line. You can use the explicit binary arguments to specify your Autonomous System Number (ASN), routing flags, and the ZeroMQ queue socket. You can launch the application as <code class="docutils literal notranslate"><span class="pre">service</span> <span class="pre">bgp_server</span> <span class="pre">start</span></code> and specify the options on <code class="docutils literal notranslate"><span class="pre">/etc/nprobe/bgp_server.conf</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ZMQ stream for updates and withdraws</span>
+-z<span class="o">=</span>tcp://127.0.0.1:11059
+
+<span class="c1"># BGP Id (local IP address used for peering)</span>
+-i<span class="o">=</span><span class="m">10</span>.82.4.121
+
+<span class="c1"># BGP port (default 179)</span>
+-b<span class="o">=</span><span class="m">179</span>
+
+<span class="c1"># Private AS for peering</span>
+-a<span class="o">=</span><span class="m">65000</span>
+
+<span class="c1"># Monitored prefixes</span>
+-n<span class="o">=</span>/etc/nprobe/prefixes.txt
+</pre></div>
+</div>
+<p>Argument Breakdowns:</p>
+<ul class="simple">
+<li><p>-z &lt;URL&gt;: The ZeroMQ messaging publisher string. This sends parsed BGP data to your collector.</p></li>
+<li><p>-b &lt;port&gt;: The passive listening port for incoming BGP sessions (Default is 179). Change to 0 if you only want BMP.</p></li>
+<li><p>-p &lt;port&gt;: (Optional) The listener port for BMP stream collection (Defaults to 11019).</p></li>
+<li><p>-a &lt;ASN&gt;: The local AS number your ntop box will report during the initial BGP handshake.</p></li>
+<li><p>-i &lt;IP&gt;: The BGP Router ID string, input in dotted-decimal format.</p></li>
+<li><p>-v: Verbose mode, which outputs live parsed routing logs directly onto your terminal screen.</p></li>
+<li><p>-n: list of prefixes you want the bgp_server to monitor and report changes to monitoring application (e.g. ntopng). The file format is a list of prefixes (one per line) in CIDR format (both IPv4 and IPv6 are supported)/</p></li>
+</ul>
+</section>
+<section id="step-3-link-bgp-server-to-nprobe-or-ntopng">
+<h2>Step 3: Link bgp_server to nProbe or ntopng<a class="headerlink" href="#step-3-link-bgp-server-to-nprobe-or-ntopng" title="Link to this heading"></a></h2>
+<p>To attach the captured AS paths to live flow graphics, you must instruct your traffic analytical interfaces to listen on the exact same ZeroMQ socket you established above. The bgp_server allows external application to query the collected routes using the redis protocol. For instance you can query it as follows using the redis-cli client application (use -r on bgp_server to specify the listening redis port):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>redis-cli<span class="w"> </span>-p<span class="w"> </span><span class="m">63799</span>
+<span class="m">127</span>.0.0.1:63799&gt;<span class="w"> </span>info
+bgp_server<span class="w"> </span>v.11.1.260620<span class="w"> </span><span class="k">for</span><span class="w"> </span>Ubuntu<span class="w"> </span><span class="m">24</span>.04.4<span class="w"> </span>LTS
+<span class="m">127</span>.0.0.1:63799&gt;<span class="w"> </span>uptime
+<span class="s2">&quot;22:03 sec&quot;</span>
+<span class="m">127</span>.0.0.1:63799&gt;<span class="w"> </span>stats
+<span class="m">1</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;IPv4 prefixes            1,943,968&quot;</span>
+<span class="m">2</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;IPv6 prefixes            466,439&quot;</span>
+<span class="m">3</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;Total RIB entries        1,302,412&quot;</span>
+<span class="m">127</span>.0.0.1:63799&gt;<span class="w"> </span>bgp
+<span class="m">1</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;[2a12:d8c0:ffff::201]:35411 [local AS=65000, BGP-ID=10.82.4.121] [Update: 95,759][Notification: 0][Keep-Alive; 45][Uptime: 22:10 sec]&quot;</span>
+<span class="m">2</span><span class="o">)</span><span class="w"> </span><span class="s2">&quot;10.255.255.201:44597 [local AS=65000, BGP-ID=10.82.4.121] [Update: 331,668][Notification: 0][Keep-Alive; 45][Uptime: 22:10 sec]&quot;</span>
+<span class="m">127</span>.0.0.1:63799&gt;<span class="w"> </span>bmp
+<span class="o">(</span>error<span class="o">)</span><span class="w"> </span>ERR<span class="w"> </span>no<span class="w"> </span>peers<span class="w"> </span>connected
+<span class="m">127</span>.0.0.1:63799&gt;<span class="w"> </span>find<span class="w"> </span><span class="m">1</span>.1.1.1
+<span class="s2">&quot;{\&quot;1.1.1.0\\/24\&quot;: {\&quot;217.197.106.201\&quot;: {\&quot;best_entry\&quot;:true,\&quot;asn\&quot;:204471,\&quot;origin\&quot;:\&quot;igp\&quot;,\&quot;as_path\&quot;: [204471,13335],\&quot;next_hop\&quot;:\&quot;10.255.255.201\&quot;,\&quot;communities\&quot;: [\&quot;13335:10039\&quot;]}}}&quot;</span>
+</pre></div>
+</div>
+<p>For nProbe Flow Collections add the ZeroMQ parameters to your network engine execution parameters:
+<code class="docutils literal notranslate"><span class="pre">nprobe</span> <span class="pre">--zmq</span> <span class="pre">&quot;tcp://*:5556&quot;</span> <span class="pre">-i</span> <span class="pre">eth1</span> <span class="pre">--bgp-server=127.0.0.1:63799:tcp://127.0.0.1:11059&quot;</span> <span class="pre">-T</span> <span class="pre">&quot;&#64;NTOPNG&#64;&quot;</span></code></p>
+<p>The ntopng configurations can be specified inside the application preferences under the “AS Mode” section. The figure below shows a configuration example that matches the bgp_configuration shown earlier on this page:</p>
+<figure class="align-center">
+<img alt="ntopng bgp_server configuration" src="_images/ntopng_as_mode.png" />
+</figure>
+<p>If you want to read more about howto use BGP information in ntopng, please refer to this page <a class="reference external" href="../ntopng/asmode/index.html">https://www.ntop.org/guides/ntopng/asmode/index.html</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="kafka.html" class="btn btn-neutral float-left" title="Using Kafka with nProbe" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="agent_mode.html" class="btn btn-neutral float-right" title="Agent Mode support in nProbe" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nprobe/bgp.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:53 GMT -->
+</html>

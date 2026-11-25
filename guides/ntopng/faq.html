@@ -1,0 +1,426 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/faq.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:52:37 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developers" href="scripts/index.html" />
+    <link rel="prev" title="Flow Collection Performance" href="performances/flow_collection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            ntopng
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#licenses">Licenses</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#i-m-using-nprobe-with-ntopng-do-i-need-a-license-for-it">I’m using nProbe with ntopng. Do I need a license for it?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#i-m-using-nprobe-cento-with-ntopng-do-i-need-a-license-for-it">I’m using nProbe Cento with ntopng. Do I need a license for it?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#i-m-using-n2disk-with-ntopng-do-i-need-a-license-for-it">I’m using n2disk with ntopng. Do I need a license for it?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#what-to-save-timeseries-flows-pcaps">What to Save: Timeseries, Flows, pcaps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#timeseries">Timeseries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flows">Flows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pcaps">pcaps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#maximum-number-of-interfaces">Maximum Number of Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cannot-login-into-the-gui">Cannot Login into the GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#too-many-failed-authentication-attempts">Too many failed authentication attempts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reset-ntopng-preferences">Reset ntopng Preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-can-i-troubleshoot-snmp">How Can I Troubleshoot SNMP ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-can-i-monitor-the-sites-visited-by-an-host">How can I monitor the sites visited by an host?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-i-know-who-is-using-most-of-my-bandwidth">How do I know who is using most of my bandwidth?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-can-i-associate-an-hostname-to-a-certain-category">How can I associate an hostname to a certain category?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-can-i-estimate-the-disk-space-required-by-ntopng">How can I estimate the disk space required by ntopng?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cannot-see-data-in-grafana">Cannot see data in Grafana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#permission-denied-errors">Permission denied errors</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">FAQ</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/faq.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="faq">
+<h1>FAQ<a class="headerlink" href="#faq" title="Link to this heading"></a></h1>
+<section id="licenses">
+<h2>Licenses<a class="headerlink" href="#licenses" title="Link to this heading"></a></h2>
+<section id="i-m-using-nprobe-with-ntopng-do-i-need-a-license-for-it">
+<h3>I’m using nProbe with ntopng. Do I need a license for it?<a class="headerlink" href="#i-m-using-nprobe-with-ntopng-do-i-need-a-license-for-it" title="Link to this heading"></a></h3>
+<p>Yes. See the <a class="reference external" href="../../products/netflow/nprobe/index.html">nProbe product page</a>.</p>
+</section>
+<section id="i-m-using-nprobe-cento-with-ntopng-do-i-need-a-license-for-it">
+<h3>I’m using nProbe Cento with ntopng. Do I need a license for it?<a class="headerlink" href="#i-m-using-nprobe-cento-with-ntopng-do-i-need-a-license-for-it" title="Link to this heading"></a></h3>
+<p>Yes. See the <a class="reference external" href="../../products/netflow/nprobe-cento/index.html">nProbe Cento product page</a>.</p>
+</section>
+<section id="i-m-using-n2disk-with-ntopng-do-i-need-a-license-for-it">
+<h3>I’m using n2disk with ntopng. Do I need a license for it?<a class="headerlink" href="#i-m-using-n2disk-with-ntopng-do-i-need-a-license-for-it" title="Link to this heading"></a></h3>
+<p>Yes. See the <a class="reference external" href="../../products/traffic-recording-replay/n2disk/index.html">n2disk product page</a>.</p>
+</section>
+</section>
+<section id="what-to-save-timeseries-flows-pcaps">
+<h2>What to Save: Timeseries, Flows, pcaps<a class="headerlink" href="#what-to-save-timeseries-flows-pcaps" title="Link to this heading"></a></h2>
+<p>In it’s standard setup, ntopng provides (near-)realtime visibility into what’s happening on the network. Historical analyses can be done with ntopng using:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="basic_concepts/timeseries.html#basicconceptstimeseries"><span class="std std-ref">Timeseries</span></a></p></li>
+<li><p>Flows</p></li>
+<li><p>pcaps</p></li>
+</ul>
+<p>In terms of disk space used, timeseries take less space than flows which, in turn, take less space than pcaps. This <a class="reference external" href="../../ntopng/ntopng-disk-requirements-for-timeseries-and-flows/index.html">article</a> gives useful indications on the space required.</p>
+<p>A good introduction and discussion of how to use timeseries, flows and pcaps to investigate issues is available in blog post <a class="reference external" href="../../n2disk/drill-down-deeper-using-ntopng-to-zoom-in-filter-out-and-go-straight-to-the-packets/index.html">Drill Down Deeper: Using ntopng to Zoom In, Filter Out and Go Straight to the Packets</a>.</p>
+<section id="timeseries">
+<h3>Timeseries<a class="headerlink" href="#timeseries" title="Link to this heading"></a></h3>
+<p>Timeseries are used to chart metrics over time, such as the bytes sent and received by an host, or the number of bytes for a Layer-7 application.</p>
+<p>Use timeseries when neither flows nor packets are required for historical analyses.</p>
+</section>
+<section id="flows">
+<h3>Flows<a class="headerlink" href="#flows" title="Link to this heading"></a></h3>
+<p>Monitored <a class="reference internal" href="user_interface/network_interface/flows/flows.html#webguiflows"><span class="std std-ref">Flows</span></a> can be saved so they can be accessed when doing historical analyses. This allows to go back in time and browse all the past flows. To dump flows refer to <span class="xref std std-ref">Flows Dump</span> and <a class="reference internal" href="flow_dump/clickhouse/historical_flows.html#historical-flows"><span class="std std-ref">Historical</span></a>.</p>
+</section>
+<section id="pcaps">
+<h3>pcaps<a class="headerlink" href="#pcaps" title="Link to this heading"></a></h3>
+<p>Saving pcaps means saving all the traffic seen into files. This allows to go back in time and fetch all the traffic packets seen at any past point in time. This can be highly challenging in terms of space used. To save pcaps, refer to <a class="reference internal" href="using_with_other_tools/n2disk.html#usingntopngwithn2disk"><span class="std std-ref">Using ntopng with n2disk</span></a>.</p>
+</section>
+</section>
+<section id="maximum-number-of-interfaces">
+<h2>Maximum Number of Interfaces<a class="headerlink" href="#maximum-number-of-interfaces" title="Link to this heading"></a></h2>
+<p>The recommended number of interfaces monitored by an ntopng running on a commodity quad-core hardware is 8. However, the actual maximum number of interfaces can be greater than 8, when adequate hardware is used.</p>
+<p>The maximum number of interfaces depends on the license, as is highlighted in the following table</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>Maximum Number of Interfaces</p></td>
+</tr>
+<tr class="row-even"><td><p>Community</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pro</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-even"><td><p>Enterprise M</p></td>
+<td><p>16</p></td>
+</tr>
+<tr class="row-odd"><td><p>Enterprise L</p></td>
+<td><p>32</p></td>
+</tr>
+<tr class="row-even"><td><p>Enterprise XL</p></td>
+<td><p>64</p></td>
+</tr>
+</tbody>
+</table>
+<p>Limits above also apply when disaggregated interfaces are used. For example, the maximum 32 interfaces limit can be hit when:</p>
+<ul class="simple">
+<li><p>32 interfaces are used without disaggregation</p></li>
+<li><p>A single interface is configured with disaggregation resulting in 31 disaggregated sub-interfaces</p></li>
+<li><p>Two interfaces are configured with disaggregation resulting in 15 and 16 disaggregated sub-interfaces, respectively</p></li>
+</ul>
+</section>
+<section id="cannot-login-into-the-gui">
+<h2>Cannot Login into the GUI<a class="headerlink" href="#cannot-login-into-the-gui" title="Link to this heading"></a></h2>
+<p>If you locked yourself out of the ntopng GUI after a change in the <a class="reference external" href="advanced_features/authentication.html">authentication method</a>,
+you can reset the ntopng login method to the default one (local authentication) with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For ntopng 3.7 and above:</span>
+redis-cli<span class="w"> </span><span class="nb">set</span><span class="w"> </span>ntopng.prefs.local.auth_enabled<span class="w"> </span><span class="m">1</span>
+
+<span class="c1"># For ntopng 3.6 and below:</span>
+redis-cli<span class="w"> </span><span class="nb">set</span><span class="w"> </span>ntopng.prefs.auth_type<span class="w"> </span><span class="nb">local</span>
+</pre></div>
+</div>
+<p>After restarting ntopng, you should be able to login with the administrator credentials.</p>
+<p>If you forgot the administrator password, you can reset it with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>redis-cli<span class="w"> </span>del<span class="w"> </span>ntopng.user.admin.password
+</pre></div>
+</div>
+<p>After restarting ntopng, you can login with the default ntopng credentials (admin, admin).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Some browser plugins that perform JavaScript blocking may interfere with the login.
+Sometimes adding an exception for ntopng is not enough. Try to disable them before
+reporting an issue.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the login issue persist, deleting the browser cookies sometimes helps.</p>
+</div>
+</section>
+<section id="too-many-failed-authentication-attempts">
+<h2>Too many failed authentication attempts<a class="headerlink" href="#too-many-failed-authentication-attempts" title="Link to this heading"></a></h2>
+<p>If a device tries to login with wrong credentials too many times, it’s IP
+address is blacklisted for 5 minutes. In order to manually clean the blacklist,
+the following command can be used:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>k<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>redis-cli<span class="w"> </span>keys<span class="w"> </span>ntopng.cache.failed_logins.*<span class="sb">`</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>redis-cli<span class="w"> </span>del<span class="w"> </span><span class="nv">$k</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</pre></div>
+</div>
+<p>After executing the above command and restarting ntopng, the device will be able to
+login again.</p>
+</section>
+<section id="reset-ntopng-preferences">
+<h2>Reset ntopng Preferences<a class="headerlink" href="#reset-ntopng-preferences" title="Link to this heading"></a></h2>
+<p>In order to reset the ntopng preferences the following commands can be used:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>ntopng
+redis-cli<span class="w"> </span>keys<span class="w"> </span><span class="s2">&quot;ntopng.*&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>redis-cli<span class="w"> </span>unlink
+sudo<span class="w"> </span>rm<span class="w"> </span>/var/lib/ntopng/runtimeprefs.json
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>ntopng
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On windows instead of restarting ntopnng with the systemctl tool you need to use the Windows Services Manager.</p>
+</div>
+</section>
+<section id="how-can-i-troubleshoot-snmp">
+<h2>How Can I Troubleshoot SNMP ?<a class="headerlink" href="#how-can-i-troubleshoot-snmp" title="Link to this heading"></a></h2>
+<p>If SNMP polling is not working as expected it may be necessary to inspect
+the low-level SNMP messages exchanged by ntopng and the SNMP agents.
+In order to do this SNMP debug must be enabled as follows: inside menu Settings -&gt; Preferences
+select SNMP from the left tab and enable “SNMP Debug” then save the form.</p>
+<figure class="align-center">
+<img alt="Howto Enable SNMP Debug" src="_images/snmp_debug.png" />
+</figure>
+<p>When SNMP polling starts (usually every 5 minutes) a detailed log of activities
+will be produced. Logs can be accessed as follows</p>
+<ul class="simple">
+<li><p>Log to the system where ntopng is running</p></li>
+<li><p>(as root) journalctl -u ntopng –since “1 hour ago” &gt; /tmp/ntopng_log.txt</p></li>
+<li><p>Send /tmp/ntopng_log.txt to the ntop team for troubleshooting</p></li>
+</ul>
+<p>Do not forget to disable “SNMP Debug” in order to avoid filling
+up your disk space with ntopng SNMP logs.</p>
+</section>
+<section id="how-can-i-monitor-the-sites-visited-by-an-host">
+<h2>How can I monitor the sites visited by an host?<a class="headerlink" href="#how-can-i-monitor-the-sites-visited-by-an-host" title="Link to this heading"></a></h2>
+<p>To monitor the web sites visited by an host, make sure it is local (if unsure
+about what is a local host check page <a class="reference internal" href="user_interface/network_interface/hosts/hosts.html#hosts"><span class="std std-ref">Hosts</span></a>). Then, you’ll be
+able to immediately view its visited sites by following the simple
+instructions available at <a class="reference internal" href="user_interface/network_interface/interface/sites.html#sites"><span class="std std-ref">Sites</span></a>.</p>
+<p>Note that both plain HTTP sites as well as HTTPS sites are monitored!</p>
+</section>
+<section id="how-do-i-know-who-is-using-most-of-my-bandwidth">
+<h2>How do I know who is using most of my bandwidth?<a class="headerlink" href="#how-do-i-know-who-is-using-most-of-my-bandwidth" title="Link to this heading"></a></h2>
+<p>Is your Internet connection slow? Do you think someone in the network
+is consuming all the available bandwidth? Well, ntopng helps you in
+understanding this.</p>
+<p>First, have a look at the <span class="xref std std-ref">Dashboard</span> and the
+<span class="xref std std-ref">DashboardPro</span>. You’ll immediately see the top local talkers and
+the top remote destinations there!</p>
+<p>Then, you can click on any of the hosts that have the highest throughput to
+see what are they doing. Select the <a class="reference internal" href="user_interface/network_interface/hosts/hosts.html#flows"><span class="std std-ref">Host Flows</span></a> page and sort flows
+according to an ascending order of the “Actual Thpt” to have
+visibility on the actually traffic the host is currently doing.</p>
+</section>
+<section id="how-can-i-associate-an-hostname-to-a-certain-category">
+<h2>How can I associate an hostname to a certain category?<a class="headerlink" href="#how-can-i-associate-an-hostname-to-a-certain-category" title="Link to this heading"></a></h2>
+<p>Let’s say you want to want to associate traffic from and to hostname
+<code class="code docutils literal notranslate"><span class="pre">crazynetwork.it</span></code> to category “Download-FileTransfer-FileSharing” as
+you know that that particular host is a mirror for the download of ISO
+images.</p>
+<p>Select the “Settings” wheel and click on “Categories”</p>
+<figure class="align-center" id="id1">
+<img alt="Edit Categories" src="_images/faq_edit_traffic_categories.png" />
+<figcaption>
+<p><span class="caption-text">The Edit Categories Menu Entry</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Then, add hostname <code class="code docutils literal notranslate"><span class="pre">crazynetwork.it</span></code> to category
+“Download-FileTransfer-FileSharing” by clicking on “Edit Hosts”.</p>
+<figure class="align-center" id="id2">
+<img alt="Edit Category Hostnames" src="_images/faq_edit_traffic_categories_custom_host.png" />
+<figcaption>
+<p><span class="caption-text">The Edit Category Hostnames Page</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Finally, save and from that moment on you’ll have the matching traffic
+opportunely categorized</p>
+<figure class="align-center" id="id3">
+<img alt="Flow With a Custom Category" src="_images/faq_edit_traffic_categories_flow.png" />
+<figcaption>
+<p><span class="caption-text">The Flow Details Page of a Flow with a Custom Category</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Additional details and examples can be found at <a class="reference internal" href="user_interface/shared/settings/applications_and_categories.html#customcategoryhosts"><span class="std std-ref">Custom Categories</span></a>.</p>
+</section>
+<section id="how-can-i-estimate-the-disk-space-required-by-ntopng">
+<h2>How can I estimate the disk space required by ntopng?<a class="headerlink" href="#how-can-i-estimate-the-disk-space-required-by-ntopng" title="Link to this heading"></a></h2>
+<p>The following blog post gives accurate estimations of the disk space
+required by ntopng to store timeseries and flows:
+<a class="reference external" href="../../ntopng/ntopng-disk-requirements-for-timeseries-and-flows/index.html">https://www.ntop.org/ntopng/ntopng-disk-requirements-for-timeseries-and-flows/</a></p>
+</section>
+<section id="cannot-see-data-in-grafana">
+<h2>Cannot see data in Grafana<a class="headerlink" href="#cannot-see-data-in-grafana" title="Link to this heading"></a></h2>
+<p>When ntopng is configured to export timeseries to InfluxDB, it is possible to use
+Grafana with InfluxDB as a data source to create customized dashboard. If the Grafana
+visualization does not display any data, here are some steps for the troubleshooting:</p>
+<ul class="simple">
+<li><p>Verify that the data is actually written to the database. An easy way to do this
+is to open the interface charts page into ntopng and see if the past traffic is shown.
+A more accurate way is to run a query from command line:
+<cite>influx -database ntopng -execute ‘select * from “iface:traffic” order by time desc limit 1’</cite>
+it will show the most recent data point written into the DB.</p></li>
+<li><p>Ensure that the InfluxDB database connected to Grafana is the same as the database
+configured into the ntopng timeseries settings.</p></li>
+<li><p>If the data is correctly written to the database, the problem may be related to
+the missing <cite>Time Series Index</cite> due to an InfluxDB version upgrade. The necessary
+steps to enable the TSI are described in the <a class="reference external" href="https://docs.influxdata.com/influxdb/v1.7/administration/upgrading">InfluxDB documentation</a>. In short, the
+steps to perform should be:</p>
+<ol class="arabic simple">
+<li><p>Change the <cite>[data]</cite> section of the config and set <cite>index-version = “tsi1”</cite></p></li>
+<li><p>Convert the existing data to the TSI:
+<cite>su -m influxdb -c “influx_inspect buildtsi -database ntopng -datadir /var/lib/influxdb/data -waldir /var/lib/influxdb/wal”</cite></p></li>
+</ol>
+</li>
+</ul>
+</section>
+<section id="permission-denied-errors">
+<h2>Permission denied errors<a class="headerlink" href="#permission-denied-errors" title="Link to this heading"></a></h2>
+<p>If the ntopng log shows permission denied errors, then permissions on the ntopng data directory
+may need to be set manually.</p>
+<p><cite>Error ‘opening ‘/var/lib/ntopng/1/rrd/bytes.rrd’: Permission denied’ while calling rrd_fetch_r(/var/lib/ntopng/1/rrd/bytes.rrd, AVERAGE): is the RRD corrupted perhaps</cite></p>
+<p>Such errors usually occur in the following cases:</p>
+<ul class="simple">
+<li><p>ntopng was started as root with <cite>-s</cite> or <cite>–dont-change-users</cite> options and now
+it is started as a normal user</p></li>
+<li><p>on Ubuntu 18, sometimes the permissions for new files are wrong.</p></li>
+</ul>
+<p>In order to fix this issue, the following commands should be used:</p>
+<ol class="arabic simple">
+<li><p><cite>sudo systemctl stop ntopng</cite></p></li>
+<li><p><cite>sudo chown -R ntopng:ntopng /var/lib/ntopng</cite></p></li>
+<li><p><cite>sudo find /var/lib/ntopng -type d -exec chmod 700 {} +</cite></p></li>
+<li><p><cite>sudo find /var/lib/ntopng -type f -exec chmod 600 {} +</cite></p></li>
+<li><p><cite>sudo systemctl restart ntopng</cite></p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="performances/flow_collection.html" class="btn btn-neutral float-left" title="Flow Collection Performance" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scripts/index.html" class="btn btn-neutral float-right" title="Developers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/faq.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:52:50 GMT -->
+</html>

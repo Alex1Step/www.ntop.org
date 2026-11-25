@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/cento/egress.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:24 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Egress Queues &mdash; cento 1.15 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_optionsd5c8.js?v=e6db31ea"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Network Bridge" href="bridge.html" />
+    <link rel="prev" title="Flow Offload" href="offload.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            cento
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/cento/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Models Comparison Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usecases.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clickhouse.html">ClickHouse Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="offload.html">Flow Offload</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Egress Queues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#policing-egress-queues-traffic">Policing Egress Queues Traffic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#policy-rules">Policy Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-egress-queues-configuration-file">The Egress Queues Configuration File</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#shunting">Shunting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aggregated-egress-queue">Aggregated Egress Queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#balanced-egress-queues">Balanced Egress Queues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-egress-queues-runtime-rest-configuration-api">The Egress Queues runtime REST Configuration API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bridge.html">Network Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Hugepages Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geolocation.html">Geolocation Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">cento</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Egress Queues</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/egress.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="egress-queues">
+<h1>Egress Queues<a class="headerlink" href="#egress-queues" title="Link to this heading"></a></h1>
+<p>As it has already been introduced in section “Use Cases”, nProbe™ Cento implements (in the cento-ids binary) traffic forwarding functionalities that allow to:</p>
+<ul class="simple">
+<li><p>Capture packets from multiple input interfaces and forward them towards a single, aggregated egress queue.</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/cento_egress_single.png"><img alt="_images/cento_egress_single.png" class="align-center" src="_images/cento_egress_single.png" style="width: 409.2px; height: 209.4px;" />
+</a>
+<ul class="simple">
+<li><p>Capture packets from an input interface and forward them towards multiple, balanced egress queues.</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/cento_egress_balanced.png"><img alt="_images/cento_egress_balanced.png" class="align-center" src="_images/cento_egress_balanced.png" style="width: 402.59999999999997px; height: 146.4px;" />
+</a>
+<ul class="simple">
+<li><p>Capture packets from one or more input interfaces and simultaneously forward them to multiple balanced queues and to a single aggregated queue.</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/cento_egress_single_and_balanced.png"><img alt="_images/cento_egress_single_and_balanced.png" class="align-center" src="_images/cento_egress_single_and_balanced.png" style="width: 403.2px; height: 206.4px;" />
+</a>
+<p>An egress queue is said to be aggregated when it carries packets coming from multiple input interfaces. Conversely, it is said to be balanced when it carry a subset of packets originated at the input interface.</p>
+<p>Often, a bare packet forwarder doesn’t suffice as one may need some flexibility to policy the traffic that goes through the output queues. For example, if the egress queue used by a packet recorder, one may save valuable space by avoid recording encrypted traffic payloads. Similarly, when the balanced egress queues are sent to IDS/IPS, one may reduce the load on the processors by dropping encrypted packets.</p>
+<section id="policing-egress-queues-traffic">
+<h2>Policing Egress Queues Traffic<a class="headerlink" href="#policing-egress-queues-traffic" title="Link to this heading"></a></h2>
+<p>Both aggregated and balanced egress queues allow a fine-grained traffic control through a set of hierarchical rules. Rules are submitted using a text file during nProbe™ Cento startup or dynamically via a REST API. nProbe™ Cento can be instructed to re-read the rules text file by sending a SIGHUP to the process (e.g., kill -SIGHUP &lt;process id&gt;). This can be useful for example to update the policies without stopping and restarting the process.</p>
+<p>Rules can be applied at three different levels, namely:</p>
+<ul class="simple">
+<li><p>At the level of queue;</p></li>
+<li><p>At the level of subnet;</p></li>
+<li><p>At the level of application protocol.</p></li>
+</ul>
+<p>Application protocol rules take precedence over subnet-level rules which, in turn, take precedence over the queue-level rules. Queue-level rules can be thought of as the “default” queue rules.</p>
+<section id="policy-rules">
+<h3>Policy Rules<a class="headerlink" href="#policy-rules" title="Link to this heading"></a></h3>
+<p>As already introduced above, policies can be enforced at three different levels by means of rules. Rule types are five, namely:</p>
+<ul class="simple">
+<li><p>Forward: forward the packet;</p></li>
+<li><p>Discard: do not forward the packet;</p></li>
+<li><p>Shunt: forward the first K packets in every flow, where K is a configurable constant;</p></li>
+<li><p>Slice-l4: cut the packet after the IP layer;</p></li>
+<li><p>Slice-l3: cut the packet after the TCP/UDP layer.</p></li>
+<li><p>Destination Queue/Interface: forward the packet to a specific queue or egress interface (balanced egress only)</p></li>
+</ul>
+<p>Forward means the traffic should be delivered to the output queue as-is, without being dropped or modified.
+Discard means that the traffic doesn’t get forwarded to the output queue.
+Shunt means that only the first K packets of every flow are forwarded to the output queue. The value of K is configurable and can be set by the user.
+Slice-l4 (slice-l3) mean that the packet is forwarded only up to the layer-4 (layer-3) headers. Any layer-4 (layer-3) payload is discarded.</p>
+<p>Rules are expressed as &lt;policed unit&gt; = &lt;policy&gt;. For example, one that wants to shunt all the egress traffic will use the rule</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default = shunt
+</pre></div>
+</div>
+<p>Assuming an exception is needed to waive the default rule in order to record all the traffic that originates from (is destined to) subnet 10.0.0.0/8, one will use the additional rule</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>10.0.0.0/8 = forward
+</pre></div>
+</div>
+<p>Supposing another exception is needed to waive both the default rule and the rule set on the subnet in order to always drop SSH traffic, one will add a third rule as</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SSH = discard
+</pre></div>
+</div>
+<p>If a specific application application protocol should be forwarded to one of the queues or network interfaces configured in a balanced egress configuration (it should be one of the interfaces listed in --balanced-egress-queues), the destination queue index or egress interface can be configured as below</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DNS = eth1
+</pre></div>
+</div>
+<p>Please note that the list of DPI protocols supported by cento can be printed with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento --print-ndpi-protocols</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="the-egress-queues-configuration-file">
+<h2>The Egress Queues Configuration File<a class="headerlink" href="#the-egress-queues-configuration-file" title="Link to this heading"></a></h2>
+<p>Rules are specified in a plain text file that follows the INI standard. INI is a very simple standard that specify the format of the configuration file. The configuration file is divided in sections. Every section starts with a “label” that is wrapped between square brackets, e.g., [egress.aggregated]. Every line contained after the label is related to the section. A section ends implicitly when a new section begins.</p>
+<p>nProbe™ Cento configuration files contain, between square brackets, sections corresponding to the different hierarchical levels for both aggregated and balanced egress queues. Each section contains the rules that have to be applied. An additional section is present to configure shunting. An exhaustive example of configuration file is the following</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[egress.aggregated]
+default = shunt
+banned-hosts = discard
+
+[egress.aggregated.subnet]
+10.0.0.1/32 = forward
+10.10.10/24 = forward
+
+[egress.aggregated.protocol]
+HTTP = forward
+SSL = slice-l4
+SSH = slice-l4
+
+[egress.balanced]
+default = forward
+banned-hosts = discard
+
+[egress.balanced.subnet]
+192.168.2/24 = discard
+
+[egress.balanced.protocol]
+SSL = discard
+SSH = discard
+DNS = eth1
+
+[shunt]
+default = 10
+tcp = 12
+udp = 2
+HTTP = 40
+SSL = 5
+</pre></div>
+</div>
+<p>In the remainder of this section is given a description of configuration file sections.</p>
+<section id="shunting">
+<h3>Shunting<a class="headerlink" href="#shunting" title="Link to this heading"></a></h3>
+<p>The [shunt] section of the configuration file allows you to specify the number of packets for each flow that have to go through any egress queue.
+This section is global and applies both to aggregated and balanced queues. The default number of packets is 10, and it can be modified using the rule:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>default = 10
+</pre></div>
+</div>
+<p>The rule above sets to 10 the maximum number of packets per flow that are forwarded to the egress queues. Caps can also be set for the maximum number of packets that have to go though any tcp (e.g., tcp = 12) or udp (e.g., udp = 2) flow. Similarly, the maximum number of packets can be configured on a per-application-protocol basis. For example, to set to 40 the maximum number of packets allowed to go through ay HTTP flow, one can use the following line</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>HTTP = 40
+</pre></div>
+</div>
+<p>The rule of last resort is default, that is, any flow that doesn't match any of the other rules is shunted using the default value. Application-protocol rules “override” layer-4 rules, that is, an HTTP flow transported over tcp is forwarded up to the 40th packet if one considers the examples above.</p>
+<p>All reserved keywords (in addition to nDPI protocols) are:</p>
+<ul class="simple">
+<li><p>default</p></li>
+<li><p>tcp</p></li>
+<li><p>udp</p></li>
+</ul>
+</section>
+<section id="aggregated-egress-queue">
+<h3>Aggregated Egress Queue<a class="headerlink" href="#aggregated-egress-queue" title="Link to this heading"></a></h3>
+<p>Aggregated egress queues are configured via three sections, namely [egress.aggregated], [egress.aggregated.subnet] and [egress.aggregated.protocol]. Rules are indicated in every section, one per line.</p>
+<p>[egress.aggregated.protocol]
+contains application-protocol forwarding rules that must be enforced. Any application protocol is expressed using a string. The full list of application protocols available can be queries simply by running nProbe™ Cento inline help</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento --print-ndpi-protocols</span>
+</pre></div>
+</div>
+<p>Any line in this section has the format &lt;protocol name&gt; = &lt;policy&gt;, where policy can be any of: forward, discard, shunt, slice-l4 and slice-l3.</p>
+<p>An example is</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[egress.aggregated.protocol]
+HTTP = forward
+SSL = slice-l4
+SSH = slice-l4
+</pre></div>
+</div>
+<p>[egress.aggregated.subnet] contains forwarding rules that are enforced at the level of subnet. Every line in this section is formatted as &lt;CIDR subnet&gt; = &lt;policy&gt;. Subnets are expressed using the common CIDR &lt;address&gt;/&lt;netmask&gt; notation. Policy can be any of: forward, discard, shunt, slice-l4 and slice-l3.</p>
+<p>An example is</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[egress.aggregated.subnet]
+10.0.0.1/32 = forward
+10.10.10/24 = forward
+</pre></div>
+</div>
+<p>If a flow matches both a subnet- and a protocol-level rule, then the protocol-level rule is applied.</p>
+<p>[egress.aggregated] contains the “default” egress queue policies, that is, any flow that doesn’t match any rule indicated in the subnet and protocol sections, then will be policed using the “default” rules. This section contains at most two lines, one for the default policy and the other for the policy that has to be applied to banned hosts. We refer the reader to the section “Command Line Options” for a detailed description of banned hosts.</p>
+<p>An example is</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[egress.aggregated]
+default = shunt
+banned-hosts = discard
+</pre></div>
+</div>
+<p>In the example above, all the flows that are not policed via subnet- or protocol-level rules are shunted as specified in the default rule. If an host belongs to the list of banned-hosts, then all the traffic gets discarded.</p>
+</section>
+<section id="balanced-egress-queues">
+<h3>Balanced Egress Queues<a class="headerlink" href="#balanced-egress-queues" title="Link to this heading"></a></h3>
+<p>Balanced egress queues are configured exactly as it is described in the section above for aggregated egress queues. The only difference lays in the three section names that are:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[egress.balanced]
+
+[egress.balanced.subnet]
+
+[egress.balanced.protocol]
+</pre></div>
+</div>
+<p>Therefore, we refer the reader to the previous section for a detailed description of queues configuration.</p>
+</section>
+</section>
+<section id="the-egress-queues-runtime-rest-configuration-api">
+<h2>The Egress Queues runtime REST Configuration API<a class="headerlink" href="#the-egress-queues-runtime-rest-configuration-api" title="Link to this heading"></a></h2>
+<p>nProbe™ Cento has been designed to allow egress queues to be dynamically configured by means of a REST API. One of the main reasons behind the choice of exposing queues configuration though an API is to provide a feedback channel that can be used, for example, by IDS/IPS such as Suricata od Snort. Indeed, it is fundamental to provide IDS/IPS with a quick way to policy the traffic on the basis of their runtime decisions. Thanks to this API, an IDS/IPS becomes able, for example, to block an host that has just been flagged as malicious. Similarly, it can use the API to instruct nProbe™ Cento to start sending the traffic of a suspicious subnet to a traffic recorder.</p>
+<a class="reference internal image-reference" href="_images/cento_egress_rest_configuration.png"><img alt="_images/cento_egress_rest_configuration.png" class="align-center" src="_images/cento_egress_rest_configuration.png" style="width: 372.0px; height: 212.4px;" />
+</a>
+<p>This API that provides the same level of flexibility that can be achieved through
+the configuration file. Indeed, the API can be used to set policy rules at any of
+the three different levels thoroughly discussed above, namely, at: the queue-, the
+subnet- and the protocol-level. We refer the interested reader to the “Policy Rules”
+section above for a detailed description of these rules.</p>
+<p>Please refer to the <em>API Documentation</em> section for the full API specification.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="offload.html" class="btn btn-neutral float-left" title="Flow Offload" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bridge.html" class="btn btn-neutral float-right" title="Network Bridge" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/cento/egress.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:29 GMT -->
+</html>

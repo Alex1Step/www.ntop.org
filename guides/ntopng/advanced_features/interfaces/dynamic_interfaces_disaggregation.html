@@ -1,0 +1,242 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/interfaces/dynamic_interfaces_disaggregation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:26:39 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.4. Interfaces Disaggregation &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.5. Using nTap as Virtual Tap with ntopng" href="ntap_interface.html" />
+    <link rel="prev" title="3.3. Interfaces vs View Interfaces" href="interfaces_vs_view_interfaces.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Advanced Features</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../bridging_and_policing.html">1. Bridging and Traffic Policing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ids_acceleration.html">2. IDS Acceleration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">3. Interfaces</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="packet_vs_zmq.html">3.1. Packet vs ZMQ Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="view_interfaces.html">3.2. View Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="interfaces_vs_view_interfaces.html">3.3. Interfaces vs View Interfaces</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3.4. Interfaces Disaggregation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-disaggregation">3.4.1. Dynamic Disaggregation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-disaggregation">3.4.2. Custom Disaggregation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ntap_interface.html">3.5. Using nTap as Virtual Tap with ntopng</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lightview/index.html">4. Light View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live_pcap_download.html">5. Live Pcap Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deduplication.html">6. Flow Deduplication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../oem.html">7. OEM Customizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../snapshots.html">8. Snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../syslog.html">9. Syslog Log Ingestion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clickhouse_timeseries.html">10. ClickHouse Timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../high_resolution_timeseries.html">11. Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../assets_journal.html">12. Assets Journal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Advanced Features</a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">3. </span>Interfaces</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3.4. </span>Interfaces Disaggregation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/advanced_features/interfaces/dynamic_interfaces_disaggregation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="interfaces-disaggregation">
+<h1><span class="section-number">3.4. </span>Interfaces Disaggregation<a class="headerlink" href="#interfaces-disaggregation" title="Link to this heading"></a></h1>
+<p>ntopng can split and visualize the traffic into virtual sub-interfaces based on a specified criterion.
+This comes handy, for example, when a single nProbe instance is capturing flows from multiple
+NetFlow/sFLow Exporters. By default, ntopng would aggregate all the Exporters traffic together
+into one <cite>tcp://…</cite> interface, whereas by enabling the disaggregation by “Probe IP” ntopng
+will also create as many virtual interfaces as the Exporters, for example
+<cite>tcp://…192.168.0.1</cite> and <cite>tcp://…192.168.2.20</cite>.</p>
+<section id="dynamic-disaggregation">
+<h2><span class="section-number">3.4.1. </span>Dynamic Disaggregation<a class="headerlink" href="#dynamic-disaggregation" title="Link to this heading"></a></h2>
+<p>Dynamic Interfaces Disaggregation can be enabled from the network interface configuration tab
+as depicted in the picture below.</p>
+<figure class="align-center" id="id1">
+<img alt="Dynamic Interfaces Disaggregation" src="../../_images/dynamic_interface_disaggregation.png" />
+<figcaption>
+<p><span class="caption-text">Disaggregation Settings</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Here is a summary of the available disaggregation criterion:</p>
+<ul class="simple">
+<li><p><cite>None</cite>: do not disaggregate</p></li>
+<li><p><cite>VLAN Id</cite>: create a virtual interface for each VLAN</p></li>
+<li><p><cite>Probe IP</cite>: on ZMQ, create a virtual interface for each %EXPORTER_IPV4_ADDRESS</p></li>
+<li><p><cite>Interface</cite>: on ZMQ, create a virtual interface for %INPUT_SNMP and another for %OUTPUT_SNMP.
+A single flow will be <em>duplicated</em> on two virtual interfaces.</p></li>
+<li><p><cite>Ingress Interface</cite>: on ZMQ, create a virtual interface for each %INPUT_SNMP</p></li>
+<li><p><cite>VRF Id</cite>: on ZMQ, create a virtual interface for each %INGRESS_VRFID</p></li>
+</ul>
+<p>Most of them only work in ZMQ mode and require the relevant template field to be
+added to the nprobe options as explained in the <a class="reference external" href="../using_with_nprobe.html#exported-flow-fields">nprobe section</a>.</p>
+</section>
+<section id="custom-disaggregation">
+<h2><span class="section-number">3.4.2. </span>Custom Disaggregation<a class="headerlink" href="#custom-disaggregation" title="Link to this heading"></a></h2>
+<p>In addition to the dynamic disaggregation, it is also possible to use custom BPF-like filters to
+disaggregate incoming traffic and divert it to logical sub-interfaces. This can be achieved by
+disabling Dynamic Traffic Disaggregation (setting it to ‘None’) and creating new rules in the
+Custom Traffic Disaggregation tab. Alternatively you can use both disaggregation methods at the
+same time, by selecting a Dynamic disaggregation criteria and configuring custom rules at the
+same time. Custom rules have higher priority: traffic matching custom rules will not be
+processed by the dynamic disaggregation.</p>
+<figure class="align-center" id="id2">
+<img alt="Custom Interfaces Disaggregation" src="../../_images/custom_interface_disaggregation.png" />
+<figcaption>
+<p><span class="caption-text">Custom Disaggregation Settings</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>An extended nBPF format is supported when defining sub-interfaces, in fact in addition to the
+standard BPF primitives, NetFlow fields can also be used, including INPUT_SNMP, OUTPUT_SNMP,
+SRC_VLAN, DST_VLAN.
+Note that in this case the same traffic can be diverted to multiple interfaces in case of
+overlapping filters.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="../../_images/custom_interface_disaggregation_dialog.png"><img alt="Custom Interfaces Disaggregation Dialog" src="../../_images/custom_interface_disaggregation_dialog.png" style="width: 300.59999999999997px; height: 375.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Custom Disaggregation Dialog</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Changes will take effect only after a ntopng restart</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="interfaces_vs_view_interfaces.html" class="btn btn-neutral float-left" title="3.3. Interfaces vs View Interfaces" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ntap_interface.html" class="btn btn-neutral float-right" title="3.5. Using nTap as Virtual Tap with ntopng" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/interfaces/dynamic_interfaces_disaggregation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:26:44 GMT -->
+</html>

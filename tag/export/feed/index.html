@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>export Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/export/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/export/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Fri, 12 Jul 2019 12:55:38 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>export Archives - ntop</title>
+	<link>https://www.ntop.org/tag/export/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Measuring nProbe ElasticSearch Flow Export Performance</title>
+		<link>https://www.ntop.org/measuring-nprobe-elasticsearch-flow-export-performance/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 12 Jul 2019 12:55:38 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[elasticsearch]]></category>
+		<category><![CDATA[export]]></category>
+		<category><![CDATA[netflow]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7753</guid>
+
+					<description><![CDATA[<p>nProbe (via its export plugin) supports ElasticSearch flows export. Setting up nProbe for the ElasticSearch export is a breeze, it just boils down to specifying option --elastic. For example, to export NetFlow…</p>
+<p>The post <a href="https://www.ntop.org/measuring-nprobe-elasticsearch-flow-export-performance/">Measuring nProbe ElasticSearch Flow Export Performance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>nProbe (via its export plugin) supports ElasticSearch flows export. Setting up nProbe for the ElasticSearch export is a breeze, it just boils down to specifying option <code class="EnlighterJSRAW" data-enlighter-language="generic">--elastic</code>. For example, to export NetFlow flows collected on port <code class="EnlighterJSRAW" data-enlighter-language="generic">2058</code> (<code class="EnlighterJSRAW" data-enlighter-language="generic">--collector-port 2058</code>)  to an ElasticSearch cluster running on <code class="EnlighterJSRAW" data-enlighter-language="generic">localhost</code> port <code class="EnlighterJSRAW" data-enlighter-language="generic">9200</code>, one can use the following</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">nprobe -i none -n none --collector-port 2058 --elastic "flows;nprobe-%Y.%m.%d;http://localhost:9200/_bulk"</pre>
+<p>nProbe will take care of pushing a template to ElasticSearch to have IP fields properly indexed, and will also POST flows in bulk to maximize the performance.</p>
+<p>Recently we&#8217;ve done several improvements to the nProbe performance (you need to use the latest dev nProbe version) when it comes to export flows to ElasticSearch and therefore we believe it is time to publish some official numbers.</p>
+<p>Performance tests have been run on an Intel(R) Xeon(R) CPU E3-1230 v3 @ 3.30GHz machine with 16GB RAM with both nProbe and ElasticSearch:</p>
+<ul>
+<li>OS: Ubuntu 16.04.6 LTS</li>
+<li>nProbe v.8.7.190712 (r6564)</li>
+<li>ElasticSearch 6.8.1</li>
+</ul>
+<p>In order to measure the export performance, we&#8217;ve pushed NetFlow at increasing rates using <code class="EnlighterJSRAW" data-enlighter-language="generic">pfsend</code> as described in <a href="https://www.ntop.org/nprobe/measuring-ntopngnprobe-flow-processing-performance/">another post</a> and we&#8217;ve disabled nProbe internal caches (<code class="EnlighterJSRAW" data-enlighter-language="generic">--disable-cache</code>).</p>
+<p>We&#8217;ve seen that the maximum number of flows per second that a single nProbe instance (but remember you can instantiate one instance per-core on a multicore system, all sharing the same license) can export to ElasticSearch is <strong>approximately 45,000 flows per second</strong>. Above that threshold, flows will be dropped, that is, it won&#8217;t be possible to bulk-POST the incoming NetFlow fast enough.</p>
+<p>For the sake of completeness, this is the full nprobe command used in the tests</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">./nprobe -i none -n none --collector-port 2058 -T "@NTOPNG@" --elastic "flows;nprobe-%Y.%m.%d;http://localhost:9200/_bulk" --disable-cache -b 1</pre>
+<p>We&#8217;ve also extended nProbe export stats shown when using option <code class="EnlighterJSRAW" data-enlighter-language="generic">-b=1</code> to accurately report the rates. This allowed us to make the measurements and will also allow you to accurately monitor the performance of nProbe. Note that the drops you are seeing below are normal as we pushed nProbe above its limit to see the maximum successful flow export rate.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">12/Jul/2019 12:54:26 [nprobe.c:3448] ElasticSearch flow exports (successful) [1307219 flows][avg: 42168.4 flows/sec][latest 30 seconds: 42372.5 flows/sec]
+12/Jul/2019 12:54:26 [nprobe.c:3455] ElasticSearch flow drops [export queue full: 311977][post failed: 0]
+12/Jul/2019 12:54:56 [nprobe.c:3448] ElasticSearch flow exports (successful) [2655429 flows][avg: 43531.6 flows/sec][latest 30 seconds: 44940.3 flows/sec]
+12/Jul/2019 12:54:56 [nprobe.c:3455] ElasticSearch flow drops [export queue full: 560827][post failed: 0]
+12/Jul/2019 12:55:26 [nprobe.c:3448] ElasticSearch flow exports (successful) [4036654 flows][avg: 44358.8 flows/sec][latest 30 seconds: 46040.8 flows/sec]
+12/Jul/2019 12:55:26 [nprobe.c:3455] ElasticSearch flow drops [export queue full: 778416][post failed: 0]</pre>
+<p>The main advantage of the direct export to ELK instead of using intermediate tools such as LogStash is that you can do it more efficiently and without having to configure too many intermediate components. Please also note that you can obtain similar figures when using the nProbe to export flows towards Kafka using the export plugin.</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/measuring-nprobe-elasticsearch-flow-export-performance/">Measuring nProbe ElasticSearch Flow Export Performance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

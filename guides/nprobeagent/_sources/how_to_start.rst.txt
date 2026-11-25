@@ -1,0 +1,49 @@
+Run nProbe Agent as a Service
+#############################
+
+Systemd-based Systems
+---------------------
+
+The nProbe Agent service (*nprobe-agent*) is controlled using the systemctl utility on operating systems and distributions that use the systemd service manager.
+It uses a configuration file that is located at /etc/nprobe-agent/nprobe-agent.conf which is populated with some default options during installation. 
+The configuration file can be edited and extended with any configuration option supported by nProbe Agent (see *nprobe-agent -h*). Example:
+
+.. code:: text
+
+   $ cat /etc/nprobe-agent/nprobe-agent.conf
+   --zmq=tcp://127.0.0.1:1234c
+
+Please check the *Configuration File* section for further information about the configuration file format.
+A service restart is required after configuration file modifications.
+
+Start and Stop
+==============
+
+To start, stop and restart the default nProbe service type:
+
+.. code:: bash
+
+   systemctl start nprobe-agent
+   systemctl stop nprobe-agent
+   systemctl restart nprobe-agent
+
+To prevent nProbe Agent from starting on boot type:
+
+.. code:: bash
+
+   systemctl disable nprobe-agent
+
+Or to start nProbe Agent on boot, type:
+
+.. code:: bash
+
+   systemctl enable nprobe-agent
+
+To check the status of the service, including its output and PID, type:
+
+.. code:: bash
+
+   systemctl status nprobe-agent
+
+
+

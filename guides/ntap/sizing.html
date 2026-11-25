@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/ntap/sizing.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:24:41 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Performance and Hardware Sizing &mdash; nTap 1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options74a7.js?v=56dcb7b8"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developing nTap-based Applications" href="sdk.html" />
+    <link rel="prev" title="Use Cases" href="usecases.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nTap
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntap/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#architecture">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#containers-and-virtual-machines">Containers and Virtual Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#packets-vs-flows">Packets vs Flows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#security-and-performance">Security and Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usecases.html">Use Cases</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#when-shall-i-use-ntap">When shall I use nTap ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#performance-evaluation">Performance Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sdk.html">Developing nTap-based Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nTap</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Performance and Hardware Sizing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/sizing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="performance-and-hardware-sizing">
+<h1>Performance and Hardware Sizing<a class="headerlink" href="#performance-and-hardware-sizing" title="Link to this heading"></a></h1>
+<p>nTap is a stateless application that virtually needs no memory to process traffic as it does not need to store information in memory. Its performance is thus limited by:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Packet capture speed</p></li>
+<li><p>Encryption speed (unless disabled)</p></li>
+<li><p>Traffic delivery (i.e. transmission of the captured packet to destination)</p></li>
+</ul>
+</div></blockquote>
+<p>This means that memory is not a key factor and does not need to be taked into account during sizing as its usage is limited to a few MBytes (oftem less than 1 MBytes is sufficient) needed to start the applications. In order to have efficient encryption we encourgae to use CPUs with vectorial instructions (e.g. AVX) that are present on all modern CPUs but not present on some embedded SOCs.</p>
+<p>As of the CPU we then encourage you to use a modern CPU, starting from Intel i3 or Xeon E3 and up, that features all the necessary resources for efficiently running nTap.</p>
+<p>Note that the number of simultaneous application consumers on the ntap_collector side does not affect the overall performance.</p>
+</section>
+<section id="when-shall-i-use-ntap">
+<h1>When shall I use nTap ?<a class="headerlink" href="#when-shall-i-use-ntap" title="Link to this heading"></a></h1>
+<p>nTap has been designed to collect on a central location traffic coming from remote sites when a port mirror or similar techniques cannot be used. In addition nTap delivers full packets to destination meaning that it can be used to implement cybersecurity solutions or trubleshoot using Wireshark or similar applications. This said, you should not care much about performance as you can limit the number of packets you can nTap-deliver using a filtering expression on the ntap_remote side. If you have instead a lot of traffic (1 Gbit+) to analyze you should consider deploying a network probe such as nProbe instead of nTap and deliver flows rather than packets that are much smaller in size.</p>
+</section>
+<section id="performance-evaluation">
+<h1>Performance Evaluation<a class="headerlink" href="#performance-evaluation" title="Link to this heading"></a></h1>
+<p>We have evaluated the performance connecting the nTap collector and nTap remote on a LAN. Both components have been deployed on Intel boxes with low-end CPUs (Intel I3 of past generations). The remote component captured mixed-size traffic (512 bytes) on 1 Gbit link. The observed performance on the nTap remote end has been:</p>
+<ul class="simple">
+<li><p>With encryption: no loss up to 400 Mbps.</p></li>
+<li><p>Without encryption: no loss up to 450 Mbps.</p></li>
+</ul>
+<p>With real traffic (and even more with large packets) or more modern CPU you should be able to almost saturate a 1 Gbit link.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usecases.html" class="btn btn-neutral float-left" title="Use Cases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sdk.html" class="btn btn-neutral float-right" title="Developing nTap-based Applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntap/sizing.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:24:42 GMT -->
+</html>

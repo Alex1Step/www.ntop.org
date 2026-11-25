@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Guides Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/guides/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/guides/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 21 Oct 2026 09:30:39 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>Guides Archives - ntop</title>
+	<link>https://www.ntop.org/category/guides/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Export and Archive ClickHouse Flows in ntopng for Regulatory Compliance</title>
+		<link>https://www.ntop.org/export-and-archive-clickhouse-flows-in-ntopng-for-regulatory-compliance/</link>
+		
+		<dc:creator><![CDATA[Gabriele Deri]]></dc:creator>
+		<pubDate>Thu, 31 Jul 2025 07:10:42 +0000</pubDate>
+				<category><![CDATA[Data Privacy]]></category>
+		<category><![CDATA[Features]]></category>
+		<category><![CDATA[Guides]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<category><![CDATA[clickhouse]]></category>
+		<category><![CDATA[compliance]]></category>
+		<category><![CDATA[data retention]]></category>
+		<category><![CDATA[flow recording]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[ttl]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45002</guid>
+
+					<description><![CDATA[<p>Most ntopng users make extensive use of ClickHouse support for storing historical flow data and running analysis on it. ClickHouse is highly optimized and offers a high compression rate (estimated at an…</p>
+<p>The post <a href="https://www.ntop.org/export-and-archive-clickhouse-flows-in-ntopng-for-regulatory-compliance/">Export and Archive ClickHouse Flows in ntopng for Regulatory Compliance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="45002" class="elementor elementor-45002">
+				<div class="elementor-element elementor-element-b967c46 e-flex e-con-boxed e-con e-parent" data-id="b967c46" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-a68e75a elementor-widget elementor-widget-text-editor" data-id="a68e75a" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p data-start="73" data-end="368">Most ntopng users make extensive use of <strong>ClickHouse support for storing historical flow</strong> data and running analysis on it. ClickHouse is highly optimized and offers a high compression rate (estimated at an average of 60 bytes per flow), allowing for long data retention even with limited storage.</p><p data-start="370" data-end="626">However, to comply with regulations such as GDPR, SOX, HIPAA, and PCI DSS, it is often necessary to retain data for extended periods. This is manageable when flow rates are low to moderate, but can require significant disk space when flow rates are high.</p><p data-start="628" data-end="956">To support long-term data retention on limited storage, we have introduced the ability to <strong>export flow data</strong> from the database. This feature allows administrators to back up data <strong>to external long-term storage</strong> systems before it is deleted due to TTL (time to live), <strong>ensuring regulatory compliance</strong> while freeing up local disk space.</p><div><h5><b>Key Benefits</b></h5></div><ul><li><b></b><b>Regulatory Compliance</b>: Meet data retention requirements for GDPR, SOX, HIPAA, PCI DSS, and other regulations.</li><li><b></b><b>Storage Optimization</b>: Export data before TTL deletion to free up space.</li><li><b></b><b>Audit Trail</b>: Maintain historical network flow records for forensic analysis.</li><li><b></b><b>Data Recovery</b>: Re-import archived flows for compliance investigations.</li></ul><h5><b>Configuration</b></h5><p>Enabling this feature is as simple as enabling the preference from the UI. From the Left navbar in ntopng: Settings <b>→</b> Preferences (Expert View) <b>→</b> Clickhouse, and toggle the option as shown in the picture below. With this configured, at each midnight ntopng will export flow records deleted due to TTL.</p><p>By default, flows are exported to /var/lib/ntopng, one file per each day is created before deleting data from the clickhouse database due to TTL. It is possible to configure a custom export path from the configuration file or from command line by setting the <strong>&#8211;db-archive-dir &lt;path&gt; </strong>parameter.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-4e1a9ea e-flex e-con-boxed e-con e-parent" data-id="4e1a9ea" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-f08285b elementor-widget elementor-widget-image" data-id="f08285b" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img fetchpriority="high" decoding="async" width="1024" height="351" src="https://www.ntop.org/wp-content/uploads/2025/07/Screenshot-2025-07-30-at-08.31.12.png" class="attachment-large size-large wp-image-45010" alt="Export and Archive ClickHouse Flows in ntopng for Regulatory Compliance, figure 1" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-131e54d e-flex e-con-boxed e-con e-parent" data-id="131e54d" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-2e5eeae elementor-widget elementor-widget-text-editor" data-id="2e5eeae" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h5><b>Import Archived Data</b></h5><p>To restore exported flows for analysis, on a machine with clickhouse-client installed, run:<b></b></p><p><strong>clickhouse-client &#8211;query=&#8221;INSERT INTO ntopng.flows FORMAT Native&#8221; &lt; FILE_PATH</strong></p><p><span style="font-size: 16px; font-weight: 400;">After importing the archived flows using the command above, it is possible to inspect them from the UI:</span></p><ol><li>Navigate to <b>Flows </b><b>→</b><b> Historical</b> in the ntopng web interface</li><li>Select the time range of your imported data</li></ol><p>Alternatively then can be imported in any ClickHouse database and inspect them manually with clickhouse-client.</p><h5><b>Important Notes</b></h5><ul><li>Imported data contains 1 day of data with UTC timestamp begin and end, so flows for date X 00:00:00 UTC +24h are stored in a single file.</li><li>Retention rules will delete imported data at midnight if outside the TTL window.</li><li>Plan imports accordingly for compliance analysis.</li></ul><h5><b>Related Documentation</b></h5><ul><li>How to start ntopng from command line or config file <a href="https://www.ntop.org/guides/ntopng/how_to_start/index.html">ntopng Startup Configuration</a></li><li><a href="https://www.ntop.org/guides/ntopng/flow_dump/clickhouse/clickhouse.html">ClickHouse Integration Guide</a></li><li><a href="https://www.ntop.org/using-clickhouse-cloud-with-ntopng/">ClickHouse Cloud Setup</a></li><li>Storage optimization for clickhouse and ntopng <a href="https://github.com/ntop/ntopng/blob/dev/doc/README.clickhouse.md#clickhouse-is-eating-all-my-diskmemory">ClickHouse Storage Optimization</a></li></ul><h5><b>Conclusion</b></h5><p>The new ClickHouse flow export feature enhances ntopng&#8217;s Enterprise capabilities by providing automated compliance archival and storage management. Network administrators can now maintain regulatory compliance while optimizing storage resources through efficient data lifecycle management. <br /><br />Enjoy!</p>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/export-and-archive-clickhouse-flows-in-ntopng-for-regulatory-compliance/">Export and Archive ClickHouse Flows in ntopng for Regulatory Compliance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing ntopng Policy Menu</title>
+		<link>https://www.ntop.org/ntopng-update-moved-pages/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Thu, 23 Jan 2025 09:41:35 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[howto]]></category>
+		<category><![CDATA[visibility]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11539</guid>
+
+					<description><![CDATA[<p>In the past months we have extended our behaviour analysis introducing new features such as the ACL or device policies. For this reason we have rearranged the menus and create a new…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-update-moved-pages/">Introducing ntopng Policy Menu</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>In the past months we have extended our behaviour analysis introducing new features such as the ACL or device policies. For this reason we have rearranged the menus and create a new Policy menu (you can read more <a href="https://www.ntop.org/guides/ntopng/web_gui/policies.html">here</a>) that contains all the configurations used by ntopng to trigger alerts.</p>
+<p>Sue to this, some pages have been moved and changed location. Below you can find the list of the moved pages and how to access them now:</p>
+<ul>
+<li>Server Ports (Previously, <strong>Server Ports Analysis</strong>): Previously in the <strong>Host</strong> entry, moved to the <strong>Flows</strong> one;</li>
+<li>Assets (<em>New, still in dev.</em>): previously into the <strong>Host</strong> page (details), now in the <strong>Hosts </strong>entry;</li>
+<li>Networks: Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>Host/Network/MAC Pool: Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>Autonomous Systems: Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>VLANs: Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>Countries: Previously in the <strong>Hosts</strong> entry, moved to the Interface one;</li>
+<li>Operating Systems: Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>Local HTTP Servers Previously in the <strong>Hosts</strong> entry, moved to the <strong>Interface</strong> one;</li>
+<li>Access Control List: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Allowed Applications (Previously, <strong>Device Applications</strong>): Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Device/MAC Address Tracking: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Network Configuration: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Traffic Rules: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Behavioural Checks: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Behavioural Checks Exclusion: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>Traffic Profiles: Previously in the <strong>Settings</strong> entry, moved to the <strong>Policies</strong> (<em>New</em>) one;</li>
+<li>License:&nbsp;Previously in the <strong>Settings</strong> entry, moved to the <strong>About&nbsp;</strong>one;</li>
+<li>License Limits: Previously in the <strong>Settings</strong> entry, moved to the <strong>About</strong> one;</li>
+</ul>
+<p><em>Note</em>: these changes have been made only in the dev version of ntopng (that later will become the next stable).</p>
+<p>Below you can find the pictures of the new menu entries:</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115812.png"><img decoding="async" class="aligncenter size-full wp-image-11547" src="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115812.png" alt="Introducing ntopng Policy Menu, figure 1" width="321" height="111"></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2025/01/web_gui_hosts_dropdown.png"><img decoding="async" class="size-full wp-image-11541 aligncenter" src="https://www.ntop.org/wp-content/uploads/2025/01/web_gui_hosts_dropdown.png" alt="Web gui hosts dropdown" width="323" height="116"></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2025/01/web_gui_interfaces_home.png"><img loading="lazy" decoding="async" class="size-full wp-image-11542 aligncenter" src="https://www.ntop.org/wp-content/uploads/2025/01/web_gui_interfaces_home.png" alt="Web gui interfaces home" width="325" height="275"></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115508.png"><img loading="lazy" decoding="async" class="size-full wp-image-11544 aligncenter" src="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115508.png" alt="Introducing ntopng Policy Menu, figure 4" width="305" height="240"></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115342.png"><img loading="lazy" decoding="async" class="size-large wp-image-11543 aligncenter" src="https://www.ntop.org/wp-content/uploads/2025/01/Screenshot-2025-01-20-115342.png" alt="Introducing ntopng Policy Menu, figure 5" width="326" height="310"></a></p>
+<p>Enjoy!</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/ntopng-update-moved-pages/">Introducing ntopng Policy Menu</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Using Traffic Rules To Supervise Network Traffic</title>
+		<link>https://www.ntop.org/local-traffic-rules-a-new-way-to-define-custom-thresholds/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Tue, 27 Jun 2023 13:50:39 +0000</pubDate>
+				<category><![CDATA[Features]]></category>
+		<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[analytics]]></category>
+		<category><![CDATA[layer7]]></category>
+		<category><![CDATA[local hosts]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[security]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10523</guid>
+
+					<description><![CDATA[<p>The Problem Let's assume that you have a Network where local hosts generate a constant amount of traffic. How do you find if they are misbehaving? It happens that some local host…</p>
+<p>The post <a href="https://www.ntop.org/local-traffic-rules-a-new-way-to-define-custom-thresholds/">Using Traffic Rules To Supervise Network Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>The Problem</h3>
+<p>Let&#8217;s assume that you have a Network where local hosts generate a constant amount of traffic. How do you find if they are misbehaving? It happens that some local host starts behaving strangely, by having an abnormal amount of traffic (sent or received) with respect to their recent past: how can you spot these situations and report them with an alert.</p>
+<p>This is why we have created the Local Traffic Rules page: users can now define custom Volume/Throughput threshold for some (or all) local hosts. You can also set thresholds on score and application protocols 9e.g. WhatsApp).</p>
+<p>For instance, if a DNS server is available in the network, a check for that host regarding the DNS traffic could be added: alert me if the DNS traffic for a host exceeds 1 GB/day.</p>
+<h3>How Thresholds Work</h3>
+<p>The Local Traffic Rules page can be found under the Hosts menù.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/Screenshot-2023-06-26-105400.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-10579" src="https://www.ntop.org/wp-content/uploads/2023/06/Screenshot-2023-06-26-105400-246x300.png" alt="" width="246" height="300"></a></p>
+<p>Here it is possible to set up the rules you like, for every Local Host or Interface you want.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-Local-Traffic-Rules-e-altre-18-pagine-Personale-Microsoft​-Edge-19_06_2023-11_06_30.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10524 size-full" src="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-Local-Traffic-Rules-e-altre-18-pagine-Personale-Microsoft​-Edge-19_06_2023-11_06_30.png" alt="" width="1920" height="924"></a></p>
+<p>The rule is composed by:</p>
+<ul>
+<li>Target (who is monitored)</li>
+<li>Type (Host or Interface)</li>
+<li>Metric (what is monitored)</li>
+<li>Check Frequency (how often it is monitored)</li>
+<li>Threshold (the threshold not be exceeded up/own)</li>
+</ul>
+<p>(In the action column instead, it is possible to edit/delete the rule)</p>
+<p>By clicking the &#8216;+&#8217; icon next to the search bar of the table, it&#8217;s possible to add a new rule</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-2.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10528" src="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-2-300x145.png" alt="" width="643" height="311"></a></p>
+<p>Here it is possible to :</p>
+<ul>
+<li>Set the type of rule.</li>
+<li>Add the Target (what we are monitoring)</li>
+<li>Select the monitored metric: Traffic, Score, and all the Application Protocols (e.g. DNS, HTTP, SMTP, &#8230;)</li>
+<li>Set the check frequency: every five minutes, every hour, or once per day</li>
+<li>Specify the threshold, which can be measured in volume (e.g. 1 GB), throughput (e.g. 1 Gbps), or percentage (e.g. + 20%, meaning that the current value has not to exceed by more than 20% the value of the metric during the previous check).</li>
+</ul>
+<p>So now it’s time for you to monitor your Hosts and Interfaces and be sure they do not misbehave.</p>
+<p>Enjoy this new feature, and send us your feedback</p>
+<p>The post <a href="https://www.ntop.org/local-traffic-rules-a-new-way-to-define-custom-thresholds/">Using Traffic Rules To Supervise Network Traffic</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>ntopng, InfluxDB and Grafana: A Step-By-Step Guide to Create Dashboards</title>
+		<link>https://www.ntop.org/ntopng-influxdb-and-grafana-a-step-by-step-guide-to-create-dashboards/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 20 Jan 2021 17:47:50 +0000</pubDate>
+				<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=8974</guid>
+
+					<description><![CDATA[<p>Creating Grafana dashboards out of ntopng data basically boils down to: Configuring ntopng to export timeseries data to InfluxDB Configuring the Grafana InfluxDB datasource to extract timeseries data from InfluxDB Adding Grafana…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-influxdb-and-grafana-a-step-by-step-guide-to-create-dashboards/">ntopng, InfluxDB and Grafana: A Step-By-Step Guide to Create Dashboards</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Creating Grafana dashboards out of ntopng data basically boils down to:</p>
+<ul>
+<li>Configuring ntopng to export timeseries data to InfluxDB</li>
+<li>Configuring the Grafana InfluxDB datasource to extract timeseries data from InfluxDB</li>
+<li>Adding Grafana Dashboards panels with ntopng data</li>
+</ul>
+<p>This post aims at covering the topics above to serve as reference for those who want to create Grafana dashboards.</p>
+<h3>Configuring ntopng to Export Timeseries Data to InfluxDB</h3>
+<p>To <a href="https://www.ntop.org/guides/ntopng/basic_concepts/timeseries.html#influxdb-driver">configure ntopng to export timeseries data to InfluxDB</a>, visit the ntopng Timeseries preferences page, and pick InfluxDB as driver. Then, it suffices to configure InfluxDB connection parameters. Once preferences are saved, ntopng will start exporting timeseries data to InfluxDB.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/01/01-grafana-dashboards-ntopng-influxdb-configuration.png"><img loading="lazy" decoding="async" class="size-large wp-image-8983 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/01/01-grafana-dashboards-ntopng-influxdb-configuration-1024x633.png" alt="ntopng, InfluxDB and Grafana, figure 1" width="1024" height="633" /></a></p>
+<h3>Configuring the Grafana InfluxDB Datasource</h3>
+<p>The same InfluxDB connection parameters specified above to configure ntopng can be used also to create a Grafana InfluxDB datasource. To create the datasource, pick the Datasources entry under the Grafana configuration menu, and add a new datasource of type InfluxDB. Then, it is enough to specify InfluxDB connection parameters.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/01/02-grafana-dashboards-grafana-influxdb-datasource.png"><img loading="lazy" decoding="async" class="size-large wp-image-8982 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/01/02-grafana-dashboards-grafana-influxdb-datasource-1024x482.png" alt="ntopng, InfluxDB and Grafana, figure 2" width="1024" height="482" /></a></p>
+<p>Clicking on &#8220;Save &amp; Test&#8221; will automatically test the connection and save it.</p>
+<p><span style="color: #ff0000;"><strong>NOTE</strong></span>: The <a href="https://grafana.com/grafana/plugins/ntop-ntopng-datasource">Grafana ntopng plugin datasource</a> is outdated and should not be used.</p>
+<h3>Adding Grafana Dashboards panels with ntopng data</h3>
+<p>Now that Grafana is properly set up to extract timeseries data from InfluxDB, new panels with ntopng timeseries data can be added to dashboard panels.</p>
+<p>Timeseries data are added to panels using the Grafana query builder. The query builder helps constructing the classical SELECT-FROM-WHERE clauses to pick the right data.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/01/03-grafana-dashboards-query-builder.png"><img loading="lazy" decoding="async" class="size-full wp-image-8981 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/01/03-grafana-dashboards-query-builder.png" alt="ntopng, InfluxDB and Grafana, figure 3" width="603" height="322" /></a></p>
+<p>Different queries need to be constructed, depending on whether a <em>gauge</em> or a <em>counter</em> is being charted. Gauges and counters are the two types of timeseries exported by ntopng:</p>
+<ul>
+<li><strong>Gauge</strong> are for things like the number of active flows, or active hosts</li>
+<li><strong>Counters</strong> are for continuous incrementing values such as bytes sent and received</li>
+</ul>
+<h4>Gauges</h4>
+<p>Likely, to chart a gauge, a query will have to take the <code class="EnlighterJSRAW" data-enlighter-language="generic">non_negative_derivative</code>. Indeed, continuous incrementing values are only meaningful when derived, that is, when compared with their adjacent values. For the sake of example, a gauge panel with interface traffic can be created as follows.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/01/04-grafana-dashboards-interface-traffic.png"><img loading="lazy" decoding="async" class="size-large wp-image-8980 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/01/04-grafana-dashboards-interface-traffic-1024x512.png" alt="ntopng, InfluxDB and Grafana, figure 4" width="1024" height="512" /></a></p>
+<h4>Counters</h4>
+<p>To chart counters, there is no need to take the derivative. Data can be taken as-is. For example, one can create a panel with the number of active flows for an interface as follows.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/01/05-grafana-dashboards-active-flows.png"><img loading="lazy" decoding="async" class="size-large wp-image-8979 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/01/05-grafana-dashboards-active-flows-1024x543.png" alt="ntopng, InfluxDB and Grafana, figure 5" width="1024" height="543" /></a></p>
+<h3>A Complete Dashboard</h3>
+<p>A complete yet basic dashboard can look like the following.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/01/06-grafana-dashboards-dashboard.png"><img loading="lazy" decoding="async" class="size-large wp-image-8978 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/01/06-grafana-dashboards-dashboard-1024x320.png" alt="ntopng, InfluxDB and Grafana, figure 6" width="1024" height="320" /></a></p>
+<p>The dashboard can be downloaded in JSON format from this <a href="https://www.ntop.org/wp-content/uploads/2021/01/ntopng-network-status-1610353258726.json_.zip">link</a>.</p>
+<p>Enjoy !</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/ntopng-influxdb-and-grafana-a-step-by-step-guide-to-create-dashboards/">ntopng, InfluxDB and Grafana: A Step-By-Step Guide to Create Dashboards</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Best Practices for the Collection of Flows with ntopng and nProbe</title>
+		<link>https://www.ntop.org/best-practices-for-the-collection-of-flows-with-ntopng-and-nprobe/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 20 Sep 2018 16:00:30 +0000</pubDate>
+				<category><![CDATA[Guides]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=6998</guid>
+
+					<description><![CDATA[<p>ntopng can be used to visualize traffic data that has been generated or collected by nProbe. Using ntopng with nProbe is convenient in several scenarios, including: The visualization of NetFlow/sFlow data originated…</p>
+<p>The post <a href="https://www.ntop.org/best-practices-for-the-collection-of-flows-with-ntopng-and-nprobe/">Best Practices for the Collection of Flows with ntopng and nProbe</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>ntopng can be used to visualize traffic data that has been generated or collected by nProbe. Using ntopng with nProbe is convenient in several scenarios, including:</p>
+<ul>
+<li><em>The visualization of NetFlow/sFlow data originated by routers, switches, and network devices in general</em>. In this scenario, nProbe collects and parse NetFlow/sFlow traffic from the devices, and send the resulting flows to ntopng for the visualization.</li>
+<li><em>The monitoring of physical network interfaces that are attached to remote systems</em>. In this scenario, ntopng cannot directly monitor network interfaces nor it can see their packets. One or multiple nProbe can be used to capture remote network interfaces traffic and send the resulting flows towards a central ntopng for the analysis and visualization.</li>
+</ul>
+<p>The following picture summarizes the two scenarios highlighted above and demonstrates that they can also be combined together.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/09/using_nprobe_with_ntopng.png"><img loading="lazy" decoding="async" class="size-full wp-image-6999 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/09/using_nprobe_with_ntopng.png" alt="" width="450" height="221" /></a></p>
+<p>This post complements the extensive documentation already available at https://www.ntop.org/guides/ntopng/case_study/using_with_nprobe.html and wants to serve as a <em>quick memorandum</em> to effectively deploy ntopng and nProbe for the collection of flows.</p>
+<p>&nbsp;</p>
+<h2>Multiple nProbe to One ntopng</h2>
+<p>Collecting flows from multiple nProbe using a single ntopng can be useful to have a single place that is in charge of visualizing and archiving traffic data.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2014/06/nprobe_ntopng_hierarchy.png"><img loading="lazy" decoding="async" class="size-full wp-image-3111 aligncenter" src="https://www.ntop.org/wp-content/uploads/2014/06/nprobe_ntopng_hierarchy.png" alt="" width="464" height="300" /></a></p>
+<p>To collect flows from multiple nProbe, ntopng has to be started with an extra <code class="EnlighterJSRAW" data-enlighter-language="shell">c</code> (that sands for <em>collector</em>) at the end of the ZMQ endpoint, whereas every nProbe needs option <code class="EnlighterJSRAW" data-enlighter-language="shell">--zmq-probe-mode</code>. In this configuration, the nProbes initiate the connection towards ntopng that acts as a server, and not the vice versa. Therefore, you must ensure ntopng is listening on the ANY address (that is, the wildcard <code class="EnlighterJSRAW" data-enlighter-language="shell">*</code> in the ZMQ endpoint address) or on another address that is reachable by the various nProbe.</p>
+<p>An example of such configuration is the following</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">ntopng -i tcp://*:5556c
+nprobe --zmq "tcp://&lt;ip address of ntopng&gt;:5556" --zmq-probe-mode -i eth1 -n none -T "@NTOPNG@"
+nprobe --zmq "tcp://&lt;ip address of ntopng&gt;:5556" --zmq-probe-mode -i none -n none --collector-port 2055 -T "@NTOPNG@"
+nprobe --zmq "tcp://&lt;ip address of ntopng&gt;:5556" --zmq-probe-mode -i none -n none --collector-port 6343 -T "@NTOPNG@"</pre>
+<p>&nbsp;</p>
+<h2>NAT</h2>
+<p>IP reachability of nProbe and ntopng cannot always be taken for granted. Sometimes, it could be necessary for an ntopng to collect flows from an nProbe in a separate network, possibly behind a NAT or even shielded with a firewall. Similarly, it could be necessary for an ntopng behind a NAT to collect flows from an nProbe in another network. Luckily, to handle these scenarios, ntopng (and nProbe) can be configured to act as either the client or the server of the JSON-Over-ZMQ communication, interchangeably. <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;">This avoids the insertion of lengthy, time-consuming, and possibly insecure rules in network devices, as it is enough to ensure the client can reach the server, while NATs will automatically handle the returning server-to-client part of the communication.</span></p>
+<p>When both nProbe and ntopng are on the same network, or when ntopng is in another network but can reach nProbe, the following configuration should be used</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/PollMode.jpg"><img loading="lazy" decoding="async" class="size-full wp-image-4657 aligncenter" src="https://www.ntop.org/wp-content/uploads/2016/03/PollMode.jpg" alt="" width="460" height="53" /></a></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">ntopng -i tcp://&lt;ip address of nProbe&gt;:5556
+nprobe --zmq "tcp://*:5556" -i eth1 -n none -T "@NTOPNG@"</pre>
+<p>When ntopng cannot reach nProbe, but nProbe can reach ntopng the configuration that should be used is</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/PushMode.jpg"><img loading="lazy" decoding="async" class="size-full wp-image-4658 aligncenter" src="https://www.ntop.org/wp-content/uploads/2016/03/PushMode.jpg" alt="" width="460" height="106" /></a></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">ntopng -i tcp://*:5556c
+nprobe --zmq "tcp://&lt;ip address of ntopng&gt;:5556" --zmq-probe-mode -i eth1 -n none -T "@NTOPNG@"</pre>
+<p>Note that changing the client/server roles of ntopng and nProbe does not affect the subsequent flow collection so both configurations can be used interchangeably.</p>
+<p>&nbsp;</p>
+<h2>Templates</h2>
+<p>The set of flow fields that are sent from nProbe to ntopng is controlled using option <code class="EnlighterJSRAW" data-enlighter-language="shell">-T</code>. All fields listed there will be sent to ntopng. The macro <code class="EnlighterJSRAW" data-enlighter-language="shell">@NTOPNG@</code> is be used as an alias for a minimum set of fields necessary for ntopng to operate correctly. The macro can be combined with additional fields as shown in this example</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">nprobe --zmq "tcp://*:5556" -i eth1 -n none -T "@NTOPNG@ %IN_SRC_MAC %OUT_DST_MAC"</pre>
+<h2></h2>
+<h2>Symmetric-Key Encryption</h2>
+<p>A symmetric key can be used to encrypt the stream of flows that go from nProbe to ntopng. The key needs to be specified both at ntopng and nProbe using option <code class="EnlighterJSRAW" data-enlighter-language="shell">--zmq-encrypt-pwd</code></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">ntopng -i "tcp://127.0.0.1:1234" --zmq-encrypt-pwd myencryptionkey
+nprobe -i eth0 -n none --zmq "tcp://127.0.0.1:1234" --zmq-encrypt-pwd myencryptionkey</pre>
+<h2></h2>
+<h2>Data Compression</h2>
+<p>The stream of flows is automatically compressed by nProbe before being sent to ntopng. For debugging purposes, it may be useful to turn off compression. Compression can be turned off using option <code class="EnlighterJSRAW" data-enlighter-language="shell">--zmq-disable-compression</code></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">nprobe -i eth0 -n none --zmq "tcp://127.0.0.1:1234" --zmq-disable-compression</pre>
+<h2></h2>
+<h2>Data Buffering</h2>
+<p>To optimize performance at high speeds, nProbe automatically buffers multiple flows into a single message. This makes it possible to achieve higher throughputs at the expense of a slightly higher latency and larger messages traveling on the network. Disabling buffering may be a good choice in low speed environments. Buffering can be disabled using option <code class="EnlighterJSRAW" data-enlighter-language="shell">--zmq-disable-buffering</code></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">nprobe -i eth0 -n none --zmq "tcp://127.0.0.1:1234" --zmq-disable-buffering</pre>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/best-practices-for-the-collection-of-flows-with-ntopng-and-nprobe/">Best Practices for the Collection of Flows with ntopng and nProbe</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>PF_RING and Network Namespaces</title>
+		<link>https://www.ntop.org/pf_ring-and-network-namespaces/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Wed, 13 Dec 2017 15:57:43 +0000</pubDate>
+				<category><![CDATA[Guides]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5975</guid>
+
+					<description><![CDATA[<p>Last week we made a couple of presentations at LinuxLab 2017 where we spoke about Containers, focusing on Network Namespaces support in PF_RING, and User and IoT-oriented Network Traffic Monitoring on Embedded…</p>
+<p>The post <a href="https://www.ntop.org/pf_ring-and-network-namespaces/">PF_RING and Network Namespaces</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Last week we made a couple of presentations at <a href="https://2017.linux-lab.it">LinuxLab 2017 </a>where we spoke about Containers, focusing on Network Namespaces support in PF_RING, and User and IoT-oriented Network Traffic Monitoring on Embedded Devices.</p>
+<p>With the advent of Containers, processes isolation has become extremely easy and effective, to the point that ordinary Virtual Machines have been reconsidered. Many ntop users today are running traffic monitoring applications in Docker, thus it&#8217;s important to understand how Containers work and how to make the best use of them. Network isolation is provided by Network Namespaces, a native feature of the Linux kernel, that virtualize the network stack. With this talk we have seen what exactly happens under the hood of Network Namespaces, focusing on raw packet capture, and we learnt that even when we are not running containers in Linux, we are running in a Namespace.</p>
+<p>Those who have not been able to attend this event can find our presentation slides below.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2017/12/PF_RING_and_Network_Namespaces.pdf">PF_RING_and_Network_Namespaces</a></p>
+<p>The post <a href="https://www.ntop.org/pf_ring-and-network-namespaces/">PF_RING and Network Namespaces</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>When Live is not Enough: Connecting ntopng and nProbe via MySQL for Historical Flows Exploration</title>
+		<link>https://www.ntop.org/when-live-is-not-enough-connecting-ntopng-and-nprobe-via-mysql-for-historical-flows-exploration/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 14 Aug 2017 17:19:55 +0000</pubDate>
+				<category><![CDATA[Guides]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5735</guid>
+
+					<description><![CDATA[<p>Using nProbe in combination with ntopng is a common practice. The benefits of this combination are manyfold and include: A complete decoupling of monitoring activities (taking place on the nProbe) from visualization…</p>
+<p>The post <a href="https://www.ntop.org/when-live-is-not-enough-connecting-ntopng-and-nprobe-via-mysql-for-historical-flows-exploration/">When Live is not Enough: Connecting ntopng and nProbe via MySQL for Historical Flows Exploration</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Using nProbe in combination with ntopng is a common practice. The benefits of this combination are manyfold and include:</p>
+<ul>
+<li>A complete decoupling of monitoring activities (taking place on the nProbe) from visualization tasks (taking place on ntopng);</li>
+<li>The capability of building distributed deployments where multiple (remote) nProbe instances send monitored data towards one or more ntopng instances for visualization;</li>
+<li>A comprehensive support for the collection, harmonization and visualization of heterogeneous flow export protocols and technologies, including NetFlow V5/v9/V10 IPFIX and sFlow;</li>
+<li>Full support for any proprietary technology that sends custom fields over NetFlow V5/v9/V10 with visualization of data;</li>
+<li>Harmonization of diverse physical network interfaces and flow export protocols and technologies into a single, clear, JSON format sent over ZMQ to ntopng.</li>
+</ul>
+<p>ntopng and nProbe communicate each other via a publish-subscribe mechanism implemented over <a href="http://zeromq.org/">ZMQ</a>. Exchanged data contains both interface updates (e.g., the number of bytes and packets monitored) as well as network flows, obtained by monitoring physical interfaces (NIC cards) or by processing flow export technologies such as NetFlow.</p>
+<p>Since flows sent over ZMQ are only those that active or recently expired, one has to store and archive them systematically for later accesses and analyses. Presently, ntopng offer rich historical flow exploration features when it is instructed to archive flows to MySQL (see <a href="https://www.ntop.org/ntopng/exploring-historical-data-using-ntopng/">part 1</a> and <a href="https://www.ntop.org/ntopng/exploring-historical-data-using-ntopng-part-2/">part 2</a> of the tutorial &#8220;Exploring Historical Data Using ntopng&#8221;). However, there are cases where MySQL flow export must be done directly on nProbe. Such cases include, but are not limited to:</p>
+<ul>
+<li>The capability of creating a database column for each nProbe template field &#8212; ntopng creates a fixed set of database columns;</li>
+<li>A MySQL database that is closer or more effectively reached from nProbe rather than from ntopng;</li>
+<li>A low-end ntopng device that couldn&#8217;t deal with massive/batched database insertions.</li>
+</ul>
+<p>In the cases above, it is still desirable to have full access to the ntopng historical flow exploration features. Therefore ntopng must work seamlessly even when operating on top of a database created and used by nProbe for flow export.</p>
+<p>Fortunately, this interoperability is accomplished transparently by mean of database table views. Just a couple of things are required. The first thing is to instruct ntopng to connect to the nprobe database using a special <code class="EnlighterJSRAW" data-enlighter-language="shell">mysql-nprobe</code> prefix in the -F option. The second thing is to ensure nProbe will create a minimum set of database columns as required by ntopng by specifying the macro <code class="EnlighterJSRAW" data-enlighter-language="shell">@NTOPNG@</code> inside nProbe template. This macro will expand to the following set of fields:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">%L7_PROTO %IPV4_SRC_ADDR %IPV4_DST_ADDR %L4_SRC_PORT %L4_DST_PORT %IPV6_SRC_ADDR %IPV6_DST_ADDR %IP_PROTOCOL_VERSION %PROTOCOL %IN_BYTES %IN_PKTS %OUT_BYTES %OUT_PKTS %FIRST_SWITCHED %LAST_SWITCHED %SRC_VLAN</pre>
+<p>Following is a working example that illustrates ntopng and nProbe configurations. Clearly, database connection parameters (host, user and password, schema name, and table name) must be the same on both sides.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">./nprobe -i eno1 -T "@NTOPNG@" --mysql="localhost:ntopng:nf:root:root" --zmq tcp://127.0.0.1:5556 --zmq-probe-mode
+./ntopng -i tcp://*:5556c -F "mysql-nprobe;localhost;ntopng;nf;root;root"</pre>
+<p>Note that when ntopng operates in this mode, it won&#8217;t export flows (no one want the same flows stored twice in the database). It will just visualize them.</p>
+<p>Happy flow hunting!</p>
+<p>The post <a href="https://www.ntop.org/when-live-is-not-enough-connecting-ntopng-and-nprobe-via-mysql-for-historical-flows-exploration/">When Live is not Enough: Connecting ntopng and nProbe via MySQL for Historical Flows Exploration</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Filling the Pipe: Exporting ntopng Flows to Logstash</title>
+		<link>https://www.ntop.org/filling-the-pipe-exporting-ntopng-flows-to-logstash/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 03 Apr 2017 22:42:20 +0000</pubDate>
+				<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[logstash]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5323</guid>
+
+					<description><![CDATA[<p>Logstash comes in very handy when it is necessary to manipulate or augment data before the actual consolidation. Typical examples of augmentation include IP address to customer ID mappings and geolocation, just…</p>
+<p>The post <a href="https://www.ntop.org/filling-the-pipe-exporting-ntopng-flows-to-logstash/">Filling the Pipe: Exporting ntopng Flows to Logstash</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Logstash comes in very handy when it is necessary to manipulate or augment data before the actual consolidation. Typical examples of augmentation include IP address to customer ID mappings and geolocation, just to name a few.</p>
+<p>ntopng natively supports network flows export to Logstash. The following video tutorial demonstrates this feature.<br />
+<iframe src="https://www.youtube.com/embed/tluAUEeqkCk" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>
+<p>The post <a href="https://www.ntop.org/filling-the-pipe-exporting-ntopng-flows-to-logstash/">Filling the Pipe: Exporting ntopng Flows to Logstash</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Best Practices for Efficiently Running ntopng</title>
+		<link>https://www.ntop.org/best-practices-for-running-ntopng/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 01 Jul 2016 09:32:35 +0000</pubDate>
+				<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5019</guid>
+
+					<description><![CDATA[<p>The default ntopng configuration, is suitable for most of our users who deploy it on a home network or small enterprise network (typically a /24 network) with link speed <= 100 Mbit.…
+</p>
+<p>The post <a href="https://www.ntop.org/best-practices-for-running-ntopng/">Best Practices for Efficiently Running ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>The default ntopng configuration, is suitable for most of our users who deploy it on a home network or small enterprise network (typically a /24 network) with link speed &lt;= 100 Mbit. This does NOT mean that ntopng cannot operate on faster/larger networks, but that it cannot be used without any configuration.</p>
+<p>The first thing to modify are the -x/-X settings. You need to set them to double the max size you expect on your network. Example if you expect to have (including both local and remote hosts) at most 35000 active hosts, you need to set -x at no less than 70000. Better to have a larger value than a smaller one: small values mean that you will not be able to see all hosts, and also the performance will be poor as ntopng was not tuned properly. Larger values require ntopng to use more memory, but if you have plenty of RAM it is not a good argument to use extremely large values (e.g. -x  1000000 in the previous example) as you will waste resources for no reason.</p>
+<p>Another parameter to setup is -m that specifies the list of local networks. Please make sure you set the real networks you plan to use. Some users are lazy and set it to 0.0.0.0/0: this is not a good idea as ntopng will save stats for all the hosts and thus you will exhaust disk space quickly.</p>
+<p>Flow persistency is setup via -F. When flows are saved to MySQL or ElasticSearch, ntopng has to do extra work, and if the database is not fast enough this will introduce a bottleneck. Please pay attention to optimising this aspect in particular if the DB runs on the same ntopng box, where resources are shared.</p>
+<p>Packet capture in ntopng has been designed to be as efficient as possible. We decided to have one processing thread per interface configured in ntopng.  Depending on a) the CPU power b) number of hosts/flows, and c) packet capture technology, the number of packets-per-second ntopng can process can change. On a x86 server with PF_RING (non ZC) you can expect to process about 1 Mpps/interface, with PF_RING ZC at least 2/3 Mpps/interface (usually much more but typically not more than 5 Mpps). This means than if you want to monitor a 10 Gbit interface (or even worse a 40 Gbit), you need:</p>
+<ul>
+<li>Use PF_RING ZC to accelerate packet capture.</li>
+<li>Use RSS to virtualise the NIC in virtual queues. For instance you can set RSS=4 to virtualise the 10 Gbit interface into 4 virtual 10G interfaces.</li>
+<li>You need to start ntopng polling packets from all virtual interfaces.</li>
+</ul>
+<p>Example suppose you have a 10/40 Gbit interface named eth1, and suppose to use RSS=4 with PF_RING ZC. Then you need to start ntopng as ntopng -i zc:eth1@0  -i zc:eth1@1  -i zc:eth1@2  -i zc:eth1@3</p>
+<p>Note that in this case ntopng will try to bind threads on different cores, but as computer architectures can change based on use of NUMA and differences on CPUs, we advise to set -g to the exact cores where you want to bind each interface polling thread. Make sure (only on multi-CPU systems) you use physical cores on the same NUMA node where the network interface has been plugged in. Of course you can use interface views (see the <a href="https://www.ntop.org/guides/ntopng/">User&#8217;s Guide</a>) to merge all the virtual interfaces into a single interface (please understand that if you have million of hosts this might become a bottleneck).</p>
+<p>Hope this post will help you to optimise ntopng. If you have questions and suggestions, let&#8217;s start a discussion on <a href="https://github.com/ntop/ntopng/issues">github</a>.</p>
+<p>The post <a href="https://www.ntop.org/best-practices-for-running-ntopng/">Best Practices for Efficiently Running ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Tweaking MySQL to Improve ntopng Flows Storage Space Usage</title>
+		<link>https://www.ntop.org/tweaking-mysql-to-improve-ntopng-flows-storage-space-usage/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 20 Jun 2016 22:53:33 +0000</pubDate>
+				<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=4909</guid>
+
+					<description><![CDATA[<p>Edit: MySQL tables engine has been migrated to MyISAM in ntopng 2.4 so this post only applies for versions <= 2.3. This is the first post that tries to give hints on…
+</p>
+<p>The post <a href="https://www.ntop.org/tweaking-mysql-to-improve-ntopng-flows-storage-space-usage/">Tweaking MySQL to Improve ntopng Flows Storage Space Usage</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><strong>Edit: MySQL tables engine has been migrated to MyISAM in ntopng 2.4 so this post only applies for versions &lt;= 2.3.</strong></p>
+<p>This is the first post that tries to give hints on how to tweak MySQL settings to better accomodate flows exported by ntopng. In particular, in this post it is discussed how to improve disk space usage. Hopefully, a series of posts with tips and tricks on how to improve responsiveness and reduce query time will be published in the future.</p>
+<p>ntopng  MySQL flow export can be enabled using the <code>-F</code> command line option. Once enabled, it is possible to chose, from the web UI preferences panel, the number of days exported flows will be retained in MySQL. By default this value is set to 30 days. Users may chose to adjust this setting on the basis of their disk space availability and quantity of exported flows.</p>
+<p>However, if MySQL is not configured properly, disk space usage may grow indefinitely even if old flows are constantly deleted. Indeed, flow deletion does not yield automatic disk space release, neither it ensures that newly arriving flows will take the place of the older, deleted flows.</p>
+<p>&nbsp;</p>
+<h3>innodb_file_per_table</h3>
+<p>To make sure disk space can be reclaimed and that new flows will take the place of deleted flows, <code>innodb_file_per_table</code> must be enabled.</p>
+<p>To check whether <code>innodb_file_per_table</code> is enabled one can run the following command in a mysql shell</p>
+<pre>mysql&gt; show variables like "innodb_file_per_table";
++-----------------------+-------+
+| Variable_name         | Value |
++-----------------------+-------+
+| innodb_file_per_table |  ON   |
++-----------------------+-------+
+1 row in set (0.00 sec)</pre>
+<p>Please note that enabling <code>innodb_file_per_table</code> will not have effect on the already existing tables. Existing tables will need to be re-created using <code>ALTER TABLE &lt;table_name&gt; ENGINE=InnoDB</code>.</p>
+<p><code>innodb_file_per_table</code> is enabled by default on MySQL server &gt;= 5.6.</p>
+<p>&nbsp;</p>
+<h3>Reclaiming Disk Space</h3>
+<p>Disk space can be reclaimed &#8212; provided that <code>innodb_file_per_table</code> is enabled &#8212; by running <code>OPTIMIZE TABLE</code> on the tables used by ntopng, namely, <code>flowsv4</code> and <code>flowsv6</code>. <code>OPTIMIZE TABLE</code> will create, for each table it is run on, a new identical empty table. Then it will copy, row by row, data from the old table to the new one. In this process a new <code>.ibd</code> tablespace is created and the space is reclaimed. Optimizing the table is costly both in terms of time (a new table is created out of the old one) and in term of space usage (the new table needs to be fully created before the old one can be deleted). Therefore, optimizing a table is something that should be planned by &#8212; and agreed with &#8212; the DBA.</p>
+<p>&nbsp;</p>
+<h3>Reusing Disk Space</h3>
+<p>Disk space occupied by deleted flows is re-used automatically by newely arriving flows if using <code>innodb_file_per_table</code>. However, it should be noted that this may lead to fragmentation issues. Running an <code>OPTIMIZE TABLE</code> periodically will re-pack the flows in the most efficient way.</p>
+<p>&nbsp;</p>
+<h3>Closing Remarks</h3>
+<p>To improve ntopng flows MySQL space usage it is strongly recommended to enable <code>innodb_file_per_table</code>. However, even though new records will take the place of the deleted ones, it should be noted that disk space is not reclaimed automatically. This means that, for example, in an environment with an average of 1 million flows dumped to MySQL every week, setting a 7-days retention period will yield an approximately constant MySQL disk space usage &#8212; that is, the space required to accomodate 1 million flows. If, however, 2 million flows will be generated in a particular week, then the space will grow and will not be reclaimed automatically. From that point on, disk space usage will be large enough to accomodate 2 million flows even if an average of 1 million flows will be received in future weeks. Reclaiming disk space requires an <code>OPTIMIZE TABLE</code> on tables <code>flowsv4</code> and <code>flowvs6</code>.</p>
+<p>The post <a href="https://www.ntop.org/tweaking-mysql-to-improve-ntopng-flows-storage-space-usage/">Tweaking MySQL to Improve ntopng Flows Storage Space Usage</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How to Analyse MikroTik Traffic Using ntopng</title>
+		<link>https://www.ntop.org/how-to-analyse-mikrotik-traffic-using-ntopng/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sat, 21 May 2016 08:08:01 +0000</pubDate>
+				<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=4787</guid>
+
+					<description><![CDATA[<p>MikroTik routers are pretty popular in particular in the wireless community and many users of the original ntop are familiar with it. With the advent of ntopng, we have decided to avoid…</p>
+<p>The post <a href="https://www.ntop.org/how-to-analyse-mikrotik-traffic-using-ntopng/">How to Analyse MikroTik Traffic Using ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><a href="http://www.mikrotik.com">MikroTik</a> routers are pretty popular in particular in the wireless community and many users of the <a href="http://wiki.mikrotik.com/wiki/Manual:IP/Traffic_Flow">original ntop are familiar with it</a>. With the advent of ntopng, we have decided to <a href="https://www.ntop.org/nprobe/why-nprobejsonzmq-instead-of-native-sflownetflow-support-in-ntopng/">avoid natively supporting netflow in ntopng</a> due to the many &#8220;dialects&#8221; a of the protocol and leave to nProbe the task to do the conversion of flows onto something ntopng can understand. For this reason the workflow is the one depicted below:</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/05/Mikrotik.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-4791" src="https://www.ntop.org/wp-content/uploads/2016/05/Mikrotik.jpg" alt="Mikrotik" width="478" height="79" /></a></p>
+<p>The first thing to do is to configure NetFlow (both v5 and v9 are used) on the MikroTik that cane done from the command line or from the GUI. Suppose that both nProbe and ntopng are running on the same PC active at 192.168.8.20 and suppose that nProbe collect flows at port 2055. The configuration to use is</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/05/SBTIM@TM3NCS2X5R_@K.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-4792" src="https://www.ntop.org/wp-content/uploads/2016/05/SBTIM@TM3NCS2X5R_@K.jpg" alt="SBTIM@T~M3`$NCS2X5R{_@K" width="420" height="422" /></a></p>
+<p>or if configured from the command line</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">/ip traffic-flow
+set active-flow-timeout=1m enabled=yes
+/ip traffic-flow target
+add dst-address=192.168.8.20 port=2055 v9-template-timeout=1m
+</pre>
+<p>that should be reported as</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">[admin@MikroTik] &gt; /ip traffic-flow print
+              enabled: yes
+           interfaces: all
+        cache-entries: 64k
+  active-flow-timeout: 1m
+inactive-flow-timeout: 15s
+[admin@MikroTik] &gt; /ip traffic-flow target print detail
+Flags: X - disabled
+ 0   src-address=0.0.0.0 dst-address=192.168.8.20 port=2055 version=9
+     v9-template-refresh=20 v9-template-timeout=1m</pre>
+<p>In all cases you should add</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">
+/interface bridge settings set use-ip-firewall=yes
+</pre>
+<p>to tell your Mikrotik to analyse all traffic passing through the device.</p>
+<p>At this point you need to start nProbe and ntopng on 192.168.8.20 as follows</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">nprobe -i none -n none -3 2055 --zmq tcp://127.0.0.1:1234
+ntopng -i tcp://127.0.0.1:1234</pre>
+<p>nProbe will receive flows, convert them to ZMQ/JSON and send them to ntopng running on the same host. You can now access the ntopng GUI as http://192.168.8.20:3000 and see incoming flows.</p>
+<p>Note that if you collect NetFlow:</p>
+<ul>
+<li>Flows are emitted periodically (in the example above the flow are cut at 1 min max duration, and 15 sec idle timeout).</li>
+<li>As traffic ingress is not constant as with packets (flows are received periodically) the network throughput at the end of the ntopng page is not smooth as it could be when capturing packets from a physical interface.</li>
+</ul>
+<p>We remind you that nProbe requires a license (you can use the community edition of ntopng or the professional) that you can find on our shop, but if you belong to education or no-profit <a href="https://www.ntop.org/support/need-help/faq/">we give them for free</a>.</p>
+<p>&nbsp;</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/how-to-analyse-mikrotik-traffic-using-ntopng/">How to Analyse MikroTik Traffic Using ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Exploring Historical Data Using ntopng: Part 2</title>
+		<link>https://www.ntop.org/exploring-historical-data-using-ntopng-part-2/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 01 Mar 2016 14:00:52 +0000</pubDate>
+				<category><![CDATA[Features]]></category>
+		<category><![CDATA[Guides]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=4584</guid>
+
+					<description><![CDATA[<p>ntopng is able to deliver monitored traffic flows data to a MySQL server. We have already discussed how to configure ntopng to deliver this data in another blog post. In this article…</p>
+<p>The post <a href="https://www.ntop.org/exploring-historical-data-using-ntopng-part-2/">Exploring Historical Data Using ntopng: Part 2</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>ntopng is able to deliver monitored traffic flows data to a MySQL server. We have already discussed how to configure ntopng to deliver this data in another <a href="https://www.ntop.org/ntopng/exploring-historical-data-using-ntopng/">blog post</a>.</p>
+<p>In this article we discuss the new features that allow you to dig deep into the flows dumped to MySQL using the ntopng web GUI. Earlier ntopng releases didn&#8217;t allow for thorough historical analyses and were only giving access to recorded flows and providing limited sorting features.<br />
+With the advances made in the latest ntopng Pro Small Business it is possible to drill-down historical flows and obtain, among other things:</p>
+<ul>
+<li>Talkers
+<ul>
+<li>Historical IPv4 and IPv6 talkers;</li>
+<li>The peers list of each talker, together with the amount of traffic exchanged with any peer;</li>
+<li>The application protocols (layer 7) traffic exchanged between a talker and any of its peers.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Layer-7 Application Protocols
+<ul>
+<li>Historical layer-7 application protocols;</li>
+<li>The talkers list of each application protocol, together with the amount of traffic that involves each talker;</li>
+<li>The peers list that exchanged traffic with a talker using any given application protocol.</li>
+</ul>
+</li>
+</ul>
+<p>All the information pointed out above can be sorted using multiple criteria such as traffic exchanged, number of packets and number of flows. Moreover, the search criteria generated automatically while drilling-down the data can be saved and re-used directly in the future.</p>
+<p>Additionally, it is possible to download raw flows or even pcap files matching the search criteria. Pcap files can be downloaded if an nBox with <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a> has been configured via ntopng preferences.</p>
+<p>In the remainder of this post we show how to use the ntopng web GUI to dig deep into the recorded flows.<br />
+Drill-down features will only be available if ntopng was started with a properly configured MySQL database specified via the -F modifier. We refer the reader to <a href="https://www.ntop.org/ntopng/exploring-historical-data-using-ntopng/">this post</a> for a detailed explanation.<br />
+Assuming ntopng has been properly started and instructed to export monitored flow data to MySQL, extra tabs will become available in the historical page of both interfaces and local hosts.</p>
+<p>&nbsp;</p>
+<h3>Chart Tab</h3>
+<p>The historical page shows in its default tab a chart of the data. The chart is clickable and zoomable to go back in time and select a time-span of interest.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/01-n-historical-chart.png" rel="attachment wp-att-4616"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-4616" src="https://www.ntop.org/wp-content/uploads/2016/03/01-n-historical-chart-1024x475.png" alt="01-n-historical-chart" width="1024" height="475" /></a></p>
+<p>&nbsp;</p>
+<h3>IPv4 and IPv6 Flows Tab</h3>
+<p>On the right of the Chart tab there are four additional tabs. The first two visualize monitored flows in the selected time-span. If no IPv4 (IPv6) flows are present in the observation period, then the corresponding tab will be automatically hidden. And handy download button is available to fetch a pipe-separated txt file with all the flows.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/02-n-browse-download-ipv4-flows.png" rel="attachment wp-att-4629"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-4629" src="https://www.ntop.org/wp-content/uploads/2016/03/02-n-browse-download-ipv4-flows-1024x425.png" alt="02-n-browse-download-ipv4-flows" width="1024" height="425" /></a></p>
+<h5></h5>
+<h5></h5>
+<h3>Talkers Tab</h3>
+<p>As soon as the Talkers tab is selected, a dynamic table with the talkers of the selected time-span is automatically loaded. By default, talkers are sorted based on the amount of traffic generated. Table columns are clickable to specify a custom sort order.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/03-n-historical-talkers.png" rel="attachment wp-att-4618"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-4618" src="https://www.ntop.org/wp-content/uploads/2016/03/03-n-historical-talkers-1024x377.png" alt="03-n-historical-talkers" width="1024" height="377" /></a></p>
+<p>Next to each talker there is an icon that can be clicked to inspect the peers that have exchanged traffic with the talker in the selected time period. The peers list loaded is sorted, by default, in a decreasing order of traffic exchanged.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/04-n-historical-talkers-peers.png" rel="attachment wp-att-4619"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-4619" src="https://www.ntop.org/wp-content/uploads/2016/03/04-n-historical-talkers-peers-1024x378.png" alt="04-n-historical-talkers-peers" width="1024" height="378" /></a></p>
+<p>The icon on the right of each peer can be clicked to inspect the Layer-7 application protocols that were used by the talker and the selected peer.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/05-n-historical-talkers-peers-applications.png" rel="attachment wp-att-4620"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-4620" src="https://www.ntop.org/wp-content/uploads/2016/03/05-n-historical-talkers-peers-applications-1024x290.png" alt="05-n-historical-talkers-peers-applications" width="1024" height="290" /></a></p>
+<p>Both the talker itself and the application protocols between any of its peers can be saved simply by clicking on the heart shown in the top breadcrumb. Saved items will be readily available in dropdown menus for future quick selections.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/06-n-historical-talkers-favorites.png" rel="attachment wp-att-4621"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-4621" src="https://www.ntop.org/wp-content/uploads/2016/03/06-n-historical-talkers-favorites-1024x410.png" alt="06-n-historical-talkers-favorites" width="1024" height="410" /></a></p>
+<p>&nbsp;</p>
+<h3>Protocols Tab</h3>
+<p>A dynamic table showing Layer-7 application protocols, sorted by traffic volume, is loaded and shown as soon as the Protocols tab is selected. Different sort criteria can be selected by clicking on column headers.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/07-n-historical-protocols.png" rel="attachment wp-att-4622"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-4622" src="https://www.ntop.org/wp-content/uploads/2016/03/07-n-historical-protocols-1024x375.png" alt="07-n-historical-protocols" width="1024" height="375" /></a><a href="https://www.ntop.org/wp-content/uploads/2016/03/07-historical-protocols-e1456840444481.png" rel="attachment wp-att-4605"><br />
+</a>An icon it is shown on the right of every application protocol and can be clicked to drill-down the talkers that have used the application protocol. The resulting talkers list is shown in a table that, by default, is sorted according to the traffic volume.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/08-n-historical-protocols-talkers.png" rel="attachment wp-att-4623"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-4623" src="https://www.ntop.org/wp-content/uploads/2016/03/08-n-historical-protocols-talkers-1024x291.png" alt="08-n-historical-protocols-talkers" width="1024" height="291" /></a></p>
+<p>In order to go deeper and browse the list of peers that interacted with a talker using a given protocol, it suffices to click on any &#8216;double-arrow&#8217; icon next to each talker. A new table with the peers list is shown.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/09-n-historical-protocols-talker-peers.png" rel="attachment wp-att-4624"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-4624" src="https://www.ntop.org/wp-content/uploads/2016/03/09-n-historical-protocols-talker-peers-1024x267.png" alt="09-n-historical-protocols-talker-peers" width="1024" height="267" /></a></p>
+<p>Layer-7 application protocol talkers and their peers lists can be saved by clicking on the heart icons shown in the navigation breadcrumb. Saved items will be shown in two dropdown menus.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/03/10-n-historical-protocols-favorites.png" rel="attachment wp-att-4625"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-4625" src="https://www.ntop.org/wp-content/uploads/2016/03/10-n-historical-protocols-favorites-1024x266.png" alt="10-n-historical-protocols-favorites" width="1024" height="266" /></a></p>
+<p>The post <a href="https://www.ntop.org/exploring-historical-data-using-ntopng-part-2/">Exploring Historical Data Using ntopng: Part 2</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

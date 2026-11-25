@@ -1,0 +1,1370 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/python/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python API &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Timeseries API" href="../timeseries/index.html" />
+    <link rel="prev" title="6. Network Checks" href="../lua_c/network_checks/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../rest/index.html">RESTful API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lua_c/index.html">Lua API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ntopng">API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ntopng">Ntopng</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ntopng.Ntopng"><code class="docutils literal notranslate"><span class="pre">Ntopng</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interface">Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#interface.Interface"><code class="docutils literal notranslate"><span class="pre">Interface</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#host">Host</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#host.Host"><code class="docutils literal notranslate"><span class="pre">Host</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#historical">Historical</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#historical.Historical"><code class="docutils literal notranslate"><span class="pre">Historical</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../timeseries/index.html">Timeseries API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../alerts/index.html">Alerts API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recording/index.html">Recording API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index-2.html">API Documentation</a></li>
+      <li class="breadcrumb-item active">Python API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/python/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="python-api">
+<h1>Python API<a class="headerlink" href="#python-api" title="Link to this heading"></a></h1>
+<p>ntopng provides a Python 3 API for querying the engine and retrieve traffic information by using the Python language.</p>
+<p>The API is based on the ntopng REST API and it allows users to perform operations such as:</p>
+<ul class="simple">
+<li><p>Read host statistics</p></li>
+<li><p>Get the active flows list</p></li>
+<li><p>Query network interface stats</p></li>
+<li><p>Search historical flows</p></li>
+</ul>
+<p>For each ntopng component there is a corresponding Python class (Host, Interface, Historical), and for each REST API call there is a corresponding method.
+The ntopng class is used to keep information about the ntopng configuration including IP address and credentials required to connect.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>The API is using Pandas and NumPy for working with time series data, plotly and fpdf for generating reports in PDF format, and a few additional libraries.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>For you convenience, ntop periodically builds pip packages. You can install the latest available package as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>ntopng
+</pre></div>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>A few sample applications are distributed with the ntopng source code and are available at <a class="reference external" href="https://github.com/ntop/ntopng/tree/dev/python/examples">https://github.com/ntop/ntopng/tree/dev/python/examples</a></p>
+<p>All the examples require:</p>
+<ul class="simple">
+<li><p>ntopng URL (-n option, <em>localhost:3000</em> by default)</p></li>
+<li><dl class="simple">
+<dt>ntopng credentials</dt><dd><ul>
+<li><p>ntopng user (-u option, <em>admin</em> by default) and ntopng password (-p option, <em>admin</em> by default)</p></li>
+<li><p>or ntopng Token (<a class="reference external" href="../../user_interface/shared/settings/preferences.html#token-based-authentication">https://www.ntop.org/guides/ntopng/user_interface/shared/settings/preferences.html#token-based-authentication</a>)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Some of the examples also require an ntopng interface ID (-i option) and additional parameters (e.g. host).</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>alerts.py<span class="w"> </span>-n<span class="w"> </span>http://localhost:3000<span class="w"> </span>-i<span class="w"> </span>admin<span class="w"> </span>-p<span class="w"> </span>password<span class="w"> </span>-i<span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>This sample application is printing alert statistics, please see below a code snippet for achieving the same:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Connect to ntopng using the Ntopng class</span>
+<span class="n">my_ntopng</span> <span class="o">=</span> <span class="n">Ntopng</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">,</span> <span class="n">ntopng_url</span><span class="p">)</span>
+
+<span class="c1"># Get an Historical instance for a specific interface by ID</span>
+<span class="n">my_historical</span> <span class="o">=</span> <span class="n">my_ntopng</span><span class="o">.</span><span class="n">get_historical_interface</span><span class="p">(</span><span class="n">iface_id</span><span class="p">)</span>
+
+<span class="c1"># Read alert statistics</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">my_historical</span><span class="o">.</span><span class="n">get_alerts_stats</span><span class="p">(</span><span class="n">epoch_begin</span><span class="p">,</span> <span class="n">epoch_end</span><span class="p">)</span>
+
+<span class="c1"># Print the raw statistics</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="module-ntopng">
+<span id="api"></span><h2>API<a class="headerlink" href="#module-ntopng" title="Link to this heading"></a></h2>
+<section id="ntopng">
+<h3>Ntopng<a class="headerlink" href="#ntopng" title="Link to this heading"></a></h3>
+<p>The Ntopng class stores information for accessing the ntopng instance (IP and credentials)
+and provides global traffic information and constants (interfaces, alert types, etc).</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="ntopng.Ntopng">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ntopng.</span></span><span class="sig-name descname"><span class="pre">Ntopng</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auth_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'http://localhost:3000'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ntopng.Ntopng" title="Link to this definition"></a></dt>
+<dd><p>Ntopng provides information about global data (e.g. list of interfaces) and consts (e.g. alert types)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ntopng_obj</strong> – The ntopng handle</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ntopng.Ntopng.get_alert_severities">
+<span class="sig-name descname"><span class="pre">get_alert_severities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ntopng.Ntopng.get_alert_severities" title="Link to this definition"></a></dt>
+<dd><p>Return all severities</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The list of severities</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ntopng.Ntopng.get_alert_types">
+<span class="sig-name descname"><span class="pre">get_alert_types</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ntopng.Ntopng.get_alert_types" title="Link to this definition"></a></dt>
+<dd><p>Return all alert types</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The list of alert types</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ntopng.Ntopng.get_historical_interface">
+<span class="sig-name descname"><span class="pre">get_historical_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ntopng.Ntopng.get_historical_interface" title="Link to this definition"></a></dt>
+<dd><p>Return an Historical handle for an interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ifid</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The interface ID</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The historical handle</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ntopng.Historical</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ntopng.Ntopng.get_host_interfaces_list">
+<span class="sig-name descname"><span class="pre">get_host_interfaces_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ntopng.Ntopng.get_host_interfaces_list" title="Link to this definition"></a></dt>
+<dd><p>Return all ntopng interfaces for a given host</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>host</strong> (<em>string</em>) – The host</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of interfaces</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ntopng.Ntopng.get_interface">
+<span class="sig-name descname"><span class="pre">get_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ntopng.Ntopng.get_interface" title="Link to this definition"></a></dt>
+<dd><p>Return an Interface instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ifid</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The interface ID</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interface instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ntopng.Interface</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ntopng.Ntopng.get_interfaces_list">
+<span class="sig-name descname"><span class="pre">get_interfaces_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ntopng.Ntopng.get_interfaces_list" title="Link to this definition"></a></dt>
+<dd><p>Return all available interfaces</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The list of interfaces</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="interface">
+<span id="module-interface"></span><h3>Interface<a class="headerlink" href="#interface" title="Link to this heading"></a></h3>
+<p>The Interface class can be used to access information about interface statistics through the
+REST API (<a class="reference external" href="../rest/api_v2.html">https://www.ntop.org/guides/ntopng/api/rest/api_v2.html</a>).</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="interface.Interface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">interface.</span></span><span class="sig-name descname"><span class="pre">Interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ntopng_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ifid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface" title="Link to this definition"></a></dt>
+<dd><p>Interface provides information about a Network interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ntopng_obj</strong> – The ntopng handle</p></li>
+<li><p><strong>ifid</strong> – The interface ID</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_active_flows_paginated">
+<span class="sig-name descname"><span class="pre">get_active_flows_paginated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">currentPage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perPage</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_active_flows_paginated" title="Link to this definition"></a></dt>
+<dd><p>Retrieve the (paginated) list of active flows for the specified interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>currentPage</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The current page</p></li>
+<li><p><strong>perPage</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The number of results per page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All active flows</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_active_hosts">
+<span class="sig-name descname"><span class="pre">get_active_hosts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifid_num</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_active_hosts" title="Link to this definition"></a></dt>
+<dd><p>Return all active hosts on the selected interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Active hosts on the selected interface</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_active_l4_proto_flow_counters">
+<span class="sig-name descname"><span class="pre">get_active_l4_proto_flow_counters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_active_l4_proto_flow_counters" title="Link to this definition"></a></dt>
+<dd><p>Return statistics about active flows per Layer 4 protocol on an interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Layer 4 protocol flows statistics</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_active_l7_proto_flow_counters">
+<span class="sig-name descname"><span class="pre">get_active_l7_proto_flow_counters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_active_l7_proto_flow_counters" title="Link to this definition"></a></dt>
+<dd><p>Return statistics about active flows per Layer 7 protocol on an interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Layer 7 protocol flows statistics</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_address">
+<span class="sig-name descname"><span class="pre">get_address</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_address" title="Link to this definition"></a></dt>
+<dd><p>Return the interface IP address(es)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The interface address(es)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_alert_severities_enum">
+<span class="sig-name descname"><span class="pre">get_alert_severities_enum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_alert_severities_enum" title="Link to this definition"></a></dt>
+<dd><p>Return the enum for all the alert severities</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Alert severity enum</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_alert_types_enum">
+<span class="sig-name descname"><span class="pre">get_alert_types_enum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_alert_types_enum" title="Link to this definition"></a></dt>
+<dd><p>Return the enum for all the alert types</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Alert types enum</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_alerts_counter_per_severity">
+<span class="sig-name descname"><span class="pre">get_alerts_counter_per_severity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifid_num</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_alerts_counter_per_severity" title="Link to this definition"></a></dt>
+<dd><p>Return the number of alerts for each severity value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of alerts for each severity value</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_alerts_counter_per_type">
+<span class="sig-name descname"><span class="pre">get_alerts_counter_per_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifid_num</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_alerts_counter_per_type" title="Link to this definition"></a></dt>
+<dd><p>Return the number of alerts for each alert type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of alerts for each alert type</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_all_active_hosts">
+<span class="sig-name descname"><span class="pre">get_all_active_hosts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_all_active_hosts" title="Link to this definition"></a></dt>
+<dd><p>Retrieve the list of active hosts for the specified interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>All active hosts</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_all_alerts">
+<span class="sig-name descname"><span class="pre">get_all_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_all_alerts" title="Link to this definition"></a></dt>
+<dd><p>Return alerts for specified interface and epoch_begin and epoch_end. By default it returns all alerts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Flow alerts for the specified IP (if present)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_broadcast_domains">
+<span class="sig-name descname"><span class="pre">get_broadcast_domains</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_broadcast_domains" title="Link to this definition"></a></dt>
+<dd><p>Return information about broadcast domains on an interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Information about broadcast domains</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_data" title="Link to this definition"></a></dt>
+<dd><p>Return information about a Network interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Information about the interface</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_dscp_stats">
+<span class="sig-name descname"><span class="pre">get_dscp_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_dscp_stats" title="Link to this definition"></a></dt>
+<dd><p>Return statistics about DSCP</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DSCP statistics</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_historical">
+<span class="sig-name descname"><span class="pre">get_historical</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_historical" title="Link to this definition"></a></dt>
+<dd><p>Return an Historical handle for the interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The historical handle</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ntopng.Historical</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_host">
+<span class="sig-name descname"><span class="pre">get_host</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vlan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_host" title="Link to this definition"></a></dt>
+<dd><p>Return an Host instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ifid</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The interface ID</p></li>
+<li><p><strong>ip</strong> (<em>string</em>) – The host IP address</p></li>
+<li><p><strong>vlan</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The host VLAN ID (if any)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The host instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ntopng.Host</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_host_data">
+<span class="sig-name descname"><span class="pre">get_host_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ifid_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host_ip</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_host_data" title="Link to this definition"></a></dt>
+<dd><p>Return all host data for the selected interface and IP</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Host data for the specified interface and IP address</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_l4_protocols_enum">
+<span class="sig-name descname"><span class="pre">get_l4_protocols_enum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_l4_protocols_enum" title="Link to this definition"></a></dt>
+<dd><p>Return the enum for L4 protocols</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Enum for L4 protocols</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_l7_application_category_enum">
+<span class="sig-name descname"><span class="pre">get_l7_application_category_enum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_l7_application_category_enum" title="Link to this definition"></a></dt>
+<dd><p>Return the enum for L7 application category enum</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Enum for L7 application category enum</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_l7_application_proto_enum">
+<span class="sig-name descname"><span class="pre">get_l7_application_proto_enum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_l7_application_proto_enum" title="Link to this definition"></a></dt>
+<dd><p>Return the enum for L7 application enum</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Enum for L7 application enum</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_l7_stats">
+<span class="sig-name descname"><span class="pre">get_l7_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_num_results</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_l7_stats" title="Link to this definition"></a></dt>
+<dd><p>Return statistics about Layer 7 protocols seen on an interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>max_num_results</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The maximum number of results to limit the output</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Layer 7 protocol statistics</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_top_local_talkers">
+<span class="sig-name descname"><span class="pre">get_top_local_talkers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_top_local_talkers" title="Link to this definition"></a></dt>
+<dd><p>Return Top Local hosts generating more traffic</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The top local hosts</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="interface.Interface.get_top_remote_talkers">
+<span class="sig-name descname"><span class="pre">get_top_remote_talkers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interface.Interface.get_top_remote_talkers" title="Link to this definition"></a></dt>
+<dd><p>Return Top Remote hosts generating more traffic</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The top remote hosts</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="host">
+<span id="module-host"></span><h3>Host<a class="headerlink" href="#host" title="Link to this heading"></a></h3>
+<p>The Host class can be used to access information about an host through the
+REST API (<a class="reference external" href="../rest/api_v2.html">https://www.ntop.org/guides/ntopng/api/rest/api_v2.html</a>).</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="host.Host">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">host.</span></span><span class="sig-name descname"><span class="pre">Host</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ntopng_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ifid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vlan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#host.Host" title="Link to this definition"></a></dt>
+<dd><p>Host provides information about hosts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ntopng_obj</strong> – The ntopng handle</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="host.Host.get_active_flows_paginated">
+<span class="sig-name descname"><span class="pre">get_active_flows_paginated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">currentPage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perPage</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#host.Host.get_active_flows_paginated" title="Link to this definition"></a></dt>
+<dd><p>Retrieve the (paginated) list of active flows for the specified interface and host</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>currentPage</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The current page</p></li>
+<li><p><strong>perPage</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The number of results per page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All active flows</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="host.Host.get_dscp_stats">
+<span class="sig-name descname"><span class="pre">get_dscp_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction_rcvd</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#host.Host.get_dscp_stats" title="Link to this definition"></a></dt>
+<dd><p>Return statistics about DSCP per traffic direction for an host</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>direction_rcvd</strong> (<em>boolean</em>) – The traffic direction (True for received traffic, False for sent)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DSCP statistics</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="host.Host.get_host_data">
+<span class="sig-name descname"><span class="pre">get_host_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#host.Host.get_host_data" title="Link to this definition"></a></dt>
+<dd><p>Return all available information about a single host</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Information about the host</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="host.Host.get_l7_stats">
+<span class="sig-name descname"><span class="pre">get_l7_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#host.Host.get_l7_stats" title="Link to this definition"></a></dt>
+<dd><p>Return statistics about Layer 7 protocols for the host</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Layer 7 protocol statistics</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="historical">
+<span id="module-historical"></span><h3>Historical<a class="headerlink" href="#historical" title="Link to this heading"></a></h3>
+<p>The Historical class can be used to retrieve historical traffic data through the
+REST API (<a class="reference external" href="../rest/api_v2.html">https://www.ntop.org/guides/ntopng/api/rest/api_v2.html</a>).</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="historical.Historical">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">historical.</span></span><span class="sig-name descname"><span class="pre">Historical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ntopng_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ifid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical" title="Link to this definition"></a></dt>
+<dd><p>Historiacl provides access to historical information including flows and alerts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ntopng_obj</strong> – The ntopng handle</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_active_monitoring_alerts">
+<span class="sig-name descname"><span class="pre">get_active_monitoring_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_active_monitoring_alerts" title="Link to this definition"></a></dt>
+<dd><p>Return  alerts matching the specified criteria</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_alert_severity_counters">
+<span class="sig-name descname"><span class="pre">get_alert_severity_counters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_alert_severity_counters" title="Link to this definition"></a></dt>
+<dd><p>Return statistics about the number of alerts per alert severity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Statistics</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_alert_type_counters">
+<span class="sig-name descname"><span class="pre">get_alert_type_counters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_alert_type_counters" title="Link to this definition"></a></dt>
+<dd><p>Return statistics about the number of alerts per alert type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Statistics</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_alerts">
+<span class="sig-name descname"><span class="pre">get_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alert_family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_alerts" title="Link to this definition"></a></dt>
+<dd><p>Run queries on the alert database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alert_family</strong> (<em>string</em>) – The alert family (flow, host, interface, etc)</p></li>
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_alerts_stats">
+<span class="sig-name descname"><span class="pre">get_alerts_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_alerts_stats" title="Link to this definition"></a></dt>
+<dd><p>Return flow alerts stats</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>host</strong> (<em>string</em>) – Host IP address (optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Flow alert stats</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_flow_alerts">
+<span class="sig-name descname"><span class="pre">get_flow_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_flow_alerts" title="Link to this definition"></a></dt>
+<dd><p>Return flow alerts matching the specified criteria</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_flow_alerts_stats">
+<span class="sig-name descname"><span class="pre">get_flow_alerts_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_flow_alerts_stats" title="Link to this definition"></a></dt>
+<dd><p>Return flow alerts stats</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Flow alert stats</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_flows">
+<span class="sig-name descname"><span class="pre">get_flows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_flows" title="Link to this definition"></a></dt>
+<dd><p>Run queries on the historical flows database (ClickHouse)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_host_alerts">
+<span class="sig-name descname"><span class="pre">get_host_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_host_alerts" title="Link to this definition"></a></dt>
+<dd><p>Return host alerts matching the specified criteria</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_host_timeseries">
+<span class="sig-name descname"><span class="pre">get_host_timeseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host_ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_host_timeseries" title="Link to this definition"></a></dt>
+<dd><p>Return timeseries data in a pandas DataFrame for a specified interface and host</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host_ip</strong> – The host IP</p></li>
+<li><p><strong>ts_schema</strong> (<em>string</em>) – The timeseries schema</p></li>
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Timeseries data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a> (pandas DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_host_timeseries_stats">
+<span class="sig-name descname"><span class="pre">get_host_timeseries_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host_ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_host_timeseries_stats" title="Link to this definition"></a></dt>
+<dd><p>Return timeseries statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host_ip</strong> – The host IP</p></li>
+<li><p><strong>ts_schema</strong> (<em>string</em>) – The timeseries schema</p></li>
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Timeseries data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a> (pandas DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_host_top_protocols">
+<span class="sig-name descname"><span class="pre">get_host_top_protocols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_host_top_protocols" title="Link to this definition"></a></dt>
+<dd><p>Return Top protocols for an host</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<em>string</em>) – Host IP address</p></li>
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Top protocols</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_interface_alerts">
+<span class="sig-name descname"><span class="pre">get_interface_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_interface_alerts" title="Link to this definition"></a></dt>
+<dd><p>Return interface alerts matching the specified criteria</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_interface_timeseries">
+<span class="sig-name descname"><span class="pre">get_interface_timeseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts_schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_interface_timeseries" title="Link to this definition"></a></dt>
+<dd><p>Return timeseries data in a pandas DataFrame for a specified interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts_schema</strong> (<em>string</em>) – The timeseries schema</p></li>
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Timeseries data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a> (pandas DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_interface_timeseries_stats">
+<span class="sig-name descname"><span class="pre">get_interface_timeseries_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts_schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_interface_timeseries_stats" title="Link to this definition"></a></dt>
+<dd><p>Return timeseries statistics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts_schema</strong> (<em>string</em>) – The timeseries schema</p></li>
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Timeseries data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a> (pandas DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_mac_alerts">
+<span class="sig-name descname"><span class="pre">get_mac_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_mac_alerts" title="Link to this definition"></a></dt>
+<dd><p>Return MAC alerts matching the specified criteria</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_network_alerts">
+<span class="sig-name descname"><span class="pre">get_network_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_network_alerts" title="Link to this definition"></a></dt>
+<dd><p>Return Network alerts matching the specified criteria</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_snmp_alerts">
+<span class="sig-name descname"><span class="pre">get_snmp_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_snmp_alerts" title="Link to this definition"></a></dt>
+<dd><p>Return SNMP alerts matching the specified criteria</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_system_alerts">
+<span class="sig-name descname"><span class="pre">get_system_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_system_alerts" title="Link to this definition"></a></dt>
+<dd><p>Return System alerts matching the specified criteria</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_timeseries">
+<span class="sig-name descname"><span class="pre">get_timeseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts_schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_timeseries" title="Link to this definition"></a></dt>
+<dd><p>Return timeseries in a pandas DataFrame for a specified schema and query
+See <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/10min.html">https://pandas.pydata.org/docs/user_guide/10min.html</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts_schema</strong> (<em>string</em>) – The timeseries schema (e.g. ‘host:traffic’)</p></li>
+<li><p><strong>ts_query</strong> (<em>string</em>) – The timeseries query (e.g. ‘ifid:0,host:10.0.0.1’)</p></li>
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Timeseries data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a> (pandas DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_timeseries_metadata">
+<span class="sig-name descname"><span class="pre">get_timeseries_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_timeseries_metadata" title="Link to this definition"></a></dt>
+<dd><p>Return timeseries metadata (list all available timeseries)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries metadata</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_timeseries_stats">
+<span class="sig-name descname"><span class="pre">get_timeseries_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts_schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_timeseries_stats" title="Link to this definition"></a></dt>
+<dd><p>Return stats from timeseries</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts_schema</strong> (<em>string</em>) – The timeseries schema (e.g. ‘host:traffic’)</p></li>
+<li><p><strong>ts_query</strong> (<em>string</em>) – The timeseries query (e.g. ‘ifid:0,host:10.0.0.1’)</p></li>
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Timeseries data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a> (pandas DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_top_conversations">
+<span class="sig-name descname"><span class="pre">get_top_conversations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_top_conversations" title="Link to this definition"></a></dt>
+<dd><p>Return Top Conversations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>host</strong> (<em>string</em>) – Host IP address (optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Top conversations</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_topk_flows">
+<span class="sig-name descname"><span class="pre">get_topk_flows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_hits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_topk_flows" title="Link to this definition"></a></dt>
+<dd><p>Retrieve Top-K from the historical flows database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="historical.Historical.get_user_alerts">
+<span class="sig-name descname"><span class="pre">get_user_alerts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch_begin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxhits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#historical.Historical.get_user_alerts" title="Link to this definition"></a></dt>
+<dd><p>Return User alerts matching the specified criteria</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch_begin</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Start of the time interval (epoch)</p></li>
+<li><p><strong>epoch_end</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – End of the time interval (epoch)</p></li>
+<li><p><strong>select_clause</strong> (<em>string</em>) – Select clause (SQL syntax)</p></li>
+<li><p><strong>where_clause</strong> (<em>string</em>) – Where clause (SQL syntax)</p></li>
+<li><p><strong>maxhits</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Max number of results (limit)</p></li>
+<li><p><strong>group_by</strong> (<em>string</em>) – Group by condition (SQL syntax)</p></li>
+<li><p><strong>order_by</strong> (<em>string</em>) – Order by condition (SQL syntax)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Query result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../lua_c/network_checks/index.html" class="btn btn-neutral float-left" title="6. Network Checks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../timeseries/index.html" class="btn btn-neutral float-right" title="Timeseries API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/python/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:39 GMT -->
+</html>

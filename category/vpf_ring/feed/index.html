@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>vPF_RING Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/vpf_ring/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/vpf_ring/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 14 Dec 2011 23:12:18 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>vPF_RING Archives - ntop</title>
+	<link>https://www.ntop.org/category/vpf_ring/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>PF_RING in 2012</title>
+		<link>https://www.ntop.org/pf_ring-in-2012/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 14 Dec 2011 23:12:18 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[vPF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=1743</guid>
+
+					<description><![CDATA[<p>From time to time the kernel folks are sick and tired of people saying PF_RING is better than what we have upstream, it really isn't. Fortunately (for PF_RING) the story is a…</p>
+<p>The post <a href="https://www.ntop.org/pf_ring-in-2012/">PF_RING in 2012</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>From time to time the kernel folks are <a href="http://www.spinics.net/lists/netfilter-devel/msg20212.html">sick and tired of people saying PF_RING is better than what we have upstream, it really isn&#8217;t</a>. Fortunately (for PF_RING) the story is a <a href="http://www.cs.wustl.edu/~jain/cse567-11/ftp/pkt_recp/index.html">bit different</a> not to mention that some of PF_RING features such as clustering have probably <a href="http://lists.openwall.net/netdev/2011/07/05/30">inspired</a> AF_PACKET too.</p>
+<p>For 2012 we have planned to make some enhancements to PF_RING and (we&#8217;ll be doing much more but this is just the next thing that will see the light) add one of the last missing features you can find on costly FPGA-based NICs. No, I am not talking about <a href="/pf_ring/how-to-sendreceive-26mpps-using-pf_ring-on-commodity-hardware/">multi-10G packet capture/transmission speed</a>,<a href="https://www.ntop.org/pf_ring/dna/low-latency-rxtx-with-dna/"> low latency</a>, <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/snort/">IDS/IPS acceleration</a>, <a href="https://www.ntop.org/pf_ring/10-gbit-pf_ring-dna-on-virtual-machines-vmware-and-kvm/">virtual machine support</a>, or <a href="https://www.ntop.org/pf_ring/exploiting-hardware-filtering-in-pf_ring-aware-apps-snort/">hardware packet filtering</a>: all this is already part of PF_RING. What we are currently implementing is the ability to support TX and RX hardware timestamps as those offered by Intel 82580 NICs. Some of you might wonder why it&#8217;s so important. The answer is manyfold:</p>
+<ul>
+<li>RX and TX timestamps are the recipe for computing one way delay.</li>
+<li>The use of splitter or network partitions prevents receiving all packets from a single NIC. As network monitors might need to know which packet came first out of N interfaces, the only way of doing that is via packet timestamps that can enable us comparing packet arrival timestamps.</li>
+</ul>
+<div>Synchronizing the time on a LAN is also challenging and we&#8217;re doing our best to make PF_RING a good friend of <a href="http://en.wikipedia.org/wiki/Precision_Time_Protocol">PTP</a> so that in addition of saving money with costly GPS-based NICs you can use a single source of time at almost no cost. So PF_RING is not just packet capture, because packet capture (i.e. put a received raw packet onto a buffer) is just the first step for network monitoring/security and not the ultimate goal in life.</div>
+<p><div>PS. We don&#8217;t like flames. We would have liked to merge PF_RING (or parts of it) with the vanilla kernel <a href="http://lists.openwall.net/netdev/2009/10/14/105">some years ago</a>, but this idea was not liked by the kernel developers. We still hope that this will happen at some point.</div>
+<p>The post <a href="https://www.ntop.org/pf_ring-in-2012/">PF_RING in 2012</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>PF_RING 5.0 Introduced: DNA 1/10 Gbit and vPF_RING</title>
+		<link>https://www.ntop.org/pf_ring-5-0-introduced-dna-110-gbit-and-vpf_ring/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Thu, 08 Sep 2011 16:53:59 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[TNAPI]]></category>
+		<category><![CDATA[vPF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=1458</guid>
+
+					<description><![CDATA[<p>We've just cut the code of PF_RING 5.0. As it contains many changes with respect to the previous version, it deserved a major version number. We refreshed our DNA drivers to 1…</p>
+<p>The post <a href="https://www.ntop.org/pf_ring-5-0-introduced-dna-110-gbit-and-vpf_ring/">PF_RING 5.0 Introduced: DNA 1/10 Gbit and vPF_RING</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We&#8217;ve just cut the code of PF_RING 5.0. As it contains many changes with respect to the previous version, it deserved a major version number.</p>
+<p>We refreshed our DNA drivers to 1 Gbit Intel NICs (e1000e and igb families) in addition to the existing 10 Gbit DNA driver. All the DNA drivers source code is stored inside the <A HREF=https://svn.ntop.org/svn/ntop/trunk/PF_RING/drivers/DNA>PF_RING SVN</A>. You can just install the DNA driver, and use our test applications (pfcount for receiving packets, and pfsend for generating/reproducing traffic) for enjoying 1/10 Gbit RX/TX wire-speed using commodity adapters.</p>
+<p>We&#8217;ve also introduced vPF_RING that is an extension of the popular Linux KVM Hypervisor, for bringing multi-Gbit packet capture on VMs. You can find more information about it on the <A HREF=https://www.ntop.org/products/pf_ring/vpf_ring/>vPF_RING</A> home page.</p>
+<p>Both DNA and vPF_RING can be evaluated at no cost. If you want to use them permanently, you need a license key for unlocking the user-space library. You can find more information on the <A HREF=https://www.ntop.org/products/pf_ring/DNA/>DNA</A> and <A HREF=https://www.ntop.org/products/pf_ring/vpf_ring/>vPF_RING</A> home page.</p>
+<p>While releasing DNA for 1 and 10 Gbit, we have decided to discontinue TNAPI. The main reason is that with DNA we can both send and receive at wire rate with minimum CPU load, whereas TNAPI was limited only to RX. Another reason was to simplify the PF_RING range of options that might confuse some users. We&#8217;re working a a new TNAPI release that will be available within a few weeks and that we&#8217;ll feature TX. We&#8217;ll be back soon.</p>
+<p>Finally as you can see, we&#8217;ve finally retired the old ntop web site in favor of a new one. We hope you will enjoy it.</p>
+<p>The post <a href="https://www.ntop.org/pf_ring-5-0-introduced-dna-110-gbit-and-vpf_ring/">PF_RING 5.0 Introduced: DNA 1/10 Gbit and vPF_RING</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>10 Gbit PF_RING DNA on Virtual Machines (VMware and KVM)</title>
+		<link>https://www.ntop.org/10-gbit-pf_ring-dna-on-virtual-machines-vmware-and-kvm/</link>
+		
+		<dc:creator><![CDATA[Luca Deri]]></dc:creator>
+		<pubDate>Thu, 30 Jun 2011 14:23:00 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[vPF_RING]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/blog/?p=515</guid>
+
+					<description><![CDATA[<p>As you know, PF_RING DNA allows you to manipulate packets at 10 Gbit wire speed (any packet size) on low-end Linux servers. As virtualization is becoming pervasive in data-centers, you might wonder…</p>
+<p>The post <a href="https://www.ntop.org/10-gbit-pf_ring-dna-on-virtual-machines-vmware-and-kvm/">10 Gbit PF_RING DNA on Virtual Machines (VMware and KVM)</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>As you know, <a href="https://www.ntop.org/PF_RING.html">PF_RING DNA</a> allows you to manipulate packets at <a href="https://www.ntop.org/pf_ring/how-to-sendreceive-26mpps-using-pf_ring-on-commodity-hardware/">10 Gbit wire speed</a> (any packet size) on low-end Linux servers. As virtualization is becoming pervasive in data-centers, you might wonder whether you can benefit of DNA on virtualized environments. The answer is positive. This post explains you how to use DNA on both VMware and KVM, Linux-native virtualization system. XEN users can also exploit DNA configuring using similar system configurations.</p>
+<h2>VMware Configuration</h2>
+<p>In order to use DNA, you must configure the 10G card in passthrough-mode as depicted below.</p>
+<p><center></p>
+<table>
+<tr>
+<td><a href="https://www.ntop.org/wp-content/uploads/2011/06/3_add_dev_passthrough.png"><img fetchpriority="high" decoding="async" class="aligncenter size-medium wp-image-516" style="margin-top: 10px; margin-bottom: 10px;" title="3_add_dev_passthrough" src="https://www.ntop.org/wp-content/uploads/2011/06/3_add_dev_passthrough-300x218.png" alt="" width="300" height="218" /></a></td>
+</tr>
+<tr>
+<td><a href="https://www.ntop.org/wp-content/uploads/2011/06/7_select_dev-.png"><img decoding="async" class="aligncenter size-medium wp-image-517" style="margin-top: 10px; margin-bottom: 10px;" title="7_select_dev" src="https://www.ntop.org/wp-content/uploads/2011/06/7_select_dev--300x218.png" alt="" width="300" height="218" /></a></td>
+</tr>
+</table>
+<p></center><br />
+</p>
+<p style="text-align: left;">Once your card has been configured, it will pop-up from your VM. At this point you need to install the DNA driver that is part of the PF_RING distribution.</p>
+<h2>KVM Configuration</h2>
+<p style="text-align: left;">Under KVM you need to make sure you have enabled a few options</p>
+<p><center></p>
+<table border>
+<tr>
+<td><a href="https://www.ntop.org/wp-content/uploads/2011/06/menuconfig.png"><img decoding="async" class="aligncenter size-medium wp-image-518" title="menuconfig" src="https://www.ntop.org/wp-content/uploads/2011/06/menuconfig-300x216.png" alt="" width="300" height="216" /></a></td>
+</tr>
+</table>
+<p></center></p>
+<p style="text-align: left;">
+<div>Modify the kernel config:</div>
+<div>$ make menuconfig</div>
+<div>Bus options (PCI etc.)</div>
+<div>[*] Support for DMA Remapping Devices</div>
+<div>[*] Enable DMA Remapping Devices</div>
+<div>[*] Support for Interrupt Remapping</div>
+<div>&lt;*&gt; PCI Stub driver</div>
+<div>$ make</div>
+<div>$ make modules_install</div>
+<div>$ make install</div>
+<div>Pass &#8220;intel_iommu=on&#8221; as kernel parameter. For instance, if you are using grub, edit your /boot/grub/menu.lst this way:</div>
+<div>title Linux 2.6.36</div>
+<div>root (hd0,0)</div>
+<div>kernel /boot/kernel-2.6.36 root=/dev/sda3 intel_iommu=on</div>
+<div>Unbind the device you want to assign to the VM from the host kernel driver</div>
+<div>$ lspci -n</div>
+<div>..</div>
+<div>02:00.0 0200: 8086:10fb (rev 01)</div>
+<div>..</div>
+<div>$ echo &#8220;8086 10fb&#8221;  &gt; /sys/bus/pci/drivers/pci-stub/new_id</div>
+<div>$ echo 0000:02:00.0 &gt; /sys/bus/pci/devices/0000:02:00.0/driver/unbind</div>
+<div>$ echo 0000:02:00.0 &gt; /sys/bus/pci/drivers/pci-stub/bind</div>
+<div>Load KVM and start the VM</div>
+<div>$ modprobe kvm</div>
+<div>$ modprobe kvm-intel</div>
+<div>$ /usr/local/kvm/bin/qemu-system-x86_64 -m 512 -boot c </div>
+<div>-drive file=virtual_machine.img,if=virtio,boot=on </div>
+<div>-device pci-assign,host=02:00.0</div>
+<p><h2>DNA Performance on Virtual Machines</h2>
+<p>In a <a href="https://www.ntop.org/pf_ring/how-to-sendreceive-26mpps-using-pf_ring-on-commodity-hardware/">previous post</a>, we have tested the DNA performance on bare hardware. Now we&#8217;re testing the DNA performance on VMs using the same server used in the previous experiment using a Silicom <a href="http://www.silicom-usa.com/default.asp?contentID=774">PE10G2SPi-SR</a> 10G card. This allows you to feel the difference in speed. All tests have been performed running a single VM to which we have allocated only one core (single virtual CPU) out of the 8 available on the bare hardware. Both 10G ports have been mapped to a single VM (i.e. the VM is connected to two physical 10G ports), and a fibre is connecting the ports back-to-back.</p>
+<table>
+<tbody>
+<tr>
+<th>Test (64 byte packets)</th>
+<th>KVM</th>
+<th>VMware ESXi 4.1</th>
+</tr>
+<tr>
+<td>pfsend/pfcount alone<br />
+(no both simultaneously)</td>
+<td>13&#8217;906&#8217;747.73 pps/9.35 Gbps</td>
+<td>13&#8217;689&#8217;510.41 pps/9.20 Gbps</td>
+</tr>
+<tr>
+<td>pfsend and pfcount<br />
+(simultaneously on the same VM)</td>
+<td>pfsend: 6&#8217;688&#8217;049.95 pps/4.49 Gbps<br />
+pfcount: 5&#8217;693&#8217;580.60 pps/2&#8217;732.91 Mbit/sec</td>
+<td>pfsend: 6&#8217;295&#8217;136.14 pps/4.23 Gbps<br />
+pfcount: 5&#8217;614&#8217;627.52 pps/2&#8217;695.02 Mbit/sec</td>
+</tr>
+</tbody>
+</table>
+<p><h2>Final Remarks</h2>
+<p>On bare hardware you can reach wire rate (14.8 Mpps), whereas on a VM we stop at 13.9 Mpps. This means that using VMs we can reach 94% of the nominal speed using minimal size packets. Considering that our physical box has 8 cores, and we allocated only one core per VM, you can guess what happens when the remaining 7 cores are used&#8230;</p>
+<p>The post <a href="https://www.ntop.org/10-gbit-pf_ring-dna-on-virtual-machines-vmware-and-kvm/">10 Gbit PF_RING DNA on Virtual Machines (VMware and KVM)</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

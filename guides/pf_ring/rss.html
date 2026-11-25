@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/rss.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Load Balancing / RSS &mdash; PF_RING 9.5.0-4814 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options7c40.js?v=840a9ff6"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Filtering" href="filtering/index.html" />
+    <link rel="prev" title="9. n2disk Timeline Module" href="modules/timeline.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            PF_RING
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vanilla.html">Vanilla PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zc.html">PF_RING ZC (Zero Copy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ft.html">PF_RING FT (Flow Table)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Sample Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/index.html">Drivers and Modules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Load Balancing / RSS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rss-receive-side-scaling">RSS (Receive Side Scaling)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rss-with-gtp">RSS with GTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#naming-convention">Naming convention</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pf-ring-cluster-kernel">PF_RING Cluster (Kernel)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zc-cluster-zbalance-ipc">ZC Cluster (zbalance_ipc)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-zc-cluster-with-systemd">Using ZC Cluster with systemd</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="filtering/index.html">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers/index.html">Containers Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vm/index.html">VM Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thirdparty/index.html">IDS/IPSs Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Hugepages Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="capabilities.html">Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amd.html">AMD Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intel.html">Intel Processors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Crash Debug</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">PF_RING</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Load Balancing / RSS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/rss.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="load-balancing-rss">
+<h1>Load Balancing / RSS<a class="headerlink" href="#load-balancing-rss" title="Link to this heading"></a></h1>
+<p>Processing traffic from the network adapter using a single stream requires
+a single CPU core to be able to keep up with the ingress rate. At high rates
+this becames a bottleneck even with lightweight traffic processing due to
+the limited amount of CPU cycles available per packet. Evenly distribute
+traffic from a single interface across multiple streams (aka channels or
+queues) while maintaining flow continuity is usually the best option for
+scaling the performance, as long as our application is designed to work
+with multiple threads or processes and run on multiple CPU cores.</p>
+<section id="rss-receive-side-scaling">
+<h2>RSS (Receive Side Scaling)<a class="headerlink" href="#rss-receive-side-scaling" title="Link to this heading"></a></h2>
+<p>Almost all Intel (and other vendors) NICs have RSS support, this means they
+are able to hash packets in hardware in order to distribute the load across
+multiple RX queues. In some cases RSS is not available or not flexible
+enough (e.g. a custom distribution function is needed) and it can be
+replaced by software distribution using ZC.</p>
+<p>In order to configure the number of queues, you can use the RSS parameter at
+insmod time (if you are installing PF_RING ZC drivers from packages you can
+use the configuration file as explained in the installation instructions), passing
+a comma-separated list (one per interface) of numbers (number of queues per
+interface). Examples:</p>
+<p>Enable as many queues as the number of processors, per interface:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">insmod ixgbe.ko RSS=0,0,0,0</span>
+</pre></div>
+</div>
+<p>Enable 4 RX queues per interface:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">insmod ixgbe.ko RSS=4,4,4,4</span>
+</pre></div>
+</div>
+<p>Disable multiqueue (1 RX queue per interface):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">insmod ixgbe.ko RSS=1,1,1,1</span>
+</pre></div>
+</div>
+<p>Alternatively it is possible to configure the number of RX queues at runtime
+using ethtool:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ethtool --set-channels &lt;if&gt; combined 1</span>
+</pre></div>
+</div>
+<p>RSS distributes the load across the specified number of RX queues based on an
+hash function which is IP-based (or IP/Port-based in case of TCP), in combination
+with an indirection table: queue = indirection_table[hash(packet)]
+You can see the content of the indirection table with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ethtool -x &lt;if&gt;</span>
+</pre></div>
+</div>
+<p>It is possible to configure the indirection table by simply applying weights
+to each RX queue using ethtool. For instance if we want all traffic to go to
+queue 0, and we configured the card with 4 RX queues, we can use the command
+below:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ethtool -X &lt;if&gt; weight 1 0 0 0</span>
+</pre></div>
+</div>
+<p>When using PF_RING ZC, RSS is reconfigured by the PF_RING ZC driver on most Intel
+adapter families. However, on some adapters (e.g. <em>ice</em> adapters) PF_RING ZC keeps
+the RSS configuration created by the linux driver and ethtool should be used to
+tune RSS settings. For example, to set packet hashing based on the 4-tuple on <em>ice</em>
+adapters, which is source and destination IP and port (default), it is possible to use:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ethtool -N enp1s0f1 rx-flow-hash tcp4 sdfn</span>
+<span class="go">ethtool -N enp1s0f1 rx-flow-hash udp4 sdfn</span>
+</pre></div>
+</div>
+<p>Or to set packet hashing based on the 2-tuple, which is source and destination IP only
+it is possible to use:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ethtool -N enp1s0f1 rx-flow-hash tcp4 sd</span>
+<span class="go">ethtool -N enp1s0f1 rx-flow-hash udp4 sd</span>
+</pre></div>
+</div>
+<p>Where in ‘sdnf’ and ‘sd’:</p>
+<ul class="simple">
+<li><p>s: Source IP address</p></li>
+<li><p>d: Destination IP address</p></li>
+<li><p>f: Source port</p></li>
+<li><p>n: Destination port</p></li>
+</ul>
+<section id="rss-with-gtp">
+<h3>RSS with GTP<a class="headerlink" href="#rss-with-gtp" title="Link to this heading"></a></h3>
+<p>When it comes to process GTP traffic at scale, and we want to leverage on RSS
+to distribute the packet processing load, using a basic RSS configuration
+is often not a viable solution. Let’s assume for instance that we want to process
+GTP-C traffic using a dediceted process, and load balance GTP-U traffic to
+multiple processes or threads: this is possible using an advanced RSS configuration
+combined with flow steering. In order to achieve this just follow the steps below:</p>
+<ol class="arabic simple">
+<li><p>Configure the card with 8 (or any number of) RX queues.</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ethtool --set-channels &lt;if&gt; combined 8</span>
+</pre></div>
+</div>
+<p>2. Send all GTP-C traffic to the first queue. We use the flow director for this,
+supported on most Intel (e.g. E810) and NVIDIA/Mellanox (ConnectX) adapters.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ethtool -U &lt;if&gt; flow-type udp4 src-port 2123 action 0</span>
+</pre></div>
+</div>
+<p>(Note: “action 0” means “steer to queue 0”)</p>
+<ol class="arabic simple" start="2">
+<li><p>Distribute all non GTP-C traffic to the other queues.</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ethtool -X &lt;if&gt; weight 0 1 1 1 1 1 1 1</span>
+</pre></div>
+</div>
+<p>(Note: traffic is distributed with queues with weight != 0)</p>
+</section>
+<section id="naming-convention">
+<h3>Naming convention<a class="headerlink" href="#naming-convention" title="Link to this heading"></a></h3>
+<p>In order to open a specific interface queue, you have to specify the queue ID
+using the “&#64;&lt;ID&gt;” suffix. Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pfcount -i zc:eth1@0</span>
+</pre></div>
+</div>
+<p>Please note that if you configure an interface with multiple RSS queues, and
+you open it using ZC with zc:eth1, this is the same as opening zc:eth1&#64;0.
+This does not apply in standard kernel mode, where kernel abstracts the
+interface and capturing from eth1 means capturing from all the queues. This
+happens because ZC is a kernel-bypass technology, thus there is no abstraction,
+and the application directly opens an interface queue, which corresponds to the
+full interface only when RSS=1.</p>
+</section>
+</section>
+<section id="pf-ring-cluster-kernel">
+<h2>PF_RING Cluster (Kernel)<a class="headerlink" href="#pf-ring-cluster-kernel" title="Link to this heading"></a></h2>
+<p>Since not all network adapters feature RSS support to distribute the load across
+multiple RX queues in hardware, the PF_RING kernel module implements a mechanisms
+named clustering to partition and load-balance traffic across processes. This
+means that different applications opening PF_RING sockets can bind them to a
+specific cluster ID (via pfring_set_cluster) for joining the forces and each
+analyze a portion of the packets.
+The way packets are partitioned across cluster sockets is specified in the cluster
+policy. The default policy is per-flow (i.e. all the packets belonging to the same
+5-tuple &lt;proto, ip src/dst, port src/dst&gt;), however there are a few options. This
+way all packets belonging to the same flow will go to the same application, preserving
+the application logic as traffic will be consistent.
+An example of kernel clustering is provided by pfcount:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pfcount -i eth1 -c 10 -H 5</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>-c 10 specifies the Cluster ID</p></li>
+<li><dl class="simple">
+<dt>-H 5 specifies the load-balancing policy:</dt><dd><ul>
+<li><p>1 - round-robin</p></li>
+<li><p>2 - src ip,           dst ip</p></li>
+<li><p>3 - src ip, src port, dst ip, dst port</p></li>
+<li><p>4 - src ip, src port, dst ip, dst port, proto (default)</p></li>
+<li><p>0 - src ip, src port, dst ip, dst port, proto, vlan</p></li>
+<li><p>5 - src ip, src port, dst ip, dst port, proto for TCP, src ip, dst ip otherwise</p></li>
+<li><p>7 - tunneled src ip,           dst ip</p></li>
+<li><p>8 - tunneled src ip, src port, dst ip, dst port</p></li>
+<li><p>9 - tunneled src ip, src port, dst ip, dst port, proto (default)</p></li>
+<li><p>6 - tunneled src ip, src port, dst ip, dst port, proto, vlan</p></li>
+<li><p>10 - tunneled src ip, src port, dst ip, dst port, proto for TCP, src ip, dst ip otherwise</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Note: kernel clustering cannot be used in combination with ZC driver as ZC is a
+kernel-bypass technology.</p>
+</section>
+<section id="zc-cluster-zbalance-ipc">
+<h2>ZC Cluster (zbalance_ipc)<a class="headerlink" href="#zc-cluster-zbalance-ipc" title="Link to this heading"></a></h2>
+<p>There are cases where RSS cannot be used for traffic load-balancing, because:</p>
+<ul class="simple">
+<li><p>it is not always available (e.g. if you are not using an Intel adapter)</p></li>
+<li><p>for some use case it is not flexible enough and a custom distribution function is needed (e.g. tunneled traffic like GTP)</p></li>
+<li><p>when the same traffic needs to be delivered to different application, but we are using ZC that locks the network interface (we cannot have multiple applications capturing traffic from the same interface at the same time)</p></li>
+<li><p>when the same traffic needs to be delivered to different application, but we need a different number of streams per application (e.g. we want to load-balance traffic to 4 nProbe instances for Netflow generation, and 1 n2disk instance for traffic recording)</p></li>
+</ul>
+<p>In the above situations, RSS can be replaced by software distribution using ZC,
+either writing a custom application on top of the ZC API, or leveraging on the
+<em>zbalance_ipc</em> application distributed with PF_RING. <em>zbalance_ipc</em> is a process
+that can be used for capturing traffic from one or more interfaces, and
+load-balancing packets to multiple consumer processes.
+Please note that in order to use <em>zbalance_ipc</em>, RSS should be disabled.</p>
+<p>Example of traffic aggregation from 2 interfaces, and load-balancing to 2
+processes using an IP-based hash:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">zbalance_ipc -i zc:eth1,zc:eth2 -n 2 -m 1 -c 10 -g 1</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>-n specifies the number of egress queues</p></li>
+<li><dl class="simple">
+<dt>-m selects the hash function (there are a few options available, or it is possible to write a custom one)</dt><dd><ul>
+<li><p>0: Round-Robin (default)</p></li>
+<li><p>1: IP hash</p></li>
+<li><p>2: Fan-out</p></li>
+<li><p>3: Fan-out (1st) + Round-Robin (2nd, 3rd, ..)</p></li>
+<li><p>4: GTP hash (Inner IP/Port or GTP-C Seq-Num)</p></li>
+<li><p>5: GRE hash (Inner or Outer IP)</p></li>
+<li><p>6: Interface X to queue X</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>-g is the core affinity for the capture/distribution thread</p></li>
+<li><p>-c specifies the ZC cluster ID</p></li>
+</ul>
+<p>The example above creates 2 streams, that can be opened by a consumer application
+as standard PF_RING interfaces (zc:10&#64;0 and zc:10&#64;1). Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nprobe -i zc:10@0</span>
+<span class="go">nprobe -i zc:10@1</span>
+</pre></div>
+</div>
+<p>In a similar way, it is possible to load-balance the traffic to multiple
+applications, each having multiple threads/processes:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">zbalance_ipc -i zc:eth1,zc:eth2 -n 2,1 -m 1 -c 10 -g 1</span>
+</pre></div>
+</div>
+<p>Where -n 2,1 means:</p>
+<ul class="simple">
+<li><p>load-balance the traffic to 2 queues</p></li>
+<li><p>send a full copy of the traffic to 1 more queue</p></li>
+</ul>
+<p>This is the case for instance of nProbe and n2disk processing the same traffic:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nprobe -i zc:10@0</span>
+<span class="go">nprobe -i zc:10@1</span>
+<span class="go">n2disk -i zc:10@2 -o /storage</span>
+</pre></div>
+</div>
+</section>
+<section id="using-zc-cluster-with-systemd">
+<h2>Using ZC Cluster with systemd<a class="headerlink" href="#using-zc-cluster-with-systemd" title="Link to this heading"></a></h2>
+<p><em>zbalance_ipc</em> can be controlled using <em>systemctl</em> on operating systems
+and distributions that use the <em>systemd</em> service manager, configuring the
+<em>cluster</em> service shipped with the <em>pfring</em> package.</p>
+<p>Since multiple clusters are often required, multiple instances of the
+<em>cluster</em> service may run on the same host. To manage a particular cluster
+<em>&lt;instance&gt;</em> append <em>&#64;&lt;instance&gt;</em> to the <em>cluster</em> service name.
+Typically, <em>&lt;instance&gt;</em> corresponds to the cluster ID (e.g., <em>10</em> in the
+examples above). The <em>&lt;instance&gt;</em> uniquely identifies a service and its
+corresponding configuration file that is located under <em>/etc/cluster/cluster-&lt;instance&gt;.conf</em>.</p>
+<p>For example, to start a <em>cluster</em> instance, one can create the following
+configuration file containing all the command line options (see -h) one
+per line. Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /etc/cluster/cluster-10.conf</span>
+<span class="go">-i=zc:eth1</span>
+<span class="go">-n=2,1</span>
+<span class="go">-m=1</span>
+<span class="go">-c=10</span>
+<span class="go">-g=1</span>
+</pre></div>
+</div>
+<p>And then start the services with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl start cluster@10</span>
+</pre></div>
+</div>
+<p>Optionally, one may want to enable the service to start at boot with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl enable cluster@10</span>
+</pre></div>
+</div>
+<p>The status of the service can be controlled with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl status cluster@10</span>
+</pre></div>
+</div>
+<p>When using a cluster to feed nprobe or n2disk, it is highly recommended
+to use the following naming scheme to make service dependencies explicit:</p>
+<p>APPLICATION-cluster_CLUSTERID-INSTANCEID.conf</p>
+<p>For example when using nprobe and attaching to cluster 10 queue 0 the configuration
+file path would be:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/etc/nprobe/nprobe-cluster_10-0.conf</span>
+</pre></div>
+</div>
+<p>The service can be controlled with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl status nprobe@cluster_10-0</span>
+</pre></div>
+</div>
+<p>A clusterctl utility is also provided in order simplify the management of cluster servicies
+and dependencies.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Usage: clusterctl {start|stop|restart|status|start-deps|stop-deps} [cluster ID(s)]</span>
+</pre></div>
+</div>
+<p>For example, to start all enabled cluster services:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">clusterctl start</span>
+</pre></div>
+</div>
+<p>Or to restart all services (e.g. nprobe) requiring a specific cluster instance (ID = 10):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">clusterctl stop-deps 10</span>
+<span class="go">clusterctl start-deps 10</span>
+</pre></div>
+</div>
+<p>By omitting the cluster ID, the specified action applies to all cluster instances.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules/timeline.html" class="btn btn-neutral float-left" title="9. n2disk Timeline Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="filtering/index.html" class="btn btn-neutral float-right" title="Filtering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/rss.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:39 GMT -->
+</html>

@@ -1,0 +1,192 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/cento/api/rest/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:40 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RESTful API &mdash; cento 1.15 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_optionsd5c8.js?v=e6db31ea"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1. RESTful API Specification" href="api.html" />
+    <link rel="prev" title="API Documentation" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            cento
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/cento/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions.html">Models Comparison Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../definitions.html">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usecases.html">Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../clickhouse.html">ClickHouse Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../offload.html">Flow Offload</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../egress.html">Egress Queues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bridge.html">Network Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systemd.html">Systemd</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RESTful API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html">1. RESTful API Specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples.html">2. Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../hugepages.html">Hugepages Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../geolocation.html">Geolocation Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">cento</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Documentation</a></li>
+      <li class="breadcrumb-item active">RESTful API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/rest/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="restful-api">
+<h1>RESTful API<a class="headerlink" href="#restful-api" title="Link to this heading"></a></h1>
+<p>Cento implements a RESTful API, using an embedded HTTP server, for dynamically reconfiguring the forwarding engine.</p>
+<p>The RESTful API can be enabled by adding the <code class="code docutils literal notranslate"><span class="pre">[--rest-address|-Y]</span> <span class="pre">&lt;address&gt;</span></code>
+option and accessed via HTTP (on port 8880 by default) or via HTTPS (on port 4443 by default).</p>
+<p>HTTP and HTTPs ports can be changes using the <code class="code docutils literal notranslate"><span class="pre">[--rest-http-port|-T]</span> <span class="pre">&lt;port&gt;</span></code>
+and <code class="code docutils literal notranslate"><span class="pre">[--rest-https-port|-S]</span> <span class="pre">&lt;port&gt;</span></code> options.</p>
+<p>In order to use HTTP, a certificate is required. Create it with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir -p /usr/local/share/cento/httpdocs/ssl</span>
+<span class="go">openssl req -new -x509 -sha1 -extensions v3_ca -nodes -days 365 -out cert.pem</span>
+<span class="go">cat privkey.pem cert.pem &gt; /usr/local/share/cento/httpdocs/ssl/ssl-cert.pem</span>
+</pre></div>
+</div>
+<p>Sample command line using the --rest-address option for enabling the REST API:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento-ids -i zc:eth1 --aggregated-egress-queue --egress-conf egress.example --dpi-level 2 -v 4 --rest-address 127.0.0.1</span>
+</pre></div>
+</div>
+<p>Defaults settings:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>HTTP port: <code class="code docutils literal notranslate"><span class="pre">8880</span></code></p></li>
+<li><p>HTTPs port: <code class="code docutils literal notranslate"><span class="pre">4443</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>There are no default credentials: a password must be configured in Redis for a user before
+the REST API will accept authentication as that user. See the <em>Authentication</em> section of the
+REST API specification for how to set it.</p>
+<p>Please check the REST API specifications for information about the available REST endpoints.</p>
+<p>This is available on <em>cento-ids</em> and <em>cento-bridge</em> only as it is mainly used
+to change the egress configuaration at runtime.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">1. RESTful API Specification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#authentication">1.1. Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#api">1.2. API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">2. Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#identifying-the-base-rest-endpoint">2.1. Identifying the base REST Endpoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#configuring-queue-level-rules">2.2. Configuring Queue-Level Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#configuring-subnet-level-rules">2.3. Configuring Subnet-Level Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#configuring-protocol-level-rules">2.4. Configuring Protocol-Level Rules</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="API Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="1. RESTful API Specification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/cento/api/rest/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:41 GMT -->
+</html>

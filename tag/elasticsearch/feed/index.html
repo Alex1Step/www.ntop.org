@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>elasticsearch Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/elasticsearch/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/elasticsearch/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Fri, 12 Jul 2019 12:55:38 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>elasticsearch Archives - ntop</title>
+	<link>https://www.ntop.org/tag/elasticsearch/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Measuring nProbe ElasticSearch Flow Export Performance</title>
+		<link>https://www.ntop.org/measuring-nprobe-elasticsearch-flow-export-performance/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 12 Jul 2019 12:55:38 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[elasticsearch]]></category>
+		<category><![CDATA[export]]></category>
+		<category><![CDATA[netflow]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7753</guid>
+
+					<description><![CDATA[<p>nProbe (via its export plugin) supports ElasticSearch flows export. Setting up nProbe for the ElasticSearch export is a breeze, it just boils down to specifying option --elastic. For example, to export NetFlow…</p>
+<p>The post <a href="https://www.ntop.org/measuring-nprobe-elasticsearch-flow-export-performance/">Measuring nProbe ElasticSearch Flow Export Performance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>nProbe (via its export plugin) supports ElasticSearch flows export. Setting up nProbe for the ElasticSearch export is a breeze, it just boils down to specifying option <code class="EnlighterJSRAW" data-enlighter-language="generic">--elastic</code>. For example, to export NetFlow flows collected on port <code class="EnlighterJSRAW" data-enlighter-language="generic">2058</code> (<code class="EnlighterJSRAW" data-enlighter-language="generic">--collector-port 2058</code>)  to an ElasticSearch cluster running on <code class="EnlighterJSRAW" data-enlighter-language="generic">localhost</code> port <code class="EnlighterJSRAW" data-enlighter-language="generic">9200</code>, one can use the following</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">nprobe -i none -n none --collector-port 2058 --elastic "flows;nprobe-%Y.%m.%d;http://localhost:9200/_bulk"</pre>
+<p>nProbe will take care of pushing a template to ElasticSearch to have IP fields properly indexed, and will also POST flows in bulk to maximize the performance.</p>
+<p>Recently we&#8217;ve done several improvements to the nProbe performance (you need to use the latest dev nProbe version) when it comes to export flows to ElasticSearch and therefore we believe it is time to publish some official numbers.</p>
+<p>Performance tests have been run on an Intel(R) Xeon(R) CPU E3-1230 v3 @ 3.30GHz machine with 16GB RAM with both nProbe and ElasticSearch:</p>
+<ul>
+<li>OS: Ubuntu 16.04.6 LTS</li>
+<li>nProbe v.8.7.190712 (r6564)</li>
+<li>ElasticSearch 6.8.1</li>
+</ul>
+<p>In order to measure the export performance, we&#8217;ve pushed NetFlow at increasing rates using <code class="EnlighterJSRAW" data-enlighter-language="generic">pfsend</code> as described in <a href="https://www.ntop.org/nprobe/measuring-ntopngnprobe-flow-processing-performance/">another post</a> and we&#8217;ve disabled nProbe internal caches (<code class="EnlighterJSRAW" data-enlighter-language="generic">--disable-cache</code>).</p>
+<p>We&#8217;ve seen that the maximum number of flows per second that a single nProbe instance (but remember you can instantiate one instance per-core on a multicore system, all sharing the same license) can export to ElasticSearch is <strong>approximately 45,000 flows per second</strong>. Above that threshold, flows will be dropped, that is, it won&#8217;t be possible to bulk-POST the incoming NetFlow fast enough.</p>
+<p>For the sake of completeness, this is the full nprobe command used in the tests</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">./nprobe -i none -n none --collector-port 2058 -T "@NTOPNG@" --elastic "flows;nprobe-%Y.%m.%d;http://localhost:9200/_bulk" --disable-cache -b 1</pre>
+<p>We&#8217;ve also extended nProbe export stats shown when using option <code class="EnlighterJSRAW" data-enlighter-language="generic">-b=1</code> to accurately report the rates. This allowed us to make the measurements and will also allow you to accurately monitor the performance of nProbe. Note that the drops you are seeing below are normal as we pushed nProbe above its limit to see the maximum successful flow export rate.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">12/Jul/2019 12:54:26 [nprobe.c:3448] ElasticSearch flow exports (successful) [1307219 flows][avg: 42168.4 flows/sec][latest 30 seconds: 42372.5 flows/sec]
+12/Jul/2019 12:54:26 [nprobe.c:3455] ElasticSearch flow drops [export queue full: 311977][post failed: 0]
+12/Jul/2019 12:54:56 [nprobe.c:3448] ElasticSearch flow exports (successful) [2655429 flows][avg: 43531.6 flows/sec][latest 30 seconds: 44940.3 flows/sec]
+12/Jul/2019 12:54:56 [nprobe.c:3455] ElasticSearch flow drops [export queue full: 560827][post failed: 0]
+12/Jul/2019 12:55:26 [nprobe.c:3448] ElasticSearch flow exports (successful) [4036654 flows][avg: 44358.8 flows/sec][latest 30 seconds: 46040.8 flows/sec]
+12/Jul/2019 12:55:26 [nprobe.c:3455] ElasticSearch flow drops [export queue full: 778416][post failed: 0]</pre>
+<p>The main advantage of the direct export to ELK instead of using intermediate tools such as LogStash is that you can do it more efficiently and without having to configure too many intermediate components. Please also note that you can obtain similar figures when using the nProbe to export flows towards Kafka using the export plugin.</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/measuring-nprobe-elasticsearch-flow-export-performance/">Measuring nProbe ElasticSearch Flow Export Performance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>ntopng goes Elastic:  Introducing ElasticSearch 6 Support</title>
+		<link>https://www.ntop.org/ntopng-goes-elastic-introducing-elasticsearch-6-support/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 11 May 2018 17:37:55 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[elasticsearch]]></category>
+		<category><![CDATA[elasticsearch 6]]></category>
+		<category><![CDATA[flows export]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=6270</guid>
+
+					<description><![CDATA[<p>As you ntopng users know, out of the Elastic toolset ntopng supports both ElasticSearch and LogStash. You can use them using the -F flag: --dump-flows&#124;-F] <mode> &#124; Dump expired flows. Mode: &#124;…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-goes-elastic-introducing-elasticsearch-6-support/">ntopng goes Elastic:  Introducing ElasticSearch 6 Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>As you ntopng users know, out of the Elastic toolset ntopng supports both ElasticSearch and LogStash. You can use them using the -F flag:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">--dump-flows|-F] &lt;mode&gt;  | Dump expired flows. Mode:
+                         | es            Dump in ElasticSearch database
+                         |   Format:
+                         |   es;&lt;mapping type&gt;;&lt;idx name&gt;;&lt;es URL&gt;;&lt;http auth&gt;
+                         |   Example:
+                         |   es;ntopng;ntopng-%Y.%m.%d;http://localhost:9200/_bulk;
+                         |   Notes:
+                         |   The &lt;idx name&gt; accepts the strftime() format.
+                         |   &lt;mapping type&gt;s have been removed starting at
+                         |   ElasticSearch version 6. &lt;mapping type&gt;
+                         |   values whill therefore be ignored when using
+                         |   versions greater than or equal to 6.
+                         |
+                         | logstash      Dump in LogStash engine
+                         |   Format:
+                         |   logstash;&lt;host&gt;;&lt;proto&gt;;&lt;port&gt;
+                         |   Example:
+                         |   logstash;localhost;tcp;5510
+</pre>
+<p>With ElasticSearch being one of the most widely used downstream stores for information, it was time for the ntop team to add ElasticSearch version 6 support to ntopng.</p>
+<p>Many users were eager to take advantage of the <a href="https://www.elastic.co/blog/elasticsearch-6-0-0-released">new ElasticSearch 6 features</a> that include:</p>
+<ul>
+<li>More scalable searches across shards;</li>
+<li>Index-time sorting;</li>
+<li>Faster restarts and shard recoveries.</li>
+</ul>
+<p>However, new features almost always come with breaking changes and ElasticSearch 6 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/breaking-changes-6.0.html">is not an exception</a>. Among the breaking changes it is worth mentioning the removal of multiple index mapping types. There is an <a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/removal-of-types.html">interesting discussion</a> that motivates the choice of removing multiple mapping types. Mapping types were initially supposed to be the equivalent of tables in SQL databases but actually that was just a bad analogy as database tables are independent(*) each other whereas in ElasticSearch different mapping types are backed by the same Lucene field internally. Having multiple mapping types was causing issues for example when creating the same field with different types in the same index. Other issues were determining the creation of sparse data that, in turn, was negatively affecting the Lucene compression abilities.</p>
+<p>We believe that the removal of multiple mapping types is actually a good choice as it allows for a greater flexibility that is typical of noSQL databases. However, that costed us some effort to adapt the ntopng code and to create a new ElasticSearch template specific for version 6. Today we are happy to announce that the latest ntopng version 3.5 has support for ElasticSearch 6. And for those of you that are still using version 5? No worries, both versions are transparently supported. ntopng queries ElasticSearch to obtain its version and behaves accordingly.</p>
+<p>So what&#8217;s next? If you want to try the latest ntopng 3.5 just install (or upgrade) a <a href="http://packages.ntop.org/">nightly build</a> or <a href="https://github.com/ntop/ntopng">build it from source</a>. Happy indexing!</p>
+<p>(*) OK, there are foreign keys that create tights among tables but in general columns in one table have no bearing on columns with the same name in another table.</p>
+<p>The post <a href="https://www.ntop.org/ntopng-goes-elastic-introducing-elasticsearch-6-support/">ntopng goes Elastic:  Introducing ElasticSearch 6 Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/modules/intel.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4. Intel Support &mdash; PF_RING 9.5.0-4814 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. NVIDIA/Mellanox Support" href="mellanox.html" />
+    <link rel="prev" title="3. Silicom/Fiberblaze Support" href="fiberblaze.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            PF_RING
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Vanilla PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Copy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (Flow Table)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Sample Applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Drivers and Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="supported_nics.html">1. Adapters Comparison Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="af_xdp.html">2. AF_XDP Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fiberblaze.html">3. Silicom/Fiberblaze Support</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4. Intel Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-intel-nics-comparison">4.1. Supported Intel NICs Comparison</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mellanox.html">5. NVIDIA/Mellanox Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="napatech.html">6. Napatech Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pcap.html">7. pcap Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stack.html">8. Linux TCP/IP Stack Injection Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timeline.html">9. n2disk Timeline Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../rss.html">Load Balancing / RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Containers Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">VM Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">IDS/IPSs Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Hugepages Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amd.html">AMD Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Processors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">Crash Debug</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">PF_RING</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Drivers and Modules</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4. </span>Intel Support</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/modules/intel.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intel-support">
+<h1><span class="section-number">4. </span>Intel Support<a class="headerlink" href="#intel-support" title="Link to this heading"></a></h1>
+<p>Accelerated packet capture and trasmission for Intel adapters is available
+on PF_RING ZC by means of specialised drivers as described in the
+<a class="reference external" href="../zc.html">PF_RING ZC</a> section.
+Please also read <a class="reference external" href="../get_started/packages_installation.html">Installing from packages</a>
+for installation and configuration instructions.</p>
+<section id="supported-intel-nics-comparison">
+<h2><span class="section-number">4.1. </span>Supported Intel NICs Comparison<a class="headerlink" href="#supported-intel-nics-comparison" title="Link to this heading"></a></h2>
+<p>This table below helps you understanding what features are delivered by each Intel driver family and chipset model.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>e1000e</p></th>
+<th class="head"><p>igb</p></th>
+<th class="head"><p>ixgbe</p></th>
+<th class="head"><p>ixgbevf</p></th>
+<th class="head"><p>i40e</p></th>
+<th class="head"><p>iavf</p></th>
+<th class="head"><p>fm10k</p></th>
+<th class="head"><p>ice</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Status</p></td>
+<td><p>EOL</p></td>
+<td><p>Supported</p></td>
+<td><p>Supported</p></td>
+<td><p>Supported</p></td>
+<td><p>Supported</p></td>
+<td><p>Supported</p></td>
+<td><p>Deprecated</p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p>Max Port Speed (Gbit)</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>10</p></td>
+<td><p>10</p></td>
+<td><p>40</p></td>
+<td><p>40</p></td>
+<td><p>100</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-even"><td><p>Symmetric RSS</p></td>
+<td><p>No RSS</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Dep on Fw</p></td>
+<td><p>Dep on Fw</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>RX Hardware Timestamp</p></td>
+<td></td>
+<td><p>82580/i350</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Read/Set Device Clock</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>TX Timestamp</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Dual mode (Kernel and ZC)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note:</p>
+<ul class="simple">
+<li><p>Symmetric RSS: on some adapters (e.g. i40e) this depends on the firmware version, a message is dmesg is printed to warn about this when no symmetric support is detected.</p></li>
+<li><p>Dual mode: ZC drivers supporting this mode can run as standard kernel drivers when there is no ZC socket running for the specific interface.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="fiberblaze.html" class="btn btn-neutral float-left" title="3. Silicom/Fiberblaze Support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mellanox.html" class="btn btn-neutral float-right" title="5. NVIDIA/Mellanox Support" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/modules/intel.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:53 GMT -->
+</html>

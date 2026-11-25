@@ -1,0 +1,1120 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>ntop Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/ntop/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/ntop/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Mon, 18 May 2026 15:46:07 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>ntop Archives - ntop</title>
+	<link>https://www.ntop.org/category/ntop/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Post-Quantum Cryptography (PQC) Analysis</title>
+		<link>https://www.ntop.org/post-quantum-cryptography-pqc-analysis/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 18 May 2026 08:11:12 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45656</guid>
+
+					<description><![CDATA[<p>Modern digital security relies on public-key encryption (like RSA and ECC) to protect global data. The future arrival of a Cryptographically Relevant Quantum Computer (CRQC) will completely break these mathematical foundations. To…</p>
+<p>The post <a href="https://www.ntop.org/post-quantum-cryptography-pqc-analysis/">Post-Quantum Cryptography (PQC) Analysis</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">Modern digital security relies on public-key encryption (like <a href="https://en.wikipedia.org/wiki/RSA_cryptosystem">RSA</a> and <a href="https://en.wikipedia.org/wiki/Elliptic-curve_cryptography">ECC</a>) to protect global data. The future arrival of a&nbsp;Cryptographically Relevant Quantum Computer (CRQC)&nbsp;will completely break these mathematical foundations. To counter this, organizations must migrate to&nbsp;Post-Quantum Cryptography (PQC) — new, math-based algorithms deployed via standard software that quantum computers cannot exploit.</p>
+
+
+
+<p class="wp-block-paragraph">The PQC migration requires to protect data &#8220;at rest&#8221; (i.e. static data stored on physical drives, databases, cloud storage, or backups) and &#8220;in transit&#8221; (i.e. data transmitted on computer networks, including HTTPs and VPNs). In the latter case quantum computers running <a href="https://en.wikipedia.org/wiki/Shor%27s_algorithm">Shor’s Algorithm</a> will easily break these keys hence attackers are currently executing&nbsp;<a href="https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later">&#8220;Harvest Now, Decrypt Later&#8221; (HNDL)&nbsp;attacks</a> — stealing encrypted network traffic today to decrypt it the moment a quantum computer becomes available. In order to mitigate this risk, the National Institute of Standards and Technology (NIST) has finalized its first official Post-Quantum Cryptography (PQC) standards (<a href="https://cloudsecurityalliance.org/blog/2024/08/15/nist-fips-203-204-and-205-finalized-an-important-step-towards-a-quantum-safe-future">FIPS 203, 204, 205</a>) to fully discontinue legacy public-key algorithms by&nbsp;2035.</p>
+
+
+
+<p class="wp-block-paragraph">The work described below on this post comes from months of bootstrapping <a href="https://www.qubitowl.com/"><strong>QubitOwl</strong></a>, our partner startup on which we as taking part as core technology providers in building a comprehensive PQC posture analysis solution. For a complete PQC tool we suggest you to have a look at the <a href="https://www.qubitowl.com">QubitOwl CONTINUUM</a> tool that features a complete PQC analysis including both &#8220;at rest&#8221; and &#8220;in transit&#8221; tools.</p>
+
+
+
+<p class="wp-block-paragraph">At ntop we analyze network traffic hence we focus on PQC in transit. In particular we need to analyze encrypted traffic protocols such as:</p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS (Transport Layer Security)</a></li>
+
+
+
+<li><a href="https://en.wikipedia.org/wiki/QUIC">QUIC (Quick UDP Internet Connections)</a></li>
+
+
+
+<li><a href="https://en.wikipedia.org/wiki/Secure_Shell">SSH (Secure Shell)</a></li>
+
+
+
+<li><a href="https://en.wikipedia.org/wiki/Internet_Key_Exchange">IPSEC (IKE &#8211; Internet Key Exchange)</a></li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These protocols are used for transmitting data in a secure fashion by exchanging encrypted data. Unfortunately with the advent of PQC, network administrators need to identify hosts using non-PQC compliant versions of the above protocols and upgrade them. In order to ease the identification of these obsolete assets, we have enhanced ntop tools (ntopng Enterprise, nProbe, cento) using nDPI Pro in order to spot non-PQC compliant communications and report then.</p>
+
+
+
+<figure class="wp-block-image size-full"><img fetchpriority="high" decoding="async" width="2476" height="804" src="https://www.ntop.org/wp-content/uploads/2026/05/PQC.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 1" class="wp-image-45657"/></figure>
+
+
+
+<p class="wp-block-paragraph">In the above picture you can see how ntopng has detected a SSH non-PQC compliant communication, and identify the weakness side (the client is PQC ready, whereas the server is using an obsolete SSH version). As you can see detailed protocol information is reported in order to ease migration and identify the exact software version responsible fopr the issue.</p>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" width="1576" height="556" src="https://www.ntop.org/wp-content/uploads/2026/05/Screenshot-2026-05-18-at-10.06.00.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 2" class="wp-image-45658"/></figure>
+
+
+
+<p class="wp-block-paragraph">If you store flows on ClickHouse you can easily find all non-PQC compliant with a matter of clicks.</p>
+
+
+
+<p class="wp-block-paragraph">At any time you can enable/disable the PQC from the behavioral check page.</p>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" width="2732" height="446" src="https://www.ntop.org/wp-content/uploads/2026/05/Screenshot-2026-05-18-at-10.50.06.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 3" class="wp-image-45663"/></figure>
+
+
+
+<p class="wp-block-paragraph">If you want to know what network assets are not PQC-ready you can do it in a matter of clicks.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="2122" height="560" src="https://www.ntop.org/wp-content/uploads/2026/05/pqc_host.png" alt="Pqc host" class="wp-image-45669"/></figure>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="1636" height="470" src="https://www.ntop.org/wp-content/uploads/2026/05/Screenshot-2026-05-18-at-17.41.18.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 5" class="wp-image-45668"/></figure>
+
+
+
+<p class="wp-block-paragraph">Please remember that PQC analysis is based on nDPI, hence you can use it only if you monitor packets including nProbe/Cento that monitor packets and send flows to ntopng, but not if you collect flows sent by a router (NetFlow/IPFIX/sFlow).</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/post-quantum-cryptography-pqc-analysis/">Post-Quantum Cryptography (PQC) Analysis</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>New, Fast, Scalable ClickHouse Integration for High-Volume Networks</title>
+		<link>https://www.ntop.org/new-fast-scalable-clickhouse-integration-for-high-volume-networks/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Fri, 11 Jul 2025 09:27:20 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=44874</guid>
+
+					<description><![CDATA[<p>When it comes to monitoring very large networks and the flows' cardinality reaches into the billions, the performance of historical data storage and query systems becomes a critical bottleneck. Network operators, analysts,…</p>
+<p>The post <a href="https://www.ntop.org/new-fast-scalable-clickhouse-integration-for-high-volume-networks/">New, Fast, Scalable ClickHouse Integration for High-Volume Networks</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">When it comes to monitoring very large networks and the flows&#8217; cardinality reaches into the billions, the performance of historical data storage and query systems becomes a critical bottleneck. Network operators, analysts, and engineers need to access flow records quickly and reliably, whether for traffic analysis, security investigations, or compliance reporting. When faced with massive datasets, even small inefficiencies in the data pipeline can result in slow queries, high CPU and disk usage, and poor responsiveness.</p>
+
+
+
+<p class="wp-block-paragraph">At ntop, our mission is to help users gain visibility into their networks with speed and precision. For this reason, over the past few months, we’ve undertaken a complete redesign of our ClickHouse integration in <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, with one clear goal in mind: accelerate queries and improve performance at scale.</p>
+
+
+<div class="wp-block-image">
+<figure class="aligncenter size-full is-resized"><img loading="lazy" decoding="async" width="1368" height="412" src="https://www.ntop.org/wp-content/uploads/2025/07/ntopng-to-clickhouse.png" alt="Ntopng to clickhouse" class="wp-image-44881" style="width:400px"/></figure>
+</div>
+
+
+<p class="wp-block-paragraph">Whether you&#8217;re storing millions or billions of flow records, our new ClickHouse support ensures that queries return faster (much faster), exports scale better, and system resources are used more efficiently than ever before.</p>
+
+
+
+<h5 class="wp-block-heading">Native ClickHouse API: A Clean Break from MySQL</h5>
+
+
+
+<p class="wp-block-paragraph">One of the biggest architectural changes is the move away from using the MySQL API to interact with ClickHouse. While functional, the MySQL API was not designed to support the native data types and high-performance capabilities of ClickHouse. This led to unnecessary in-query data conversions. Also, it was definitely not optimize for high insertion throughput, and for this reason we were using CSV files, stored on disk, to implement batch insert.</p>
+
+
+
+<p class="wp-block-paragraph">For the above reasons, the ClickHouse support in ntopng has now completely reworked to use the native ClickHouse C++ API for all operations, which provides:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Native batch insertion using in-memory ClickHouse blocks.</li>
+
+
+
+<li>High-speed, type-safe querying with no need for runtime data transformations.</li>
+
+
+
+<li>An optimized database schema.</li>
+
+
+
+<li>A cleaner, more robust codebase better aligned with ClickHouse&#8217;s architecture.</li>
+</ul>
+
+
+
+<h5 class="wp-block-heading">Schema Optimizations</h5>
+
+
+
+<p class="wp-block-paragraph">ClickHouse is a columnar database designed for performance, but only if used correctly. We&#8217;ve reworked the database schema to take full advantage of its strengths:</p>
+
+
+
+<ul class="wp-block-list">
+<li>No more NULLABLE columns: in ClickHouse, these are implemented using a hidden indirection table, which <a href="https://clickhouse.com/docs/optimize/avoid-nullable-columns">hurts performance</a>. We&#8217;ve replaced them with proper default values and schema adjustments.</li>
+
+
+
+<li>Improved partitioning and indexing: flows are now partitioned and indexed in a way that accelerates common queries dramatically, especially when dealing with large time ranges or filtering by interface.</li>
+</ul>
+
+
+
+<h5 class="wp-block-heading">Disk I/O Eliminated</h5>
+
+
+
+<p class="wp-block-paragraph">Previously, flow data destined for ClickHouse was first serialized to CSV files and written to disk before being inserted. This approach introduced latency, consumed I/O bandwidth, and increased disk wear.</p>
+
+
+
+<p class="wp-block-paragraph">In the new implementation:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Data goes straight from memory to ClickHouse via native blocks, providing a performance boost from under 100k insert/sec to <strong>over 200k insert/sec</strong>.</li>
+
+
+
+<li>FIFO queues have been introduced to handle traffic peaks and avoid any overhead in the flow processing path.</li>
+
+
+
+<li>No intermediate files are created, reducing latency and system load.</li>
+
+
+
+<li>Batching is now more efficient, with larger payloads sent in parallel.</li>
+</ul>
+
+
+
+<h5 class="wp-block-heading">Built to Scale</h5>
+
+
+
+<p class="wp-block-paragraph">A common ntopng configuration when deployed across large networks includes the introduction of <em>view</em> interfaces, to aggregate multiple capture or collection interfaces into a single logical view. The new implementation has been designed with scalability and flexibility in mind:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Parallel inserts per interface: when multiple interfaces are aggregated into a view, each one now writes data to ClickHouse in parallel, maximizing throughput. An aggregated view is still available in the view interface.</li>
+
+
+
+<li>Simultaneous exports to multiple backends: you can now export flow data to ClickHouse, Kafka, ElasticSearch, and syslog at the same time.</li>
+</ul>
+
+
+
+<h5 class="wp-block-heading">Export Statistics</h5>
+
+
+
+<p class="wp-block-paragraph">To help you monitor and troubleshoot flow exports, we’ve added export statistics that are available:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Per interface</li>
+
+
+
+<li>Per export method (ClickHouse, Kafka, ElasticSearch, Syslog)</li>
+
+
+
+<li>You can now view export statistics directly from the Interface Details page in the GUI, making it easier to understand how each component of your data pipeline is performing.</li>
+</ul>
+
+
+
+<h5 class="wp-block-heading">Cleaner Codebase</h5>
+
+
+
+<p class="wp-block-paragraph">The new implementation is built on a restructured codebase that introduces a single DataBase superclass used across all storage backends, including SQLite and ClickHouse. This brings:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Unified architecture for handling historical flows, alerts, assets, and more.</li>
+
+
+
+<li>Easier future maintenance and expansion, as all database interactions follow the same internal interface.</li>
+
+
+
+<li>Less duplication, fewer bugs, and more predictable behavior across modules.</li>
+</ul>
+
+
+
+<h5 class="wp-block-heading">Built for Today, Ready for Tomorrow</h5>
+
+
+
+<p class="wp-block-paragraph">This work is not just a performance improvement, it&#8217;s a massive upgrade in terms of <strong>performance, scalability, and efficiency</strong>, that changes how we handle historical flow data at scale. </p>
+
+
+
+<p class="wp-block-paragraph">In real-world scenarios involving billions of flow records, we’ve observed dramatic improvements in query responsiveness. In some of the most common use cases, such as filtering flows by interface and time range, query times have dropped from over a minute to just a few seconds, and in many cases, to under one second. A <strong>huge performance boost</strong> that dramatically changes your traffic analysis experience.</p>
+
+
+
+<p class="wp-block-paragraph">We encourage all users to upgrade (if you are running <strong>ntopng 6.5</strong> from nightly builds, otherwise be patient and wait for the next stable release) and experience the performance gains firsthand. As always, we welcome your feedback and are here to help you make the most of your ntop-powered monitoring stack.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy!</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p><p>The post <a href="https://www.ntop.org/new-fast-scalable-clickhouse-integration-for-high-volume-networks/">New, Fast, Scalable ClickHouse Integration for High-Volume Networks</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Network Visibility and Observability: ntopng vs SNMP+</title>
+		<link>https://www.ntop.org/network-visibility-and-observability-ntopng-vs-snmp/</link>
+		
+		<dc:creator><![CDATA[Luca Deri]]></dc:creator>
+		<pubDate>Mon, 30 Jun 2025 14:27:05 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11754</guid>
+
+					<description><![CDATA[<p>Recently, we've encountered users with high monitoring requirements. Some users need to monitor 1,000 routers and want to know who are the top talkers or top protocols. Others have a network with…</p>
+<p>The post <a href="https://www.ntop.org/network-visibility-and-observability-ntopng-vs-snmp/">Network Visibility and Observability: ntopng vs SNMP+</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Recently, we&#8217;ve encountered users with high monitoring requirements. Some users need to monitor 1,000 routers and want to know who are the top talkers or top protocols. Others have a network with 200 branches, each with a NetFlow-enabled router. They need to know from a central location who are the top bandwidth users and ports on selected branches.</p>
+<p>Essentially, these users don&#8217;t need fine-grained network traffic monitoring. They just need a rough idea of who the top network users are (IP and ports). Often, users who ask us these questions are familiar with SNMP bytes/packets charts and need some insight into the traffic, especially when a peak occurs. In essence, they want to complement SNMP-based analysis with very limited context to the monitored data.</p>
+<p>However, collecting traffic flows, storing them on a database, and analyzing them is challenging (or expensive) because the number of monitored devices is often large. This is because in flow-based analysis, the number of flows is influenced by both traffic rate (i.e., the more traffic, doesn&#8217;t always mean more flows) and distribution (i.e., the number of different 5-tuple you can find on your traffic patterns). This means that a small router can emit a large number of flows per second (from hundreds to thousands) based on traffic conditions, putting a lot of pressure on the monitoring, collection, and flow storage infrastructure just to compute top talkers.</p>
+<p>To position these requirements, it&#8217;s essential to clarify their purposes, capabilities, and use cases.</p>
+<h4>1. ntop Tookit (ntopng and nProbe)</h4>
+<ul>
+<li><strong>Purpose</strong>: Deep network traffic analysis, real-time monitoring, and security insights.</li>
+<li><strong>Strengths</strong>:
+<ul>
+<li><strong>Flow Analysis</strong>: Supports sFlow, NetFlow, IPFIX, and deep packet inspection (DPI).</li>
+<li><strong>Security</strong>: Detects anomalies, DDoS attacks, malware traffic, and suspicious behavior.</li>
+<li><strong>Granularity</strong>: Per-protocol, per-IP, per-application visibility.</li>
+<li><strong>Scalability</strong>: Handles large enterprise networks efficiently.</li>
+<li><strong>Open-Source &amp; Pro Versions</strong>: Flexible deployment options.</li>
+</ul>
+</li>
+<li><strong>Limitations</strong>:
+<ul>
+<li>Storage and processing power to analyze network traffic.</li>
+</ul>
+</li>
+<li><strong>Best For</strong>: IT security teams, ISPs, enterprises needing detailed traffic insights.</li>
+</ul>
+<h4>2. SNMP+ Tookits</h4>
+<ul>
+<li><strong>Purpose</strong>: Basic flow-based bandwidth monitoring (NetFlow, sFlow, IPFIX).</li>
+<li><strong>Strengths</strong>:
+<ul>
+<li><strong>Ease of Use</strong>: Simple GUI, quick setup.</li>
+<li><strong>Integration</strong>: Works with basic monitoring suite (SNMP, Ping, etc.) as it can show limited context at every polling cycle (e.g. top X every 5 minutes)</li>
+<li><strong>Alerts</strong>: Basic threshold-based notifications.</li>
+</ul>
+</li>
+<li><strong>Limitations</strong>:
+<ul>
+<li>Lacks deep packet inspection (DPI).</li>
+<li>Limited security analysis compared to ntopng.</li>
+<li>Reduced visibility (only top-X analysis).</li>
+</ul>
+</li>
+<li><strong>Best For</strong>: Small to medium businesses needing very basic traffic visibility.</li>
+</ul>
+<p>&nbsp;</p>
+<h4>Comparison Table</h4>
+<table>
+<tbody>
+<tr>
+<th>Feature</th>
+<th>ntop Toolkit</th>
+<th>SNMP+</th>
+</tr>
+<tr>
+<th style="text-align: left;">Traffic Analysis</th>
+<td>Deep (DPI, flows, L7)</td>
+<td>Basic (NetFlow/sFlow) Top Talkers/Protocols</td>
+</tr>
+<tr>
+<th style="text-align: left;">Network Metrics</th>
+<td>Delay, QoE, Retransmissions, etc.</td>
+<td>None</td>
+</tr>
+<tr>
+<th style="text-align: left;">Security Focus</th>
+<td>High (IDS-like)</td>
+<td>Low (Basic alerts)</td>
+</tr>
+<tr>
+<th style="text-align: left;">Scalability</th>
+<td>Enterprise-grade</td>
+<td>Small Business Friendly</td>
+</tr>
+<tr>
+<th style="text-align: left;">Encrypted Traffic Analysis</th>
+<td>Yes via nDPI</td>
+<td>None</td>
+</tr>
+<tr>
+<th style="text-align: left;">Use Case</th>
+<td>Security, ISPs, large networks</td>
+<td>Basic bandwidth monitoring</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h4>Conclusion</h4>
+<p>Network observability tools have been designed to provide you with rich monitoring capabilities based on open-source ground. These tools are efficient on small devices and scalable for enterprises. We believe in providing you with the best network observability platform, but we also acknowledge that for some users, the extensive features of our tools might be overwhelming if their primary need is simply bandwidth monitoring. Therefore, we are considering creating a &#8220;reduced&#8221; version of our tools that can answer basic monitoring needs with limited resources.</p>
+<p>We would love to hear your thoughts on this idea. Please let us know if you think it&#8217;s a good idea!</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/network-visibility-and-observability-ntopng-vs-snmp/">Network Visibility and Observability: ntopng vs SNMP+</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>HowTo Monitor+nDPI Traffic on Mikrotik Devices Using TZSP</title>
+		<link>https://www.ntop.org/howto-monitorndpi-traffic-on-mikrotik-devices-using-tzsp/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 23 May 2025 10:08:37 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11725</guid>
+
+					<description><![CDATA[<p>Mikrotik devices are very popular in the ntop community. The simplest way to monitor traffic of these devices is using flows as described in this blog post. However sometimes flows might not…</p>
+<p>The post <a href="https://www.ntop.org/howto-monitorndpi-traffic-on-mikrotik-devices-using-tzsp/">HowTo Monitor+nDPI Traffic on Mikrotik Devices Using TZSP</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Mikrotik devices are very popular in the ntop community. The simplest way to monitor traffic of these devices is using flows as described in <a href="https://www.ntop.org/ntopng/how-to-analyse-mikrotik-traffic-using-ntopng/">this blog post</a>. However sometimes flows might not be the best choice for various reasons including the inability to perform DPI on the captured traffic.&nbsp;</p>
+<p>For full visibility you can use a different option offered by Mikrotik devices. Under Tools -&gt; Packet Sniffer&nbsp; you can export packets over the <a href="https://en.wikipedia.org/wiki/TZSP">TZSP</a> protocol (it is a sort of remote span protocol): just specify the IP of the remote collector and the collector port (usually 37008).</p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-11726 " src="https://www.ntop.org/wp-content/uploads/2025/05/Screenshot-2025-05-23-at-11.33.15-1024x963.png" alt="HowTo Monitor+nDPI Traffic on Mikrotik Devices Using TZSP, figure 1" width="589" height="554"></p>
+<p>The latest nTap version is able to collect TZSP traffic and transform into something ntop (but also Wireshark and other open source) tools can understand. All you need to do is this:</p>
+<ul>
+<li>[host 192.168.2.61] ntap_remote -t 37008 -c 127.0.0.1:1235 -k hello</li>
+<li>[host 192.168.2.61] sudo ntopng -i ntap:1235:hello</li>
+</ul>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-11727" src="https://www.ntop.org/wp-content/uploads/2025/05/TZSP.png" alt="TZSP" width="1738" height="622"></p>
+<p>As you can see nDPI is now fully operational contrary to Mikrotik exporting flows where this information is not available,</p>
+<p>If you want to use TZSP to export packets from Mikrotik devices, you also have the options to use nProbe to collect TZSP packets and transform them into flows. You can achieve this as follows:</p>
+<ul>
+<li>[host 192.168.2.61] nprobe -3 37008 &#8211;zmq tcp://127.0.0.1:1235</li>
+<li>[host 192.168.2.61] sudo ntopng -i tcp://127.0.0.1:1235</li>
+</ul>
+<p>Enjoy !</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a>, <a href="https://www.ntop.org/open-source-network-monitoring/">Open source network monitoring</a></p>
+<p>The post <a href="https://www.ntop.org/howto-monitorndpi-traffic-on-mikrotik-devices-using-tzsp/">HowTo Monitor+nDPI Traffic on Mikrotik Devices Using TZSP</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>PacketFest 2025 was an absolute blast!</title>
+		<link>https://www.ntop.org/packetfest-2025-was-an-absolute-blast/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 12 May 2025 22:08:34 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11700</guid>
+
+					<description><![CDATA[<p>PacketFest 2025 has been a great success. About 110 people, coming from more than 10 (European and overseas) countries, met in Zürich and attended the conference organized by ntop with support from…</p>
+<p>The post <a href="https://www.ntop.org/packetfest-2025-was-an-absolute-blast/">PacketFest 2025 was an absolute blast!</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p class="p1"><a href="https://www.ntop.org/packetfest/packetfest25.html">PacketFest 2025</a> has been a great success. About 110 people, coming from more than 10 (European and overseas) countries, met in <a href="http://www.phzh.ch">Zürich</a> and attended the conference organized by <span class="s1">ntop</span> with support from <a href="http://www.switch.ch"><span class="s1">Switch</span></a>, AnyWeb, and Leutert NetServices. It was a three-day event where the ntop and Wireshark communities met to discuss network traffic visibility and cybersecurity.</p>
+<p>It was a great pleasure to have on stage many packet experts including <span class="s1">Gerald Combs</span> (Wireshark creator), <span class="s1">Kelley Misata </span>(president of OISF), and <span class="s1">Thomas Graf</span> (IETF chair), this in addition to the ntop core team.</p>
+<p class="p1">Those who have missed the event can download the presentation slides from <a href="https://www.ntop.org/packetfest/packetfest25.html">this page</a>.</p>
+<p>PS. Yes we&#8217;re planning future PacketFest editions. Shall you be interested in supporting the event or being a speaker, please contact us.</p>
+<p>The post <a href="https://www.ntop.org/packetfest-2025-was-an-absolute-blast/">PacketFest 2025 was an absolute blast!</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Released ntopng 6.4: More Insightful Than Ever</title>
+		<link>https://www.ntop.org/released-ntopng-6-4-more-insightful-than-ever/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 05 May 2025 04:35:48 +0000</pubDate>
+				<category><![CDATA[nEdge]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11673</guid>
+
+					<description><![CDATA[<p>We're excited to announce a new ntopng stable release 6.4, a feature-packed update! With a strong focus on assets visibility and QoE monitoring. This version introduces groundbreaking new dashboards, advanced reporting, better…</p>
+<p>The post <a href="https://www.ntop.org/released-ntopng-6-4-more-insightful-than-ever/">Released ntopng 6.4: More Insightful Than Ever</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We&#8217;re excited to announce a new ntopng stable release 6.4, a feature-packed update! With a strong focus on assets visibility and QoE monitoring. This version introduces groundbreaking new dashboards, advanced reporting, better alerting, and a lot of improvements to keep your network monitoring efficient and insightful.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-11690" src="https://www.ntop.org/wp-content/uploads/2025/04/Assets.png" alt="Assets" width="1385" height="762"></p>
+<h3 class="" data-start="557" data-end="583">Breakthroughs</h3>
+<ul data-start="585" data-end="1898">
+<li class="" data-start="585" data-end="793">
+<p class="" data-start="587" data-end="793"><strong data-start="587" data-end="631">Asset Inventory &amp; Digital Twin Dashboard</strong><br data-start="631" data-end="634">Visualize your infrastructure like never before. The new dashboard provides a clear inventory of network assets with their virtual representations.</p>
+</li>
+<li class="" data-start="795" data-end="956">
+<p class="" data-start="797" data-end="956"><strong data-start="797" data-end="825">Infrastructure Dashboard</strong><br data-start="825" data-end="828">Manage multi-region deployments with a bird’s-eye view of your infrastructure and performance across distributed environments.</p>
+</li>
+<li class="" data-start="958" data-end="1105">
+<p class="" data-start="960" data-end="1105"><strong data-start="960" data-end="989">Autonomous Systems Report</strong><br data-start="989" data-end="992">Gain deeper insights into AS-level traffic flows and dependencies to optimize your internet routing strategies.</p>
+</li>
+<li class="" data-start="1107" data-end="1259">
+<p class="" data-start="1109" data-end="1259"><strong data-start="1109" data-end="1151">Quality of Experience (QoE) Indicators</strong><br data-start="1151" data-end="1154">Monitor user experience with new, detailed metrics that reveal network impact on end-user satisfaction.</p>
+</li>
+<li class="" data-start="1373" data-end="1511">
+<p class="" data-start="1375" data-end="1511"><strong data-start="1375" data-end="1402">Improved SNMPv3 Support</strong><br data-start="1402" data-end="1405">Full support for SHA256, SHA384, SHA512, and AES128 ensures secure, standards-compliant network polling.</p>
+</li>
+<li class="" data-start="1759" data-end="1898">
+<p class="" data-start="1761" data-end="1898"><strong data-start="1761" data-end="1799">Access Control List (ACL) Alerting</strong><br data-start="1799" data-end="1802">Define ACLs and get alerted on violations, giving you full visibility without enforcing blocks.</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<p class="" data-start="3288" data-end="3475">Head over toto download the latest version and explore the documentation for detailed upgrade instructions.</p>
+<p class="" data-start="3482" data-end="3621">Stay tuned for more features and insights! We’re building ntopng to help you stay ahead of the curve in network visibility and security. As always, we welcome your feedback and questions on <a href="https://www.ntop.org/community/" target="_new" rel="noopener" data-start="3676" data-end="3712">our community channels</a> or via <a class="" href="https://github.com/ntop/ntopng" target="_new" rel="noopener" data-start="3720" data-end="3760">GitHub</a>.</p>
+<h2 data-start="3763" data-end="3796">Changelog</h2>
+<h3>Breakthroughs</h3>
+<ul>
+<li>New Asset Inventory / Digital Twin and Assets Dashboard</li>
+<li>New Infrastructure Dashboard to oversee multiple regions</li>
+<li>New Autonomous Systems (AS) report</li>
+<li>New Quality of Experience (QoE) indicators</li>
+<li>Add alert graph to visualize alerts graphically</li>
+<li>Improve SNMPv3 polling and support for SHA256, SHA384, SHA512, and AES128 authentication</li>
+<li>protocols</li>
+<li>Detect network and service scan by inspecting historical data to find slow scans</li>
+<li>Aggregate engaged/historical alerts implementing in-memory tables</li>
+<li>Add access control list (ACL) and alerting (no blocking)</li>
+</ul>
+<h3>Improvements</h3>
+<ul>
+<li>Add DHCP fingerprint support</li>
+<li>Add JA4 client fingerprint</li>
+<li>Add many new custom queries to historical flows</li>
+<li>Add ability to determine when a host has a meaningful IP (IPv4 hosts only)</li>
+<li>Add support for STARTTLS when sending emails (also added a preference)</li>
+<li>Add custom field mapping (nProbe) in historical flows</li>
+<li>Add &#8211;geoip-dir `&lt;dir&gt;` for loading GeoIP files from a custom location</li>
+<li>Add preference to selectively enable ClickHouse flow dump</li>
+<li>Add SNMP_MSG_REPORT support</li>
+<li>Add service down check to scan alert</li>
+<li>Add ApexCharts responsiveness</li>
+<li>Add local vs remote traffic report</li>
+<li>Add Redis operations timeseries</li>
+<li>Add support for labels in timeseries</li>
+<li>Add per-minute NetFlow timeseries</li>
+<li>Add active exporters/interfaces count in log when limit exceeded</li>
+<li>Add support for nDPI address cache</li>
+<li>Change MAC serialization key based on mirrored traffic</li>
+<li>Enhance OS detection</li>
+<li>Extend conversation custom query with per-direction packets/bytes</li>
+<li>Extend ZMQ decompression buffer</li>
+<li>Implement NAT detected alert</li>
+<li>Implement nDPI OS hint support</li>
+<li>Implement broadcast domain serialization/deserialization</li>
+<li>Implement alert for anomalous Redis read/write counts</li>
+<li>Implement QUIC RTT calculation</li>
+<li>Implement host OS change detection</li>
+<li>Implement mechanism to retain old-dated collected flows longer</li>
+<li>Improve Dashboard layouts</li>
+<li>Improve Webhook messages and latency</li>
+<li>Improve flow swap euristic</li>
+<li>Improve localhost MAC detection</li>
+<li>Improve flow alerts and add ability to refresh already-triggered alerts</li>
+<li>Improve host MAC address learning</li>
+<li>Improve service detection reliability</li>
+<li>Improve retransmission/out-of-order computation</li>
+<li>Improve formatting of Redis stats</li>
+<li>Improve hostname resolution</li>
+<li>Improve host label formatting (MAC hidden when IP is present)</li>
+<li>Improve formatting for large numbers</li>
+<li>Improve TCP window handling</li>
+<li>Improve host MAC address learning</li>
+<li>Improve host policy check</li>
+<li>Introduce ntopng Guru on Gurubase.io</li>
+<li>Unify Bootstrap table style with custom tables for dark mode</li>
+<li>Rework three-way handshake state detection</li>
+<li>Rework remote throughput collection</li>
+<li>Rework DNS flow direction handling</li>
+<li>Rework RTT calculation</li>
+<li>Optimize drop counters</li>
+<li>Add decoding hardening checks</li>
+<li>Add MDNS buffer length check</li>
+<li>Update MAC address models list</li>
+<li>Update to VueJS 3.5 with reworked observation point ID</li>
+<li>Various active monitoring improvements</li>
+<li>Rework TCP flags handling</li>
+<li>Integrate domain collection code</li>
+<li>Display APN MAC and SSID in historical flows</li>
+<li>Dump WLAN_SSID and WTP_MAC_ADDRESS in historical flows</li>
+<li>Support Linux interface aliases (altnames)</li>
+</ul>
+<h3>Changes</h3>
+<ul>
+<li>Add sticky action column to tables</li>
+<li>Add option to dump pcap flows into ClickHouse</li>
+<li>Add SNMP delete-all button and fixed unresponsive delete button</li>
+<li>Add RTT/Jitter table</li>
+<li>Add Lucide as internal library</li>
+<li>Add recipient stats for all endpoints</li>
+<li>Add Speedtest timeseries</li>
+<li>Add MAC address cache duration preference</li>
+<li>Add remediations for nDPI alerts</li>
+<li>Add license limits page</li>
+<li>Add SNMP data import/export support</li>
+<li>Add MITRE table and alerts view on ClickHouse cluster</li>
+<li>Add manufacturer to historical flows</li>
+<li>Add native sFlow (packet sample only) collector</li>
+<li>Add preference to exclude new interfaces from SNMP usage automatically</li>
+<li>Add L7 (nDPI) JSON collection in Suricata collector</li>
+<li>Extend number of interfaces supported by the view interface</li>
+<li>Show toasts when the flows/hosts limit is exceeded</li>
+<li>Rework DHCP flow key</li>
+<li>Change table styling for dark and white modes</li>
+<li>Disable hourly on unsupported queries</li>
+<li>Add per-direction packets/bytes in historical flows table</li>
+<li>Add LDAP preference to enable extend user capabilities</li>
+<li>Add server/client TCP flags to syslog</li>
+<li>Use SNMP aliases instead of names when available</li>
+<li>Increase ntopng password max length to 128 characters</li>
+<li>Implement ICMP type/code support</li>
+<li>Collect ICMP_TYPE</li>
+<li>Clean SQLite schema (removed problematic backticks, indentation fixes)</li>
+<li>Rework alert serialization and changed alert info format</li>
+<li>Modify nDPI defaults for RTP stream handling</li>
+<li>Merge TCP probing and probing attempt</li>
+<li>Support IPv6 address formatting with brackets</li>
+<li>Use capabilities for enabling SNMP trap collection</li>
+<li>Support enabling/disabling ClickHouse flow dump (alerts always dumped with -F clickhouse)</li>
+<li>Update API version and cleaned up code</li>
+<li>Enable filtering by custom fields sent from nProbe</li>
+<li>Remove JA3 leftovers and unused MIBs</li>
+<li>Remove obsolete TLS suspicious ESNI usage and improved device type guessing</li>
+<li>Remove support for deprecated apcon/VSS timestamps</li>
+<li>Remove packets from in/out traffic (unsupported for hourly)</li>
+<li>Remove obsolete flow serializers</li>
+</ul>
+<h3>Fixes</h3>
+<ul>
+<li>Fix -x/-X option limits (now displayed in About page)</li>
+<li>Fix various issues on historical flow charts</li>
+<li>Fix SNMP page alert</li>
+<li>Fix link button color</li>
+<li>Fix format_utils.round function</li>
+<li>Fix top senders/receivers sorting on timeseries page</li>
+<li>Fix incorrect alerts counter on top of page</li>
+<li>Fix various dark mode style issues</li>
+<li>Fix server types in view interface</li>
+<li>Fix live stats reset on view interface</li>
+<li>Fix ClickHouse health page not found</li>
+<li>Fix JS table crash on missing sort column</li>
+<li>Fix asset link and last seen formatting</li>
+<li>Fix Suricata-DNS alert correlation</li>
+<li>Fix packet stats formatter on interface page</li>
+<li>Fix random crash on interface timeseries page</li>
+<li>Fix various SQL queries</li>
+<li>Fix default date-time values</li>
+<li>Fix suspicious DGA domain alert</li>
+<li>Fix host pool import and duplicate alert suppression</li>
+<li>Fix name display bugs</li>
+<li>Fix incorrect retransmission stats</li>
+<li>Fix host details flow table</li>
+<li>Fix IEC104 REST and added error messages</li>
+<li>Fix Speedtest issues</li>
+<li>Fix Sankey chart overflow</li>
+<li>Fix application editing without proto files</li>
+<li>Fix time label in timeseries</li>
+<li>Fix exporter timeseries for sub-interfaces</li>
+<li>Fix http_prefix missing in some pages</li>
+<li>Fix Modbus alert behavior</li>
+<li>Fix BS5 tooltip stacking</li>
+<li>Fix overlapping address handling in network policy</li>
+<li>Fix early flow expiration with netfilter</li>
+<li>Fix TCP retransmission handling with ZMQ</li>
+<li>Fix incorrect alert scores</li>
+<li>Fix alert score in CustomFlowLuaScript</li>
+<li>Fix flow deallocation with failed/disabled alert</li>
+<li>Fix L7 timeseries direction</li>
+<li>Fix usage calculation error</li>
+<li>Fix InfluxDB top timeseries</li>
+<li>Fix InfluxDB timeseries step issues</li>
+<li>Fix Kafka issues</li>
+<li>Fix missing user agent info in historical flow</li>
+<li>Fix TLS info column in flow logs</li>
+<li>Fix counter overflow</li>
+<li>Fix OPNsense package install</li>
+<li>Fix approximation issues in values</li>
+<li>Fix double probe count in disaggregation</li>
+<li>Fix SMTP/SMTPS STARTSSL handling</li>
+<li>Fix OS rendering</li>
+<li>Fix LDAP extended user capabilities</li>
+<li>Fix InfluxDB local hosts report</li>
+</ul>
+<h3>nEdge</h3>
+<ul>
+<li>Enable Infrastructure Monitoring support</li>
+<li>Support Multicast/Broadcast forwarding policies between restricted/trusted interfaces</li>
+<li>Ignore shaper matching a &#8216;Not Assigned&#8217; host when peer host matches a user/pool</li>
+<li>Add gateway alert and configuration</li>
+<li>Fix invalid nEdge update handling</li>
+<li>Fix netfilter counters direction</li>
+<li>Fix unexpected Modbus alert behavior</li>
+<li>Remove pools limit from about page and default host pool counter</li>
+</ul>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/released-ntopng-6-4-more-insightful-than-ever/">Released ntopng 6.4: More Insightful Than Ever</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Released Cento 2.2: Enhanced Flow Offload, QoE Metrics, and GTP Correlation</title>
+		<link>https://www.ntop.org/released-cento-2-2-enhanced-flow-offload-qoe-metrics-and-gtp-correlation/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Wed, 30 Apr 2025 06:12:31 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[cento]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11669</guid>
+
+					<description><![CDATA[<p>We're excited to announce a new release of Cento 2.2, our high-performance flow-based traffic processing engine. This release brings major enhancements in traffic analysis capabilities, particularly for mobile network monitoring, quality assessment,…</p>
+<p>The post <a href="https://www.ntop.org/released-cento-2-2-enhanced-flow-offload-qoe-metrics-and-gtp-correlation/">Released Cento 2.2: Enhanced Flow Offload, QoE Metrics, and GTP Correlation</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We&#8217;re excited to announce a new release of Cento 2.2, our high-performance flow-based traffic processing engine. This release brings major enhancements in traffic analysis capabilities, particularly for mobile network monitoring, quality assessment, and flow offloading on Napatech adapters. Whether you&#8217;re deploying Cento in ISP-grade infrastructures or using it for deep traffic inspection, this release is packed with powerful new features and improvements designed to push performance and visibility to the next level.</p>
+<ul>
+<li><strong>Full Flow Table Offload on Napatech Adapters</strong><br />
+Cento 2.2 now offers fully-fledged Flow Table offload support with the latest <a href="https://docs.napatech.com/r/Stateful-Flow-Management/Stateful-Flow-Management-Features">Napatech Flow Manager</a>, enabling hardware-accelerated flow processing at high speed both inline or passively, with a reduction of the export latency thanks to periodic counter updates for offloaded flows when using the latest Flow Manager FPGA.</li>
+<li><strong>IMSI Correlation for Mobile Tracking</strong><br />
+We&#8217;ve improved GTP traffic processing with IMSI correlation, enabling effective mobile subscriber tracking — a must-have for telcos and mobile network operators.</li>
+<li><strong>Quality of Experience (QoE) Metrics</strong><br />
+Cento now computes QoE metrics, offering insights into user-perceived service quality. This is especially valuable in VoIP and media streaming environments, where MOS scores, combined with TCP statistics, and directional QoE stats, can reveal degraded experiences.</li>
+</ul>
+<p>As always, we welcome your feedback and contributions. Stay tuned for more enhancements, and thank you for being part of the ntop community!</p>
+<h3>Changelog</h3>
+<h3>Key Features</h3>
+<ul>
+<li>Fully fledged Flow Table offload on Napatech adapters with latest Flow Manager support</li>
+<li>Mobile tracking with IMSI correlation on GTP traffic</li>
+<li>Quality of Experience (QoE) computation</li>
+</ul>
+<h3>Improvements</h3>
+<ul>
+<li>Extended Flow Table offload on Napatech with periodic updates (flow counters) from offloaded flows</li>
+<li>Dynamic templates (&#8211;template) are now supported when dumping to text and JSON over ZMQ (in addition to Avro and Kafka)</li>
+<li>Computing TCP statistics (out-of-order, retransmissions, packet loss, keepalive packets)</li>
+<li>Reworked IMSI aggregation for GTP traffic correlation</li>
+<li>Automatically set RSS based on the range in the interface name</li>
+<li>Implement MOS computation on RTP flows</li>
+<li>Implement &#8211;lifetime-perturbation to add random flow lifetime perturbation to distribute flows expiration and avoid export storms on startup</li>
+<li>Add &#8211;dont-nest-dump-dirs option</li>
+<li>Add more Information Elements to the exported template:
+<ul>
+<li>%FLOW_VERDICT</li>
+<li>%L7_CONFIDENCE</li>
+<li>%RETRANSMITTED_IN_PKTS</li>
+<li>%RETRANSMITTED_OUT_PKTS</li>
+<li>%OOORDER_IN_PKTS</li>
+<li>%OOORDER_OUT_PKTS</li>
+<li>%RTP_IN_PAYLOAD_TYPE</li>
+<li>%RTP_OUT_PAYLOAD_TYPE</li>
+<li>%QOE_DST_TO_SRC</li>
+<li>%QOE_SRC_TO_DST</li>
+</ul>
+</li>
+</ul>
+<h3>Fixes</h3>
+<ul>
+<li>Fix exported L7_APP_PROTOCOL_NAME</li>
+<li>Fix max interface speed computation</li>
+<li>Fix twin interface speed computation in case of tx offload</li>
+<li>Fix flow export information and stats via ZMQ</li>
+</ul>
+<h3>Misc/Changes</h3>
+<ul>
+<li>List all supported template IEs in &#8211;help</li>
+<li>Add thread labels</li>
+<li>Increase Max Frame Size on GRO check</li>
+<li>Exit gracefully on bad option</li>
+</ul>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p>
+<p>The post <a href="https://www.ntop.org/released-cento-2-2-enhanced-flow-offload-qoe-metrics-and-gtp-correlation/">Released Cento 2.2: Enhanced Flow Offload, QoE Metrics, and GTP Correlation</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Released PF_RING 9.0.0: Fully Fledged Hardware Flow Tracking</title>
+		<link>https://www.ntop.org/released-pf_ring-9-0-0-fully-fledged-hardware-flow-tracking/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 28 Apr 2025 12:28:48 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11667</guid>
+
+					<description><![CDATA[<p>This is to announce a new PF_RING release 9.0.0! This release brings significant improvements for a deeper flow tracking integrations, making PF_RING even more powerful for building high-performance flow processing networking applications…</p>
+<p>The post <a href="https://www.ntop.org/released-pf_ring-9-0-0-fully-fledged-hardware-flow-tracking/">Released PF_RING 9.0.0: Fully Fledged Hardware Flow Tracking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to announce a new PF_RING release 9.0.0!</p>
+<p>This release brings significant improvements for a deeper flow tracking integrations, making PF_RING even more powerful for building high-performance flow processing networking applications able to leverage on state-of-the-art hardware offloads at high speed. In fact we’ve streamlined support for the latest Napatech SmartNIC’s Flow Manager FPGA, now including periodic flow updates to ensure real-time flow visibility and minimal latency for exporting flow stats.</p>
+<p>We also explored DOCA Flow support in NVIDIA &nbsp;BlueField and ConnectX adapters, to provide flow tracking also on ASIC SuperNICs using DOCA Flow Connection Tracking (CT). The source code for a <a href="https://github.com/ntop/bluefield-kryptonite">sample application</a> using this technology is publicly available in our github <a href="https://github.com/ntop/bluefield-kryptonite">repository</a>.</p>
+<p>As always, we welcome your feedback and contributions. Stay tuned for more updates and integration guides coming soon!</p>
+<p>Enjoy!</p>
+<h2>Changelog</h2>
+<h3>Key Features</h3>
+<ul>
+<li>Consolidated Napatech Flow Manager support (now with periodic flow updates)</li>
+<li>Flow tracking on NVIDIA DOCA Flow CT (BlueField 3 and ConnectX 6/7)</li>
+</ul>
+<h3>PF_RING Library</h3>
+<ul>
+<li>Add PF_RING_FLOW_UPDATE_CAUSE_PERIODIC to generic flow offload messages</li>
+<li>Add support for Arista 7280 timestamps</li>
+<li>Add ifindex to interface list returned by pfring_findalldevs()</li>
+<li>Add PF_RING_HW_TIMESTAMP_UNSYNC flag to avoid setting the hw clock using system time (e.g. when using PTP)</li>
+<li>PF_RING Kernel Module
+<ul>
+<li>Set interface name under /proc for non-kernel devices</li>
+<li>Add SO_GET_CLUSTER_OBJECT_INFO to read ZC queue status</li>
+</ul>
+</li>
+</ul>
+<h3>ZC Library</h3>
+<ul>
+<li>New API calls to check if a queue is locked and in use (pfring_zc_ipc_queue_in_use, pfring_zc_ipc_queue_in_use_from_cluster, pfring_zc_ipc_queue_in_use_from_queue)</li>
+<li>Add pfring_zc_get_num_rx_channels API (print number of device queue in zcount and zbalance_ipc)</li>
+<li>Implemented GTPv0 balancing in built-in hash</li>
+<li>Add PF_RING_ZC_DEVICE_HW_TIMESTAMP_UNSYNC flag to avoid setting the hw clock using system time (e.g. when using PTP)</li>
+</ul>
+<h3>FT Library</h3>
+<ul>
+<li>Add PFRING_FT_TABLE_FLAGS_NO_GUESS flag to disable protocol guess</li>
+<li>Add PFRING_FT_IGNORE_VLAN to ignore VLAN in flow key</li>
+<li>Add action to pfring_ft_packet_metadata to be used in packet callbacks</li>
+<li>Fix flow slices export (duration)</li>
+<li>Fix shunting</li>
+</ul>
+<h3>PF_RING Capture Modules and ZC Drivers</h3>
+<ul>
+<li>Napatech improvements
+<ul>
+<li>Add support for periodic flow updates with the latest Flow Manager API</li>
+<li>Add support for NT_TIMESTAMP_TYPE_UNIX_NANOTIME</li>
+<li>Handle PF_RING_FLOW_OFFLOAD_NOUPDATES to disable periodic updates</li>
+<li>Fix flow ID (32-bit on API v2) on new Flow Manager API</li>
+</ul>
+</li>
+<li>NVIDIA (Mellanox) ConnectX improvements
+<ul>
+<li>RSS limit set to 64 queues</li>
+<li>Add PF_RING_RSS env var to set number of rss queues (rather then reading system conf)</li>
+<li>Fix BPF rules</li>
+</ul>
+</li>
+<li>Intel improvements
+<ul>
+<li>Add MAC/VLAN support in RSS</li>
+<li>Add rss_scheme parameter to select rss hash at driver load</li>
+<li>Add irdma kernel module required by ice on some kernel version</li>
+</ul>
+</li>
+<li>Update support for Silicom FPGA (Fiberblaze) adapters</li>
+</ul>
+<h3>Examples</h3>
+<ul>
+<li>zbalance_ipc
+<ul>
+<li>Fail on bad or unsupported BPF</li>
+<li>Add -0 option to disable RSS (all traffic to queue 0)</li>
+</ul>
+</li>
+<li>pfcount
+<ul>
+<li>Add ifindex to interface list (printed with -L -v 1)</li>
+<li>Fix -L header</li>
+</ul>
+</li>
+<li>zcount
+<ul>
+<li>Add -U option to set PF_RING_ZC_DEVICE_HW_TIMESTAMP_UNSYNC</li>
+</ul>
+</li>
+<li>ftflow
+<ul>
+<li>Add -f to ftflow. Update FT libs.</li>
+<li>Fix uninitialized memory and minor leaks</li>
+</ul>
+</li>
+<li>ftflow_pcap
+<ul>
+<li>Add -N option to disable L7 protocol guess</li>
+</ul>
+</li>
+<li>pfflow_offload improvements for Napatech Flow Manager
+<ul>
+<li>Add -u to enable periodic updates</li>
+<li>Print flow updates</li>
+</ul>
+</li>
+</ul>
+<h3>Misc</h3>
+<ul>
+<li>Add ARM support for PF_RING FT</li>
+<li>Add support for /etc/pf_ring/keepoffload (keep interfaces offloads enabled)</li>
+<li>Fix pf_ringctl script execution on Rocky9 and new RH systems based on systemd</li>
+<li>Fix compilation on RH9</li>
+<li>Deprecate apcon/vss timestamps</li>
+</ul>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/packet-capture/pf_ring/">PF_RING</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/released-pf_ring-9-0-0-fully-fledged-hardware-flow-tracking/">Released PF_RING 9.0.0: Fully Fledged Hardware Flow Tracking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing Network Quality Measurement (QoE) in ntop Tools</title>
+		<link>https://www.ntop.org/introducing-network-quality-measurement-qoe-in-ntop-tools/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 26 Mar 2025 05:00:33 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11633</guid>
+
+					<description><![CDATA[<p>Quality of Experience (QoE) measures how satisfied users are with a network service based on their subjective perception. Unlike Quality of Service (QoS), which focuses on technical metrics (e.g., latency, jitter, packet…</p>
+<p>The post <a href="https://www.ntop.org/introducing-network-quality-measurement-qoe-in-ntop-tools/">Introducing Network Quality Measurement (QoE) in ntop Tools</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><strong>Quality of Experience (QoE)</strong> measures how satisfied users are with a network service based on their subjective perception. Unlike Quality of Service (QoS), which focuses on technical metrics (e.g., latency, jitter, packet loss), QoE evaluates the actual end-user experience—such as video streaming smoothness, call clarity, or web browsing responsiveness. QoE is important from various points of view including:</p>
+<ul>
+<li>User Satisfaction: Even if network metrics appear good, poor QoE leads to frustration (e.g., buffering videos or choppy VoIP calls).</li>
+<li>Business Impact: Bad QoE can result in lost customers, reduced productivity, or negative reviews.</li>
+<li>Proactive Troubleshooting: Identifying QoE issues early helps prevent major service disruptions.</li>
+</ul>
+<p>For this reason, we have decided to complement all our tools (nDPI, ntopng, nProbe/nProbe Cento) with QoE measurement for both TCP and UDP (yes, QUIC is supported) protocols. Our approach is based on nDPI that can detect the application protocol being used by a flow, and compute QoE based on such protocol. In particular we have identified in nDPI some categories for which we have defined some boundaries for metrics such as RTT and jitter that will be used in QoE computation:</p>
+<ul>
+<li class="p1">VoIP Calls</li>
+<li class="p1">Video Conferencing (Zoom, WebRTC, Skype)</li>
+<li class="p1">Cloud Gaming (GeForce NOW, Stadia, xCloud)</li>
+<li class="p1">Web Browsing (HTTP, HTTPS)</li>
+<li class="p1">DNS Queries (UDP/53)</li>
+<li class="p1">Live Streaming (Twitch, YouTube Live, etc.)</li>
+<li class="p1">Buffered Streaming (Netflix, YouTube, etc.)</li>
+<li class="p1">Remote Desktop (RDP, VNC, AnyDesk)</li>
+<li class="p1">High-Frequency Trading (HFT, Stock Trading)</li>
+<li class="p1">IoT Smart Home (Zigbee, Z-Wave, MQTT)</li>
+</ul>
+<p>Based on this we have implemented QoE measurement in the current dev branch (Enterprise edition) as follows.</p>
+<h4>nDPI</h4>
+<p>In nDPI, protocols are classified and divided in QoE categories for easing QoE computation by application sitting on top of nDPI.</p>
+<h4>nProbe/nProbe Cento</h4>
+<p>Two new information elements have been defined: %QOE_SRC_TO_DST <span class="Apple-converted-space">and %QOE_DST_TO_SRC. </span>&nbsp;They have a range of values from 0 to 100 (the higher the better) that is used to report to collector applications (including ntopng) the measured QoE divided per direction (client-to-server and server-to-client).</p>
+<h4>ntopng</h4>
+<p>In ntopng, QoE is still measured in the 0..100 range but it is depicted with a simple &#8220;signal strength-like icon&#8221; for immediately evaluating the flow QoE.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-11639" src="https://www.ntop.org/wp-content/uploads/2025/03/qoe_flow_list.png" alt="Qoe flow list" width="1333" height="568"></p>
+<p>When clocking on a flow details, ntopng reports not only the flow quality but also the reason why a given score has been assigned to a flow.<img loading="lazy" decoding="async" class="aligncenter size-full wp-image-11641" src="https://www.ntop.org/wp-content/uploads/2025/03/qoe_flow_detail.png" alt="Qoe flow detail" width="1712" height="204"></p>
+<p>It is possible to trigger alerts based on QoE by enabling the QoE check.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-11642" src="https://www.ntop.org/wp-content/uploads/2025/03/Screenshot-2025-03-25-at-23.11.41.png" alt="Introducing Network Quality Measurement (QoE) in ntop Tools, figure 3" width="2082" height="316"></p>
+<p>QoE measurements are also:</p>
+<ul>
+<li>Saved on historical flows for creating reports and&nbsp; explore quality issues.</li>
+<li>Consolidated in timeseries for host/interface/ASN for evaluating them overtime.<img loading="lazy" decoding="async" class="aligncenter wp-image-11643 size-large" src="https://www.ntop.org/wp-content/uploads/2025/03/Screenshot-2025-03-25-at-23.18.09-1024x480.png" alt="Introducing Network Quality Measurement (QoE) in ntop Tools, figure 4" width="1024" height="480"></li>
+</ul>
+<p>Measuring QoE, required all ntop components to be enhanced. We hope that this big development effort will be appreciated by our community and used to complement cybersecurity and volumetric measurements.</p>
+<p>Enjoy !</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/introducing-network-quality-measurement-qoe-in-ntop-tools/">Introducing Network Quality Measurement (QoE) in ntop Tools</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Announcing ntop Professional Training at ntop Conference (PacketFest) and June 2025</title>
+		<link>https://www.ntop.org/announcing-ntop-professional-training-at-ntop-conference-packetfest-and-june-2025/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 17 Mar 2025 10:49:20 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11628</guid>
+
+					<description><![CDATA[<p>PacketFest will talk place in Zurich, Switzerland, on May 8-9 and it will be the event where the ntop and wireshark communities meet. On May 7th we organize for the ntop community…</p>
+<p>The post <a href="https://www.ntop.org/announcing-ntop-professional-training-at-ntop-conference-packetfest-and-june-2025/">Announcing ntop Professional Training at ntop Conference (PacketFest) and June 2025</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><a href="http://www.packetfest.ch">PacketFest</a> will talk place in Zurich, Switzerland, on May 8-9 and it will be the event where the ntop and wireshark communities meet. On May 7th we organize for the ntop community an <span style="text-decoration: underline;">in-presence</span> training session where we will show the latest news about ntop tools and teach how to master them. The training is free for PacketFest attendees, and you need to register on the <a href="http://www.packetfest.ch">conference website</a> where you can also see the complete training program.</p>
+<p>For those interested on a remote training, this is to announce that we have scheduled the next ntop Professional Training session. It will take place online (Microsoft Teams) on 17th, 19th, 22nd, 24th, 26h of June, and July 1st and 3rd at 3.00 PM CET (9.00 AM EDT). Training will be held in English language and each session lasts 90 minutes.</p>
+<p>All registered attendees will receive, as part of the training, a license of ntopng Pro that you can use after the training for improving your skills as well the webinar link.</p>
+<p><a href="https://www.ntop.org/support/training/professional-training/">Here, you can read more</a> about all the training topics. Shall you be interested to join this session, <a href="https://forms.gle/9sTXjq6yit6M3NJk9">please book your seat</a>. attendees will have access to all session recordings. Shall you have questions, please feel free to mail <a href="mailto:training@ntop.org">training@ntop.org</a>.</p>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/announcing-ntop-professional-training-at-ntop-conference-packetfest-and-june-2025/">Announcing ntop Professional Training at ntop Conference (PacketFest) and June 2025</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing the New Infrastructure Dashboard in ntopng</title>
+		<link>https://www.ntop.org/introducing-the-new-infrastructure-dashboard-in-ntopng/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 17 Feb 2025 05:29:27 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11597</guid>
+
+					<description><![CDATA[<p>For this reason, some time ago we introduced the Infrastructure Monitoring in ntopng, as described in a previous blog post, which is the ability to use ntopng to monitor other ntopng instances,…</p>
+<p>The post <a href="https://www.ntop.org/introducing-the-new-infrastructure-dashboard-in-ntopng/">Introducing the New Infrastructure Dashboard in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p data-pm-slice="1 1 []">For this reason, some time ago we introduced the <a href="https://www.ntop.org/guides/ntopng/use_cases/infrastructure_monitoring.html">Infrastructure Monitoring</a> in ntopng, as described in a <a href="https://www.ntop.org/ntopng/infrastructure-monitoring-observing-the-health-and-status-of-multiple-ntopng-instances/">previous blog post</a>, which is the ability to use ntopng to monitor other ntopng instances, by means of its <strong>Active Monitoring</strong> capabilities.&nbsp;This infrastructure monitoring feature allows users to gain real-time insights into the status of their ntopng instances, as well as monitor the network interconnecting them.</p>
+<p>Now, we are excited to introduce a further extension to the Infrastructure Monitoring in ntopng, the new <strong>Infrastructure Dashboard</strong>. This enhancement enables users to efficiently oversee multiple regions in a unified interface while allowing granular drill-down into specific regions when needed.</p>
+<p data-pm-slice="1 1 []"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-11603" src="https://www.ntop.org/wp-content/uploads/2025/02/infrastructure-dashboard-1.png" alt="Infrastructure dashboard 1" width="2896" height="2702"></p>
+<p>With the Infrastructure Dashboard, users can:</p>
+<ul data-spread="false">
+<li>Monitor multiple ntopng instances across regions, gaining a real-time view of all monitored ntopng instances across different geographical locations, ensuring full infrastructure awareness.</li>
+<li>Track total monitored bandwidth across regions, understanding the overall bandwidth consumption of the entire distributed network, including traffic per application protocol.</li>
+<li>View active alerts per region, to stay informed about issues triggered by any ntopng instance and quickly identify affected regions.</li>
+<li>Identify top hosts across the entire network, to pinpoint the most active hosts across all monitored locations and speedup traffic analysis.</li>
+<li>Analyze aggregated and regional metrics with access to a range of performance indicators at both global and regional levels, making it easy to detect anomalies and performance bottlenecks.</li>
+</ul>
+<p>All this is available in a centralized interface, while also allowing users to drill down into specific regions when deeper analysis is required.</p>
+<h2>How to Get Started</h2>
+<p>The Infrastructure Dashboard is available in the latest (dev) version of ntopng (the next stable version will include it too). If you are already using ntopng for monitoring a distributed network with the Infrastructure Monitoring, simply update to the latest release to take advantage of this powerful new feature: a new dropdown at the top of the UI will appear, with a Infrastructure Dashboard entry.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-11606 size-medium" src="https://www.ntop.org/wp-content/uploads/2025/02/menu-300x260.png" alt="Menu" width="300" height="260"></p>
+<p>For those new to ntopng, <a href="https://www.ntop.org/guides/ntopng/use_cases/infrastructure_monitoring.html">setting up infrastructure monitoring</a> across multiple regions is straightforward, and the dashboard will instantly provide a clear, high-level overview of your monitored instances while supporting in-depth regional analysis.</p>
+<p>Enjoy!</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/introducing-the-new-infrastructure-dashboard-in-ntopng/">Introducing the New Infrastructure Dashboard in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Using ntopng for Teaching Network Monitoring and Administration</title>
+		<link>https://www.ntop.org/using-ntopng-for-teaching-network-monitoring-and-administration/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 03 Feb 2025 19:56:18 +0000</pubDate>
+				<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11567</guid>
+
+					<description><![CDATA[<p>ntop believes in education, research, and no-profit and for this reason ntop tools have been them offered free of charge. Today we're pleased to hear how they have helped young students to…</p>
+<p>The post <a href="https://www.ntop.org/using-ntopng-for-teaching-network-monitoring-and-administration/">Using ntopng for Teaching Network Monitoring and Administration</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>ntop believes in education, research, and no-profit and for this reason ntop tools have been them offered free of charge. Today we&#8217;re pleased to hear how they have helped young students to monitor and administer networks.</p>
+<p>Enjoy !</p>
+<p><img loading="lazy" decoding="async" class="wp-image-11568 alignleft" src="https://www.ntop.org/wp-content/uploads/2025/02/Screenshot-2025-02-03-at-20.49.04.png" alt="Using ntopng for Teaching Network Monitoring and Administration, figure 1" width="381" height="60"></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4 class="p1">Introduction<b></b></h4>
+<p class="p2">When teaching network monitoring and administration at the <a href="https://www.heia-fr.ch/en/">University of Applied Sciences</a> in Fribourg (Switzerland), it is essential to provide tools to our bachelor students in computer science that enable them to observe and analyze traffic in real time.&nbsp;<b>ntopng</b>, an open-source network monitoring solution, is an appropriate choice for illustrating the fundamental concepts of traffic monitoring and management. The software supports a range of protocols, including&nbsp;<b>NetFlow</b>, sFlow, and IPFIX, making it a powerful tool for traffic analysis.</p>
+<h4 class="p1">Why we choose ntopng?</h4>
+<p>The use of ntopng in our teaching environment is based on several key factors:</p>
+<ul class="ul1">
+<li class="li1"><b>Intuitive, accessible interface</b>: The web interface provides a clear view of network traffic in real time.</li>
+<li class="li1"><b>NetFlow support</b>: Flow analysis is crucial for understanding network behaviour and detecting anomalies.</li>
+<li class="li1"><b>Detailed analysis capability</b>: It provides statistics on protocols, applications, and IP addresses, offering complete network visibility.</li>
+<li class="li2"><b>Threat detection</b>: ntopng incorporates mechanisms for detecting suspicious activity, useful for raising awareness of security issues among students.</li>
+</ul>
+<h4 class="p1">Implementation and use</h4>
+<p>At our university,&nbsp;ntopng is installed on a dedicated server&nbsp;and receives NetFlow flows from various routers and switches on our network. Every student group has a dedicated ntopng server.&nbsp;</p>
+<p class="p1">Students learn how to interpret the data displayed in the ntopng web interface, in particular :</p>
+<ul class="ul1">
+<li class="li1">Traffic flows between different sources and destinations.</li>
+<li class="li1">Applications that consume the most bandwidth.</li>
+<li class="li1">Network usage trends and peaks.</li>
+</ul>
+<h4>Case studies and simulations</h4>
+<p class="p1">We set up teaching scenarios, such as :</p>
+<ul class="ul1">
+<li class="li1"><b>Detecting a bottleneck</b>: Analysis of the causes of network saturation.</li>
+<li class="li1"><b>Identifying abnormal behaviour</b>: Study of a case of compromise or suspicious flows.</li>
+<li class="li2"><b>Optimising bandwidth</b>: Identifying the applications that consume the most bandwidth to suggest management strategies.</li>
+</ul>
+<p class="p2"><b>Experience and feedback</b><b></b></p>
+<p class="p1">Using&nbsp;<b>ntopng</b>&nbsp;in our university context enabled students to gain a better understanding of :</p>
+<ul class="ul1">
+<li class="li1">The concepts of&nbsp;<b>network supervision</b>&nbsp;and&nbsp;<b>traffic analysis (network metrology)</b><b></b></li>
+<li class="li1">The impact of different applications on bandwidth usage.</li>
+<li class="li2">The implementation of&nbsp;<b>effective monitoring</b>&nbsp;to prevent and diagnose network problems.</li>
+</ul>
+<h4>Conclusion</h4>
+<p class="p1">By integrating&nbsp;<b>ntopng</b>&nbsp;into our training, we have enriched our teaching approach by offering students a powerful and accessible tool for network supervision. Its support for&nbsp;<b>NetFlow</b>&nbsp;enables detailed traffic analysis, making it easier to understand the mechanisms underlying the administration of a computer network (virtual or real).</p>
+<p>&nbsp;</p>
+<h4>About&nbsp;</h4>
+<p class="p1"><a href="https://francois.buntschu.isc.heia-fr.ch/">François Buntschu</a> is an associate professor at the HES-SO (University of Applied Sciences and Arts – Western Switzerland in Fribourg) since 2001. He has a master’s degree in computer sciences and holds the CCIE (Cisco Certified Internetwork Expert). He formerly worked as a network expert for Swiss companies. His main research and teaching focuses are on networking, cybersecurity, network automation and supervision, virtualization, and cloud.</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/using-ntopng-for-teaching-network-monitoring-and-administration/">Using ntopng for Teaching Network Monitoring and Administration</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

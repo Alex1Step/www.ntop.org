@@ -1,0 +1,820 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nedgelite/policies.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:23 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Policy Rules &mdash; nEdge Lite dev documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ntopng Integration" href="ntopng_integration.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nEdge Lite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nedgelite/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netfilter_setup.html">Netfilter Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Policy Rules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#policy-architecture">Policy Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#policy-file-format">Policy File Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-structure">Basic Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pool-definitions">Pool Definitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pool-format">Pool Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#policy-definitions">Policy Definitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#policy-format">Policy Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#filtering-criteria">Filtering Criteria</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#protocols">Protocols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#categories">Categories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#countries">Countries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#continents">Continents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#asn-autonomous-system-number">ASN (Autonomous System Number)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#complete-policy-examples">Complete Policy Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#corporate-network-policy">Corporate Network Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#guest-wifi-policy">Guest WiFi Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parental-control-policy">Parental Control Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geographic-restrictions">Geographic Restrictions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-pool-configuration">Multi-Pool Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#policy-management">Policy Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#static-policies-file-based">Static Policies (File-Based)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-policies-ntopng-based">Dynamic Policies (ntopng-Based)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-policies">Testing Policies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verify-policy-application">Verify Policy Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debug-policy-matching">Debug Policy Matching</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ntopng_integration.html">ntopng Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License Management</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other ntop Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nEdge Lite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Policy Rules</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/policies.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="policy-rules">
+<h1>Policy Rules<a class="headerlink" href="#policy-rules" title="Link to this heading"></a></h1>
+<p>nEdge Lite uses JSON-based policy rules to define traffic filtering behavior. Policies can be loaded from files or dynamically updated via ntopng. This section explains the policy format and provides examples for common use cases.</p>
+<section id="policy-architecture">
+<h2>Policy Architecture<a class="headerlink" href="#policy-architecture" title="Link to this heading"></a></h2>
+<p>nEdge Lite policies consist of two main components:</p>
+<ol class="arabic simple">
+<li><p><strong>Pools</strong>: Define groups of IP addresses and MAC addresses</p></li>
+<li><p><strong>Policies</strong>: Define filtering rules applied to pools</p></li>
+</ol>
+</section>
+<section id="policy-file-format">
+<h2>Policy File Format<a class="headerlink" href="#policy-file-format" title="Link to this heading"></a></h2>
+<p>Policy files use newline-delimited JSON format. Each line contains either a pool definition or a policy definition.</p>
+<section id="basic-structure">
+<h3>Basic Structure<a class="headerlink" href="#basic-structure" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}</span>
+<span class="p">{</span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="pool-definitions">
+<h2>Pool Definitions<a class="headerlink" href="#pool-definitions" title="Link to this heading"></a></h2>
+<p>Pools group IP addresses and/or MAC addresses for policy application.</p>
+<section id="pool-format">
+<h3>Pool Format<a class="headerlink" href="#pool-format" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;pool_id&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;pool_name&gt;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;&lt;cidr1&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&lt;cidr2&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;&lt;mac1&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&lt;mac2&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;policy_id&gt;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Fields</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: Unique pool identifier (integer)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Descriptive pool name (string)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ip</span></code>: Array of IP address ranges in CIDR notation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mac</span></code>: Array of MAC addresses (format: “AA:BB:CC:DD:EE:FF”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">policy.id</span></code>: ID of the policy to apply to this pool</p></li>
+</ul>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h3>
+<p><strong>Default Pool (All Traffic)</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Default&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Internal Network Pool</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Internal Network&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;192.168.1.0/24&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;10.0.0.0/8&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Guest Network Pool</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Guest WiFi&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;192.168.100.0/24&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>MAC-Based Pool</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Executive Devices&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;AA:BB:CC:DD:EE:FF&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;11:22:33:44:55:66&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="policy-definitions">
+<h2>Policy Definitions<a class="headerlink" href="#policy-definitions" title="Link to this heading"></a></h2>
+<p>Policies define filtering rules based on protocols, categories, countries, and other criteria.</p>
+<section id="policy-format">
+<h3>Policy Format<a class="headerlink" href="#policy-format" title="Link to this heading"></a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;policy_id&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;roo</span><span class="kc">t</span><span class="err">_policy_id&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;policy_name&gt;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;&lt;protocol_name&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;marker&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;&lt;category_name&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;marker&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;&lt;country_code&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;marker&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;&lt;continent_name&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;marker&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;&lt;asn_number&gt;&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;marker&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;marker&gt;&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Fields</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>: Unique policy identifier (integer)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">root</span></code>: Parent policy ID for inheritance (0 = no parent)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Descriptive policy name (string)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">markers</span></code>: Object containing filtering rules</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default_marker</span></code>: Default action for unmatched traffic</p></li>
+</ul>
+<p><strong>Marker Values</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;pass&quot;</span></code>: Allow traffic (CONNMARK = 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;drop&quot;</span></code>: Block traffic (CONNMARK = 2)</p></li>
+</ul>
+</section>
+</section>
+<section id="filtering-criteria">
+<h2>Filtering Criteria<a class="headerlink" href="#filtering-criteria" title="Link to this heading"></a></h2>
+<section id="protocols">
+<h3>Protocols<a class="headerlink" href="#protocols" title="Link to this heading"></a></h3>
+<p>Filter by detected application protocol (nDPI protocol names).</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Facebook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;YouTube&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;BitTorrent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;SSH&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;DNS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Common Protocols</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Facebook</span></code>, <code class="docutils literal notranslate"><span class="pre">Instagram</span></code>, <code class="docutils literal notranslate"><span class="pre">WhatsApp</span></code> (Meta services)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">YouTube</span></code>, <code class="docutils literal notranslate"><span class="pre">Gmail</span></code>, <code class="docutils literal notranslate"><span class="pre">GoogleDrive</span></code> (Google services)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Netflix</span></code>, <code class="docutils literal notranslate"><span class="pre">Hulu</span></code>, <code class="docutils literal notranslate"><span class="pre">Disney+</span></code> (Streaming)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BitTorrent</span></code>, <code class="docutils literal notranslate"><span class="pre">eDonkey</span></code> (P2P)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SSH</span></code>, <code class="docutils literal notranslate"><span class="pre">RDP</span></code>, <code class="docutils literal notranslate"><span class="pre">VNC</span></code> (Remote access)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HTTP</span></code>, <code class="docutils literal notranslate"><span class="pre">HTTPS</span></code>, <code class="docutils literal notranslate"><span class="pre">DNS</span></code>, <code class="docutils literal notranslate"><span class="pre">DHCP</span></code> (Core protocols)</p></li>
+</ul>
+<p>To see all supported protocols:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nedgelite -H</span>
+</pre></div>
+</div>
+</section>
+<section id="categories">
+<h3>Categories<a class="headerlink" href="#categories" title="Link to this heading"></a></h3>
+<p>Filter by application category (nDPI categories).</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;SocialNetwork&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Streaming&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;VPN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Common Categories</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SocialNetwork</span></code> (Facebook, Twitter, Instagram, etc.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Streaming</span></code> (Netflix, YouTube, Spotify, etc.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Game</span></code> (Online gaming platforms)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VPN</span></code> (VPN services and tunnels)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FileSharing</span></code> (P2P file sharing)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RemoteAccess</span></code> (SSH, RDP, VNC)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Email</span></code> (SMTP, POP3, IMAP)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cloud</span></code> (Dropbox, Google Drive, OneDrive)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Messaging</span></code> (WhatsApp, Telegram, Signal)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Collaboration</span></code> (Slack, Teams, Zoom)</p></li>
+</ul>
+</section>
+<section id="countries">
+<h3>Countries<a class="headerlink" href="#countries" title="Link to this heading"></a></h3>
+<p>Filter by source or destination country (ISO 3166-1 alpha-2 codes).</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;CN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;RU&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;KP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;IR&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Common Country Codes</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">US</span></code> (United States)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GB</span></code> (United Kingdom)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DE</span></code> (Germany)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FR</span></code> (France)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CN</span></code> (China)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RU</span></code> (Russia)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JP</span></code> (Japan)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KR</span></code> (South Korea)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IN</span></code> (India)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BR</span></code> (Brazil)</p></li>
+</ul>
+</section>
+<section id="continents">
+<h3>Continents<a class="headerlink" href="#continents" title="Link to this heading"></a></h3>
+<p>Filter by continent.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;Asia&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;Africa&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Valid Continents</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Africa</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Asia</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Europe</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NorthAmerica</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SouthAmerica</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Oceania</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Antarctica</span></code></p></li>
+</ul>
+</section>
+<section id="asn-autonomous-system-number">
+<h3>ASN (Autonomous System Number)<a class="headerlink" href="#asn-autonomous-system-number" title="Link to this heading"></a></h3>
+<p>Filter by Autonomous System Number.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;15169&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">15169</span></code> is Google’s ASN. This would block all traffic to/from Google’s network.</p>
+</section>
+</section>
+<section id="complete-policy-examples">
+<h2>Complete Policy Examples<a class="headerlink" href="#complete-policy-examples" title="Link to this heading"></a></h2>
+<section id="corporate-network-policy">
+<h3>Corporate Network Policy<a class="headerlink" href="#corporate-network-policy" title="Link to this heading"></a></h3>
+<p>Block social media, streaming, and gaming; allow business applications:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Corporate Network&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;10.0.0.0/8&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Corporate Policy&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Facebook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Instagram&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Twitter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;YouTube&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Netflix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;BitTorrent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SocialNetwork&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Streaming&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;FileSharing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="guest-wifi-policy">
+<h3>Guest WiFi Policy<a class="headerlink" href="#guest-wifi-policy" title="Link to this heading"></a></h3>
+<p>Restricted access for guest users:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Guest WiFi&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;192.168.100.0/24&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Guest Policy&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;BitTorrent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;eDonkey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;FileSharing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;VPN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;RemoteAccess&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;CN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;RU&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;KP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="parental-control-policy">
+<h3>Parental Control Policy<a class="headerlink" href="#parental-control-policy" title="Link to this heading"></a></h3>
+<p>Protect children from inappropriate content:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Kids Devices&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;192.168.1.100&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;192.168.1.101&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Parental Control&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Facebook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Instagram&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;TikTok&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;YouTube&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;BitTorrent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;SocialNetwork&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;FileSharing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;Streaming&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="geographic-restrictions">
+<h3>Geographic Restrictions<a class="headerlink" href="#geographic-restrictions" title="Link to this heading"></a></h3>
+<p>Block traffic from high-risk regions:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;All Traffic&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Geographic Filter&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;CN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;RU&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;KP&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;IR&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;SY&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="multi-pool-configuration">
+<h3>Multi-Pool Configuration<a class="headerlink" href="#multi-pool-configuration" title="Link to this heading"></a></h3>
+<p>Different policies for different network segments:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Employees&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;192.168.1.0/24&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Employee Policy&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;FileSharing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Executives&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;192.168.2.0/24&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Executive Policy&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;pool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IoT Devices&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;192.168.3.0/24&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IoT Policy&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;markers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;RemoteAccess&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;VPN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;countries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;CN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;RU&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drop&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;continents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;default_marker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pass&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="policy-management">
+<h2>Policy Management<a class="headerlink" href="#policy-management" title="Link to this heading"></a></h2>
+<section id="static-policies-file-based">
+<h3>Static Policies (File-Based)<a class="headerlink" href="#static-policies-file-based" title="Link to this heading"></a></h3>
+<p>Load policies from a file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json</span>
+</pre></div>
+</div>
+<p>Reload policies without restarting:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo kill -HUP $(pidof nedgelite)</span>
+</pre></div>
+</div>
+</section>
+<section id="dynamic-policies-ntopng-based">
+<h3>Dynamic Policies (ntopng-Based)<a class="headerlink" href="#dynamic-policies-ntopng-based" title="Link to this heading"></a></h3>
+<p>Receive policies from ntopng:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -p tcp://ntopng-server:5557</span>
+</pre></div>
+</div>
+<p>Policies are automatically updated when changed in ntopng’s web interface.</p>
+</section>
+</section>
+<section id="testing-policies">
+<h2>Testing Policies<a class="headerlink" href="#testing-policies" title="Link to this heading"></a></h2>
+<section id="verify-policy-application">
+<h3>Verify Policy Application<a class="headerlink" href="#verify-policy-application" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Start nEdge Lite with verbose logging</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -r /etc/nedgelite/policy.json -v</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Generate test traffic</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl https://www.facebook.com</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check logs for policy application</strong>:</p>
+<p>Look for messages like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Flow marked as DROP: Facebook (protocol)
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check conntrack marks</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo conntrack -L | grep -E &quot;mark=[12]&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mark=1</span></code>: Passed flows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mark=2</span></code>: Dropped flows</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="debug-policy-matching">
+<h3>Debug Policy Matching<a class="headerlink" href="#debug-policy-matching" title="Link to this heading"></a></h3>
+<p>If a policy isn’t working as expected:</p>
+<ol class="arabic">
+<li><p><strong>Verify protocol detection</strong>:</p>
+<p>Check nEdge Lite logs to see which protocol was detected.</p>
+</li>
+<li><p><strong>Check pool membership</strong>:</p>
+<p>Ensure the source/destination IP is in the expected pool.</p>
+</li>
+<li><p><strong>Verify marker precedence</strong>:</p>
+<p>Protocol-specific markers override category markers.</p>
+</li>
+<li><p><strong>Test with default marker</strong>:</p>
+<p>Temporarily set <code class="docutils literal notranslate"><span class="pre">&quot;default_marker&quot;:</span> <span class="pre">&quot;drop&quot;</span></code> and allow specific protocols.</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Start Permissive</strong>: Begin with <code class="docutils literal notranslate"><span class="pre">&quot;default_marker&quot;:</span> <span class="pre">&quot;pass&quot;</span></code> and selectively block</p></li>
+<li><p><strong>Test Incrementally</strong>: Add rules one at a time and verify behavior</p></li>
+<li><p><strong>Use Categories</strong>: Categories are easier to maintain than individual protocols</p></li>
+<li><p><strong>Document Policies</strong>: Use descriptive names and comments (in separate documentation)</p></li>
+<li><p><strong>Monitor Impact</strong>: Use ntopng to monitor dropped flows and adjust policies</p></li>
+<li><p><strong>Avoid Over-Blocking</strong>: Be careful with country/continent blocks—may break CDNs</p></li>
+<li><p><strong>Regular Updates</strong>: Keep nDPI updated for latest protocol detection</p></li>
+</ol>
+</section>
+<section id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Protocol Detection Delay</strong>: nDPI may require a few packets to detect protocols. Initial packets may pass before detection completes.</p></li>
+<li><p><strong>Encrypted Traffic</strong>: Some protocols cannot be detected in encrypted traffic.</p></li>
+<li><p><strong>CDN Impact</strong>: Blocking countries/ASNs may break CDN-hosted content.</p></li>
+<li><p><strong>Dynamic IPs</strong>: GeoIP data may be outdated for dynamic IP ranges.</p></li>
+</ul>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Set up <a class="reference internal" href="ntopng_integration.html"><span class="doc">ntopng Integration</span></a> for dynamic policy management</p></li>
+<li><p>Learn about <a class="reference internal" href="advanced.html"><span class="doc">Advanced Features</span></a> features</p></li>
+<li><p>Review <a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a> if policies aren’t working as expected</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ntopng_integration.html" class="btn btn-neutral float-right" title="ntopng Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nedgelite/policies.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:24 GMT -->
+</html>

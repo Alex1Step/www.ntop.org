@@ -1,0 +1,2094 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nscrub/traffic_enforcement_conf.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:15:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traffic Enforcement Configuration &mdash; nScrub dev documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Traffic Visibility" href="monitoring.html" />
+    <link rel="prev" title="Performance and Tuning" href="tuning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nScrub
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nscrub/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="features.html">Main Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Models and Licenses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="engine_conf.html">Engine Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_modes.html">Working Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Performance and Tuning</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Traffic Enforcement Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#user-management">User Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-the-rest-api-password">Setting the REST API Password</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-the-password">Changing the Password</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-and-removing-users">Adding and Removing Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#password-reset-emergency">Password Reset (Emergency)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#traffic-enforcement-logic">Traffic Enforcement Logic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#profile-based-traffic-inspection">Profile-Based Traffic Inspection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wan-to-lan-traffic-flow-inbound-traffic-inspection">WAN to LAN Traffic Flow (Inbound Traffic Inspection)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lan-to-wan-traffic-flow-outbound-traffic">LAN to WAN Traffic Flow (Outbound Traffic)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#traffic-verification-and-promotion-example">Traffic Verification and Promotion Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-best-practices">Configuration Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#victims-definition">Victims definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#global-settings">Global Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#application-version-configuration-and-status">Application version, configuration and status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stats">Stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-system-name">Configure system name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-system-description">Configure system description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-global-bypass">Configure global bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-the-neighbor-table">Read the neighbor table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-wan-lan-ip">Set WAN/LAN IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-the-routing-table">Read the routing table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update-the-routing-table">Update the routing table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-vlan-reforging">Configure VLAN reforging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-the-vlan-reforging-list">Read the VLAN reforging list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-traffic-mirroring">Configure traffic mirroring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-the-runtime-debug-level">Configure the runtime debug level</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-peer-mac-policy">Configure peer (MAC) policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#global-attackers-lists">Global Attackers Lists</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#targets-management">Targets Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-targets-list">Read targets list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-del-subnets-from-targets">Add/del subnets from targets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-a-target-by-name">Delete a target by name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-a-description-for-the-target">Set a description for the target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-vlan-reforging-for-traffic-towards-the-target">Configure VLAN reforging for traffic towards the target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-target-type">Configure target type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-target-stats">Read target stats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#attackers-management">Attackers Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-attackers">Read attackers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-delete-attackers">Add/Delete attackers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-an-attacker-list">Delete an attacker list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#purge-all-attackers">Purge all attackers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-all-attackers-list">List all attackers list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#search-attackers">Search attackers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-dynamic-list">Read dynamic list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#purge-dynamic-list">Purge dynamic list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-dynamic-list-autopurging">Configure dynamic list autopurging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-dynamic-list-expiration-for-autopurging">Configure dynamic list expiration for autopurging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batch-add-delete-attackers">Batch add/delete attackers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#global-attackers-management">Global Attackers Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-global-attackers">Read global attackers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-delete-global-attackers">Add/Delete global attackers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delete-a-global-attacker-list">Delete a global attacker list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#purge-all-global-attackers">Purge all global attackers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-all-global-attackers-lists">List all global attackers lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batch-add-delete-global-attackers">Batch add/delete global attackers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ignore-the-global-attackers-list-for-a-target">Ignore the global attackers list for a target</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#targets-profiles-configuration">Targets Profiles Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configure-bypass">Configure bypass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-default-action">Configure default action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rate-limiting-per-source-dest">Rate limiting per source/dest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-all-traffic-drop-accept">Configure all traffic drop/accept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-udp-tcp-icmp-policies">Read UDP/TCP/ICMP policies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-udp-tcp-icmp-drop-accept">Configure UDP/TCP/ICMP drop/accept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-gre-signaling-drop-accept">Configure GRE Signaling drop/accept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-syn-check-engage-mode">Configure SYN check engage mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-tcp-traffic-threshold">Configure TCP traffic threshold</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-syn-check-method">Configure SYN check method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-ssl-syn-check-method">Configure SSL SYN check method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-syn-rfc-check-method-threshold">Configure SYN RFC check method threshold</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enable-whitelisting-of-sessions-only">Enable whitelisting of sessions only</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auto-engage-whitelisting-of-sessions-only">Auto-engage whitelisting of sessions only</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-syn-rate-limiting">Configure SYN rate limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-auto-blacklist">Configure Auto-Blacklist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-syn-ack-rate-limiting">Configure SYN-ACK rate limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-syn-ack-session-whitelisting">Configure SYN-ACK session whitelisting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-syn-ack-tcp-amplification-protection">Configure SYN-ACK TCP-Amplification protection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#drop-tcp-syn-with-seq-num-0">Drop TCP SYN with seq num 0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#drop-tcp-syn-with-no-options">Drop TCP SYN with no options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#drop-tcp-syn-packets-with-payload">Drop TCP SYN packets with payload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-drop-accept-policy-per-udp-tcp-src-dst-port">Set drop/accept policy per UDP/TCP src/dst port</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-min-max-udp-payload-length">Set min/max UDP payload length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#drop-udp-fragments">Drop UDP fragments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-min-max-udp-fragments-payload-length">Set min/max UDP fragments payload length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#drop-udp-with-checksum0">Drop UDP with checksum0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-udp-rate-limiting">Configure UDP rate limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-drop-policy-per-icmp-type">Set drop policy per ICMP type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-drop-policy-per-ttl-values">Set drop policy per TTL values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-dns-check-method">Configure DNS check method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-dns-rate-limiting">Configure DNS rate limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-dns-traffic-threshold">Configure DNS traffic threshold</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-drop-policy-per-dns-request-type">Set drop policy per DNS request type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-max-dns-subdomain-length">Set max DNS subdomain length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hex-string-pattern-match">Hex/string pattern match</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-active-patterns">Read active patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#http-request-field-match">HTTP request field match</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-active-http-request-fields">Read active HTTP request fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-allowed-http-hosts">Add allowed HTTP hosts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-active-http-hosts">Read active HTTP hosts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#users-management">Users Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-users-list">Read users list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-del-update-users">Add/del/update users</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Traffic Visibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Utilities and Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hw_bypass.html">Hardware Bypass Support</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nScrub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Traffic Enforcement Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/traffic_enforcement_conf.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="traffic-enforcement-configuration">
+<h1>Traffic Enforcement Configuration<a class="headerlink" href="#traffic-enforcement-configuration" title="Link to this heading"></a></h1>
+<p>Once the application is up and running, it’s time to configure it for enabling traffic mitigation. This means we need to create virtual scrubbers (objects containing protection policies based on target), each virtual scrubber inspects the traffic matching one, or more, destination subnets. Each virtual scrubber, identified by a target ID, has its own traffic enforcement profiles that can be configured/changed/inspected at runtime using the API.</p>
+<p>This sections provides some basic knowledge for configuring the engine using the REST API. Please refer to the API documentation for the full API specifications.</p>
+<p>Note that although this section covers the configuration using the REST API, a few command line tools (see Appendix A) are also available to ease the configuration, including:</p>
+<ul class="simple">
+<li><p><em>nscrub-cli</em>, implementing a console with autocompletion with all the functionalities implemented by the REST API.</p></li>
+<li><p><em>nscrub-add</em>, a wizard tool for creating new victims with a basic configuration (further customisations are usually needed using nscrub-cli or the API).</p></li>
+<li><p><em>nscrub-export</em>, a tool for dumping the current configuration for a specific victim.</p></li>
+</ul>
+<p>Default settings for configuring nscrub:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>HTTP port</p></td>
+<td><p>8880</p></td>
+</tr>
+<tr class="row-even"><td><p>HTTPs port</p></td>
+<td><p>4443</p></td>
+</tr>
+<tr class="row-odd"><td><p>Socket binding</p></td>
+<td><p>localhost</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>nScrub listens on localhost by default, please configure a different address (-G option) to use the REST API from a remote machine.</p>
+</div>
+<p>There are no default credentials: a password must be explicitly configured for the <em>admin</em>
+user before the REST API/CLI will accept authentication. See <em>Setting the REST API Password</em> below.</p>
+<section id="user-management">
+<h2>User Management<a class="headerlink" href="#user-management" title="Link to this heading"></a></h2>
+<section id="setting-the-rest-api-password">
+<h3>Setting the REST API Password<a class="headerlink" href="#setting-the-rest-api-password" title="Link to this heading"></a></h3>
+<p>Passwords are stored in Redis as salted SHA-256 hashes under the key <code class="docutils literal notranslate"><span class="pre">nscrub.user.&lt;username&gt;.password</span></code>,
+in the format <code class="docutils literal notranslate"><span class="pre">sha256:&lt;salt&gt;:&lt;hash&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;salt&gt;</span></code> is a random 16-byte hex string and <code class="docutils literal notranslate"><span class="pre">&lt;hash&gt;</span></code>
+is the SHA-256 digest of <code class="docutils literal notranslate"><span class="pre">&lt;salt&gt;</span></code> concatenated with the password.</p>
+<p>To set the password for the <em>admin</em> user, run the command below, replacing <em>newpassword</em> with the
+desired password (the same command can be used for any other username by replacing <em>admin</em> in the
+Redis key):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">SALT=$(openssl rand -hex 16); redis-cli SET nscrub.user.admin.password &quot;sha256:${SALT}:$(printf &#39;%s%s&#39; &quot;$SALT&quot; &#39;newpassword&#39; | openssl dgst -sha256 -r | awk &#39;{print $1}&#39;)&quot;</span>
+</pre></div>
+</div>
+<p>If Redis listens on a non-default host/port, supply the connection details with <em>-h host</em> and
+<em>-p port</em> (or <em>-n db-id</em> for a non-default database).</p>
+</section>
+<section id="changing-the-password">
+<h3>Changing the Password<a class="headerlink" href="#changing-the-password" title="Link to this heading"></a></h3>
+<p>Once the initial admin password is set, credentials can also be managed (while nScrub is running) using the REST API or the CLI.</p>
+<p><strong>Using nscrub-cli:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nscrub-cli&gt; usermod &lt;username&gt; &lt;group&gt; &lt;new_password&gt;</span>
+</pre></div>
+</div>
+<p>Example to change the admin password:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nscrub-cli&gt; usermod admin administrator newpassword</span>
+</pre></div>
+</div>
+<p><strong>Using the REST API directly:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:&lt;password&gt; &quot;https://localhost:4443/users?action=update&amp;username=admin&amp;group=administrator&amp;password=newpassword&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="adding-and-removing-users">
+<h3>Adding and Removing Users<a class="headerlink" href="#adding-and-removing-users" title="Link to this heading"></a></h3>
+<p><strong>Using nscrub-cli:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nscrub-cli&gt; useradd &lt;username&gt; &lt;group&gt; &lt;password&gt;    # add a new user</span>
+<span class="go">nscrub-cli&gt; userdel &lt;username&gt;                       # remove a user</span>
+<span class="go">nscrub-cli&gt; users                                    # list all users</span>
+</pre></div>
+</div>
+<p><strong>Using the REST API:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:&lt;password&gt; &quot;https://localhost:4443/users?action=add&amp;username=john&amp;group=administrator&amp;password=secret&quot;</span>
+<span class="go">curl -u admin:&lt;password&gt; &quot;https://localhost:4443/users?action=del&amp;username=john&quot;</span>
+<span class="go">curl -u admin:&lt;password&gt; &quot;https://localhost:4443/users?action=list&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="password-reset-emergency">
+<h3>Password Reset (Emergency)<a class="headerlink" href="#password-reset-emergency" title="Link to this heading"></a></h3>
+<p>If you lost the admin password, set a new one directly in Redis using the same command shown in
+<em>Setting the REST API Password</em> above (no restart is required). Passwords hashed by older nScrub
+versions (a plain unsalted MD5 hash) are still accepted for backward compatibility, and are
+automatically upgraded to the salted SHA-256 format the next time that user logs in successfully.</p>
+</section>
+</section>
+<section id="traffic-enforcement-logic">
+<h2>Traffic Enforcement Logic<a class="headerlink" href="#traffic-enforcement-logic" title="Link to this heading"></a></h2>
+<p>Understanding how nScrub processes and enforces traffic policies is essential for proper configuration.
+This section explains the core traffic enforcement mechanism and how profiles interact to provide
+DDoS protection while allowing legitimate traffic.</p>
+<section id="profile-based-traffic-inspection">
+<h3>Profile-Based Traffic Inspection<a class="headerlink" href="#profile-based-traffic-inspection" title="Link to this heading"></a></h3>
+<p>Each virtual scrubber (victim) has four profiles that define traffic enforcement policies:</p>
+<ul class="simple">
+<li><p><strong>DEFAULT profile</strong>: Applied to traffic from IP addresses not in any list (unknown sources)</p></li>
+<li><p><strong>WHITE profile</strong>: Applied to whitelisted IP addresses (verified legitimate sources)</p></li>
+<li><p><strong>BLACK profile</strong>: Applied to blacklisted IP addresses (known attackers)</p></li>
+<li><p><strong>GRAY profile</strong>: Applied to IP addresses requiring special handling</p></li>
+</ul>
+</section>
+<section id="wan-to-lan-traffic-flow-inbound-traffic-inspection">
+<h3>WAN to LAN Traffic Flow (Inbound Traffic Inspection)<a class="headerlink" href="#wan-to-lan-traffic-flow-inbound-traffic-inspection" title="Link to this heading"></a></h3>
+<p>Traffic arriving from the WAN interface destined to protected subnets (targets/victims) is first checked
+against the global attackers list based on the source IP address. If there is no specific match there
+(or the target ignores the global list), it is checked against the target attackers list, always based
+on the source IP address, and the matching per-target profile:</p>
+<ol class="arabic simple">
+<li><p><strong>Unknown Sources (DEFAULT profile)</strong>:</p>
+<ul class="simple">
+<li><p>Traffic from sources not in any list (WHITE, BLACK, or GRAY) is evaluated by the DEFAULT profile</p></li>
+<li><p>Typically configured with a “drop by default” policy since traffic should only pass after verification</p></li>
+<li><p>The DEFAULT profile contains validation checks (SYN checks, DNS checks, rate limits, etc.)</p></li>
+<li><p>When a packet passes all checks and is verified as legitimate, the source IP is <strong>automatically
+added to the WHITE list</strong></p></li>
+<li><p>Subsequent packets from that source will then be processed by the WHITE profile</p></li>
+</ul>
+</li>
+<li><p><strong>Whitelisted Sources (WHITE profile)</strong>:</p>
+<ul class="simple">
+<li><p>Traffic from sources in the WHITE list is processed by the WHITE profile</p></li>
+<li><p>Should be configured with an “accept all” policy to allow legitimate traffic to flow freely</p></li>
+<li><p>Sources are added to WHITE list either:</p>
+<ul>
+<li><p>Automatically after successful verification by DEFAULT profile checks</p></li>
+<li><p>Manually via API/CLI</p></li>
+<li><p>From LAN to WAN traffic (see below)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Blacklisted Sources (BLACK profile)</strong>:</p>
+<ul class="simple">
+<li><p>Traffic from sources in the BLACK list is processed by the BLACK profile</p></li>
+<li><p>Typically configured to drop all traffic</p></li>
+<li><p>Sources are added to BLACK list either:</p>
+<ul>
+<li><p>Manually via API/CLI</p></li>
+<li><p>Automatically by auto-blacklist features when sources fail validation or exceed rate limits</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Gray-listed Sources (GRAY profile)</strong>:</p>
+<ul class="simple">
+<li><p>Traffic from sources in the GRAY list requires special policies</p></li>
+<li><p>Useful for applying custom rules to specific IP addresses or subnets</p></li>
+<li><p>Typically configured with default “drop” and specific allow rules for certain traffic types</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="lan-to-wan-traffic-flow-outbound-traffic">
+<h3>LAN to WAN Traffic Flow (Outbound Traffic)<a class="headerlink" href="#lan-to-wan-traffic-flow-outbound-traffic" title="Link to this heading"></a></h3>
+<p>Traffic from the LAN (protected network) to WAN is handled differently:</p>
+<ul class="simple">
+<li><p><strong>All LAN to WAN traffic is always passed</strong> without inspection</p></li>
+<li><p>When a packet is sent from the LAN, the <strong>destination IP is automatically whitelisted</strong></p></li>
+<li><p>This ensures return traffic (where the whitelisted destination becomes the source on WAN)
+is accepted through the WHITE profile</p></li>
+<li><p>This mechanism allows legitimate bidirectional communication initiated from the protected network</p></li>
+</ul>
+<p><strong>Important</strong>: If return traffic is not working as expected, this typically indicates a misconfiguration
+that requires debugging (e.g., incorrect WHITE profile policy, routing issues, or asymmetric routing problems).</p>
+</section>
+<section id="traffic-verification-and-promotion-example">
+<h3>Traffic Verification and Promotion Example<a class="headerlink" href="#traffic-verification-and-promotion-example" title="Link to this heading"></a></h3>
+<p>Here’s a typical flow for a new TCP connection:</p>
+<ol class="arabic simple">
+<li><p>External client (1.2.3.4) sends SYN packet to victim (10.0.0.1)</p></li>
+<li><p>Source 1.2.3.4 is not in any list → DEFAULT profile applies</p></li>
+<li><p>DEFAULT profile has SYN check enabled (e.g., RFC compliance check)</p></li>
+<li><p>If SYN packet passes validation:</p>
+<ul class="simple">
+<li><p>Packet is forwarded to victim</p></li>
+<li><p>Source 1.2.3.4 is added to WHITE list</p></li>
+</ul>
+</li>
+<li><p>Subsequent packets from 1.2.3.4 → WHITE profile applies</p></li>
+<li><p>WHITE profile has “accept all” → packets flow freely</p></li>
+<li><p>If idle timeout expires (with autopurging enabled), 1.2.3.4 may be removed from WHITE list</p></li>
+</ol>
+</section>
+<section id="configuration-best-practices">
+<h3>Configuration Best Practices<a class="headerlink" href="#configuration-best-practices" title="Link to this heading"></a></h3>
+<p>For proper traffic enforcement:</p>
+<ol class="arabic">
+<li><p><strong>WHITE profile</strong>: Set “accept all” policy</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin &quot;https://localhost:4443/profile/all/accept?target_id=VICTIM&amp;profile=white&amp;action=enable&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>BLACK profile</strong>: Set “drop all” policy</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin &quot;https://localhost:4443/profile/all/drop?target_id=VICTIM&amp;profile=black&amp;action=enable&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>DEFAULT profile</strong>: Configure with validation checks and “drop by default”</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin &quot;https://localhost:4443/profile/default?target_id=VICTIM&amp;profile=default&amp;action=update&amp;value=drop&quot;</span>
+<span class="go">curl -u admin:admin &quot;https://localhost:4443/profile/tcp/syn/check_method?target_id=VICTIM&amp;profile=default&amp;action=update&amp;value=rfc&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Dynamic list management</strong>: Enable autopurging to automatically remove idle whitelisted IPs</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin &quot;https://localhost:4443/attackers/dynamic/autopurging?target_id=VICTIM&amp;action=enable&quot;</span>
+<span class="go">curl -u admin:admin &quot;https://localhost:4443/attackers/dynamic/expiration?target_id=VICTIM&amp;action=update&amp;value=3600&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Please check the <a class="reference external" href="../../a-step-by-step-guide-for-protecting-your-network-with-nscrub/index.html">Step-By-Step Guide</a> for a full (basic) configuration example.</p>
+</section>
+</section>
+<section id="victims-definition">
+<h2>Victims definition<a class="headerlink" href="#victims-definition" title="Link to this heading"></a></h2>
+<p>Victims can be dynamically added, removed and configured at runtime.
+This section shows some examples of the most common runtime settings, focusing on the REST API.
+The below sections describe all the available API calls to configure the engine using both the CLI and
+the REST API.</p>
+<p>Read active victims:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/targets?action=list&quot;</span>
+</pre></div>
+</div>
+<p>or do the same using the command line tool:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nscrub-cli</span>
+<span class="go">localhost:8880&gt; list targets</span>
+</pre></div>
+</div>
+<p>Add a new victim:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/targets?action=add&amp;target_id=&lt;victim name&gt;&amp;subnet=&lt;subnet (CIDR notation)&gt;&quot;</span>
+</pre></div>
+</div>
+<p>Each victim is bound to four profiles: default, black, white, and gray. These profiles define how traffic is processed based on the source IP address. For a detailed explanation of how profiles work and the traffic enforcement logic, see the “Traffic Enforcement Logic” section above.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section provides only a few examples of victim configuration, for the full settings please refer to the API documentation.</p>
+</div>
+<p>It is a common practice to set the “drop all” policy to the black profile:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/profile/all/drop?target_id=&lt;victim name&gt;&amp;profile=black&amp;action=enable&quot;</span>
+</pre></div>
+</div>
+<p>It is also a common practice to set the “accept all” policy to the white profile:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/profile/all/accept?target_id=&lt;victim name&gt;&amp;profile=white&amp;action=enable&quot;</span>
+</pre></div>
+</div>
+<p>The gray profile is usually used for applying special policies to “special” IPs. For instance it is a common practice to set the “default” policy to “drop” and then specify more specific policies to let specific traffic types through.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/profile/default?target_id=&lt;victim name&gt;&amp;profile=gray&amp;action=update&amp;value=drop&quot;</span>
+</pre></div>
+</div>
+<p>The default profile is where the real traffic enforcement policies go, for checking unknown traffic. For instance it is also a common practice to set the default policy to drop:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/profile/default?target_id=&lt;victim name&gt;&amp;profile=default&amp;action=update&amp;value=drop&quot;</span>
+</pre></div>
+</div>
+<p>Accept ICMP:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/profile/icmp/accept?target_id=&lt;victim name&gt;&amp;profile=default&amp;action=enable&quot;</span>
+</pre></div>
+</div>
+<p>Drop UDP:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/profile/udp/drop?target_id=&lt;victim name&gt;&amp;profile=default&amp;action=enable&quot;</span>
+</pre></div>
+</div>
+<p>Accept UDP port 53 (DNS):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/profile/udp/src/53/accept?target_id=&lt;victim name&gt;&amp;profile=default&amp;action=enable&quot;</span>
+</pre></div>
+</div>
+<p>Check TCP traffic:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/check_method?target_id=&lt;victim name&gt;&amp;profile=default&amp;action=update&amp;value=rfc&quot;</span>
+</pre></div>
+</div>
+<p>It is also possible to set a rate limiter (in this example per source) to set a threshold to the traffic rate.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/profile/rate?target_id=&lt;victim name&gt;&amp;profile={black, white, gray, default}[&amp;action=update&amp;value=&lt;pkts/s&gt;]&quot;</span>
+</pre></div>
+</div>
+<p>Many more policies are available, please refer to the full API documentation.</p>
+<p>Please note all the settings can also be read, omitting the action (and value) parameter.</p>
+<p>In order to temporarily disable traffic checks, it is possible to put the system in bypass state, both globally:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/bypass?[action={enable, disable}]&quot;</span>
+</pre></div>
+</div>
+<p>or per victim:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; &quot;https://&lt;host&gt;:&lt;port&gt;/profile/bypass?target_id=&lt;victim name&gt;&amp;profile=default[&amp;action={enable, disable}]&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="global-settings">
+<h2>Global Settings<a class="headerlink" href="#global-settings" title="Link to this heading"></a></h2>
+<section id="application-version-configuration-and-status">
+<h3>Application version, configuration and status<a class="headerlink" href="#application-version-configuration-and-status" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; status</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/status</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/</span>
+</pre></div>
+</div>
+</section>
+<section id="stats">
+<h3>Stats<a class="headerlink" href="#stats" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; stats</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/stats</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/stats</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-system-name">
+<h3>Configure system name<a class="headerlink" href="#configure-system-name" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; hostname [NAME]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/hostname?[action=update\&amp;value=&lt;NAME&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/hostname</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-system-description">
+<h3>Configure system description<a class="headerlink" href="#configure-system-description" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; desc [DESCRIPTION]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/desc?[action=update\&amp;value=&lt;DESCRIPTION&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/desc</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-global-bypass">
+<h3>Configure global bypass<a class="headerlink" href="#configure-global-bypass" title="Link to this heading"></a></h3>
+<p>Hardware bypass is used when available.
+Note: this is a full bypass, does not handle routing (when enabled).</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; bypass [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/bypass?[action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/bypass</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/bypass?action=enable</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/bypass?action=disable</span>
+</pre></div>
+</div>
+</section>
+<section id="read-the-neighbor-table">
+<h3>Read the neighbor table<a class="headerlink" href="#read-the-neighbor-table" title="Link to this heading"></a></h3>
+<p>Read the ARP Table.
+Note that nScrub automatically learns neighbors reading the system arp table,
+thus you can manage neighbors using the standard arp commands.
+Example of manually adding an entry:   $ arp -i eth1 -s 192.168.1.85 00:b1:ac:50:17:00
+Example of manually deleting an entry: $ arp -d 192.168.1.85</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; neigh</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/neigh?action=list</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/neigh?action=list</span>
+</pre></div>
+</div>
+</section>
+<section id="set-wan-lan-ip">
+<h3>Set WAN/LAN IP<a class="headerlink" href="#set-wan-lan-ip" title="Link to this heading"></a></h3>
+<p>Set the IP address for the WAN or LAN interfaces (changes are applied on nscrub restart)</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; ip</span>
+<span class="go">&gt; ip WAN|LAN set IP</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/ip?action=update&amp;interface={WAN, LAN}&amp;value=&lt;IP&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/ip</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/ip?action=update\&amp;interface=WAN\&amp;value=10.10.10.1</span>
+</pre></div>
+</div>
+</section>
+<section id="read-the-routing-table">
+<h3>Read the routing table<a class="headerlink" href="#read-the-routing-table" title="Link to this heading"></a></h3>
+<p>Routing mode only.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; route</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/route?action=list</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/route?action=list</span>
+</pre></div>
+</div>
+</section>
+<section id="update-the-routing-table">
+<h3>Update the routing table<a class="headerlink" href="#update-the-routing-table" title="Link to this heading"></a></h3>
+<p>Routing mode only.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; route add SUBNET gw IP</span>
+<span class="go">&gt; route del SUBNET</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/route?[action={add, del}\&amp;destination=&lt;CIDR&gt;[\&amp;gw=&lt;IP&gt;]]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/route</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/route?action=add\&amp;destination=default\&amp;gw=192.168.1.1</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/route?action=add\&amp;destination=10.10.10.0/24\&amp;gw=10.10.10.1</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/route?action=del\&amp;destination=10.10.10.0/24</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-vlan-reforging">
+<h3>Configure VLAN reforging<a class="headerlink" href="#configure-vlan-reforging" title="Link to this heading"></a></h3>
+<p>This is used to map ingress VLAN to egress VLAN.
+Note: to remove a mapping set Src-ID = Dest-ID</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; vlan id SRC-VLAN-ID reforge [DST-VLAN-ID]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/vlan/id/&lt;Src-ID&gt;/reforge?[action=update\&amp;value=&lt;Dest-ID&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/vlan/id/2/reforge</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/vlan/id/2/reforge?action=update\&amp;value=3</span>
+</pre></div>
+</div>
+</section>
+<section id="read-the-vlan-reforging-list">
+<h3>Read the VLAN reforging list<a class="headerlink" href="#read-the-vlan-reforging-list" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; vlan</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/vlan/id?action=list</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/vlan/id?action=list</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-traffic-mirroring">
+<h3>Configure traffic mirroring<a class="headerlink" href="#configure-traffic-mirroring" title="Link to this heading"></a></h3>
+<p>Define how traffic is sent to the auxiliary queues.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; mirror ID</span>
+<span class="go">&gt; mirror ID type [forwarded|discarded|injected|all]</span>
+<span class="go">&gt; mirror ID sampling [RATE]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/mirror/&lt;queue set id&gt;/type[?action=update\&amp;value={forwarded, discarded, injected, all}]</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/mirror/&lt;queue set id&gt;/sampling[?action=update\&amp;value=&lt;sampling rate (0 for no traffic)&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/mirror/0/type?action=update\&amp;value=all</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/mirror/0/sampling?action=update\&amp;value=1</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-the-runtime-debug-level">
+<h3>Configure the runtime debug level<a class="headerlink" href="#configure-the-runtime-debug-level" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; debug [LEVEL]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/debug[?action=update\&amp;value=&lt;level&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/debug</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/debug?action=update\&amp;value=2</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-peer-mac-policy">
+<h3>Configure peer (MAC) policy<a class="headerlink" href="#configure-peer-mac-policy" title="Link to this heading"></a></h3>
+<p>This is usually not needed unless you want to blacklist a peer.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; peer</span>
+<span class="go">&gt; peer add MAC policy pass|drop</span>
+<span class="go">&gt; peer del MAC</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/peers?action={add,del,list}[\&amp;address=&lt;mac&gt;[\&amp;value={pass, drop}]]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/peers?action=list</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/peers?action=add\&amp;address=00:11:22:33:44:55\&amp;policy=drop</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/peers?action=del\&amp;address=00:11:22:33:44:55</span>
+</pre></div>
+</div>
+</section>
+<section id="global-attackers-lists">
+<h3>Global Attackers Lists<a class="headerlink" href="#global-attackers-lists" title="Link to this heading"></a></h3>
+<p>In addition to per-target WHITE/BLACK/GRAY lists, nScrub supports <strong>global attackers lists</strong>,
+shared by all targets, so a blacklist (or whitelist) does not need to be loaded once per target.</p>
+<ul class="simple">
+<li><p>The global list is checked <strong>before</strong> the per-target profile lookup described below: if the
+relevant IP (source for WAN to LAN traffic) has an entry in the global list, that profile is
+used immediately and the per-target list is not consulted.</p></li>
+<li><p>If there is no global match, traffic falls through to the normal per-target profile lookup
+described in the rest of this section.</p></li>
+<li><p>Any target can opt out and only use its own lists, ignoring the global list entirely, see
+“Ignore the global attackers list for a target” in the Global Attackers Management section.</p></li>
+<li><p>The global list only supports statically managed entries (added/loaded via CLI/REST). There is no
+global equivalent of the per-target automatically-populated dynamic list, since dynamic detection
+is based on a single target traffic.</p></li>
+</ul>
+<p>See the Global Attackers Management section for how to manage the global list via CLI/REST.</p>
+</section>
+</section>
+<section id="targets-management">
+<h2>Targets Management<a class="headerlink" href="#targets-management" title="Link to this heading"></a></h2>
+<section id="read-targets-list">
+<h3>Read targets list<a class="headerlink" href="#read-targets-list" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; list targets</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/targets?action=list</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/targets?action=list</span>
+</pre></div>
+</div>
+</section>
+<section id="add-del-subnets-from-targets">
+<h3>Add/del subnets from targets<a class="headerlink" href="#add-del-subnets-from-targets" title="Link to this heading"></a></h3>
+<p>If the target does not exists, it creates a new target.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; add target ID SUBNET</span>
+<span class="go">&gt; del target ID SUBNET</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/targets?action={add, del}\&amp;target_id=&lt;target id&gt;\&amp;subnet=&lt;CIDR&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/targets?action=add\&amp;target_id=SCRBR1\&amp;subnet=10.10.11.1/32</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/targets?action=del\&amp;target_id=SCRBR1\&amp;subnet=10.10.11.1/32</span>
+</pre></div>
+</div>
+</section>
+<section id="delete-a-target-by-name">
+<h3>Delete a target by name<a class="headerlink" href="#delete-a-target-by-name" title="Link to this heading"></a></h3>
+<p>Delete a target and its configuration.
+Use * for all targets.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; purge target ID|*</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/targets?action=target_del\&amp;target_id={&lt;target id&gt;,*}</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/targets?action=target_del\&amp;target_id=SCRBR1</span>
+</pre></div>
+</div>
+</section>
+<section id="set-a-description-for-the-target">
+<h3>Set a description for the target<a class="headerlink" href="#set-a-description-for-the-target" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID desc [DESCRIPTION]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/targets/desc?target_id=&lt;target id&gt;[\&amp;action=update\&amp;value=&lt;DESCRIPTION&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/targets/desc?target_id=SCRBR1</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-vlan-reforging-for-traffic-towards-the-target">
+<h3>Configure VLAN reforging for traffic towards the target<a class="headerlink" href="#configure-vlan-reforging-for-traffic-towards-the-target" title="Link to this heading"></a></h3>
+<p>This can be used as an alternative to the global mapping /vlan/id/{Src-ID}/reforge
+Note: to disable reforging set Dest-ID = 0</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID vlan reforge [DST-VLAN-ID]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/targets/vlan/reforge?target_id=&lt;target id&gt;[\&amp;action=update\&amp;value=&lt;Dest-ID&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/targets/vlan/reforge?target_id=SCRBR1</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/targets/vlan/reforge?target_id=SCRBR1\&amp;action=update\&amp;value=16</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-target-type">
+<h3>Configure target type<a class="headerlink" href="#configure-target-type" title="Link to this heading"></a></h3>
+<p>Target types (Web server, Game server, DNS server, ISP clients, etc) are used to give hints to the engine and optimise the protection algorithms.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID type [web|dns|game|isp]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/targets/type?target_id=&lt;target id&gt;[\&amp;action=update\&amp;value={web,dns,game,isp}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/targets/type?target_id=SCRBR1</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/targets/type?target_id=SCRBR1\&amp;action=update\&amp;value=web</span>
+</pre></div>
+</div>
+</section>
+<section id="read-target-stats">
+<h3>Read target stats<a class="headerlink" href="#read-target-stats" title="Link to this heading"></a></h3>
+<p>Read (inbound traffic only) stats for a target.
+Note: this accepts regexp (e.g. ‘webserver_[0-9]*’) as target id.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID stats</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/targets/stats?target_id=&lt;target id&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/targets/stats?target_id=SCRBR1</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="attackers-management">
+<h2>Attackers Management<a class="headerlink" href="#attackers-management" title="Link to this heading"></a></h2>
+<section id="read-attackers">
+<h3>Read attackers<a class="headerlink" href="#read-attackers" title="Link to this heading"></a></h3>
+<p>Read the attackers for a specific target, specifying the list name, and filtering by profile
+Note:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>profile=* means all the attackers, profile=white/black/gray to select IPs matching a profile</p></li>
+<li><p>list=* means all the lists</p></li>
+<li><p>up to 100 items are returned by default, or limit if provided. The offset parameter can be used to handle pagination.</p></li>
+</ul>
+</div></blockquote>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers show LISTNAME|* white|gray|black|*</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers?target_id=&lt;target id&gt;\&amp;action=list\&amp;profile={black, white, gray, *}\&amp;list={&lt;list name&gt;, *}[\&amp;offset=&lt;offset&gt;][\&amp;limit=&lt;max items&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=list\&amp;profile=*\&amp;list=Test</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=list\&amp;profile=*\&amp;list=*\&amp;offset=0\&amp;limit=500</span>
+</pre></div>
+</div>
+</section>
+<section id="add-delete-attackers">
+<h3>Add/Delete attackers<a class="headerlink" href="#add-delete-attackers" title="Link to this heading"></a></h3>
+<p>Add/del items from an attacker list (optionally you can specify a lifetime for adding attackers to the dynamic list, in this case attackers are not persistent on application restart)</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers add LISTNAME SUBNET white|gray|black [SEC]</span>
+<span class="go">&gt; target ID attackers del LISTNAME SUBNET</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers?target_id=&lt;target id&gt;\&amp;action={add, del}\&amp;list=&lt;list name&gt;\&amp;subnet=&lt;CIDR&gt;[\&amp;profile={black, white, gray}][\&amp;lifetime=&lt;seconds&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=add\&amp;list=Test\&amp;subnet=10.10.11.1/32\&amp;profile=black</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=del\&amp;list=Test\&amp;subnet=10.10.11.1/32</span>
+</pre></div>
+</div>
+</section>
+<section id="delete-an-attacker-list">
+<h3>Delete an attacker list<a class="headerlink" href="#delete-an-attacker-list" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt;</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers?target_id=&lt;target id&gt;\&amp;action=list_del\&amp;list=&lt;list name&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=list_del\&amp;list=Test</span>
+</pre></div>
+</div>
+</section>
+<section id="purge-all-attackers">
+<h3>Purge all attackers<a class="headerlink" href="#purge-all-attackers" title="Link to this heading"></a></h3>
+<p>This also deletes all lists.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers purge all</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers?target_id=&lt;target id&gt;\&amp;action=purge</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=purge</span>
+</pre></div>
+</div>
+</section>
+<section id="list-all-attackers-list">
+<h3>List all attackers list<a class="headerlink" href="#list-all-attackers-list" title="Link to this heading"></a></h3>
+<p>List all attackers lists for a target (this also returns the number of entries in each list)</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers showlists</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers?target_id=&lt;target id&gt;\&amp;action=list_ls</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=list_ls</span>
+</pre></div>
+</div>
+</section>
+<section id="search-attackers">
+<h3>Search attackers<a class="headerlink" href="#search-attackers" title="Link to this heading"></a></h3>
+<p>Search for an attacker in a specific list (by name), all lists (using ‘*’), all configured lists
+(using ‘static’) or all dynamically whitelisted/blacklisted IPs (using ‘dynamic’).
+Returns the list names where the subnet is defined.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers search LISTNAME|dynamic|* white|gray|black|* SUBNET</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers?target_id=&lt;target id&gt;\&amp;action=search\&amp;list={&lt;list name&gt;, dynamic, static, *}\&amp;profile={black, white, gray, *}\&amp;subnet=&lt;CIDR&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=search\&amp;list=*\&amp;profile=*\&amp;subnet=10.10.11.1/32</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=search\&amp;list=dynamic\&amp;profile=*\&amp;subnet=10.10.11.1/32</span>
+</pre></div>
+</div>
+</section>
+<section id="read-dynamic-list">
+<h3>Read dynamic list<a class="headerlink" href="#read-dynamic-list" title="Link to this heading"></a></h3>
+<p>This will also include subnets in static lists.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers show dynamic white|gray|black|*</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers?target_id=&lt;target id&gt;\&amp;action=list\&amp;profile={black, white, gray}\&amp;list=dynamic</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=list\&amp;profile=white\&amp;list=dynamic</span>
+</pre></div>
+</div>
+</section>
+<section id="purge-dynamic-list">
+<h3>Purge dynamic list<a class="headerlink" href="#purge-dynamic-list" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers purge dynamic</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers/dynamic?target_id=&lt;target id&gt;\&amp;action=purge</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/dynamic?target_id=SCRBR1\&amp;action=purge</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-dynamic-list-autopurging">
+<h3>Configure dynamic list autopurging<a class="headerlink" href="#configure-dynamic-list-autopurging" title="Link to this heading"></a></h3>
+<p>(auto remove dynamically whitelisted IPs on idle timeout)</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers dynamic autopurging [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers/dynamic/autopurging?target_id=&lt;target id&gt;[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/dynamic/autopurging?target_id=SCRBR1</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/dynamic/autopurging?target_id=SCRBR1\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-dynamic-list-expiration-for-autopurging">
+<h3>Configure dynamic list expiration for autopurging<a class="headerlink" href="#configure-dynamic-list-expiration-for-autopurging" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<p>This is the idle timeout for IPs which are automatically whitelisted or blacklisted by the engine.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers dynamic expiration [SEC]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers/dynamic/expiration?target_id=&lt;target id&gt;[\&amp;action=update\&amp;value=&lt;sec&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/dynamic/expiration?target_id=SCRBR1</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/dynamic/expiration?target_id=SCRBR1\&amp;action=update\&amp;value=3600</span>
+</pre></div>
+</div>
+</section>
+<section id="batch-add-delete-attackers">
+<h3>Batch add/delete attackers<a class="headerlink" href="#batch-add-delete-attackers" title="Link to this heading"></a></h3>
+<p>Add/del multiple items in a single call from an attacker list (JSON array via POST)
+Note: add-fast action updates the datapath faster (less impact on traffic), however it flushed all dynamically-added IPs and does not handle duplicate items across lists</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers load LISTNAME FILEPATH white|gray|black [SEC]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin -X POST https://localhost:4443/attackers?target_id=SCRBR1\&amp;action={add, add-fast}\&amp;list=Test\&amp;profile=black -d &#39;[&quot;1.1.1.1/32&quot;,&quot;2.2.2.2/32&quot;]&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin -X POST https://localhost:4443/attackers?target_id=SCRBR1\&amp;action=del\&amp;list=Test -d &#39;[&quot;1.1.1.1/32&quot;,&quot;2.2.2.2/32&quot;]&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="global-attackers-management">
+<h2>Global Attackers Management<a class="headerlink" href="#global-attackers-management" title="Link to this heading"></a></h2>
+<p>The global attackers list (see “Global Attackers List” above) is managed the same way as a
+per-target list, except calls omit <code class="docutils literal notranslate"><span class="pre">target_id</span></code> and use the <code class="docutils literal notranslate"><span class="pre">/attackers/global</span></code> endpoint (CLI:
+<code class="docutils literal notranslate"><span class="pre">attackers</span> <span class="pre">global</span> <span class="pre">...</span></code>, a top-level command, as opposed to <code class="docutils literal notranslate"><span class="pre">target</span> <span class="pre">ID</span> <span class="pre">attackers</span> <span class="pre">...</span></code>). Updates
+are applied immediately to the live datapath, same as per-target lists. Note: the <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>,
+<code class="docutils literal notranslate"><span class="pre">search</span></code>, <code class="docutils literal notranslate"><span class="pre">autopurging</span></code> and <code class="docutils literal notranslate"><span class="pre">expiration</span></code> actions are not available for the global list.</p>
+<section id="read-global-attackers">
+<h3>Read global attackers<a class="headerlink" href="#read-global-attackers" title="Link to this heading"></a></h3>
+<p>Read the global attackers, specifying the list name, and filtering by profile.
+Note:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>profile=* means all the attackers, profile=white/black/gray to select IPs matching a profile</p></li>
+<li><p>list=* means all the lists</p></li>
+<li><p>up to 100 items are returned by default, or limit if provided. The offset parameter can be used to handle pagination.</p></li>
+</ul>
+</div></blockquote>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; attackers global show LISTNAME|* white|gray|black|*</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers/global?action=list\&amp;profile={black, white, gray, *}\&amp;list={&lt;list name&gt;, *}[\&amp;offset=&lt;offset&gt;][\&amp;limit=&lt;max items&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/global?action=list\&amp;profile=*\&amp;list=Test</span>
+</pre></div>
+</div>
+</section>
+<section id="add-delete-global-attackers">
+<h3>Add/Delete global attackers<a class="headerlink" href="#add-delete-global-attackers" title="Link to this heading"></a></h3>
+<p>Add/del items from a global attacker list.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; attackers global add LISTNAME SUBNET white|gray|black [SEC]</span>
+<span class="go">&gt; attackers global del LISTNAME SUBNET</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers/global?action={add, del}\&amp;list=&lt;list name&gt;\&amp;subnet=&lt;CIDR&gt;[\&amp;profile={black, white, gray}][\&amp;lifetime=&lt;seconds&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/global?action=add\&amp;list=Test\&amp;subnet=10.10.11.1/32\&amp;profile=black</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/global?action=del\&amp;list=Test\&amp;subnet=10.10.11.1/32</span>
+</pre></div>
+</div>
+</section>
+<section id="delete-a-global-attacker-list">
+<h3>Delete a global attacker list<a class="headerlink" href="#delete-a-global-attacker-list" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; attackers global purge LISTNAME</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers/global?action=list_del\&amp;list=&lt;list name&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/global?action=list_del\&amp;list=Test</span>
+</pre></div>
+</div>
+</section>
+<section id="purge-all-global-attackers">
+<h3>Purge all global attackers<a class="headerlink" href="#purge-all-global-attackers" title="Link to this heading"></a></h3>
+<p>This also deletes all global lists.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; attackers global purge all</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers/global?action=purge</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/global?action=purge</span>
+</pre></div>
+</div>
+</section>
+<section id="list-all-global-attackers-lists">
+<h3>List all global attackers lists<a class="headerlink" href="#list-all-global-attackers-lists" title="Link to this heading"></a></h3>
+<p>List all global attackers lists (this also returns the number of entries in each list).</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; attackers global showlists</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers/global?action=list_ls</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/global?action=list_ls</span>
+</pre></div>
+</div>
+</section>
+<section id="batch-add-delete-global-attackers">
+<h3>Batch add/delete global attackers<a class="headerlink" href="#batch-add-delete-global-attackers" title="Link to this heading"></a></h3>
+<p>Add/del multiple items in a single call from a global attacker list (JSON array via POST).
+Note: add-fast action updates the datapath faster (less impact on traffic), however it flushes all dynamically-added IPs and does not handle duplicate items across lists</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; attackers global load LISTNAME FILEPATH white|gray|black [SEC]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin -X POST https://localhost:4443/attackers/global?action={add, add-fast}\&amp;list=Test\&amp;profile=black -d &#39;[&quot;1.1.1.1/32&quot;,&quot;2.2.2.2/32&quot;]&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin -X POST https://localhost:4443/attackers/global?action=del\&amp;list=Test -d &#39;[&quot;1.1.1.1/32&quot;,&quot;2.2.2.2/32&quot;]&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="ignore-the-global-attackers-list-for-a-target">
+<h3>Ignore the global attackers list for a target<a class="headerlink" href="#ignore-the-global-attackers-list-for-a-target" title="Link to this heading"></a></h3>
+<p>Per-target opt-out: when enabled, this target’s traffic is matched only against its own per-target
+attackers list, ignoring the global attackers list entirely.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID attackers ignoreglobal [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/attackers/global/ignore?target_id=&lt;target id&gt;[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/global/ignore?target_id=SCRBR1</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/attackers/global/ignore?target_id=SCRBR1\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="targets-profiles-configuration">
+<h2>Targets Profiles Configuration<a class="headerlink" href="#targets-profiles-configuration" title="Link to this heading"></a></h2>
+<section id="configure-bypass">
+<h3>Configure bypass<a class="headerlink" href="#configure-bypass" title="Link to this heading"></a></h3>
+<p>This can be set on the ‘default’ profile only and overwrites all more specific profiles.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default bypass [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/bypass?target_id=&lt;target id&gt;\&amp;profile=default[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/bypass?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/bypass?target_id=SCRBR1\&amp;profile=default\&amp;action=disable</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-default-action">
+<h3>Configure default action<a class="headerlink" href="#configure-default-action" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default default [drop|pass]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/default?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value={pass, drop}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/default?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/default?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=drop</span>
+</pre></div>
+</div>
+</section>
+<section id="rate-limiting-per-source-dest">
+<h3>Rate limiting per source/dest<a class="headerlink" href="#rate-limiting-per-source-dest" title="Link to this heading"></a></h3>
+<p>Configure per-source (attacker) per-dest (victim) rate limiting (pkts/s)</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default rate src [PPS]</span>
+<span class="go">&gt; target ID profile white|gray|black|default rate dst [PPS]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/rate/{src, dst}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;pkts/s&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/rate/src?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/rate/src?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=100</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-all-traffic-drop-accept">
+<h3>Configure all traffic drop/accept<a class="headerlink" href="#configure-all-traffic-drop-accept" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default all drop [enable|disable]</span>
+<span class="go">&gt; target ID profile white|gray|black|default all accept [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/all/{accept, drop}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/all/drop?target_id=SCRBR1\&amp;profile=black</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/all/drop?target_id=SCRBR1\&amp;profile=black\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="read-udp-tcp-icmp-policies">
+<h3>Read UDP/TCP/ICMP policies<a class="headerlink" href="#read-udp-tcp-icmp-policies" title="Link to this heading"></a></h3>
+<p>Read a summary of the configured policies for each protocol.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default [ip|udp|tcp|icmp|dns]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/{udp, tcp, icmp}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-udp-tcp-icmp-drop-accept">
+<h3>Configure UDP/TCP/ICMP drop/accept<a class="headerlink" href="#configure-udp-tcp-icmp-drop-accept" title="Link to this heading"></a></h3>
+<p>This applies to all ports/types.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default [udp|tcp|icmp]</span>
+<span class="go">&gt; target ID profile white|gray|black|default [udp|tcp|icmp] drop [enable|disable]</span>
+<span class="go">&gt; target ID profile white|gray|black|default [udp|tcp|icmp] accept [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/{udp, tcp, icmp}/{accept, drop}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-gre-signaling-drop-accept">
+<h3>Configure GRE Signaling drop/accept<a class="headerlink" href="#configure-gre-signaling-drop-accept" title="Link to this heading"></a></h3>
+<p>This works when decapsulation is enabled only.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default gre</span>
+<span class="go">&gt; target ID profile white|gray|black|default gre drop [enable|disable]</span>
+<span class="go">&gt; target ID profile white|gray|black|default gre accept [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/gre/{accept, drop}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/gre/accept?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-syn-check-engage-mode">
+<h3>Configure SYN check engage mode<a class="headerlink" href="#configure-syn-check-engage-mode" title="Link to this heading"></a></h3>
+<p>Enable to force always on, disable to disable tcp check in any condition, threshold to enable tcp check on traffic threshold, auto to enable tcp check when an attack is automatically detected or thredhold is exceeded.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp syn check [disable|threshold|auto|enable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/check?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value={disable, threshold, auto, enable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/check?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/check?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=auto</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-tcp-traffic-threshold">
+<h3>Configure TCP traffic threshold<a class="headerlink" href="#configure-tcp-traffic-threshold" title="Link to this heading"></a></h3>
+<p>Set the maximum expected TCP traffic rate to feed the detection algorithm (Mbit/s).</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp threshold [MBITPS]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/threshold?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;Mbit/s&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/threshold?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=1000</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-syn-check-method">
+<h3>Configure SYN check method<a class="headerlink" href="#configure-syn-check-method" title="Link to this heading"></a></h3>
+<p>Select the method used to validate TCP connections from sources that are not whitelisted:</p>
+<ul class="simple">
+<li><p>rfc: the first SYN of a source is dropped, a legitimate client retransmits it according to the TCP specification and is whitelisted. This delays the first connection of each source by the client SYN retransmission timeout (usually 1 second).</p></li>
+<li><p>proxy: nScrub answers the SYN with a SYN-ACK carrying a SYN cookie, and opens the connection to the server only after the client has completed the 3-way handshake; the traffic of the connection is then translated by nScrub. No delay is added. In asymmetric mode (wan to lan traffic only) this works as a SYN cookie check.</p></li>
+<li><p>disable: no SYN check (default).</p></li>
+</ul>
+<p>SSL traffic (TCP port 443) is checked with the rfc method when the SYN check method is either rfc or proxy, unless a different method is configured with the SSL SYN check method setting below.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp syn check_method [rfc|proxy|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/check_method?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value={rfc, proxy, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/check_method?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/check_method?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=rfc</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-ssl-syn-check-method">
+<h3>Configure SSL SYN check method<a class="headerlink" href="#configure-ssl-syn-check-method" title="Link to this heading"></a></h3>
+<p>By default SSL traffic (TCP port 443) is checked with the rfc method when the SYN check method is
+either rfc or proxy, as methods based on connection reset can be an issue with some SSL clients.
+This setting overrides the method used for port 443:</p>
+<ul class="simple">
+<li><p>rfc: always use the rfc method on port 443 (same as the default behaviour).</p></li>
+<li><p>proxy: use the SYN proxy on port 443 too, avoiding the delay on the first connection of each source.</p></li>
+<li><p>default: remove the override, the method is selected according to the SYN check method (reading the setting returns “default” when no override is configured).</p></li>
+</ul>
+<p>The override applies only when the SYN check method is enabled (rfc or proxy): when the SYN check method is disable, port 443 is not checked.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default ssl syn check_method [rfc|proxy|default]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/ssl/syn/check_method?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value={rfc, proxy, default}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/ssl/syn/check_method?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/ssl/syn/check_method?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=proxy</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-syn-rfc-check-method-threshold">
+<h3>Configure SYN RFC check method threshold<a class="headerlink" href="#configure-syn-rfc-check-method-threshold" title="Link to this heading"></a></h3>
+<p>Maximum expected new TCP connections per second) to feed the mitigation algorithm (syn/s).</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp syn rfc threshold [PPS]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/rfc/threshold?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;pps&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/rfc/threshold?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/rfc/threshold?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=100</span>
+</pre></div>
+</div>
+</section>
+<section id="enable-whitelisting-of-sessions-only">
+<h3>Enable whitelisting of sessions only<a class="headerlink" href="#enable-whitelisting-of-sessions-only" title="Link to this heading"></a></h3>
+<p>Enable session whitelisting instead of IPs on traffic verified by the TCP check.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp syn wl_session_only [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/wl_session_only?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/wl_session_only?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="auto-engage-whitelisting-of-sessions-only">
+<h3>Auto-engage whitelisting of sessions only<a class="headerlink" href="#auto-engage-whitelisting-of-sessions-only" title="Link to this heading"></a></h3>
+<p>Configure whitelisting of sessions only instead of IPs on traffic verified by the TCP check to automatically engage on threshold
+The maximum number of whitelisted IPs should be specified to trigger it.
+The /tcp/syn/wl_session_only option is ignored when using this.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp syn wl_threshold [NUM]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/wl_threshold?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;whitelist size&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/wl_threshold?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=10000</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-syn-rate-limiting">
+<h3>Configure SYN rate limiting<a class="headerlink" href="#configure-syn-rate-limiting" title="Link to this heading"></a></h3>
+<p>Limit per source or dest (pkts/s)</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp syn rate src [PPS]</span>
+<span class="go">&gt; target ID profile white|gray|black|default tcp syn rate dst [PPS]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/rate/{src, dst}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;pkts/s&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/rate/src?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/rate/src?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=20</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-auto-blacklist">
+<h3>Configure Auto-Blacklist<a class="headerlink" href="#configure-auto-blacklist" title="Link to this heading"></a></h3>
+<p>Blacklist sources exceeding SYN rate for some time or not passing the TCP-Check.
+It is recommended to also enable /attackers/autopurging.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp syn auto_blacklist [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/auto_blacklist?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/auto_blacklist?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-syn-ack-rate-limiting">
+<h3>Configure SYN-ACK rate limiting<a class="headerlink" href="#configure-syn-ack-rate-limiting" title="Link to this heading"></a></h3>
+<p>Limit per source or dest (pkts/s)</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp synack rate src [PPS]</span>
+<span class="go">&gt; target ID profile white|gray|black|default tcp synack rate dst [PPS]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/synack/rate/{src, dst}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;pkts/s&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/synack/rate/src?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/synack/rate/src?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=20</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-syn-ack-session-whitelisting">
+<h3>Configure SYN-ACK session whitelisting<a class="headerlink" href="#configure-syn-ack-session-whitelisting" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp synack wl_session [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/synack/wl_session?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/synack/wl_session?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-syn-ack-tcp-amplification-protection">
+<h3>Configure SYN-ACK TCP-Amplification protection<a class="headerlink" href="#configure-syn-ack-tcp-amplification-protection" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp synack tcp_amp_protection [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/synack/tcp_amp_protection?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/synack/tcp_amp_protection?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="drop-tcp-syn-with-seq-num-0">
+<h3>Drop TCP SYN with seq num 0<a class="headerlink" href="#drop-tcp-syn-with-seq-num-0" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt;</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/noseqnum/drop?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/noseqnum/drop?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/noseqnum/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="drop-tcp-syn-with-no-options">
+<h3>Drop TCP SYN with no options<a class="headerlink" href="#drop-tcp-syn-with-no-options" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp syn nooption drop [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/nooption/drop?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/nooption/drop?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/nooption/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="drop-tcp-syn-packets-with-payload">
+<h3>Drop TCP SYN packets with payload<a class="headerlink" href="#drop-tcp-syn-packets-with-payload" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default tcp syn payload drop [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/tcp/syn/payload/drop?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/payload/drop?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/tcp/syn/payload/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="set-drop-accept-policy-per-udp-tcp-src-dst-port">
+<h3>Set drop/accept policy per UDP/TCP src/dst port<a class="headerlink" href="#set-drop-accept-policy-per-udp-tcp-src-dst-port" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Note: in order to block UDP-based amplification attacks set source ports for dns, ntp, snmp, nb, ssdp, cg, qotd, bt, kad, qnp, sp.</p>
+</div></blockquote>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default [udp|tcp] [src|dst] PORT [drop|accept] [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/{udp, tcp}/{src, dst}/{port}/{accept, drop}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/src/53/drop?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/src/53/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="set-min-max-udp-payload-length">
+<h3>Set min/max UDP payload length<a class="headerlink" href="#set-min-max-udp-payload-length" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default udp payload min_len [BYTES]</span>
+<span class="go">&gt; target ID profile white|gray|black|default udp payload max_len [BYTES]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/udp/payload/{min, max}_len?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;len&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/payload/min_len?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/payload/min_len?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=2</span>
+</pre></div>
+</div>
+</section>
+<section id="drop-udp-fragments">
+<h3>Drop UDP fragments<a class="headerlink" href="#drop-udp-fragments" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default udp fragment drop [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/udp/fragment/drop?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/fragment/drop?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/fragment/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="set-min-max-udp-fragments-payload-length">
+<h3>Set min/max UDP fragments payload length<a class="headerlink" href="#set-min-max-udp-fragments-payload-length" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default udp fragment payload min_len [BYTES]</span>
+<span class="go">&gt; target ID profile white|gray|black|default udp fragment payload max_len [BYTES]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/udp/fragment/payload/{min, max}_len?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;len&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/fragment/payload/min_len?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/fragment/payload/min_len?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=64</span>
+</pre></div>
+</div>
+</section>
+<section id="drop-udp-with-checksum0">
+<h3>Drop UDP with checksum0<a class="headerlink" href="#drop-udp-with-checksum0" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default udp checksum0 drop [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/udp/checksum0/drop?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/checksum0/drop?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/checksum0/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-udp-rate-limiting">
+<h3>Configure UDP rate limiting<a class="headerlink" href="#configure-udp-rate-limiting" title="Link to this heading"></a></h3>
+<p>Limit all UDP traffic (pkts/s) per source or destination</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default udp rate src [PPS]</span>
+<span class="go">&gt; target ID profile white|gray|black|default udp rate dst [PPS]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/udp/rate/{src, dst}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;pkts/s&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/rate/src?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/udp/rate/src?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=100</span>
+</pre></div>
+</div>
+</section>
+<section id="set-drop-policy-per-icmp-type">
+<h3>Set drop policy per ICMP type<a class="headerlink" href="#set-drop-policy-per-icmp-type" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default icmp type TYPE drop [enable|disable]</span>
+<span class="go">&gt; target ID profile white|gray|black|default icmp type TYPE accept [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/icmp/type/&lt;icmp type&gt;/{accept, drop}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/icmp/type/0/drop?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/icmp/type/0/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=disable</span>
+</pre></div>
+</div>
+</section>
+<section id="set-drop-policy-per-ttl-values">
+<h3>Set drop policy per TTL values<a class="headerlink" href="#set-drop-policy-per-ttl-values" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default ip</span>
+<span class="go">&gt; target ID profile white|gray|black|default ip ttl TTL drop [enable|disable]</span>
+<span class="go">&gt; target ID profile white|gray|black|default ip ttl TTL accept [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/ip/ttl/&lt;ttl value&gt;/{accept, drop}?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/ip/ttl?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/ip/ttl/24/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-dns-check-method">
+<h3>Configure DNS check method<a class="headerlink" href="#configure-dns-check-method" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default dns request check_method [forcetcp|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/dns/request/check_method?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value={forcetcp, default}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/dns?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/dns/request/check_method?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=forcetcp</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-dns-rate-limiting">
+<h3>Configure DNS rate limiting<a class="headerlink" href="#configure-dns-rate-limiting" title="Link to this heading"></a></h3>
+<p>Limit DNS requests per source or transaction ID (pkts/s)</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default dns request rate src [PPS]</span>
+<span class="go">&gt; target ID profile white|gray|black|default dns request rate transaction_id [PPS]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/dns/request/rate/src?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;pkts/s&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/dns/request/rate/src?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/dns/request/rate/src?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=20</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-dns-traffic-threshold">
+<h3>Configure DNS traffic threshold<a class="headerlink" href="#configure-dns-traffic-threshold" title="Link to this heading"></a></h3>
+<p>This is the maximum expected number of queries per second.
+This is used to feed the detection algorithm.
+(packets/s)</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default dns request threshold [PPS]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/dns/request/threshold?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;pps&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/dns/request/threshold?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=1000</span>
+</pre></div>
+</div>
+</section>
+<section id="set-drop-policy-per-dns-request-type">
+<h3>Set drop policy per DNS request type<a class="headerlink" href="#set-drop-policy-per-dns-request-type" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default dns request type TYPE drop [enable|disable]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/dns/request/type/&lt;dns query type&gt;/drop?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action={enable, disable}]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/dns/request/type/255/drop?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/dns/request/type/255/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=enable</span>
+</pre></div>
+</div>
+</section>
+<section id="set-max-dns-subdomain-length">
+<h3>Set max DNS subdomain length<a class="headerlink" href="#set-max-dns-subdomain-length" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default dns request subdomain_max_len [CHARACTERS]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/dns/request/subdomain_max_len?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}[\&amp;action=update\&amp;value=&lt;len&gt;]</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/dns/request/subdomain_max_len?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/dns/request/subdomain_max_len?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=10</span>
+</pre></div>
+</div>
+</section>
+<section id="hex-string-pattern-match">
+<h3>Hex/string pattern match<a class="headerlink" href="#hex-string-pattern-match" title="Link to this heading"></a></h3>
+<p>Add &lt;hex/string, offset&gt; pattern to match (drop). Set “” as value to delete a pattern.
+Note:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘payload+’ represents beginning of L7 payload (end of L4 headers), it applies to tcp/udp packets only.</p></li>
+<li><p>when ‘payload+’ is not specified, ‘offset’ is considered from the beginning of the ethernet frame.</p></li>
+<li><p>‘string’ is case sensitive</p></li>
+</ul>
+</div></blockquote>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default pattern PATTERN drop [{hex, string},[payload+]{OFFSET, any},VALUE|-]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/pattern/&lt;id&gt;/drop?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}\&amp;action=update\&amp;value={hex, string},[payload+]{&lt;offset&gt;, any},&lt;hex/string to match&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/pattern/1/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=hex,56,0954A03AC3320F</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/pattern/2/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=string,payload+8,Hello</span>
+</pre></div>
+</div>
+</section>
+<section id="read-active-patterns">
+<h3>Read active patterns<a class="headerlink" href="#read-active-patterns" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default pattern</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/pattern?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/pattern?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+</section>
+<section id="http-request-field-match">
+<h3>HTTP request field match<a class="headerlink" href="#http-request-field-match" title="Link to this heading"></a></h3>
+<p>Add HTTP request field to match (drop). Set “” as value to delete a field.
+Note: ‘label’ is case sensitive, instead ‘value’ is compared ignoring the case.</p>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default http request field FIELD drop [LABEL,VALUE|-]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/http/request/field/&lt;id&gt;/drop?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}\&amp;action=update\&amp;value=&lt;label&gt;,&lt;value&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/http/request/field/1/drop?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=User-Agent,Bot</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/http/request/field/1/drop?target_id=SCRBR1\&amp;profile=white\&amp;action=update\&amp;value=User-Agent,Bot</span>
+</pre></div>
+</div>
+</section>
+<section id="read-active-http-request-fields">
+<h3>Read active HTTP request fields<a class="headerlink" href="#read-active-http-request-fields" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default http request field</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/http/request/field?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/http/request/field?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+</section>
+<section id="add-allowed-http-hosts">
+<h3>Add allowed HTTP hosts<a class="headerlink" href="#add-allowed-http-hosts" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default http request host ID pass [HOSTNAME|-]</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/http/request/host/&lt;id&gt;/pass?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}\&amp;action=update\&amp;value=&lt;hostname&gt;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/http/request/host/1/pass?target_id=SCRBR1\&amp;profile=default\&amp;action=update\&amp;value=example.com</span>
+</pre></div>
+</div>
+</section>
+<section id="read-active-http-hosts">
+<h3>Read active HTTP hosts<a class="headerlink" href="#read-active-http-hosts" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; target ID profile white|gray|black|default http request host</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/profile/http/request/host?target_id=&lt;target id&gt;\&amp;profile={black, white, gray, default}</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/profile/http/request/host?target_id=SCRBR1\&amp;profile=default</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="users-management">
+<h2>Users Management<a class="headerlink" href="#users-management" title="Link to this heading"></a></h2>
+<section id="read-users-list">
+<h3>Read users list<a class="headerlink" href="#read-users-list" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; users</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; https://&lt;host&gt;:&lt;port&gt;/users?action=list</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/users?action=list</span>
+</pre></div>
+</div>
+</section>
+<section id="add-del-update-users">
+<h3>Add/del/update users<a class="headerlink" href="#add-del-update-users" title="Link to this heading"></a></h3>
+<p><em>CLI</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; useradd NAME GROUP PASSWORD</span>
+<span class="go">&gt; usermod NAME GROUP [PASSWORD]</span>
+<span class="go">&gt; userdel NAME</span>
+</pre></div>
+</div>
+<p><em>REST</em></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u &lt;user&gt;:&lt;password&gt; -X POST https://&lt;host&gt;:&lt;port&gt;/users?action={add, del, update}\&amp;username=&lt;username&gt;\&amp;fullname=&lt;full name&gt;\&amp;group={administrator} -d &#39;{ &quot;password&quot; : &quot;&lt;password&gt;&quot; }&#39;</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin -X POST https://localhost:4443/users?action=add\&amp;username=john\&amp;fullname=John\&amp;group=administrator -d &#39;{ &quot;password&quot; : &quot;temporarypassword&quot; }&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -u admin:admin https://localhost:4443/users?action=del\&amp;username=john</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tuning.html" class="btn btn-neutral float-left" title="Performance and Tuning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="monitoring.html" class="btn btn-neutral float-right" title="Traffic Visibility" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nscrub/traffic_enforcement_conf.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:15:17 GMT -->
+</html>

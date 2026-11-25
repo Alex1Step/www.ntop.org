@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/scada/s7comm.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:49:33 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. S7Comm &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. PROFINET" href="profinet.html" />
+    <link rel="prev" title="1. ModbusTCP" href="modbus.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Industrial Monitoring</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="modbus.html">1. ModbusTCP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. S7Comm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow-information">2.1. Flow Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#behavioural-checks">2.2. Behavioural Checks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">2.2.1. Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alerts">2.2.2. Alerts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="profinet.html">3. PROFINET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IEC60870-5-104.html">4. IEC 60870-5-104</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_detections.html">5. Custom Detections</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Industrial Monitoring</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>S7Comm</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/scada/s7comm.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="s7comm">
+<h1><span class="section-number">2. </span>S7Comm<a class="headerlink" href="#s7comm" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature is available only when ntopng collects flows from <a class="reference external" href="../../../products/netflow-probes/nprobe/index.html">nProbe</a> via ZMQ (see <a class="reference internal" href="../using_with_other_tools/nprobe.html#usingntopngwithnprobe"><span class="std std-ref">Using ntopng with nProbe</span></a>). S7Comm traffic is dissected by nProbe, which exports the protocol information to ntopng: this information is not available on packet interfaces, where ntopng analyzes the traffic by itself.</p>
+</div>
+<p><a class="reference external" href="https://wiki.wireshark.org/S7comm">S7Comm</a> (S7 Communication) is the Siemens proprietary protocol used by SIMATIC S7 PLCs to talk with HMIs, SCADA systems and engineering stations (e.g. to read and write PLC variables, upload and download programs, start and stop the PLC). It runs over ISO-on-TCP, usually on TCP port 102.</p>
+<p>For each S7Comm flow, nProbe keeps track of the function codes used, of the transitions between them and of the errors, and exports them to ntopng. ntopng shows this information in the flow details, stores it together with the flow and uses it to detect unexpected behaviours.</p>
+<section id="flow-information">
+<h2><span class="section-number">2.1. </span>Flow Information<a class="headerlink" href="#flow-information" title="Link to this heading"></a></h2>
+<p>S7Comm flows are reported in the flows list with the <code class="code docutils literal notranslate"><span class="pre">TCP:S7Comm</span></code> application protocol. When opening the details of an S7Comm flow, the flow overview reports the protocol and, in the top bar, an additional <em>S7Comm</em> tab. The <em>Issues</em> section lists the alerts triggered by the flow (see <a class="reference internal" href="#behavioural-checks">Behavioural Checks</a> below).</p>
+<figure class="align-center" id="id2">
+<a class="reference external image-reference" href="../_images/s7comm_flow_overview.png"><img alt="S7Comm Flow Overview" src="../_images/s7comm_flow_overview.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">S7Comm Flow Overview</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The <em>S7Comm</em> tab contains the S7Comm information of the flow:</p>
+<figure class="align-center" id="id3">
+<a class="reference external image-reference" href="../_images/s7comm_flow_details.png"><img alt="S7Comm Flow Details" src="../_images/s7comm_flow_details.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">S7Comm Flow Details</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><strong>Transitions graph</strong> (top left): each node is a function code used in the flow, and each arrow is a transition from a function code to the next one. The more transitions, the thicker the arrow. Loops on the same node mean that consecutive messages have the same function code (e.g. a request and its response). The graph can be zoomed in/out with the mouse wheel and moved by dragging it.</p></li>
+<li><p><strong>Summary</strong> (top right): the number of <em>Errors</em> reported for the flow and the number of distinct <em>Function Codes</em> used.</p></li>
+<li><p><strong>Function Codes</strong> (bottom left): the list of function codes used in the flow, with the number of times (<em>Uses</em>) each of them has been used.</p></li>
+</ul>
+<p>Function codes are reported with their name and their numeric (decimal) value, e.g. <code class="code docutils literal notranslate"><span class="pre">Start</span> <span class="pre">upload</span> <span class="pre">(29)</span></code>. These are the function codes known by ntopng; other codes are reported as <code class="code docutils literal notranslate"><span class="pre">Unknown</span> <span class="pre">(&lt;code&gt;)</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15.0%" />
+<col style="width: 35.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Code</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>CPU services</p></td>
+<td><p>CPU functions (e.g. reading diagnostics or system information)</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Mode transition</p></td>
+<td><p>Change of the CPU operating mode</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Read Var</p></td>
+<td><p>Read of PLC variables</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Write Var</p></td>
+<td><p>Write of PLC variables</p></td>
+</tr>
+<tr class="row-even"><td><p>26</p></td>
+<td><p>Request download</p></td>
+<td><p>Start of a block download (engineering station → PLC)</p></td>
+</tr>
+<tr class="row-odd"><td><p>27</p></td>
+<td><p>Download block</p></td>
+<td><p>Block download</p></td>
+</tr>
+<tr class="row-even"><td><p>28</p></td>
+<td><p>Download ended</p></td>
+<td><p>End of a block download</p></td>
+</tr>
+<tr class="row-odd"><td><p>29</p></td>
+<td><p>Start upload</p></td>
+<td><p>Start of a block upload (PLC → engineering station)</p></td>
+</tr>
+<tr class="row-even"><td><p>30</p></td>
+<td><p>Upload</p></td>
+<td><p>Block upload</p></td>
+</tr>
+<tr class="row-odd"><td><p>31</p></td>
+<td><p>End upload</p></td>
+<td><p>End of a block upload</p></td>
+</tr>
+<tr class="row-even"><td><p>40</p></td>
+<td><p>PI-Service</p></td>
+<td><p>Program invocation (e.g. PLC start, block compression)</p></td>
+</tr>
+<tr class="row-odd"><td><p>41</p></td>
+<td><p>PLC Stop</p></td>
+<td><p>Stop of the PLC</p></td>
+</tr>
+<tr class="row-even"><td><p>240</p></td>
+<td><p>Setup communication</p></td>
+<td><p>Session setup, sent at the beginning of each connection</p></td>
+</tr>
+</tbody>
+</table>
+<p>In the example above, an engineering station uploads some blocks from the PLC (<code class="code docutils literal notranslate"><span class="pre">Start</span> <span class="pre">upload</span></code> → <code class="code docutils literal notranslate"><span class="pre">Upload</span></code> → <code class="code docutils literal notranslate"><span class="pre">End</span> <span class="pre">upload</span></code>), reads and writes some variables, stops the PLC (<code class="code docutils literal notranslate"><span class="pre">PLC</span> <span class="pre">Stop</span></code>) and restarts it (<code class="code docutils literal notranslate"><span class="pre">PI-Service</span></code>).</p>
+<p>The S7Comm information is also available for the historical flows when flows are dumped to ClickHouse (see <a class="reference internal" href="../flow_dump/clickhouse/historical_flows.html#historical-flows"><span class="std std-ref">Historical Flows</span></a>): the historical flow details report the same <em>S7Comm</em> tab.</p>
+<p>Finally, the server of an S7Comm flow (i.e. the PLC) is marked with the <em>S7Comm Server</em> tag (see <a class="reference internal" href="../user_interface/shared/settings/tags.html#tags"><span class="std std-ref">Tags</span></a>). The tag can be used, for instance, to list all the PLCs in the <em>Hosts</em> page, by selecting <em>S7Comm Server</em> in the <em>Tags</em> filter:</p>
+<figure class="align-center" id="id4">
+<a class="reference external image-reference" href="../_images/s7comm_host_tag.png"><img alt="S7Comm Server Tag" src="../_images/s7comm_host_tag.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">S7Comm Server Tag</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="behavioural-checks">
+<h2><span class="section-number">2.2. </span>Behavioural Checks<a class="headerlink" href="#behavioural-checks" title="Link to this heading"></a></h2>
+<p>The S7Comm information is used by three flow behavioural checks, available in <em>Settings</em> → <em>Behavioural Checks</em> (type <code class="code docutils literal notranslate"><span class="pre">s7</span></code> in the search box to list them). All of them are disabled by default.</p>
+<figure class="align-center" id="id5">
+<a class="reference external image-reference" href="../_images/s7comm_behavioural_checks.png"><img alt="S7Comm Behavioural Checks" src="../_images/s7comm_behavioural_checks.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">S7Comm Behavioural Checks</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="configuration">
+<h3><span class="section-number">2.2.1. </span>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h3>
+<p>Each check is enabled with its toggle, and configured by clicking on its actions button.</p>
+<section id="s7comm-unexpected-function-code">
+<h4><span class="section-number">2.2.1.1. </span>S7Comm Unexpected Function Code<a class="headerlink" href="#s7comm-unexpected-function-code" title="Link to this heading"></a></h4>
+<p>Triggers an alert when a flow uses a function code that is not in the list of the allowed function codes. The alert is triggered the first time the function code is used in the flow. Codes must be specified as decimal values (hexadecimal values are not supported), one per line or comma separated.</p>
+<figure class="align-center" id="id6">
+<a class="reference external image-reference" href="../_images/s7comm_check_unexpected_function_code.png"><img alt="S7Comm Unexpected Function Code Configuration" src="../_images/s7comm_check_unexpected_function_code.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">S7Comm Unexpected Function Code Configuration</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>By default, the allowed function codes are <code class="code docutils literal notranslate"><span class="pre">0</span></code> (CPU services), <code class="code docutils literal notranslate"><span class="pre">4</span></code> (Read Var), <code class="code docutils literal notranslate"><span class="pre">5</span></code> (Write Var) and <code class="code docutils literal notranslate"><span class="pre">240</span></code> (Setup communication), i.e. the functions normally used by HMIs and SCADA systems to monitor and control the process. With this configuration, an alert is triggered whenever the program of a PLC is uploaded or downloaded, or whenever a PLC is stopped or started. The list can be tailored to the network; for instance:</p>
+<ul class="simple">
+<li><p>If program uploads and downloads are part of the normal operations, and only PLC stops and starts must be reported, also allow the upload/download function codes:
+<code class="code docutils literal notranslate"><span class="pre">0,4,5,26,27,28,29,30,31,240</span></code>.</p></li>
+<li><p>In a network where the PLCs are only read (e.g. by a monitoring system), remove <code class="code docutils literal notranslate"><span class="pre">5</span></code> (Write Var), so that any write to a PLC is reported:
+<code class="code docutils literal notranslate"><span class="pre">0,4,240</span></code>.</p></li>
+</ul>
+<p>Note that any function code not in the list (including the ones unknown to ntopng) triggers an alert.</p>
+</section>
+<section id="s7comm-too-many-errors">
+<h4><span class="section-number">2.2.1.2. </span>S7Comm Too Many Errors<a class="headerlink" href="#s7comm-too-many-errors" title="Link to this heading"></a></h4>
+<p>Triggers an alert when the number of errors reported for a flow reaches the configured threshold (default: 5 errors). Many errors may indicate a misconfiguration, a malfunction or someone probing the PLC (e.g. trying to access resources that do not exist).</p>
+<figure class="align-center" id="id7">
+<a class="reference external image-reference" href="../_images/s7comm_check_too_many_errors.png"><img alt="S7Comm Too Many Errors Configuration" src="../_images/s7comm_check_too_many_errors.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">S7Comm Too Many Errors Configuration</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="s7comm-invalid-transition">
+<h4><span class="section-number">2.2.1.3. </span>S7Comm Invalid Transition<a class="headerlink" href="#s7comm-invalid-transition" title="Link to this heading"></a></h4>
+<p>Triggers an alert when a flow reports a transition between two function codes that has never been observed before in the flow. For each flow, ntopng first learns the transitions between function codes for a <em>learning period</em>; once the learning period is over, any new transition triggers an alert. The learning period is configured in <em>Settings</em> → <em>Preferences</em> → <em>OT Protocols</em> → <em>S7Comm Learning Period</em>; the default is 6 hours, and the minimum is 1 hour.</p>
+<figure class="align-center" id="id8">
+<a class="reference external image-reference" href="../_images/ot_learning_period.png"><img alt="S7Comm Learning Period" src="../_images/ot_learning_period.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">S7Comm Learning Period</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="alerts">
+<h3><span class="section-number">2.2.2. </span>Alerts<a class="headerlink" href="#alerts" title="Link to this heading"></a></h3>
+<p>S7Comm alerts are flow alerts: they are reported in the <em>Alerts Explorer</em> (under <em>Flow</em>) and in the <em>Issues</em> section of the flow details.</p>
+<figure class="align-center" id="id9">
+<a class="reference external image-reference" href="../_images/s7comm_alerts_explorer.png"><img alt="S7Comm Alerts" src="../_images/s7comm_alerts_explorer.png" />
+</a>
+<figcaption>
+<p><span class="caption-text">S7Comm Alerts</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The alert description reports the details of the event:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Alert</p></th>
+<th class="head"><p>Description (example)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>S7Comm Unexpected Function Code</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">Function</span> <span class="pre">Code</span> <span class="pre">'Start</span> <span class="pre">upload</span> <span class="pre">(29)'</span> <span class="pre">detected</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>S7Comm Too Many Errors</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">5</span> <span class="pre">Errors</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>S7Comm Invalid Transition</p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">Write</span> <span class="pre">Var</span> <span class="pre">(5)</span> <span class="pre">-&gt;</span> <span class="pre">PLC</span> <span class="pre">Stop</span> <span class="pre">(41)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modbus.html" class="btn btn-neutral float-left" title="1. ModbusTCP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="profinet.html" class="btn btn-neutral float-right" title="3. PROFINET" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/scada/s7comm.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:49:41 GMT -->
+</html>

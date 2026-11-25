@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nedgelite/advanced.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:25 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Features &mdash; nEdge Lite dev documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
+    <link rel="prev" title="ntopng Integration" href="ntopng_integration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nEdge Lite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nedgelite/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netfilter_setup.html">Netfilter Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="policies.html">Policy Rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ntopng_integration.html">ntopng Integration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#multi-queue-processing">Multi-Queue Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-multiple-queues">Configuring Multiple Queues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-benefits">Performance Benefits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optimal-queue-count">Optimal Queue Count</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cpu-affinity">CPU Affinity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#system-tuning">System Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#memory-management">Memory Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ipv6-support">IPv6 Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-ipv6">Enabling IPv6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipv6-considerations">IPv6 Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-ndpi-configuration">Custom nDPI Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#detection-sensitivity">Detection Sensitivity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#traffic-shaping-integration">Traffic Shaping Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-connmark-for-tc">Using CONNMARK for tc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#connection-labels">Connection Labels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#label-map-file">Label Map File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-labels">Enabling Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bridge-mode-advanced-configuration">Bridge Mode Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vlan-support">VLAN Support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-and-development">Debugging and Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verbose-logging">Verbose Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core-dumps">Core Dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-under-debugger">Running Under Debugger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#packet-capture-integration">Packet Capture Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#best-practices-for-production">Best Practices for Production</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License Management</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other ntop Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nEdge Lite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Advanced Features</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/advanced.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="advanced-features">
+<h1>Advanced Features<a class="headerlink" href="#advanced-features" title="Link to this heading"></a></h1>
+<p>This section covers advanced nEdge Lite features and optimization techniques for experienced users.</p>
+<section id="multi-queue-processing">
+<h2>Multi-Queue Processing<a class="headerlink" href="#multi-queue-processing" title="Link to this heading"></a></h2>
+<p>nEdge Lite supports distributing packet processing across multiple CPU cores using multiple NFQUEUE instances.</p>
+<section id="configuring-multiple-queues">
+<h3>Configuring Multiple Queues<a class="headerlink" href="#configuring-multiple-queues" title="Link to this heading"></a></h3>
+<p><strong>iptables Configuration:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Configure<span class="w"> </span><span class="m">4</span><span class="w"> </span>queues<span class="w"> </span>with<span class="w"> </span>CPU<span class="w"> </span>fanout
+<span class="go">sudo iptables -t mangle -A PREROUTING -j CONNMARK --restore-mark</span>
+<span class="go">sudo iptables -t mangle -A PREROUTING -m mark --mark 2 -j DROP</span>
+<span class="go">sudo iptables -t mangle -A PREROUTING -m mark --mark 0 \</span>
+<span class="go">  -j NFQUEUE --queue-balance 0:3 --queue-cpu-fanout</span>
+<span class="go">sudo iptables -t mangle -A POSTROUTING -j CONNMARK --save-mark</span>
+</pre></div>
+</div>
+<p><strong>Start nEdge Lite:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0:4 -z tcp://127.0.0.1:1234</span>
+</pre></div>
+</div>
+<p>This creates 4 threads, each handling one queue (0, 1, 2, 3).</p>
+</section>
+<section id="performance-benefits">
+<h3>Performance Benefits<a class="headerlink" href="#performance-benefits" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Parallel Processing</strong>: Distributes packet inspection across CPU cores</p></li>
+<li><p><strong>Higher Throughput</strong>: Scales linearly with number of queues (up to available cores)</p></li>
+<li><p><strong>Lower Latency</strong>: Reduces per-packet processing time</p></li>
+</ul>
+</section>
+<section id="optimal-queue-count">
+<h3>Optimal Queue Count<a class="headerlink" href="#optimal-queue-count" title="Link to this heading"></a></h3>
+<p><strong>Recommended</strong>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Use<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>CPU<span class="w"> </span>cores
+<span class="go">CORES=$(nproc)</span>
+<span class="go">sudo nedgelite -q 0:$CORES -z tcp://127.0.0.1:1234</span>
+</pre></div>
+</div>
+<p><strong>Considerations</strong>:</p>
+<ul class="simple">
+<li><p>More queues = more threads = higher CPU usage</p></li>
+<li><p>Diminishing returns beyond physical core count</p></li>
+<li><p>Consider hyperthreading and other workloads</p></li>
+</ul>
+</section>
+<section id="cpu-affinity">
+<h3>CPU Affinity<a class="headerlink" href="#cpu-affinity" title="Link to this heading"></a></h3>
+<p>Pin nEdge Lite threads to specific CPU cores for better cache locality:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Pin<span class="w"> </span>to<span class="w"> </span>cores<span class="w"> </span><span class="m">0</span>-3
+<span class="go">sudo taskset -c 0-3 nedgelite -q 0:4 -z tcp://127.0.0.1:1234</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="performance-optimization">
+<h2>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h2>
+<section id="system-tuning">
+<h3>System Tuning<a class="headerlink" href="#system-tuning" title="Link to this heading"></a></h3>
+<p><strong>Increase Conntrack Table Size:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>For<span class="w"> </span>high<span class="w"> </span>connection<span class="w"> </span>counts
+<span class="go">sudo sysctl -w net.netfilter.nf_conntrack_max=1048576</span>
+
+<span class="gp"># </span>Make<span class="w"> </span>persistent
+<span class="go">echo &quot;net.netfilter.nf_conntrack_max=1048576&quot; | \</span>
+<span class="go">  sudo tee -a /etc/sysctl.conf</span>
+</pre></div>
+</div>
+<p><strong>Adjust Conntrack Timeouts:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Reduce<span class="w"> </span>TCP<span class="w"> </span>established<span class="w"> </span>timeout
+<span class="go">sudo sysctl -w net.netfilter.nf_conntrack_tcp_timeout_established=3600</span>
+
+<span class="gp"># </span>Reduce<span class="w"> </span>TCP<span class="w"> </span>close-wait<span class="w"> </span>timeout
+<span class="go">sudo sysctl -w net.netfilter.nf_conntrack_tcp_timeout_close_wait=30</span>
+</pre></div>
+</div>
+<p><strong>Increase NFQUEUE Buffer:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>In<span class="w"> </span>iptables<span class="w"> </span>rule
+<span class="go">sudo iptables -t mangle -A PREROUTING -m mark --mark 0 \</span>
+<span class="go">  -j NFQUEUE --queue-num 0 --queue-bypass --queue-size 4096</span>
+</pre></div>
+</div>
+</section>
+<section id="memory-management">
+<h3>Memory Management<a class="headerlink" href="#memory-management" title="Link to this heading"></a></h3>
+<p><strong>Monitor Memory Usage:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Check<span class="w"> </span>nEdge<span class="w"> </span>Lite<span class="w"> </span>memory<span class="w"> </span>usage
+<span class="go">ps aux | grep nedgelite</span>
+<span class="go">pmap $(pidof nedgelite)</span>
+</pre></div>
+</div>
+<p><strong>Flow Hash Size</strong>: The flow hash table is fixed at compile time. For very high flow counts, consider increasing the hash table size in the source code.</p>
+</section>
+</section>
+<section id="ipv6-support">
+<h2>IPv6 Support<a class="headerlink" href="#ipv6-support" title="Link to this heading"></a></h2>
+<p>nEdge Lite supports IPv6 packet inspection alongside IPv4.</p>
+<section id="enabling-ipv6">
+<h3>Enabling IPv6<a class="headerlink" href="#enabling-ipv6" title="Link to this heading"></a></h3>
+<p>The sample scripts described in the Quick Start Guide already support IPv6, it can be enabled by adding the -6 parameter.</p>
+<p><strong>Load IPv6 Conntrack Module:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo modprobe nf_conntrack_ipv6</span>
+</pre></div>
+</div>
+<p><strong>Configure ip6tables:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ip6tables -t mangle -A PREROUTING -j CONNMARK --restore-mark</span>
+<span class="go">sudo ip6tables -t mangle -A PREROUTING -m mark --mark 2 -j DROP</span>
+<span class="go">sudo ip6tables -t mangle -A PREROUTING -m mark --mark 0 -j NFQUEUE --queue-num 0</span>
+<span class="go">sudo ip6tables -t mangle -A POSTROUTING -j CONNMARK --save-mark</span>
+</pre></div>
+</div>
+<p><strong>Start nEdge Lite:</strong></p>
+<p>No special options needed. nEdge Lite automatically handles both IPv4 and IPv6.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234</span>
+</pre></div>
+</div>
+</section>
+<section id="ipv6-considerations">
+<h3>IPv6 Considerations<a class="headerlink" href="#ipv6-considerations" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Flow Export</strong>: IPv6 flows are exported to ntopng like IPv4</p></li>
+<li><p><strong>Policy Rules</strong>: IP pools can include IPv6 CIDR ranges</p></li>
+</ul>
+</section>
+</section>
+<section id="custom-ndpi-configuration">
+<h2>Custom nDPI Configuration<a class="headerlink" href="#custom-ndpi-configuration" title="Link to this heading"></a></h2>
+<p>nDPI supports custom protocol definitions through the nDPI API. Refer to the nDPI documentation for details.</p>
+<section id="detection-sensitivity">
+<h3>Detection Sensitivity<a class="headerlink" href="#detection-sensitivity" title="Link to this heading"></a></h3>
+<p>Some protocols have configurable detection thresholds. These are typically set in nDPI’s protocol-specific detection functions.</p>
+</section>
+</section>
+<section id="traffic-shaping-integration">
+<h2>Traffic Shaping Integration<a class="headerlink" href="#traffic-shaping-integration" title="Link to this heading"></a></h2>
+<p>While nEdge Lite itself doesn’t perform traffic shaping, it can integrate with Linux tc (traffic control).</p>
+<section id="using-connmark-for-tc">
+<h3>Using CONNMARK for tc<a class="headerlink" href="#using-connmark-for-tc" title="Link to this heading"></a></h3>
+<p>nEdge Lite’s CONNMARK values can be used by tc to apply QoS policies:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Create<span class="w"> </span>tc<span class="w"> </span>classes
+<span class="go">sudo tc qdisc add dev eth0 root handle 1: htb default 30</span>
+<span class="go">sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 100mbit</span>
+<span class="go">sudo tc class add dev eth0 parent 1:1 classid 1:10 htb rate 80mbit</span>
+<span class="go">sudo tc class add dev eth0 parent 1:1 classid 1:20 htb rate 20mbit</span>
+
+<span class="gp"># </span>Use<span class="w"> </span>connmark<span class="w"> </span>to<span class="w"> </span>classify<span class="w"> </span>traffic
+<span class="go">sudo tc filter add dev eth0 parent 1: protocol ip prio 1 \</span>
+<span class="go">  handle 1 fw classid 1:10  # High priority (mark=1)</span>
+
+<span class="go">sudo tc filter add dev eth0 parent 1: protocol ip prio 2 \</span>
+<span class="go">  handle 2 fw classid 1:20  # Low priority (mark=2)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="connection-labels">
+<span id="id1"></span><h2>Connection Labels<a class="headerlink" href="#connection-labels" title="Link to this heading"></a></h2>
+<p>In addition to the pass/drop mark, nEdge Lite can tag each connection with conntrack
+labels (connlabels) describing what nDPI detected: protocols, categories and flow risks.
+Labels are stored in the conntrack entry, so any iptables rule can match on them with the
+<code class="docutils literal notranslate"><span class="pre">connlabel</span></code> match, for example to drop, log or mark traffic of a given application
+independently of the nEdge Lite policies.</p>
+<p>The kernel provides 128 label bits per connection, while nDPI detects several hundred
+protocols. A label map file selects the protocols, categories and risks of interest and
+assigns each of them a label bit.</p>
+<section id="label-map-file">
+<h3>Label Map File<a class="headerlink" href="#label-map-file" title="Link to this heading"></a></h3>
+<p>The label map is a text file with one mapping per line; <code class="docutils literal notranslate"><span class="pre">#</span></code> starts a comment:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;bit&gt; protocol &lt;name|id&gt;                     [&lt;label&gt;]
+&lt;bit&gt; category &lt;name|id&gt;                     [&lt;label&gt;]
+&lt;bit&gt; risk     &lt;NDPI_xxx code|short name|id&gt; [&lt;label&gt;]
+&lt;bit&gt; over                                   [&lt;label&gt;]
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;bit&gt;</span></code>: label bit, 0-127.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">protocol</span></code>: nDPI protocol name or id (see <code class="docutils literal notranslate"><span class="pre">nedgelite</span> <span class="pre">-H</span></code>). Both the master and the
+application protocol are matched, so <code class="docutils literal notranslate"><span class="pre">TLS</span></code> matches TLS.Google too. <code class="docutils literal notranslate"><span class="pre">Unknown</span></code>
+matches flows nDPI could not detect.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">category</span></code>: nDPI category name or id (e.g. <code class="docutils literal notranslate"><span class="pre">SocialNetwork</span></code>, <code class="docutils literal notranslate"><span class="pre">Streaming</span></code>; see
+<code class="docutils literal notranslate"><span class="pre">nedgelite</span> <span class="pre">-H</span></code>). Names containing spaces (<code class="docutils literal notranslate"><span class="pre">User</span> <span class="pre">custom</span> <span class="pre">category</span> <span class="pre">N</span></code>) must be given by id.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">risk</span></code>: nDPI flow risk, as <code class="docutils literal notranslate"><span class="pre">NDPI_xxx</span></code> code (e.g. <code class="docutils literal notranslate"><span class="pre">NDPI_TLS_SELFSIGNED_CERTIFICATE</span></code>),
+short name (e.g. <code class="docutils literal notranslate"><span class="pre">non_standard_port</span></code>) or id (see <code class="docutils literal notranslate"><span class="pre">nedgelite</span> <span class="pre">-H</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">over</span></code>: set on every flow once detection is completed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;label&gt;</span></code>: optional name of the bit in <code class="docutils literal notranslate"><span class="pre">connlabel.conf</span></code>. By default it is generated
+from the first mapping of the bit: <code class="docutils literal notranslate"><span class="pre">NDPI-&lt;PROTOCOL&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">NDPI-CAT-&lt;CATEGORY&gt;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">NDPI-RISK-&lt;RISK&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">NDPI-OVER</span></code> (uppercase, other characters replaced by <code class="docutils literal notranslate"><span class="pre">-</span></code>).
+Labels may only contain letters, digits and <code class="docutils literal notranslate"><span class="pre">-</span></code> (a <code class="docutils literal notranslate"><span class="pre">connlabel.conf</span></code> restriction).</p></li>
+</ul>
+<p>Names are case-insensitive. Several mappings can share the same bit: the bit is set when
+any of them matches. Flows matching no mapping are not labelled (unless <code class="docutils literal notranslate"><span class="pre">over</span></code> is used).
+Any error in the file (unknown name, bit out of range, malformed line) is reported with
+its line number and nEdge Lite does not start.</p>
+<p>Example (<code class="docutils literal notranslate"><span class="pre">/etc/nedgelite/labels.conf</span></code>):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0   over
+
+# Protocols
+1   protocol  TLS
+2   protocol  QUIC
+3   protocol  BitTorrent
+4   protocol  Facebook   FB
+5   protocol  Instagram
+6   protocol  TikTok
+
+# Categories
+10  category  SocialNetwork SOCIAL
+11  category  Streaming
+
+# Flow risks
+20  risk      NDPI_TLS_SELFSIGNED_CERTIFICATE
+21  risk      non_standard_port
+</pre></div>
+</div>
+</section>
+<section id="enabling-labels">
+<h3>Enabling Labels<a class="headerlink" href="#enabling-labels" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p>Generate <code class="docutils literal notranslate"><span class="pre">connlabel.conf</span></code> from the map and install it as
+<code class="docutils literal notranslate"><span class="pre">/etc/xtables/connlabel.conf</span></code>, so that iptables and conntrack can refer to labels by
+name (the <code class="docutils literal notranslate"><span class="pre">/etc/xtables</span></code> directory usually does not exist and must be created).
+Repeat this step whenever the map changes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nedgelite -L /etc/nedgelite/labels.conf -o /tmp</span>
+<span class="go">sudo mkdir -p /etc/xtables</span>
+<span class="go">sudo cp /tmp/connlabel.conf /etc/xtables/connlabel.conf</span>
+</pre></div>
+</div>
+<p>With the example map above the generated file is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0 NDPI-OVER
+1 NDPI-TLS
+2 NDPI-QUIC
+3 NDPI-BITTORRENT
+4 FB
+5 NDPI-INSTAGRAM
+6 NDPI-TIKTOK
+10        SOCIAL
+11        NDPI-CAT-STREAMING
+20        NDPI-RISK-TLS-SELFSIGNED-CERT
+21        NDPI-RISK-NON-STANDARD-PORT
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>nftables reads labels from <code class="docutils literal notranslate"><span class="pre">/etc/connlabel.conf</span></code> instead. When using <code class="docutils literal notranslate"><span class="pre">ct</span> <span class="pre">label</span></code>
+in nft rules, install the same file there too (e.g. as a symlink to
+<code class="docutils literal notranslate"><span class="pre">/etc/xtables/connlabel.conf</span></code>).</p>
+</div>
+</li>
+<li><p>Load at least one <code class="docutils literal notranslate"><span class="pre">connlabel</span></code> rule. The kernel reserves label space only for
+connections created while a <code class="docutils literal notranslate"><span class="pre">connlabel</span></code> rule is loaded: without one, labels set by
+nEdge Lite are silently discarded. The rules must be added <strong>after</strong> the netfilter setup
+scripts (<code class="docutils literal notranslate"><span class="pre">bridge_setup.sh</span></code> and <code class="docutils literal notranslate"><span class="pre">default_setup.sh</span></code> flush the iptables tables).</p>
+<p>Any rule using the <code class="docutils literal notranslate"><span class="pre">connlabel</span></code> match is enough, including a match-only rule without a
+target (the packet continues unchanged):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo modprobe xt_connlabel</span>
+<span class="go">sudo iptables -t mangle -I PREROUTING -m connlabel --label NDPI-OVER</span>
+</pre></div>
+</div>
+<p>Rules that act on labels can be added as needed, for example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Drop<span class="w"> </span>BitTorrent<span class="w"> </span>and<span class="w"> </span>social<span class="w"> </span>network<span class="w"> </span>traffic
+<span class="go">sudo iptables -A FORWARD -m connlabel --label NDPI-BITTORRENT -j DROP</span>
+<span class="go">sudo iptables -A FORWARD -m connlabel --label SOCIAL -j DROP</span>
+
+<span class="gp"># </span>Log<span class="w"> </span>connections<span class="w"> </span>with<span class="w"> </span>a<span class="w"> </span>self-signed<span class="w"> </span>TLS<span class="w"> </span>certificate
+<span class="go">sudo iptables -A FORWARD -m connlabel --label NDPI-RISK-TLS-SELFSIGNED-CERT \</span>
+<span class="go">  -j LOG --log-prefix &quot;self-signed: &quot;</span>
+</pre></div>
+</div>
+<p>Connections that already existed when the first <code class="docutils literal notranslate"><span class="pre">connlabel</span></code> rule was loaded cannot be
+labelled. Flush the conntrack table to have them recreated (this also resets their
+pass/drop mark, so they are inspected again):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo conntrack -F</span>
+</pre></div>
+</div>
+</li>
+<li><p>Start nEdge Lite with <code class="docutils literal notranslate"><span class="pre">-L</span></code> (or <code class="docutils literal notranslate"><span class="pre">--labels=/etc/nedgelite/labels.conf</span></code> in the
+configuration file):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -L /etc/nedgelite/labels.conf</span>
+</pre></div>
+</div>
+<p>When nEdge Lite runs as a systemd service, the setup script is executed at every
+service start and flushes the label rules. Add them back from a drop-in, whose
+<code class="docutils literal notranslate"><span class="pre">ExecStartPre</span></code> commands run after the ones of the service (i.e. after the setup
+script) and before nEdge Lite starts:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo systemctl edit nedgelite</span>
+</pre></div>
+</div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Service]</span>
+<span class="na">ExecStartPre</span><span class="o">=</span><span class="s">/usr/sbin/iptables -t mangle -I PREROUTING -m connlabel --label NDPI-OVER</span>
+<span class="na">ExecStartPre</span><span class="o">=</span><span class="s">/usr/sbin/iptables -A FORWARD -m connlabel --label SOCIAL -j DROP</span>
+</pre></div>
+</div>
+</li>
+<li><p>Check the labels assigned to connections:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo conntrack -L -o labels</span>
+</pre></div>
+</div>
+<p>Labels are reported by name at the end of each entry, after the mark:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>tcp      6 431996 ESTABLISHED src=192.168.1.20 dst=157.240.231.35 sport=52814 dport=443 packets=42 bytes=6120 src=157.240.231.35 dst=192.168.1.20 sport=443 dport=52814 packets=55 bytes=48211 [ASSURED] mark=1 use=1 labels=NDPI-OVER,NDPI-TLS,FB,SOCIAL
+tcp      6 431990 ESTABLISHED src=192.168.1.31 dst=203.0.113.7 sport=40122 dport=8443 packets=12 bytes=1830 src=203.0.113.7 dst=192.168.1.31 sport=8443 dport=40122 packets=10 bytes=4420 [ASSURED] mark=1 use=1 labels=NDPI-OVER,NDPI-TLS,NDPI-RISK-TLS-SELFSIGNED-CERT,NDPI-RISK-NON-STANDARD-PORT
+</pre></div>
+</div>
+<p>Only bits named in <code class="docutils literal notranslate"><span class="pre">/etc/xtables/connlabel.conf</span></code> are shown. Connections with a given
+label can be listed with <code class="docutils literal notranslate"><span class="pre">-l</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo conntrack -L -o labels -l SOCIAL</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Labels are set once per connection, when nDPI detection completes, together with the
+pass/drop mark. The packets exchanged before that point are not affected by label rules.</p></li>
+<li><p>Labels are independent of the nEdge Lite policies: a connection dropped by a policy is
+labelled as well, and label rules apply on top of the policy verdict.</p></li>
+<li><p>To enforce traffic with label rules only, simply do not configure drop policies: without
+<code class="docutils literal notranslate"><span class="pre">-r</span></code> and <code class="docutils literal notranslate"><span class="pre">-p</span></code> nEdge Lite uses a built-in pass-all policy. Connections are still
+marked as passed once detection completes, which is required to stop sending them to
+nEdge Lite, so keep the mark rules installed by the setup scripts.</p></li>
+<li><p>Only TCP and UDP connections are labelled; broadcast and multicast traffic is skipped.</p></li>
+<li><p>Labels are written to the conntrack entry via netlink, which requires the entry to be
+already confirmed by the kernel. Flows detected on their very first packet (e.g. short
+UDP exchanges such as DNS) may therefore remain unlabelled; with <code class="docutils literal notranslate"><span class="pre">-v</span></code> nEdge Lite logs
+<code class="docutils literal notranslate"><span class="pre">Unable</span> <span class="pre">to</span> <span class="pre">set</span> <span class="pre">flow</span> <span class="pre">label</span></code> for them.</p></li>
+</ul>
+</section>
+</section>
+<section id="bridge-mode-advanced-configuration">
+<h2>Bridge Mode Advanced Configuration<a class="headerlink" href="#bridge-mode-advanced-configuration" title="Link to this heading"></a></h2>
+<section id="vlan-support">
+<h3>VLAN Support<a class="headerlink" href="#vlan-support" title="Link to this heading"></a></h3>
+<p>nEdge Lite works with VLAN-tagged traffic in bridge mode:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Create<span class="w"> </span>bridge
+<span class="go">sudo ip link add name br0 type bridge</span>
+<span class="go">sudo ip link set dev br0 up</span>
+
+<span class="gp"># </span>Add<span class="w"> </span>VLAN<span class="w"> </span>interfaces
+<span class="go">sudo ip link add link eth0 name eth0.10 type vlan id 10</span>
+<span class="go">sudo ip link add link eth0 name eth0.20 type vlan id 20</span>
+<span class="go">sudo ip link set dev eth0.10 master br0</span>
+<span class="go">sudo ip link set dev eth0.20 master br0</span>
+<span class="go">sudo ip link set dev eth0.10 up</span>
+<span class="go">sudo ip link set dev eth0.20 up</span>
+</pre></div>
+</div>
+<p><strong>Configure iptables for bridge:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo iptables -t mangle -A PREROUTING -i br0 -j CONNMARK --restore-mark</span>
+<span class="go">sudo iptables -t mangle -A PREROUTING -i br0 -m mark --mark 0 \</span>
+<span class="go">  -j NFQUEUE --queue-num 0</span>
+<span class="go">sudo iptables -t mangle -A POSTROUTING -o br0 -j CONNMARK --save-mark</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="debugging-and-development">
+<h2>Debugging and Development<a class="headerlink" href="#debugging-and-development" title="Link to this heading"></a></h2>
+<section id="verbose-logging">
+<h3>Verbose Logging<a class="headerlink" href="#verbose-logging" title="Link to this heading"></a></h3>
+<p>Enable detailed logging:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -v</span>
+</pre></div>
+</div>
+</section>
+<section id="core-dumps">
+<h3>Core Dumps<a class="headerlink" href="#core-dumps" title="Link to this heading"></a></h3>
+<p>Enable core dumps for debugging crashes:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ulimit -c unlimited</span>
+<span class="go">sudo sysctl -w kernel.core_pattern=/tmp/core-%e-%p-%t</span>
+</pre></div>
+</div>
+</section>
+<section id="running-under-debugger">
+<h3>Running Under Debugger<a class="headerlink" href="#running-under-debugger" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo gdb --args nedgelite -q 0 -z tcp://127.0.0.1:1234 -v</span>
+</pre></div>
+</div>
+</section>
+<section id="packet-capture-integration">
+<h3>Packet Capture Integration<a class="headerlink" href="#packet-capture-integration" title="Link to this heading"></a></h3>
+<p>Capture packets for offline analysis:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Capture<span class="w"> </span>packets<span class="w"> </span>going<span class="w"> </span>to<span class="w"> </span>NFQUEUE
+<span class="go">sudo tcpdump -i eth0 -w /tmp/capture.pcap</span>
+
+<span class="gp"># </span>Analyze<span class="w"> </span>with<span class="w"> </span>Wireshark<span class="w"> </span>or<span class="w"> </span>tcpdump
+<span class="go">tcpdump -r /tmp/capture.pcap -n</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="best-practices-for-production">
+<h2>Best Practices for Production<a class="headerlink" href="#best-practices-for-production" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Use Multiple Queues</strong>: Distribute load across CPU cores</p></li>
+<li><p><strong>Monitor Performance</strong>: Watch CPU, memory, and queue depth</p></li>
+<li><p><strong>Tune Update Interval</strong>: Balance real-time visibility with performance</p></li>
+<li><p><strong>Enable Queue Bypass</strong>: Prevent packet loss if nEdge Lite crashes</p></li>
+<li><p><strong>Regular Maintenance</strong>: Update nDPI for new protocols</p></li>
+<li><p><strong>Backup Policies</strong>: Keep policy files under version control</p></li>
+<li><p><strong>Test Changes</strong>: Verify policy changes in a test environment first</p></li>
+<li><p><strong>Monitor Dropped Flows</strong>: Ensure legitimate traffic isn’t blocked</p></li>
+<li><p><strong>Plan Capacity</strong>: Size hardware for peak traffic loads</p></li>
+</ol>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Review <a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a> for common issues</p></li>
+<li><p>Learn about <span class="xref std std-doc">architecture</span> for technical details</p></li>
+<li><p>Explore <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> for all available options</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ntopng_integration.html" class="btn btn-neutral float-left" title="ntopng Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nedgelite/advanced.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:26 GMT -->
+</html>

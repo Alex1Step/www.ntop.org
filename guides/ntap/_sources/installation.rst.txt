@@ -1,0 +1,65 @@
+Installation
+============
+
+nTap is distributed as binary package and can be installed from `packages.ntop.org <https://packages.ntop.org>`_ as any other ntop package.
+
+The package installs two binary applications:
+
+- ntap_remote - the remote tap that you can run on the host/container/VM that you want to wiretap
+- ntap_collector - the central tap collector
+
+On Linux/FreeBSD both tap and collector are packaged as services, similar to what happens with other ntop tools such as ntopng and nProbe.
+
+For Windows and MacOS we have released the ntap_remote that you can use to capture traffic from remote hosts. Please use Linux/FreeBSD for ntap_collector.
+
+
+Windows
+-------
+
+On Windows the ntap_remote is requires `npcap <https://npcap.com>`_ to be installed as a prerequisite. Done that you can download the ntap_remote from `packages.ntop.org <https://packages.ntop.org>`_ and copy it onto and installation directory.
+
+It can be run on the command line (inside cmd.exe) or as a daemon. As with all the other ntop tools, on Windows you need to prepend an option as follows:
+
+- Run the command from cmd.exe: ntap_remote **/c** <ntap_remote options>
+- Install ntap_remote as a service: ntap_remote **/i** <ntap_remote options>
+- Remove the ntap_remote service:   ntap_remote **/r**
+
+We suggest you to run ntap_remote as a service unless you know what you are doing. On Windows, you can control services lifecycle (start/stop) from the Services control panel application item.
+
+
+
+Platform Limitations
+--------------------
+
+Below you can find some platform limitations of nTap:
+
+- The -i option for nTap collector, used to create a virtual interface where received packets are injected, is available on Linux only.
+- On Windows/MacOS the ntap_collector is not available. On these two platforms, please use ntap_remote to send traffic to ntap_collector running on Linux, or use nProbe/ntopng with ntap support (all platforms are supported).
+
+  
+Configuration
+-------------
+
+The nTap remote and collector can be executed running the corresponding binary applications (ntap_remote and ntap_collector) via command
+line or configuring the services.
+
+Examples of running the tools via command line are available in the *Use Cases* section.
+
+In order to configure the applications as a service instead, you need to edit the configuration files available in the below locations, and
+run the service according to the operating system (e.g. using systemctl to control the systemd services on Linux).
+
+- Configuration file on Linux:
+
+  - /etc/ntap/ntap_remote.conf
+  - /etc/ntap/ntap_collector.conf
+    
+- Configuration files on FreeBSD:
+  
+  - /usr/local/etc/rc.d/ntap_remote
+  - /usr/local/etc/rc.d/ntap_collector
+
+For example, suppose that you want to edit the tap service file on Linux, all you need to do is:
+
+  - cp /etc/ntap/ntap_remote.conf.sample  /etc/ntap/ntap_remote.conf
+  - edit /etc/ntap/ntap_remote.conf modifying the options according to your needs
+  

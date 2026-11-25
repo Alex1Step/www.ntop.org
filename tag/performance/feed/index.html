@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>performance Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/performance/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/performance/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Mon, 19 Jul 2021 21:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>performance Archives - ntop</title>
+	<link>https://www.ntop.org/tag/performance/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>NetFlow Collection Performance Using ntopng and nProbe</title>
+		<link>https://www.ntop.org/netflow-collection-performance-using-ntopng-and-nprobe/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 19 Jul 2021 21:15:10 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[netflow]]></category>
+		<category><![CDATA[netflow collection]]></category>
+		<category><![CDATA[performance]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9285</guid>
+
+					<description><![CDATA[<p>Introduction ntopng, in combination with nProbe, can be used to collect NetFlow. Their use for NetFlow collection is described in detail here. In this post we measure the performance of nProbe and…</p>
+<p>The post <a href="https://www.ntop.org/netflow-collection-performance-using-ntopng-and-nprobe/">NetFlow Collection Performance Using ntopng and nProbe</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>Introduction</h3>
+<p>ntopng, in combination with nProbe, can be used to collect NetFlow. Their use for NetFlow collection is described in detail <a href="https://www.ntop.org/guides/ntopng/using_with_other_tools/nprobe.html#usingntopngwithnprobe">here</a>.</p>
+<p>In this post we measure the performance of nProbe and ntopng when used together to collect, analyze, and dump NetFlow data. The idea is to provide performance figures useful to understand the maximum rate at which NetFlow can be processed without loss of data.</p>
+<p>Before giving the actual figures, it is worth discussing briefly the most relevant unit of measure that will be used, i.e., the number of <strong>flows per second</strong> &#8211; <strong>fps</strong> in short. NetFlow is <em>per se</em> a protocol designed to export communication flows. It carries flows inside UDP datagrams, and each UDP datagram carries multiple flows. For this reason, it is natural to choose the number of flows per unit of time when it comes to analyzing the performance of ntopng and nProbe when dealing with NetFlow. Indeed, we will use fps to quantify the number of flows analysed and written to disk when giving performance figures.</p>
+<p>Knowing how much your NetFlow actually accounts for, in terms of fps, is also fundamental to make sense of the figures we are giving and to understand if ntopng and nProbe perform well enough for your network. In general, a few Mbps of NetFlow are able to carry thousands of flows per second. If you do not know the how many flows per second your NetFlow accounts for, you can consider that, as a ballpark figure, <strong>10 Mbps of NetFlow v9 carry approximately 12,000 fps</strong>. Note that this is just a ballpark as the flow size depends on the flow template for v9 and IPFIX.</p>
+<h3>Performance Figures</h3>
+<p>Finally, it&#8217;s time to look at the figures, that are given both for two and four interfaces.</p>
+<table class="matrix">
+<thead></thead>
+<tbody>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Drop-Free Processing Rate / Interface</th>
+<th style="text-align: center;">Overall Drop-Free Processing Rate</th>
+</tr>
+<tr>
+<td style="text-align: left;">2 Interfaces</td>
+<td style="text-align: right;">42 Kfps</td>
+<td style="text-align: right;">84 Kfps</td>
+</tr>
+<tr>
+<td style="text-align: left;">4 Interfaces</td>
+<td style="text-align: right;">25.5 Kfps</td>
+<td style="text-align: right;">102 Kfps</td>
+</tr>
+</tbody>
+</table>
+<p>The rationale of expressing performance numbers for a variable number of interfaces is that multiple interfaces:</p>
+<ul>
+<li>Can be used to effectively balance the NetFlow across multiple cores</li>
+<li>Can be used to keep the traffic of multiple NetFlow sources separated</li>
+</ul>
+<p>However, to give consistent numbers, results are also expressed in terms of <em>fps per interface</em> in the first column. Note also that results apply when using <a href="https://www.ntop.org/guides/ntopng/advanced_features/view_interfaces.html">interface views</a> too and that, when <a href="https://www.ntop.org/guides/ntopng/advanced_features/flows_dump.html#nindex">nIndex</a> flow dump is enabled, the expected reduction in the processing rate is between 2 and 3 Kfps.</p>
+<h3>Example</h3>
+<p>To give a real example that can help you in making sense of the figures above, let&#8217;s consider a case where you want to collect NetFlow at 85 Mbps, i.e., approximately, 100 Kfps. To collect at 100 Kfps, according to the table above, we need at least 3 interfaces. Let&#8217;s set up an ntopng instance with four interfaces to say on the safe side &#8211; traffic is aggregated together using the view with <code class="EnlighterJSRAW" data-enlighter-language="generic">-i view:all</code>.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">./ntopng -i tcp://*:5556c -i tcp://*:5557c -i tcp://*:5558c -i tcp://*:5559c -iview:all -F"nindex"</pre>
+<p>Assuming NetFlow is arriving on port <code class="EnlighterJSRAW" data-enlighter-language="generic">2056</code> and ntopng is running on host <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.225</code>, we can configure nProbe to collect NetFlow and load-balance flows on the four interfaces above as follow</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"> ./nprobe -i none -n none --collector-port 2056 -b 1 -T "@NTOPNG@" --zmq tcp://192.168.2.225:5556 --zmq tcp://192.168.2.225:5557 --zmq tcp://192.168.2.225:5558 --zmq tcp://192.168.2.225:5559 --zmq-probe-mode --collector-passthrough</pre>
+<h3>Final Remarks</h3>
+<p>In this post we have seen the performance figures of ntopng and nProbe when used to collect NetFlow. We have seen how to quantify the <em>flows per second</em> (fps) carried by NetFlow and have also determined that the combination of nProbe and ntopng is suitable for the collection of NetFlow at 100+ Kfps. Figures given are valid for the latest ntopng 4.3 (soon ntopng 5.0 stable) and nProbe 9.5 (soon 9.6 stable), that represent a significant step towards high-speed flow collection. Indeed, their performance exceeds the performance of the previous versions by at <span style="text-decoration: underline;"><em>least a 15%</em></span>.</p>
+<p>You can read more about high-speed flow collection <a href="https://www.ntop.org/nprobe/best-practices-for-high-speed-flow-collection/">here</a> or directly refer to the <a href="https://www.ntop.org/guides/ntopng/operating_ntopng_on_large_networks.html">user guide</a>.</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p>
+<p>The post <a href="https://www.ntop.org/netflow-collection-performance-using-ntopng-and-nprobe/">NetFlow Collection Performance Using ntopng and nProbe</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Measuring  ntopng+nProbe Flow Processing Performance</title>
+		<link>https://www.ntop.org/measuring-ntopngnprobe-flow-processing-performance/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 19 Dec 2018 18:45:04 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[performance]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7208</guid>
+
+					<description><![CDATA[<p>NOTE: this post is outdated. Latest versions of ntopng and nProbe improve performance significantly. New figures are given in this post. In this post we try to analyze the performance of nProbe…</p>
+<p>The post <a href="https://www.ntop.org/measuring-ntopngnprobe-flow-processing-performance/">Measuring  ntopng+nProbe Flow Processing Performance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><span style="text-decoration: underline; color: #ff0000;"><strong>NOTE: this post is outdated. Latest versions of ntopng and nProbe improve performance significantly. New figures are given in <a href="https://www.ntop.org/nprobe/netflow-collection-performance-using-ntopng-and-nprobe/">this post</a>.</strong></span></p>
+<p>In this post we try to analyze the performance of nProbe and ntopng for the collection of NetFlow. ntopng and nProbe will be broken down into smaller functional units and such units will be analyzed to understand the maximum performance of every single task as well as of the overall collection architecture.</p>
+<p>The machine used for the analysis is equipped with an 4-core Intel(R) Xeon(R) CPU E3-1230 v5 @ 3.40GHz with HT and has 16GB of RAM.</p>
+<p>To consistently simulate a NetFlow stream and to have the ability to control stream rate, we have recorded some actual NetFlow traffic using <code class="EnlighterJSRAW" data-enlighter-language="shell">tcpdump</code>, and then we&#8217;re replayed the recorded traffic with <code class="EnlighterJSRAW" data-enlighter-language="shell">pfsend</code>, that allows to loop-replay (<code class="EnlighterJSRAW" data-enlighter-language="shell">-n 0</code>) the capture and to specify the replay rate (<code class="EnlighterJSRAW" data-enlighter-language="shell">-r &lt;rate&gt;</code>).</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">$ tcpdump -i eno1 udp and port 2055 -s 0 -w localNetflow.pcap
+$ pfsend -i stack:eno1 -f ./localNetflow.pcap -n 0 -r 0.1</pre>
+<h2>nProbe</h2>
+<p>This is the command we&#8217;ve used to analyze nProbe performance:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">$ ./nprobe -i none -n none --collector-port 2055 --zmq tcp://127.0.0.1:5556 -b 1 --disable-cache</pre>
+<p>Using <code class="EnlighterJSRAW" data-enlighter-language="shell">--disable-cache</code> guarantees nProbe will transparently proxy the incoming flows without keeping them into the internal cache.</p>
+<p>nProbe NetFlow collection can be summarized as follows:</p>
+<ul>
+<li>Incoming NetFlow is collected by nProbe on an UDP socket</li>
+<li>nProbe dissects NetFlow packets and extract flows carried in them</li>
+<li>Extracted flows are enqueued for the export</li>
+<li>Flows are dequeued to be actually exported via ZMQ or other downstream collectors</li>
+</ul>
+<p>The following picture shows a graphical representation of the several steps listed above, and provides information on the maximum rate that can go through each step without drops.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/nprobe-drops-analysis.png"><img fetchpriority="high" decoding="async" class="alignnone size-large wp-image-7216" src="https://www.ntop.org/wp-content/uploads/2018/12/nprobe-drops-analysis-1024x361.png" alt="" width="1024" height="361" /></a></p>
+<p>Going above the maximum rate automatically translates into drops. In the following, we will explain how we&#8217;ve computed the drops that can occur:</p>
+<ul>
+<li>On the UDP socket when the socket buffer overflows, when the incoming NetFlow rate is higher than the rate at which nProbe reads from the UDP socket</li>
+<li>One the export queue, when the rate at which nProbe enqueues the flows for the export is higher that the rate at which flows are dequeued for the actual export</li>
+</ul>
+<h3>UDP Socket Drops</h3>
+<p>To analyze UDP socket drops we have have used <code class="EnlighterJSRAW" data-enlighter-language="shell">pfsend</code> to replay NetFlow traffic at different rates, specified with option <code class="EnlighterJSRAW" data-enlighter-language="shell">-r</code>. We have found that the <strong>maximum drop-free rate</strong> at which packets can be processed from the UDP socket equals to <strong>160 Mbps</strong> or, equivalently, <strong>25 Kpps</strong>. To detect drops and find this maximum drop-free rate we have inspected <code class="EnlighterJSRAW" data-enlighter-language="shell">/proc/net/udp</code> to make sure the drop counters was at zero for a sufficiently long time.</p>
+<p>This is an example drops experienced in the socket buffers as shown in the latest column and latest row of the following output.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">$ cat /proc/net/udp
+sl local_address rem_address st tx_queue rx_queue tr tm-&gt;when retrnsmt uid timeout inode ref pointer drops
+1181: 00000000:0044 00000000:0000 07 00000000:00000000 00:00000000 00000000 0 0 33368 2 ffff8fc0a12d0cc0 0
+1224: 00000000:006F 00000000:0000 07 00000000:00000000 00:00000000 00000000 0 0 33007 2 ffff8fc0a12d0880 0
+1236: E102A8C0:007B 00000000:0000 07 00000000:00000000 00:00000000 00000000 38 0 31512 2 ffff8fc09ef28880 0
+1236: 0100007F:007B 00000000:0000 07 00000000:00000000 00:00000000 00000000 0 0 29241 2 ffff8fc099a18880 0
+1236: 00000000:007B 00000000:0000 07 00000000:00000000 00:00000000 00000000 0 0 29235 2 ffff8fc099a18000 0
+3168: 00000000:0807 00000000:0000 07 00000000:00068100 00:00000000 00000000 1006 0 1122119 2 ffff8fc08466bfc0 260932</pre>
+<h3>Export Queue Drops</h3>
+<p>To analyze export queue drops, we have used nProbe output when run with option -b 1 to observe the &#8220;<em>export queue full</em>&#8221; errors and the queue fill level. The relevant output is the following</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">19/Dec/2018 15:07:01 [nprobe.c:3351] Flow drops: [export queue full=44524035][too many flows=0][ELK queue flow drops=0]
+19/Dec/2018 15:07:01 [nprobe.c:3356] Export Queue: 511980/512000 [100.0 %]</pre>
+<p>The <em>export queue full</em> counter is incremented by one every time a flow is dropped as the export queue is full. We have been able to quantify the <strong>maximum drop-free rate</strong> at which flows can enter and leave the queue without drops in <strong>90 Kfps</strong>, that is, approximately <strong>110 Mbps</strong> of NetFlow traffic, produced with <code class="EnlighterJSRAW" data-enlighter-language="generic">pfsend</code> as follows</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">$ sudo pfsend -i stack:eno1 -f ./localNetflow.pcap -n 0 -r 0.11</pre>
+<p><span style="text-decoration: underline;">90 Kfps is also the maximum drop-free rate at which nProbe can operate without drops to collect NetFlow and export it via ZMQ.</span></p>
+<h2>ntopng</h2>
+<p>ntopng has been set up to receive flows via ZMQ as follows</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">./ntopng -i tcp://127.0.0.1:5556 -m "192.168.2.0/24" --dont-change-user --disable-login 1</pre>
+<p>ntopng flows processing can be summarized as follows:</p>
+<ul>
+<li>Flows are received via ZMQ</li>
+<li>ZMQ JSON messages content is parsed to reconstruct the flows</li>
+<li>Reconstructed flows are added to the ntopng internal cache for further processing</li>
+</ul>
+<p>The following picture shows a graphical representation of the several steps listed above, and provides information on the maximum rate that can go through each step.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/ntopng-drops-analysis.png"><img decoding="async" class="alignnone size-large wp-image-7215" src="https://www.ntop.org/wp-content/uploads/2018/12/ntopng-drops-analysis-1024x309.png" alt="" width="1024" height="309" /></a></p>
+<p>We have experienced that, without JSON parsing and internal cache processing, ntopng is able to collect flows from nProbe at 90 Kfps. However, when we&#8217;ve enabled the JSON parsing and the internal cache, necessary for ntopng to properly work, we have experienced a lower maximum drop free rate.</p>
+<p>Specifically, enabling the JSON parsing alone, without any internal cache, brings the maximum processed flows per second down to 40 Kfps. Enabling also the internal cache costs another 5 Kfps, resulting in a <strong>maximum drop-free rate</strong> of <strong>35 Kfps</strong>. This maximum drop-free rate can be obtained with pfsend with a rate of 40 Mbps</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">$ sudo pfsend -i stack:eno1 -f ./localNetflow.pcap -n 0 -r 0.04</pre>
+<p>&nbsp;</p>
+<h2>Conclusion</h2>
+<p>When nProbe is not used in combination with ntopng, it can collect and export flows over ZMQ at a rate of <strong>90 Kfps per interface</strong>, corresponding to <strong>NetFlow rate of 110 Mbps</strong>.</p>
+<p>When nProbe is used in combination with ntopng, the maximum number of flows per second that can be processed without drops is <strong>35 Kfps</strong>, corresponding to a <strong>NetFlow rate of 40 Mbps</strong>.</p>
+<p>If you need to <strong>scale up</strong>, you just need to start multiple nProbe&#8217;s that send flows to multiple ntopng collector interfaces. That&#8217;s so simple!</p>
+<p>The post <a href="https://www.ntop.org/measuring-ntopngnprobe-flow-processing-performance/">Measuring  ntopng+nProbe Flow Processing Performance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

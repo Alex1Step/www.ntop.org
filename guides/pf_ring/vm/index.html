@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/vm/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:41 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VM Support &mdash; PF_RING 9.5.0-4814 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. PCI Passthrough with PF_RING ZC" href="virsh_hostdev.html" />
+    <link rel="prev" title="3. Using PF_RING with CoreOS" href="../containers/coreos.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            PF_RING
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Vanilla PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Copy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (Flow Table)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Sample Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Drivers and Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rss.html">Load Balancing / RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Containers Support</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">VM Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="virsh_hostdev.html">1. PCI Passthrough with PF_RING ZC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sriov.html">2. SR-IOV with PF_RING ZC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kvm_zc.html">3. QEMU/KVM Support in PF_RING ZC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">IDS/IPSs Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Hugepages Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amd.html">AMD Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Processors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">Crash Debug</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">PF_RING</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">VM Support</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/vm/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vm-support">
+<h1>VM Support<a class="headerlink" href="#vm-support" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="virsh_hostdev.html">1. PCI Passthrough with PF_RING ZC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="virsh_hostdev.html#pci-passthrough-on-qemu-kvm">1.1. PCI Passthrough on QEMU/KVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virsh_hostdev.html#possible-errors">1.2. Possible Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virsh_hostdev.html#pci-passthrough-on-vmware">1.3. PCI Passthrough on VMWare</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sriov.html">2. SR-IOV with PF_RING ZC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sriov.html#capture-from-a-vf-interface">2.1. Capture from a VF interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sriov.html#assign-a-vf-to-a-vm-on-qemu-kvm-virsh">2.2. Assign a VF to a VM on QEMU/KVM (virsh)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sriov.html#assign-a-vf-to-a-vm-on-qemu-kvm-manual">2.3. Assign a VF to a VM on QEMU/KVM (manual)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sriov.html#assign-a-vf-to-a-vm-on-vmware">2.4. Assign a VF to a VM on VMWare</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kvm_zc.html">3. QEMU/KVM Support in PF_RING ZC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kvm_zc.html#prerequisites">3.1. Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kvm_zc.html#common-issues">3.2. Common Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kvm_zc.html#how-to-create-boot-a-qemu-vm">3.3. How to create/boot a Qemu VM</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../containers/coreos.html" class="btn btn-neutral float-left" title="3. Using PF_RING with CoreOS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="virsh_hostdev.html" class="btn btn-neutral float-right" title="1. PCI Passthrough with PF_RING ZC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/vm/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:42 GMT -->
+</html>

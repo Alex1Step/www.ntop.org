@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>inline Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/inline/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/inline/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 21 Oct 2026 09:30:37 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>inline Archives - ntop</title>
+	<link>https://www.ntop.org/tag/inline/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>nProbe IPS: How To setup an Inline Layer-7 Traffic Policer in 5 Minutes</title>
+		<link>https://www.ntop.org/nprobe-ips-how-to-setup-an-inline-layer-7-traffic-policer-in-5-minutes/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 05 Jul 2021 08:59:47 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[inline]]></category>
+		<category><![CDATA[layer7]]></category>
+		<category><![CDATA[policer]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9219</guid>
+
+					<description><![CDATA[<p>Introduction Recently, we have added Intrusion Prevention System (IPS) capabilities to our nProbe. Those capabilities are available starting from the latest 9.5 version, both for Linux and FreeBSD - including OPNsense and…</p>
+<p>The post <a href="https://www.ntop.org/nprobe-ips-how-to-setup-an-inline-layer-7-traffic-policer-in-5-minutes/">nProbe IPS: How To setup an Inline Layer-7 Traffic Policer in 5 Minutes</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>Introduction</h3>
+<p>Recently, we have added <a href="https://www.ntop.org/guides/nprobe/ips_mode.html">Intrusion Prevention System (IPS) capabilities to our nProbe</a>. Those capabilities are available starting from the latest 9.5 version, both for Linux and FreeBSD &#8211; including OPNsense and pfSense, and are available with all nProbe versions and licenses (see the <a href="https://www.ntop.org/products/netflow-probes/nprobe/">product page</a> for additional details).</p>
+<p>On Linux, nProbe leverages the <a href="https://www.netfilter.org/">netfilter</a> framework. In essence, the kernel send packets to nProbe via NF_QUEUE which, in turn, gives each packet a <strong>pass/drop</strong> verdict so that it can be dropped or let it continue its journey through the network. In addition, nProbe has the ability to <a href="https://www.linuxtopia.org/Linux_Firewall_iptables/x4368.html">mark</a> packets to create policies that go beyond the simple pass/drop but can include, <strong>shaping</strong>, <strong>routing</strong>, and so on. Using markers it is also possible to <strong>offload</strong> traffic packets. In essence, once a flow packet has been marked, the kernel can be told to bridge additional flow packets directly, without sending them to nProbe. This is beneficial and allows to reach very good bridging performances. On FreeBSD, the NetFilter framework is not available and nProbe leverages <a href="http://info.iet.unipi.it/~luigi/netmap/">netmap</a>. For this reason, all packets need to be sent to userspace to nProbe. Hence, measured performances are reduced if compared to Linux. The <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe product page</a> reports typical performance figures for both Linux and FreeBSD.</p>
+<p>For those of you who prefer a video resource, here&#8217;s the step-by-step tutorial</p>
+<p style="text-align: center">
+<p>otherwise you can read the rest of this article for details.</p>
+<h3>Creating a Layer-7 Traffic Policer</h3>
+<p>In this post, we create a Layer-7 traffic policer on a Linux machine, put as a <strong>bump-in-the-wire</strong> between the clients we want to policy and the router that handles their traffic. A commodity 4x1Gb Intel 82580 network card installed on the machine is used to bridge the traffic between the clients and the router. nProbe IPS will operate on top of this bridge, that is created with 2 of the 4 interfaces of the network card:</p>
+<ul>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">enp2s0f0</code> is connected to a WiFi access point where clients are connected.</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">enp2s0f1</code> is connected to the Router that in charge of handling clients&#8217; traffic.</li>
+</ul>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge.png"><img fetchpriority="high" decoding="async" class="size-full wp-image-9244 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge.png" alt="" width="640" height="358" /></a></p>
+<p>Packets reaching one of the two bridged interfaces, before being bridged, are sent to nProbe via NFQUEUE that emits a verdict. If the packet verdict is <strong>drop</strong>, then the packet is dropped and not bridged. Otherwise, the packet is allowed to reach the other interface.</p>
+<p>Let&#8217;s now see how to &#8211; quickly and easily &#8211; configure the bridge, NFQUEUE and nProbe to implement the Layer-7 traffic policer.</p>
+<h4>Configuring the Bridge and NFQUEUE</h4>
+<p>This part of the configuration prepares the system to:</p>
+<ul>
+<li>Bridge clients&#8217; traffic</li>
+<li>Send clients&#8217; traffic to nProbe for policy enforcement</li>
+</ul>
+<p>To facilitate the configuration, we have prepared a shell script that takes care of the above. This script, distributed along with any <a href="https://packages.ntop.org/">packaged version of nProbe</a>, becomes automatically available at the following path once nProbe is installed:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"> /usr/share/nprobe/netfilter/scripts/policy_and_bridge_simple.sh</pre>
+<p>The script begins with a brief configuration section that allows interface names to be configured. Interface names are pretty much everything that needs to be specified. After the necessary configuration changes have been applied, the script can be run as <code class="EnlighterJSRAW" data-enlighter-language="generic">./policy_and_bridge_simple.sh</code> to set up the system.</p>
+<p>In short, the script carries out the following tasks. First, it creates a bridge using Linux bridging capabilities. Then, it instructs the kernel to send packets to nProbe, rather than bridging them automatically. This is done with a couple of <code class="EnlighterJSRAW" data-enlighter-language="generic">iptables</code> rules, indicating that packets entering the system from bridged interfaces must go through a NFQUEUE.</p>
+<p>For the sake of example, <code class="EnlighterJSRAW" data-enlighter-language="generic">iptables</code> can be used to send packets entering the system from <code class="EnlighterJSRAW" data-enlighter-language="generic">enp2s0f0</code> and <code class="EnlighterJSRAW" data-enlighter-language="generic">enp2s0f1</code> to the NFQUEUE queue identified with id <code class="EnlighterJSRAW" data-enlighter-language="generic">0</code> as follows:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">iptables -t mangle -A FORWARD -j NFQUEUE --queue-num 0 --queue-bypass -m physdev --physdev-in enp2s0f0
+iptables -t mangle -A FORWARD -j NFQUEUE --queue-num 0 --queue-bypass -m physdev --physdev-in enp2s0f1</pre>
+<h4>Configuring nProbe IPS</h4>
+<p>nProbe, to operate in IPS mode, needs a rules file. Policy rules are applied to groups of hosts (identified with IP or MAC Addresses) and give the ability to pass/drop/mark packets on the basis of their Layer-7 application protocol, Layer-7 application category, country, <a href="https://www.ntop.org/ndpi/introducing-ndpi-risk-analysis-for-cybersecurity-network-traffic-analysis-was-ripple20/">flow risk</a>, and so on.</p>
+<p>A very simple configuration file can be the following</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"># Pool definition
+{"pool":{"id":1,"name":"Local Networks","ip": [ "172.16.12.0/24", "172.16.4.0/24", "192.168.2.0/24"], "mac": []},"policy": {"id": 0} }
+
+# Policy definition
+{"policy":{"id":0,"name":"root policy rule", "default_marker": "pass", "markers": { "categories": { }, "protocols": {"Facebook": "drop" }, "countries": { }, "asn" : { }, "continents" : { } } } }</pre>
+<p>The file basically tells nProbe to drop Facebook traffic (<code class="EnlighterJSRAW" data-enlighter-language="generic">"protocols": {"Facebook": "drop" }</code>) for all hosts belonging to networks <code class="EnlighterJSRAW" data-enlighter-language="generic">"172.16.12.0/24", "172.16.4.0/24", "192.168.2.0/24"</code>. A pass verdict is emitted for all non-Facebook traffic (<code class="EnlighterJSRAW" data-enlighter-language="generic">"default_marker": "pass"</code>).</p>
+<p>Now that the file is ready, assuming it is saved as <code class="EnlighterJSRAW" data-enlighter-language="generic">nprobe-ips.config</code>, nProbe can be started as follows</p>
+<p><code class="EnlighterJSRAW" data-enlighter-language="generic">$ /usr/bin/nprobe --ips-mode nprobe-ips.config -i nf:0 -n none</code></p>
+<p>Relevant options have the following meaning:</p>
+<ul>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">--ips-mode nprobe-ips.config</code> tells to operate in IPS mode and specifies the rules file</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">nf:0</code> indicates the NFQUEUE queue used by the kernel to send packets to nProbe. Note that this id <code class="EnlighterJSRAW" data-enlighter-language="generic">0</code> MUST match with the id indicated in the configuration of <code class="EnlighterJSRAW" data-enlighter-language="generic">policy_and_bridge_simple.sh</code>. In general, it is safe to use <code class="EnlighterJSRAW" data-enlighter-language="generic">0</code>.</li>
+</ul>
+<p>From this point on, traffic policies are enforced for all clients. For example, this is what happens to one of the client that tries to reach Facebook before and after Layer-7 policer activation.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge_drop.jpg"><img decoding="async" class="size-full wp-image-9238 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge_drop.jpg" alt="" width="860" height="361" /></a></p>
+<h3>Conclusion</h3>
+<p>In this post, we have seen how to quickly create a Layer-7 traffic policer on Linux using nProbe IPS. A very simple <code class="EnlighterJSRAW" data-enlighter-language="generic">"protocols": {"Facebook": "drop" }</code> policy has been created just for the sake of example. In practice, nProbe IPS is flexible enough to <a href="https://www.ntop.org/guides/nprobe/ips_mode.html">create complex policies</a> using also Layer-7 categories, countries, autonomous systems and so on.</p>
+<p>Moreover, by leveraging packet marks, effective kernel traffic offload and traffic shaping can be implemented. There are scripts distributed with any packaged version of nProbe available under <code class="EnlighterJSRAW" data-enlighter-language="generic">/usr/share/nprobe/netfilter/</code> that can be used for reference when implementing offload and shaping.</p>
+<p>The post <a href="https://www.ntop.org/nprobe-ips-how-to-setup-an-inline-layer-7-traffic-policer-in-5-minutes/">nProbe IPS: How To setup an Inline Layer-7 Traffic Policer in 5 Minutes</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

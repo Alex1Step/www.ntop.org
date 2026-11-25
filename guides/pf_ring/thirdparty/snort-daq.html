@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/thirdparty/snort-daq.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:24:08 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. Using Snort with PF_RING &mdash; PF_RING 9.5.0-4814 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Using Snort with PF_RING ZC" href="snort-daq-zc.html" />
+    <link rel="prev" title="2. Using Suricata with PF_RING" href="suricata.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            PF_RING
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Vanilla PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Copy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (Flow Table)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Sample Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Drivers and Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rss.html">Load Balancing / RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Containers Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">VM Support</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">IDS/IPSs Integration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bro.html">1. Using Zeek with PF_RING</a></li>
+<li class="toctree-l2"><a class="reference internal" href="suricata.html">2. Using Suricata with PF_RING</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3. Using Snort with PF_RING</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">3.1. Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compilation">3.2. Compilation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-options">3.3. Configure Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation">3.4. Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-snort-in-ids-mode">3.5. Running snort in IDS mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-snort-in-ips-mode">3.6. Running snort in IPS mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pf-ring-daq-specific-options">3.7. PF_RING DAQ Specific Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-of-clustering-core-binding">3.8. Example of Clustering + Core Binding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pf-ring-ft-acceleration">3.9. PF_RING FT Acceleration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="snort-daq-zc.html">4. Using Snort with PF_RING ZC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Hugepages Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amd.html">AMD Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Processors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">Crash Debug</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">PF_RING</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">IDS/IPSs Integration</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3. </span>Using Snort with PF_RING</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/thirdparty/snort-daq.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-snort-with-pf-ring">
+<h1><span class="section-number">3. </span>Using Snort with PF_RING<a class="headerlink" href="#using-snort-with-pf-ring" title="Link to this heading"></a></h1>
+<section id="prerequisites">
+<h2><span class="section-number">3.1. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Make sure you have installed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Snort 2.9 or later</p></li>
+<li><p>Snort with DAQ include files/libraries (0.6.2, 1.1.1, and 2.0). You can do that downloading snort and DAQ from <a class="reference external" href="http://www.snort.org/snort-downloads">http://www.snort.org/snort-downloads</a>?</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="compilation">
+<h2><span class="section-number">3.2. </span>Compilation<a class="headerlink" href="#compilation" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/ntop/PF_RING.git</span>
+<span class="go">cd PF_RING/kernel</span>
+<span class="go">make &amp;&amp; sudo make install</span>
+
+<span class="go">cd PF_RING/userland/lib</span>
+<span class="go">./configure &amp;&amp; make &amp;&amp; sudo make install</span>
+
+<span class="go">cd PF_RING/userland/snort/pfring-daq-module</span>
+<span class="go">autoreconf -ivf</span>
+<span class="go">./configure</span>
+<span class="go">make</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-options">
+<h2><span class="section-number">3.3. </span>Configure Options<a class="headerlink" href="#configure-options" title="Link to this heading"></a></h2>
+<p>If you do not have PF_RING installed, nor in the “$HOME/PF_RING” path, a few configure options are available:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--with-libpfring-includes=&lt;libpfring include directory&gt;</span>
+<span class="go">--with-pfring-kernel-includes=&lt;pfring kernel include directory&gt;</span>
+<span class="go">--with-libpfring-libraries=&lt;libpfring library directory&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="installation">
+<h2><span class="section-number">3.4. </span>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>Install the library with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo cp .libs/daq_pfring.so /usr/local/lib/daq/</span>
+</pre></div>
+</div>
+<p>or alternatively with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo make install</span>
+</pre></div>
+</div>
+<p>or if you want to run snort without installing it use “–daq-dir=./.libs”</p>
+</section>
+<section id="running-snort-in-ids-mode">
+<h2><span class="section-number">3.5. </span>Running snort in IDS mode<a class="headerlink" href="#running-snort-in-ids-mode" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">snort --daq-dir=/usr/local/lib/daq --daq pfring --daq-mode passive -i eth0 -v -e</span>
+</pre></div>
+</div>
+<p>It is possible to specify multiple interfaces by using a comma-separated list.</p>
+</section>
+<section id="running-snort-in-ips-mode">
+<h2><span class="section-number">3.6. </span>Running snort in IPS mode<a class="headerlink" href="#running-snort-in-ips-mode" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">snort --daq-dir=/usr/local/lib/daq --daq pfring  -i eth0:eth1 -e -Q</span>
+</pre></div>
+</div>
+<p>It is possible to specify multiple interface pairs by using a comma-separated list.</p>
+</section>
+<section id="pf-ring-daq-specific-options">
+<h2><span class="section-number">3.7. </span>PF_RING DAQ Specific Options<a class="headerlink" href="#pf-ring-daq-specific-options" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Kernel Filters</p></li>
+</ol>
+<p>By default, PF_RING kernel filtering rules are added whenever snort’s verdict requests to drop specific flows. If you want instead snort (and not PF_RING) drop packets (i.e. don’t add automatically PF_RING kernel filtering rules) add:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--daq-var no-kernel-filters</span>
+</pre></div>
+</div>
+<p>Kernel filtering rules idle for more than 5 minutes are automatically removed. In order to change the default timeout for idle rules do:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--daq-var kernel-filters-idle-timeout=&lt;seconds&gt;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Socket clustering</p></li>
+</ol>
+<p>PF_RING allows you to distribute packets across multiple processes by using socket clusters. For instance two snort instances bound to the same clusterId receive each a subset of packets so that both can cooperatively share the load. In order to enable this feature do:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--daq-var clusterid=&lt;comma separated id list&gt;</span>
+</pre></div>
+</div>
+<p>where an id is a number (i.e. the clusterId), one for each interface. It is also possible to specify the cluster mode, with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--daq-var clustermode=&lt;mode&gt;</span>
+</pre></div>
+</div>
+<p>where valid mode values are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>2 for 2-tuple flow</p></li>
+<li><p>4 for 4-tuple flow</p></li>
+<li><p>5 for 5-tuple flow</p></li>
+<li><p>6 for 6-tuple flow</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Bind an instance to a core</p></li>
+</ol>
+<p>Proper core insulation, grants snort instances not to step on each other’s feet. In order to bind an instance to a specific core do:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--daq-var bindcpu=&lt;core id&gt;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Kernel-level forwarding in IDS mode</p></li>
+</ol>
+<p>If you want to forward incoming packets at kernel level while snort is running in IDS mode, you can specify a destination interface for each ingress interface with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--daq-var lowlevelbridge=&lt;comma-separated interface list&gt;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Fast TX in IPS mode</p></li>
+</ol>
+<p>Since forwarding packets from userspace requires additional copies (thus affecting performances), it is possible to forward at kernel level the packets for which snort gives a positive verdict:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--daq-var fast-tx</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Packet capture tuning</p></li>
+</ol>
+<p>It is possible to tune the packet capture activity specifying the poll() timeout:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--daq-var timeout=&lt;milliseconds&gt;</span>
+</pre></div>
+</div>
+<p>and the watermark (min number of incoming packets for the poll() to return):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--daq-var watermark=&lt;packets&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="example-of-clustering-core-binding">
+<h2><span class="section-number">3.8. </span>Example of Clustering + Core Binding<a class="headerlink" href="#example-of-clustering-core-binding" title="Link to this heading"></a></h2>
+<p>IDS mode:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/bpbr0/instance-1 --daq-dir=/usr/local/lib/daq --daq pfring --daq-mode passive -i eth2,eth3 --daq-var lowlevelbridge=eth3,eth2 --daq-var clusterid=10,11 --daq-var bindcpu=1</span>
+<span class="go">snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/bpbr0/instance-2 --daq-dir=/usr/local/lib/daq --daq pfring --daq-mode passive -i eth2,eth3 --daq-var lowlevelbridge=eth3,eth2 --daq-var clusterid=10,11 --daq-var bindcpu=2</span>
+<span class="go">snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/bpbr0/instance-3 --daq-dir=/usr/local/lib/daq --daq pfring --daq-mode passive -i eth2,eth3 --daq-var lowlevelbridge=eth3,eth2 --daq-var clusterid=10,11 --daq-var bindcpu=3</span>
+<span class="go">snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/bpbr0/instance-4 --daq-dir=/usr/local/lib/daq --daq pfring --daq-mode passive -i eth2,eth3 --daq-var lowlevelbridge=eth3,eth2 --daq-var clusterid=10,11 --daq-var bindcpu=4</span>
+</pre></div>
+</div>
+<p>IPS mode:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/bpbr0/instance-1 --daq-dir=/usr/local/lib/daq --daq pfring --daq-mode inline -i eth2:eth3 --daq-var fast-tx=1 --daq-var clusterid=10,11 --daq-var bindcpu=1</span>
+<span class="go">snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/bpbr0/instance-2 --daq-dir=/usr/local/lib/daq --daq pfring --daq-mode inline -i eth2:eth3 --daq-var fast-tx=1 --daq-var clusterid=10,11 --daq-var bindcpu=2</span>
+<span class="go">snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/bpbr0/instance-3 --daq-dir=/usr/local/lib/daq --daq pfring --daq-mode inline -i eth2:eth3 --daq-var fast-tx=1 --daq-var clusterid=10,11 --daq-var bindcpu=3</span>
+<span class="go">snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/bpbr0/instance-4 --daq-dir=/usr/local/lib/daq --daq pfring --daq-mode inline -i eth2:eth3 --daq-var fast-tx=1 --daq-var clusterid=10,11 --daq-var bindcpu=4</span>
+</pre></div>
+</div>
+</section>
+<section id="pf-ring-ft-acceleration">
+<h2><span class="section-number">3.9. </span>PF_RING FT Acceleration<a class="headerlink" href="#pf-ring-ft-acceleration" title="Link to this heading"></a></h2>
+<p>In order to take advantage of the PF_RING FT L7 filtering/shunting, you also need nDPI.
+Since PF_RING 7.3 <em>ndpi</em> is installed as a dependency of <em>pfring</em> when installing
+from packages. If you are compiling from source code, or using an older version of PF_RING,
+you need to manually install the nDPI library from <a class="reference external" href="https://github.com/ntop/nDPI">https://github.com/ntop/nDPI</a> following
+the steps below:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/ntop/nDPI.git</span>
+<span class="go">cd nDPI</span>
+<span class="go">./autogen.sh</span>
+<span class="go">make &amp;&amp; sudo make install</span>
+</pre></div>
+</div>
+<p>Then you need to create a configuration file with the filtering rules:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>cat<span class="w"> </span>/etc/pf_ring/ft-rules.conf
+<span class="go">[filter]</span>
+<span class="go">YouTube = discard</span>
+<span class="go">Netflix = discard</span>
+</pre></div>
+</div>
+<p>At this point you are ready to run Snort, setting the path of the configuration file using the PF_RING_FT_CONF environment variable:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo PF_RING_FT_CONF=/etc/pf_ring/ft-rules.conf snort --daq-dir=/usr/local/lib/daq --daq pfring --daq-mode passive -i ethX -v -e</span>
+</pre></div>
+</div>
+<p>For further information about PF_RING FT please read <a class="reference external" href="../ft.html">http://www.ntop.org/guides/pf_ring/ft.html</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="suricata.html" class="btn btn-neutral float-left" title="2. Using Suricata with PF_RING" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="snort-daq-zc.html" class="btn btn-neutral float-right" title="4. Using Snort with PF_RING ZC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/thirdparty/snort-daq.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:24:09 GMT -->
+</html>

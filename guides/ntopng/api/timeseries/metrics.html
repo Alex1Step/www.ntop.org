@@ -1,0 +1,3640 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/timeseries/metrics.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:45 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metrics &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Querying Data" href="queries.html" />
+    <link rel="prev" title="Accessing Metrics" href="accessing_metrics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../rest/index.html">RESTful API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lua_c/index.html">Lua API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/index.html">Python API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Timeseries API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="intro.html">Basic Concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="export.html">Exporting Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change_schema.html">Modify an existing Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adding_new_timeseries.html">Adding New Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="accessing_metrics.html">Accessing Metrics</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#interface-metrics">Interface Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#device-metrics">Device Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#host-metrics">Host Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subnet-metrics">Subnet Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vlan-metrics">VLAN Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#snmp-interface-metrics">SNMP Interface Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#traffic-profile-metrics">Traffic Profile Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#host-pool-metrics">Host Pool Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#asn-metrics">ASN Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#country-metrics">Country Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flow-device-metrics">Flow Device Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#event-exporter-metrics">Event Exporter Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#container-metrics">Container Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pod-metrics">POD Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#process-metrics">Process Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-metrics">System Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="queries.html">Querying Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ts_utils.html">ts_utils API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="driver.html">Driver Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../alerts/index.html">Alerts API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recording/index.html">Recording API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index-2.html">API Documentation</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Timeseries API</a></li>
+      <li class="breadcrumb-item active">Metrics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/timeseries/metrics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="metrics">
+<h1>Metrics<a class="headerlink" href="#metrics" title="Link to this heading"></a></h1>
+<p>Here is the full list of metrics exported as timeseries by ntopng.</p>
+<p>There are two types of metrics exported by ntopng currently: <strong>counters</strong> and <strong>gauges</strong>.</p>
+<ul class="simple">
+<li><p><strong>counters</strong> are used for continuous incrementing metrics such as the total number of bytes.</p></li>
+<li><p><strong>gauges</strong> are used for metrics such as the number of active flows or active hosts at a certain point in time.</p></li>
+</ul>
+<p>ntopng supports two backends for storing timeseries: RRD and InfluxDB. The supported resolution may change
+based on the backend and can be configured through the Runtime Preferences (this is the case of InfluxDB for
+some of the metrics as reported below).</p>
+<section id="interface-metrics">
+<h2>Interface Metrics<a class="headerlink" href="#interface-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-iface-traffic admonition">
+<p class="admonition-title">iface:traffic</p>
+<p>Total number of bytes for an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1s</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>Bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-traffic-rxtx admonition">
+<p class="admonition-title">iface:traffic_rxtx</p>
+<p>Total number of sent and received bytes for an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1s</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-packets admonition">
+<p class="admonition-title">iface:packets</p>
+<p>Total number of packets captured from an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1s</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets</p></td>
+<td><p>Packets captured.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-zmq-recv-flows admonition">
+<p class="admonition-title">iface:zmq_recv_flows</p>
+<p>Total number of flows received from a ZMQ socket.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1s</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>flows</p></td>
+<td><p>Flows received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-zmq-flow-coll-drops admonition">
+<p class="admonition-title">iface:zmq_flow_coll_drops</p>
+<p>Total number of dropped flows for a ZMQ interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1s</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>drops</p></td>
+<td><p>Dropped flows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-exported-flows admonition">
+<p class="admonition-title">iface:exported_flows</p>
+<p>Total number of exported flows.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1s</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_flows</p></td>
+<td><p>Number of exported flows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-dropped-flows admonition">
+<p class="admonition-title">iface:dropped_flows</p>
+<p>Total number of dropped flows.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1s</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_flows</p></td>
+<td><p>Number of dropped flows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-drops admonition">
+<p class="admonition-title">iface:drops</p>
+<p>Total number of dropped packets on an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1s</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets</p></td>
+<td><p>Dropped packets.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-ndpi admonition">
+<p class="admonition-title">iface:ndpi</p>
+<p>Total number of bytes per application protocol (nDPI) for an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>protocol</p></td>
+<td><p>Application protocol (nDPI)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>Bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-ndpi-categories admonition">
+<p class="admonition-title">iface:ndpi_categories</p>
+<p>Total number of bytes per application protocol category (nDPI) for an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>category</p></td>
+<td><p>Application protocol category (nDPI)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>Bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-l4protos admonition">
+<p class="admonition-title">iface:l4protos</p>
+<p>Total number of bytes per L4 protocol for an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>l4proto</p></td>
+<td><p>L4 protocol</p></td>
+</tr>
+<tr class="row-odd"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>Bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-ndpi-flows admonition">
+<p class="admonition-title">iface:ndpi_flows</p>
+<p>Total number of flows per application protocol (nDPI) for an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>protocol</p></td>
+<td><p>Application protocol (nDPI)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_flows</p></td>
+<td><p>Number of flows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-local2remote admonition">
+<p class="admonition-title">iface:local2remote</p>
+<p>Total number of bytes from Local hosts to Remote hosts for an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>Bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-remote2local admonition">
+<p class="admonition-title">iface:remote2local</p>
+<p>Total number of bytes from Remote hosts to Local hosts for an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>Bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-hosts admonition">
+<p class="admonition-title">iface:hosts</p>
+<p>Number of hosts on an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_hosts</p></td>
+<td><p>Number of hosts.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-local-hosts admonition">
+<p class="admonition-title">iface:local_hosts</p>
+<p>Number of local hosts on an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_hosts</p></td>
+<td><p>Number of hosts.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-devices admonition">
+<p class="admonition-title">iface:devices</p>
+<p>Number of devices on an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_devices</p></td>
+<td><p>Number of devices.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-flows admonition">
+<p class="admonition-title">iface:flows</p>
+<p>Number of flows on an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_flows</p></td>
+<td><p>Number of flows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-http-hosts admonition">
+<p class="admonition-title">iface:http_hosts</p>
+<p>Total number of Local HTTP hosts.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_hosts</p></td>
+<td><p>Number of hosts.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-nfq-pct admonition">
+<p class="admonition-title">iface:nfq_pct</p>
+<p>Netfilter queue length (nEdge).</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_nfq_pct</p></td>
+<td><p>Queue length.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-1d-delta-traffic-volume admonition">
+<p class="admonition-title">iface:1d_delta_traffic_volume</p>
+<p>Number of bytes seen on an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1h</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>Bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-iface-1d-delta-flows admonition">
+<p class="admonition-title">iface:1d_delta_flows</p>
+<p>Number of flows seen on an interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1h</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_flows</p></td>
+<td><p>Number of flows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="device-metrics">
+<h2>Device Metrics<a class="headerlink" href="#device-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-mac-traffic admonition">
+<p class="admonition-title">mac:traffic</p>
+<p>Total number of bytes sent and received by a L2 device.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>mac</p></td>
+<td><p>MAC address</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-mac-arp-rqst-sent-rcvd-rpls admonition">
+<p class="admonition-title">mac:arp_rqst_sent_rcvd_rpls</p>
+<p>Total ARP requests sent and replies received by a L2 device.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>mac</p></td>
+<td><p>MAC address</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>request_packets_sent</p></td>
+<td><p>ARP requests sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>reply_packets_rcvd</p></td>
+<td><p>ARP replies received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-mac-ndpi-categories admonition">
+<p class="admonition-title">mac:ndpi_categories</p>
+<p>Total number of bytes per category (nDPI) for a L2 device.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>mac</p></td>
+<td><p>MAC address</p></td>
+</tr>
+<tr class="row-even"><td><p>category</p></td>
+<td><p>Application protocol category (nDPI)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>Bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="host-metrics">
+<h2>Host Metrics<a class="headerlink" href="#host-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-host-traffic admonition">
+<p class="admonition-title">host:traffic</p>
+<p>Total number of bytes sent and received by a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-active-flows admonition">
+<p class="admonition-title">host:active_flows</p>
+<p>Number of active flows for a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>flows_as_client</p></td>
+<td><p>Number of flows with the host as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>flows_as_server</p></td>
+<td><p>Number of flows with the host as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-total-flows admonition">
+<p class="admonition-title">host:total_flows</p>
+<p>Total number of flows for a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>flows_as_client</p></td>
+<td><p>Total number of flows with the host as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>flows_as_server</p></td>
+<td><p>Total number of flows with the host as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-misbehaving-flows admonition">
+<p class="admonition-title">host:misbehaving_flows</p>
+<p>Total number of misbehaving flows for a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>flows_as_client</p></td>
+<td><p>Total number of misbehaving flows with the host as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>flows_as_server</p></td>
+<td><p>Total number of misbehaving flows with the host as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-unreachable-flows admonition">
+<p class="admonition-title">host:unreachable_flows</p>
+<p>Total number of ICMP Port Unreachable flows for a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>flows_as_client</p></td>
+<td><p>Total number of ICMP Port Unreachable flows with the host
+as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>flows_as_server</p></td>
+<td><p>Total number of ICMP Port Unreachable flows with the host
+as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-host-unreachable-flows admonition">
+<p class="admonition-title">host:host_unreachable_flows</p>
+<p>Total number of ICMP Host Unreachable flows for a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>flows_as_client</p></td>
+<td><p>Total number of ICMP Host Unreachable flows with the host
+as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>flows_as_server</p></td>
+<td><p>Total number of ICMP Host Unreachable flows with the host
+as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-ndpi-flows admonition">
+<p class="admonition-title">host:ndpi_flows</p>
+<p>Total number of flows per application protocol (nDPI) for a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+<tr class="row-even"><td><p>protocol</p></td>
+<td><p>Application protocol (nDPI)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_flows</p></td>
+<td><p>Total number of flows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-echo-packets admonition">
+<p class="admonition-title">host:echo_packets</p>
+<p>Total number of ICMP Echo packets sent and received by a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_sent</p></td>
+<td><p>Total number of ICMP Echo packets sent by the host.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_rcvd</p></td>
+<td><p>Total number of ICMP Echo packets received by the host.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-echo-reply-packets admonition">
+<p class="admonition-title">host:echo_reply_packets</p>
+<p>Total number of ICMP Echo Reply packets sent and received by a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_sent</p></td>
+<td><p>Total number of ICMP Echo Reply packets sent by the host.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_rcvd</p></td>
+<td><p>Total number of ICMP Echo Reply packets received by the
+host.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-dns-qry-sent-rsp-rcvd admonition">
+<p class="admonition-title">host:dns_qry_sent_rsp_rcvd</p>
+<p>Total number of DNS queries sent and replies received by a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>queries_packets</p></td>
+<td><p>Total number of DNS queries.</p></td>
+</tr>
+<tr class="row-odd"><td><p>replies_ok_packets</p></td>
+<td><p>Total number of DNS replies with no errors.</p></td>
+</tr>
+<tr class="row-even"><td><p>replies_error_packets</p></td>
+<td><p>Total number of DNS replies with errors.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-dns-qry-rcvd-rsp-sent admonition">
+<p class="admonition-title">host:dns_qry_rcvd_rsp_sent</p>
+<blockquote>
+<div><p>Total number of DNS queries received and replies sent by a host.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>queries_packets</p></td>
+<td><p>Total number of DNS queries.</p></td>
+</tr>
+<tr class="row-odd"><td><p>replies_ok_packets</p></td>
+<td><p>Total number of DNS replies with no errors.</p></td>
+</tr>
+<tr class="row-even"><td><p>replies_error_packets</p></td>
+<td><p>Total number of DNS replies with errors.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-tcp-rx-stats admonition">
+<p class="admonition-title">host:tcp_rx_stats</p>
+<p>Total number of retransmitted, Out-Of-Order and lost TCP packets received by a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>retransmission_packets</p></td>
+<td><p>Total number of retransmitted packets.</p></td>
+</tr>
+<tr class="row-odd"><td><p>out_of_order_packets</p></td>
+<td><p>Total number of Out-Of-Order packets.</p></td>
+</tr>
+<tr class="row-even"><td><p>lost_packets</p></td>
+<td><p>Total number of lost packets.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-tcp-tx-stats admonition">
+<p class="admonition-title">host:tcp_tx_stats</p>
+<p>Total number of retransmitted, Out-Of-Order and lost TCP packets sent by a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>retransmission_packets</p></td>
+<td><p>Total number of retransmitted packets.</p></td>
+</tr>
+<tr class="row-odd"><td><p>out_of_order_packets</p></td>
+<td><p>Total number of Out-Of-Order packets.</p></td>
+</tr>
+<tr class="row-even"><td><p>lost_packets</p></td>
+<td><p>Total number of lost packets.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-total-alerts admonition">
+<p class="admonition-title">host:total_alerts</p>
+<p>Total number of alerts generated by the host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>alerts</p></td>
+<td><p>Total number of alerts.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-contacts admonition">
+<p class="admonition-title">host:contacts</p>
+<p>Total number of contacts/peers with the host as client or server.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_as_client</p></td>
+<td><p>Total number of contacts with the host as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>num_as_server</p></td>
+<td><p>Total number of contacts with the host as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-l4protos admonition">
+<p class="admonition-title">host:l4protos</p>
+<p>Total number of bytes sent and received by L4 protocol for a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-udp-sent-unicast admonition">
+<p class="admonition-title">host:udp_sent_unicast</p>
+<p>Total number of bytes sent by the host for unicast and non unicast traffic.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent_unicast</p></td>
+<td><p>Bytes sent (unicast).</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_sent_non_unicast</p></td>
+<td><p>Bytes sent (non unicast).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-ndpi admonition">
+<p class="admonition-title">host:ndpi</p>
+<p>Total number of bytes sent and received per application protocol (nDPI) for a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+<tr class="row-even"><td><p>protocol</p></td>
+<td><p>Application protocol (nDPI)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-ndpi-categories admonition">
+<p class="admonition-title">host:ndpi_categories</p>
+<p>Total number of bytes sent and received per category (nDPI) for a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+<tr class="row-even"><td><p>category</p></td>
+<td><p>Application protocol category (nDPI)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-1d-delta-traffic-volume admonition">
+<p class="admonition-title">host:1d_delta_traffic_volume</p>
+<p>Number of bytes sent and received by a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1h</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-1d-delta-flows admonition">
+<p class="admonition-title">host:1d_delta_flows</p>
+<p>Number of flows for a host.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1h</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_flows</p></td>
+<td><p>Number of flows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-1d-delta-contacts admonition">
+<p class="admonition-title">host:1d_delta_contacts</p>
+<p>Number of contacts/peers with the host as client or server.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1h</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>host</p></td>
+<td><p>Host</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>as_client</p></td>
+<td><p>Number of contacts with the host as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>as_server</p></td>
+<td><p>Number of contacts with the host as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="subnet-metrics">
+<h2>Subnet Metrics<a class="headerlink" href="#subnet-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-subnet-traffic admonition">
+<p class="admonition-title">subnet:traffic</p>
+<p>Total number of ingress/egress/inner bytes for a subnet.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>subnet</p></td>
+<td><p>Subnet</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_ingress</p></td>
+<td><p>Ingress bytes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_egress</p></td>
+<td><p>Egress bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p>bytes_inner</p></td>
+<td><p>Inner bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-subnet-broadcast-traffic admonition">
+<p class="admonition-title">subnet:broadcast_traffic</p>
+<p>Total number of bytes for brodcast traffic for a subnet.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>subnet</p></td>
+<td><p>Subnet</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_ingress</p></td>
+<td><p>Ingress bytes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_egress</p></td>
+<td><p>Egress bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p>bytes_inner</p></td>
+<td><p>Inner bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-subnet-tcp-retransmissions admonition">
+<p class="admonition-title">subnet:tcp_retransmissions</p>
+<p>Total number of retransmitted TCP packets for a subnet.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>subnet</p></td>
+<td><p>Subnet</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_ingress</p></td>
+<td><p>Ingress Retransmitted packets.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_egress</p></td>
+<td><p>Egress Retransmitted packets.</p></td>
+</tr>
+<tr class="row-even"><td><p>packets_inner</p></td>
+<td><p>Inner Retransmitted packets.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-subnet-tcp-out-of-order admonition">
+<p class="admonition-title">subnet:tcp_out_of_order</p>
+<p>Total number of Out Of Order TCP packets for a subnet.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>subnet</p></td>
+<td><p>Subnet</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_ingress</p></td>
+<td><p>Ingress Out Of Order packets.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_egress</p></td>
+<td><p>Egress Out Of Order packets.</p></td>
+</tr>
+<tr class="row-even"><td><p>packets_inner</p></td>
+<td><p>Inner Out Of Order packets.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-subnet-rtt admonition">
+<p class="admonition-title">subnet:rtt</p>
+<p>Round Trip Time for a Network, computed as exponentially weighted moving average.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>subnet</p></td>
+<td><p>Subnet</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>millis_rtt</p></td>
+<td><p>Round Trip Time</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-subnet-tcp-lost admonition">
+<p class="admonition-title">subnet:tcp_lost</p>
+<p>Total number of lost TCP packets for a subnet.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>subnet</p></td>
+<td><p>Subnet</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_ingress</p></td>
+<td><p>Ingress TCP lost packets.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_egress</p></td>
+<td><p>Egress TCP lost packets.</p></td>
+</tr>
+<tr class="row-even"><td><p>packets_inner</p></td>
+<td><p>Inner TCP lost packets.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-subnet-tcp-keep-alive admonition">
+<p class="admonition-title">subnet:tcp_keep_alive</p>
+<p>Total number of TCP Keepalives packets for a subnet.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>subnet</p></td>
+<td><p>Subnet</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_ingress</p></td>
+<td><p>Ingress TCP Keepalives packets.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_egress</p></td>
+<td><p>Egress TCP Keepalives packets.</p></td>
+</tr>
+<tr class="row-even"><td><p>packets_inner</p></td>
+<td><p>Inner TCP Keepalives packets.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="vlan-metrics">
+<h2>VLAN Metrics<a class="headerlink" href="#vlan-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-vlan-traffic admonition">
+<p class="admonition-title">vlan:traffic</p>
+<p>Total number of bytes sent and received for a VLAN.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>vlan</p></td>
+<td><p>VLAN ID</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-vlan-ndpi admonition">
+<p class="admonition-title">vlan:ndpi</p>
+<p>Total number of bytes sent and received per application protocol (nDPI) for a VLAN.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>vlan</p></td>
+<td><p>VLAN ID</p></td>
+</tr>
+<tr class="row-even"><td><p>protocol</p></td>
+<td><p>Application protocol (nDPI)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="snmp-interface-metrics">
+<h2>SNMP Interface Metrics<a class="headerlink" href="#snmp-interface-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-snmp-if-traffic admonition">
+<p class="admonition-title">snmp_if:traffic</p>
+<p>Total number of bytes sent and received by a SNMP interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>device</p></td>
+<td><p>SNMP device</p></td>
+</tr>
+<tr class="row-even"><td><p>if_index</p></td>
+<td><p>SNMP interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-snmp-if-errors admonition">
+<p class="admonition-title">snmp_if:errors</p>
+<p>Total number of packets discarded or with errors on a SNMP interface.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>device</p></td>
+<td><p>SNMP device</p></td>
+</tr>
+<tr class="row-even"><td><p>if_index</p></td>
+<td><p>SNMP interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_disc</p></td>
+<td><p>Total number of discarded packets.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_err</p></td>
+<td><p>Total number of packets with errors.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="traffic-profile-metrics">
+<h2>Traffic Profile Metrics<a class="headerlink" href="#traffic-profile-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-profile-traffic admonition">
+<p class="admonition-title">profile:traffic</p>
+<p>Total number of bytes for a Traffic Profile.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>profile</p></td>
+<td><p>Profile name</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes</p></td>
+<td><p>Bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="host-pool-metrics">
+<h2>Host Pool Metrics<a class="headerlink" href="#host-pool-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-host-pool-traffic admonition">
+<p class="admonition-title">host_pool:traffic</p>
+<p>Total number of bytes sent and received by a host pool.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>pool</p></td>
+<td><p>Host Pool</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-pool-hosts admonition">
+<p class="admonition-title">host_pool:hosts</p>
+<p>Number of hosts in a host pool.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>pool</p></td>
+<td><p>Host Pool</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_hosts</p></td>
+<td><p>Number of hosts.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-pool-devices admonition">
+<p class="admonition-title">host_pool:devices</p>
+<p>Number of devices in a host pool.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>pool</p></td>
+<td><p>Host Pool</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_devices</p></td>
+<td><p>Number of devices.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-pool-blocked-flows admonition">
+<p class="admonition-title">host_pool:blocked_flows</p>
+<p>Total number of blocked flows for a host pool.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>pool</p></td>
+<td><p>Host Pool</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_flows</p></td>
+<td><p>Number of blocked flows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-host-pool-ndpi admonition">
+<p class="admonition-title">host_pool:ndpi</p>
+<p>Total number of bytes sent and received per application protocol (nDPI) for a host pool.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>pool</p></td>
+<td><p>Host Pool</p></td>
+</tr>
+<tr class="row-even"><td><p>protocol</p></td>
+<td><p>Application protocol (nDPI)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="asn-metrics">
+<h2>ASN Metrics<a class="headerlink" href="#asn-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-asn-traffic admonition">
+<p class="admonition-title">asn:traffic</p>
+<p>Total number of bytes sent and received by an AS.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>asn</p></td>
+<td><p>ASN (Autonomous System Number)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-asn-ndpi admonition">
+<p class="admonition-title">asn:ndpi</p>
+<p>Total number of bytes sent and received per application protocol (nDPI) by an AS.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>asn</p></td>
+<td><p>ASN (Autonomous System Number)</p></td>
+</tr>
+<tr class="row-even"><td><p>protocol</p></td>
+<td><p>Application protocol (nDPI)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-asn-rtt admonition">
+<p class="admonition-title">asn:rtt</p>
+<p>Round Trip Time for an AS, computed as exponentially weighted moving average.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>asn</p></td>
+<td><p>ASN (Autonomous System Number)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>millis_rtt</p></td>
+<td><p>Round Trip Time</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-asn-tcp-retransmissions admonition">
+<p class="admonition-title">asn:tcp_retransmissions</p>
+<p>Total number of retransmitted TCP packets from/to an AS.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>asn</p></td>
+<td><p>ASN (Autonomous System Number)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_sent</p></td>
+<td><p>Retransmitted packets from the AS.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_rcvd</p></td>
+<td><p>Retransmitted packets to the AS.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-asn-tcp-out-of-order admonition">
+<p class="admonition-title">asn:tcp_out_of_order</p>
+<p>Total number of Out Of Order TCP packets from/to an AS.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>asn</p></td>
+<td><p>ASN (Autonomous System Number)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_sent</p></td>
+<td><p>Out Of Order packets from the AS.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_rcvd</p></td>
+<td><p>Out Of Order packets to the AS.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-asn-tcp-lost admonition">
+<p class="admonition-title">asn:tcp_lost</p>
+<p>Total number of lost TCP packets from/to an AS.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>asn</p></td>
+<td><p>ASN (Autonomous System Number)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_sent</p></td>
+<td><p>Lost packets from the AS.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_rcvd</p></td>
+<td><p>Lost packets to the AS.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-asn-tcp-keep-alive admonition">
+<p class="admonition-title">asn:tcp_keep_alive</p>
+<p>Total number of TCP Keepalives packets from/to an AS.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>asn</p></td>
+<td><p>ASN (Autonomous System Number)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>packets_sent</p></td>
+<td><p>TCP Keepalives packets from the AS.</p></td>
+</tr>
+<tr class="row-odd"><td><p>packets_rcvd</p></td>
+<td><p>TCP Keepalives packets to the AS.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="country-metrics">
+<h2>Country Metrics<a class="headerlink" href="#country-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-country-traffic admonition">
+<p class="admonition-title">country:traffic</p>
+<p>Total number of ingress/egress/inner bytes for a country.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>country</p></td>
+<td><p>Country</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_ingress</p></td>
+<td><p>Country ingress bytes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_egress</p></td>
+<td><p>Country egress bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p>bytes_inner</p></td>
+<td><p>Country inner bytes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="flow-device-metrics">
+<h2>Flow Device Metrics<a class="headerlink" href="#flow-device-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-flowdev-port-traffic admonition">
+<p class="admonition-title">flowdev_port:traffic</p>
+<p>Total number of bytes sent and received on a port of a flow device (nProbe).</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>device</p></td>
+<td><p>Device IP</p></td>
+</tr>
+<tr class="row-even"><td><p>port</p></td>
+<td><p>Port index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-flowdev-port-usage admonition">
+<p class="admonition-title">flowdev_port:usage</p>
+<p>Usage of a port of a flow device, as percentage of the configured port speed.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 5m, or 1m when “Flow Exporters and nProbes Timeseries Resolution” is set to 1 minute</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>device</p></td>
+<td><p>Device IP</p></td>
+</tr>
+<tr class="row-even"><td><p>port</p></td>
+<td><p>Port index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>uplink</p></td>
+<td><p>Uplink (out) usage percentage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>downlink</p></td>
+<td><p>Downlink (in) usage percentage.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-flowdev-port-ndpi admonition">
+<p class="admonition-title">flowdev_port:ndpi</p>
+<p>Total number of bytes sent and received by an application on a port of a flow device (nProbe).
+Created when the “Flow Exporters L7 Application” preference is set to “Per Application”.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m, or 1m when “Flow Exporters and nProbes Timeseries Resolution” is set to 1 minute</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>device</p></td>
+<td><p>Device IP</p></td>
+</tr>
+<tr class="row-even"><td><p>port</p></td>
+<td><p>Port index</p></td>
+</tr>
+<tr class="row-odd"><td><p>protocol</p></td>
+<td><p>Application name</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent (uplink).</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received (downlink).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-flowdev-port-ndpi-usage admonition">
+<p class="admonition-title">flowdev_port:ndpi_usage</p>
+<p>Usage of an application on a port of a flow device, as percentage of the configured port speed.
+This metric is not stored: it is calculated at query time from <code class="code docutils literal notranslate"><span class="pre">flowdev_port:ndpi</span></code> and the
+port uplink/downlink speed, so it is only available through the timeseries REST API
+(e.g. <code class="code docutils literal notranslate"><span class="pre">/lua/rest/v2/get/timeseries/ts.lua</span></code>).</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge (derived)</p></li>
+<li><p><strong>Resolution</strong>: same as <code class="code docutils literal notranslate"><span class="pre">flowdev_port:ndpi</span></code></p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<p>Same as <code class="code docutils literal notranslate"><span class="pre">flowdev_port:ndpi</span></code>, <code class="code docutils literal notranslate"><span class="pre">ifid</span></code>, <code class="code docutils literal notranslate"><span class="pre">device</span></code> and <code class="code docutils literal notranslate"><span class="pre">port</span></code> are mandatory.</p>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Uplink (out) usage percentage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Downlink (in) usage percentage.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The top applications usage, for a single direction, can be requested with the
+<code class="code docutils literal notranslate"><span class="pre">top:flowdev_port:ndpi_usage_downlink</span></code> and <code class="code docutils literal notranslate"><span class="pre">top:flowdev_port:ndpi_usage_uplink</span></code> schemas.</p>
+</div>
+</section>
+<section id="event-exporter-metrics">
+<h2>Event Exporter Metrics<a class="headerlink" href="#event-exporter-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-evexporter-iface-traffic admonition">
+<p class="admonition-title">evexporter_iface:traffic</p>
+<p>Total number of bytes sent and received on an interface of an event probe (nProbe Agent).</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: counter</p></li>
+<li><p><strong>Resolution</strong>: 5m (RRD) / 10s-1min according to preferences (InfluxDB)</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>exporter</p></td>
+<td><p>Exporter IP</p></td>
+</tr>
+<tr class="row-even"><td><p>ifname</p></td>
+<td><p>Interface name</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bytes_sent</p></td>
+<td><p>Bytes sent (Out Octets).</p></td>
+</tr>
+<tr class="row-odd"><td><p>bytes_rcvd</p></td>
+<td><p>Bytes received (In Octets).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="container-metrics">
+<h2>Container Metrics<a class="headerlink" href="#container-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-container-num-flows admonition">
+<p class="admonition-title">container:num_flows</p>
+<p>Number of flows for a container.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>container</p></td>
+<td><p>Container ID</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>as_client</p></td>
+<td><p>Number of flows with the container as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>as_server</p></td>
+<td><p>Number of flows with the container as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-container-rtt admonition">
+<p class="admonition-title">container:rtt</p>
+<p>Round Trip Time for a container.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>container</p></td>
+<td><p>Container ID</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>as_client</p></td>
+<td><p>RTT for the container as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>as_server</p></td>
+<td><p>RTT for the container as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-container-rtt-variance admonition">
+<p class="admonition-title">container:rtt_variance</p>
+<p>Round Trip Time variance for a container.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>container</p></td>
+<td><p>Container ID</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>as_client</p></td>
+<td><p>RTT variance for the container as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>as_server</p></td>
+<td><p>RTT variance for the container as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="pod-metrics">
+<h2>POD Metrics<a class="headerlink" href="#pod-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-pod-num-containers admonition">
+<p class="admonition-title">pod:num_containers</p>
+<p>Number of containers for a Kubernetes POD.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>pod</p></td>
+<td><p>POD ID</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_containers</p></td>
+<td><p>Number of containers.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-pod-num-flows admonition">
+<p class="admonition-title">pod:num_flows</p>
+<p>Number of flows for a Kubernetes POD.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>pod</p></td>
+<td><p>POD ID</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>as_client</p></td>
+<td><p>Number of flows with the POD as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>as_server</p></td>
+<td><p>Number of flows with the POD as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-pod-rtt admonition">
+<p class="admonition-title">pod:rtt</p>
+<p>Round Trip Time for a Kubernetes POD.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>pod</p></td>
+<td><p>POD ID</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>as_client</p></td>
+<td><p>RTT for the POD as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>as_server</p></td>
+<td><p>RTT for the POD as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-pod-rtt-variance admonition">
+<p class="admonition-title">pod:rtt_variance</p>
+<p>Round Trip Time variance for a POD.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>pod</p></td>
+<td><p>POD ID</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>as_client</p></td>
+<td><p>RTT variance for the POD as client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>as_server</p></td>
+<td><p>RTT variance for the POD as server.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="process-metrics">
+<h2>Process Metrics<a class="headerlink" href="#process-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-process-resident-memory admonition">
+<p class="admonition-title">process:resident_memory</p>
+<p>Memory statistics for the ntopng process.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 1m</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>resident_bytes</p></td>
+<td><p>Resident memory (bytes).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="system-metrics">
+<h2>System Metrics<a class="headerlink" href="#system-metrics" title="Link to this heading"></a></h2>
+<div class="admonition-system-cpu-load admonition">
+<p class="admonition-title">system:cpu_load</p>
+<p>CPU load statistics.</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 5s</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>load_percentage</p></td>
+<td><p>CPU load percentage.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-system-thread-cpu-load admonition">
+<p class="admonition-title">system:thread_cpu_load</p>
+<p>CPU utilization for each individual ntopng internal thread (e.g. packet processing,
+periodic activities, address resolution).</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: gauge</p></li>
+<li><p><strong>Resolution</strong>: 5s</p></li>
+</ul>
+<p><strong>Tags</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>Interface index</p></td>
+</tr>
+<tr class="row-odd"><td><p>thread_name</p></td>
+<td><p>Name of the ntopng thread</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cpu_utilization_pct</p></td>
+<td><p>CPU utilization percentage for the thread.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="accessing_metrics.html" class="btn btn-neutral float-left" title="Accessing Metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="queries.html" class="btn btn-neutral float-right" title="Querying Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/timeseries/metrics.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:46 GMT -->
+</html>

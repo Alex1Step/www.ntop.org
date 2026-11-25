@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/cento/clickhouse.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClickHouse Export &mdash; cento 1.15 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_optionsd5c8.js?v=e6db31ea"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Flow Offload" href="offload.html" />
+    <link rel="prev" title="Use Cases" href="usecases.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            cento
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/cento/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Models Comparison Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usecases.html">Use Cases</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ClickHouse Export</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#connection">Connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#authentication">Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database-name">Database Name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interface-id">Interface ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster-support">Cluster Support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-with-ntopng">Integration with ntopng</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-start-nprobe-cento">Step 1: Start nProbe Cento</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-start-ntopng-in-read-only-mode">Step 2: Start ntopng in Read-Only Mode</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="offload.html">Flow Offload</a></li>
+<li class="toctree-l1"><a class="reference internal" href="egress.html">Egress Queues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bridge.html">Network Bridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">Systemd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hugepages.html">Hugepages Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geolocation.html">Geolocation Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">cento</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ClickHouse Export</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/clickhouse.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="clickhouse-export">
+<h1>ClickHouse Export<a class="headerlink" href="#clickhouse-export" title="Link to this heading"></a></h1>
+<p>nProbe™ Cento can export flow records directly to a <a class="reference external" href="https://clickhouse.com/">ClickHouse</a> database. The export format is compatible with the ntopng ClickHouse flow dump, allowing ntopng to visualize and analyze flow records produced by nProbe™ Cento.</p>
+<p>This integration is designed for high-speed monitoring environments where nProbe™ Cento handles packet capture and flow generation at line rate, while ntopng provides flow visualization, historical analysis, and reporting by reading flows directly from the shared ClickHouse database.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The typical deployment involves:</p>
+<ol class="arabic simple">
+<li><p><strong>nProbe™ Cento</strong> captures packets and exports flow records to ClickHouse.</p></li>
+<li><p><strong>ClickHouse</strong> stores the flow records in a format compatible with ntopng.</p></li>
+<li><p><strong>ntopng</strong> connects to the same ClickHouse database in read-only mode to visualize and analyze the flows.</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Network Traffic -&gt; nProbe Cento (write) -&gt; ClickHouse -&gt; ntopng (read-only)
+</pre></div>
+</div>
+<section id="connection">
+<h3>Connection<a class="headerlink" href="#connection" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">--clickhouse</span></code> option specifies the ClickHouse server address and port. The port refers to the ClickHouse native TCP protocol port (default: 9000). To enable SSL encryption, append <code class="docutils literal notranslate"><span class="pre">s</span></code> to the port number.</p>
+<p>Examples:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Connect<span class="w"> </span>to<span class="w"> </span>localhost<span class="w"> </span>on<span class="w"> </span>default<span class="w"> </span>port<span class="w"> </span><span class="m">9000</span>
+<span class="go">cento -i zc:eth1 --clickhouse 127.0.0.1</span>
+
+<span class="gp"># </span>Connect<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>remote<span class="w"> </span>host<span class="w"> </span>on<span class="w"> </span>default<span class="w"> </span>port<span class="w"> </span><span class="m">9000</span>
+<span class="go">cento -i zc:eth1 --clickhouse 192.168.1.1</span>
+
+<span class="gp"># </span>Connect<span class="w"> </span>with<span class="w"> </span>SSL<span class="w"> </span>encryption
+<span class="go">cento -i zc:eth1 --clickhouse 192.168.1.1:9000s</span>
+</pre></div>
+</div>
+</section>
+<section id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">--clickhouse-auth</span></code> option specifies the ClickHouse credentials in <code class="docutils literal notranslate"><span class="pre">user:password</span></code> format. By default, it uses the ClickHouse <code class="docutils literal notranslate"><span class="pre">default</span></code> user.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento -i zc:eth1 --clickhouse 192.168.1.1 --clickhouse-auth myuser:mypassword</span>
+</pre></div>
+</div>
+</section>
+<section id="database-name">
+<h3>Database Name<a class="headerlink" href="#database-name" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">--clickhouse-dbname</span></code> option specifies the database name. The default is <code class="docutils literal notranslate"><span class="pre">ntopng</span></code>, which matches the database name used by ntopng when dumping flows to ClickHouse.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento -i zc:eth1 --clickhouse 192.168.1.1 --clickhouse-dbname ntopng</span>
+</pre></div>
+</div>
+</section>
+<section id="interface-id">
+<h3>Interface ID<a class="headerlink" href="#interface-id" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">--clickhouse-interface-id</span></code> option sets the ntopng interface ID associated with exported flows. This ID is used by ntopng to identify the source interface when reading flows. The default value is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento -i zc:eth1 --clickhouse 192.168.1.1 --clickhouse-interface-id 3</span>
+</pre></div>
+</div>
+</section>
+<section id="cluster-support">
+<h3>Cluster Support<a class="headerlink" href="#cluster-support" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">--clickhouse-cluster</span></code> option enables export to a ClickHouse cluster. When specified, nProbe™ Cento creates the database and dumps flows to the cluster, enabling data replication across cluster nodes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento -i zc:eth1 --clickhouse 192.168.1.1 --clickhouse-cluster mycluster</span>
+</pre></div>
+</div>
+<p>This option is intended for use with a properly configured ClickHouse cluster. When connecting to a single-node ClickHouse instance, omit this option.</p>
+</section>
+</section>
+<section id="integration-with-ntopng">
+<h2>Integration with ntopng<a class="headerlink" href="#integration-with-ntopng" title="Link to this heading"></a></h2>
+<p>Flow export to ClickHouse is designed to be compatible with the ntopng flow dump to ClickHouse. This allows ntopng to read historical flow records produced by nProbe™ Cento directly, without having to dump flows itself.</p>
+<p>ntopng supports a read-only mode specifically designed for this integration when started with the <code class="docutils literal notranslate"><span class="pre">--readonly-flows-dump</span></code> option. With this option ntopng connects to ClickHouse to read flows produced by nProbe™ Cento without writing any flow data itself.</p>
+<section id="step-1-start-nprobe-cento">
+<h3>Step 1: Start nProbe Cento<a class="headerlink" href="#step-1-start-nprobe-cento" title="Link to this heading"></a></h3>
+<p>Start nProbe™ Cento with ClickHouse dump enabled, in addition to ZMQ export:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cento -i zc:eth1 --zmq tcp://127.0.0.1:5556 --clickhouse 192.168.1.1 --dpi-level 2</span>
+</pre></div>
+</div>
+</section>
+<section id="step-2-start-ntopng-in-read-only-mode">
+<h3>Step 2: Start ntopng in Read-Only Mode<a class="headerlink" href="#step-2-start-ntopng-in-read-only-mode" title="Link to this heading"></a></h3>
+<p>Start ntopng with ClickHouse support in read-only mode using the <code class="docutils literal notranslate"><span class="pre">-F</span> <span class="pre">clickhouse</span></code> and <code class="docutils literal notranslate"><span class="pre">--readonly-flows-dump</span></code> options:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ntopng -i tcp://*:5556c -F clickhouse --readonly-flows-dump</span>
+</pre></div>
+</div>
+<p>In this configuration, ntopng reads the historical flow data produced by nProbe™ Cento from ClickHouse, and provides historical flow visualization and analysis without performing any flow dump itself.
+At the same time ntopng processes live traffic by collecting flows from ZMQ.</p>
+<p>Please refer to the <a class="reference external" href="../ntopng/flow_dump/index-2.html">ntopng documentation</a> for additional information on configuring ntopng with ClickHouse.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usecases.html" class="btn btn-neutral float-left" title="Use Cases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="offload.html" class="btn btn-neutral float-right" title="Flow Offload" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/cento/clickhouse.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:56:23 GMT -->
+</html>

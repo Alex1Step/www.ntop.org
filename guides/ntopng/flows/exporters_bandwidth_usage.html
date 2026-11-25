@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/flows/exporters_bandwidth_usage.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:49:23 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exporter Interfaces Bandwidth Usage per Application &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Industrial Monitoring" href="../scada/index.html" />
+    <link rel="prev" title="Flow Exporters" href="exporters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Flow Collection</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nprobe.html">What nProbe Does</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exporters.html">Flow Exporters</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Exporter Interfaces Bandwidth Usage per Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interface-speed">Interface Speed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#charts">Charts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#top-applications-table">Top Applications Table</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../using_with_other_tools/nprobe.html">Using ntopng with nProbe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using_with_other_tools/nprobe_collector_mode.html">Using ntopng with nProbe (Collector Mode)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Flow Collection</a></li>
+      <li class="breadcrumb-item active">Exporter Interfaces Bandwidth Usage per Application</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/flows/exporters_bandwidth_usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="exporter-interfaces-bandwidth-usage-per-application">
+<span id="exporterinterfacebandwidthusage"></span><h1>Exporter Interfaces Bandwidth Usage per Application<a class="headerlink" href="#exporter-interfaces-bandwidth-usage-per-application" title="Link to this heading"></a></h1>
+<p>For each interface of a flow exporter, ntopng can report how much of the interface capacity is used by every
+application.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>From the timeseries preferences enable:</p>
+<ul class="simple">
+<li><p><cite>Flow Exporters and Probes</cite>: creates the exporter and exporter interface timeseries.</p></li>
+<li><p><cite>Flow Exporters L7 Application</cite> set to <cite>Per Application</cite>: creates a timeseries for every application seen on each exporter interface.</p></li>
+<li><p>Optionally, set <cite>Flow Exporters and nProbes Timeseries Resolution</cite> to 1 minute to have 1 minute charts (default is 5 minutes).</p></li>
+</ul>
+</section>
+<section id="interface-speed">
+<h2>Interface Speed<a class="headerlink" href="#interface-speed" title="Link to this heading"></a></h2>
+<p>Percentages are calculated using the uplink and downlink speed configured for the exporter interface. The speed can be
+configured from the exporter interface page, <cite>Configuration</cite> (gear icon) tab, or from the <cite>Configuration</cite> action of the
+exporter interfaces list. When no speed is configured, the interface speed read via SNMP is used, if available, otherwise
+1 Gbit is assumed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The speed is applied when the charts are drawn, so changing it also changes the percentages reported for the past.</p>
+</div>
+</section>
+<section id="charts">
+<h2>Charts<a class="headerlink" href="#charts" title="Link to this heading"></a></h2>
+<p>The following timeseries are available from the <cite>Timeseries</cite> tab (chart icon) of the exporter interface page:</p>
+<ul class="simple">
+<li><p><cite>Usage</cite>: uplink and downlink usage of the whole interface, as percentage of the interface speed.</p></li>
+<li><p><cite>Top L7 Applications (bytes)</cite>: stacked traffic (bps) of the top applications.</p></li>
+<li><p><cite>Top L7 Applications Downlink (percentage)</cite> and <cite>Top L7 Applications Uplink (percentage)</cite>: stacked usage of the top
+applications, as percentage of the downlink and uplink interface speed respectively.</p></li>
+<li><p><cite>&lt;application&gt; (bytes)</cite>, in the <cite>Applications</cite> group: traffic (bps) of a single application.</p></li>
+<li><p><cite>&lt;application&gt; (percentage)</cite>, in the <cite>Applications Bandwidth Usage</cite> group: usage of a single application, as percentage of the
+interface speed.</p></li>
+</ul>
+<p>Uplink is the traffic sent (out) by the exporter through the interface, downlink is the traffic received (in) by the exporter
+from the interface. Each point is the average usage over the timeseries step (1 or 5 minutes).</p>
+<p>Percentages are not stored on disk: they are calculated, when the chart is requested, from the per application timeseries
+and the configured interface speed. Hence they do not require any additional disk space and are also available for the data
+collected before configuring the interface speed.</p>
+</section>
+<section id="top-applications-table">
+<h2>Top Applications Table<a class="headerlink" href="#top-applications-table" title="Link to this heading"></a></h2>
+<p>Below the charts, the <cite>Top Applications</cite> table reports, for the selected time interval, the applications seen on the exporter
+interface:</p>
+<ul class="simple">
+<li><p><cite>Sent</cite>, <cite>Received</cite> and <cite>Traffic</cite>: application traffic volume.</p></li>
+<li><p><cite>Traffic Share</cite>: percentage of the interface traffic due to the application.</p></li>
+<li><p><cite>Throughput</cite>: average application throughput.</p></li>
+<li><p><cite>Uplink (Out) Usage</cite> and <cite>Downlink (In) Usage</cite>: average application usage, as percentage of the uplink and downlink
+interface speed.</p></li>
+</ul>
+<p>Clicking on the application name adds the <cite>&lt;application&gt; (percentage)</cite> chart to the page, while the actions allow to jump to
+the live and historical flows of the application on the exporter interface.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="exporters.html" class="btn btn-neutral float-left" title="Flow Exporters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../scada/index.html" class="btn btn-neutral float-right" title="Industrial Monitoring" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/flows/exporters_bandwidth_usage.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:49:24 GMT -->
+</html>

@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/local_network_checks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:08 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local Networks Behavioural Checks &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="SNMP Behavioural Checks" href="snmp_checks.html" />
+    <link rel="prev" title="Interface Behavioural Checks" href="interface_checks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="available_alerts.html">Behavioural Checks</a></li>
+      <li class="breadcrumb-item active">Local Networks Behavioural Checks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/user_interface/shared/alerts/others/local_network_checks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="local-networks-behavioural-checks">
+<h1>Local Networks Behavioural Checks<a class="headerlink" href="#local-networks-behavioural-checks" title="Link to this heading"></a></h1>
+<p>These checks are performed on local networks (see -m command line option).</p>
+<hr class="docutils" />
+<section id="broadcast-domain-too-large">
+<h2>Broadcast Domain Too Large<a class="headerlink" href="#broadcast-domain-too-large" title="Link to this heading"></a></h2>
+<p>Checks broadcast domains.</p>
+<p>The ARP traffic between two MACS addresses belonging to different broadcast domains is detected.</p>
+<p>The Alert is sent when the broadcast domain is too large.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="flow-flood-victim">
+<h2>Flow Flood Victim<a class="headerlink" href="#flow-flood-victim" title="Link to this heading"></a></h2>
+<p>Checks for Flow Flood.</p>
+<p>In a computer network, flooding occurs when a router uses a nonadaptive routing algorithm. When a network is having more than a predefined number of flows over a minute. The system sends a notification when servers of the monitored flows exceeds the threshold.</p>
+<p>The alert is sent in case of server flow flood.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="ip-mac-reassoc-spoofing">
+<h2>IP/MAC Reassoc/Spoofing<a class="headerlink" href="#ip-mac-reassoc-spoofing" title="Link to this heading"></a></h2>
+<p>Checks for IP or MAC Reassociation/Spoofing.</p>
+<p>This alert might indicate an ARP spoof attempt.</p>
+<p>The alert is sent when an IP address, previously seen with a MAC address, is now seen with another MAC address. Only works for the builtin alert recipient.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="network-discovery">
+<h2>Network Discovery<a class="headerlink" href="#network-discovery" title="Link to this heading"></a></h2>
+<p>Checks for Network Discovery.</p>
+<p>Network discovery is the process that allows computers and devices to find each other when they are on the same network. It is the first step system administrators take when they want to map and monitor their network infrastructure. This process is sometimes also referred to as topology discovery.</p>
+<p>The alert is sent when a network discovery is detected.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="network-issues">
+<h2>Network Issues<a class="headerlink" href="#network-issues" title="Link to this heading"></a></h2>
+<p>Checks for Network Discovery.</p>
+<p>Network issues, like packets loss, could identify an issue in the network.</p>
+<p>The alert is sent when network issues (retransmissions, high number of fragments and packet loss) are identified.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="network-score-per-host">
+<h2>Network Score per Host<a class="headerlink" href="#network-score-per-host" title="Link to this heading"></a></h2>
+<p>Checks for the score of the hosts in a network.</p>
+<p>An high score (as average per host) on many hosts of a network could mean a possible issue with the network itself.</p>
+<p>The alert is sent when the average score per host of a network is higher then a threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Network</em></p>
+<p><em>Enabled by Default</em></p>
+</section>
+<section id="syn-flood-victim">
+<h2>SYN Flood Victim<a class="headerlink" href="#syn-flood-victim" title="Link to this heading"></a></h2>
+<p>Checks for SYN Flood.</p>
+<p>A SYN Flood is a common form of DDoS attack that can target any system connected to the Internet and providing TCP services like web server, email server, file transfer. A SYN flood is a type of TCP State-Exhaustion Attack that attempts to consume the connection state tables present in many infrastructure components, such as load balancers, firewalls and IPS.</p>
+<p>The alert is sent when the number of received SYN exceeds the threshold.</p>
+<p><em>Interface: Packet</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+<section id="syn-scan-victim">
+<h2>SYN Scan Victim<a class="headerlink" href="#syn-scan-victim" title="Link to this heading"></a></h2>
+<p>Checks for SYN Scan.</p>
+<p>SYN scanning is a tactic that a hacker can use to determine the state of a communications port without establishing a full connection.
+This approach, one of the oldest, sometimes is used to perform DoS attack. SYN scanning is also known as half-open scanning.</p>
+<p>The alert is sent when the number of received SYNs exceeds the threshold.</p>
+<p><em>Interface: Packet &amp; ZMQ</em></p>
+<p><em>Category: Cybersecurity</em></p>
+<p><em>Not Enabled by Default</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="interface_checks.html" class="btn btn-neutral float-left" title="Interface Behavioural Checks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="snmp_checks.html" class="btn btn-neutral float-right" title="SNMP Behavioural Checks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/others/local_network_checks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:09 GMT -->
+</html>

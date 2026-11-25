@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/storage_sizing.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:57:14 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Storage Sizing &mdash; n2disk 3.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options02ed.js?v=da8737de"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utilities" href="utilities/index.html" />
+    <link rel="prev" title="3. Silicom FPGA Setup" href="tuning/fiberblaze.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            n2disk
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/n2disk/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="features.html">Main Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#licensing">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">How to Start n2disk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning/index.html">Tuning</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Storage Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities/index.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Flows Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netflow.html">Netflow and Raw Recording</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Packet Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filesystem.html">Disk Partitioning and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">n2disk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Storage Sizing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/storage_sizing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="storage-sizing">
+<h1>Storage Sizing<a class="headerlink" href="#storage-sizing" title="Link to this heading"></a></h1>
+<p>This section provides some guidelines for sizing the disk according to the
+traffic throughput and desired data retention.</p>
+<p>The table below highlights the minimum requirements for a storage able to dump
+traffic according to the sustained traffic throughput. Please note that medium/high
+end enterprise disks are considered, with high write throughput designed for endurance.
+RAID 0 is considered here, more disks are required with parity (e.g. with RAID 5/50/6).</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Traffic Throughput</p></td>
+<td><p>Min # SAS/SATA HDD</p></td>
+<td><p>Min # SSD</p></td>
+<td><p>Min # NVMe</p></td>
+</tr>
+<tr class="row-even"><td><p>1 Gbps</p></td>
+<td><p>1-2</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>10 Gbps</p></td>
+<td><p>8-10</p></td>
+<td><p>4</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>40 Gbps</p></td>
+<td><p>24-32</p></td>
+<td><p>16</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>100 Gbps</p></td>
+<td></td>
+<td></td>
+<td><p>8</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note: a single NVMe disk can handle up to 35 Gbps, numbers reported in the above table
+have been produced considering average disks capable of 15-20 Gbps, to fit most hardware
+configurations using not the fastest disks on the market. The same applies to spinning
+HDDs and SSDs.</p>
+<p>The table below highlights the minimum requirements for a storage able to dump
+traffic according to the desired data retention and considering the worst case
+sustained traffic throughput. Please note that the minimum number of disks based
+on the traffic throughput of the table above should be used in any case.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Traffic Throughput</p></td>
+<td><p>Data per Hour</p></td>
+<td><p>Data per Day</p></td>
+<td><p>Data per Week</p></td>
+</tr>
+<tr class="row-even"><td><p>1 Gbps</p></td>
+<td><p>500 GB</p></td>
+<td><p>10 TB</p></td>
+<td><p>70 TB</p></td>
+</tr>
+<tr class="row-odd"><td><p>10 Gbps</p></td>
+<td><p>5 TB</p></td>
+<td><p>100 TB</p></td>
+<td><p>700 TB</p></td>
+</tr>
+<tr class="row-even"><td><p>40 Gbps</p></td>
+<td><p>20 TB</p></td>
+<td><p>400 TB</p></td>
+<td><p>2.8 PB</p></td>
+</tr>
+<tr class="row-odd"><td><p>100 Gbps</p></td>
+<td><p>50 TB</p></td>
+<td><p>1 PB</p></td>
+<td><p>7 PB</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tuning/fiberblaze.html" class="btn btn-neutral float-left" title="3. Silicom FPGA Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utilities/index.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/storage_sizing.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:57:15 GMT -->
+</html>

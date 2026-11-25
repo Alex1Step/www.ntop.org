@@ -1,0 +1,56 @@
+Quick Start
+###########
+
+nProbe Agent and ntopng
+=======================
+
+The best way to get started with system-introspected Network visibility is using ntopng as collector for data exported by the nProbe Agent. 
+In order to achieve this you need two pieces:
+
+- nProbe Agent (*nprobe-agent*), a small application which integrates libebpfflow and is responsible for performing the system introspection itself, exporting data to a collector.
+- *ntopng*, the analysis and visualization tool, which receives introspected data from nProbe Agent and visualizes it in an handy GUI.
+
+Configuration is straightforward. You can fire *nprobe-agent* with just a single option (*--zmq*) which basically tells it the address on which *ntopng* is listening for introspected data.
+
+.. code:: bash
+
+   nprobe-agent -v --zmq tcp://127.0.0.1:1234c
+
+In this example, we are going to use *nprobe-agent* and *ntopng* on the same host so we are safely using the loopback address 127.0.0.1 to make them communicate. 
+However, this is not necessary as *nprobe-agent* and *ntopng* can run on separate hosts. You can even run multiple *nprobe-agent* and let them export to the same instance of *ntopng*.
+
+To collect data from *nprobe-agent*, *ntopng* can be started as follows:
+
+.. code:: bash
+
+   ntopng -i tcp://*:1234c -m "192.168.2.0/24"
+
+Where:
+
+- *-i* specifies on which port *ntopng* has to listen for incoming data (see the port is 1234, the same used for *nprobe-agent*)
+- *-m* specifies the local network of interest
+
+Once both applications are running, point your browser to the address of *ntopng* and you will start seeing network communications along with users, processes and container information.
+
+For further information about *ntopng* and the integration with *nProbe Agent* please check the `ntopng documentation <https://www.ntop.org/guides/ntopng/case_study/using_with_nprobe_agent.html>`_
+
+Docker Container
+================
+
+A Dockerfile for running nProbe Agent as a container is available on `github <https://github.com/ntop/docker-ntop/blob/master/Dockerfile.agent>`_.
+Building and running the container using the Dockerfile is straightforward, you just need to run the commands below:
+
+.. code:: bash
+
+   wget https://raw.githubusercontent.com/ntop/docker-ntop/master/Dockerfile.agent
+   docker build -t agent -f Dockerfile.agent .
+   docker run -it --network=host -v /etc/nprobe-agent.license:/etc/nprobe-agent.license:ro \
+     -v /lib/modules:/lib/modules:ro -v /usr/src:/usr/src:ro -v /etc/localtime:/etc/localtime:ro \
+     -v /sys/kernel/debug:/sys/kernel/debug -v /var/run/docker.sock:/var/run/docker.sock \
+     -v /snap/bin/microk8s.ctr:/snap/bin/microk8s.ctr --privileged agent
+
+Please note that:
+
+- The license file should be placed under */etc/nprobe-agent.license* on the host, unless you want to license a specific container only. *--network=host -v /etc/nprobe-agent.license:/etc/nprobe-agent.license:ro* is required for sharing the license from the host system with the container, as explained in the `FAQ <https://www.ntop.org/support/faq/license-inside-a-container/>`_.
+- *--privileged* and all other *-v* options (mounted volumes) are required by eBPF.
+

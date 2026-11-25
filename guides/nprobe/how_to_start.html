@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nprobe/how_to_start.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Start nProbe &mdash; nProbe 10.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options0088.js?v=864e5427"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tuning nProbe Performance" href="tuning.html" />
+    <link rel="prev" title="What’s New" href="whats_new.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nProbe
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nprobe/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#what-is-nprobe">What is nProbe?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Versions Comparison Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configurations.html">nProbe Modes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to Start nProbe</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#systemd-based-systems">Systemd-based Systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-files">Configuration Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#editing-configuration-files">Editing Configuration Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-startup">Automatic Startup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#init-based-systems">init-based Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-nprobe-on-windows">Running nProbe on Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#specify-monitored-interfaces">Specify Monitored Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#execution-as-a-windows-service">Execution as a Windows Service</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Tuning nProbe Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#high-speed-flow-collection">High-Speed Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#expected-collection-performance">Expected Collection Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-flows-from-many-routers">Collecting Flows from Many Routers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#handling-trillion-flows-dumping-flows-into-clickhouse">Handling Trillion Flows: Dumping Flows into ClickHouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#data-deduplication">Data Deduplication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#snmp-interfaces-polling">SNMP Interfaces Polling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#collecting-ntap-traffic">Collecting nTap Traffic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#influxdb-based-timeseries-dump">InfluxDB-based Timeseries Dump</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#howto-create-sflow-timeseries">HowTo Create sFlow Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-relay">Flow Relay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#flow-replication-fanout">Flow Replication / Fanout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html#dumping-collected-flows-packets">Dumping Collected Flows/Packets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tls.html">Using TLS In Flow Collection/Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tls.html#tls-certificates-validation">TLS Certificates Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#note-on-interface-indexes-and-router-mac-ip-addresses">Note on interface indexes and (router) MAC/IP addresses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#further-plugin-available-command-line-options">Further plugin available command line options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options.html#netflow-v9-ipfix-format-t">NetFlow v9/IPFIX format [-T]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Using nProbe with ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kafka.html">Using Kafka with nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bgp.html">BGP/BMP Traffic Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="agent_mode.html">Agent Mode support in nProbe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="case_study/index.html">nProbe Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/index.html">nProbe Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing_plugins.html">Developing nProbe Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bpf_expressions.html">BPF Packet Filtering Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_information_elements.html">Flow Information Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware_sizing.html">Hardware Sizing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nProbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">How to Start nProbe</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/how_to_start.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="how-to-start-nprobe">
+<h1>How to Start nProbe<a class="headerlink" href="#how-to-start-nprobe" title="Link to this heading"></a></h1>
+<section id="systemd-based-systems">
+<h2>Systemd-based Systems<a class="headerlink" href="#systemd-based-systems" title="Link to this heading"></a></h2>
+<p>The nProbe service is controlled using the systemctl utility on operating systems and distributions that use the systemd service manager.</p>
+<p>Upon successful package installation, the nProbe service is automatically started on the loopback interface, and it is also started on boot by default.
+The service can be disabled as explained in the next sections to prevent this behavior.</p>
+<section id="configuration-files">
+<h3>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading"></a></h3>
+<p>The default service uses a configuration file that is located at /etc/nprobe/nprobe.conf and that is populated with some defaults during installation.
+The configuration file can be edited and extended with any configuration option supported by nProbe.
+A service restart is required after configuration file modifications.</p>
+<p>Multiple nProbe instances can be simultaneously executed on the same machine. Typically, each instance is bound to an interface.
+To allow different nProbes to be run with independent configurations, multiple configuration files co-exist under the directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/etc/nprobe/
+</pre></div>
+</div>
+<p>Each configuration file starts with “nprobe-” and ends with a suffix corresponding to the interface name it is associated to, exception made for
+the default nProbe service, corresponding to the configuration file nprobe.conf. For example, assuming three different nProbe daemons have to be
+run independently for eth0, eth4, and myri0, in addition to the default service, the following configuration files should be present:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ls -lha /etc/nprobe/</span>
+total<span class="w"> </span>28K
+<span class="m">4</span>.0K<span class="w"> </span>-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">211</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">17</span>:54<span class="w"> </span>nprobe.conf
+<span class="m">4</span>.0K<span class="w"> </span>-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">211</span><span class="w"> </span>Mar<span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">17</span>:54<span class="w"> </span>nprobe-eth0.conf
+<span class="m">4</span>.0K<span class="w"> </span>-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">195</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">8</span><span class="w"> </span><span class="m">17</span>:17<span class="w"> </span>nprobe-eth4.conf
+<span class="m">4</span>.0K<span class="w"> </span>-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">215</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">8</span><span class="w"> </span><span class="m">17</span>:22<span class="w"> </span>nprobe-myri0.conf
+</pre></div>
+</div>
+<p>When nProbe is used in probe mode it is not bound to any interface as its job is to collect NetFlow from some other device.
+In this case the configuration file to be created is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe-none.conf
+</pre></div>
+</div>
+</section>
+<section id="editing-configuration-files">
+<h3>Editing Configuration Files<a class="headerlink" href="#editing-configuration-files" title="Link to this heading"></a></h3>
+<p>People familiar with editors, can create and modify the configuration files. However for the rest of us there is a Linux-only tool part of the nProbe package and named <code class="code docutils literal notranslate"><span class="pre">nprobe-config</span></code> that allows you to edit configurationf files interactively. You need to start it as superuser (or sudo nprobe-config) and follow the instructions on the screen. Below you can find two examples of how the tool works</p>
+<figure class="align-default">
+<img alt="_images/nprobe-config.png" src="_images/nprobe-config.png" />
+</figure>
+<figure class="align-default">
+<img alt="_images/nprobe-config-1.png" src="_images/nprobe-config-1.png" />
+</figure>
+</section>
+<section id="automatic-startup">
+<h3>Automatic Startup<a class="headerlink" href="#automatic-startup" title="Link to this heading"></a></h3>
+<p>To start, stop and restart the default nProbe service type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>start<span class="w"> </span>nprobe
+systemctl<span class="w"> </span>stop<span class="w"> </span>nprobe
+systemctl<span class="w"> </span>restart<span class="w"> </span>nprobe
+</pre></div>
+</div>
+<p>To prevent nProbe from starting on boot type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>disable<span class="w"> </span>nprobe
+</pre></div>
+</div>
+<p>Or to start nProbe on boot, assuming it has previously been disabled, type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>nprobe
+</pre></div>
+</div>
+<p>To check the status of the service, including its output and PID, type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>nprobe
+</pre></div>
+</div>
+<p>To control additional services, based on the interface name specified in the configuration file name as described in the
+previous section, the ‘nprobe&#64;&lt;interface&gt;’ service should be used, example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>nprobe@eth0
+systemctl<span class="w"> </span>start<span class="w"> </span>nprobe@eth0
+</pre></div>
+</div>
+</section>
+</section>
+<section id="init-based-systems">
+<h2>init-based Systems<a class="headerlink" href="#init-based-systems" title="Link to this heading"></a></h2>
+<p>Init-based system are usually available only on embedded systems, as otherwise systemd base scripts are the dafault. The nProbe service can be controlled on old init-based systems by means of the script script located at:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/etc/init.d/nprobe
+</pre></div>
+</div>
+<p>In order to launch nProbe daemons automatically on system startup, empty files ending with “.start” must be created in the same directory of the configuration files.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ls -lha /etc/nprobe</span>
+-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">211</span><span class="w"> </span>mar<span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">17</span>:54<span class="w"> </span>nprobe-eth0.conf
+-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">    </span><span class="m">0</span><span class="w"> </span>mar<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">15</span>:44<span class="w"> </span>nprobe-eth0.start
+</pre></div>
+</div>
+<p>Those configurations can be controlled with the script /etc/init.d/nprobe. The script accept different options and one or more interface names as input. Calling the script without options yields the following brief help</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/etc/init.d/nprobe
+
+Usage:<span class="w"> </span>/etc/init.d/nprobe<span class="w"> </span><span class="o">{</span>start<span class="p">|</span>force-start<span class="p">|</span>stop<span class="p">|</span>restart<span class="p">|</span>status<span class="o">}</span><span class="w"> </span><span class="o">[</span>interface<span class="o">(</span>s<span class="o">)]</span>
+</pre></div>
+</div>
+<p>The options and the usage of the daemon control script is discusse below.</p>
+<p><em>start</em></p>
+<p>This option is used to start daemon nProbes for interfaces that have a “.start” file. Calling start on interfaces with missing “.start” files yield and error. For example</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ls -lha /etc/nprobe</span>
+-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">211</span><span class="w"> </span>mar<span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">17</span>:54<span class="w"> </span>nprobe-eth0.conf
+-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">    </span><span class="m">0</span><span class="w"> </span>mar<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">15</span>:44<span class="w"> </span>nprobe-eth0.start
+-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">195</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">8</span><span class="w"> </span><span class="m">17</span>:17<span class="w"> </span>nprobe-eth4.conf
+-rw-r--r--<span class="w">   </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">215</span><span class="w"> </span>Jan<span class="w">  </span><span class="m">8</span><span class="w"> </span><span class="m">17</span>:22<span class="w"> </span>nprobe-myri0.conf
+<span class="c1"># /etc/init.d/nprobe start eth0</span>
+Starting<span class="w"> </span>nProbe<span class="w"> </span>eth0
+<span class="c1"># /etc/init.d/nprobe start eth4</span>
+nProbe<span class="w"> </span>eth4<span class="w"> </span>not<span class="w"> </span>started:<span class="w"> </span>missing<span class="w"> </span>/etc/nprobe/nprobe-eth4.start
+</pre></div>
+</div>
+<p><em>force-start</em></p>
+<p>This option is used to start daemon nProbes for instances that do not have a “.start” file. Calling force-start on interface eth4 shown in the example above doesn’t raise any error and the daemon is properly started</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/init.d/nprobe force-start eth4</span>
+Starting<span class="w"> </span>nProbe<span class="w"> </span>eth4
+</pre></div>
+</div>
+<p><em>stop</em></p>
+<p>This option is used to stop an nProbe daemon instance. For example</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/init.d/nprobe stop eth4</span>
+Stopping<span class="w"> </span>nProbe<span class="w"> </span>eth4
+</pre></div>
+</div>
+<p><em>restart</em></p>
+<p>This option causes the restart of a daemon associated to a given interface, e.g.,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/init.d/nprobe restart eth0</span>
+Stopping<span class="w"> </span>nProbe<span class="w"> </span>eth0
+Starting<span class="w"> </span>nProbe<span class="w"> </span>eth0
+</pre></div>
+</div>
+<p><em>status</em></p>
+<p>This options prints the status of a daemon associated to a given interface, e.g.,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/init.d/nprobe status eth0</span>
+
+nprobe<span class="w"> </span>running
+</pre></div>
+</div>
+</section>
+<section id="running-nprobe-on-windows">
+<h2>Running nProbe on Windows<a class="headerlink" href="#running-nprobe-on-windows" title="Link to this heading"></a></h2>
+<p>nProbe can be activated either as service or as application (i.e. you can start it from cmd.exe). The nProbe installer registers the service and creates an entry on the Start menu. In order to display nProbe inline help, the executable must be run with /h</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\P</span>rogram<span class="w"> </span>Files<span class="se">\n</span>Probe&gt;nprobe<span class="w"> </span>/h
+</pre></div>
+</div>
+<p>Available options:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>/i &lt;service name&gt; [nprobe options] Install nprobe as service</p></li>
+<li><p>/c [nprobe options]                Run nprobe on a console</p></li>
+<li><p>/r &lt;service name&gt;                  Deinstall the service</p></li>
+</ul>
+</div></blockquote>
+<p>Example:
+Install nprobe as a service: <code class="code docutils literal notranslate"><span class="pre">nprobe</span> <span class="pre">/i</span> <span class="pre">my_nProbe</span> <span class="pre">-i</span> <span class="pre">0</span> <span class="pre">-n</span> <span class="pre">192.168.0.1:2055</span></code>
+Remove the nprobe service:   <code class="code docutils literal notranslate"><span class="pre">nprobe</span> <span class="pre">/r</span> <span class="pre">my_nProbe</span></code></p>
+<p>Notes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Type ‘nprobe /c -h’ to see all options</p></li>
+<li><p>In order to reinstall a service with new options it is necessary to first remove the service, then add it again with the new options.</p></li>
+<li><p>Services are started/stopped using the Services control panel item.</p></li>
+<li><p>You can install the nProbe service multiple times as long as you use different service names.</p></li>
+</ul>
+</div></blockquote>
+<p>The full list of options is available with nprobe /c -h. If nProbe is started on the console, the /c flag needs to be used (e.g. nprobe /c –n 127.0.0.1:2055).</p>
+<section id="specify-monitored-interfaces">
+<h3>Specify Monitored Interfaces<a class="headerlink" href="#specify-monitored-interfaces" title="Link to this heading"></a></h3>
+<p>As network interfaces on Windows can have long names, a numeric index is associated to the interface in order to ease the nProbe configuration. The association interface name and index is shows typing the ‘nprobe /c –h’</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\n</span>top<span class="se">\n</span>probe<span class="se">\D</span>ebug&gt;nprobe.exe/c<span class="w"> </span>-h
+
+Available<span class="w"> </span>interfaces:
+<span class="o">[</span><span class="nv">index</span><span class="o">=</span><span class="m">0</span><span class="o">]</span><span class="w"> </span><span class="s1">&#39;Adapter for generic dialup and VPN capture&#39;</span>
+<span class="o">[</span><span class="nv">index</span><span class="o">=</span><span class="m">1</span><span class="o">]</span><span class="w"> </span><span class="s1">&#39;Realtek 8139-series PCI NIC&#39;</span>
+</pre></div>
+</div>
+<p>For instance, in the above example the index 1 is associated to the interface Realtek 8139-series PCI NIC, hence in order to select this interface nprobe needs to be started with –i 1 option.</p>
+</section>
+<section id="execution-as-a-windows-service">
+<h3>Execution as a Windows Service<a class="headerlink" href="#execution-as-a-windows-service" title="Link to this heading"></a></h3>
+<p>Windows services are started and stopped using the Services application part of the Windows administrative tools. When nProbe is used as service, command line options need to be specified at service registration and can be modified only by removing and adding the service. The nProbe installer registers nProbe as a service with the default options. If you need to change the nProbe setup, you need to do as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe<span class="w"> </span>/r<span class="w">     </span>Remove<span class="w"> </span>the<span class="w"> </span>service
+nprobe<span class="w"> </span>/i<span class="w"> </span>&lt;put<span class="w"> </span>your<span class="w"> </span>options<span class="w"> </span>here&gt;<span class="w">     </span>Install<span class="w"> </span>the<span class="w"> </span>service<span class="w"> </span>with
+the<span class="w"> </span>specified<span class="w"> </span>options.
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="whats_new.html" class="btn btn-neutral float-left" title="What’s New" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tuning.html" class="btn btn-neutral float-right" title="Tuning nProbe Performance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nprobe/how_to_start.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:55:02 GMT -->
+</html>

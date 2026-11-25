@@ -1,0 +1,905 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nDPI/configuration_parameters.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:08 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration Knobs &mdash; nDPI 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/collapsible-lists/css/tree_viewf00b.css?v=a885cde7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options729d.js?v=3b2dd2c4"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+      <script src="_static/collapsible-lists/js/CollapsibleLists.compressed9c30.js?v=73120307"></script>
+      <script src="_static/collapsible-lists/js/apply-collapsible-listsd910.js?v=660e4f45"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Library Initialization" href="library_initialization.html" />
+    <link rel="prev" title="Typedef uint" href="api/typedef_ndpi__win32_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nDPI
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nDPI/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="what_is_ndpi.html">What is nDPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/library_root.html">Library API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration Knobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library_initialization.html">Library Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocols.html">nDPI Protocols List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_risks.html">nDPI Flow Risks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usdt.html">USDT Probes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nDPI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configuration Knobs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/configuration_parameters.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration-knobs">
+<h1>Configuration Knobs<a class="headerlink" href="#configuration-knobs" title="Link to this heading"></a></h1>
+<p>List of the supported configuration options:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Protocol</p></th>
+<th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default value</p></th>
+<th class="head"><p>Min value</p></th>
+<th class="head"><p>Max value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“packets_limit_per_flow”</p></td>
+<td><p>32</p></td>
+<td><p>0</p></td>
+<td><p>255</p></td>
+<td><p>The upper limit on the number of packets per flow that will be subject to DPI, after which classification will be considered complete (0 = no limit)</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“flow.track_payload”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable tracking/export of flow payload (i.e. L5/7 data): if enabled, the library exports the first 1024 bytes of payload for each flow</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“flow.use_client_ip_in_guess”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Use client IP in guesses of flow protocol IDs by IP.</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“flow.use_client_port_in_guess”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Use client port in guesses of flow protocol IDs.</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“tcp_ack_payload_heuristic”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>In some networks, there are anomalous TCP flows with 0x00 Ethernet padding bytes treated as TCP payload. Enables heuristic to detect and ignore these. See #1946</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“fully_encrypted_heuristic”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable heuristic to detect fully encrypted sessions. Analyzes first packet only (see: <a class="reference external" href="https://www.usenix.org/system/files/sec23fall-prepub-234-wu-mingshi.pdf">https://www.usenix.org/system/files/sec23fall-prepub-234-wu-mingshi.pdf</a>).</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“libgcrypt.init”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable initialization of libgcrypt. Ignored if nDPI is not using external libgcrypt.</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“dpi.compute_entropy”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable computation of flow entropy.</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“fpc”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable First Packet Classification.</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“hostname_dns_check”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable detection of flows (TLS/QUIC/HTTP) whose hostname was not previously resolved via DNS.</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“metadata.tcp_fingerprint”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable computation and export of TCP fingerprint for all TCP flows.</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“metadata.tcp_fingerprint_raw”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable computation and export of raw TCP fingerprint.</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“metadata.tcp_fingerprint_format”</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>Format of the TCP fingerprint. 0 = native nDPI (see: README.tcp_fingerprint.md), 1 = MuonOF (see: <a class="reference external" href="https://github.com/sundruid/muonfp">https://github.com/sundruid/muonfp</a>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“metadata.ndpi_server_fingerprint”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable computation and export of nDPI server fingerprint.</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“metadata.ndpi_fingerprint”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable computation and export of nDPI fingerprint. See <a class="reference external" href="../../beyond-ja3-ja4-introducing-ndpi-traffic-fingerprint/index.html">https://www.ntop.org/beyond-ja3-ja4-introducing-ndpi-traffic-fingerprint</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“metadata.ndpi_fingerprint_format”</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>Format of the nDPI fingerprint ((i.e. metadata.ndpi_fingerprint)). 0 = client only, 1 = client and server.</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“metadata.ndpi_fingerprint_ignore_tcp_fp”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Configure if TCP fingerprint is used or not for nDPI fingerprint (i.e. for metadata.ndpi_fingerprint) calculation.</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“dpi.guess_on_giveup”</p></td>
+<td><p>0x03</p></td>
+<td><p>0x00</p></td>
+<td><p>0x03</p></td>
+<td><p>Guess flow classification if DPI fails. Bitmask: 0x0 = disabled; 0x01 = port; 0x02 = IP.</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“dpi.guess_ip_before_port”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable guessing by IP first when guessing flow classifcation. Disabled = guess by port first.</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“flow_risk.$FLOWRISK_NAME_OR_ID”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable the specific flow risk. Use “any” as flow risk name if you want to easily enable/disable all flow risks. The names of the flow risks are available
+at <cite>src/include/ndpi_typedefs.h</cite>: look for <cite>ndpi_risk_shortnames</cite></p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“flow_risk.$FLOWRISK_NAME_OR_ID.info”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable the export of flow risk information, i.e. some strings clarifing some details about the specific flow risk set. Use “any” as flow risk name if
+you want to easily enable/disable flow info for all flow risks. The names of the flow risks are available at <cite>src/include/ndpi_typedefs.h</cite>: look for
+<cite>ndpi_risk_shortnames</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“flow_risk_lists.load”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable loading of every IP addresses lists used to check any flow risks</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“flow_risk.anonymous_subscriber.list.icloudprivaterelay.load”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable loading of internal iCouldPrivateRealy IP address list used to check <cite>NDPI_ANONYMOUS_SUBSCRIBER</cite> flow risk</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“flow_risk.anonymous_subscriber.list.tor.load”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable loading of internal IP address list of TOR exit nodes used to check <cite>NDPI_ANONYMOUS_SUBSCRIBER</cite> flow risk</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“flow_risk.crawler_bot.list.load”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable loading of internal IP address list used to check <cite>NDPI_HTTP_CRAWLER_BOT</cite> flow risk</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“filename.config”</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Name of the file containing a list of configuration knobs itself (one per line)!. Useful to configure nDPI via text file instead of via API</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“log.level”</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+<td><p>Configure the log/debug level. Possible values: 0 = error, 1 = trace, 2 = debug, 3 = extra debug</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“lru.$CACHE_NAME.size”</p></td>
+<td><p>See description</p></td>
+<td><p>0</p></td>
+<td><p>16777215</p></td>
+<td><p>Set the size (in number of elements) of the specified LRU cache (0 = the cache is disabled). The keyword “$CACHE_NAME” is a placeholder for the cache name and
+the possible values are: ookla, bittorrent, stun, tls_cert, mining, msteams, fpc_dns, signal. The default value is “32768” for the bittorrent and signal cache
+and “1024” for all the other caches</p></td>
+</tr>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>“lru.$CACHE_NAME.ttl”</p></td>
+<td><p>See description</p></td>
+<td><p>0</p></td>
+<td><p>16777215</p></td>
+<td><p>Set the TTL (in seconds) for the elements of the specified LRU cache (0 = the elements never explicitly expire). The keyword “$CACHE_NAME” is a placeholder for
+the cache name and the possible values are: ookla, bittorrent, stun, tls_cert, mining, msteams, fpc_dns, signal. The default value is “120” for the ookla cache,
+“60” for the msteams and fpc_dns caches and “300” for all the other caches</p></td>
+</tr>
+<tr class="row-odd"><td><p>NULL</p></td>
+<td><p>“lru.$CACHE_NAME.scope”</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>Set the scope of the specified LRU cache (0 = the cache is local, 1 = the cache is global). The keyword “$CACHE_NAME” is a placeholder for the cache name and the
+possible values are: ookla, bittorrent, stun, tls_cert, mining, msteams, fpc_dns, signal. The global scope con be set only if a global context has been
+initialized</p></td>
+</tr>
+<tr class="row-even"><td><p>“http”</p></td>
+<td><p>“metadata.req.content_type”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of Content Type (request) header for HTTP flows.</p></td>
+</tr>
+<tr class="row-odd"><td><p>“http”</p></td>
+<td><p>“metadata.req.referer”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of Referer (request) header for HTTP flows.</p></td>
+</tr>
+<tr class="row-even"><td><p>“http”</p></td>
+<td><p>“metadata.req.host”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of Host (request) header for HTTP flows.</p></td>
+</tr>
+<tr class="row-odd"><td><p>“http”</p></td>
+<td><p>“metadata.req.username”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of (cleartext) username metadata for HTTP flows (from request header).</p></td>
+</tr>
+<tr class="row-even"><td><p>“http”</p></td>
+<td><p>“metadata.req.password”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of (cleartext) password metadata for HTTP flows (from request header).</p></td>
+</tr>
+<tr class="row-odd"><td><p>“http”</p></td>
+<td><p>“metadata.resp.content_type”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of Content Type (response) header for HTTP flows.</p></td>
+</tr>
+<tr class="row-even"><td><p>“http”</p></td>
+<td><p>“metadata.resp.server”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of Server (request) header for HTTP flows.</p></td>
+</tr>
+<tr class="row-odd"><td><p>“http”</p></td>
+<td><p>“dga_url”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable detection of DGA-like patterns in HTTP URL paths.</p></td>
+</tr>
+<tr class="row-even"><td><p>“tls”</p></td>
+<td><p>“certificate_expiration_threshold”</p></td>
+<td><p>30</p></td>
+<td><p>0</p></td>
+<td><p>365</p></td>
+<td><p>The threshold (in days) used to trigger the <cite>NDPI_TLS_CERTIFICATE_ABOUT_TO_EXPIRE</cite> flow risk</p></td>
+</tr>
+<tr class="row-odd"><td><p>“tls”</p></td>
+<td><p>“application_blocks_tracking”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable processing of TLS Application Blocks (post handshake) to extract statistical information about the flow</p></td>
+</tr>
+<tr class="row-even"><td><p>“tls”</p></td>
+<td><p>“dpi.heuristics”,</p></td>
+<td><p>0x00</p></td>
+<td><p>0x00</p></td>
+<td><p>0x07</p></td>
+<td><p>Enable/disable some heuristics to detect encrypted/obfuscated/proxied TLS flows. The value is a bitmask. Values: 0x0 = disabled; 0x01 = enable basic detection
+(i.e. encrypted TLS without any encapsulation); 0x02 = enable detection over TLS (i.e. TLS-in-TLS); 0x04 = enable detection over HTTP (i.e. TLS-over-WebSocket).
+If enabled, some false positives are expected. See: <a class="reference external" href="https://www.usenix.org/conference/usenixsecurity24/presentation/xue-fingerprinting">https://www.usenix.org/conference/usenixsecurity24/presentation/xue-fingerprinting</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>“tls”</p></td>
+<td><p>“dpi.heuristics.max_packets_extra_dissection”,</p></td>
+<td><p>25</p></td>
+<td><p>0</p></td>
+<td><p>255</p></td>
+<td><p>If at least one TLS heuristics is enabled (see <cite>tls,”dpi.heuristics”</cite>, this parameter set the upper limit on the number of packets required/processed for each
+flow. Higher the value, lower the false positive rate but more packets are required by nDPI for processing.</p></td>
+</tr>
+<tr class="row-even"><td><p>“tls”</p></td>
+<td><p>“metadata.sha1_fingerprint”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable computation and export of SHA1 fingerprint for TLS flows. Note that if it is disable, the flow risk <cite>NDPI_MALICIOUS_SHA1_CERTIFICATE</cite> is not
+checked</p></td>
+</tr>
+<tr class="row-odd"><td><p>“tls”</p></td>
+<td><p>“metadata.versions_supported”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of supported versions metadata for TLS flows</p></td>
+</tr>
+<tr class="row-even"><td><p>“tls”</p></td>
+<td><p>“metadata.alpn_negotiated”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of negotiated ALPN metadata for TLS flows</p></td>
+</tr>
+<tr class="row-odd"><td><p>“tls”</p></td>
+<td><p>“metadata.cipher”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of negotiated cipher metadata for TLS flows</p></td>
+</tr>
+<tr class="row-even"><td><p>“tls”</p></td>
+<td><p>“metadata.cert_server_names”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of server names list from certificate for TLS flows</p></td>
+</tr>
+<tr class="row-odd"><td><p>“tls”</p></td>
+<td><p>“metadata.cert_validity”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of certificate validity timestamps for TLS flows</p></td>
+</tr>
+<tr class="row-even"><td><p>“tls”</p></td>
+<td><p>“metadata.cert_issuer”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of certificate issuer metadata for TLS flows</p></td>
+</tr>
+<tr class="row-odd"><td><p>“tls”</p></td>
+<td><p>“metadata.cert_subject”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of certificaste subject metadata for TLS flows</p></td>
+</tr>
+<tr class="row-even"><td><p>“tls”</p></td>
+<td><p>“metadata.browser”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable an heurstic to determine the broswer used to generate this TLS flows</p></td>
+</tr>
+<tr class="row-odd"><td><p>“tls”</p></td>
+<td><p>“metadata.ja3s_fingerprint”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable computation and export of JA3S fingerprint for TLS flows</p></td>
+</tr>
+<tr class="row-even"><td><p>“tls”</p></td>
+<td><p>“metadata.ja4c_fingerprint”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable computation and export of JA4C fingerprint for TLS flows. Note that if it is disable, the flow risk <cite>NDPI_MALICIOUS_FINGERPRINT</cite> is not checked</p></td>
+</tr>
+<tr class="row-odd"><td><p>“tls”</p></td>
+<td><p>“metadata.ja4r_fingerprint”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable computation and export of JA4C fingerprint for TLS flows also in raw format</p></td>
+</tr>
+<tr class="row-even"><td><p>“tls”</p></td>
+<td><p>“subclassification”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable sub-classification of TLS/DTLS flows</p></td>
+</tr>
+<tr class="row-odd"><td><p>“tls”</p></td>
+<td><p>“max_num_blocks_to_analyze”</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>256</p></td>
+<td><p>Set the maximum number of TLS block to process; if 0, TLS blocks are not analyze</p></td>
+</tr>
+<tr class="row-even"><td><p>“tls”</p></td>
+<td><p>“tls_blocks_show_timing”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable usage of timing information in TLS block processing</p></td>
+</tr>
+<tr class="row-odd"><td><p>“tls”</p></td>
+<td><p>“subclassification_by_ip”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable sub-classification of Obfuscated TLS flows using server IP. Useful to detect the specific VPN application/app. At the moment, this knob allows to
+identify: Mullvad, NordVPN.</p></td>
+</tr>
+<tr class="row-even"><td><p>“quic”</p></td>
+<td><p>“subclassification”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable sub-classification of TLS/DTLS flows</p></td>
+</tr>
+<tr class="row-odd"><td><p>“smtp”</p></td>
+<td><p>“tls_dissection”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable dissection of TLS packets in cleartext SMTP flows (because of opportunistic TLS, via STARTTLS msg)</p></td>
+</tr>
+<tr class="row-even"><td><p>“imap”</p></td>
+<td><p>“tls_dissection”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable dissection of TLS packets in cleartext IMAP flows (because of opportunistic TLS, via STARTTLS msg)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“pop”</p></td>
+<td><p>“tls_dissection”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable dissection of TLS packets in cleartext POP flows (because of opportunistic TLS, via STARTTLS msg)</p></td>
+</tr>
+<tr class="row-even"><td><p>“ftp”</p></td>
+<td><p>“tls_dissection”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable dissection of TLS packets in cleartext FTP flows (because of opportunistic TLS, via AUTH TLS msg)</p></td>
+</tr>
+<tr class="row-odd"><td><p>“sip”</p></td>
+<td><p>“metadata.attribute.from”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable extraction of “From” header from SIP flows</p></td>
+</tr>
+<tr class="row-even"><td><p>“sip”</p></td>
+<td><p>“metadata.attribute.from_imsi”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>In a SIP flow, if the “From” header contains a valid IMSI, this option enable/disable the extraction of the IMSI itself</p></td>
+</tr>
+<tr class="row-odd"><td><p>“sip”</p></td>
+<td><p>“metadata.attribute.to”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable extraction of “To” header from SIP flows</p></td>
+</tr>
+<tr class="row-even"><td><p>“sip”</p></td>
+<td><p>“metadata.attribute.to_imsi”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>In a SIP flow, if the “To” header contains a valid IMSI, this option enable/disable the extraction of the IMSI itself</p></td>
+</tr>
+<tr class="row-odd"><td><p>“ssh”</p></td>
+<td><p>“metadata.hassh_fingerprint”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable computation and export of HASHH fingerprint for SSH flows</p></td>
+</tr>
+<tr class="row-even"><td><p>“ssh”</p></td>
+<td><p>“metadata.ssh_data”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable export of SSH key exchanges parameters and negotiated SSH key exchange method</p></td>
+</tr>
+<tr class="row-odd"><td><p>“stun”</p></td>
+<td><p>“max_packets_extra_dissection”</p></td>
+<td><p>4</p></td>
+<td><p>0</p></td>
+<td><p>255</p></td>
+<td><p>After a flow has been classified has STUN, nDPI might analyse more packets to look for a sub-classification or for metadata. This parameter set the upper limit
+on the number of these packets</p></td>
+</tr>
+<tr class="row-even"><td><p>“stun”</p></td>
+<td><p>“tls_dissection”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable dissection of TLS packets multiplexed into STUN flows</p></td>
+</tr>
+<tr class="row-odd"><td><p>“stun”</p></td>
+<td><p>“metadata.attribute.mapped_address”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable extraction of (xor)-mapped-address attribute for STUN flows. If it is disabled, STUN classification might be significant faster</p></td>
+</tr>
+<tr class="row-even"><td><p>“stun”</p></td>
+<td><p>“metadata.attribute.response_origin”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable extraction of response-origin attribute for STUN flows. If it is disabled, STUN classification might be significant faster</p></td>
+</tr>
+<tr class="row-odd"><td><p>“stun”</p></td>
+<td><p>“metadata.attribute.other_address”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable extraction of other-address attribute for STUN flows. If it is disabled, STUN classification might be significant faster</p></td>
+</tr>
+<tr class="row-even"><td><p>“stun”</p></td>
+<td><p>“metadata.attribute.relayed_address”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable extraction of (xor-)relayed-address attribute for STUN flows. If it is disabled, STUN classification might be significant faster</p></td>
+</tr>
+<tr class="row-odd"><td><p>“stun”</p></td>
+<td><p>“metadata.attribute.peer_address”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable extraction of (xor-)peer-address attribute for STUN flows. If it is disabled, STUN classification might be significant faster; however
+sub-classification capability might be negatively impacted</p></td>
+</tr>
+<tr class="row-even"><td><p>“bittorrent”</p></td>
+<td><p>“metadata.hash”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable extraction of hash metadata for Bittorrent flows.</p></td>
+</tr>
+<tr class="row-odd"><td><p>“ssdp”</p></td>
+<td><p>“metadata”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable extraction of ALL metadata for SSDP flows. Note that, unlike others protocols, for SSDP flows you can’t enable/disable a specific metadata</p></td>
+</tr>
+<tr class="row-even"><td><p>“ntp”</p></td>
+<td><p>“metadata”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable extraction of ALL metadata for NTP flows. Note that, unlike others protocols, for NTP flows you can’t enable/disable a specific metadata</p></td>
+</tr>
+<tr class="row-odd"><td><p>“dns”</p></td>
+<td><p>“subclassification”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable sub-classification of DNS flows (via query/response domain name).</p></td>
+</tr>
+<tr class="row-even"><td><p>“dns”</p></td>
+<td><p>“process_response”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable processing of DNS responses. By default, DNS flows are fully classified after the first request/response pair (or after the first response, if the
+request is missing). If this parameter is disabled, the flows are fully classified after the first packet, i.e. usually after the first request; in that case,
+some flow risks are not checked and some metadata are not exported</p></td>
+</tr>
+<tr class="row-odd"><td><p>“dns”</p></td>
+<td><p>“max_packets_extra_dissection”</p></td>
+<td><p>5</p></td>
+<td><p>0</p></td>
+<td><p>255</p></td>
+<td><p>After a flow has been classified has DNS, nDPI might analyse more packets to look for a sub-classification or for metadata. This parameter set the upper limit
+on the number of these packets. Useful if interested in handling big DNS messages (i.e. AXFR transfers)</p></td>
+</tr>
+<tr class="row-even"><td><p>“dns”</p></td>
+<td><p>“custom_port”</p></td>
+<td><p>-1</p></td>
+<td><p>-1</p></td>
+<td><p>65535</p></td>
+<td><p>Enable DNS detection on one additional user-selected TCP or UDP port. The default value -1 disables this option. Standard DNS, mDNS, and LLMNR port behavior is
+unchanged. A positive value is the preferred deterministic port match. The special value 0 enables heuristic, one-packet detection on any UDP port. Structurally
+valid DNS-shaped non-DNS traffic can therefore be classified as DNS</p></td>
+</tr>
+<tr class="row-odd"><td><p>“http”</p></td>
+<td><p>“process_response”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable processing of HTTP responses. By default, HTTP flows are usually fully classified after the first request/response pair. If this parameter is
+disabled, the flows are fully classified after the first request (or after the first response, if the request is missing); in that case, some flow risks are not
+checked and some metadata are not exported</p></td>
+</tr>
+<tr class="row-even"><td><p>“http”</p></td>
+<td><p>“subclassification”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable sub-classification of HTTP flows</p></td>
+</tr>
+<tr class="row-odd"><td><p>“ookla”</p></td>
+<td><p>“dpi.aggressiveness”,</p></td>
+<td><p>0x01</p></td>
+<td><p>0x00</p></td>
+<td><p>0x01</p></td>
+<td><p>Detection aggressiveness for Ookla. The value is a bitmask. Values: 0x0 = disabled; 0x01 = enable heuristic for detection over TLS (via Ookla LRU cache)</p></td>
+</tr>
+<tr class="row-even"><td><p>“powershell”</p></td>
+<td><p>“dpi.aggressiveness”,</p></td>
+<td><p>0x01</p></td>
+<td><p>0x00</p></td>
+<td><p>0x01</p></td>
+<td><p>Detection aggressiveness for PowerShell. The value is a bitmask. Values: 0x0 = disabled; 0x01 = enable heuristic for detection over TLS</p></td>
+</tr>
+<tr class="row-odd"><td><p>“zoom”</p></td>
+<td><p>“max_packets_extra_dissection”</p></td>
+<td><p>4</p></td>
+<td><p>0</p></td>
+<td><p>255</p></td>
+<td><p>After a flow has been classified has Zoom, nDPI might analyse more packets to look for a sub-classification or for metadata. This parameter set the upper limit
+on the number of these packets</p></td>
+</tr>
+<tr class="row-even"><td><p>“smb”</p></td>
+<td><p>“max_packets_extra_dissection”</p></td>
+<td><p>25</p></td>
+<td><p>0</p></td>
+<td><p>255</p></td>
+<td><p>After a flow has been classified as SMBv2/3, nDPI might analyse more packets to look for the named pipes/files opened by the client,
+to tell file sharing from remote administration (PowerShell). This parameter set the upper limit on the number of these packets. 0 = no extra dissection</p></td>
+</tr>
+<tr class="row-odd"><td><p>“kerberos”</p></td>
+<td><p>“max_packets_extra_dissection”</p></td>
+<td><p>16</p></td>
+<td><p>0</p></td>
+<td><p>255</p></td>
+<td><p>After a flow has been classified as Kerberos by a request, nDPI might analyse more packets to look for the reply (i.e. the client name
+and the result of the request). This parameter set the upper limit on the number of these packets, including the ACKs of the client:
+a large reply over TCP can be split into several segments. 0 = no extra dissection (i.e. the reply is not dissected)</p></td>
+</tr>
+<tr class="row-even"><td><p>“dcerpc”</p></td>
+<td><p>“max_packets_extra_dissection”</p></td>
+<td><p>4</p></td>
+<td><p>0</p></td>
+<td><p>255</p></td>
+<td><p>After a connectionless (UDP) flow has been classified as DCERPC by an Endpoint Mapper message, nDPI might analyse more packets to look for PROFINET/IO calls on
+the same flow. This parameter set the upper limit on the number of these packets. 0 = no extra dissection</p></td>
+</tr>
+<tr class="row-odd"><td><p>“rtp”</p></td>
+<td><p>“search_for_stun”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>After a flow has been classified as RTP or RTCP, nDPI might analyse more packets to look for STUN/DTLS packets, i.e. to try to tell if this flow is a “pure”
+RTP/RTCP flow or if the RTP/RTCP packets are multiplexed with STUN/DTLS. Useful for proper (sub)classification when the beginning of the flows are not captured
+or if there are lost packets in the the captured traffic. If enabled, nDPI requires more packets to process for each RTP/RTCP flow.</p></td>
+</tr>
+<tr class="row-even"><td><p>“rtp”</p></td>
+<td><p>“max_packets_extra_dissection”</p></td>
+<td><p>32</p></td>
+<td><p>0</p></td>
+<td><p>255</p></td>
+<td><p>After a flow has been classified has RTP, nDPI might analyse more packets to look for more metadata. This parameter set the upper limit on the number of these
+packets</p></td>
+</tr>
+<tr class="row-odd"><td><p>“openvpn”</p></td>
+<td><p>“dpi.heuristics”,</p></td>
+<td><p>0x00</p></td>
+<td><p>0</p></td>
+<td><p>0x01</p></td>
+<td><p>Enable/disable some heuristics to better detect OpenVPN. The value is a bitmask. Values: 0x0 = disabled; 0x01 = enable heuristic based on op-code frequency.
+If enabled, some false positives are expected. See: <a class="reference external" href="https://www.usenix.org/conference/usenixsecurity22/presentation/xue-diwen">https://www.usenix.org/conference/usenixsecurity22/presentation/xue-diwen</a></p></td>
+</tr>
+<tr class="row-even"><td><p>“openvpn”</p></td>
+<td><p>“dpi.heuristics.num_messages”,</p></td>
+<td><p>10</p></td>
+<td><p>0</p></td>
+<td><p>255</p></td>
+<td><p>If at least one OpenVPN heuristics is enabled (see <cite>openvpn,”dpi.heuristics”</cite>, this parameter set the maximum number of OpenVPN messages required for each flow.
+Note that an OpenVPN message may be splitted into multiple (TCP/UDP) packets and that a (TCP/UDP) packet may contains multiple OpenVPN messages. Higher the value,
+lower the false positive rate but more packets are required by nDPI for processing.</p></td>
+</tr>
+<tr class="row-odd"><td><p>“openvpn”</p></td>
+<td><p>“subclassification_by_ip”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable sub-classification of OpenVPN flows using server IP. Useful to detect the specific VPN application/app. At the moment, this knob allows to
+identify: Mullvad, NordVPN.</p></td>
+</tr>
+<tr class="row-even"><td><p>“wireguard”</p></td>
+<td><p>“subclassification_by_ip”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable sub-classification of Wireguard flows using server IP. Useful to detect the specific VPN application/app. At the moment, this knob allows to
+identify: Mullvad, NordVPN.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$PROTO_NAME</p></td>
+<td><p>“log”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable logging/debug for specific protocol. Use “any” as protocol name if you want to easily enable/disable logging/debug for all protocols</p></td>
+</tr>
+<tr class="row-even"><td><p>$PROTO_NAME</p></td>
+<td><p>“ip_list.load”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable loading of internal list of IP addresses (used for (sub)classification) specific to that protocol. Use “any” as protocol name if you want to
+easily enable/disable all lists. This knob is valid only for the following protocols: Akamai, Alibaba, Amazon AWS, Apple, Avast, AWS_API_Gateway, AWS_Kinesis,
+AWS_EC2, AWS_S3, AWS_Cloudfront, AWS_DynamoDB, Blizzard, Bloomberg, Cachefly, Canonical,
+Cloudflare, DigitalOcean, Discord, Disney+, Dropbox, Edgecast, EpicGames, Ethereum, Facebook, Github, Google, Google Cloud, GoTo, Hotspot Shield, Hulu, Line,
+Microsoft 365, Microsoft Azure, Microsoft One Drive, Microsoft Outlook, Microsoft Teams, Mullvad, Netflix, NordVPN, Nvidia, OpenDNS, RiotGames, Roblox, Steam,
+SurfSharkVPN, Teamviewer, Telegram, Tencent, Threema, TOR, Twitch, Twitter, VK, Yandex, Yandex Cloud, Webex, Zoom</p></td>
+</tr>
+<tr class="row-odd"><td><p>$PROTO_NAME</p></td>
+<td><p>“monitoring”</p></td>
+<td><p>disable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable monitoring state for this specific protocol. Use “any” as protocol name if you want to easily enable/disable monitoring feature for all protocols.
+This knob is valid only for the following protocols: S7Comm, Stun. Monitoring allows nDPI to process the entire flow (i.e. all its packets), without any limits.
+See doc/monitoring.md for further details</p></td>
+</tr>
+<tr class="row-even"><td><p>$PROTO_NAME</p></td>
+<td><p>“enable”</p></td>
+<td><p>enable</p></td>
+<td><p>NULL</p></td>
+<td><p>NULL</p></td>
+<td><p>Enable/disable the specific protocol. Use “any” or “all” as protocol name if you want to easily enable/disable all protocols.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api/typedef_ndpi__win32_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14.html" class="btn btn-neutral float-left" title="Typedef uint" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="library_initialization.html" class="btn btn-neutral float-right" title="Library Initialization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop and contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nDPI/configuration_parameters.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:10 GMT -->
+</html>

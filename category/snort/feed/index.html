@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>snort Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/snort/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/snort/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Mon, 10 Sep 2012 22:30:35 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>snort Archives - ntop</title>
+	<link>https://www.ntop.org/category/snort/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Accelerating Snort with PF_RING DNA</title>
+		<link>https://www.ntop.org/accelerating-snort-with-pf_ring-dna/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 10 Sep 2012 22:30:35 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[snort]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=2092</guid>
+
+					<description><![CDATA[<p>Since some time, PF_RING includes a DAQ (Data AcQuisition library) module for the popular Snort IDS/IPS. With respect to Linux AF_PACKET, the use of PF_RING significantly accelerates all snort operations. We have…</p>
+<p>The post <a href="https://www.ntop.org/accelerating-snort-with-pf_ring-dna/">Accelerating Snort with PF_RING DNA</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Since some time, PF_RING includes a DAQ (Data AcQuisition library) module for the popular <A href=http://www.snort.org>Snort</A> IDS/IPS. With respect to Linux AF_PACKET, the use of PF_RING <a href="https://www.metaflows.com/technology/10-gbps-pf_ring-2/">significantly accelerates</a> all snort operations. We have recently created a new DAQ module that adds native PF_RING DNA support, further accelerating the vanilla PF_RING DAQ module <a href="https://www.ntop.org/wp-content/uploads/2012/09/Snort_over_DNA_Silicom_30_07_2012_1.pdf">from 20 to 50%</a>. The support of DNA in addition to greater speed, also has the advantage of exploiting <a href="https://www.ntop.org/pf_ring/hardware-based-symmetric-flow-balancing-in-dna/">symmetric RSS</a>, so that you can run one snort instance per RX queue and be sure that such instance will process a coherent set of packets, property that does not hold with the standard RSS. This is the key for scalability on multi-core systems.</p>
+<p>Conceptually the DNA DAQ module is similar to the PF_RING DAQ module in terms of command line options, so users familiar with it can immediately use the new DAQ module. In order to use DNA DAQ you need a DNA-aware adapter.</p>
+<p>You can get PF_RING DNA DAQ on the <a href="http://shop.ntop.org">ntop shop</a> site for a little fee that allows us to maintain and develop the code. Universities and research institutions can <a href="https://www.ntop.org/support/contact-us/">contact us</a> to get it at no cost.</p>
+<p><div></div>
+<p><h3>Usage Examples</h3>
+<hr />
+<ul>
+<li>Running snort in IDS mode
+<pre># snort --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dnaX -v -e</pre>
+<p>Note that it is possible to specify multiple interfaces by using a comma-separated list.</li>
+<li>Running snort in IPS mode
+<pre># snort --daq-dir=/usr/local/lib/daq --daq pfring_dna  -i dnaX:dnaY -e -Q</pre>
+<p>Note that it is possible to specify multiple interface pairs by using a comma-separated list.</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Example of Symmetric RSS + Core Binding</h3>
+<hr />
+<ul>
+<li>IDS
+<pre>snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-1 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dna2:dna3 --daq-var idsbridge=1 --daq-var bindcpu=1</pre>
+</li>
+<li>IPS
+<pre>snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-1 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode inline -i dna2:dna3 --daq-var bindcpu=1</pre>
+</li>
+<li>IDS with Multiqueue and Symmetric RSS
+<pre>snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-1 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dna2@0:dna3@0 --daq-var idsbridge=1 --daq-var bindcpu=0
+snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-2 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dna2@1:dna3@1 --daq-var idsbridge=1 --daq-var bindcpu=1
+snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-3 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dna2@2:dna3@2 --daq-var idsbridge=1 --daq-var bindcpu=2</pre>
+<pre>snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-4 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode passive -i dna2@3:dna3@3 --daq-var idsbridge=1 --daq-var bindcpu=3</pre>
+</li>
+<li>IPS with Multiqueue and Symmetric RSS
+<pre>snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-1 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode inline -i dna2@0:dna3@0 --daq-var bindcpu=0
+snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-2 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode inline -i dna2@1:dna3@1 --daq-var bindcpu=1
+snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-3 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode inline -i dna2@2:dna3@2 --daq-var bindcpu=2
+snort -q --pid-path /var/run --create-pidfile -D -c /etc/snort/snort.conf -l /var/log/snort/dna2_dna3/instance-4 
+  --daq-dir=/usr/local/lib/daq --daq pfring_dna --daq-mode inline -i dna2@3:dna3@3 --daq-var bindcpu=3</pre>
+<pre></pre>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h3>PF_RING DAQ Specific Options</h3>
+<hr />
+<ul>
+<li>Binding an instance to a core grants snort instances not to step on each other&#8217;s feet. In order to bind an instance to a specific core do:
+<pre> --daq-var bindcpu=&lt;core id&gt;</pre>
+<p>&nbsp;</li>
+<li>IDS forwarding: if you want to forward incoming packets while snort is running in IDS mode, you can enable the ids bridge mode with:
+<pre> --daq-var idsbridge=1</pre>
+</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/accelerating-snort-with-pf_ring-dna/">Accelerating Snort with PF_RING DNA</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Using PF_RING DAQ for high-performance 1/10 Gbit Snort-based IDS/IPS</title>
+		<link>https://www.ntop.org/using-pf_ring-daq-for-high-performance-110-gbit-snort-based-idsips/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 03 Jul 2012 21:15:15 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[snort]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=2047</guid>
+
+					<description><![CDATA[<p>Months ago we have started to design a new PF_RING DAQ module for snort. We decided to do this project with ENEO Tecnologia who has both sponsored the development and helped us…</p>
+<p>The post <a href="https://www.ntop.org/using-pf_ring-daq-for-high-performance-110-gbit-snort-based-idsips/">Using PF_RING DAQ for high-performance 1/10 Gbit Snort-based IDS/IPS</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Months ago we have started to design a new <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/snort/">PF_RING DAQ</a> module for snort. We decided to do this project with <a href="http://www.eneotecnologia.net">ENEO Tecnologia</a> who has both sponsored the development and helped us to implement all those tiny features that turned PF_RING DAQ from a simple DAQ adapter to a full fledged module. One of the decisions we made, was to make this new DAQ module able to operate on vanilla PF_RING and also DNA (so that everyone could benefit), and to support complex topologies. In non-DNA mode, we leveraged on PF_RING cluster to distribute the load across multiple snort instances, whereas on DNA we took advantage of symmetric RSS to distribute the load across multiple snort instances. As you will see when using it, basically the network is not the bottleneck anymore, as the processing speed is limited by snort speed and not by packet capture.</p>
+<p>Beside getting the PF_RING DAQ module and using it on a generic distribution, ENEO decided to create <a href="http://www.redborder.net">redBorder IPS</a>, a new Ruby on Rails based Open Source project around Snort. It provides the following capabilities in a centralized manner: event viewing, hierarchical management of multiple sensors, very powerful rule management, and SNMP monitoring. It is in the Sensor were we have been collaborating with ENEO Tecnologia to provide the following capabilities:</p>
+<ul>
+<li>Customized and hardened CentOS 6.2 system with all needed software packets.</li>
+<li>Latest Snort &amp; pf_ring versions.</li>
+<li>IPS mode running on top of PF_RING with specific performance enhancements and capability to drop packets within pf_ring itself.</li>
+<li>New IDS Forwarding mode running on top of pf_ring reflecting the packets at kernel level and sending a copy to Snort<br />
+IDS mode running on top of clustered PF_RING.</li>
+</ul>
+<p>In all cases, we have enhanced Snort&#8217;s DAQ to be able to analyze multiple segments from the same Snort instance and load balance between all available cores, thus granting better hardware usage. All of this is freely available for registered users at the <a href="http://www.redborder.net">redborder project website</a>. The new PF_RING DAQ will be available in a few days with a new PF_RING release, and we are working with them to add support for DNA Libzero. Stay tuned.</p>
+<p>The post <a href="https://www.ntop.org/using-pf_ring-daq-for-high-performance-110-gbit-snort-based-idsips/">Using PF_RING DAQ for high-performance 1/10 Gbit Snort-based IDS/IPS</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Hardware-based Symmetric Flow Balancing in DNA</title>
+		<link>https://www.ntop.org/hardware-based-symmetric-flow-balancing-in-dna/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 12 Jun 2012 17:22:36 +0000</pubDate>
+				<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[snort]]></category>
+		<category><![CDATA[ZC]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=1997</guid>
+
+					<description><![CDATA[<p>Years ago, Microsoft defined RSS (Receive-Side Scaling) with the goal of improving packet processing by enabling multiple cores to process packets concurrently. Today RSS is implemented in modern 1-10 Gbit network adapters…</p>
+<p>The post <a href="https://www.ntop.org/hardware-based-symmetric-flow-balancing-in-dna/">Hardware-based Symmetric Flow Balancing in DNA</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Years ago, Microsoft defined <a href="http://technet.microsoft.com/en-us/network/dd277646">RSS (Receive-Side Scaling)</a> with the goal of improving packet processing by enabling multiple cores to process packets concurrently. Today RSS is implemented in modern 1-10 Gbit network adapters as a way to distribute packets across RX queues. When incoming packets are received, network adapters (in hardware) decode the packet and hash the main packet header fields (e.g. IP address and port). The hash result is used to identify into which ingress RX queue the packet will be queued.</p>
+<p>In order to balance the traffic evenly on the RX queues, RSS implements asymmetric hash. This means that packets belonging to a  TCP connection between host A and B, will go to two different queues: A-to-B will go to queue X, and B-to-A will go to queue Y, where X is different than Y. This mechanism guarantees that the traffic is distributed as much as possible on all available queues, but it has some drawbacks as applications that need to analyze bi-directional traffic (e.g. network monitoring and security applications) will need to read packets from all queues simultaneously in order to receive both traffic directions. This means that asymmetric RSS limits application scalability, as it is not possible to start one application per RX queue (and thus the more queues you have, the more apps you can start) it&#8217;s necessary to read packets from all queues in order to receive both traffic directions. In a scalable system instead, applications must be able to operate independently so that each of them is a self-contained system as depicted in the figure below.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2012/06/RSS.png"><img fetchpriority="high" decoding="async" class="aligncenter size-full wp-image-2008" title="RSS" src="https://www.ntop.org/wp-content/uploads/2012/06/RSS.png" alt="" width="581" height="246" /></a>In PF_RING DNA (starting with version 5.4.3) we have added the ability to reconfigure the RSS mechanism via software, so that DNA/libzero applications can decide what RSS type they need (non-DNA applications cannot reconfigure RSS yet). In general, asymmetric RSS is enough for apps that operate per-packet (e.g. a network bridge), whereas symmetric RSS is the ideal solution for apps such as IDS/IPS and network monitoring applications that instead need full flow visibility.</p>
+<p>The advantage of symmetric RSS is that it is now possible to achieve scalability, by binding applications to individual queues. Example, suppose you have a 8-queue DNA-aware network adapter, you can start 8 snort instances, binding each of them to a different queue (i.e. dna0@0, dna0@1&#8230;, dna0@7) and core. Each instance is then independent from the other instances, and it can operate properly as it sees both directions of the traffic.</p>
+<p>For those who need advanced traffic balancing not based on packet headers (e.g. you want to balance VoIP calls based on the telephone number of the caller), you can take advantage of <a href="https://www.ntop.org/products/pf_ring/libzero-for-dna/">libzero</a>. In the PF_RING demo applications, we have created a couple of examples based on libzero (<a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples/pfdnacluster_master.c">pfdbacluster_master</a> and <a href="https://svn.ntop.org/svn/ntop/trunk/PF_RING/userland/examples/pfdnacluster_multithread.c">pfdnacluster_multithread</a>), that demonstrate how you can implement flexible packet balancing (see -m command line option of both applications).<a href="https://www.ntop.org/wp-content/uploads/2012/06/RSS.png"><br />
+</a></p>
+<p>Reference<br />
+[1] <a href="http://www.ndsl.kaist.edu/~shinae/papers/TR-symRSS.pdf">Scalable TCP Session Monitoring with Symmetric Receive-side Scaling </a></p>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/hardware-based-symmetric-flow-balancing-in-dna/">Hardware-based Symmetric Flow Balancing in DNA</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

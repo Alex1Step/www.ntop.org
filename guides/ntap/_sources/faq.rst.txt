@@ -1,0 +1,65 @@
+Frequently Asked Questions
+==========================
+
+Q. What is the network overhead introduced by nTap ?
+----------------------------------------------------
+
+For each captured packets, the remote ntap adds a 20 bytes overhead with respect to the original packet size. Each captued packet is thus enlarged of 20 bytes before sending it to the remote collector encapsulated on UDP. Due to MTU size limitations, large packets might be fragmented due to the UDP layer and this overhead.
+
+
+Q. How many remote taps a collector can handle ?
+------------------------------------------------
+
+There is no upper limit but we advise to limit it to 64. In most cases 1, or 2 remote taps per collector are reasonable.
+
+
+Q. What are the limitations of -\\-ntap in ntopng/nProbe ?
+--------------------------------------------------------
+
+The only limitation is that if you use the -\\-ntap parameter, only the application usign it can receive packets. This means that if you want to have both ntopng and nProbe receive packets from a remote ntap, you better use the nTap collector to receive all traffic on ntap0 and attach all your application to this virtual ntap0 device.
+
+Q. Can I use nTap to capture container traffic ?
+------------------------------------------------
+
+Yes you can. Just install the ntap package in the container and use the ntap_remote to send the local traffic (usually you have eth0 inside the container) to the remote nTap collector. Note that a container can have dynamic IP addresses and this is not a problem as long as the collector IP is static.
+
+Q. Can I use nTap to capture TZSP traffic ?
+------------------------------------------------
+
+Yes you can. Just configure your `TZSP <https://en.wikipedia.org/wiki/TZSP>`_ device to send to ntap_remote packets over UDP using -t <TZSP collector port>. If you have a Mikrotik device you can enable TXSP as follows:
+
+- Connect to the Mikrotik web GUI
+- Menu Tools -> Packet Sniffer
+- Check "Streaming Enabled" and specify the IP/port where ntap_remote (-t) is listening to
+- Click on Apply then Start button to enable packet streaming
+  
+
+Q. Is nTap available for Windows/MacOS ?
+---------------------------------------------
+
+Yes we have release ntap_remote for Windows/MacOS that you can download from http://packages.ntop.org/.
+
+Q. How can I disable data encrytion in nTap?
+--------------------------------------------
+
+ntap natively uses data encryption that leverages on AVX instructions to reduce CPU load when en/decrypting data. If you are working on a safe network and want to further reduce the load due to en/decryption, you can use -K (on both ntap_remote and ntap_collector). Note that traffic will flow in clear and thus you need to avoid this setup on insecure networks.
+
+
+Q. Can I use  -\\-ntap in ntopng with n2disk?
+---------------------------------------------
+
+In cases as this one, where you have two applications (ntopng and n2disk) that need to access the same packets, you cannot use -\\-ntap as with this option only ntopng will receive tha packets. In this cases, you need to create a virtual interface with the nTap collector wher packets are received once, and on top of this interface start as many applications as you want.
+
+Q. How can I specify a filter for traffic forwarded by ntap remote?
+-------------------------------------------------------------------
+
+You can use -f <BPF filter> to specify a filter that is applied to captured packets that will be forwarded by ntap_remote. By defaukt (if -f is not specified) the filter is set automatically to forward all traffic except the nTap traffic itself (to avoid loops). Example:
+
+.. code:: bash
+	  
+  $ ntap_remote -i en0 -c 192.168.1.1:1234 -k hello
+  21/Apr/2023 10:47:33 [ntap_remote.c:424] Adding BPF filter 'not (host 192.168.1.1 and port 1234)' to avoid capturing nTap traffic
+  21/Apr/2023 10:47:33 [ntap_remote.c:714] Welcome to nTap remote/virtual tap v.1.1.230421
+
+
+if you specify -f you need to make sure the above filter is preserved. Let's suppose you want to forwar only traffic on tcp port 443. You should set the filter to `-f "(tcp and port 443) and (not (host 192.168.1.1 and port 1234))`.

@@ -1,0 +1,98 @@
+Use Cases
+=========
+
+This section shows how to use nTap in popular use cases. All commands need to be executed as superuser (root).
+
+
+Remote tap sends traffic to nProbe
+----------------------------------
+
+In this case you have a local nProbe instance that receives traffic from one or more remote tap instances deployed on VMs/containers or remote hosts. Supposing to run nProbe on host whose IP is 1.2.3.4, all you need to do is:
+
+- [remote host] ntap_remote -i eth0 -c 1.2.3.4:5678 -k hello
+- [local host]  nprobe -3 5678 -n none --ntap hello
+  
+
+Remote tap sends traffic to ntopng
+----------------------------------
+
+In this case you have a local ntopng instance that receives traffic from one or more remote tap instances deployed on VMs/containers or remote hosts. Supposing to run ntopng on host whose IP is 1.2.3.4, all you need to do is:
+
+- [remote host] ntap_remote -i eth0 -c 1.2.3.4:5678 -k hello
+- [local host]  ntopng -i ntap:5678:hello
+  
+
+Remote tap collects TZSP traffic and sends it to ntopng
+----------------------------------
+
+In this case you have a local ntopng instance that receives traffic from one or more remote tap instances deployed on VMs/containers or remote hosts. Supposing to run ntopng on host whose IP is 1.2.3.4, all you need to do is:
+
+- [remote host] ntap_remote -t 37008 -c 1.2.3.4:5678 -k hello
+- [local host]  ntopng -i ntap:5678:hello
+  
+Remember to configure your TZSP exporter device to send packets to port 37008.
+
+Remote tap sends traffic to non-ntop applications
+-------------------------------------------------
+
+This is a typical use case where nTap is used to wiretap a remote network interface and send traffic to a remote collector that creates a virtual ethernet interface to which you can attach applications such as Wireshark, Snort or Suricata.
+
+Supposing to run the collector on host whose IP is 1.2.3.4 and that you want to inject received traffic on the interface ntap0, all you need to do is:
+
+- [remote host] ntap_remote -i eth0 -c 1.2.3.4:5678 -k hello
+- [local host]  ntap_collector -p 5678 -k hello -i ntap0
+
+Note that:
+
+- the ntap0 interface is created by the collector and deleted when the collector is terminated.
+- the collected traffic is decpryted and injected in ntap0, so it looks like the remote eth0 interface of the remote host where the tap runs
+  
+A this point you can start one or more applications on top of ntap0 a follows:
+
+- tcpump -i ntap0
+- wireshark -i ntap0
+  
+
+Remote tap sends traffic to Open vSwitch
+-------------------------------------------------
+
+In this case you have a local collector instance that receives traffic from one or more remote tap instances deployed on VMs/containers or remote hosts. The collector receives traffic and injects it to Open vSwitch. Supposing to run the collector on host whose IP is 1.2.3.4 when Open vSwitch is active, all you need to do is:
+
+- [remote host] ntap_remote -i eth0 -c 1.2.3.4:5678 -k hello
+- [local host]  ntap_collector -p 5678 -k hello -o 127.0.0.1
+  
+Note that the collector with -o can send traffic to a remote Open vSwitch, but this is not suggested. In fact the communication between the tap(s) and the collector is encrypted whereas Open vSwitch needs to receive traffic unencrypted and thus better to run it on the same host.
+
+Collector Injects Received Traffic to Local Interface
+---------------------------------------------------------
+
+In this case you have a local collector instance that receives traffic from one or more remote tap instances and injects traffic to an existing local interface specified with -e. In essence:
+  - With -i you specify a virtual interface created by ntap (and destroject when ntap_collector is terminated) on which collected packets are injected
+  - With -e you specify an existing network interface on which collected packets are injected
+
+Example:
+- [remote host] ntap_remote -i eth0 -c 1.2.3.4:5678 -k hello
+- [local host]  ntap_collector -p 5678 -k hello -e eth2
+
+  
+Setting up Open vSwitch with nTap
+---------------------------------
+
+You can use the nTap collector to inject collected traffic into Open vSwitch. Such traffic will use as VNI the remote tap_id that has collected it (--tap-id XXX).
+
+You can install Open vSwitch as follows:
+
+- Debian/Ubuntu `apt install -y openvswitch-switch openvswitch-common`
+- RH/RockyLinux Read `this page <https://computingforgeeks.com/install-open-vswitch-on-rocky-almalinux/>`_
+
+Open vSwitch can be configued as follows (as root):
+
+- ovs-vsctl add-br br-ovs                                                          
+- ovs-vsctl add-port br-ovs vxlan0 -- set interface vxlan0 type=vxlan options:local_ip=127.0.0.1 options:remote_ip=0.0.0.0
+- ip link set mtu 1600 dev vxlan_sys_4789
+- ip link set br-ovs up
+- ip link set vxlan_sys_4789 up
+
+You can now capture your traffic as follows:
+
+- tcpdump -n -i vxlan_sys_4789

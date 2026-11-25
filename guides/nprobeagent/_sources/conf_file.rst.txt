@@ -1,0 +1,34 @@
+Configuration File
+------------------
+
+As in some case it is convenient to have a configuration file to be used in 
+place of command line options (this is mandatory when running the application 
+as a service with systemd for instance), it is possible to start nProbe Agent 
+providing a configuration file path as follows:
+
+.. code:: bash
+
+   nprobe-agent <configuration file path>
+
+where the configuration file contains the same options otherwise specified in 
+the command line. The only difference between the command line and the configuration 
+file is that different options need to be specified on different lines. For instance:
+
+.. code:: bash
+
+   nprobe-agent --zmq tcp://127.0.0.1:1234c -l
+
+is the same as:
+
+.. code:: bash
+   
+   nprobe-agent /etc/nprobe-agent/nprobe-agent.conf
+
+where */etc/nprobe-agent/nprobe-agent.conf* contains the following lines:
+
+.. code:: bash
+
+   # cat /etc/nprobe-agent/nprobe-agent.conf
+   --zmq=tcp://127.0.0.1:1234c
+   -l
+

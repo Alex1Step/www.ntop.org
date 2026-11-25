@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/scripts/timeseries_schemas.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeseries Schemas &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Documentation" href="../api/index-2.html" />
+    <link rel="prev" title="Localization" href="localization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developing_alerts.html">Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alert_endpoints.html">Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Localization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Timeseries Schemas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#schemas-definition">Schemas Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#schemas-usage">Schemas Usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Developers</a></li>
+      <li class="breadcrumb-item active">Timeseries Schemas</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/scripts/timeseries_schemas.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="timeseries-schemas">
+<span id="id1"></span><h1>Timeseries Schemas<a class="headerlink" href="#timeseries-schemas" title="Link to this heading"></a></h1>
+<p>Checks invoked via the checks hooks can use the <a class="reference external" href="../api/timeseries/index.html">Timeseries
+API</a> to write their own timeseries data and then visualize it in <a class="reference external" href="custom_pages.html">Custom
+Pages</a>. A full example of a script specialized in collecting Redis metrics
+is the <a class="reference external" href="https://github.com/ntop/ntopng/tree/dev/scripts/scripts/redis_monitor">Redis monitor script</a> .</p>
+<p>In order to write timeseries, it is first necessary to define the timeseries
+schemas.</p>
+<section id="schemas-definition">
+<h2>Schemas Definition<a class="headerlink" href="#schemas-definition" title="Link to this heading"></a></h2>
+<p>Custom schemas are defined into the <cite>./ts_schemas</cite> subdirectory of the script.
+The directory can contain one or more of the following files:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">min.lua</span></code>: Define schemas whose points have 1 minute resolution.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">5mins.lua</span></code>: Define schemas whose points have 5 minutes resolution.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">hour.lua</span></code>: Define schemas whose points have 1 hour resolution.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">day.lua</span></code>: Define schemas whose points have 1 day resolution.</p></li>
+</ul>
+<p>For example, schemas defined into <cite>min.lua</cite> are suitable to be used in the user
+scripts <cite>min</cite> hook. Each file should use the timeseries
+API in order to define its schemas. Here is an example of <cite>min.lua</cite>:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">ts_utils</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;ts_utils_core&quot;</span>
+<span class="kd">local</span> <span class="n">schema</span>
+
+<span class="n">schema</span> <span class="o">=</span> <span class="n">ts_utils</span><span class="p">.</span><span class="n">newSchema</span><span class="p">(</span><span class="s2">&quot;example:active_hosts&quot;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="n">step</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+  <span class="n">metrics_type</span> <span class="o">=</span> <span class="n">ts_utils</span><span class="p">.</span><span class="n">metrics</span><span class="p">.</span><span class="n">gauge</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="n">schema</span><span class="p">:</span><span class="n">addTag</span><span class="p">(</span><span class="s2">&quot;ifid&quot;</span><span class="p">)</span>
+<span class="n">schema</span><span class="p">:</span><span class="n">addMetric</span><span class="p">(</span><span class="s2">&quot;num_hosts&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above script defines a schema named <cite>example:active_hosts</cite> whose points
+have a 60 seconds resolution. For internal reasons, it is always necessary
+to specify the <cite>step</cite> even if the file is named <cite>min.lua</cite>. The schema is
+identified by the <cite>ifid</cite> tag and contains one gauge metric named <cite>num_hosts</cite>.</p>
+</section>
+<section id="schemas-usage">
+<h2>Schemas Usage<a class="headerlink" href="#schemas-usage" title="Link to this heading"></a></h2>
+<p>A check could then use the above schema as follows:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">script</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">hooks</span> <span class="o">=</span> <span class="p">{},</span>
+
+  <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="n">script</span><span class="p">.</span><span class="n">hooks</span><span class="p">.</span><span class="n">min</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+  <span class="p">...</span>
+
+  <span class="kr">if</span> <span class="n">params</span><span class="p">.</span><span class="n">ts_enabled</span> <span class="kr">then</span>
+    <span class="kd">local</span> <span class="n">ifid</span> <span class="o">=</span> <span class="n">getSystemInterfaceId</span><span class="p">()</span>
+    <span class="kd">local</span> <span class="n">num</span> <span class="o">=</span> <span class="p">...</span> <span class="n">get</span> <span class="n">the</span> <span class="n">current</span> <span class="n">metric</span> <span class="n">value</span> <span class="n">here</span> <span class="p">...</span>
+
+    <span class="n">ts_utils</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;example:active_hosts&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">ifid</span> <span class="o">=</span> <span class="n">ifid</span><span class="p">,</span> <span class="n">num_hosts</span> <span class="o">=</span> <span class="n">num</span><span class="p">})</span>
+  <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kr">return</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It’s important to check that <cite>params.ts_enabled</cite> flag in order to call <cite>ts_utils.append</cite> only
+if the timeseries are enabled for the given entity currently processed.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="localization.html" class="btn btn-neutral float-left" title="Localization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/index-2.html" class="btn btn-neutral float-right" title="API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/scripts/timeseries_schemas.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:12 GMT -->
+</html>

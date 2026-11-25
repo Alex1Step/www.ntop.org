@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/network_interface/monitoring/active_scan.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:13:02 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Active Scan &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Flow Alerts Analyser" href="../alerts/flow_alerts_analyser.html" />
+    <link rel="prev" title="Network Discovery" href="network_discovery.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">User Interface Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Network Interface</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#dashboard">Dashboard</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#monitoring">Monitoring</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="network_discovery.html">Network Discovery</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Active Scan</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#alerts">Alerts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#flows">Flows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#hosts">Hosts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#maps">Maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#interface">Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#alerts">Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#developer">Developer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Network Interface</a></li>
+      <li class="breadcrumb-item active">Active Scan</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/user_interface/network_interface/monitoring/active_scan.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="active-scan">
+<h1>Active Scan<a class="headerlink" href="#active-scan" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature support is not available on Windows.</p>
+</div>
+<p>ntopng is able to both passively monitor network and perform a scan, whose goal is to discover TCP or UDP open ports in provided services.</p>
+<p>The current implementation leverages on <a class="reference external" href="https://nmap.org/">nmap</a>. The code is designed to add new scanner types by simply defining new <a class="reference external" href="https://github.com/ntop/ntopng/tree/dev/scripts/lua/modules/active_scan/modules">modules</a>.</p>
+<p>The page is in the Monitoring menu and only administrators can open it. It needs nmap installed on the ntopng system: without it the buttons that start a scan are disabled, and their tooltip says why.</p>
+<p>The page has five tabs:</p>
+<ul class="simple">
+<li><p>Overview: the hosts to scan (see below);</p></li>
+<li><p>Open Ports: the open ports found by the scans (needs ntopng Enterprise L or better);</p></li>
+<li><p>Scan Details: the result of one scan. It opens from a row of the Overview; until then the tab is disabled;</p></li>
+<li><p>Historical Data: the charts of the scans (needs ntopng Pro or better);</p></li>
+<li><p>Scan Reports: the scan reports (needs ntopng Enterprise L or better).</p></li>
+</ul>
+<p>A tab that needs a license you do not have is shown disabled: move the mouse over it to see why.</p>
+<section id="active-scan-page">
+<h2>Active Scan Page<a class="headerlink" href="#active-scan-page" title="Link to this heading"></a></h2>
+<figure class="align-center" id="id1">
+<img alt="Active Scan Page" src="../../../_images/active_scan_page.png" />
+<figcaption>
+<p><span class="caption-text">Active Scan Page</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>On the Active Scan page, it is possible to view the registered hosts that can be scanned, along with various details about the last executed scan, such as:</p>
+<ul class="simple">
+<li><p>Scan Status (can be “Scanning”, “Scheduled”, “Success”, “Not Scanned”, “Failed”, “Error”);</p></li>
+<li><p>Scan Type;</p></li>
+<li><p>TCP Ports (number of open TCP ports found);</p></li>
+<li><p>UDP Ports (number of open UDP ports found);</p></li>
+<li><p>Last Duration;</p></li>
+<li><p>Last Scan;</p></li>
+<li><p>Periodicity</p></li>
+</ul>
+<p>After the ntopng execution of a TCP or UDP Portscan, ntopng compares the open ports detected by the network monitoring with the open ports discovered during the scan:</p>
+<ul class="simple">
+<li><p>If the Active Scan identifies an open TCP (or UDP) port that is not currently in use according to network monitoring results, a ghost icon <a class="reference internal" href="../../../_images/active_scan_ghost_icon.png"><img alt="ghost" src="../../../_images/active_scan_ghost_icon.png" style="height: 25px;" /></a> will be displayed near the number of open TCP (or UDP) ports of the specific host;</p></li>
+<li><p>If the Active Scan fails to identify a TCP (or UDP) port that is actually in use, but ntopng has detected it through network monitoring (the port was filtered by the Active Scan), a filter icon <a class="reference internal" href="../../../_images/active_scan_filtered_icon.png"><img alt="filter" src="../../../_images/active_scan_filtered_icon.png" style="height: 25px;" /></a> will be displayed near the number of open TCP (or UDP) ports for the specific host.</p></li>
+</ul>
+<p>Above the table there are three buttons:</p>
+<ul class="simple">
+<li><p>Alerts Explorer (to see the alerts generated by the scans, see <a class="reference internal" href="#alerts">Alerts</a>);</p></li>
+<li><p>Schedule All Scans (to schedule a scan for all hosts in the active scan list);</p></li>
+<li><p>Add Host to Scan (to add a host or a network, see below).</p></li>
+</ul>
+<p>Below the table there are the buttons that change the whole list:</p>
+<ul class="simple">
+<li><p>Batch Edit (to update the periodicity scan for all hosts in the active scan list, needs ntopng Enterprise L or better);</p></li>
+<li><p>Delete Failed (to remove from the active scan list only the hosts whose last scan failed, that is, the hosts that were unreachable or could not be scanned. The button is enabled only when at least one failed host is present);</p></li>
+<li><p>Delete All (to remove all hosts from the active scan list).</p></li>
+</ul>
+<p>Without ClickHouse only the last report is kept: a note below the table reminds it.</p>
+<p>At the end of a <cite>Scan All</cite> execution, if a notification endpoint and the related recipient have <cite>Notification Type</cite> set to <cite>Active Scan Reports</cite>, a notification is sent when the periodic scan ends.</p>
+<section id="add-host-to-active-scan-list">
+<h3>Add Host to Active Scan List<a class="headerlink" href="#add-host-to-active-scan-list" title="Link to this heading"></a></h3>
+<figure class="align-center" id="id2">
+<img alt="Add Host to Active Scan List" src="../../../_images/active_scan_modal.png" />
+<figcaption>
+<p><span class="caption-text">Add Host to Active Scan List</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>By clicking on the <cite>Add Host to Scan</cite> button on the Active Scan page, the user can add a new host or include all hosts active under a specific CIDR (a network, e.g. 192.168.1.0/24).</p>
+<p>If a user designates a specific active host, ntopng will automatically populate the Ports field with the known server ports of such other. If unknown the field will be empty and all the ports will be checked. Note that scanning all ports can require a long amount of time, hence we suggest (if possible) to limit the scan to a small port set.</p>
+<p>After selecting the host and ports, it is mandatory to choose one of the Active Scan Types.
+Currently, three types of scans are supported:</p>
+<ul class="simple">
+<li><p>TCP Portscan</p></li>
+<li><p>UDP Portscan</p></li>
+<li><p>IPv4 Netscan (finds the hosts of a network; the hosts found can then be scanned with the scan types chosen in the same window)</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The ‘UDP Portscan’ is available only on Linux.</p>
+</div>
+</section>
+<section id="periodic-scans">
+<h3>Periodic Scans<a class="headerlink" href="#periodic-scans" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Periodic Scans require ntopng Enterprise L or better.</p>
+</div>
+<p>Scans can be performed on demand (one shot) or periodically. You have the option to specify a daily scan (performed every days at midnight) or weekly (every Sunday at midnight). In order to avoid hogging the network with aggressive scans, only one scan at time is performed.</p>
+<p>If a notification endpoint and the related recipient with the ‘Notification Type’ set to ‘Active Scan Reports’ are enabled, a notification is sent when the periodic scan ends.</p>
+</section>
+<section id="actions">
+<h3>Actions<a class="headerlink" href="#actions" title="Link to this heading"></a></h3>
+<figure class="align-center" id="id3">
+<img alt="Row Actions menu" src="../../../_images/active_scan_actions_menu.png" />
+<figcaption>
+<p><span class="caption-text">Row Actions menu</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Each row has an Actions button: the button itself edits the host, the arrow next to it opens the other actions:</p>
+<ul class="simple">
+<li><p>Edit Host (to modify the specifications of the selected row);</p></li>
+<li><p>Schedule Scan (to schedule the scan for the selected host);</p></li>
+<li><p>Download Last Scan Report (to download the file containing the most recent scan result);</p></li>
+<li><p>Show Last Scan Report (to display the last scan result in the Scan Details tab);</p></li>
+<li><p>Delete (to delete the specific host from the scan list);</p></li>
+</ul>
+<p>Download Last Scan Report and Show Last Scan Report are disabled until the host is scanned the first time.
+Clicking on the address of a scanned host also opens its last scan result.</p>
+</section>
+<section id="settings">
+<h3>Settings<a class="headerlink" href="#settings" title="Link to this heading"></a></h3>
+<figure class="align-center" id="id4">
+<img alt="Active Scan Preferences" src="../../../_images/active_scan_settings.png" />
+<figcaption>
+<p><span class="caption-text">Active Scan Preferences</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Under the <cite>Active Scan</cite> tab of the Preferences page, it is possible:</p>
+<ul class="simple">
+<li><p>To modify the maximum number of scans executed simultaneously. The default value is 4, with a minimum of 1 and a maximum of 16.</p></li>
+<li><p>To enable the slow scan mode to decrease the aggression level of the scan.</p></li>
+</ul>
+</section>
+</section>
+<section id="scan-details">
+<h2>Scan Details<a class="headerlink" href="#scan-details" title="Link to this heading"></a></h2>
+<figure class="align-center" id="id5">
+<img alt="Scan Details" src="../../../_images/active_scan_result_page.png" />
+<figcaption>
+<p><span class="caption-text">Scan Details</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Clicking on <cite>Show Last Scan Report</cite> in the Actions menu of a specific row (or on the address of the host) opens the Scan Details tab with the last scan result of the selected host, as written by nmap. The title of the page shows the path <cite>Active Scan / &lt;host&gt;</cite>: click on <cite>Active Scan</cite> to go back to the list. If ntopng currently sees the host, its address links to the host page.</p>
+</section>
+<section id="alerts">
+<h2>Alerts<a class="headerlink" href="#alerts" title="Link to this heading"></a></h2>
+<p>If scans are performed periodically, ntopng compares each scan iteration and it generates alerts when someting changes such as a new port is open or the number of CVEs changed. Alerts needs to be enabled in the Behavioural Checks page as follows</p>
+<figure class="align-center">
+<img alt="Enable Active Scan Alerts" src="../../../_images/active_scan_alert.png" />
+</figure>
+<p>Generated alerts can be accessed from the Alerts Explorer page under the Active Monitoring menu, or with the <cite>Alerts Explorer</cite> button of the Active Scan page. The button is disabled when the alerts are disabled in Preferences.</p>
+</section>
+<section id="charts">
+<h2>Charts<a class="headerlink" href="#charts" title="Link to this heading"></a></h2>
+<figure class="align-center">
+<img alt="Active Scan Charts Page" src="../../../_images/active_scan_timeseries.png" />
+</figure>
+<p>The Historical Data tab shows the charts of timeseries filled with scan data (needs ntopng Pro or better).</p>
+<p>Ntopng currently records the following data:</p>
+<ul class="simple">
+<li><p>Hosts (number of hosts ready to be scanned);</p></li>
+<li><p>Open Ports (number of open ports discovered);</p></li>
+<li><p>Scanned Hosts (number of scanned hosts);</p></li>
+</ul>
+</section>
+<section id="open-ports">
+<h2>Open Ports<a class="headerlink" href="#open-ports" title="Link to this heading"></a></h2>
+<figure class="align-center">
+<img alt="Active Scan Open Ports Page" src="../../../_images/active_scan_open_ports_page.png" />
+</figure>
+<p>On the Open Ports page, it is possible to display the list of TCP and UDP open ports detected by the Active Scan, along with the following information:</p>
+<ul class="simple">
+<li><p>Service Name;</p></li>
+<li><p>Hosts Count;</p></li>
+<li><p>Hosts (the list is limited to five hosts if more than five are available);</p></li>
+</ul>
+<p>By clicking on the <cite>Show Hosts</cite> button of a specific row, ntopng goes back to the Overview and shows only the hosts with the selected open port. The port is shown as a filter above the table: click on its <cite>x</cite> (or on <cite>Clear filters</cite>) to see all the hosts again.</p>
+<p>Clicking on a host of the Hosts column opens its last scan result in the Scan Details tab.</p>
+</section>
+<section id="scan-reports">
+<h2>Scan Reports<a class="headerlink" href="#scan-reports" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Reports page require ntopng Enterprise L or better.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If ClickHouse is disabled, the Scan Reports tab shows only the report of the last scan executions, instead of the list of the reports.</p>
+</div>
+<p>When ClickHouse is enabled, the Scan Reports tab lists all reports automatically generated by ntopng.</p>
+<figure class="align-center">
+<img alt="Active Scan Reports Page" src="../../../_images/active_scan_reports_page.png" />
+</figure>
+<p>With the Actions button of a single report it is possible to edit the name of the report (the button itself) or delete the report (from the arrow next to it).</p>
+<p>Clicking on the date of a row opens the selected report. The title of the page shows the path <cite>Active Scan / Scan Reports / &lt;report name&gt;</cite>: click on <cite>Scan Reports</cite> to go back to the list. Next to the report name there are the buttons to download the report as a file, to upload a report file downloaded before and to print the report (it opens a printable version in a new window).</p>
+<figure class="align-center">
+<img alt="Active Scan Report details" src="../../../_images/active_scan_report_details.png" />
+</figure>
+<p>A report is generated:</p>
+<ul class="simple">
+<li><p>At the end of periodic scans;</p></li>
+<li><p>After all scan executions initiated by clicking on the ‘Schedule All Scans’ button;</p></li>
+<li><p>At the end of an individual scan;</p></li>
+</ul>
+<p>A active scan report is made up of four differently reports: the Active Scan Report, the CVEs Count, the TCP Ports, and the UDP Ports.</p>
+<section id="active-scan-report">
+<h3>Active Scan Report<a class="headerlink" href="#active-scan-report" title="Link to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Active Scan Report" src="img/vs_report.html" />
+</figure>
+<p>The Active Scan Report shows the following information:</p>
+<ul class="simple">
+<li><p>IP Address;</p></li>
+<li><p>Name (Host Name);</p></li>
+<li><p>Scan Type;</p></li>
+<li><p>TCP/UDP Ports (List of open TCP/UDP ports);</p></li>
+<li><p>Last Scan (Date of most recent scan execution);</p></li>
+</ul>
+<p>It is possible to open the Scan Details of that host by clicking on the IP address.</p>
+</section>
+<section id="tcp-ports-report">
+<h3>TCP Ports Report<a class="headerlink" href="#tcp-ports-report" title="Link to this heading"></a></h3>
+<figure class="align-center">
+<img alt="TCP Ports Report" src="../../../_images/tcp_ports_report.png" />
+</figure>
+<p>The TCP Ports Report shows the following information:</p>
+<ul class="simple">
+<li><p>Port (formatted as: <cite>&lt;portID/tcp (service name)&gt;</cite>);</p></li>
+<li><p>Hosts Count;</p></li>
+<li><p>Hosts;</p></li>
+</ul>
+</section>
+<section id="udp-ports-report">
+<h3>UDP Ports Report<a class="headerlink" href="#udp-ports-report" title="Link to this heading"></a></h3>
+<figure class="align-center">
+<img alt="UDP Ports Report" src="../../../_images/udp_ports_report.png" />
+</figure>
+<p>The UDP Ports Report shows the following information:</p>
+<ul class="simple">
+<li><p>Port (formatted as: <cite>&lt;portID/udp (service name)&gt;</cite>)</p></li>
+<li><p>Hosts Count;</p></li>
+<li><p>Hosts;</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="network_discovery.html" class="btn btn-neutral float-left" title="Network Discovery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../alerts/flow_alerts_analyser.html" class="btn btn-neutral float-right" title="Flow Alerts Analyser" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/network_interface/monitoring/active_scan.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:13:18 GMT -->
+</html>

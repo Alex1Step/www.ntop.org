@@ -1,0 +1,989 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Technologies and Trends Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/technologies-and-trends/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/technologies-and-trends/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Tue, 10 Nov 2026 08:06:11 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>Technologies and Trends Archives - ntop</title>
+	<link>https://www.ntop.org/category/technologies-and-trends/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Detecting CVE-2026-98432 using nDPI/ntopng</title>
+		<link>https://www.ntop.org/detecting-cve-2026-98432-using-ndpi-ntopng/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sat, 07 Nov 2026 16:54:27 +0000</pubDate>
+				<category><![CDATA[nDPI]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=47413</guid>
+
+					<description><![CDATA[<p>CVE-2026-98432 is a critical, 9.8-severity use-after-free (UAF) vulnerability in the Linux kernel’s IPv4 TCP networking stack. It allows an unauthenticated remote attacker to potentially cause system crashes, memory corruption, or execute arbitrary commands with root privileges.  From a network standpoint, the attack occurs during a manipulated TCP three-way handshake using a carefully timed sequence of packets: 1. The Target Packets: The attacker sends [&#8230;]</p>
+<p>The post <a href="https://www.ntop.org/detecting-cve-2026-98432-using-ndpi-ntopng/">Detecting CVE-2026-98432 using nDPI/ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="47413" class="elementor elementor-47413">
+				<div class="elementor-element elementor-element-2542a2b9 e-flex e-con-boxed e-con e-parent" data-id="2542a2b9" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-2d89808 elementor-widget elementor-widget-text-editor" data-id="2d89808" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p><a href="https://nvd.nist.gov/vuln/detail/cve-2026-98432">CVE-2026-98432</a> is a critical, 9.8-severity use-after-free (UAF) vulnerability in the Linux kernel’s IPv4 TCP networking stack. It allows an unauthenticated remote attacker to potentially cause system crashes, memory corruption, or execute arbitrary commands with root privileges. </p>
+<p><!-- /wp:paragraph --><!-- wp:paragraph --></p>
+<p>From a network standpoint, the attack occurs during a manipulated TCP three-way handshake using a carefully timed sequence of packets:</p>
+<p><!-- /wp:paragraph --><!-- wp:list --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list"><!-- wp:list-item --></ul>
+</li>
+</ul>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>1. The Target Packets: The attacker sends a standard connection request (SYN) packet, but includes rare, legacy IPv4 Options inside the packet header.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>2. The Race Condition: The attacker immediately floods the server with a duplicate SYN packet. On modern multi-core servers, different CPU cores process these two rapid packets at the same time.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>3. The Memory Error: One CPU core handles the connection and frees the memory holding the IPv4 options. Due to a lack of proper software locking, the second CPU core tries to read that exact same memory address at the same fraction of a second.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --><!-- wp:list-item --></p>
+<ul class="wp-block-list">
+<li style="list-style-type: none;">
+<ul class="wp-block-list">
+<li>The Result: The server reads &#8220;dirty&#8221; memory. It either packages that memory into a response packet (leaking secret kernel data back to the attacker) or executes malicious instructions embedded in the memory, granting the attacker remote root access.</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list-item --></p>
+<p><!-- /wp:list --><!-- wp:paragraph --></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.01.02.jpg"><img fetchpriority="high" decoding="async" class="alignnone size-full wp-image-47469" src="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.01.02.jpg" alt="" width="1280" height="170" /></a> <a href="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.02.30.jpg"><img decoding="async" class="alignnone size-full wp-image-47472" src="https://www.ntop.org/wp-content/uploads/2026/11/2026-11-10-09.02.30.jpg" alt="" width="1280" height="199" /></a><img decoding="async" class="wp-image-46563" src="https://www.ntop.org/wp-content/uploads/2026/11/telegram-cloud-photo-size-4-6014667563213721147-y-1024x136.jpg" alt="" /></p>
+<p>We have been asked if it was possible to detect attacks based on this vulnerability, and for this reason we <a href="https://github.com/ntop/nDPI/commit/b0a23109069ccea09e302319409f2e5aa73b0f7e">have enhanced nDPI</a> to recognize it. Thanks to this extension, application (e.g. ntopng or nProbe) are automatically detecting it reporting the issue in the web interface or exported flows.</p>
+<p>Enjoy !</p>
+<p><!-- /wp:paragraph --><!-- wp:image {"id":46563} --></p>
+<p><!-- /wp:image --><!-- wp:image --></p>
+<p><!-- /wp:image --></p>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/detecting-cve-2026-98432-using-ndpi-ntopng/">Detecting CVE-2026-98432 using nDPI/ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How we Redesigned Search in ntopng</title>
+		<link>https://www.ntop.org/how-we-redesigned-search-in-ntopng/</link>
+		
+		<dc:creator><![CDATA[Gabriele Deri]]></dc:creator>
+		<pubDate>Thu, 08 Oct 2026 16:37:08 +0000</pubDate>
+				<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46494</guid>
+
+					<description><![CDATA[<p>ntopng has had a search box for a while, but it we made it better to allow search for menu entries too! This to speed up and improve the user experience and…</p>
+<p>The post <a href="https://www.ntop.org/how-we-redesigned-search-in-ntopng/">How we Redesigned Search in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="46494" class="elementor elementor-46494">
+				<div class="elementor-element elementor-element-64e16d1 e-flex e-con-boxed e-con e-parent" data-id="64e16d1" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-7ecf820 elementor-widget elementor-widget-text-editor" data-id="7ecf820" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p>ntopng has had a search box for a while, but it we made it better to allow search for menu entries too! This to speed up and improve the user experience and navigation in ntopng. We added a short guided tour so you know what it can do.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-2faf3cf e-flex e-con-boxed e-con e-parent" data-id="2faf3cf" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-f2a4c7d elementor-widget elementor-widget-image" data-id="f2a4c7d" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img decoding="async" width="1024" height="27" src="https://www.ntop.org/wp-content/uploads/2026/10/ntopng_search_topbar.png" class="attachment-large size-large wp-image-46496" alt="Ntopng search topbar" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-da0cdec e-flex e-con-boxed e-con e-parent" data-id="da0cdec" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-6a139b9 elementor-widget elementor-widget-text-editor" data-id="6a139b9" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2>What You Can Search For</h2><p>It&#8217;s one box for two jobs. First, it filters every entry of the ntopng menu, so you can jump to a page or a setting by typing a few letters instead of hunting through the sidebar. Second, it looks up live and historical network objects as you type:</p><ul><li>hosts and MAC addresses</li><li>networks and ASNs</li><li>SNMP devices</li><li>historical flows</li></ul><p>Type a name or an address, use the arrow keys to move through the results, and press Enter to open one. Matching text is highlighted, and menu entries you can&#8217;t open on your edition show a lock with the reason.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-2d6a3f0 e-flex e-con-boxed e-con e-parent" data-id="2d6a3f0" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-7d6bb6b elementor-widget elementor-widget-image" data-id="7d6bb6b" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="467" src="https://www.ntop.org/wp-content/uploads/2026/10/ntopng_search_box.png" class="attachment-large size-large wp-image-46497" alt="Ntopng search box" />															</div>
+		<div class="elementor-element elementor-element-559ccdf e-con-full e-flex e-con e-child" data-id="559ccdf" data-element_type="container" data-e-type="container">
+				<div class="elementor-element elementor-element-1e0cfb1 elementor-widget elementor-widget-image" data-id="1e0cfb1" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="954" src="https://www.ntop.org/wp-content/uploads/2026/10/ntopng_search_host.png" class="attachment-large size-large wp-image-46498" alt="Ntopng search host" />															</div>
+				</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-f146f9b e-flex e-con-boxed e-con e-parent" data-id="f146f9b" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-e2d670e elementor-widget elementor-widget-text-editor" data-id="e2d670e" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2>One shortcut, Any page</h2><p>Press Ctrl+F (Cmd+F on macOS) on any ntopng page and the search box opens, instead of the browser&#8217;s search. Esc closes it.</p><p>The first time you load the dashboard after the update, a two slide tour points at the new button: what the search covers, then the shortcut. You can replay it any time from <strong>Preferences &gt; Demo Tours</strong>.</p><p>The tour uses the same guided demo engine as the ntopng and nAnalyst overviews, so if you&#8217;ve seen those, it will feel familiar.</p><p>As always, let us know what you&#8217;d like to find with one keystroke. Feedback and bug reports are welcome on <a href="https://github.com/ntop/ntopng">GitHub</a> or in the community discord.</p><p>Enjoy finding things faster!</p>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/how-we-redesigned-search-in-ntopng/">How we Redesigned Search in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>October 20th: Join us for the ntopng 7.0 Webinar</title>
+		<link>https://www.ntop.org/october-20th-join-us-for-the-ntopng-7-0-webinar/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Mon, 05 Oct 2026 13:32:37 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[Webinar]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46368</guid>
+
+					<description><![CDATA[<p>Is your network monitoring keeping pace with AI, larger infrastructures, and the growing need for real observability? We're excited to introduce ntopng 7.0, alongside new releases of the rest of the ntop…</p>
+<p>The post <a href="https://www.ntop.org/october-20th-join-us-for-the-ntopng-7-0-webinar/">October 20th: Join us for the ntopng 7.0 Webinar</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p dir="ltr">Is your network monitoring keeping pace with AI, larger infrastructures, and the growing need for real observability? We&#8217;re excited to introduce <strong>ntopng 7.0</strong>, alongside new releases of the rest of the ntop suite.</p>
+<p dir="ltr">This is one of the biggest ntopng releases to date: a new AI-assisted analysis engine, native SIEM integration, a network-to-site hierarchy for large deployments, BGP visibility, a completely rebuilt observability/timeseries backend on ClickHouse, and a modernized Vue.js frontend. We want to walk you through it live, with a Q&amp;A session at the end of the event.</p>
+<p><img loading="lazy" decoding="async" src="https://www.ntop.org/wp-content/uploads/2026/09/Screenshot-2026-09-09-151028-1.png" alt="October 20th, figure 1" width="1024" height="685" /></p>
+<h5 dir="ltr"><strong>Here is what we will cover:</strong></h5>
+<ul dir="ltr">
+<li><strong>nAnalyst — AI-assisted traffic analysis.</strong> A brand-new chat-based assistant that lets you query live and historical flows and alerts in different languages, define AI-driven alert policies, and get AI-generated dashboards, all through an agentic loop that supports multiple LLM providers (Anthropic, OpenAI, Google, Qwen, and local models) plus a built-in MCP server for connecting external AI agents to ntopng.</li>
+<li><strong>Wazuh XDR/SIEM integration.</strong> Native collection and correlation of Wazuh alerts into ClickHouse, with asset enrichment, dedicated alert pages, MITRE-mapped rules, and configurable retention, bringing SIEM-grade security visibility directly into ntopng.</li>
+<li><strong>Sites: hierarchy for large networks.</strong> A new network-to-site model designed for ISPs, MSPs, and large infrastructures, with a sites dashboard, geomap, matrix/heatmap views, and per-site timeseries and statistics.</li>
+<li><strong>BGP &amp; BMP support.</strong> A new Looking Glass page, RPKI validation, prefix-change alerts, and full BGP context surfaced directly in live and historical flows, a big step for routing observability.</li>
+<li><strong>A rebuilt Observability backend.</strong> A new ClickHouse-based timeseries engine, including a High-Resolution counters driver, a redesigned Observability dashboard, and out-of-the-box Grafana integration.</li>
+<li><strong>Modern authentication &amp; a new frontend.</strong> SSO via OpenID Connect, Multi-Factor Authentication, Passkeys, and API key support, alongside a full migration to a Vue.js frontend with D3-based charts replacing the legacy UI.</li>
+<li><b>Plus</b>: user-defined host Tags, automatic flow deduplication, extended OT visibility (new S7comm and Profinet support), the new nEdge Lite, and a long list of performance and security hardening improvements across the board.</li>
+</ul>
+<h5 dir="ltr"><strong>Who should attend?</strong></h5>
+<ul dir="ltr">
+<li>Network engineers and SREs who want deeper, AI-assisted visibility into their infrastructure.</li>
+<li>Security and SOC teams looking to leverage the new Wazuh integration and AI-driven alerting.</li>
+<li>ISPs, service providers, and enterprises managing large, multi-site networks or their own Autonomous Systems.</li>
+<li>Existing ntopng users who want a guided tour of what&#8217;s new before upgrading.</li>
+</ul>
+<h5 dir="ltr"><strong>Secure your spot</strong></h5>
+<p dir="ltr">The webinar is scheduled for <strong>Tuesday, October 20th, 15:00 CET / 9 AM EDT</strong> and will be run online via Microsoft Teams. Participation is free, but space is limited: <a href="https://events.teams.microsoft.com/event/1e40da1a-beb8-411e-996f-6cc8dba4138e@03099206-608b-40d0-9032-b5cf198c536d?source=copyLinkOneEventsShareDialog">please register at this page</a>.</p>
+<p dir="ltr">The event will be recorded and shared with our community for those who cannot attend live.</p>
+<p dir="ltr">Looking forward to seeing you there!</p>
+<p class="wp-block-paragraph">
+<p>The post <a href="https://www.ntop.org/october-20th-join-us-for-the-ntopng-7-0-webinar/">October 20th: Join us for the ntopng 7.0 Webinar</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>AI Dashboards in ntopng: Build Charts by Asking</title>
+		<link>https://www.ntop.org/ai-dashboards-in-ntopng-build-charts-by-asking/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 30 Sep 2026 09:00:39 +0000</pubDate>
+				<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46332</guid>
+
+					<description><![CDATA[<p>If you've opened ntopng recently you may have noticed a new entry under the dashboards menu: AI Dashboards. Instead of picking a metric, a chart type and a time range from a…</p>
+<p>The post <a href="https://www.ntop.org/ai-dashboards-in-ntopng-build-charts-by-asking/">AI Dashboards in ntopng: Build Charts by Asking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="46332" class="elementor elementor-46332">
+				<div class="elementor-element elementor-element-bdb8a34 e-flex e-con-boxed e-con e-parent" data-id="bdb8a34" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-bd58550 elementor-widget elementor-widget-text-editor" data-id="bd58550" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									If you&#8217;ve opened ntopng recently you may have noticed a new entry under the dashboards menu: <strong>AI Dashboards</strong>. Instead of picking a metric, a chart type and a time range from a form, you describe what you want to see in plain language and nAnalyst writes the query, picks the visualization and drops the widget on the page. This post walks through what they are, how to use them, and how to edit what you build. Similar to <a href="https://grafana.com" target="_blank" rel="noopener">Grafana </a>dashboards, we wanted to add a customizable interface to create custom dashbaords. Simple SQL language can be used to define how widgets extract data from the
+<a href="https://clickhouse.com/" target="_blank" rel="noopener">Clickhouse</a> database.								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-decb09b e-flex e-con-boxed e-con e-parent" data-id="decb09b" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-1e5cc34 elementor-widget elementor-widget-image" data-id="1e5cc34" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="576" src="https://www.ntop.org/wp-content/uploads/2026/09/ai_dashboard_overview.png" class="attachment-large size-large wp-image-46334" alt="Ai dashboard overview" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-0e9339f e-flex e-con-boxed e-con e-parent" data-id="0e9339f" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-11a7993 elementor-widget elementor-widget-text-editor" data-id="11a7993" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2>What an AI Dashboard actually is</h2>
+An AI Dashboard is a saved layout of widgets, each backed by a ClickHouse query against your historical flow and alert tables (and Wazuh alert data, when that integration is enabled>. To read more about Wazuh and ntopng integration please read: <a href="https://www.ntop.org/merging-ntopng-asset-inventory-with-wazuh/" target="_blank" rel="noopener">this blogpost</a>
+). A widget can be a single number, a bar or line chart, a pie/donut, a Sankey diagram, a geomap or a plain table. The dashboard carries its own time range and an optional filter bar, so every widget on it reacts to the same window and the same filters at once. The same filters as the historical flows are used, so users do not feel confused.
+
+Dashboards live under the <em>My Dashboards</em> tab. Pick one from the selector, set the time range, and read. Each widget has an info icon that shows the exact SQL behind it — useful when you want to know precisely what &#8220;top talker&#8221; means in that chart, or when you want to reuse the query elsewhere.								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-750b3b9 e-flex e-con-boxed e-con e-parent" data-id="750b3b9" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-bf04a68 elementor-widget elementor-widget-image" data-id="bf04a68" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="850" src="https://www.ntop.org/wp-content/uploads/2026/09/Screenshot-2026-09-08-at-12.00.30.png" class="attachment-large size-large wp-image-46335" alt="AI Dashboards in ntopng, figure 1" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-5aefddc e-flex e-con-boxed e-con e-parent" data-id="5aefddc" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-9ed3ef1 elementor-widget elementor-widget-text-editor" data-id="9ed3ef1" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2>Building a dashboard</h2><p>Switch to the <em>Create Dashboard</em> tab. You either start a new dashboard or open an existing one to extend it. On the right there&#8217;s a prompt box with a few starting points — &#8220;Top 10 talkers by bytes in the last hour&#8221;, &#8220;Pie chart of alert severity distribution&#8221;, &#8220;Sankey of top talker to top server traffic&#8221; — and the LLM model ntopng is configured to use.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-4efb3ee e-flex e-con-boxed e-con e-parent" data-id="4efb3ee" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-fa201c7 elementor-widget elementor-widget-image" data-id="fa201c7" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="603" src="https://www.ntop.org/wp-content/uploads/2026/09/ai_create_dashboard_widget.png" class="attachment-large size-large wp-image-46336" alt="Ai create dashboard widget" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-79d2617 e-flex e-con-boxed e-con e-parent" data-id="79d2617" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-d0cfe07 elementor-widget elementor-widget-text-editor" data-id="d0cfe07" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p><br />Type a request and send it. nAnalyst inspects the relevant tables, builds a query, validates the SQL, runs it and renders a preview. You can see its reasoning as it goes — which table it chose, why a bar chart fits a ranking, what the query returned — and then a &#8220;1 widget(s) ready — review below&#8221; line with the new widget marked <em>Needs review</em>.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-e04f9ac e-flex e-con-boxed e-con e-parent" data-id="e04f9ac" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-4896e32 elementor-widget elementor-widget-text-editor" data-id="4896e32" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p>Nothing is committed until you review the new widget and hit <strong>Save Dashboard</strong>. That review step matters: it&#8217;s your chance to check the generated query against what you actually asked for before it becomes part of the layout.</p><h2>Editing what you built</h2><p>Every widget on the <em>Create Dashboard</em> grid has an edit (pencil) and a delete (trash) control. The build flow is a four-step wizard <em>Component</em>, <em>Configure</em>, <em>Query</em>, <em>Preview</em> so you can edit any widget and change the chart type, change the SQL by hand, adjust the title, resize the widget size before saving. The layout grid is drag and arrange, simply use the mouse to drag from the widget title and to resize, hover the bottom right of the widget to resize.</p><p>Because the widget is just a query plus a chart definition, an AI Dashboard is not a black box. The LLM gets you to a working widget quickly; the wizard lets you test and modify if something is wrong.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-686a2c0 e-flex e-con-boxed e-con e-parent" data-id="686a2c0" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-8f52e4c elementor-widget elementor-widget-image" data-id="8f52e4c" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="745" src="https://www.ntop.org/wp-content/uploads/2026/09/Screenshot-2026-09-08-at-12.05.50.png" class="attachment-large size-large wp-image-46337" alt="AI Dashboards in ntopng, figure 1" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-553e8518 e-grid e-con-full e-con e-child" data-id="553e8518" data-element_type="container" data-e-type="container">
+				<div class="elementor-element elementor-element-3122ef9a elementor-widget elementor-widget-lte-button" data-id="3122ef9a" data-element_type="widget" data-e-type="widget" data-widget_type="lte-button.default">
+				<div class="elementor-widget-container">
+					<div class="lte-btn-wrap">
+	<a href="https://www.ntop.org/guides/ntopng/nanalyst/index.html"  target="_blank"  class="lte-btn btn-main color-hover-default lte-icon-style-default"><span class="lte-btn-inner"><span class="lte-btn-before"></span>nAnalyst Documentation<span class="lte-btn-after"></span></span></a></div>				</div>
+				</div>
+				<div class="elementor-element elementor-element-323c7642 elementor-widget elementor-widget-lte-button" data-id="323c7642" data-element_type="widget" data-e-type="widget" data-widget_type="lte-button.default">
+				<div class="elementor-widget-container">
+					<div class="lte-btn-wrap">
+	<a href="https://www.ntop.org/support/documentation/software-installation/"  class="lte-btn color-hover-default lte-icon-style-default"><span class="lte-btn-inner"><span class="lte-btn-before"></span>Download ntopng<span class="lte-btn-after"></span></span></a></div>				</div>
+				</div>
+				<div class="elementor-element elementor-element-366a038a elementor-widget elementor-widget-lte-button" data-id="366a038a" data-element_type="widget" data-e-type="widget" data-widget_type="lte-button.default">
+				<div class="elementor-widget-container">
+					<div class="lte-btn-wrap">
+	<a href="mailto:sales@ntop.org"  class="lte-btn color-hover-default lte-icon-style-default"><span class="lte-btn-inner"><span class="lte-btn-before"></span>Talk With An Expert<span class="lte-btn-after"></span></span></a></div>				</div>
+				</div>
+				</div>
+		<div class="elementor-element elementor-element-e55cafe e-flex e-con-boxed e-con e-parent" data-id="e55cafe" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-7008fd3 elementor-widget elementor-widget-text-editor" data-id="7008fd3" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									AI Dashboards are part of the broader nAnalyst work in ntopng the same engine that answers questions about your traffic also builds the charts. If you try them and something doesn&#8217;t come out the way you expected, tell us: the prompts, the model choice and the generated queries all give us useful signal. Bug reports and feedback are welcome as always on
+
+<a href="https://github.com/ntop/ntopng/issues">GitHub</a> 
+
+
+Enjoy building dashboards — and as always, enjoy monitoring your network!								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/ai-dashboards-in-ntopng-build-charts-by-asking/">AI Dashboards in ntopng: Build Charts by Asking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Elevate Your Network Visibility with ntop Professional Training November 2026</title>
+		<link>https://www.ntop.org/elevate-your-network-visibility-with-ntop-professional-training-november-2026/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 16 Sep 2026 19:36:32 +0000</pubDate>
+				<category><![CDATA[Technologies and Trends]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46404</guid>
+
+					<description><![CDATA[<p>As network architectures evolve, staying ahead of performance issues and modern cybersecurity threats requires deep visibility and mastery of your tools. Here at ntop, our product range spans from high-speed packet capture…</p>
+<p>The post <a href="https://www.ntop.org/elevate-your-network-visibility-with-ntop-professional-training-november-2026/">Elevate Your Network Visibility with ntop Professional Training November 2026</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p class="wp-block-paragraph">As network architectures evolve, staying ahead of performance issues and modern cybersecurity threats requires deep visibility and mastery of your tools. Here at ntop, our product range spans from high-speed packet capture to advanced traffic analysis. With our continuous updates and feature additions, keeping up with the ecosystem can be a challenge. Whether you are configuring large enterprise installations or looking to minimize the learning curve for new team members, this structured training will equip you with everything you need to build a tailored monitoring infrastructure.</p>
+<h6 class="wp-block-heading">What’s New? Mastering ntopng 7.0</h6>
+<p class="wp-block-paragraph">Led directly by the creators of the software, the training covers core competencies and advanced deployment strategies, this training cycle is uniquely designed to cover our latest product releases, featuring a deep dive into the ground-breaking&nbsp;<a href="https://www.ntop.org/welcome-to-ntopng-7-0-modern-gui-nassistant-sites-observability-bgp-bmp-pqc-wazuh/" target="_blank" rel="noopener">ntopng 7.0</a>. You will get hands-on guidance on how to leverage:</p>
+<ul class="wp-block-list">
+<li><strong>nAnalyst AI:</strong>&nbsp;Learn how to utilize our new AI-assisted layer for rapid traffic and security analysis.</li>
+<li><strong>ClickHouse Timeseries:</strong>&nbsp;Master the rebuilt, ultra-fast data engine backend.</li>
+<li><strong>Advanced Routing Visibility:</strong>&nbsp;Harness new BGP, BMP, and OT observability features.</li>
+<li><strong>Modernized GUI:</strong>&nbsp;Navigate the completely rebuilt, intuitive user frontend.</li>
+</ul>
+<h6 class="wp-block-heading">Course Schedule &amp; Logistics</h6>
+<p class="wp-block-paragraph">To make it easy to participate without disrupting your daily work responsibilities, the course is split into bite-sized, highly interactive digital sessions.</p>
+<ul class="wp-block-list">
+<li><strong>Time:</strong>&nbsp;3:00 PM CET / 9:00 AM EDT</li>
+<li><strong>Dates:</strong> November 10th, 12th, 17th, 19th, 24th, and 26th.</li>
+<li><strong>Format:</strong>&nbsp;Online via&nbsp;<strong>Microsoft Teams</strong></li>
+<li><strong>Language:</strong>&nbsp;<strong>English</strong></li>
+<li><strong>Structure:</strong>&nbsp;<strong>5 sessions</strong>&nbsp;of&nbsp;<strong>90 minutes</strong>&nbsp;each</li>
+</ul>
+<h6 class="wp-block-heading">Registration Perks &amp; Certification</h6>
+<ul class="wp-block-list">
+<li><strong>Complimentary Pro License:</strong>&nbsp;Every registered attendee will receive a&nbsp;<strong>license of ntopng Pro</strong>&nbsp;to continue practicing and improving their skills long after the webinars end.</li>
+<li><strong>On-Demand Recordings:</strong>&nbsp;Can&#8217;t make a specific time slot? All registrants get full access to the&nbsp;<strong>session recordings</strong>.</li>
+<li><strong>Certificate of Proficiency:</strong>&nbsp;Attendees can opt to take an official exam evaluated by the ntop team to earn a formal Certificate of Proficiency.</li>
+</ul>
+<h6 class="wp-block-heading">Reserve Your Seat</h6>
+<p class="wp-block-paragraph">Spaces are limited to ensure an optimal environment for open discussion and Q&amp;A.</p>
+<p class="wp-block-paragraph">&nbsp;<strong><a href="https://www.ntop.org/services/professional-training/" target="_blank" rel="noopener">Click Here to Book Your Seat</a></strong>&nbsp;and secure your spot today.</p>
+<p class="wp-block-paragraph">Have questions about team discounts or custom installations? Feel free to contact our team directly at&nbsp;<code>training@ntop.org</code>.</p>
+<p>The post <a href="https://www.ntop.org/elevate-your-network-visibility-with-ntop-professional-training-november-2026/">Elevate Your Network Visibility with ntop Professional Training November 2026</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Seeing Where Your Traffic Goes: Flow and Alert Geomaps</title>
+		<link>https://www.ntop.org/seeing-where-your-traffic-goes-flow-and-alert-geomaps/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 08 Sep 2026 10:37:56 +0000</pubDate>
+				<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46344</guid>
+
+					<description><![CDATA[<p>A flow table tells you which hosts are talking. A map tells you where. ntopng has two geomap views built on the same idea: one for live flows, one for flow alerts…</p>
+<p>The post <a href="https://www.ntop.org/seeing-where-your-traffic-goes-flow-and-alert-geomaps/">Seeing Where Your Traffic Goes: Flow and Alert Geomaps</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="46344" class="elementor elementor-46344">
+				<div class="elementor-element elementor-element-e681030 e-flex e-con-boxed e-con e-parent" data-id="e681030" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-54a0a94 elementor-widget elementor-widget-text-editor" data-id="54a0a94" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									
+<p>A flow table tells you which hosts are talking. A map tells you <em>where</em>. ntopng has two geomap views built on the same idea: one for live flows, one for flow alerts and together they answer &#8220;who are we communicating with around the world&#8221; and &#8220;where are the alerts coming from&#8221;. Here&#8217;s how to use both.</p>
+<h2>Live flows on a map</h2>
+
+<p>First, pick the interface you want to look at. Use the interface dropdown at the top left of the page.</p>
+
+<p>Open <strong>Flows &gt; Live Flows &gt; Geo Map View</strong>. You get a geomap chart to visualize clients and servers (dots) and flows between them (edges).</p>
+
+
+								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-966809e e-flex e-con-boxed e-con e-parent" data-id="966809e" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-b3b1555 elementor-widget elementor-widget-image" data-id="b3b1555" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="576" src="https://www.ntop.org/wp-content/uploads/2026/09/02_live_flows_geomap.png" class="attachment-large size-large wp-image-46346" alt="Seeing Where Your Traffic Goes, figure 1" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-c5903ab e-flex e-con-boxed e-con e-parent" data-id="c5903ab" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-0b79ebe elementor-widget elementor-widget-text-editor" data-id="0b79ebe" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p>Click a marker and ntopng shows a small popup with the endpoint IP, the protocol and the number of flows to that location — enough to decide whether it&#8217;s worth opening the full flow. When hovering or clicking a certain edge or dot, ntopng automatically hides dots and edges not connected to the hovered or clicked dot. This to enable easy visualization and analysis.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-19683b1 e-flex e-con-boxed e-con e-parent" data-id="19683b1" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-0b7bac0 elementor-widget elementor-widget-image" data-id="0b7bac0" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="576" src="https://www.ntop.org/wp-content/uploads/2026/09/03_geomap_marker_click.png" class="attachment-large size-large wp-image-46347" alt="Seeing Where Your Traffic Goes, figure 1" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-0ae6e51 e-flex e-con-boxed e-con e-parent" data-id="0ae6e51" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-e957195 elementor-widget elementor-widget-text-editor" data-id="e957195" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2>Where alerts terminate: the alert geomap heatmap</h2>
+In addition to live flows, we also would like to visualize the distribution of alerts country. In the <strong>Alerts Explorer</strong>, on the <em>Flow</em> alerts page, switch the chart to <strong>Geomap</strong>. Instead of arcs, you get a heatmap: each country is colored by how much alerted traffic starts or ends there, so the countries from which clients or server generate or receive alerts are immediately visible.
+
+Hover over a country and ntopng breaks it down: total alerts, total score, and the top offending IPs with their per IP alert count and score. In this capture the United States accounts for 10,305 alerts and a total score of 103,370, driven by a handful of addresses.
+
+Between the two views you can go from &#8220;something is generating a lot of alerts in one region&#8221; to the specific flow and its MITRE mapping in a couple of clicks, without leaving the map.
+
+Geomaps are								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-6d4dad0 e-flex e-con-boxed e-con e-parent" data-id="6d4dad0" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-4e169ce elementor-widget elementor-widget-image" data-id="4e169ce" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="576" src="https://www.ntop.org/wp-content/uploads/2026/09/alerts_geomap_country_hover.png" class="attachment-large size-large wp-image-46349" alt="Alerts geomap country hover" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-a48b56f e-flex e-con-boxed e-con e-parent" data-id="a48b56f" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-11c6180 elementor-widget elementor-widget-text-editor" data-id="11c6180" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h2>The Flow Details side card</h2>
+Now let&#8217;s show another new feature, flow details  and alert details preview. When you want the full picture of a flow, ntopng can open it in a side card that slides in from the right instead of navigating away to a details page. Whether it does this is controlled by a preference: <strong>Preferences &gt; User Interface &gt; Flow Details Side Card</strong>. &#8220;If enabled, clicking a live or historical flow (or a flow/alert row) opens the details in a side card. If disabled, the full details page is opened directly instead.&#8221; There&#8217;s also a <em>Details card</em> toggle right in the Live Flows table header, so you can flip the behaviour without leaving the page. Additionally, for ease of use, when the details card is open, by clicking the &#8220;space&#8221; button, the details card expands to fill the whole page, instead, by clicking &#8220;esc&#8221; it closes.								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-2126118 e-flex e-con-boxed e-con e-parent" data-id="2126118" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-c58a5d3 elementor-widget elementor-widget-image" data-id="c58a5d3" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+															<img loading="lazy" decoding="async" width="1024" height="468" src="https://www.ntop.org/wp-content/uploads/2026/09/Screenshot-2026-09-08-at-12.28.59.png" class="attachment-large size-large wp-image-46348" alt="Seeing Where Your Traffic Goes, figure 1" />															</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-182b99b e-flex e-con-boxed e-con e-parent" data-id="182b99b" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-88d68f3 elementor-widget elementor-widget-text-editor" data-id="88d68f3" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p>one of those features that are easy to skip past until the day you need them. If you use them and have ideas for what else should be on the map more detail in the popups, extra breakdowns on hover let us know on <a href="https://github.com/ntop/ntopng">GitHub</a>.</p><p>Enjoy, and stay secure out there!</p>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/seeing-where-your-traffic-goes-flow-and-alert-geomaps/">Seeing Where Your Traffic Goes: Flow and Alert Geomaps</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Secure ZMQ Flow Collection Now Enabled by Default</title>
+		<link>https://www.ntop.org/secure-zmq-flow-collection-now-enabled-by-default/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 31 Aug 2026 09:15:32 +0000</pubDate>
+				<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46312</guid>
+
+					<description><![CDATA[<p>Starting September 1st, 2026 (ntopng 6.7.280831 and later), cleartext flow data over ZMQ is no longer accepted by default. CURVE encryption is now enabled by default on ZMQ collection interfaces in ntopng.…</p>
+<p>The post <a href="https://www.ntop.org/secure-zmq-flow-collection-now-enabled-by-default/">Secure ZMQ Flow Collection Now Enabled by Default</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p class="wp-block-paragraph">Starting <strong>September 1st, 2026</strong> (ntopng <strong>6.7.280831</strong> and later), cleartext flow data over ZMQ is no longer accepted by default. CURVE<strong> encryption is now enabled by default on ZMQ collection interfaces</strong> in ntopng.</p>
+<p class="wp-block-paragraph">The same change applies to&nbsp;<strong>nProbe </strong>and<strong> Cento</strong>, which now also send ZMQ data encrypted by default.</p>
+<p class="wp-block-paragraph">If no dedicated encryption key has been configured, ntopng falls back to a&nbsp;<strong>public built-in key pair</strong>. This provides protection against accidental cleartext exposure and ensures that encryption is enabled out of the box. However,&nbsp;<strong>users are strongly encouraged to configure dedicated keys as soon as possible</strong>, especially in production environments.</p>
+<h3 class="wp-block-heading">Configuring encryption in ntopng</h3>
+<p class="wp-block-paragraph">A dedicated key pair can be configured on the ntopng side in either of the following ways:</p>
+<ul class="wp-block-list">
+<li>Add&nbsp;<code>--zmq-encryption</code>&nbsp;to let ntopng automatically generate a key pair. The generated public key is displayed on the interface status page.</li>
+<li>Add&nbsp;<code>--zmq-encryption-key-priv &lt;key&gt;</code>&nbsp;to specify a private key of your choice.</li>
+</ul>
+<p class="wp-block-paragraph">Please refer to the&nbsp;<a href="https://www.ntop.org/guides/ntopng/using_with_other_tools/nprobe.html#data-encryption">ntopng </a><strong><a href="https://www.ntop.org/guides/ntopng/using_with_other_tools/nprobe.html#data-encryption">User&#8217;s Guide</a>&nbsp;</strong>for complete configuration details.</p>
+<h3 class="wp-block-heading">Compatibility with older nProbe versions</h3>
+<p class="wp-block-paragraph"><strong>This change may affect existing deployments.</strong></p>
+<p class="wp-block-paragraph">Recent nProbe releases also enable ZMQ encryption by default and use the same public built-in key when no dedicated key has been configured.</p>
+<p class="wp-block-paragraph">However,&nbsp;<strong>older nProbe versions continue to send ZMQ data in cleartext</strong>. Such cleartext flows are now discarded by ntopng and therefore&nbsp;<strong>will no longer appear in the ntopng UI</strong>.</p>
+<p class="wp-block-paragraph">For this reason, we&nbsp;<strong>highly recommend upgrading nProbe and Cento to the latest available releases</strong>&nbsp;and configuring dedicated encryption keys on both sides of the ZMQ connection.</p>
+<p class="wp-block-paragraph">If you need to temporarily maintain compatibility with an older, unencrypted ZMQ sender, encryption can be disabled in ntopng using:</p>
+<p class="wp-block-paragraph"><code>--zmq-disable-encryption</code></p>
+<p class="wp-block-paragraph">This should be considered a&nbsp;<strong>temporary compatibility measure</strong>, as this is exposing flow data in cleartext.</p>
+<h3 class="wp-block-heading">Action required</h3>
+<p class="wp-block-paragraph">Users with existing ZMQ-based deployments should:</p>
+<ol start="1" class="wp-block-list">
+<li><strong>Upgrade ntopng, nProbe, and Cento</strong>&nbsp;to recent versions.</li>
+<li><strong>Configure dedicated CURVE encryption keys</strong>&nbsp;on the communicating endpoints.</li>
+<li>Verify the ZMQ interface status in ntopng and ensure that encrypted flows are being received correctly.</li>
+<li>Avoid using&nbsp;<code>--zmq-disable-encryption</code>&nbsp;except when required for compatibility with legacy deployments.</li>
+</ol>
+<p class="wp-block-paragraph">Thank you.</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p>
+<p>The post <a href="https://www.ntop.org/secure-zmq-flow-collection-now-enabled-by-default/">Secure ZMQ Flow Collection Now Enabled by Default</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing PF_RING 9.4: Expanding Capabilities Across Capture, Flow Processing and Hardware Support</title>
+		<link>https://www.ntop.org/introducing-pf_ring-9-4-expanding-capabilities-across-capture-flow-processing-and-hardware-support/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Thu, 27 Aug 2026 17:29:00 +0000</pubDate>
+				<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46296</guid>
+
+					<description><![CDATA[<p>We are pleased to announce the release of PF_RING 9.4, bringing new capabilities for packet capture and flow processing, along with important improvements across the PF_RING kernel module, capture drivers, flow tracking,…</p>
+<p>The post <a href="https://www.ntop.org/introducing-pf_ring-9-4-expanding-capabilities-across-capture-flow-processing-and-hardware-support/">Introducing PF_RING 9.4: Expanding Capabilities Across Capture, Flow Processing and Hardware Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">We are pleased to announce the release of <strong>PF_RING 9.4</strong>, bringing new capabilities for packet capture and flow processing, along with important improvements across the PF_RING kernel module, capture drivers, flow tracking, and system integration.</p>
+
+
+
+<h5 class="wp-block-heading">Multi-Timeline Extraction with nPCAP</h5>
+
+
+
+<p class="wp-block-paragraph">PF_RING 9.4 adds support for&nbsp;<strong>multi-timeline extraction from n2disk dump sets</strong>, with timestamp-based data aggregation through nPCAP. This makes it possible to work more efficiently with traffic distributed across multiple timelines (e.g. load-balanced to multiple streams or interfaces), allowing traffic to be correlated and reconstructed based on timestamps, even when dumped to different volumes. The new capability is particularly useful for investigations and analysis workflows involving large packet repositories and distributed capture data.</p>
+
+
+
+<h5 class="wp-block-heading">IP-Based RSS for More Flexible Packet Distribution</h5>
+
+
+
+<p class="wp-block-paragraph">PF_RING 9.4 introduces support for <strong>IP-based RSS (Receive Side Scaling)</strong> on adapters that support this capability (NVIDIA and Intel). The <code>PF_RING_IP_ONLY_RSS</code> (legacy API) and  <code>PF_RING_ZC_IPONLY_RSS</code> (ZC API) flags can be used to request IP-only RSS hashing. This allows you to ignore ports on UDP/TCP traffic, as well as other fields, when load-balancing traffic flows that would be steered to different cores otherwise. The <code>pfcount_multichannel</code> example has been updated with a new <code>-x</code> option to enable IP-only RSS hashing, to quickly check that traffic is actually getting load-balanced as expected.</p>
+
+
+
+<h5 class="wp-block-heading">Kernel Module Fixes and Improvements</h5>
+
+
+
+<p class="wp-block-paragraph">Several changes improve the robustness of the PF_RING kernel module:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Fixed <code>packet_rcv</code> being called multiple times on new kernels when multiple network namespaces are in use.</li>
+
+
+
+<li>Fixed a race condition affecting packet capture on bond interfaces.</li>
+
+
+
+<li>Added per-interface packet counters exposed through <code>/proc</code>.</li>
+
+
+
+<li>Fixed compilation with Linux kernel 6.17 and newer kernel environments.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">The release also improves PF_RING service management. The <code>pfring</code> and <code>pfring-dkms</code> package scripts have been reworked to provide more reliable service start/stop sequencing. The ZC-based <em>cluster</em> service reliability has been improved as well, addressing hanging services and eliminating circular restart dependencies.</p>
+
+
+
+<h5 class="wp-block-heading">Enhanced Flow Tracking</h5>
+
+
+
+<p class="wp-block-paragraph">The <strong>FT library</strong> receives several important additions in PF_RING 9.4. It now supports <strong>nDPI category filters</strong>, allowing flow processing and filtering to make use of nDPI&#8217;s traffic classification categories.</p>
+
+
+
+<p class="wp-block-paragraph">A new&nbsp;<code>PFRING_FT_KEY_EXT_MAC</code>&nbsp;flag can be used to include the&nbsp;<strong>MAC address in the flow key</strong>, providing additional granularity when identifying flows.</p>
+
+
+
+<p class="wp-block-paragraph">Flow statistics now export the&nbsp;<code>unique_source_id</code>, and several fixes improve the reliability of flow statistics metadata and IP-based protocol guessing.</p>
+
+
+
+<h5 class="wp-block-heading">Capture Driver and ZC Improvements</h5>
+
+
+
+<p class="wp-block-paragraph">PF_RING 9.4 includes updates and fixes across several major capture driver families, including NVIDIA/Mellanox, Napatech and Intel.</p>
+
+
+
+<p class="wp-block-paragraph">The Intel driver stack receives a substantial set of updates:</p>
+
+
+
+<ul class="wp-block-list">
+<li>New <strong>ice-zc driver v2.5.4</strong>, adding support for the <strong>Intel E835</strong>.</li>
+
+
+
+<li>Fixed symmetric RSS configuration being reset when the <code>ice</code> driver is reloaded.</li>
+
+
+
+<li>RSS hash function selection on <code>ice</code> is now adjusted according to <code>rss_scheme</code>, with source MAC enabled in the L2 hash.</li>
+
+
+
+<li>Improved handling of <code>intel_auxiliary</code> when reloading the <code>ice</code> driver.</li>
+
+
+
+<li>Fixed <code>i40e</code>, <code>ixgbe</code>, and <code>igb</code> compilation on RHEL 9.7.</li>
+
+
+
+<li>Improved compilation compatibility across newer kernel versions, including Ubuntu 26, RHEL 9.7+.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">PF_RING 9.4 combines new functionality with a broad set of compatibility and reliability improvements. From IP-based RSS and multi-timeline packet extraction to Ubuntu 26 support, enhanced flow metadata, and updated Intel, NVIDIA/Mellanox, and Napatech drivers, this release continues to strengthen PF_RING as a foundation for high-performance network monitoring and packet processing.</p>
+
+
+
+<p class="wp-block-paragraph"><strong>PF_RING 9.4 is <a href="https://github.com/ntop/PF_RING/tree/dev">available now.</a></strong></p>
+
+
+
+<p class="wp-block-paragraph">As always, we recommend upgrading to the latest release to benefit from the new features, driver improvements, compatibility updates, and bug fixes. The full <a href="https://github.com/ntop/PF_RING/blob/dev/CHANGELOG.md">Changelog</a> is available on <a href="https://github.com/ntop/PF_RING/blob/dev/CHANGELOG.md">GitHub</a>.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy!<br><br></p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/packet-capture/pf_ring/">PF_RING</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p><p>The post <a href="https://www.ntop.org/introducing-pf_ring-9-4-expanding-capabilities-across-capture-flow-processing-and-hardware-support/">Introducing PF_RING 9.4: Expanding Capabilities Across Capture, Flow Processing and Hardware Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Saying Goodbye to Hierarchical Clusters in ntopng</title>
+		<link>https://www.ntop.org/saying-goodbye-to-hierarchical-clusters-in-ntopng/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Wed, 05 Aug 2026 10:55:48 +0000</pubDate>
+				<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46182</guid>
+
+					<description><![CDATA[<p>The hierarchical cluster architecture was originally introduced to allow multiple ntopng instances to be organized in a parent/child topology. Child instances collected and analyzed local traffic, while parent instances aggregated information from…</p>
+<p>The post <a href="https://www.ntop.org/saying-goodbye-to-hierarchical-clusters-in-ntopng/">Saying Goodbye to Hierarchical Clusters in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">The <a href="https://www.ntop.org/creating-a-hierarchical-cluster-of-ntopng-instances/">hierarchical cluster architecture</a> was originally introduced to allow multiple ntopng instances to be organized in a parent/child topology. Child instances collected and analyzed local traffic, while parent instances aggregated information from multiple children to provide a centralized view of the network.</p>
+
+
+
+<p class="wp-block-paragraph">At the time, this approach addressed a common requirement: monitoring geographically distributed sites while maintaining a central point of visibility. However, networking environments and the ntop ecosystem have both evolved considerably since then.</p>
+
+
+
+<h5 class="wp-block-heading">Building a distributed deployment with nProbe and ntopng</h5>
+
+
+
+<p class="wp-block-paragraph">Today, the same use cases can be addressed without requiring ntopng instances to communicate with each other through a hierarchical architecture. Instead of forwarding aggregated information between ntopng instances, <a href="https://www.ntop.org/howto-implement-flow-relay-replication-and-fanout-with-nprobe/">nProbe can export the same flow stream to multiple destinations simultaneously</a>. This allows organizations to deploy:</p>
+
+
+
+<ul class="wp-block-list">
+<li>a&nbsp;<strong>local ntopng instance</strong>&nbsp;at each site, providing operators with immediate visibility into local traffic</li>
+
+
+
+<li>one or more&nbsp;<strong>centralized ntopng instances</strong>, receiving exactly the same flow data for enterprise-wide analysis and long-term monitoring</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">This approach offers several advantages:</p>
+
+
+
+<ul class="wp-block-list">
+<li>each ntopng instance operates independently</li>
+
+
+
+<li>there is no hierarchy to configure or maintain</li>
+
+
+
+<li>failures in one instance do not impact the others</li>
+
+
+
+<li>deployments are simpler, more resilient, and easier to scale</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">In practice, every ntopng receives the original flow data directly from nProbe, eliminating the need for intermediate aggregation layers.</p>
+
+
+
+<p class="wp-block-paragraph">For example, nProbe can publish flows using a ZMQ endpoint:</p>
+
+
+
+<pre class="wp-block-code"><code># nprobe -i eth0 --zmq "tcp://*:5556"</code></pre>
+
+
+
+<p class="wp-block-paragraph">Packet capture from a mirror has been used in the example above, however the same applies to Netflow collection.</p>
+
+
+
+<p class="wp-block-paragraph">The local and centralized ntopng instances can then connect to the same ZMQ flow stream:</p>
+
+
+
+<pre class="wp-block-code"><code>local# ntopng -i "tcp://10.0.10.10:5556"</code></pre>
+
+
+
+<pre class="wp-block-code"><code>centralized# ntopng -i "tcp://10.0.10.10:5556"</code></pre>
+
+
+
+<p class="wp-block-paragraph">Additional ntopng instances can subscribe to the same endpoint as required. Each instance processes the received flows independently and maintains its own state.</p>
+
+
+
+<p class="wp-block-paragraph">When required by the network topology and deployment, replication can also be implemented at the Netflow level. For example  when you migrate to nProbe but you need to keep running your legacy monitoring system, you need to collect flows and send them to <strong>multiple</strong> NetFlow collectors. nProbe provides a solution also for this thanks to the <strong>nfFanout</strong> companion tool. This application allows you to collect sFlow/NetFlow/IPFIX and send them to multiple collectors simultaneously.<br><br>Suppose you need to collect flows on port 2055 and send them to two collectors 192.168.0.1:1234 and 192.168.0.2:1234, all you need to do is to run the command below:</p>
+
+
+
+<pre class="wp-block-code"><code># nfFanout -c 2055 -a 192.168.0.1:1234 -a 192.168.0.2:1234</code></pre>
+
+
+
+<p class="wp-block-paragraph">And you can use nProbe to collect NetFlow on a remote location:</p>
+
+
+
+<pre class="wp-block-code"><code># nprobe -i none -n none --collector-port 2055 --zmq "tcp://*:5556"</code></pre>
+
+
+
+<h5 class="wp-block-heading">Monitoring multiple ntopng instances with the Infrastructure Dashboard</h5>
+
+
+
+<p class="wp-block-paragraph">One of the original motivations for hierarchical clusters was obtaining a centralized overview of multiple monitoring installations. Today, this requirement is fulfilled by the&nbsp;<strong><a href="https://www.ntop.org/introducing-the-new-infrastructure-dashboard-in-ntopng/">ntopng Infrastructure Dashboard</a></strong>.</p>
+
+
+
+<p class="wp-block-paragraph">The Infrastructure Dashboard allows administrators to monitor multiple ntopng instances from a single interface, providing an overall view of the monitoring infrastructure, including:</p>
+
+
+
+<ul class="wp-block-list">
+<li>monitored instances</li>
+
+
+
+<li>traffic volumes</li>
+
+
+
+<li>system health</li>
+
+
+
+<li>resource utilization</li>
+
+
+
+<li>operational status</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Rather than aggregating traffic data through a hierarchy, the dashboard aggregates operational information, giving administrators a clear picture of the entire monitoring deployment while allowing each ntopng instance to remain autonomous.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="2442" height="1964" src="https://www.ntop.org/wp-content/uploads/2026/08/infrastructure_dashboard.png" alt="Infrastructure dashboard" class="wp-image-46187"/></figure>
+
+
+
+<p class="wp-block-paragraph">This model is simpler and better aligned with modern distributed deployments.</p>
+
+
+
+<p class="wp-block-paragraph">Since hierarchical clustering is no longer the recommended architecture, keeping obsolete functionality in the codebase adds maintenance effort and complexity, and can create confusion for users evaluating deployment options, we have decided to remove the feature from ntopng.</p>
+
+
+
+<p class="wp-block-paragraph">The ntop ecosystem continues to evolve toward modular components that can be combined to build scalable monitoring infrastructures.</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p><p>The post <a href="https://www.ntop.org/saying-goodbye-to-hierarchical-clusters-in-ntopng/">Saying Goodbye to Hierarchical Clusters in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Supercharging ntopng: Engineering a Fast, Modern Network GUI</title>
+		<link>https://www.ntop.org/supercharging-ntopng-engineering-a-fast-modern-network-gui/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 29 Jul 2026 05:54:14 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46130</guid>
+
+					<description><![CDATA[<p>If you've opened ntopng recently, you may have noticed something feels a little different — a little faster. That's not your imagination. We've rebuilt the main menu, footer and top header, interfaces…</p>
+<p>The post <a href="https://www.ntop.org/supercharging-ntopng-engineering-a-fast-modern-network-gui/">Supercharging ntopng: Engineering a Fast, Modern Network GUI</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[		<div data-elementor-type="wp-post" data-elementor-id="46130" class="elementor elementor-46130">
+				<div class="elementor-element elementor-element-f359fdd e-flex e-con-boxed e-con e-parent" data-id="f359fdd" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-87a7f93 elementor-widget elementor-widget-text-editor" data-id="87a7f93" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<p>If you&#8217;ve opened ntopng recently, you may have noticed something feels a little different — a little faster. That&#8217;s not your imagination. We&#8217;ve rebuilt the main menu, footer and top header, interfaces selector and the preferences pages using <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js</a>, the first step in a broader effort to modernize ntopng&#8217;s entire interface.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-c560e3f e-flex e-con-boxed e-con e-parent" data-id="c560e3f" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-506d7a6 elementor-arrows-position-inside elementor-pagination-position-outside elementor-widget elementor-widget-image-carousel" data-id="506d7a6" data-element_type="widget" data-e-type="widget" data-settings="{&quot;navigation&quot;:&quot;both&quot;,&quot;autoplay&quot;:&quot;yes&quot;,&quot;pause_on_hover&quot;:&quot;yes&quot;,&quot;pause_on_interaction&quot;:&quot;yes&quot;,&quot;autoplay_speed&quot;:5000,&quot;infinite&quot;:&quot;yes&quot;,&quot;speed&quot;:500}" data-widget_type="image-carousel.default">
+							<div class="elementor-image-carousel-wrapper swiper" role="region" aria-roledescription="carousel" aria-label="Image Carousel" dir="ltr">
+			<div class="elementor-image-carousel swiper-wrapper" aria-live="off">
+								<div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="1 of 5"><a href="https://www.ntop.org/wp-content/uploads/2026/07/new_menu_dashboard.png"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="https://www.ntop.org/wp-content/uploads/2026/07/new_menu_dashboard.png" alt="New menu dashboard" /></figure></a></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="2 of 5"><a href="https://www.ntop.org/wp-content/uploads/2026/07/interfaces_dropdown.png"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="https://www.ntop.org/wp-content/uploads/2026/07/interfaces_dropdown.png" alt="interfaces_dropdown" /></figure></a></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="3 of 5"><a href="https://www.ntop.org/wp-content/uploads/2026/07/Preferences_page.png"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="https://www.ntop.org/wp-content/uploads/2026/07/Preferences_page.png" alt="Preferences_page" /></figure></a></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="4 of 5"><a href="https://www.ntop.org/wp-content/uploads/2026/07/menu_profile_card.png"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="https://www.ntop.org/wp-content/uploads/2026/07/menu_profile_card.png" alt="menu_profile_card" /></figure></a></div><div class="swiper-slide" role="group" aria-roledescription="slide" aria-label="5 of 5"><a href="https://www.ntop.org/wp-content/uploads/2026/07/new_menu_sidebar-1.png"><figure class="swiper-slide-inner"><img decoding="async" class="swiper-slide-image" src="https://www.ntop.org/wp-content/uploads/2026/07/new_menu_sidebar-1.png" alt="new_menu_sidebar" /></figure></a></div>			</div>
+												<div class="elementor-swiper-button elementor-swiper-button-prev" role="button" tabindex="0">
+						<svg aria-hidden="true" class="e-font-icon-svg e-eicon-chevron-left" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M646 125C629 125 613 133 604 142L308 442C296 454 292 471 292 487 292 504 296 521 308 533L604 854C617 867 629 875 646 875 663 875 679 871 692 858 704 846 713 829 713 812 713 796 708 779 692 767L438 487 692 225C700 217 708 204 708 187 708 171 704 154 692 142 675 129 663 125 646 125Z"></path></svg>					</div>
+					<div class="elementor-swiper-button elementor-swiper-button-next" role="button" tabindex="0">
+						<svg aria-hidden="true" class="e-font-icon-svg e-eicon-chevron-right" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 146C388 133 375 125 354 125 338 125 325 129 313 142 300 154 292 171 292 187 292 204 296 221 308 233L563 492 304 771C292 783 288 800 288 817 288 833 296 850 308 863 321 871 338 875 354 875 371 875 388 867 400 854L696 533Z"></path></svg>					</div>
+				
+									<div class="swiper-pagination"></div>
+									</div>
+						</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-f4700a0 e-flex e-con-boxed e-con e-parent" data-id="f4700a0" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-2000b05 elementor-widget elementor-widget-text-editor" data-id="2000b05" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h3 style="font-size: 22px; font-weight: 600; margin: 1.4em 0 0.5em;">What Changed</h3><p>The menu and preferences sections have historically been built on server-rendered HTML — reliable, but not built for speed. Every click meant a round trip to the server and a full page reload, even for something as simple as opening a settings panel.</p><p>With the move to Vue.js, both areas are now fully reactive. Menus expand, preferences update, and the interface responds instantly to your input, with no server round trip for every interaction. If you live in ntopng all day managing and troubleshooting networks, the difference is noticeable.</p><h3 style="font-size: 22px; font-weight: 600; margin: 1.4em 0 0.5em;">Why Vue.js</h3><p>Vue.js is built around reactivity: the interface updates automatically as the underlying data changes, without reloading or re-rendering the whole page. For a network monitoring tool like ntopng, where users are constantly switching between live traffic views, alerts, and configuration screens, that responsiveness matters.</p><p>Vue.js also gives us a component-based architecture that&#8217;s easier to maintain and extend. As we port more of ntopng&#8217;s interface, this foundation means new features and UI improvements can ship faster and with fewer regressions.</p><h3 style="font-size: 22px; font-weight: 600; margin: 1.4em 0 0.5em;">No More Full Page Reloads</h3><p>One of the more noticeable changes under the hood is Vue Router for client-side navigation. Previously, moving between menu sections meant a full HTML page refresh, even if only a small part of the screen actually needed to change.</p><p>With Vue Router, navigation happens entirely client-side. Moving between menu items and preference sections is now instant, no full-page reloads, no flash of a blank screen while the server responds. It&#8217;s a small detail on its own, but across dozens of clicks in a normal working session, it adds up to an interface that simply feels quicker.</p><h3 style="font-size: 22px; font-weight: 600; margin: 1.4em 0 0.5em;">This Is Just the Beginning</h3><p>The menu and preferences update is phase one of a larger initiative to port ntopng&#8217;s interface to Vue.js. We&#8217;re continuing this work across the rest of the application with the same goal: faster, more reactive, more consistent navigation throughout.</p><p>This builds directly on our earlier move from <a href="https://webpack.js.org/">Webpack</a> to <a href="https://vite.dev/">Vite</a>, which already cut the UI bundle size by roughly 8.7x and made page loads about twice as fast. If you missed it: <a href="https://www.ntop.org/ntopng-just-got-faster-heres-what-changed/">ntopng Just Got Faster — Here&#8217;s What Changed</a>. Together, the Vite build pipeline and the ongoing Vue.js migration are two halves of the same goal: a modern, fully reactive ntopng frontend.</p>								</div>
+					</div>
+				</div>
+		<div class="elementor-element elementor-element-4a638c9 e-grid e-con-full e-con e-child" data-id="4a638c9" data-element_type="container" data-e-type="container">
+				<div class="elementor-element elementor-element-1acc7ce9 elementor-widget elementor-widget-lte-button" data-id="1acc7ce9" data-element_type="widget" data-e-type="widget" data-widget_type="lte-button.default">
+				<div class="elementor-widget-container">
+					<div class="lte-btn-wrap">
+	<a href="https://shop.ntop.org"  target="_blank"  class="lte-btn btn-main color-hover-default lte-icon-style-default"><span class="lte-btn-inner"><span class="lte-btn-before"></span>Get a License<span class="lte-btn-after"></span></span></a></div>				</div>
+				</div>
+				<div class="elementor-element elementor-element-36a6004a elementor-widget elementor-widget-lte-button" data-id="36a6004a" data-element_type="widget" data-e-type="widget" data-widget_type="lte-button.default">
+				<div class="elementor-widget-container">
+					<div class="lte-btn-wrap">
+	<a href="https://www.ntop.org/support/documentation/software-installation/"  class="lte-btn color-hover-default lte-icon-style-default"><span class="lte-btn-inner"><span class="lte-btn-before"></span>Free ntopng Download<span class="lte-btn-after"></span></span></a></div>				</div>
+				</div>
+				<div class="elementor-element elementor-element-4eeabb29 elementor-widget elementor-widget-lte-button" data-id="4eeabb29" data-element_type="widget" data-e-type="widget" data-widget_type="lte-button.default">
+				<div class="elementor-widget-container">
+					<div class="lte-btn-wrap">
+	<a href="mailto:sales@ntop.org"  class="lte-btn color-hover-default lte-icon-style-default"><span class="lte-btn-inner"><span class="lte-btn-before"></span>Talk With An Expert<span class="lte-btn-after"></span></span></a></div>				</div>
+				</div>
+				</div>
+		<div class="elementor-element elementor-element-6f8d28e e-flex e-con-boxed e-con e-parent" data-id="6f8d28e" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-84dac9d elementor-widget elementor-widget-text-editor" data-id="84dac9d" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+									<h3 style="font-size: 22px; font-weight: 600; margin: 1.4em 0 0.5em;">Try It Out</h3>
+
+<p>The updated menu and preferences are available now in the latest ntopng release. If you haven&#8217;t upgraded recently, now&#8217;s a good time. As always, feedback and bug reports are welcome — let us know what you think.</p>
+
+<p>Enjoy monitoring your network!</p>								</div>
+					</div>
+				</div>
+				</div>
+		<p>The post <a href="https://www.ntop.org/supercharging-ntopng-engineering-a-fast-modern-network-gui/">Supercharging ntopng: Engineering a Fast, Modern Network GUI</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Who Is Eating My Bandwidth ?</title>
+		<link>https://www.ntop.org/who-is-eating-my-bandwidth/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sun, 26 Jul 2026 17:31:00 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46137</guid>
+
+					<description><![CDATA[<p>Every network administrator has, at some point, asked the same question: who is eating my bandwidth? On a typical corporate LAN connected via flat-rate fiber, the answer is mostly a curiosity —…</p>
+<p>The post <a href="https://www.ntop.org/who-is-eating-my-bandwidth/">Who Is Eating My Bandwidth ?</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p class="wp-block-paragraph">Every network administrator has, at some point, asked the same question: <em>who is eating my bandwidth?</em> On a typical corporate LAN connected via flat-rate fiber, the answer is mostly a curiosity — useful for capacity planning, less so for the monthly bill. But the moment your network relies on a metered link — a 4G/5G mobile uplink, a VSAT satellite backhaul, an MPLS circuit billed by volume, or a roaming SIM in an IoT fleet — the same question becomes a cost-control problem, and getting the wrong answer can be expensive.</p>
+<p class="wp-block-paragraph">The complication is that &#8220;bandwidth used&#8221; is not a single number. A host that transfers 10 GB to a colleague&#8217;s workstation on the same LAN segment has a very different cost profile than a host that transfers 10 GB to a cloud endpoint over a pay-per-GB satellite link. Traditional top-talkers views lump the two together, which is exactly backwards for anyone trying to control WAN spend: it&#8217;s not <em>how much traffic</em> a host generates that matters, it&#8217;s <em>how much of that traffic left the building</em>.</p>
+<h5 class="wp-block-heading">Local vs. Non-Local: A Distinction That Matters</h5>
+<p class="wp-block-paragraph">To address this, we&#8217;ve enhanced ntopng to classify, on a per-host basis, the traffic exchanged over time into two categories:</p>
+<ul class="wp-block-list">
+<li>Local traffic: traffic exchanged with other hosts belonging to the same local network(s), as defined by ntopng&#8217;s local network configuration. This traffic stays on-premises — switched or routed internally — and never touches a WAN uplink.</li>
+<li>Non-local traffic: traffic exchanged with hosts outside the local network(s). This is the traffic that actually crosses the WAN edge: the mobile modem, the satellite terminal, the metered circuit, or any other link where every megabyte has a cost attached.</li>
+</ul>
+<p class="wp-block-paragraph">This is a subtly different question than the usual &#8220;internal vs. external IP&#8221; split you&#8217;d get from a firewall log. ntopng already knows which subnets are &#8220;local&#8221; from its network configuration (the same concept used throughout the interface to distinguish local from remote hosts), so the classification is consistent with everything else you already see in host details, flows, and alerts. What&#8217;s new is that we now track and persist this breakdown over time, per host, rather than only exposing it as an instantaneous flow attribute.</p>
+<h5 class="wp-block-heading">Why This Matters in Practice</h5>
+<p class="wp-block-paragraph">Consider a few real-world scenarios where this distinction is the difference between a five-minute investigation and a five-figure invoice surprise:</p>
+<ul class="wp-block-list">
+<li><strong>Mobile/cellular gateways</strong>: An IoT deployment where edge devices talk to each other over a local mesh but occasionally phone home to a cloud dashboard over a metered SIM. Aggregate bandwidth looks fine; non-local bandwidth tells you which device is silently uploading logs it shouldn&#8217;t.</li>
+<li><strong>Satellite links (VSAT)</strong>: Maritime, aviation, or remote-site connectivity where the WAN hop costs orders of magnitude more per byte than the LAN. A single misconfigured backup job or software update pulling updates over satellite instead of caching locally can dominate the monthly bill — and it&#8217;s invisible in a generic top-talkers chart.</li>
+<li><strong>Multi-site MPLS/SD-WAN with metered backhaul</strong>: Branch offices where intra-site chatter (file shares, local backups, VoIP) is free, but the WAN circuit back to HQ or to the internet is billed by volume.</li>
+<li><strong>Cost attribution and chargeback</strong>: When bandwidth costs need to be attributed to specific departments, tenants, or devices, &#8220;local&#8221; traffic is effectively free and should be excluded from the calculation entirely.</li>
+</ul>
+<p class="wp-block-paragraph">In all of these cases, the actionable metric isn&#8217;t total throughput — it&#8217;s WAN throughput, per host, sustained over time.</p>
+<h5 class="wp-block-heading">What&#8217;s New in ntopng</h5>
+<p class="wp-block-paragraph">To make this visible and actionable, we&#8217;ve added a dedicated page name Historical that lets you inspect, for any hlocal ost (or across all hosts), how local and non-local traffic volumes have evolved over time. </p>
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="2566" height="1334" src="https://www.ntop.org/wp-content/uploads/2026/07/Screenshot-2026-07-27-at-21.56.41.png" alt="Who Is Eating My Bandwidth ?, figure 1" class="wp-image-46145"/></figure>
+<p class="wp-block-paragraph">Concretely, the page provides:</p>
+<ul class="wp-block-list">
+<li><strong>Time-series breakdown</strong> of local vs. non-local bytes (and packets) per host, so you can see not just <em>who</em> used the most WAN bandwidth, but <em>when</em> — a burst at 3 a.m. is a different story from steady daytime usage.</li>
+<li><strong>A ranked &#8220;top non-local users&#8221; view</strong>, which is really the metric that matters when the WAN link is pay-per-use: sorting by total bytes hides the hosts that are cheap-but-chatty locally and expensive-but-quiet on the WAN side.</li>
+<li><strong>Historical persistence</strong>, so the data survives beyond the retention window of raw flows, making it usable for monthly billing reconciliation, capacity trending, and anomaly detection rather than just live troubleshooting.</li>
+<li><strong>Per-(local)host drill-down</strong>, consistent with the rest of ntopng&#8217;s host details pages, so once you&#8217;ve identified a heavy non-local consumer you can immediately pivot to its flows, application breakdown (via nDPI), and remote peers to understand <em>why</em>.</li>
+</ul>
+<p class="wp-block-paragraph">Under the hood, the classification leverages the same local-network definition ntopng already uses elsewhere, so no additional configuration is required beyond having your local subnets correctly defined — something most deployments already have in place. The counters are accumulated incrementally as flows are processed, keeping the overhead low even on high-throughput monitoring points.</p>
+<p class="wp-block-paragraph">In every host you can see the local non/local traffic breakdown </p>
+<figure class="wp-block-image size-full is-resized"><img loading="lazy" decoding="async" width="1972" height="862" src="https://www.ntop.org/wp-content/uploads/2026/07/host.png" alt="Host" class="wp-image-46140" style="width:789px;height:auto"/></figure>
+<p class="wp-block-paragraph">and you can see how local vs non-local changed over-time for every local host.</p>
+<figure class="wp-block-image size-full is-resized"><img loading="lazy" decoding="async" width="2442" height="1358" src="https://www.ntop.org/wp-content/uploads/2026/07/Screenshot-2026-07-26-at-16.46.39.png" alt="Who Is Eating My Bandwidth ?, figure 3" class="wp-image-46139" style="width:796px;height:auto"/></figure>
+<p class="wp-block-paragraph">
+<h5 class="wp-block-heading">Beyond Cost Control</h5>
+<p class="wp-block-paragraph">While metered-link cost control is the primary motivation, the local/non-local split has secondary benefits worth calling out:</p>
+<ul class="wp-block-list">
+<li><strong>Security visibility</strong>: a host that suddenly starts generating substantial non-local traffic — especially outbound — can be an early indicator of data exfiltration, a compromised device beaconing out, or unauthorized cloud sync tools bypassing local policy.</li>
+<li><strong>Architecture validation</strong>: it&#8217;s an easy way to verify that services which are <em>supposed</em> to communicate locally (e.g., a local cache, a local backup target) are actually doing so, rather than silently routing through the WAN due to misconfiguration.</li>
+<li><strong>Capacity planning for WAN upgrades</strong>: trending non-local traffic per host or per site over weeks or months gives a much more honest input for WAN sizing decisions than raw total traffic.</li>
+</ul>
+<h5 class="wp-block-heading">Wrapping Up</h5>
+<p class="wp-block-paragraph">&#8220;Who are the top network users?&#8221; is a question every network team needs to answer — but on networks where WAN capacity has a price tag, the more useful question is &#8220;who are the top <em>WAN</em> users?&#8221; By separating local from non-local traffic at the host level and tracking it over time, ntopng gives you a direct answer, without needing to reverse-engineer it from raw flow exports or NetFlow records after the fact.</p>
+<p class="wp-block-paragraph">We&#8217;ll be following up with more detail on the underlying local-network classification logic and on how this integrates with alerting for sudden non-local traffic spikes. In the meantime, if you&#8217;re running ntopng on a link where every byte has a cost, this new page is worth a look.</p>
+<p>Enjoy !</p>
+<p class="wp-block-paragraph">
+<p class="wp-block-paragraph">
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/who-is-eating-my-bandwidth/">Who Is Eating My Bandwidth ?</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Discussing of LLM and Intelligent Monitoring at GRNOG 20</title>
+		<link>https://www.ntop.org/discussing-of-llm-and-intelligent-monitoring-at-grnog-20/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 03 Jul 2026 14:56:59 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45796</guid>
+
+					<description><![CDATA[<p>Earlier this week ntop attended the GRNOG 20, the annual meeting of Greek Network Operators. This has been a great place to discuss about network visibility in large networks, understand what are…</p>
+<p>The post <a href="https://www.ntop.org/discussing-of-llm-and-intelligent-monitoring-at-grnog-20/">Discussing of LLM and Intelligent Monitoring at GRNOG 20</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">Earlier this week ntop attended the <a href="https://grnog.gr">GRNOG</a> 20, the annual meeting of Greek Network Operators. This has been a great place to discuss about network visibility in large networks, understand what are the problems network operators face with, and see what ntop can do in terms of visibility. ntop has been traditionally a company based on opens open source, and this has been the location where we have demonstrated how ntopng has been enhanced with BGP (Border Gateway Protocol), ASN and infrastructure visibility. </p>
+
+
+
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped wp-block-gallery-1 is-layout-flex wp-block-gallery-is-layout-flex">
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="960" height="1280" data-id="45798" src="https://www.ntop.org/wp-content/uploads/2026/07/HMLBgxeXYAAJBsZ.jpeg" alt="HMLBgxeXYAAJBsZ" class="wp-image-45798"/></figure>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="3072" height="4096" data-id="45797" src="https://www.ntop.org/wp-content/uploads/2026/07/17422-IMG20260630131351.jpg" alt="Discussing of LLM and Intelligent Monitoring at GRNOG 20, figure 2" class="wp-image-45797"/><figcaption class="wp-element-caption">oplus_262176</figcaption></figure>
+</figure>
+
+
+
+<p class="wp-block-paragraph">One of the main topics of the talk (<a href="https://grnog.indico.nogalliance.org/event/13/contributions/184/attachments/122/204/The%20Future%20of%20Network%20Visibility_%20LLM%20and%20Intelligent%20Monitoring.pdf">here you can find the presentation slides</a>) has been how AI can be merged with network visibility, to view what traditional dashboard or alerts cannot show. This is the idea behind our <a href="https://www.ntop.org/previewing-nanalyst-the-layer-that-finally-explains-your-network/" data-type="post" data-id="45766">nAnalyst</a> tool that we have previewed weeks ago. If you re interested to deploy it while we finalize it, and willing to send us a feedback, please <a href="https://www.ntop.org/support/need-help/contacts/" data-type="page" data-id="45204">contact us</a> and we&#8217;ll be in touch with you.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+<p>The post <a href="https://www.ntop.org/discussing-of-llm-and-intelligent-monitoring-at-grnog-20/">Discussing of LLM and Intelligent Monitoring at GRNOG 20</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

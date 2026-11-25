@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/lua_c/flow_checks/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:33 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4. Flow Checks &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="5. Interface Checks" href="../interface_checks/index.html" />
+    <link rel="prev" title="3. Host Checks" href="../host_checks/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index-2.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../rest/index.html">RESTful API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Lua API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ntop/index.html">1. ntop Lua Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interface/index.html">2. interface Lua Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../host_checks/index.html">3. Host Checks</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4. Flow Checks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#script-format">4.1. Script Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flow-filters">4.2. Flow Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alerts">4.3. Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#helpers">4.4. Helpers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flow-object-methods">4.5. Flow Object Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../interface_checks/index.html">5. Interface Checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../network_checks/index.html">6. Network Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../python/index.html">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../timeseries/index.html">Timeseries API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../alerts/index.html">Alerts API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../recording/index.html">Recording API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index-2.html">API Documentation</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Lua API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4. </span>Flow Checks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/api/lua_c/flow_checks/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="flow-checks">
+<span id="apiflowchecks-target"></span><h1><span class="section-number">4. </span>Flow Checks<a class="headerlink" href="#flow-checks" title="Link to this heading"></a></h1>
+<p>Flow checks are written in C++ for efficiency reasons. However ntopng also lets you write your own flow
+checks in Lua, for instance to detect anomalies in OT protocols (Modbus function codes used too often,
+proprietary protocols carrying values out of range) without changing ntopng.</p>
+<p>To use them:</p>
+<ol class="arabic simple">
+<li><p>Enable the <cite>Flow User Check Script</cite> behavioural check (<cite>Settings</cite> &gt; <cite>Behavioural Checks</cite> &gt; <cite>Flows</cite>).</p></li>
+<li><p>Put your scripts, one detection per file, in <cite>/etc/ntopng/custom_checks/flows/</cite> (any name ending in <cite>.lua</cite>).</p></li>
+<li><p>Restart ntopng, or save the behavioural checks configuration: the scripts are loaded again.</p></li>
+</ol>
+<figure class="align-default">
+<img alt="../../../_images/flow_user_check_script.png" src="../../../_images/flow_user_check_script.png" />
+</figure>
+<p>The ntopng log reports every script loaded (<cite>Loaded custom flow script &lt;file&gt; [title: &lt;title&gt;] on &lt;interface&gt;</cite>)
+and the scripts discarded, with the reason (e.g. an unknown key or an invalid IP address). A script that fails
+while running is reported once, and the other scripts keep working.</p>
+<p>Two complete examples are installed in <cite>scripts/callbacks/checks/flows/examples/</cite> (<cite>modbus_function_code_rate.lua</cite>
+and <cite>proprietary_protocol_range.lua</cite>): copy them to <cite>/etc/ntopng/custom_checks/flows/</cite> and adapt them.</p>
+<section id="script-format">
+<h2><span class="section-number">4.1. </span>Script Format<a class="headerlink" href="#script-format" title="Link to this heading"></a></h2>
+<p>A script returns a table:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">return</span> <span class="p">{</span>
+  <span class="n">title</span>  <span class="o">=</span> <span class="s2">&quot;Modbus custom function code rate&quot;</span><span class="p">,</span> <span class="c1">-- optional, default: the file name</span>
+  <span class="n">score</span>  <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>                                <span class="c1">-- optional, default 50: score of its alerts (1-255)</span>
+  <span class="n">hooks</span>  <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;periodic&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span> <span class="p">},</span>              <span class="c1">-- optional, default: all</span>
+  <span class="n">filter</span> <span class="o">=</span> <span class="p">{</span> <span class="n">l7_proto</span> <span class="o">=</span> <span class="s2">&quot;Modbus&quot;</span><span class="p">,</span> <span class="n">ip</span> <span class="o">=</span> <span class="s2">&quot;10.10.0.0/16&quot;</span> <span class="p">},</span> <span class="c1">-- optional, default: every flow</span>
+  <span class="n">exclude</span> <span class="o">=</span> <span class="p">{</span> <span class="n">srv_port</span> <span class="o">=</span> <span class="mi">8080</span> <span class="p">},</span>               <span class="c1">-- optional: flows to skip</span>
+
+  <span class="n">check</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">flow</span><span class="p">)</span>
+    <span class="kr">if</span> <span class="n">flow</span><span class="p">.</span><span class="n">srv_port</span><span class="p">()</span> <span class="o">==</span> <span class="mi">502</span> <span class="ow">and</span> <span class="n">flow</span><span class="p">.</span><span class="n">bytes</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1000000</span> <span class="kr">then</span>
+      <span class="n">flow</span><span class="p">.</span><span class="n">triggerAlert</span><span class="p">(</span><span class="s2">&quot;Too much Modbus traffic to &quot;</span> <span class="o">..</span> <span class="n">flow</span><span class="p">.</span><span class="n">srv</span><span class="p">())</span>
+    <span class="kr">end</span>
+  <span class="kr">end</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><cite>check</cite> (required) is called for every flow that matches the filter, in the selected hooks.</p></li>
+<li><p><cite>hooks</cite>: <cite>detected</cite> (when nDPI detects the application protocol), <cite>periodic</cite> (periodically while the flow is
+active), <cite>end</cite> (when the flow ends).</p></li>
+<li><p>Each script runs in its own Lua interpreter, kept for the whole ntopng run (one per interface): local variables
+of the script keep their value between flows and between hooks.</p></li>
+</ul>
+</section>
+<section id="flow-filters">
+<h2><span class="section-number">4.2. </span>Flow Filters<a class="headerlink" href="#flow-filters" title="Link to this heading"></a></h2>
+<p><cite>filter</cite> selects the flows the script receives; <cite>exclude</cite> (same fields) skips flows. The filters are evaluated
+by ntopng before calling the script, so a script with a narrow filter costs nothing on the other flows.</p>
+<ul class="simple">
+<li><p><cite>cli_ip</cite>, <cite>srv_ip</cite>: client or server IP address or network (CIDR), IPv4 or IPv6</p></li>
+<li><p><cite>ip</cite>: client or server (either side)</p></li>
+<li><p><cite>cli_port</cite>, <cite>srv_port</cite>: client or server port</p></li>
+<li><p><cite>port</cite>: client or server port (either side)</p></li>
+<li><p><cite>l4_proto</cite>: name (<cite>TCP</cite>, <cite>UDP</cite>, <cite>ICMP</cite>, <cite>ICMPv6</cite>, <cite>GRE</cite>, <cite>ESP</cite>, <cite>SCTP</cite>, <cite>IGMP</cite>) or number</p></li>
+<li><p><cite>l7_proto</cite>: nDPI protocol name (e.g. <cite>Modbus</cite>, <cite>DNS</cite>, <cite>TLS</cite>) or number, matched on both the application and the
+master protocol</p></li>
+</ul>
+<p>Each field accepts a value or a list. Different fields must all match; a list matches when any of its values does.
+For instance <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">ip</span> <span class="pre">=</span> <span class="pre">{</span> <span class="pre">&quot;10.0.0.0/8&quot;,</span> <span class="pre">&quot;192.168.1.5&quot;</span> <span class="pre">},</span> <span class="pre">port</span> <span class="pre">=</span> <span class="pre">{</span> <span class="pre">502,</span> <span class="pre">20000</span> <span class="pre">}</span> <span class="pre">}</span></code> selects the flows with
+either side in 10.0.0.0/8 or equal to 192.168.1.5, on port 502 or 20000.</p>
+</section>
+<section id="alerts">
+<h2><span class="section-number">4.3. </span>Alerts<a class="headerlink" href="#alerts" title="Link to this heading"></a></h2>
+<p><cite>flow.triggerAlert(message)</cite> (or <cite>flow.triggerAlert(score, message)</cite>) triggers a <cite>Custom Script</cite> alert on the flow,
+with the title of the script. When several scripts trigger on the same flow, the flow has a single alert with all
+their titles and messages, and the highest score.</p>
+<p>In the Alerts Explorer (<cite>Flow</cite> tab) the <cite>Custom Script</cite> filter selects the alerts by script title: <cite>=</cite> for the
+exact title, <cite>contains</cite> for part of it. Prefer titles made of letters, numbers and spaces: quotes and <cite>&lt;</cite>, <cite>&gt;</cite>
+cannot be used in the filter.</p>
+</section>
+<section id="helpers">
+<h2><span class="section-number">4.4. </span>Helpers<a class="headerlink" href="#helpers" title="Link to this heading"></a></h2>
+<ul>
+<li><div class="line-block">
+<div class="line"><strong>counter.inc(key, window_secs [, n])</strong></div>
+<div class="line">Adds <cite>n</cite> (default 1) to the counter <cite>key</cite> in a window of <cite>window_secs</cite> seconds (default 60) and returns the
+count of the window; a new window starts when it expires. Use it for “too many times per minute” checks,
+e.g. <code class="docutils literal notranslate"><span class="pre">counter.inc(flow.srv()</span> <span class="pre">..</span> <span class="pre">&quot;/65&quot;,</span> <span class="pre">60)</span> <span class="pre">&gt;</span> <span class="pre">100</span></code>.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>counter.get(key)</strong></div>
+<div class="line">The count of the current window of <cite>key</cite>, 0 when expired.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>counter.reset(key)</strong></div>
+<div class="line">Clears the counter <cite>key</cite>.</div>
+</div>
+</li>
+</ul>
+</section>
+<section id="flow-object-methods">
+<h2><span class="section-number">4.5. </span>Flow Object Methods<a class="headerlink" href="#flow-object-methods" title="Link to this heading"></a></h2>
+<ul>
+<li><div class="line-block">
+<div class="line"><strong>flow.cli()</strong></div>
+<div class="line">Read the flow client IP (string)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.cli_port()</strong></div>
+<div class="line">Read the flow client port (number)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.srv()</strong></div>
+<div class="line">Read the flow server IP (string)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.srv_port()</strong></div>
+<div class="line">Read the flow server port (number)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.protocol()</strong></div>
+<div class="line">Read the flow layer 4 protocol (number)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.vlan_id()</strong></div>
+<div class="line">Read the flow VLAN Id (number)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.is_oneway()</strong></div>
+<div class="line">Check if the flow is unidirectional, meaning that there is no traffic from server to client (boolean)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.is_unicast()</strong></div>
+<div class="line">Check if the flow has unicast peers (boolean)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.cli2srv_bytes()</strong></div>
+<div class="line">Read the flow bytes from client to server (number)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.srv2cli_bytes()</strong></div>
+<div class="line">Read the flow bytes from server to client (number)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.bytes()</strong></div>
+<div class="line">Read the total (sent + received) flow bytes (number)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.l7_master_proto()</strong></div>
+<div class="line">Read the flow nDPI master protocol (number)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.l7_proto()</strong></div>
+<div class="line">Read the flow nDPI application protocol (number)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.l7_proto_name()</strong></div>
+<div class="line">Read the flow nDPI protocol name (string)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.direction()</strong></div>
+<div class="line">Read the flow (e.g. local2remote) direction (string)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.http()</strong></div>
+<div class="line">For HTTP flows, it reports protocol information (e.g. HTTP URL or return code) or nil otherwise (table)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.dns()</strong></div>
+<div class="line">For DNS flows, it reports protocol information (e.g. domain name) or nil otherwise (table)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.ssh()</strong></div>
+<div class="line">For SSH flows, it reports protocol information (e.g. SSH client signatute) or nil otherwise (table)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.tls_quic()</strong></div>
+<div class="line">For TLS/QUIC flows, it reports protocol information (e.g. TLS ciphers or SNI) or nil otherwise (table)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.json_info()</strong></div>
+<div class="line">The additional fields sent with the flow by the probe (e.g. the fields extracted by nProbe plugins), as a table; an empty table when there are none (table)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.ot()</strong></div>
+<div class="line">The OT protocols dissected by ntopng for the flow: <code class="docutils literal notranslate"><span class="pre">modbus</span></code>, <code class="docutils literal notranslate"><span class="pre">s7comm</span></code>, <code class="docutils literal notranslate"><span class="pre">profinet</span></code>, <code class="docutils literal notranslate"><span class="pre">iec104</span></code>, each with e.g. <code class="docutils literal notranslate"><span class="pre">function_codes</span></code> (calls per function code since the flow start), <code class="docutils literal notranslate"><span class="pre">function_codes_transitions</span></code>, <code class="docutils literal notranslate"><span class="pre">registers</span></code> (Modbus) and <code class="docutils literal notranslate"><span class="pre">num_exceptions</span></code>; an empty table for other flows (table)</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>flow.triggerAlert([score,] message)</strong></div>
+<div class="line">Triggers an alert for the selected flow. The message (string) is a human-readable description of the issue; the optional score (number, up to 255) overrides the score of the script.</div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../host_checks/index.html" class="btn btn-neutral float-left" title="3. Host Checks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../interface_checks/index.html" class="btn btn-neutral float-right" title="5. Interface Checks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/lua_c/flow_checks/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:35 GMT -->
+</html>

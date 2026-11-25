@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/get_started/git_installation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:49 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. Installing from GIT &mdash; PF_RING 9.5.0-4814 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options7c40.js?v=840a9ff6"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Vanilla PF_RING" href="../vanilla.html" />
+    <link rel="prev" title="1. Installing from packages" href="packages_installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            PF_RING
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/pf_ring/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Get Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="packages_installation.html">1. Installing from packages</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. Installing from GIT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-module-installation">2.1. Kernel Module Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-pf-ring">2.2. Running PF_RING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#drivers">2.3. Drivers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libpfring-and-libpcap-installation">2.4. Libpfring and Libpcap Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#application-examples">2.5. Application Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pf-ring-additional-modules">2.6. PF_RING Additional Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../vanilla.html">Vanilla PF_RING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../zc.html">PF_RING ZC (Zero Copy)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ft.html">PF_RING FT (Flow Table)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Sample Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/index.html">Drivers and Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rss.html">Load Balancing / RSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filtering/index.html">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../containers/index.html">Containers Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vm/index.html">VM Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thirdparty/index.html">IDS/IPSs Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hugepages.html">Hugepages Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amd.html">AMD Processors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intel.html">Intel Processors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug.html">Crash Debug</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">PF_RING</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Get Started</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>Installing from GIT</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/get_started/git_installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installing-from-git">
+<h1><span class="section-number">2. </span>Installing from GIT<a class="headerlink" href="#installing-from-git" title="Link to this heading"></a></h1>
+<p>PF_RING can be downloaded in source format from GIT at <a class="reference external" href="https://github.com/ntop/PF_RING/">https://github.com/ntop/PF_RING/</a>
+or installed from packages using our repositories at <a class="reference external" href="http://packages.ntop.org/">http://packages.ntop.org</a> as described in the
+<a class="reference external" href="packages_installation.html">Installing From Packages</a>
+section. In this chapter we cover the installation from source code.</p>
+<p>Clone our repository to download the PF_RING source code:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/ntop/PF_RING.git</span>
+</pre></div>
+</div>
+<p>The PF_RING source code includes:</p>
+<ul class="simple">
+<li><p>The user-space SDK.</p></li>
+<li><p>An enhanced version of libpcap that transparently takes advantage of PF_RING.</p></li>
+<li><p>The PF_RING kernel module.</p></li>
+<li><p>PF_RING ZC drivers.</p></li>
+</ul>
+<section id="kernel-module-installation">
+<h2><span class="section-number">2.1. </span>Kernel Module Installation<a class="headerlink" href="#kernel-module-installation" title="Link to this heading"></a></h2>
+<p>In order to compile the PF_RING kernel module you need to have the linux kernel headers
+(or kernel source) installed.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd PF_RING/kernel</span>
+<span class="go">make</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</section>
+<section id="running-pf-ring">
+<h2><span class="section-number">2.2. </span>Running PF_RING<a class="headerlink" href="#running-pf-ring" title="Link to this heading"></a></h2>
+<p>Before using any PF_RING application, the pf_ring kernel module should be loaded:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd PF_RING/kernel</span>
+<span class="go">sudo insmod ./pf_ring.ko [min_num_slots=N] [enable_tx_capture=1|0] [ enable_ip_defrag=1|0]</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<dl class="simple">
+<dt>min_num_slots</dt><dd><p>Minimum number of packets the kernel module should be able to enqueue (default – 4096).</p>
+</dd>
+<dt>enable_tx_capture</dt><dd><p>Set to 1 to capture outgoing packets, set to 0 to disable capture outgoing packets (default – RX+TX).</p>
+</dd>
+<dt>enable_ip_defrag</dt><dd><p>Set to 1 to enable IP defragmentation, only RX traffic is defragmented (default – disabled)</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd PF_RING/kernel</span>
+<span class="go">sudo insmod pf_ring.ko min_num_slots=65536 enable_tx_capture=0</span>
+</pre></div>
+</div>
+</section>
+<section id="drivers">
+<h2><span class="section-number">2.3. </span>Drivers<a class="headerlink" href="#drivers" title="Link to this heading"></a></h2>
+<p>If you want to achieve line-rate packet capture at 10 Gigabit and above on Intel adapters,
+you should use <a class="reference external" href="../zc.html">ZC drivers</a>. You can check
+the driver family using ethtool:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ethtool -i eth1 | grep driver</span>
+<span class="go">driver: ixgbe</span>
+</pre></div>
+</div>
+<p>and load the corresponding driver using the <em>load_driver.sh</em> script in the driver folder:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd PF_RING/drivers/intel</span>
+<span class="go">./configure &amp;&amp; make</span>
+<span class="go">cd ixgbe/ixgbe-*-zc/src</span>
+<span class="go">sudo ./load_driver.sh</span>
+</pre></div>
+</div>
+</section>
+<section id="libpfring-and-libpcap-installation">
+<h2><span class="section-number">2.4. </span>Libpfring and Libpcap Installation<a class="headerlink" href="#libpfring-and-libpcap-installation" title="Link to this heading"></a></h2>
+<p>Both libpfring (userspace PF_RING library) and libpcap are distributed in source format.
+They can be compiled and installed as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd PF_RING/userland/lib</span>
+<span class="go">./configure &amp;&amp; make</span>
+<span class="go">sudo make install</span>
+<span class="go">cd ../libpcap</span>
+<span class="go">./configure &amp;&amp; make</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+<p>Note that legacy statically-linked pcap-based applications need to be recompiled against
+the new PF_RING-enabled libpcap.a in order to take advantage of PF_RING. Do not expect to
+use PF_RING without recompiling your existing application in this case.</p>
+</section>
+<section id="application-examples">
+<h2><span class="section-number">2.5. </span>Application Examples<a class="headerlink" href="#application-examples" title="Link to this heading"></a></h2>
+<p>If you are new to PF_RING, you can start with some examples. The userland/examples folder
+is rich of ready-to-use PF_RING applications:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd PF_RING/userland/examples</span>
+<span class="go">make</span>
+</pre></div>
+</div>
+<p>For instance, pfcount allows you to receive packets printing some statistics:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./pfcount -i zc:eth1</span>
+<span class="go">...</span>
+<span class="go">=========================</span>
+<span class="go">Absolute Stats: [64415543 pkts rcvd][0 pkts dropped]</span>
+<span class="go">Total Pkts=64415543/Dropped=0.0 %</span>
+<span class="go">64&#39;415&#39;543 pkts - 5&#39;410&#39;905&#39;612 bytes [4&#39;293&#39;748.94 pkt/sec - 2&#39;885.39 Mbit/sec]</span>
+<span class="go">=========================</span>
+<span class="go">Actual Stats: 14214472 pkts [1&#39;000.03 ms][14&#39;214&#39;017.15 pps/9.55 Gbps]</span>
+<span class="go">=========================</span>
+</pre></div>
+</div>
+<p>Another example is pfsend, which allows you to send packets (synthetic packets,
+or optionally a <em>pcap</em> file) at an arbitrary rate:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ./pfsend -f 64byte_packets.pcap -n 0 -i zc:eth1 -r 5</span>
+<span class="go">...</span>
+<span class="go">TX rate: [current 7&#39;508&#39;239.00 pps/5.05 Gbps][average 7&#39;508&#39;239.00 pps/5.05 Gbps][total 7&#39;508&#39;239.00 pkts]</span>
+</pre></div>
+</div>
+</section>
+<section id="pf-ring-additional-modules">
+<h2><span class="section-number">2.6. </span>PF_RING Additional Modules<a class="headerlink" href="#pf-ring-additional-modules" title="Link to this heading"></a></h2>
+<p>The PF_RING library has a modular architecture, making it possible to use additional
+capture modules other than the standard PF_RING kernel module. These components are
+enabled at runtime based on the actual adapter being used. PF_RING modules currently
+include support for Fiberblaze, Napatech, and others, please also read the
+<a class="reference external" href="../modules/index.html">Drivers and Modules</a>
+section.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="packages_installation.html" class="btn btn-neutral float-left" title="1. Installing from packages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../vanilla.html" class="btn btn-neutral float-right" title="Vanilla PF_RING" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/pf_ring/get_started/git_installation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:23:50 GMT -->
+</html>

@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/remediations/ndpi_flow_risks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:01 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remediations for nDPI Risks &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Remediations for ntopng Flow Risks" href="ntopng_flow_risks.html" />
+    <link rel="prev" title="Remediations" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">User Interface Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../network_interface/index.html">Network Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html#alerts">Alerts</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../alerts_explorer.html">Alerts Explorer</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../issues.html">Issues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../others/alerts_graph.html">Alerts Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../alerts_type/engaged_alerts.html">Engaged Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../alerts_type/past_alerts.html">Past Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../alerts_type/flow_alerts.html">Flow Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../others/alerts_filters.html">Alerts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../others/custom_queries.html">Custom Queries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../others/mitre_classification.html">Mitre Classification</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="index.html">Remediations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../available_endpoints.html">Notifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#developer">Developer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../index.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">User Interface Guide</a></li>
+          <li class="breadcrumb-item"><a href="../alerts_explorer.html">Alerts Explorer</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Remediations</a></li>
+      <li class="breadcrumb-item active">Remediations for nDPI Risks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/user_interface/shared/alerts/remediations/ndpi_flow_risks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="remediations-for-ndpi-risks">
+<h1>Remediations for nDPI Risks<a class="headerlink" href="#remediations-for-ndpi-risks" title="Link to this heading"></a></h1>
+<section id="possible-xss">
+<span id="risk-001"></span><h2>POSSIBLE XSS<a class="headerlink" href="#possible-xss" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A URL pattern suggesting a potential Cross-Site Scripting (XSS) vulnerability.</p></li>
+<li><p><strong>Possible attacks</strong>: he detection of this risk indicates that malicious JavaScript code could be embedded within a URL, posing a threat to users’ security and integrity when they access the affected resource.</p></li>
+<li><p><strong>Remediation</strong>: Upon detection, it is recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Validate all user inputs for possible XSS vulnerabilities, especially URL parameters.</p></li>
+<li><p>Sanitize any user-supplied data before rendering it in HTML or JavaScript contexts.</p></li>
+<li><p>Ensure that your application’s security policies and frameworks are up-to-date to protect against known XSS attack vectors.</p></li>
+<li><p>Monitor the network for other signs of compromise related to potential XSS attacks, such as unusual traffic patterns or user behavior changes.</p></li>
+<li><p>Educate users about the risks of clicking untrusted links and the importance of security best practices.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="possible-sql-injection">
+<span id="risk-002"></span><h2>POSSIBLE SQL INJECTION<a class="headerlink" href="#possible-sql-injection" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of a URL pattern that potentially contains SQL injection vulnerabilities in the monitored network’s web traffic.</p></li>
+<li><p><strong>Possible attacks</strong>: The presence of this risk indicates an attempt to inject malicious SQL commands into a database by manipulating input parameters via the URL, which could result in unauthorized access or data modification.</p></li>
+<li><p><strong>Remediation</strong>: Upon detection of this risk, it is recommended to perform the following actions:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Block further requests containing the suspicious URL pattern to prevent potential exploitation.</p></li>
+<li><p>Investigate the source and destination of the traffic, as well as any associated user accounts or systems.</p></li>
+<li><p>Implement input validation on all web-based forms that accept user inputs to help prevent SQL injection attacks.</p></li>
+<li><p>Ensure that web applications are up-to-date with the latest security patches to minimize known vulnerabilities.</p></li>
+<li><p>Regularly audit and monitor for changes in traffic patterns or suspicious activity related to this risk.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="possible-remote-code-injection">
+<span id="risk-003"></span><h2>POSSIBLE REMOTE CODE INJECTION<a class="headerlink" href="#possible-remote-code-injection" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of a potential Remote Code Execution (RCE) injection in the URL field within network packets.</p></li>
+<li><p><strong>Possible attacks</strong>: This risk signals that an attacker might be attempting to exploit a vulnerability in the system, injecting malicious code into the network through a crafted URL. If successful, this could lead to unauthorized command execution and potential data breaches or network disruptions.</p></li>
+<li><p><strong>Remediation</strong>: Upon detection of NDPI_URL_POSSIBLE_RCE_INJECTION, immediately block the suspicious traffic and investigate its origin. Review web application firewall rules, update software patches to address known vulnerabilities, and implement strict URL input validation to prevent similar incidents in the future. Regular security audits should be conducted to ensure network security measures are up#.to#.date and effective.</p></li>
+</ol>
+</section>
+<section id="binary-application-transfer">
+<span id="risk-004"></span><h2>BINARY APPLICATION TRANSFER<a class="headerlink" href="#binary-application-transfer" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Transfer of binary application data without proper protocol encapsulation.</p></li>
+<li><p><strong>Possible attacks</strong>: This detection can indicate unsecured file transfers or unknown applications using custom protocols, which may be susceptible to data interception, manipulation, or malware infections.</p></li>
+<li><p><strong>Remediation</strong>: Implement secure communication channels for binary application transfers using industry#.standard protocols such as HTTPS, SFTP, or SCP. Additionally, investigate any unknown applications or custom protocols and assess their potential risks before allowing them on the network. Regularly update software to protect against known vulnerabilities in both applications and protocols.</p></li>
+</ol>
+</section>
+<section id="known-protocol-on-non-standard-port">
+<span id="risk-005"></span><h2>KNOWN PROTOCOL ON NON STANDARD PORT<a class="headerlink" href="#known-protocol-on-non-standard-port" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Known protocol detected on a non-standard port.</p></li>
+<li><p><strong>Possible attacks</strong>: The detection of this risk in deep packet inspection indicates unconventional network activity, which can be used for evading firewall rules, data exfiltration, or launching DDoS attacks through unexpected ports.</p></li>
+<li><p><strong>Remediation</strong>: When detected, review firewall configurations to ensure that known protocols are only allowed on standard ports and implement intrusion detection/prevention systems (IDS/IPS) to monitor for anomalous network traffic on non-standard ports. Additionally, consider using a whitelist approach to limit the list of accepted applications and their corresponding ports.</p></li>
+</ol>
+</section>
+<section id="tls-selfsigned-certificate">
+<span id="risk-006"></span><h2>TLS SELFSIGNED CERTIFICATE<a class="headerlink" href="#tls-selfsigned-certificate" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A self-signed TLS certificate is one that has been created and signed by the same entity responsible for the domain being secured. This can be a potential security risk as these certificates are not verified by any trusted Certificate Authority (CA).</p></li>
+<li><p><strong>Possible attacks</strong>: The detection of this risk in deep packet inspection signals a problem in the monitored network, as self-signed TLS certificates can allow for man-in-the-middle (MitM) attacks. Attackers can intercept and modify communications, since the certificate is not verified by a trusted third party.</p></li>
+<li><p><strong>Remediation</strong>: When detected, the remediation for this risk involves validating the necessity of using self-signed certificates. If they are indeed required (e.g., for internal testing purposes), implement a proper Certificate Authority (CA) and enforce its use to avoid MitM attacks. For production environments, always use trusted CA-signed certificates to ensure secure TLS communications.</p></li>
+</ol>
+</section>
+<section id="tls-obsolete-version">
+<span id="risk-007"></span><h2>TLS OBSOLETE VERSION<a class="headerlink" href="#tls-obsolete-version" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of an outdated Transport Layer Security (TLS) version in use, potentially exposing the monitored network to vulnerabilities.</p></li>
+<li><p><strong>Possible attacks</strong>: The use of obsolete TLS versions can be exploited by attackers using known vulnerabilities that have been patched in newer versions, leading to data breaches or man-in-the-middle attacks.</p></li>
+<li><p><strong>Remediation</strong>: To secure the monitored network when this risk is detected, it’s recommended to update the TLS version to a more recent and secure one as soon as possible. This can typically be done by applying relevant security patches for the affected software or hardware components. Additionally, implementing stricter TLS protocol policies such as disabling older versions entirely can help protect against attacks leveraging obsolete TLS versions.</p></li>
+</ol>
+</section>
+<section id="tls-weak-cipher">
+<span id="risk-008"></span><h2>TLS WEAK CIPHER<a class="headerlink" href="#tls-weak-cipher" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Use of weak encryption ciphers in Transport Layer Security (TLS) connections.</p></li>
+<li><p><strong>Possible attacks</strong>: The use of weak ciphers can make the data transmitted vulnerable to eavesdropping, man-in-the-middle attacks, or decryption by unauthorized entities.</p></li>
+<li><p><strong>Remediation</strong>: Update TLS libraries and configurations to disable weak encryption algorithms (such as RC4) and enforce the use of stronger, more secure ciphers (e.g., AES 128 GCM, ECDHE RSA with P-256). Regularly monitor for and apply updates to keep up with changes in security best practices and vulnerabilities discovered in encryption algorithms.</p></li>
+</ol>
+</section>
+<section id="tls-certificate-expired">
+<span id="risk-009"></span><h2>TLS CERTIFICATE EXPIRED<a class="headerlink" href="#tls-certificate-expired" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A TLS certificate has expired, potentially allowing for unauthenticated connections.</p></li>
+<li><p><strong>Possible attacks</strong>: Detection of this risk indicates that a man-in-the-middle attack or data interception could occur due to the use of an outdated or invalid certificate. Unsecured communication could lead to sensitive data being exposed.</p></li>
+<li><p><strong>Remediation</strong>: Update the expired TLS certificate as soon as possible, ensuring it is issued by a trusted Certificate Authority (CA). If the certificate cannot be updated immediately, consider disabling the service that uses this expired certificate or implementing alternative secure communication methods temporarily. Additionally, monitor network traffic for any suspicious activity and investigate any potential breaches.</p></li>
+</ol>
+</section>
+<section id="tls-certificate-mismatch">
+<span id="risk-010"></span><h2>TLS CERTIFICATE MISMATCH<a class="headerlink" href="#tls-certificate-mismatch" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A TLS certificate mismatch occurs when the server presents a different SSL/TLS certificate than expected during the TLS handshake process.</p></li>
+<li><p><strong>Possible attacks</strong>: The detection of this risk in deep packet inspection signals a problem in the monitored network, as it may indicate a man-in-the-middle (MitM) attack or an unintended use of self-signed certificates. In either case, data being transmitted could be intercepted and potentially modified.</p></li>
+<li><p><strong>Remediation</strong>: When this risk is detected, administrators should investigate the source of the TLS certificate mismatch. If it’s a MitM attack, affected connections should be terminated immediately. If the issue is due to an unintended use of self-signed certificates, consider implementing proper digital certificate management and revoke the current self-signed certificate. Additionally, ensure that all clients trust the newly installed certificate or update them with the new one.</p></li>
+</ol>
+</section>
+<section id="http-suspicious-user-agent">
+<span id="risk-011"></span><h2>HTTP SUSPICIOUS USER AGENT<a class="headerlink" href="#http-suspicious-user-agent" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of an unusual or modified User Agent string in HTTP traffic</p></li>
+<li><p><strong>Possible attacks</strong>: Use of a custom or altered User Agent string can be indicative of bot traffic, data scraping, or other malicious activities that aim to bypass security mechanisms or evade detection.</p></li>
+<li><p><strong>Remediation</strong>: Monitor and analyze the source IP address associated with the suspicious traffic, and consider implementing rate limiting, access control lists (ACLs), or intrusion prevention systems (IPS) to block or restrict traffic from known malicious sources. Additionally, regularly update and maintain a comprehensive database of known good User#.Agent strings to improve detection accuracy and minimize false positives.</p></li>
+</ol>
+</section>
+<section id="numeric-ip-host">
+<span id="risk-012"></span><h2>NUMERIC IP HOST<a class="headerlink" href="#numeric-ip-host" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: The detection of numeric IP addresses being used as hostnames indicates potential misconfigurations or malicious activities.</p></li>
+<li><p><strong>Possible attacks</strong>: Using numeric IP addresses as hostnames can bypass DNS resolution, enabling data exfiltration, phishing attacks, and other malicious activities that would otherwise be blocked by DNS filtering.</p></li>
+<li><p><strong>Remediation</strong>: If NDPI NUMERIC IP HOST is detected, investigate the traffic to determine if it’s caused by misconfiguration or malicious activity. Correct any misconfigurations in network infrastructure such as DNS servers and firewalls. Implement strict policies for hostname usage and enforce their adherence. Monitor traffic closely for suspicious activities related to numeric IP addresses and take appropriate action when necessary, such as blocking the source of the traffic or isolating compromised systems.</p></li>
+</ol>
+</section>
+<section id="http-suspicious-url">
+<span id="risk-013"></span><h2>HTTP SUSPICIOUS URL<a class="headerlink" href="#http-suspicious-url" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of HTTP traffic to suspicious URLs in the monitored network.</p></li>
+<li><p><strong>Possible Attacks</strong>: This risk signals potential web#.based threats such as malware downloads, phishing attempts, or unauthorized data exfiltration when users visit or interact with these URLs.</p></li>
+<li><p><strong>Remediation</strong>: When this risk is detected, it’s recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Block access to the suspicious URLs at the network level until their legitimacy is confirmed.</p></li>
+<li><p>Implement web filtering policies to prevent users from visiting known malicious or suspect websites.</p></li>
+<li><p>Regularly update blacklists of known threat sources and ensure they’re properly integrated into your network security measures.</p></li>
+<li><p>Utilize intrusion prevention systems (IPS) to automatically block malicious traffic attempting to access the network via these suspicious URLs.</p></li>
+<li><p>Educate users on the importance of safe browsing practices, such as not clicking on links from unknown sources or opening unexpected email attachments.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="http-suspicious-header">
+<span id="risk-014"></span><h2>HTTP SUSPICIOUS HEADER<a class="headerlink" href="#http-suspicious-header" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: The presence of unusual or unexpected HTTP headers in a network packet.</p></li>
+<li><p><strong>Possible Attacks</strong>: Detection of this risk could signal unauthorized activity such as data exfiltration, malware injection, or manipulation of web traffic in the monitored network. Malicious actors may use custom or modified HTTP headers to evade detection or perform unauthorized actions.</p></li>
+<li><p><strong>Remediation</strong>: When detected, the network administrator should investigate the source and destination of the suspicious packet, review the content of the HTTP header, and take appropriate action based on their findings. Possible remediations include blocking the offending IP address, resetting connections, or further analyzing the traffic with a security information and event management (SIEM) system for pattern recognition and response. It’s also essential to keep the deep packet inspection software up#.to#.date and configure it with appropriate rules to identify known malicious HTTP headers.</p></li>
+</ol>
+</section>
+<section id="tls-not-carrying-https">
+<span id="risk-015"></span><h2>TLS NOT CARRYING HTTPS<a class="headerlink" href="#tls-not-carrying-https" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Traffic using Transport Layer Security (TLS) but not carrying HTTPS. This can indicate a potential security misconfiguration.</p></li>
+<li><p><strong>Possible Attacks</strong>: If detected, this could signal an unencrypted HTTP traffic being sent over TLS, exposing sensitive data to eavesdropping or manipulation.</p></li>
+<li><p><strong>Remediation</strong>: To secure the monitored network when this risk is detected:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Validate that the application using TLS should indeed be using HTTPS and not HTTP.</p></li>
+<li><p>Investigate and correct any misconfigurations found in the server or client#.side applications, ensuring they are configured to use HTTPS instead of TLS alone.</p></li>
+<li><p>Implement proper security controls such as encryption and secure communications protocols to minimize data exposure risks when transmitting sensitive information over networks.</p></li>
+<li><p>Keep systems and applications updated with the latest security patches to mitigate known vulnerabilities that could be exploited in attacks against unencrypted traffic.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="suspicious-dga-domain">
+<span id="risk-016"></span><h2>SUSPICIOUS DGA DOMAIN<a class="headerlink" href="#suspicious-dga-domain" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of a Domain Generated Algorithm (DGA) domain indicates potential malicious activity.</p></li>
+<li><p><strong>Possible attacks</strong>: The detection of this risk signals the use of Domain Generation Algorithms, which are typically employed by malware to evade detection by changing its command and control (C&amp;C) servers frequently. This could indicate a network compromise or an ongoing attack.</p></li>
+<li><p><strong>Remediation</strong>: When this risk is detected, it’s crucial to investigate the origin of the suspicious DGA domain. Block access to the domain at network level and isolate any affected systems immediately to prevent further spread of the potential threat. Conduct a thorough analysis of the system logs to identify any additional compromised systems and perform a full system scan using trusted anti#.malware software. Additionally, consider implementing a more robust security strategy that includes real#.time threat intelligence feeds for rapid response to emerging threats.</p></li>
+</ol>
+</section>
+<section id="malformed-packet">
+<span id="risk-017"></span><h2>MALFORMED PACKET<a class="headerlink" href="#malformed-packet" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Packet structure does not comply with specified protocol standards.</p></li>
+<li><p><strong>Possible attacks</strong>: Malformed packets may hide malicious content or be part of a denial#.of#.service attack, exploiting weaknesses in the network’s protocol processing.</p></li>
+<li><p><strong>Remediation</strong>: Validate and discard any non#.compliant packets to prevent potential security threats. Implement strict access controls, firewalls, and intrusion detection systems (IDS/IPS) to filter out suspicious traffic based on protocol violations. Regularly update software components for bug fixes related to packet processing vulnerabilities.</p></li>
+</ol>
+</section>
+<section id="ssh-obsolete-client-version-or-cipher">
+<span id="risk-018"></span><h2>SSH OBSOLETE CLIENT VERSION OR CIPHER<a class="headerlink" href="#ssh-obsolete-client-version-or-cipher" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Outdated SSH client version or cipher suite being used in the network connection.</p></li>
+<li><p><strong>Possible attacks</strong>: The detection of this risk indicates that a potentially vulnerable client software is being used, which could expose the network to brute force and dictionary attacks, man#.in#.the#.middle (MitM) attacks, and other forms of intrusion.</p></li>
+<li><p><strong>Remediation</strong>: To secure the monitored network when this risk is detected:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Update SSH client software to the latest version, ensuring that all patches are applied.</p></li>
+<li><p>Review and update the configured cipher suites on the SSH server to use modern and secure algorithms.</p></li>
+<li><p>Implement strong password policies or consider using public key authentication.</p></li>
+<li><p>Regularly monitor and audit network traffic for any suspicious activities related to SSH connections.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="ssh-obsolete-server-version-or-cipher">
+<span id="risk-019"></span><h2>SSH OBSOLETE SERVER VERSION OR CIPHER<a class="headerlink" href="#ssh-obsolete-server-version-or-cipher" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of an outdated SSH server version or cipher algorithm indicates potential vulnerabilities in the network security.</p></li>
+<li><p><strong>Possible attacks</strong>: Outdated versions and weak ciphers may expose the network to brute force, dictionary, and man#.in#.the#.middle (MITM) attacks, compromising sensitive data transmissions.</p></li>
+<li><p><strong>Remediation</strong>: Update SSH server software to the latest version, ensuring it addresses all known vulnerabilities. Use strong cipher algorithms such as AES#.256#.CBC or Chacha20#.Poly1305. Regularly apply security patches and configure SSH to allow only trusted key pairs for authentication. Implement network segmentation to minimize the potential damage of an attack. Monitor the SSH server for unusual activity and set up intrusion detection/prevention systems (IDS/IPS) for enhanced protection.</p></li>
+</ol>
+</section>
+<section id="smb-insecure-version">
+<span id="risk-020"></span><h2>SMB INSECURE VERSION<a class="headerlink" href="#smb-insecure-version" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of an SMB protocol version with known security vulnerabilities</p></li>
+<li><p><strong>Possible attacks</strong>: The detection signals potential exploitation of weaknesses such as EternalBlue, which can lead to unauthorized access, data corruption, or denial of service</p></li>
+<li><p><strong>Remediation</strong>: Upgrade the SMB protocol to a secure version (e.g., SMBv3 with signing and encryption enabled), apply relevant security patches for the current version in use, and implement strong access controls and firewall rules to limit exposure. Regularly monitor and update network security measures to ensure continuous protection against evolving threats.</p></li>
+</ol>
+</section>
+<section id="tls-suspicious-esni-usage">
+<span id="risk-021"></span><h2>TLS SUSPICIOUS ESNI USAGE<a class="headerlink" href="#tls-suspicious-esni-usage" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Usage of Encrypted Server Name Indication (ESNI) in a suspicious or unexpected manner within Transport Layer Security (TLS) connections.</p></li>
+<li><p><strong>Possible attacks</strong>: The detection of this risk could indicate the use of stealthy phishing attacks, man#.in#.the#.middle (MitM) attacks, or non#.compliant applications that bypass Certificate Authority (CA) checks, potentially allowing unauthorized access or data exfiltration.</p></li>
+<li><p><strong>Remediation</strong>: When detected, verify the legitimacy of the application or service using ESNI. Ensure all TLS connections adhere to standard practices and are properly configured. Implement security policies that limit the use of ESNI to approved applications only. Regularly update certificate authorities and revoke any outdated certificates. Monitor network traffic for anomalies related to ESNI usage and maintain a consistent security posture across the network infrastructure.</p></li>
+</ol>
+</section>
+<section id="unsafe-protocol">
+<span id="risk-022"></span><h2>UNSAFE PROTOCOL<a class="headerlink" href="#unsafe-protocol" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of an unsafe protocol not explicitly authorized on the network, which may pose a security risk.</p></li>
+<li><p><strong>Possible attacks</strong>: The use of unapproved or unknown protocols can provide opportunities for malicious actors to bypass security controls, introduce vulnerabilities, and facilitate data exfiltration or other forms of cyberattacks.</p></li>
+<li><dl class="simple">
+<dt><strong>Remediation</strong>: When this risk is detected, network administrators should:</dt><dd><ol class="arabic simple">
+<li><p>Identify the source and destination of the unauthorized traffic.</p></li>
+<li><p>Investigate the purpose and legitimacy of the protocol in question.</p></li>
+<li><p>If deemed necessary, implement firewall rules to block or limit traffic from the unapproved protocol.</p></li>
+<li><p>Consider updating network security policies and conducting employee training on secure networking practices to minimize such occurrences in the future.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+</section>
+<section id="suspicious-dns-traffic">
+<span id="risk-023"></span><h2>SUSPICIOUS DNS TRAFFIC<a class="headerlink" href="#suspicious-dns-traffic" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Suspicious DNS traffic that does not conform to standard protocol or is anomalous in behavior.</p></li>
+<li><p><strong>Possible Attacks</strong>: This detection indicates potential DNS tunneling, phishing, botnet communication, or malware propagation through non#.standard DNS requests and responses.</p></li>
+<li><p><strong>Remediation</strong>: When this risk is detected, investigate the source of the traffic to identify any compromised devices or services. Implement network segmentation and whitelist/blacklist DNS servers to limit potential exposure. Regularly update DNS server software and security policies to counteract emerging threats. Additionally, monitor outbound traffic from internal networks for unusual DNS activity and enforce strict access control measures on DNS servers to prevent unauthorized access.</p></li>
+</ol>
+</section>
+<section id="tls-missing-sni">
+<span id="risk-024"></span><h2>TLS MISSING SNI<a class="headerlink" href="#tls-missing-sni" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: The TLS Server Name Indication (SNI) extension is not present in the Transport Layer Security (TLS) handshake.</p></li>
+<li><p><strong>Possible attacks</strong>: Detection of this risk indicates that an unencrypted or non#.standard protocol may be used, potentially allowing man#.in#.the#.middle attacks, data tampering, and interception of sensitive information during communication.</p></li>
+<li><p><strong>Remediation</strong>: Ensure that the TLS Server Name Indication (SNI) extension is properly configured on all servers. If a server does not support SNI, consider upgrading or using alternatives such as DNS#.based Server Name Indication (DNSSNI). Regularly monitor and update the system to mitigate potential vulnerabilities.</p></li>
+</ol>
+</section>
+<section id="http-suspicious-content">
+<span id="risk-025"></span><h2>HTTP SUSPICIOUS CONTENT<a class="headerlink" href="#http-suspicious-content" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of non#.standard HTTP content in network traffic.</p></li>
+<li><p><strong>Possible attacks</strong>: This risk indicates that the monitored network may be subjected to malicious activities such as data manipulation, unauthorized data transmission, or the use of obscure protocols not commonly used in legitimate web traffic.</p></li>
+<li><p><strong>Remediation</strong>: Upon detection of NDPI HTTP SUSPICIOUS CONTENT, perform a thorough investigation on the affected connection to identify the source and nature of the suspicious content. If deemed necessary, isolate the suspect device from the network, apply appropriate security patches, update web application firewalls, and enhance intrusion detection/prevention systems. Additionally, monitor network traffic patterns for unusual behavior and implement a comprehensive network security policy that includes proper data encryption, access controls, and regular system updates.</p></li>
+</ol>
+</section>
+<section id="risky-asn">
+<span id="risk-026"></span><h2>RISKY ASN<a class="headerlink" href="#risky-asn" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Monitoring of a network using an ASN (Autonomous System Number) associated with known malicious or high#.risk networks</p></li>
+<li><p><strong>Possible attacks</strong>: The detection of this risk indicates that traffic originating from or destined for such networks may pose a security threat, potentially exposing the monitored network to various types of attacks, including DDoS (Distributed Denial of Service), malware distribution, phishing, and more.</p></li>
+<li><p><strong>Remediation</strong>: When detected, it is recommended to block traffic from or to the identified risky ASN. Additionally, monitoring the behavior of this traffic for further indicators of compromise can help ensure network security. Keeping network software updated and implementing proper firewall rules are also crucial in mitigating potential threats associated with this risk.</p></li>
+</ol>
+</section>
+<section id="risky-domain">
+<span id="risk-027"></span><h2>RISKY DOMAIN<a class="headerlink" href="#risky-domain" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of a connection to a domain identified as potentially malicious or high#.risk.</p></li>
+<li><p><strong>Possible attacks</strong>: A connection to such domains can signal phishing attempts, malware downloads, botnet communication, or other forms of cyber threats.</p></li>
+<li><p><strong>Remediation</strong>: Upon detection, immediately block access to the risky domain and investigate further to determine the origin and nature of the threat. Implement a robust whitelist/blacklist management system for domains in your network’s security policy. Monitor traffic patterns and user activity related to this incident to prevent similar occurrences in the future. Regularly update your network’s threat intelligence feeds to stay informed about emerging threats and risky domains.</p></li>
+</ol>
+</section>
+<section id="malicious-fingerprint">
+<span id="risk-028"></span><h2>MALICIOUS FINGERPRINT<a class="headerlink" href="#malicious-fingerprint" title="Link to this heading"></a></h2>
+</section>
+<section id="malicious-sha1-certificate">
+<span id="risk-029"></span><h2>MALICIOUS SHA1 CERTIFICATE<a class="headerlink" href="#malicious-sha1-certificate" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of a certificate with an SHA#.1 signature in the monitored network traffic. SHA#.1 is no longer considered secure for digital certificates.</p></li>
+<li><p><strong>Possible attacks</strong>: This risk indicates that a connection may be using a weak or compromised digital certificate, potentially allowing man#.in#.the#.middle (MitM) attacks or data interception.</p></li>
+<li><p><strong>Remediation</strong>: Update the network to use modern digital certificate standards such as SHA#.256 or SHA#.3. Revoke and replace any existing SHA#.1 certificates. Implement a robust security policy for certificate management, including regular audits and revocation checking.</p></li>
+</ol>
+</section>
+<section id="desktop-or-file-sharing-session">
+<span id="risk-030"></span><h2>DESKTOP OR FILE SHARING SESSION<a class="headerlink" href="#desktop-or-file-sharing-session" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A network data packet exchange that resembles a desktop or file sharing session.</p></li>
+<li><p><strong>Possible Attacks</strong>: This detection signals potential unauthorized data transfers, which could expose sensitive information or introduce malware into the monitored network. It may also indicate inappropriate use of network resources for non#.work related activities.</p></li>
+<li><p><strong>Remediation</strong>: When detected, promptly investigate the source and nature of the traffic to determine whether it is legitimate or malicious. Implement strict access controls to prevent unauthorized users from sharing files or accessing sensitive data. Regularly update antivirus software to protect against potential malware threats. Additionally, monitor network usage policies to ensure they are being adhered to and enforce penalties for non#.compliance.</p></li>
+</ol>
+</section>
+<section id="tls-uncommon-alpn">
+<span id="risk-031"></span><h2>TLS UNCOMMON ALPN<a class="headerlink" href="#tls-uncommon-alpn" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: The detection of an unusual Application#.Layer Protocol Negotiation (ALPN) extension in Transport Layer Security (TLS) traffic signifies the use of an uncommon ALPN protocol.</p></li>
+<li><p><strong>Possible attacks</strong>: An uncommon ALPN may indicate the use of a non#.standard or proprietary protocol, which can be exploited by attackers to bypass security measures and perform man#.in#.the#.middle (MitM) attacks, data exfiltration, or other malicious activities.</p></li>
+<li><p><strong>Remediation</strong>: To secure the monitored network when NDPI TLS UNCOMMON ALPN is detected:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the uncommon ALPN protocol to determine if it is approved for use and not vulnerable to known attacks. If the usage of this protocol is legitimate, whitelist it in your security policy.</p></li>
+<li><p>Implement stricter access controls for traffic using the uncommon ALPN protocol to minimize potential attack vectors.</p></li>
+<li><p>Regularly update TLS libraries and software components to ensure that they include the latest ALPN protocol updates and mitigate any discovered vulnerabilities.</p></li>
+<li><p>Utilize a network security solution capable of deep packet inspection to maintain visibility into TLS traffic, enabling prompt detection and remediation of any potential threats associated with uncommon ALPNs.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="tls-certificate-validity-too-long">
+<span id="risk-032"></span><h2>TLS CERTIFICATE VALIDITY TOO LONG<a class="headerlink" href="#tls-certificate-validity-too-long" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Certificate validity exceeding the defined time limit in Transport Layer Security (TLS) protocol.</p></li>
+<li><p><strong>Possible attacks</strong>: Extended certificate validity periods can hide long#.term compromises, allowing attackers to remain undetected for extended durations and performing malicious activities.</p></li>
+<li><p><strong>Remediation</strong>: Ensure that TLS certificates are properly renewed within their validity period. Regularly monitor and audit the expiration dates of all TLS certificates in use across the network. Implement automated systems for certificate management where possible, ensuring they are configured to notify administrators before the expiration date. Use a trusted Certificate Authority (CA) for issuing and managing your TLS certificates.</p></li>
+</ol>
+</section>
+<section id="tls-suspicious-extension">
+<span id="risk-033"></span><h2>TLS SUSPICIOUS EXTENSION<a class="headerlink" href="#tls-suspicious-extension" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: The presence of unexpected or uncommon TLS (Transport Layer Security) extensions.</p></li>
+<li><p><strong>Possible attacks</strong>: Detection of this risk could signal potential man#.in#.the#.middle (MitM) attacks, malware injections, or other malicious activities that are attempting to bypass standard security protocols by using non#.standard TLS extensions.</p></li>
+<li><p><strong>Remediation</strong>: When detected, network administrators should immediately investigate the traffic source and verify if it is legitimate or suspicious. If deemed suspicious, the connection can be terminated, and the originating IP address could be blocked. Additionally, it’s essential to ensure that up#.to#.date TLS libraries are being used and monitor for updates on known malicious TLS extensions to prevent future attacks.</p></li>
+</ol>
+</section>
+<section id="tls-fatal-alert">
+<span id="risk-034"></span><h2>TLS FATAL ALERT<a class="headerlink" href="#tls-fatal-alert" title="Link to this heading"></a></h2>
+</section>
+<section id="suspicious-entropy">
+<span id="risk-035"></span><h2>SUSPICIOUS ENTROPY<a class="headerlink" href="#suspicious-entropy" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: High level of entropy in a data packet, indicating potential random or encrypted data.</p></li>
+<li><p><strong>Possible attacks</strong>: Detecting this risk signals the presence of unusual or unexpected data patterns that could indicate encryption evasion techniques, obfuscation, or malicious activity such as data exfiltration or botnet communication.</p></li>
+<li><p><strong>Remediation</strong>: Upon detection, analyze further to verify the legitimacy of the packet and its content. Implement robust encryption standards and ensure proper use of encryption protocols throughout the network. Regularly update and patch all devices to mitigate known vulnerabilities that could be exploited for data encryption manipulation. Monitor traffic patterns for abnormalities and configure intrusion detection/prevention systems accordingly to block or flag suspicious activity.</p></li>
+</ol>
+</section>
+<section id="clear-text-credentials">
+<span id="risk-036"></span><h2>CLEAR TEXT CREDENTIALS<a class="headerlink" href="#clear-text-credentials" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Transmission of unencrypted login credentials in clear text over the network.</p></li>
+<li><p><strong>Possible attacks</strong>: Detection of this risk indicates that sensitive usernames and passwords may be intercepted by malicious actors, leading to potential account takeover or unauthorized access.</p></li>
+<li><p><strong>Remediation</strong>: To secure the monitored network when this risk is detected:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Implement strong encryption protocols such as SSL/TLS for all login credentials transmission.</p></li>
+<li><p>Enforce multi#.factor authentication (MFA) to reduce reliance on passwords alone.</p></li>
+<li><p>Educate users about safe internet practices and the importance of not sharing their login credentials with others.</p></li>
+<li><p>Regularly update system software and applications to patch any known vulnerabilities that could expose clear text credentials.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="large-dns-packet">
+<span id="risk-037"></span><h2>LARGE DNS PACKET<a class="headerlink" href="#large-dns-packet" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A DNS (Domain Name System) packet exceeding the standard size limit.</p></li>
+<li><p><strong>Possible attacks</strong>: Large DNS packets can indicate a DDoS amplification attack, where an attacker exploits a vulnerable DNS server to flood the target with excessive traffic. This can lead to network congestion and potential service disruption.</p></li>
+<li><p><strong>Remediation</strong>: Implement rate limiting on DNS servers to control the flow of data and prevent excessive packets from being sent. Keep DNS servers updated and patch any known vulnerabilities. Monitor DNS traffic for anomalies and configure intrusion detection systems (IDS) or Intrusion Prevention Systems (IPS) to alert when large DNS packets are detected. Implementing these measures can help mitigate the risk of DDoS amplification attacks.</p></li>
+</ol>
+</section>
+<section id="dns-fragmented">
+<span id="risk-038"></span><h2>DNS FRAGMENTED<a class="headerlink" href="#dns-fragmented" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Fragmented DNS responses are sent in multiple packets due to being larger than the maximum transmission unit (MTU).</p></li>
+<li><p><strong>Possible attacks</strong>: Fragmented DNS responses can hide malicious payloads, making them difficult to detect by traditional methods. Malware and phishing attacks often use this technique to evade network security controls.</p></li>
+<li><p><strong>Remediation</strong>: To mitigate the risk of NDPI DNS FRAGMENTED, consider implementing solutions that allow for larger MTU sizes or reassembly of fragmented packets at network edges. Regularly updating and maintaining DNS servers and firewalls can also help prevent malicious activities associated with this risk. Additionally, implementing intrusion detection/prevention systems (IDPS) can help in detecting and blocking suspicious traffic patterns that may indicate a potential attack using fragmented DNS responses.</p></li>
+</ol>
+</section>
+<section id="invalid-characters">
+<span id="risk-039"></span><h2>INVALID CHARACTERS<a class="headerlink" href="#invalid-characters" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: The presence of invalid characters in network packets, which may indicate an attempt to circumvent security measures or introduce malicious content.</p></li>
+<li><p><strong>Possible attacks</strong>: Detection of this risk can signal a problem such as packet injection with malformed data, SQL injection attempts, or the use of unauthorized or non#.standard protocols.</p></li>
+<li><p><strong>Remediation</strong>: When detected, take immediate action to isolate and investigate affected systems. Implement strict access controls, filtering rules, and whitelists to prevent invalid characters from being transmitted on the network. Regularly update network security policies and software to mitigate new threats and vulnerabilities.</p></li>
+</ol>
+</section>
+<section id="possible-exploit">
+<span id="risk-040"></span><h2>POSSIBLE EXPLOIT<a class="headerlink" href="#possible-exploit" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of potentially malicious traffic related to known software exploits such as Log4j or WordPress.</p></li>
+<li><p><strong>Possible attacks</strong>: This risk signal indicates the presence of network traffic that matches patterns associated with known software vulnerabilities (exploits). If left unchecked, these exploits can lead to unauthorized access, data breaches, and even remote code execution.</p></li>
+<li><dl class="simple">
+<dt><strong>Remediation</strong>: Upon detection of this risk:</dt><dd><ol class="arabic simple">
+<li><p>Immediately isolate the affected devices or services from the network to prevent any further damage.</p></li>
+<li><p>Apply available security patches for the vulnerable software (Log4j, WordPress, etc.) as soon as possible.</p></li>
+<li><p>Review and update firewall rules to block known exploit traffic.</p></li>
+<li><p>Monitor logs and alerts for any related activity.</p></li>
+<li><p>Implement intrusion detection and prevention systems to further protect against such threats.</p></li>
+<li><p>Regularly update your system’s security policies based on the latest threat intelligence.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+</section>
+<section id="tls-certificate-about-to-expire">
+<span id="risk-041"></span><h2>TLS CERTIFICATE ABOUT TO EXPIRE<a class="headerlink" href="#tls-certificate-about-to-expire" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A Transport Layer Security (TLS) certificate is about to expire. TLS certificates are used for secure communication over the internet. Expired or invalid certificates can lead to data breaches and man#.in#.the#.middle attacks.</p></li>
+<li><p><strong>Possible attacks</strong>: If a TLS certificate is about to expire, it may not be trusted by clients trying to connect. This can cause connections to fail, leading to service disruptions. An expired certificate also opens the door for man#.in#.the#.middle (MITM) attacks, where an attacker can intercept and modify data between the communicating parties.</p></li>
+<li><p><strong>Remediation</strong>: To secure your network when this risk is detected, immediately update or renew the affected TLS certificate(s). Ensure that all servers and clients are configured to trust the new certificate and remove any expired certificates from trusted certificate stores. Regularly monitor your TLS certificates for upcoming expiration dates and ensure timely updates to maintain a secure network.</p></li>
+</ol>
+</section>
+<section id="punycode-idn-punycode-internationalized-domain-names">
+<span id="risk-042"></span><h2>PUNYCODE IDN (PUNYCODE INTERNATIONALIZED DOMAIN NAMES)<a class="headerlink" href="#punycode-idn-punycode-internationalized-domain-names" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Identification of non#.ASCII domain names using Punycode encoding in DNS packets</p></li>
+<li><p><strong>Possible Attacks</strong>: This detection signals a potential for homograph attacks, where malicious actors can disguise their domain as a legitimate one, leading to phishing or other cyber threats.</p></li>
+<li><dl class="simple">
+<dt><strong>Remediation</strong>: To secure the monitored network when this risk is detected:</dt><dd><ol class="arabic simple">
+<li><p>Implement strict DNS security measures such as DNSSEC and use of trusted recursive resolvers.</p></li>
+<li><p>Regularly update and patch DNS server software to protect against known vulnerabilities.</p></li>
+<li><p>Monitor DNS traffic for anomalies and configure firewalls to block suspicious or unusual requests.</p></li>
+<li><p>Implement a robust email security solution to detect and prevent phishing attempts.</p></li>
+<li><p>Educate users about potential phishing threats and how to identify and avoid them.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+</section>
+<section id="error-code-detected">
+<span id="risk-043"></span><h2>ERROR CODE DETECTED<a class="headerlink" href="#error-code-detected" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of an unrecognized or unsupported Network Data Protocol Inspection (NDPI) error code in the monitored network traffic.</p></li>
+<li><p><strong>Possible attacks</strong>: This can indicate the presence of unusual or potentially malicious protocols, as well as outdated or misconfigured software that may be susceptible to exploitation by attackers.</p></li>
+<li><p><strong>Remediation</strong>: To secure the monitored network when this risk is detected, perform the following actions:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the source of the unrecognized NDPI error code to identify any suspicious activity or misconfigured devices.</p></li>
+<li><p>Update the deep packet inspection software and related protocol definitions to ensure comprehensive coverage against known and emerging threats.</p></li>
+<li><p>Implement network segmentation to isolate critical infrastructure from potential attacks originating from untrusted sources or systems.</p></li>
+<li><p>Enforce strict access controls and strong authentication measures on all network devices, including firewalls, routers, and switches.</p></li>
+<li><p>Regularly monitor network traffic for anomalies and suspicious behavior, and respond promptly to any detected issues.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="http-crawler-bot">
+<span id="risk-044"></span><h2>HTTP CRAWLER BOT<a class="headerlink" href="#http-crawler-bot" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A network device or software, often malicious, that systematically accesses and collects information from the web using HTTP protocol.</p></li>
+<li><p><strong>Possible attacks</strong>: The detection of this risk in deep packet inspection signals potential unauthorized data gathering, excessive bandwidth consumption, and potentially a precursor to further cyberattacks such as DDoS or information theft.</p></li>
+<li><p><strong>Remediation</strong>: When detected, isolate the suspicious device from the network for further investigation. Implement rate limiting on HTTP requests to control excessive traffic. Use web application firewalls (WAF) to block malicious HTTP bots and ensure regular software updates to keep your system secure.</p></li>
+</ol>
+</section>
+<section id="anonymous-subscriber">
+<span id="risk-045"></span><h2>ANONYMOUS SUBSCRIBER<a class="headerlink" href="#anonymous-subscriber" title="Link to this heading"></a></h2>
+</section>
+<section id="unidirectional-traffic">
+<span id="risk-046"></span><h2>UNIDIRECTIONAL TRAFFIC<a class="headerlink" href="#unidirectional-traffic" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Unidirectional traffic is network communication that only flows in one direction. This alert may indicate that either server or client are not responding, due to service being down or communications to the flow end host being blocked.</p></li>
+<li><p><strong>Possible attacks</strong>: Detection of unidirectional traffic signals a problem as it might indicate an open port scan, denial of service attack, or other forms of malicious activity where the attacker does not expect a response from the targeted system.</p></li>
+<li><p><strong>Remediation</strong>: When NDPI UNIDIRECTIONAL TRAFFIC is detected, investigate the source and destination IP addresses, along with the port number. Close any open ports that are unnecessary or take appropriate measures to secure them. Implement network monitoring tools to identify and block further unidirectional traffic. Regularly update software packages and system configurations to ensure protection against emerging threats.</p></li>
+</ol>
+</section>
+<section id="http-obsolete-server">
+<span id="risk-047"></span><h2>HTTP OBSOLETE SERVER<a class="headerlink" href="#http-obsolete-server" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of obsolete HTTP servers in the monitored flow</p></li>
+<li><p><strong>Possible attacks</strong>: The use of obsolete HTTP servers can expose vulnerabilities that may allow for various attacks such as remote code execution, injection attacks, and denial#.of#.service.</p></li>
+<li><p><strong>Remediation</strong>: Upgrade or replace the obsolete HTTP server with a secure and updated version to patch known vulnerabilities. Regularly apply security patches and maintain good hygiene practices like strong authentication mechanisms and access controls. Implement HTTPS where possible to encrypt communication between client and server.</p></li>
+</ol>
+</section>
+<section id="periodic-flow">
+<span id="risk-048"></span><h2>PERIODIC FLOW<a class="headerlink" href="#periodic-flow" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A network flow is observed to recur at regular intervals, indicating an application utilizing a patterned behavior.</p></li>
+<li><p><strong>Possible Attacks</strong>: This detection could signal a problem in the monitored network if it points towards applications using predictable patterns, which may be vulnerable to Denial of Service (DoS) attacks that exploit this periodicity for amplification effects or synchronization attacks.</p></li>
+<li><p><strong>Remediation</strong>: To secure the network when NDPI PERIODIC FLOW is detected, consider implementing rate limiting strategies on the relevant applications and reviewing their configurations for any potential vulnerabilities. Additionally, ensure that intrusion detection/prevention systems (IDS/IPS) are configured to recognize and respond appropriately to DoS attacks or synchronization attacks targeting periodic flows. Finally, monitor these applications closely for abnormal behavior and tune deep packet inspection rules as necessary.</p></li>
+</ol>
+</section>
+<section id="minor-issues">
+<span id="risk-049"></span><h2>MINOR ISSUES<a class="headerlink" href="#minor-issues" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of minor protocol issues or anomalies in the monitored flow that do not represent a critical threat but deviate from expected protocol behavior.</p></li>
+<li><p><strong>Possible attacks</strong>: Minor issues can be indicators of misconfigured clients or servers, protocol implementation bugs, or early-stage reconnaissance activity. While individually low-risk, aggregated minor issues may point to a compromised endpoint or an attacker probing for weaknesses.</p></li>
+<li><p><strong>Remediation</strong>: When this risk is detected, it is recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Review the affected flow endpoints for signs of misconfiguration or software bugs.</p></li>
+<li><p>Correlate minor issue alerts with other risk signals from the same host to detect patterns.</p></li>
+<li><p>Keep client and server software up-to-date to minimize protocol implementation defects.</p></li>
+<li><p>Monitor over time — a spike in minor issues from a single host warrants deeper investigation.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="tcp-issues">
+<span id="risk-050"></span><h2>TCP ISSUES<a class="headerlink" href="#tcp-issues" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of TCP-level anomalies such as out-of-order segments, retransmissions, duplicate ACKs, or unexpected RST/FIN sequences that deviate from normal TCP behavior.</p></li>
+<li><p><strong>Possible attacks</strong>: TCP issues can be leveraged by attackers to perform TCP session hijacking, denial-of-service attacks through SYN flooding or RST injection, or to evade deep packet inspection by sending fragmented or reordered segments.</p></li>
+<li><p><strong>Remediation</strong>: Upon detection of TCP issues, it is recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate whether the anomalies are caused by network congestion or faulty hardware versus deliberate manipulation.</p></li>
+<li><p>Enable and tune TCP state tracking on firewalls and IDS/IPS to detect injection and hijacking attempts.</p></li>
+<li><p>Apply rate limiting on TCP connections from sources generating excessive retransmissions or RST storms.</p></li>
+<li><p>Review network device firmware and operating system TCP stack configurations for known vulnerabilities.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="fully-encrypted">
+<span id="risk-051"></span><h2>FULLY ENCRYPTED<a class="headerlink" href="#fully-encrypted" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: The entire flow payload is encrypted using a non-standard or unrecognized encryption scheme, making it impossible to identify the application protocol via deep packet inspection.</p></li>
+<li><p><strong>Possible attacks</strong>: Full payload encryption is a common technique used by malware, ransomware command-and-control (C2) channels, and data exfiltration tools to evade network inspection and bypass security controls.</p></li>
+<li><p><strong>Remediation</strong>: When fully encrypted traffic is detected, it is recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Correlate the flow with known malicious IP addresses or domains using threat intelligence feeds.</p></li>
+<li><p>Inspect the endpoints involved for signs of compromise, unusual processes, or outbound connection patterns.</p></li>
+<li><p>Implement network segmentation to restrict which hosts are permitted to initiate fully encrypted sessions to external destinations.</p></li>
+<li><p>Consider deploying SSL/TLS inspection where policy permits, to maintain visibility into encrypted traffic.</p></li>
+<li><p>Monitor for unusual data volumes or connection durations associated with fully encrypted flows.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="tls-alpn-sni-mismatch">
+<span id="risk-052"></span><h2>TLS ALPN SNI MISMATCH<a class="headerlink" href="#tls-alpn-sni-mismatch" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A mismatch between the Application-Layer Protocol Negotiation (ALPN) extension and the Server Name Indication (SNI) extension in the TLS handshake. The protocol advertised via ALPN does not match what is expected for the declared server name.</p></li>
+<li><p><strong>Possible attacks</strong>: This mismatch can indicate a man-in-the-middle (MitM) attack where an intercepting proxy mis-advertises protocol capabilities, or it can signal malware using TLS to tunnel non-standard protocols while disguising the connection as legitimate HTTPS traffic.</p></li>
+<li><p><strong>Remediation</strong>: When a TLS ALPN/SNI mismatch is detected, it is recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Investigate the server name and destination to determine if the ALPN mismatch is caused by a misconfigured server or a deliberate evasion attempt.</p></li>
+<li><p>Verify that the server at the declared SNI hostname supports the negotiated ALPN protocol.</p></li>
+<li><p>Block or quarantine connections where the mismatch cannot be explained by a known application.</p></li>
+<li><p>Enforce strict TLS inspection policies that flag or terminate sessions with inconsistent handshake parameters.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="malware-host-contacted">
+<span id="risk-053"></span><h2>MALWARE HOST CONTACTED<a class="headerlink" href="#malware-host-contacted" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: A client or server in the monitored network has established a connection to a host identified as a known malware distribution point, botnet C2 server, or other malicious infrastructure.</p></li>
+<li><p><strong>Possible attacks</strong>: Contacting a malware host can indicate an active infection on the endpoint, ongoing botnet communication, malware downloading a second-stage payload, or data exfiltration to attacker-controlled infrastructure.</p></li>
+<li><p><strong>Remediation</strong>: Upon detection of this risk, it is strongly recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Immediately isolate the endpoint that initiated the connection to prevent further spread or data loss.</p></li>
+<li><p>Perform a full forensic investigation of the affected host, including memory and disk analysis.</p></li>
+<li><p>Block the malicious IP address or domain at the firewall and DNS level.</p></li>
+<li><p>Check other hosts on the network for similar connections to identify lateral movement.</p></li>
+<li><p>Report the incident to the appropriate security team and update threat intelligence feeds.</p></li>
+<li><p>Restore the affected system from a clean backup after confirming the infection vector is remediated.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="binary-data-transfer">
+<span id="risk-054"></span><h2>BINARY DATA TRANSFER<a class="headerlink" href="#binary-data-transfer" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of binary data being transferred over a protocol that is expected to carry only text-based or structured content, such as HTTP or DNS.</p></li>
+<li><p><strong>Possible attacks</strong>: Binary data transfers over unexpected protocols can indicate data exfiltration, malware payload delivery, or the use of covert channels to bypass security controls. Attackers may encode executables or configuration data as binary blobs to avoid signature-based detection.</p></li>
+<li><p><strong>Remediation</strong>: When binary data transfer is detected, it is recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Inspect the content of the transfer to determine whether it contains executables, archives, or other suspicious payloads.</p></li>
+<li><p>Block binary transfers on protocols where they are not expected (e.g., restrict binary content in DNS responses).</p></li>
+<li><p>Implement data loss prevention (DLP) policies to detect and prevent unauthorized binary file transfers.</p></li>
+<li><p>Investigate the source and destination endpoints for signs of compromise or unauthorized software.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="probing-attempt">
+<span id="risk-055"></span><h2>PROBING ATTEMPT<a class="headerlink" href="#probing-attempt" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of network activity consistent with active reconnaissance or port scanning. The observed traffic pattern suggests an entity is systematically probing hosts or services to discover open ports, running services, or potential vulnerabilities.</p></li>
+<li><p><strong>Possible attacks</strong>: Probing attempts are typically the first phase of an attack lifecycle. They are used by threat actors to map the network topology, identify vulnerable services, and select targets for exploitation. Common techniques include TCP SYN scans, UDP probes, and ICMP sweeps.</p></li>
+<li><p><strong>Remediation</strong>: When a probing attempt is detected, it is recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Block or rate-limit traffic from the probing source at the firewall or IPS level.</p></li>
+<li><p>Investigate whether the probing originates from inside or outside the network — internal probing may indicate a compromised host.</p></li>
+<li><p>Ensure that all exposed services are running up-to-date software and are hardened against known vulnerabilities.</p></li>
+<li><p>Review firewall rules to minimize the attack surface by closing unnecessary ports and services.</p></li>
+<li><p>Enable and monitor IDS/IPS alerts for follow-up exploitation attempts from the same source.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="obfuscated-traffic">
+<span id="risk-056"></span><h2>OBFUSCATED_TRAFFIC<a class="headerlink" href="#obfuscated-traffic" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of network traffic where the payload or protocol headers have been deliberately obfuscated to hinder analysis and evade deep packet inspection. The obfuscation may involve encoding, encryption layering, or protocol mimicry.</p></li>
+<li><p><strong>Possible attacks</strong>: Traffic obfuscation is a common technique used by malware, remote access tools (RATs), and advanced persistent threat (APT) actors to blend malicious communications into normal network activity and bypass security monitoring. It is also used by anonymization tools and some legitimate privacy applications.</p></li>
+<li><p><strong>Remediation</strong>: When obfuscated traffic is detected, it is recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Correlate the source and destination of the obfuscated flow with known threat intelligence indicators.</p></li>
+<li><p>Analyze the endpoints involved for signs of unauthorized software or unusual process behavior.</p></li>
+<li><p>Implement behavioral analytics to detect anomalous communication patterns regardless of content visibility.</p></li>
+<li><p>Enforce network egress policies that require identifiable, approved protocols on all outbound connections.</p></li>
+<li><p>Consider deploying application-layer gateways that can identify protocol mimicry and obfuscated tunneling.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="ndpi-slow-dos">
+<span id="risk-057"></span><h2>NDPI_SLOW_DOS<a class="headerlink" href="#ndpi-slow-dos" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of a slow denial-of-service (DoS) attack pattern, where an attacker deliberately maintains connections using minimal bandwidth to exhaust server resources such as connection tables, threads, or memory without triggering traditional volumetric DoS thresholds.</p></li>
+<li><p><strong>Possible attacks</strong>: Slow DoS techniques include Slowloris (holding HTTP connections open by sending incomplete headers), Slow POST attacks (sending request bodies at extremely low rates), and slow read attacks (consuming server buffers by not reading responses). These attacks can render services unavailable while consuming very little attacker bandwidth.</p></li>
+<li><p><strong>Remediation</strong>: When a slow DoS pattern is detected, it is recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Configure connection timeout policies on web servers and load balancers to terminate idle or abnormally slow connections.</p></li>
+<li><p>Implement rate limiting on new connection establishment from individual source IPs.</p></li>
+<li><p>Deploy a Web Application Firewall (WAF) capable of detecting and mitigating slow HTTP attack patterns.</p></li>
+<li><p>Monitor server resource utilization (thread pools, connection tables) alongside network traffic to detect resource exhaustion early.</p></li>
+<li><p>Consider using reverse proxies or CDNs with built-in slow DoS protection in front of critical services.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="ndpi-non-pqc">
+<span id="risk-058"></span><h2>NDPI_NON_PQC<a class="headerlink" href="#ndpi-non-pqc" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Detection of cryptographic algorithms that are not resistant to attacks by quantum computers. The flow is using classical public-key cryptography (e.g., RSA, Diffie-Hellman, or elliptic-curve variants) that will become vulnerable once sufficiently powerful quantum computers are available. This alert detects: SSH, TLS, QUIC and IPSEC flows with obsolete encryption/key exchange algorithms</p></li>
+<li><p><strong>Possible attacks</strong>: While quantum computers capable of breaking current encryption are not yet widely available, adversaries may be conducting “harvest now, decrypt later” attacks — capturing encrypted traffic today with the intention of decrypting it once quantum computing capabilities mature. Sensitive long-lived data is particularly at risk.</p></li>
+<li><p><strong>Remediation</strong>: When non-PQC traffic is detected, it is recommended to:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Identify all services and applications using classical public-key cryptography and prioritize migration to Post-Quantum Cryptography (PQC) algorithms standardized by NIST (e.g., ML-KEM, ML-DSA, SLH-DSA).</p></li>
+<li><p>Enable hybrid key exchange mechanisms (combining classical and PQC algorithms) as an interim step during migration.</p></li>
+<li><p>Update TLS libraries (e.g., OpenSSL, BoringSSL) to versions that support PQC cipher suites.</p></li>
+<li><p>Prioritize migration for flows carrying highly sensitive or long-lived data such as authentication credentials, encryption keys, or confidential communications.</p></li>
+<li><p>Monitor vendor roadmaps for PQC support in network appliances, VPN gateways, and application servers.</p></li>
+</ol>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Remediations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ntopng_flow_risks.html" class="btn btn-neutral float-right" title="Remediations for ntopng Flow Risks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/user_interface/shared/alerts/remediations/ndpi_flow_risks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:51:02 GMT -->
+</html>

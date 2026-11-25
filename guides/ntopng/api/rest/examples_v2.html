@@ -1,0 +1,1650 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/rest/examples_v2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:13 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. Examples v2 &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3. RESTful API v1 Specification" href="api_v1.html" />
+    <link rel="prev" title="1. RESTful API v2 Specification" href="api_v2.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">RESTful API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api_v2.html">1. RESTful API v2 Specification</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2. Examples v2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#interfaces">2.1. Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hosts">2.2. Hosts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flows">2.3. Flows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alerts">2.4. Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#l7-application-protocols">2.5. L7 Application Protocols</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#l7-application-categories">2.6. L7 Application Categories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#l4-protocols">2.7. L4 Protocols</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pools">2.8. Pools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#snmp">2.9. SNMP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#misc">2.10. Misc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_v1.html">3. RESTful API v1 Specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples_v1.html">4. Examples v1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lua_c/index.html">Lua API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/index.html">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../timeseries/index.html">Timeseries API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../alerts/index.html">Alerts API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recording/index.html">Recording API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index-2.html">API Documentation</a></li>
+          <li class="breadcrumb-item"><a href="index.html">RESTful API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>Examples v2</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/rest/examples_v2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples-v2">
+<h1><span class="section-number">2. </span>Examples v2<a class="headerlink" href="#examples-v2" title="Link to this heading"></a></h1>
+<p>This section contains examples of API requests and responses. Please note that the
+JSON response in some case does not contain the full response (e.g. in case of long
+lists).</p>
+<section id="interfaces">
+<h2><span class="section-number">2.1. </span>Interfaces<a class="headerlink" href="#interfaces" title="Link to this heading"></a></h2>
+<section id="get-interface-data">
+<h3><span class="section-number">2.1.1. </span>Get Interface Data<a class="headerlink" href="#get-interface-data" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/interface/data.lua?ifid=0&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w"> </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w"> </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;profiles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;SampleProfile&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;ifname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;enp0s8&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;uptime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;00:42&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;num_local_hosts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;remote_bps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;localtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;17:14:42 +0200&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;throughput&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;download&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;pps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.79980963468552002</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">86.379440307617003</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;upload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;pps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.39990481734276001</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">63.184963226317997</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">141035</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;has_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;num_flows&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;throughput_bps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">149.56440734863</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;drops&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;bytes_upload&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">103734</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;alerted_flows&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;remote2local&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;is_view&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;packets_download&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">361</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;packets_upload&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">251</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;bytes_download&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">37301</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;system_host_stats&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;mem_total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4046248</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;dropped_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;mem_ntopng_resident&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">187756</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;mem_ntopng_virtual&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1732120</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;cpu_load&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">3.6400001049042001</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;mem_sreclaimable&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">81460</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;mem_shmem&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30200</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;mem_used&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">590148</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;alerts_queries&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;mem_cached&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1052396</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;written_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;mem_free&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2186336</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;mem_buffers&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">166108</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;cpu_states&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;nice&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;softirq&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.11173184357542</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;steal&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;idle&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">96.201117318436005</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.0111731843574998</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;guest_nice&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;iowait&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.11173184357542</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;guest&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5642458100559</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;irq&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;tcpPacketStats&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;retransmissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;lost&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;out_of_order&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;num_live_captures&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;local2remote&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;periodic_stats_update_frequency_secs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;throughput_pps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.1997145414352</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;dropped_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ts_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;epoch&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1590160482</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ifid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;hosts_pctg&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;speed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;num_hosts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;macs_pctg&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;flows_pctg&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;db&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;flow_export_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;flow_export_drops&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;flow_export_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;packets&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">612</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;engaged_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;remote_pps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;num_devices&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w"> </span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-interface-ip-addresses">
+<h3><span class="section-number">2.1.2. </span>Get interface IP addresses<a class="headerlink" href="#get-interface-ip-addresses" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/interface/address.lua?ifid=0&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;addresses&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;192.168.1.1/32&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;fe80::a00:27ff:fe80:f433/128&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-l7-statistics-for-an-interface">
+<h3><span class="section-number">2.1.3. </span>Get L7 statistics for an interface<a class="headerlink" href="#get-l7-statistics-for-an-interface" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/interface/l7/stats.lua?ifid=0&amp;ndpistats_mode=count&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">62</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TLS&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">36</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DNS&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HTTP&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Google&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Facebook&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Other&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-actively-monitored-interfaces">
+<h3><span class="section-number">2.1.4. </span>Get actively monitored interfaces<a class="headerlink" href="#get-actively-monitored-interfaces" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/ntopng/interfaces.lua&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ifid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ifname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test_01.pcap&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ifid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ifname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;test_02.pcap&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="hosts">
+<h2><span class="section-number">2.2. </span>Hosts<a class="headerlink" href="#hosts" title="Link to this heading"></a></h2>
+<section id="get-active-hosts">
+<h3><span class="section-number">2.2.1. </span>Get active hosts<a class="headerlink" href="#get-active-hosts" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/host/active.lua?ifid=0&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;is_localhost&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;last_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589741869</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;thpt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;bps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;pps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;is_broadcast&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;country&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;US&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;num_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;is_multicast&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;num_flows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;as_client&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;as_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8__241__92__250&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2356772</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;recvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">34148</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2322624</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;vlan&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;is_broadcast_domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.241.92.250&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;is_blacklisted&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;first_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589741868</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;is_localhost&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;last_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589741869</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;thpt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;bps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;pps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;is_broadcast&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;country&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;num_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;is_multicast&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;num_flows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;as_client&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;as_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2__23__155__233&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">41945</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;recvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">23013</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">18932</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;vlan&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;is_broadcast_domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.23.155.233&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;is_blacklisted&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;first_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589741865</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;currentPage&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;perPage&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;sort&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-host-data">
+<h3><span class="section-number">2.2.2. </span>Get host data<a class="headerlink" href="#get-host-data" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/host/data.lua?ifid=0&amp;host=8.241.92.250&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;icmp.bytes.rcvd.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tcp.bytes.sent.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;packets.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">494</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;childSafe&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;os&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tcpPacketStats.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;retransmissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;keep_alive&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;lost&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;out_of_order&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;throughput_bps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;icmp.packets.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;other_ip.bytes.sent.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tcp.packets.seq_problems&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;systemhost&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;active_alerted_flows&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;udp.bytes.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;flows.as_client&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;icmp.bytes.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;num_triggered_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;hour&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;5mins&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;day&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;privatehost&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;packets.rcvd.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;udp.bytes.sent.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.241.92.250&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;has_blocking_shaper&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;num_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tcp.packets.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1556</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;active_http_hosts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;asn&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3356</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;hassh_fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="nt">&quot;ja3_fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;5d79edf64e03689ff559a54e9d9487bc&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;num_uses&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;app_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;is_blacklisted&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;flows.as_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;asname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LEVEL3&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;udp.bytes.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;seen.last&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589741869</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;seen.first&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589741868</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tcp.bytes.rcvd.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;throughput_pps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;&gt; 300&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 300&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 60&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 3&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 30&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 5&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 10&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;&gt; 300&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 300&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 60&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 3&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 30&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 5&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 10&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;client&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;&gt; 300&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 300&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 60&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 3&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 30&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 5&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 10&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;&gt; 300&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 300&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 60&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 3&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 30&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 5&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;&lt;= 10&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;host_unreachable_flows.as_client&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_flows.as_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bytes.ndpi.unknown&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;vlan&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;other_ip.bytes.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tskey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.241.92.250&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;broadcast_domain_host&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;mac&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10:13:31:F1:39:76&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;city&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;icmp.bytes.sent.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;packets.sent.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;latitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">37.750999450684</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;udp.packets.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pktStats.recv&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;upTo128&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">487</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo256&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;above9000&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo2500&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo64&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo9000&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo512&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo1024&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo6500&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo1518&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;tcp_flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;finack&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;syn&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;rst&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;synack&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;drop_all_host_traffic&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;localhost&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bytes.sent.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;misbehaving_flows.as_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;continent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NA&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;names&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="nt">&quot;num_flow_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;os_detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;host_pool_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ifid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;icmp.bytes.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;other_ip.packets.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;throughput_trend_pps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;contacts.as_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tcpPacketStats.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;retransmissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;keep_alive&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;lost&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;out_of_order&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;contacts.as_client&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;is_broadcast&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_activity_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;misbehaving_flows_status_map.as_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;active_flows.as_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;active_flows.as_client&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;udpBytesSent.non_unicast&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;udpBytesSent.unicast&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;longitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">-97.821998596191</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bytes.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2322624</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;hiddenFromTop&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;other_ip.packets.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;icmp.packets.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;udp.packets.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;misbehaving_flows_status_map.as_client&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tcp.bytes.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2322624</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_alerts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;other_ip.bytes.rcvd.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ndpi_categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;Web&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;bytes.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2322624</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2356772</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;bytes.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">34148</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;tcp.packets.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">494</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;packets.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1556</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;host_unreachable_flows.as_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;unreachable_flows.as_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;dhcpHost&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ndpi&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;TLS&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;bytes.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2322624</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;num_flows&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;packets.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1556</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;bytes.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">34148</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;packets.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">494</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;breed&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Safe&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;unreachable_flows.as_client&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;misbehaving_flows.as_client&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ipkey&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">150035706</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;throughput_trend_bps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bytes.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">34148</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;other_ip.bytes.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_flows.as_client&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;udp.bytes.rcvd.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tcp.bytes.rcvd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">34148</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;has_blocking_quota&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bytes.rcvd.anomaly_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pktStats.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;size&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;upTo128&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo256&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;above9000&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo2500&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo64&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo9000&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo512&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo1024&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo6500&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;upTo1518&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1539</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;tcp_flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;finack&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;syn&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;rst&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;synack&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;country&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;US&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;is_multicast&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;devtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-host-custom-data">
+<h3><span class="section-number">2.2.3. </span>Get host custom data<a class="headerlink" href="#get-host-custom-data" title="Link to this heading"></a></h3>
+<p>Get custom host data: “ip,bytes.sent=tdb,packets.sent” for host: “10.222.222.119” on
+monitoring interface (ifid): 0. Available fields can be found from the output
+of “Get host data” above. Each field can have an optional alias name. Use
+the “field=alias” syntax to define a field alias. Separate each
+field / field alias with a comma.</p>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>--silent<span class="w"> </span>--insecure<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;admin:admin&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;ifid&quot;: 0, &quot;host&quot;: &quot;10.222.222.119&quot;, &quot;field_alias&quot;: &quot;ip,bytes.sent=tdb,packets.sent&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;https://localhost:3001/lua/rest/v2/get/host/custom_data.lua&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;tdb&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">71787960</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.222.222.119&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;packets.sent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">243977</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Get custom host data: “ip,bytes.sent=tdb,packets.sent=tdp” for all hosts on
+monitoring interface (ifid): 0.</p>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>--silent<span class="w"> </span>--insecure<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;admin:admin&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;ifid&quot;: 0, &quot;field_alias&quot;: &quot;ip,bytes.sent=tdb,packets.sent=tdp&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;https://localhost:3001/lua/rest/v2/get/host/custom_data.lua&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ff02::1:ff00:1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tdb&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tdp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.222.222.96&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tdb&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">106980522</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tdp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">452276</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ff02::1:ffb7:97bf&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tdb&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tdp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.222.222.119&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tdb&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">76788610</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tdp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">264447</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Get all host data for all hosts on monitoring interface (ifid): 0.</p>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>--silent<span class="w"> </span>--insecure<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;admin:admin&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;ifid&quot;: 0&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;https://localhost:3001/lua/rest/v2/get/host/custom_data.lua&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="err">All</span><span class="w"> </span><span class="err">hos</span><span class="kc">t</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ff02::1:ff00:1&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="err">All</span><span class="w"> </span><span class="err">hos</span><span class="kc">t</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.222.222.96&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="err">All</span><span class="w"> </span><span class="err">hos</span><span class="kc">t</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ff02::1:ffb7:97bf&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">&quot;All host data for &quot;</span><span class="err">ip</span><span class="s2">&quot;: &quot;</span><span class="mf">10.222.222.119</span><span class="err">&quot;,</span>
+<span class="err">    }</span>
+<span class="err">  ]</span>
+<span class="err">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-l7-statistics-for-a-host">
+<h3><span class="section-number">2.2.4. </span>Get L7 statistics for a host<a class="headerlink" href="#get-l7-statistics-for-a-host" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/host/l7/stats.lua?ifid=0&amp;host=8.241.92.250&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2356772</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TLS&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-host-interfaces">
+<h3><span class="section-number">2.2.5. </span>Get host interfaces<a class="headerlink" href="#get-host-interfaces" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/host/interfaces.lua?host=8.241.92.250&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;8.241.92.250&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;ifid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;ifid&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="flows">
+<h2><span class="section-number">2.3. </span>Flows<a class="headerlink" href="#flows" title="Link to this heading"></a></h2>
+<section id="get-flow-counters-for-l4-protocols">
+<h3><span class="section-number">2.3.1. </span>Get flow counters for L4 protocols<a class="headerlink" href="#get-flow-counters-for-l4-protocols" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/flow/l4/counters.lua?ifid=0&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">132</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">46</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-flow-counters-for-l7-protocols">
+<h3><span class="section-number">2.3.2. </span>Get flow counters for L7 protocols<a class="headerlink" href="#get-flow-counters-for-l7-protocols" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/flow/l7/counters.lua?ifid=0&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cloudflare&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DNS&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Facebook&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Google&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">96</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TLS&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">82</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Unknown&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-active-flows">
+<h3><span class="section-number">2.3.3. </span>Get active flows<a class="headerlink" href="#get-active-flows" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/flow/active.lua?ifid=0&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;thpt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;pps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;bps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;hash_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;163&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;client&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.1.93&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">61683</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_blacklisted&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_dhcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.1.93&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_broadcast_domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;first_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589741868</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;vlan&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.241.92.250&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">443</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_blacklisted&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_dhcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.241.92.250&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_broadcast&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;last_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589741869</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2356772</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3382381902&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;l4&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TCP&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;l7&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TLS&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;breakdown&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;srv2cli&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;cli2srv&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;thpt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;pps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;bps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;hash_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;client&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.1.93&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">61567</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_blacklisted&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_dhcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.1.93&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_broadcast_domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;first_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589741865</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;vlan&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;31.13.86.4&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">443</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_blacklisted&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_dhcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;31.13.86.4&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;is_broadcast&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;last_seen&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1589741865</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">188958</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3753284184&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;l4&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TCP&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;l7&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TLS.Facebook&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;breakdown&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;srv2cli&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">96</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;cli2srv&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;currentPage&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;perPage&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;totalRows&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">178</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;sort&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;column_&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;desc&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-historical-flows">
+<h3><span class="section-number">2.3.4. </span>Get historical flows<a class="headerlink" href="#get-historical-flows" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;ifid&quot;: 0, &quot;select_clause&quot;: &quot;*&quot;, &quot;where_clause&quot;: &quot;IPV4_SRC_ADDR = 192.168.56.1&quot;, &quot;begin_time_clause&quot;: 1590480290, &quot;end_time_clause&quot;: 1590480590, &quot;maxhits_clause&quot;: 10}&#39;</span><span class="w"> </span>http://localhost:3000/lua/pro/rest/v2/get/db/flows.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;rsp&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;FLOW_TIME&quot;</span><span class="p">:</span><span class="s2">&quot;1590480421&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;FIRST_SEEN&quot;</span><span class="p">:</span><span class="s2">&quot;1590480420&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;LAST_SEEN&quot;</span><span class="p">:</span><span class="s2">&quot;1590480421&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;VLAN_ID&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;IP_PROTOCOL_VERSION&quot;</span><span class="p">:</span><span class="s2">&quot;4&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;IPV4_SRC_ADDR&quot;</span><span class="p">:</span><span class="s2">&quot;192.168.56.1&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;IPV4_DST_ADDR&quot;</span><span class="p">:</span><span class="s2">&quot;192.168.56.103&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;IPV6_SRC_ADDR&quot;</span><span class="p">:</span><span class="s2">&quot;::&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;IPV6_DST_ADDR&quot;</span><span class="p">:</span><span class="s2">&quot;::&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;PROTOCOL&quot;</span><span class="p">:</span><span class="s2">&quot;6&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;IP_SRC_PORT&quot;</span><span class="p">:</span><span class="s2">&quot;61900&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;IP_DST_PORT&quot;</span><span class="p">:</span><span class="s2">&quot;22&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;L7_PROTO&quot;</span><span class="p">:</span><span class="s2">&quot;92&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;SRC2DST_BYTES&quot;</span><span class="p">:</span><span class="s2">&quot;908&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;DST2SRC_BYTES&quot;</span><span class="p">:</span><span class="s2">&quot;2968&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;PACKETS&quot;</span><span class="p">:</span><span class="s2">&quot;22&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;TOTAL_BYTES&quot;</span><span class="p">:</span><span class="s2">&quot;3876&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;SRC_COUNTRY_CODE&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;DST_COUNTRY_CODE&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;SRC_LABEL&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;DST_LABEL&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;NTOPNG_INSTANCE_NAME&quot;</span><span class="p">:</span><span class="s2">&quot;ubuntuvm&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;INTERFACE_ID&quot;</span><span class="p">:</span><span class="s2">&quot;6&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;PROFILE&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;STATUS&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;INFO&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="alerts">
+<h2><span class="section-number">2.4. </span>Alerts<a class="headerlink" href="#alerts" title="Link to this heading"></a></h2>
+<section id="get-alerts-timeseries">
+<h3><span class="section-number">2.4.1. </span>Get alerts timeseries<a class="headerlink" href="#get-alerts-timeseries" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;ifid&quot;: &quot;0&quot;, &quot;status&quot;: &quot;historical-flows&quot;, &quot;epoch_begin&quot;: 1590710400, &quot;epoch_end&quot;: 1590796800}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/get/alert/ts.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;1590710400&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">37</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">13</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">9</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">15</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;1590796800&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">34</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">48</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">13</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-alerts-data">
+<h3><span class="section-number">2.4.2. </span>Get alerts data<a class="headerlink" href="#get-alerts-data" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;ifid&quot;: &quot;0&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/get/interface/alert/list.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;rc_str_hr&quot;</span><span class="p">:</span><span class="s2">&quot;Success&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;recordsTotal&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;recordsFiltered&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;rsp&quot;</span><span class="p">:{</span>
+<span class="w">      </span><span class="nt">&quot;records&quot;</span><span class="p">:[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;alert_name&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;i class=\&quot;fas fa-fw fa-arrow-circle-up\&quot;&gt;&lt;/i&gt; Threshold Cross&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="mi">156</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;row_id&quot;</span><span class="p">:</span><span class="s2">&quot;00000000-0000-0000-0000-000000000000&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;user_label&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;alert_id&quot;</span><span class="p">:{</span>
+<span class="w">               </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;i class=\&quot;fas fa-fw fa-arrow-circle-up\&quot;&gt;&lt;/i&gt; Threshold Cross&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;4136&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;subtype&quot;</span><span class="p">:</span><span class="s2">&quot;throughput&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;family&quot;</span><span class="p">:</span><span class="s2">&quot;interface&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;tstamp&quot;</span><span class="p">:{</span>
+<span class="w">               </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">1642028429</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="s2">&quot;13/01/2022 00:00:29&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;highlight&quot;</span><span class="p">:</span><span class="s2">&quot;#ff3231&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;score&quot;</span><span class="p">:{</span>
+<span class="w">               </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="s2">&quot;100&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;color&quot;</span><span class="p">:</span><span class="s2">&quot;#ff3231&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;script_key&quot;</span><span class="p">:</span><span class="s2">&quot;throughput&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;severity&quot;</span><span class="p">:{</span>
+<span class="w">               </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="s2">&quot;&lt;i class=&#39;fas fa-fw fa-exclamation-triangle text-danger&#39; style=&#39;color: #ff3231!important&#39; title=&#39;Error&#39;&gt;&lt;/i&gt; &quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;color&quot;</span><span class="p">:</span><span class="s2">&quot;#ff3231&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;msg&quot;</span><span class="p">:{</span>
+<span class="w">               </span><span class="nt">&quot;fullname&quot;</span><span class="p">:</span><span class="s2">&quot;Threshold Cross&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;Minute &lt;b&gt;throughput&lt;/b&gt; crossed by interface &lt;a href=&#39;/lua/if_stats.lua?ifid=4&amp;page=historical&amp;epoch_begin=1642425875&amp;epoch_end=1642429475&#39;&gt;eno1&lt;/a&gt; [22.49 &amp;gt; 1]&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Threshold Cross&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">4136</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;configset_ref&quot;</span><span class="p">:</span><span class="s2">&quot; &lt;a href=\&quot;/lua/admin/edit_configset.lua?subdir=interface&amp;check=throughput#all\&quot;&gt;&lt;i class=\&quot;fas fa-cog\&quot; title=\&quot;Edit Configuration\&quot;&gt;&lt;/i&gt;&lt;/a&gt;&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">},</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-alert-severity-constants">
+<h3><span class="section-number">2.4.3. </span>Get alert severity constants<a class="headerlink" href="#get-alert-severity-constants" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>http://localhost:3000/lua/rest/v2/get/alert/severity/consts.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-alert-type-constants">
+<h3><span class="section-number">2.4.4. </span>Get alert type constants<a class="headerlink" href="#get-alert-type-constants" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>http://localhost:3000/lua/rest/v2/get/alert/type/consts.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_flow_blocked&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_request_reply_ratio&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_internals&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">38</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_quota_exceeded&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_login_failed&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">53</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_user_activity&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">47</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_tcp_syn_scan&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-counters-per-severity">
+<h3><span class="section-number">2.4.5. </span>Get counters per severity<a class="headerlink" href="#get-counters-per-severity" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/alert/severity/counters.lua?ifid=0&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;historical-flows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;37&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;severity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;historical&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-counters-per-type">
+<h3><span class="section-number">2.4.6. </span>Get counters per type<a class="headerlink" href="#get-counters-per-type" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://localhost:3000/lua/rest/v2/get/alert/type/counters.lua?ifid=0&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;historical-flows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;37&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alert_potentially_dangerous_protocol&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;historical&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l7-application-protocols">
+<h2><span class="section-number">2.5. </span>L7 Application Protocols<a class="headerlink" href="#l7-application-protocols" title="Link to this heading"></a></h2>
+<section id="get-l7-application-protocol-constants">
+<h3><span class="section-number">2.5.1. </span>Get L7 application protocol constants<a class="headerlink" href="#get-l7-application-protocol-constants" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>http://localhost:3000/lua/rest/v2/get/l7/application/consts.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">     </span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PS_VUE&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;appl_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span>
+<span class="w">     </span><span class="p">},</span>
+<span class="w">     </span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lando&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;appl_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">254</span>
+<span class="w">     </span><span class="p">},</span>
+<span class="w">     </span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MapleStory&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;appl_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">113</span>
+<span class="w">     </span><span class="p">},</span>
+<span class="w">     </span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Spotify&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;appl_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">156</span>
+<span class="w">     </span><span class="p">},</span>
+<span class="w">     </span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DNS&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;appl_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">     </span><span class="p">},</span>
+<span class="w">     </span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SMTP&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;appl_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l7-application-categories">
+<h2><span class="section-number">2.6. </span>L7 Application Categories<a class="headerlink" href="#l7-application-categories" title="Link to this heading"></a></h2>
+<section id="get-l7-application-category-constants">
+<h3><span class="section-number">2.6.1. </span>Get L7 application category constants<a class="headerlink" href="#get-l7-application-category-constants" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>http://localhost:3000/lua/rest/v2/get/l7/category/consts.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Web&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Database&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Malware&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;User custom category 3&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DataTransfer&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SocialNetwork&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cloud&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cat_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="l4-protocols">
+<h2><span class="section-number">2.7. </span>L4 Protocols<a class="headerlink" href="#l4-protocols" title="Link to this heading"></a></h2>
+<section id="get-l4-protocol-constants">
+<h3><span class="section-number">2.7.1. </span>Get L4 protocol constants<a class="headerlink" href="#get-l4-protocol-constants" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>http://localhost:3000/lua/rest/v2/get/l4/protocol/consts.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ICMP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IGMP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TCP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UDP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IPv6&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">41</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RSVP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">46</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GRE&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">47</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ESP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IPv6-ICMP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">58</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OSPF&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">89</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PIM&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">103</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VRRP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">112</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HIP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">139</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ICMPv6&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">58</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IGMP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Other IP&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="pools">
+<h2><span class="section-number">2.8. </span>Pools<a class="headerlink" href="#pools" title="Link to this heading"></a></h2>
+<section id="add-an-host-pool">
+<h3><span class="section-number">2.8.1. </span>Add an Host Pool<a class="headerlink" href="#add-an-host-pool" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool_name&quot;: &quot;themaina&quot;, &quot;pool_members&quot;: &quot;192.168.2.0/24@0&quot;, &quot;recipients&quot;:&quot;0&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/add/host/pool.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool_name&quot;: &quot;themaina&quot;, &quot;pool_members&quot;: &quot;192.168.2.0/24@0,192.168.3.0/24@0&quot;, &quot;recipients&quot;:&quot;0&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/add/host/pool.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool_name&quot;: &quot;themainamac&quot;, &quot;pool_members&quot;: &quot;AA:BB:CC:DD:EE:FF&quot;, &quot;recipients&quot;:&quot;0&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/add/host/pool.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool_name&quot;: &quot;themainaip&quot;, &quot;pool_members&quot;: &quot;8.8.8.8/32@2&quot;, &quot;recipients&quot;:&quot;0&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/add/host/pool.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool_name&quot;: &quot;themainaempty&quot;, &quot;pool_members&quot;: &quot;&quot;, &quot;recipients&quot;:&quot;0&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/add/host/pool.lua
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">pool_name</span></code> Is the name of the pool.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">pool_members</span></code> Is a comma-separated list of one or more pool members, either networks expressed as CIDR, IP addresses or MAC addresses. Networks and IP addresses must carry the suffix <code class="code docutils literal notranslate"><span class="pre">&#64;&lt;VLAN_ID&gt;</span></code> for the VLAN. If no VLAN is present, use <code class="code docutils literal notranslate"><span class="pre">&#64;0</span></code>.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">recipients</span></code> Is a comma separated list of one or more recipient IDs that to be associated to the pool.</p></li>
+</ul>
+</section>
+<section id="edit-an-host-pool">
+<h3><span class="section-number">2.8.2. </span>Edit an Host Pool<a class="headerlink" href="#edit-an-host-pool" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool&quot;: 1, &quot;pool_name&quot;: &quot;themaina&quot;, &quot;pool_members&quot;: &quot;192.168.3.0/24@0&quot;, &quot;recipients&quot;:&quot;0&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/edit/host/pool.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool&quot;: 2, &quot;pool_name&quot;: &quot;themainamac&quot;, &quot;pool_members&quot;: &quot;AA:BB:CC:DD:EE:AA&quot;, &quot;recipients&quot;:&quot;0&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/edit/host/pool.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool&quot;: 3, &quot;pool_name&quot;: &quot;themainaip&quot;, &quot;pool_members&quot;: &quot;1.1.1.1/32@2&quot;, &quot;recipients&quot;:&quot;0&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/edit/host/pool.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool&quot;: 4, &quot;pool_name&quot;: &quot;themainaempty&quot;, &quot;pool_members&quot;: &quot;&quot;, &quot;recipients&quot;:&quot;0&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/edit/host/pool.lua
+</pre></div>
+</div>
+</section>
+<section id="delete-an-host-pool">
+<h3><span class="section-number">2.8.3. </span>Delete an Host Pool<a class="headerlink" href="#delete-an-host-pool" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool&quot;: 1}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/delete/host/pool.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool&quot;: 2}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/delete/host/pool.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool&quot;: 3}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/delete/host/pool.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool&quot;: 4}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/delete/host/pool.lua
+</pre></div>
+</div>
+</section>
+<section id="get-an-host-pool">
+<h3><span class="section-number">2.8.4. </span>Get an Host Pool<a class="headerlink" href="#get-an-host-pool" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool&quot;: 1}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/get/host/pools.lua
+curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/get/host/pools.lua
+</pre></div>
+</div>
+</section>
+<section id="get-members-of-an-host-pool">
+<h3><span class="section-number">2.8.5. </span>Get Members of an Host Pool<a class="headerlink" href="#get-members-of-an-host-pool" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;pool&quot;: 2}&#39;</span><span class="w"> </span>http://localhost:3000/lua/rest/v2/get/host/pool/members.lua
+</pre></div>
+</div>
+</section>
+<section id="get-all-pools-of-any-type">
+<h3><span class="section-number">2.8.6. </span>Get All Pools of Any type<a class="headerlink" href="#get-all-pools-of-any-type" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>curl<span class="w"> </span>http://devel:3000/lua/rest/v2/get/pools.lua
+</pre></div>
+</div>
+</section>
+</section>
+<section id="snmp">
+<h2><span class="section-number">2.9. </span>SNMP<a class="headerlink" href="#snmp" title="Link to this heading"></a></h2>
+<section id="add-an-snmp-device">
+<h3><span class="section-number">2.9.1. </span>Add an SNMP Device<a class="headerlink" href="#add-an-snmp-device" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;snmp_host&quot;:&quot;ubnt&quot;, &quot;snmp_read_community&quot;:&quot;public&quot;, &quot;snmp_version&quot;: &quot;1&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/pro/rest/v2/add/snmp/device.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;added_devices&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                       </span><span class="p">{</span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.2.1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ubnt&quot;</span><span class="p">}</span>
+<span class="w">               </span><span class="p">]</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;snmp_host&quot;:&quot;192.168.2.169&quot;, &quot;snmp_read_community&quot;:&quot;public&quot;, &quot;snmp_version&quot;: &quot;1&quot;, &quot;cidr&quot;:&quot;32&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/pro/rest/v2/add/snmp/device.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;added_devices&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                       </span><span class="p">{</span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.2.169&quot;</span><span class="p">}</span>
+<span class="w">               </span><span class="p">]</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;snmp_host&quot;:&quot;192.168.2.0&quot;, &quot;snmp_read_community&quot;:&quot;public&quot;, &quot;snmp_version&quot;: &quot;1&quot;, &quot;cidr&quot;:&quot;24&quot;}&#39;</span><span class="w"> </span>http://localhost:3000/lua/pro/rest/v2/add/snmp/device.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">       </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">&quot;rsp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;added_devices&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                       </span><span class="p">{</span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.2.169&quot;</span><span class="p">},</span>
+<span class="w">                       </span><span class="p">{</span><span class="nt">&quot;ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.2.1&quot;</span><span class="p">}</span>
+<span class="w">               </span><span class="p">]</span>
+<span class="w">       </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="change-the-status-of-an-snmp-device-interface">
+<h3><span class="section-number">2.9.2. </span>Change the Status of an SNMP Device Interface<a class="headerlink" href="#change-the-status-of-an-snmp-device-interface" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;host&quot;: &quot;192.168.2.169&quot;, &quot;snmp_admin_status&quot;: &quot;up&quot;, &quot;snmp_port_idx&quot;: 26}&#39;</span><span class="w"> </span>http://127.0.0.1:3000/lua/pro/rest/v2/change/snmp/device/interface/status.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="nt">&quot;rc_str_hr&quot;</span><span class="p">:</span><span class="s2">&quot;Success&quot;</span><span class="p">,</span>
+<span class="nt">&quot;rsp&quot;</span><span class="p">:[],</span>
+<span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;host&quot;: &quot;192.168.2.169&quot;, &quot;snmp_admin_status&quot;: &quot;down&quot;, &quot;snmp_port_idx&quot;: 26}&#39;</span><span class="w"> </span>http://127.0.0.1:3000/lua/pro/rest/v2/change/snmp/device/interface/status.lua
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rc_str_hr&quot;</span><span class="p">:</span><span class="s2">&quot;Success&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rsp&quot;</span><span class="p">:[],</span>
+<span class="w">  </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="misc">
+<h2><span class="section-number">2.10. </span>Misc<a class="headerlink" href="#misc" title="Link to this heading"></a></h2>
+<section id="create-a-session-cookie">
+<h3><span class="section-number">2.10.1. </span>Create a Session Cookie<a class="headerlink" href="#create-a-session-cookie" title="Link to this heading"></a></h3>
+<p><em>curl</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;username&quot;: &quot;admin&quot;}&#39;</span><span class="w"> </span><span class="s2">&quot;http://192.168.1.1:3000/lua/rest/v2/create/ntopng/session.lua&quot;</span>
+</pre></div>
+</div>
+<p>Response:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">     </span><span class="nt">&quot;rc&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;rc_str&quot;</span><span class="p">:</span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;rc_str_hr&quot;</span><span class="p">:</span><span class="s2">&quot;Success&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;rsp&quot;</span><span class="p">:{</span>
+<span class="w">             </span><span class="nt">&quot;session&quot;</span><span class="p">:</span><span class="s2">&quot;3ff5cf2aba7168e9ef955c20291a9ad4&quot;</span>
+<span class="w">     </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Using the session:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>--cookie<span class="w"> </span><span class="s2">&quot;user=admin; session=3ff5cf2aba7168e9ef955c20291a9ad4&quot;</span><span class="w"> </span><span class="s2">&quot;http://192.168.1.1:3000/lua/rest/get/interface/data.lua?ifid=1&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api_v2.html" class="btn btn-neutral float-left" title="1. RESTful API v2 Specification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api_v1.html" class="btn btn-neutral float-right" title="3. RESTful API v1 Specification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/rest/examples_v2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:14 GMT -->
+</html>

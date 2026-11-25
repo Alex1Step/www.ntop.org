@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>flows export Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/flows-export/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/flows-export/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Fri, 11 May 2018 17:37:55 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>flows export Archives - ntop</title>
+	<link>https://www.ntop.org/tag/flows-export/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>ntopng goes Elastic:  Introducing ElasticSearch 6 Support</title>
+		<link>https://www.ntop.org/ntopng-goes-elastic-introducing-elasticsearch-6-support/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 11 May 2018 17:37:55 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[elasticsearch]]></category>
+		<category><![CDATA[elasticsearch 6]]></category>
+		<category><![CDATA[flows export]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=6270</guid>
+
+					<description><![CDATA[<p>As you ntopng users know, out of the Elastic toolset ntopng supports both ElasticSearch and LogStash. You can use them using the -F flag: --dump-flows&#124;-F] <mode> &#124; Dump expired flows. Mode: &#124;…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-goes-elastic-introducing-elasticsearch-6-support/">ntopng goes Elastic:  Introducing ElasticSearch 6 Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>As you ntopng users know, out of the Elastic toolset ntopng supports both ElasticSearch and LogStash. You can use them using the -F flag:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">--dump-flows|-F] &lt;mode&gt;  | Dump expired flows. Mode:
+                         | es            Dump in ElasticSearch database
+                         |   Format:
+                         |   es;&lt;mapping type&gt;;&lt;idx name&gt;;&lt;es URL&gt;;&lt;http auth&gt;
+                         |   Example:
+                         |   es;ntopng;ntopng-%Y.%m.%d;http://localhost:9200/_bulk;
+                         |   Notes:
+                         |   The &lt;idx name&gt; accepts the strftime() format.
+                         |   &lt;mapping type&gt;s have been removed starting at
+                         |   ElasticSearch version 6. &lt;mapping type&gt;
+                         |   values whill therefore be ignored when using
+                         |   versions greater than or equal to 6.
+                         |
+                         | logstash      Dump in LogStash engine
+                         |   Format:
+                         |   logstash;&lt;host&gt;;&lt;proto&gt;;&lt;port&gt;
+                         |   Example:
+                         |   logstash;localhost;tcp;5510
+</pre>
+<p>With ElasticSearch being one of the most widely used downstream stores for information, it was time for the ntop team to add ElasticSearch version 6 support to ntopng.</p>
+<p>Many users were eager to take advantage of the <a href="https://www.elastic.co/blog/elasticsearch-6-0-0-released">new ElasticSearch 6 features</a> that include:</p>
+<ul>
+<li>More scalable searches across shards;</li>
+<li>Index-time sorting;</li>
+<li>Faster restarts and shard recoveries.</li>
+</ul>
+<p>However, new features almost always come with breaking changes and ElasticSearch 6 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/breaking-changes-6.0.html">is not an exception</a>. Among the breaking changes it is worth mentioning the removal of multiple index mapping types. There is an <a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/removal-of-types.html">interesting discussion</a> that motivates the choice of removing multiple mapping types. Mapping types were initially supposed to be the equivalent of tables in SQL databases but actually that was just a bad analogy as database tables are independent(*) each other whereas in ElasticSearch different mapping types are backed by the same Lucene field internally. Having multiple mapping types was causing issues for example when creating the same field with different types in the same index. Other issues were determining the creation of sparse data that, in turn, was negatively affecting the Lucene compression abilities.</p>
+<p>We believe that the removal of multiple mapping types is actually a good choice as it allows for a greater flexibility that is typical of noSQL databases. However, that costed us some effort to adapt the ntopng code and to create a new ElasticSearch template specific for version 6. Today we are happy to announce that the latest ntopng version 3.5 has support for ElasticSearch 6. And for those of you that are still using version 5? No worries, both versions are transparently supported. ntopng queries ElasticSearch to obtain its version and behaves accordingly.</p>
+<p>So what&#8217;s next? If you want to try the latest ntopng 3.5 just install (or upgrade) a <a href="http://packages.ntop.org/">nightly build</a> or <a href="https://github.com/ntop/ntopng">build it from source</a>. Happy indexing!</p>
+<p>(*) OK, there are foreign keys that create tights among tables but in general columns in one table have no bearing on columns with the same name in another table.</p>
+<p>The post <a href="https://www.ntop.org/ntopng-goes-elastic-introducing-elasticsearch-6-support/">ntopng goes Elastic:  Introducing ElasticSearch 6 Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

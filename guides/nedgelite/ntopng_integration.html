@@ -1,0 +1,571 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nedgelite/ntopng_integration.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:24 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ntopng Integration &mdash; nEdge Lite dev documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options955a.js?v=3ce10a4d"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Advanced Features" href="advanced.html" />
+    <link rel="prev" title="Policy Rules" href="policies.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nEdge Lite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nedgelite/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netfilter_setup.html">Netfilter Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="policies.html">Policy Rules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ntopng Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-architecture">Integration Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#communication-channels">Communication Channels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zeromq-endpoints">ZeroMQ Endpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-setup">Basic Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#same-host-deployment">Same-Host Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#remote-deployment">Remote Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dynamic-policy-management">Dynamic Policy Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup-with-policy-updates">Setup with Policy Updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#managing-policies-via-ntopng">Managing Policies via ntopng</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-nedge-lite-instances">Multiple nEdge Lite Instances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#single-ntopng-multiple-nedge-lite-deployments">Single ntopng, Multiple nEdge Lite Deployments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#high-availability">High Availability</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#encrypted-communication">Encrypted Communication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generate-curve-keys">Generate CURVE Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-ntopng-with-encryption">Configure ntopng with Encryption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-nedge-lite-with-encryption">Configure nEdge Lite with Encryption</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#flow-export-formats">Flow Export Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tlv-format-default">TLV Format (Default)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#json-format">JSON Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#optimizing-flow-export">Optimizing Flow Export</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow-update-interval">Flow Update Interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#immediate-flush">Immediate Flush</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-the-integration">Monitoring the Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verify-flow-export">Verify Flow Export</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view-flows-in-ntopng">View Flows in ntopng</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting-integration">Troubleshooting Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#no-flows-appearing-in-ntopng">No Flows Appearing in ntopng</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#policy-updates-not-working">Policy Updates Not Working</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#high-latency-or-packet-loss">High Latency or Packet Loss</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-best-practices">Integration Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License Management</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other ntop Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nEdge Lite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ntopng Integration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ntopng_integration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ntopng-integration">
+<h1>ntopng Integration<a class="headerlink" href="#ntopng-integration" title="Link to this heading"></a></h1>
+<p>nEdge Lite is designed to work seamlessly with <a class="reference external" href="../../products/traffic-analysis/ntop/index.html">ntopng</a>, providing centralized monitoring, visualization, and policy management. This section explains how to set up and optimize the integration.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The nEdge Lite-ntopng integration provides:</p>
+<ul class="simple">
+<li><p><strong>Real-Time Flow Monitoring</strong>: View all flows inspected by nEdge Lite in ntopng’s web interface</p></li>
+<li><p><strong>Protocol Analytics</strong>: See detailed statistics on detected protocols and applications</p></li>
+<li><p><strong>Dynamic Policy Management</strong>: Configure and update policies through ntopng’s GUI</p></li>
+<li><p><strong>Historical Data</strong>: Store and query flow data over time</p></li>
+<li><p><strong>Alerting</strong>: Set up alerts for policy violations or suspicious traffic</p></li>
+<li><p><strong>Multi-Instance Support</strong>: Multiple nEdge Lite instances can report to a single ntopng</p></li>
+</ul>
+</section>
+<section id="integration-architecture">
+<h2>Integration Architecture<a class="headerlink" href="#integration-architecture" title="Link to this heading"></a></h2>
+<section id="communication-channels">
+<h3>Communication Channels<a class="headerlink" href="#communication-channels" title="Link to this heading"></a></h3>
+<p>nEdge Lite and ntopng communicate via two ZeroMQ channels:</p>
+<ol class="arabic simple">
+<li><p><strong>Flow Export Channel</strong>: nEdge Lite sends flow data to ntopng (ZMQ PUB/SUB)</p></li>
+<li><p><strong>Policy Update Channel</strong>: ntopng sends policy updates to nEdge Lite (ZMQ PUB/SUB)</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>┌─────────┐                    ┌─────────┐
+│   nEdge Lite   │──── Flows ────────&gt;│  ntopng │
+│         │&lt;─── Policies ──────│         │
+└─────────┘                    └─────────┘
+</pre></div>
+</div>
+</section>
+<section id="zeromq-endpoints">
+<h3>ZeroMQ Endpoints<a class="headerlink" href="#zeromq-endpoints" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>ntopng as Collector</strong>: Endpoint URL must end with <code class="docutils literal notranslate"><span class="pre">c</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">tcp://127.0.0.1:1234c</span></code>)</p></li>
+<li><p><strong>nEdge Lite as Publisher</strong>: Endpoint URL without <code class="docutils literal notranslate"><span class="pre">c</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">tcp://127.0.0.1:1234</span></code>)</p></li>
+</ul>
+</section>
+</section>
+<section id="basic-setup">
+<h2>Basic Setup<a class="headerlink" href="#basic-setup" title="Link to this heading"></a></h2>
+<section id="same-host-deployment">
+<h3>Same-Host Deployment<a class="headerlink" href="#same-host-deployment" title="Link to this heading"></a></h3>
+<p>When nEdge Lite and ntopng run on the same machine:</p>
+<p><strong>Start ntopng:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ntopng -i tcp://127.0.0.1:1234c</span>
+</pre></div>
+</div>
+<p><strong>Start nEdge Lite:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234</span>
+</pre></div>
+</div>
+<p><strong>Access ntopng Web Interface:</strong></p>
+<p>Open <a class="reference external" href="http://localhost:3000/">http://localhost:3000</a> in your browser. You should see flows from nEdge Lite appearing in real-time.</p>
+</section>
+<section id="remote-deployment">
+<h3>Remote Deployment<a class="headerlink" href="#remote-deployment" title="Link to this heading"></a></h3>
+<p>When nEdge Lite and ntopng run on different machines:</p>
+<p><strong>On ntopng host (192.168.1.10):</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ntopng -i tcp://0.0.0.0:1234c</span>
+</pre></div>
+</div>
+<p><strong>On nEdge Lite host:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://192.168.1.10:1234</span>
+</pre></div>
+</div>
+<p><strong>Firewall Configuration:</strong></p>
+<p>Ensure TCP port 1234 is accessible from the nEdge Lite host to ntopng host.</p>
+</section>
+</section>
+<section id="dynamic-policy-management">
+<h2>Dynamic Policy Management<a class="headerlink" href="#dynamic-policy-management" title="Link to this heading"></a></h2>
+<p>To enable bidirectional communication (flow export + policy updates):</p>
+<section id="setup-with-policy-updates">
+<h3>Setup with Policy Updates<a class="headerlink" href="#setup-with-policy-updates" title="Link to this heading"></a></h3>
+<p><strong>On ntopng host:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ntopng -i tcp://0.0.0.0:5556c --zmq-publish-events tcp://0.0.0.0:5557</span>
+</pre></div>
+</div>
+<p><strong>On nEdge Lite host:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://ntopng-host:5556 -p tcp://ntopng-host:5557</span>
+</pre></div>
+</div>
+<p><strong>Configure Policies in ntopng:</strong></p>
+<ol class="arabic simple">
+<li><p>Open ntopng web interface</p></li>
+<li><p>Navigate to <strong>Settings</strong> → <strong>Policies</strong></p></li>
+<li><p>Create or modify policies</p></li>
+<li><p>Changes are automatically pushed to nEdge Lite</p></li>
+</ol>
+</section>
+<section id="managing-policies-via-ntopng">
+<h3>Managing Policies via ntopng<a class="headerlink" href="#managing-policies-via-ntopng" title="Link to this heading"></a></h3>
+<p><strong>Creating a Pool:</strong></p>
+<ol class="arabic simple">
+<li><p>Go to <strong>Pools</strong> → <strong>Host Pools</strong></p></li>
+<li><p>Click <strong>Add Pool</strong></p></li>
+<li><p>Define IP ranges and/or MAC addresses</p></li>
+<li><p>Assign a policy to the pool</p></li>
+</ol>
+<p><strong>Creating a Policy:</strong></p>
+<ol class="arabic simple">
+<li><p>Go to <strong>Policies</strong> → <strong>Traffic Policies</strong></p></li>
+<li><p>Click <strong>Add Policy</strong></p></li>
+<li><p>Configure protocol/category filters</p></li>
+<li><p>Set default action (Pass/Drop)</p></li>
+<li><p>Click <strong>Save</strong></p></li>
+</ol>
+<p><strong>Viewing Applied Policies:</strong></p>
+<ol class="arabic simple">
+<li><p>Go to <strong>Flows</strong> → <strong>All Flows</strong></p></li>
+<li><p>Look for the <strong>Policy</strong> column</p></li>
+<li><p>Flows show which policy was applied</p></li>
+</ol>
+</section>
+</section>
+<section id="multiple-nedge-lite-instances">
+<h2>Multiple nEdge Lite Instances<a class="headerlink" href="#multiple-nedge-lite-instances" title="Link to this heading"></a></h2>
+<section id="single-ntopng-multiple-nedge-lite-deployments">
+<h3>Single ntopng, Multiple nEdge Lite Deployments<a class="headerlink" href="#single-ntopng-multiple-nedge-lite-deployments" title="Link to this heading"></a></h3>
+<p>Deploy nEdge Lite on multiple hosts, all reporting to one ntopng:</p>
+<p><strong>On ntopng host:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ntopng -i tcp://0.0.0.0:5556c --zmq-publish-events tcp://0.0.0.0:5557</span>
+</pre></div>
+</div>
+<p><strong>On nEdge Lite host 1:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://ntopng-host:5556 -p tcp://ntopng-host:5557</span>
+</pre></div>
+</div>
+<p><strong>On nEdge Lite host 2:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://ntopng-host:5556 -p tcp://ntopng-host:5557</span>
+</pre></div>
+</div>
+<p><strong>On nEdge Lite host 3:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://ntopng-host:5556 -p tcp://ntopng-host:5557</span>
+</pre></div>
+</div>
+<p>All nEdge Lite instances will:</p>
+<ul class="simple">
+<li><p>Send flows to the same ntopng</p></li>
+<li><p>Receive policy updates from the same ntopng</p></li>
+<li><p>Appear as separate interfaces/collectors in ntopng</p></li>
+</ul>
+</section>
+<section id="high-availability">
+<h3>High Availability<a class="headerlink" href="#high-availability" title="Link to this heading"></a></h3>
+<p>For redundancy, send flows to multiple ntopng instances:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 \</span>
+<span class="go">  -z tcp://ntopng1:5556 \</span>
+<span class="go">  -z tcp://ntopng2:5556 \</span>
+<span class="go">  -p tcp://ntopng1:5557</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="encrypted-communication">
+<h2>Encrypted Communication<a class="headerlink" href="#encrypted-communication" title="Link to this heading"></a></h2>
+<p>Secure flow export with ZeroMQ CURVE encryption.</p>
+<section id="generate-curve-keys">
+<h3>Generate CURVE Keys<a class="headerlink" href="#generate-curve-keys" title="Link to this heading"></a></h3>
+<p>On ntopng host, generate a key pair:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Generate<span class="w"> </span>keys<span class="w"> </span>using<span class="w"> </span>zmq<span class="w"> </span>tools
+<span class="go">curve_keygen</span>
+</pre></div>
+</div>
+<p>This outputs:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>public-key: Yne@$w-vo&lt;fVvi]a&lt;NY6T1ed:M$fCG*[IaLV{hID
+secret-key: D:)Q[IlAW!ahhC2ac:9*A}h:p?([4%wOTJ%JR%cs
+</pre></div>
+</div>
+</section>
+<section id="configure-ntopng-with-encryption">
+<h3>Configure ntopng with Encryption<a class="headerlink" href="#configure-ntopng-with-encryption" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ntopng -i tcp://0.0.0.0:5556c \</span>
+<span class="go">  --zmq-encryption-key &quot;Yne@$w-vo&lt;fVvi]a&lt;NY6T1ed:M$fCG*[IaLV{hID:D:)Q[IlAW!ahhC2ac:9*A}h:p?([4%wOTJ%JR%cs&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-nedge-lite-with-encryption">
+<h3>Configure nEdge Lite with Encryption<a class="headerlink" href="#configure-nedge-lite-with-encryption" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 \</span>
+<span class="go">  -z tcp://ntopng-host:5556 \</span>
+<span class="go">  -y &quot;Yne@$w-vo&lt;fVvi]a&lt;NY6T1ed:M$fCG*[IaLV{hID&quot;</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>: nEdge Lite only needs the public key, ntopng needs both.</p>
+</section>
+</section>
+<section id="flow-export-formats">
+<h2>Flow Export Formats<a class="headerlink" href="#flow-export-formats" title="Link to this heading"></a></h2>
+<section id="tlv-format-default">
+<h3>TLV Format (Default)<a class="headerlink" href="#tlv-format-default" title="Link to this heading"></a></h3>
+<p>Type-Length-Value format is compact and efficient:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234</span>
+</pre></div>
+</div>
+<p><strong>Advantages</strong>:</p>
+<ul class="simple">
+<li><p>Compact binary format</p></li>
+<li><p>Lower bandwidth usage</p></li>
+<li><p>Faster serialization</p></li>
+</ul>
+</section>
+<section id="json-format">
+<h3>JSON Format<a class="headerlink" href="#json-format" title="Link to this heading"></a></h3>
+<p>Human-readable JSON format for debugging:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -j</span>
+</pre></div>
+</div>
+<p><strong>Advantages</strong>:</p>
+<ul class="simple">
+<li><p>Human-readable</p></li>
+<li><p>Easy to debug</p></li>
+<li><p>Compatible with custom integrations</p></li>
+</ul>
+<p><strong>Disadvantages</strong>:</p>
+<ul class="simple">
+<li><p>Higher bandwidth usage</p></li>
+<li><p>Slower serialization</p></li>
+</ul>
+</section>
+</section>
+<section id="optimizing-flow-export">
+<h2>Optimizing Flow Export<a class="headerlink" href="#optimizing-flow-export" title="Link to this heading"></a></h2>
+<section id="flow-update-interval">
+<h3>Flow Update Interval<a class="headerlink" href="#flow-update-interval" title="Link to this heading"></a></h3>
+<p>Adjust how often flows are updated:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Update<span class="w"> </span>every<span class="w"> </span><span class="m">10</span><span class="w"> </span>seconds<span class="w"> </span><span class="o">(</span>more<span class="w"> </span>real-time<span class="o">)</span>
+<span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -u 10</span>
+
+<span class="gp"># </span>Update<span class="w"> </span>every<span class="w"> </span><span class="m">60</span><span class="w"> </span>seconds<span class="w"> </span><span class="o">(</span>less<span class="w"> </span>overhead<span class="o">)</span>
+<span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -u 60</span>
+</pre></div>
+</div>
+<p><strong>Recommendations</strong>:</p>
+<ul class="simple">
+<li><p><strong>Real-time monitoring</strong>: 5-15 seconds</p></li>
+<li><p><strong>Historical analysis</strong>: 30-60 seconds</p></li>
+<li><p><strong>High-volume environments</strong>: 60-120 seconds</p></li>
+</ul>
+</section>
+<section id="immediate-flush">
+<h3>Immediate Flush<a class="headerlink" href="#immediate-flush" title="Link to this heading"></a></h3>
+<p>Disable batching for lowest latency:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -f</span>
+</pre></div>
+</div>
+<p><strong>Use Cases</strong>:</p>
+<ul class="simple">
+<li><p>Debugging and troubleshooting</p></li>
+<li><p>Low-traffic environments</p></li>
+<li><p>When latency is critical</p></li>
+</ul>
+<p><strong>Trade-offs</strong>:</p>
+<ul class="simple">
+<li><p>Higher CPU usage</p></li>
+<li><p>More ZMQ messages</p></li>
+<li><p>Increased bandwidth</p></li>
+</ul>
+</section>
+</section>
+<section id="monitoring-the-integration">
+<h2>Monitoring the Integration<a class="headerlink" href="#monitoring-the-integration" title="Link to this heading"></a></h2>
+<section id="verify-flow-export">
+<h3>Verify Flow Export<a class="headerlink" href="#verify-flow-export" title="Link to this heading"></a></h3>
+<p><strong>In ntopng:</strong></p>
+<ol class="arabic simple">
+<li><p>Go to <strong>Interfaces</strong></p></li>
+<li><p>Look for the ZMQ collector interface</p></li>
+<li><p>Check packet/byte counters</p></li>
+</ol>
+<p><strong>Check ZMQ Connection:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>On<span class="w"> </span>ntopng<span class="w"> </span>host
+<span class="go">sudo netstat -tnlp | grep 1234</span>
+
+<span class="gp"># </span>On<span class="w"> </span>nEdge<span class="w"> </span>Lite<span class="w"> </span>host
+<span class="go">sudo netstat -tn | grep 1234</span>
+</pre></div>
+</div>
+</section>
+<section id="view-flows-in-ntopng">
+<h3>View Flows in ntopng<a class="headerlink" href="#view-flows-in-ntopng" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>All Flows</strong>: Go to <strong>Flows</strong> → <strong>All Flows</strong></p></li>
+<li><p><strong>Top Protocols</strong>: Go to <strong>Dashboard</strong> → <strong>Top Protocols</strong></p></li>
+<li><p><strong>Top Applications</strong>: Go to <strong>Dashboard</strong> → <strong>Top Applications</strong></p></li>
+<li><p><strong>Alerts</strong>: Go to <strong>Alerts</strong> → <strong>Detected Alerts</strong></p></li>
+</ol>
+</section>
+</section>
+<section id="troubleshooting-integration">
+<h2>Troubleshooting Integration<a class="headerlink" href="#troubleshooting-integration" title="Link to this heading"></a></h2>
+<section id="no-flows-appearing-in-ntopng">
+<h3>No Flows Appearing in ntopng<a class="headerlink" href="#no-flows-appearing-in-ntopng" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Verify ntopng is listening:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo netstat -tnlp | grep ntopng</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check nEdge Lite is running:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ps aux | grep nedgelite</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Verify ZMQ endpoint configuration:</strong></p>
+<ul class="simple">
+<li><p>ntopng endpoint must end with <code class="docutils literal notranslate"><span class="pre">c</span></code></p></li>
+<li><p>nEdge Lite endpoint must not have <code class="docutils literal notranslate"><span class="pre">c</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>Check firewall rules:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo iptables -L -n -v | grep 1234</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Enable verbose logging:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -v</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="policy-updates-not-working">
+<h3>Policy Updates Not Working<a class="headerlink" href="#policy-updates-not-working" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Verify policy endpoint:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:5556 -p tcp://127.0.0.1:5557 -v</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check ntopng is publishing:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo netstat -tnlp | grep 5557</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Restart nEdge Lite after policy changes:</strong></p>
+<p>If using static files, send SIGHUP:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo kill -HUP $(pidof nedgelite)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="high-latency-or-packet-loss">
+<h3>High Latency or Packet Loss<a class="headerlink" href="#high-latency-or-packet-loss" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Reduce flow update interval:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0 -z tcp://127.0.0.1:1234 -u 60</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Use multiple queues:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nedgelite -q 0:4 -z tcp://127.0.0.1:1234</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check network bandwidth:</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">iftop -i eth0</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="integration-best-practices">
+<h2>Integration Best Practices<a class="headerlink" href="#integration-best-practices" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Co-locate when possible</strong>: Run nEdge Lite and ntopng on the same host for lowest latency</p></li>
+<li><p><strong>Use TLV format</strong>: More efficient than JSON for production</p></li>
+<li><p><strong>Tune update interval</strong>: Balance real-time visibility with performance</p></li>
+<li><p><strong>Enable encryption</strong>: For remote deployments or sensitive environments</p></li>
+<li><p><strong>Monitor ZMQ queue</strong>: Watch for backlog indicating performance issues</p></li>
+<li><p><strong>Use multiple collectors</strong>: For high-availability deployments</p></li>
+<li><p><strong>Regular backups</strong>: Export ntopng configuration and historical data</p></li>
+</ol>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Explore <a class="reference internal" href="advanced.html"><span class="doc">Advanced Features</span></a> features</p></li>
+<li><p>Review <a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a> for common issues</p></li>
+<li><p>Learn about <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> options for optimization</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="policies.html" class="btn btn-neutral float-left" title="Policy Rules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="advanced.html" class="btn btn-neutral float-right" title="Advanced Features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nedgelite/ntopng_integration.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:54:25 GMT -->
+</html>

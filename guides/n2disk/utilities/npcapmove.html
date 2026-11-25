@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/utilities/npcapmove.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:57:29 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7. npcapmove &mdash; n2disk 3.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options02ed.js?v=da8737de"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. npcaprepair" href="npcaprepair.html" />
+    <link rel="prev" title="6. npcapmanage" href="npcapmanage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            n2disk
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/n2disk/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Main Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions.html">Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html#licensing">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start.html">How to Start n2disk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuning/index.html">Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../storage_sizing.html">Storage Sizing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="disk2n.html">1. disk2n</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npcapindex.html">2. npcapindex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npcapextract.html">3. npcapextract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npcapdecompress.html">4. npcapdecompress</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npcapprintindex.html">5. npcapprintindex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="npcapmanage.html">6. npcapmanage</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7. npcapmove</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage">7.1. Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-it-works">7.2. How It Works</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#link-modes">7.3. Link Modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-usage">7.4. Example Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#important-notes">7.5. Important Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compatibility">7.6. Compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="npcaprepair.html">8. npcaprepair</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ndedup.html">9. ndedup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_ntopng.html">Flows Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../netflow.html">Netflow and Raw Recording</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">Packet Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filesystem.html">Disk Partitioning and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">n2disk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Utilities</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7. </span>npcapmove</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/utilities/npcapmove.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="npcapmove">
+<h1><span class="section-number">7. </span>npcapmove<a class="headerlink" href="#npcapmove" title="Link to this heading"></a></h1>
+<p>This utility moves a pcap file along with its index file and timeline links to a new storage location. It is particularly useful for migrating captured traffic to different storage volumes, archiving data to external drives, or reorganizing storage hierarchies while maintaining the n2disk timeline structure.</p>
+<p>npcapmove handles all the complexity of updating symbolic links and maintaining the bidirectional relationship between storage and timeline directories.</p>
+<section id="usage">
+<h2><span class="section-number">7.1. </span>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>npcapmove [-a] &lt;pcap path&gt; &lt;new storage path&gt; &lt;new timeline path&gt;
+</pre></div>
+</div>
+<p>Options:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[-a]    Produce absolute instead of relative links for the timeline
+</pre></div>
+</div>
+<p>Arguments:</p>
+<ul class="simple">
+<li><p><strong>pcap path</strong>: Full path to the pcap file to move (e.g., /storage/1.pcap)</p></li>
+<li><p><strong>new storage path</strong>: Destination directory for the pcap and index files</p></li>
+<li><p><strong>new timeline path</strong>: Destination directory for timeline structure</p></li>
+</ul>
+</section>
+<section id="how-it-works">
+<h2><span class="section-number">7.2. </span>How It Works<a class="headerlink" href="#how-it-works" title="Link to this heading"></a></h2>
+<p>npcapmove performs the following operations:</p>
+<ol class="arabic simple">
+<li><p><strong>Validation</strong>: Verifies that all required files exist:</p>
+<ul class="simple">
+<li><p>Source pcap file (e.g., <code class="docutils literal notranslate"><span class="pre">1.pcap</span></code>)</p></li>
+<li><p>Index file (e.g., <code class="docutils literal notranslate"><span class="pre">1.pcap.idx</span></code>)</p></li>
+<li><p>Storage-to-timeline link (e.g., <code class="docutils literal notranslate"><span class="pre">1.pcap.timeline</span></code>)</p></li>
+<li><p>Index-to-timeline link (e.g., <code class="docutils literal notranslate"><span class="pre">1.pcap.idx.timeline</span></code>)</p></li>
+</ul>
+</li>
+<li><p><strong>Timeline Structure Analysis</strong>:</p>
+<ul class="simple">
+<li><p>Reads the existing timeline links to determine the timeline directory structure</p></li>
+<li><p>Extracts the relative timeline path (preserving the YYYY/MM/DD/HH/MM hierarchy)</p></li>
+</ul>
+</li>
+<li><p><strong>File Removal</strong>:</p>
+<ul class="simple">
+<li><p>Removes old symbolic links from both storage and timeline locations</p></li>
+<li><p>Removes the timeline pcap and index symlinks</p></li>
+</ul>
+</li>
+<li><p><strong>File Migration</strong>:</p>
+<ul class="simple">
+<li><p>Creates new storage directory if needed</p></li>
+<li><p>Creates new timeline directory structure if needed</p></li>
+<li><p>Moves pcap and index files to new storage location</p></li>
+</ul>
+</li>
+<li><p><strong>Link Recreation</strong>:</p>
+<ul class="simple">
+<li><p>Creates new symbolic links in timeline pointing to new storage location</p></li>
+<li><p>Creates reverse links in storage pointing back to timeline</p></li>
+<li><p>Uses relative or absolute paths based on <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag</p></li>
+</ul>
+</li>
+<li><p><strong>Cleanup</strong>:</p>
+<ul class="simple">
+<li><p>Removes empty directories from old timeline structure</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="link-modes">
+<h2><span class="section-number">7.3. </span>Link Modes<a class="headerlink" href="#link-modes" title="Link to this heading"></a></h2>
+<p><strong>Relative Links (default)</strong></p>
+<p>By default, npcapmove creates relative symbolic links. This is recommended as it makes the storage location portable - you can move both storage and timeline directories together without breaking links.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">npcapmove /storage/1.pcap /new-storage /new-storage/timeline</span>
+</pre></div>
+</div>
+<p><strong>Absolute Links (-a flag)</strong></p>
+<p>With the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag, npcapmove creates absolute symbolic links. Use this when storage and timeline are on different filesystems or when portability is not a concern.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">npcapmove -a /storage/1.pcap /external-storage /external-storage/timeline</span>
+</pre></div>
+</div>
+</section>
+<section id="example-usage">
+<h2><span class="section-number">7.4. </span>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h2>
+<p>Move a single pcap file to external storage:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">npcapmove /storage/n2disk/1632826800.123456.pcap /external-storage /external-storage/timeline</span>
+</pre></div>
+</div>
+<p>Move multiple files using a shell loop:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">for pcap in /storage/n2disk/*.pcap; do</span>
+<span class="go">  npcapmove &quot;$pcap&quot; /external-storage /external-storage/timeline</span>
+<span class="go">done</span>
+</pre></div>
+</div>
+<p>Move files with absolute links:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">npcapmove -a /storage/1.pcap /mnt/archive /mnt/archive/timeline</span>
+</pre></div>
+</div>
+</section>
+<section id="important-notes">
+<h2><span class="section-number">7.5. </span>Important Notes<a class="headerlink" href="#important-notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Timeline directory structure (YYYY/MM/DD/HH/MM) is automatically preserved</p></li>
+<li><p>Empty directories in the old timeline path are automatically cleaned up</p></li>
+<li><p>Both storage and timeline destination directories are created if they don’t exist</p></li>
+</ul>
+</section>
+<section id="compatibility">
+<h2><span class="section-number">7.6. </span>Compatibility<a class="headerlink" href="#compatibility" title="Link to this heading"></a></h2>
+<p>npcapmove is compatible with all n2disk timeline structures created with the <code class="docutils literal notranslate"><span class="pre">-A</span></code> option. It works with both npcap and standard pcap formats, handling the <code class="docutils literal notranslate"><span class="pre">.npcap</span></code> and <code class="docutils literal notranslate"><span class="pre">.pcap</span></code> extensions interchangeably.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="npcapmanage.html" class="btn btn-neutral float-left" title="6. npcapmanage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="npcaprepair.html" class="btn btn-neutral float-right" title="8. npcaprepair" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/utilities/npcapmove.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:57:30 GMT -->
+</html>

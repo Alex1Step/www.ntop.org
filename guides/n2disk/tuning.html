@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/tuning.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:39:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tuning &mdash; n2disk 3.7 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Storage Sizing" href="storage_sizing.html" />
+    <link rel="prev" title="How to Start n2disk" href="how_to_start.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index-2.html" class="icon icon-home"> n2disk
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/n2disk/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="features.html">Main Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#licensing">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">How to Start n2disk</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tuning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dump-10-20-gbps">Dump 10-20 Gbps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dump-and-index-10-20-gbps">Dump and Index 10-20 Gbps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dump-and-index-at-20-100gbps">Dump and Index at 20-100Gbps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fpgas">FPGAs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#asics">ASICs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storage_sizing.html">Storage Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities/index.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Flows Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netflow.html">Netflow and Raw Recording</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Packet Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filesystem.html">Disk Partitioning and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="napatech.html">Napatech Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">n2disk</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index-2.html">Docs</a> &raquo;</li>
+        
+      <li>Tuning</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tuning.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tuning">
+<h1>Tuning<a class="headerlink" href="#tuning" title="Permalink to this headline">¶</a></h1>
+<p>In order to achieve a good n2disk setup able to obtain the maximum performance, it is important to take into account the following aspects.</p>
+<p>Besides libpcap, n2disk can take advantage from the PF_RING (standard or ZC) acceleration to capture packets from a live network interface.</p>
+<p>For ingress traffic rate above 2-3 Gbit/s, PF_RING ZC is recommended. If you have to merge multiple 10 Gbit/s links into a single dumpset, PF_RING FPGA is recommended, using a card that features aggregation in hardware.</p>
+<p>In case standard PF_RING is used it is particularly important to reserve enough ring buffer space inside the kernel. Furthermore, in order to reduce the number of clock-cycles needed to capture the packets and cross the network stack, it is possible to turn on quick_mode in the pf_ring kernel module configuration.</p>
+<p>For further info about PF_RING and ZC please read the <a class="reference external" href="../pf_ring/index.html">PF_RING</a> documentation.</p>
+<p>Regarding the n2disk start-up parameters particularly important are the following options:</p>
+<ul class="simple">
+<li>The maximum file size (-p) should not be very small. A good value has to be more than 64 Mbytes, up to 2GB if traffic rate is above 10Gbit/s.</li>
+<li>The buffer length (-b) has to be big enough. 2GB is sufficient in most cases, better to go up to 8GB when the ingress rate is above 10Gbit/s. In any case this should be a multiple of the maximum file size (-p).</li>
+<li>The storage path (-o)</li>
+<li>The disk limit (–disk-limit) should be set to the maximum disk space to be used for pcap files. For dedicated storage it is recommended to set this to 80% (considering that some additional space is used for index files).</li>
+<li>The write chunk size (-C) has to be greater than or equal to 64 Kbytes, the default value is usually fine.</li>
+<li>The core binding for the reader (-c) and writer (-w) thread. It is highly recommended to bind those threads to different core of the same physical CPU (according to the system topology, you should choose the physical CPU where the network card is closer/directly connected).</li>
+<li>If you are using indexing (-I), which is required by the extraction tool, it is a good practice to enable dedicated indexing threads setting the core affinity (-z &lt;cores&gt; -Z).</li>
+<li>The timeline path (-A) for organizing pcpa and index files and sort them by date (required by the extraction tools).</li>
+<li>If you have a primary/fast storage (used as a cache, to keep up with peak hours) and a secondary/slower storage (used to move data as soon as possible) you can use the -O option to enable archiving on the second storagei (optional).</li>
+</ul>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dump-10-20-gbps">
+<h3>Dump 10-20 Gbps<a class="headerlink" href="#dump-10-20-gbps" title="Permalink to this headline">¶</a></h3>
+<p>Requirement: 4-core 3Ghz system.</p>
+<p>Command line:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">n2disk -i zc:eth1 -o /storage/n2disk/pcap -b 8192 -p 1024 --disk-limit 80% -S 0 -c 1 -w 2</span>
+</pre></div>
+</div>
+<p>Corresponding configuration file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--interface=zc:eth1</span>
+<span class="go">--dump-directory=/storage/n2disk/pcap</span>
+<span class="go">--disk-limit=80%</span>
+<span class="go">--max-file-len=1024</span>
+<span class="go">--buffer-len=8192</span>
+<span class="go">--reader-cpu-affinity=1</span>
+<span class="go">--writer-cpu-affinity=2</span>
+<span class="go">--time-pulse=0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dump-and-index-10-20-gbps">
+<h3>Dump and Index 10-20 Gbps<a class="headerlink" href="#dump-and-index-10-20-gbps" title="Permalink to this headline">¶</a></h3>
+<p>Requirement: 6-core 3Ghz system.</p>
+<p>Command line:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">n2disk -i zc:eth1 -o /storage/n2disk/pcap -I -A /storage/n2disk/timeline -b 8192 -p 1024 --disk-limit 80% -S 0 -c 1 -w 2 -k 3,4,5</span>
+</pre></div>
+</div>
+<p>Configuration file example for dumping and indexing 10-20 Gbps on a 6-core system:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--interface=zc:eth1
+--dump-directory=/storage/n2disk/pcap
+--timeline-dir=/storage/n2disk/timeline
+--disk-limit=80%
+--max-file-len=1024
+--buffer-len=8192
+--index
+--reader-cpu-affinity=1
+--writer-cpu-affinity=2
+--indexer-cpu-affinity=3,4,5
+--time-pulse=0
+</pre></div>
+</div>
+</div>
+<div class="section" id="dump-and-index-at-20-100gbps">
+<h3>Dump and Index at 20-100Gbps<a class="headerlink" href="#dump-and-index-at-20-100gbps" title="Permalink to this headline">¶</a></h3>
+<p>Dumping traffic at 100 Gbps requires multiple n2disk instances, or a single instance with multiple streams.</p>
+<div class="section" id="fpgas">
+<h4>FPGAs<a class="headerlink" href="#fpgas" title="Permalink to this headline">¶</a></h4>
+<p>On specialized FPGA adapters supporting chunk/segment/block PCAP mode like Napatech or Silicom FPGA, it is
+possible to capture up to 50 Gbps per instance or stream (100 Gbps requires 2 streams).</p>
+<p>PCAP mode is required for best performance. In this mode the adapter moves PCAP data in chunks, optimizing
+data transfer on the bus and reducing the CPU load for copying and processing the data.
+Please check the ‘Napatech Setup’ section for instructions about configuring segment PCAP mode on the adapter.</p>
+<p>In order to handle 50 Gbps a single port/stream capture usually delivers enough performance.</p>
+<p>Hardware requirement: 6 cores 3Ghz CPU.</p>
+<p>n2disk configuration example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--interface=nt:0
+--dump-directory=/storage/n2disk
+--timeline-dir=/storage/n2disk/timeline
+--disk-limit=80%
+--max-file-len=1024
+--buffer-len=4096
+--index
+--reader-cpu-affinity=0
+--writer-cpu-affinity=1
+--indexer-cpu-affinity=2,3,4,5
+</pre></div>
+</div>
+<p>In order to handle 100 Gbps the adapter should be configured with 2 streams.</p>
+<p>Hardware requirement: 12 cores 3Ghz CPU.</p>
+<p>Tested with no packet loss up to 148 Mpps 100 Gbps (average packet size of 60 bytes).</p>
+<p>Streams configuration example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/opt/napatech3/bin/ntpl -e &quot;Delete=All&quot;
+/opt/napatech3/bin/ntpl -e &quot;HashMode = Hash5TupleSorted&quot;
+/opt/napatech3/bin/ntpl -e &quot;Setup[NUMANode=0]=Streamid==(0..1)&quot;
+/opt/napatech3/bin/ntpl -e &quot;Assign[streamid=(0..1)] = All&quot;
+</pre></div>
+</div>
+<p>n2disk configuration example (stream 0):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--interface=nt:stream0
+--dump-directory=/storage1/n2disk/pcap
+--dump-directory=/storage2/n2disk/pcap
+--dump-directory=/storage3/n2disk/pcap
+--dump-directory=/storage4/n2disk/pcap
+--timeline-dir=/storage1/n2disk/timeline
+--disk-limit=80%
+--max-file-len=2048
+--buffer-len=16384
+--index
+--reader-cpu-affinity=1
+--indexer-cpu-affinity=2,3,4,5
+--writer-cpu-affinity=0,0,0,0
+</pre></div>
+</div>
+<p>n2disk configuration example (stream 1):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--interface=nt:stream1
+--dump-directory=/storage5/n2disk/pcap
+--dump-directory=/storage6/n2disk/pcap
+--dump-directory=/storage7/n2disk/pcap
+--dump-directory=/storage8/n2disk/pcap
+--timeline-dir=/storage5/n2disk/timeline
+--disk-limit=80%
+--max-file-len=2048
+--buffer-len=16384
+--index
+--reader-cpu-affinity=6
+--indexer-cpu-affinity=7,8,9,10
+--writer-cpu-affinity=0,0,0,0
+</pre></div>
+</div>
+</div>
+<div class="section" id="asics">
+<h4>ASICs<a class="headerlink" href="#asics" title="Permalink to this headline">¶</a></h4>
+<p>On ASIC adapters, on adequate hardware, it is possible to capture and dump up to 10-20 Gbps per instance or stream.</p>
+<p>In order to handle more than 20 Gbps on ASIC adapters (NVIDIA/Mellanox or Intel), n2disk 3.7 and later
+includes native support for RSS. RSS should be enabled in the adapter and n2disk can be configured to
+capture from multiple RSS streams. Please note that this requires the configuration
+of multiple dump directories and timelines (one per RSS stream), the npcapextract tool can be used at
+extraction time to extract traffic from all the timelines, using the hardware timestamp with nanosecond
+resolution (when supported, e.g. on NVIDIA ConnectX and Intel E810) for merging packets in the proper order.</p>
+<p>In order to handle 100 Gbps the adapter should be configured with 8 RSS queues/streams.</p>
+<p>Hardware requirement: 16-core 3Ghz system (e.g. Xeon Gold 6526Y).</p>
+<p>Tested with no packet loss up to 102 Mpps 100 Gbps (average packet size of 100 bytes).</p>
+<p>RSS configuration example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ethtool -L ens4f1np1 combined 8
+</pre></div>
+</div>
+<p>n2disk configuration example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--interface=mlx:mlx_5@[0-7]
+--dump-directory=/storage1/n2disk/pcap
+--dump-directory=/storage2/n2disk/pcap
+--dump-directory=/storage3/n2disk/pcap
+--dump-directory=/storage4/n2disk/pcap
+--dump-directory=/storage5/n2disk/pcap
+--dump-directory=/storage6/n2disk/pcap
+--dump-directory=/storage7/n2disk/pcap
+--dump-directory=/storage8/n2disk/pcap
+--timeline-dir=/storage1/n2disk/timeline
+--timeline-dir=/storage2/n2disk/timeline
+--timeline-dir=/storage3/n2disk/timeline
+--timeline-dir=/storage4/n2disk/timeline
+--timeline-dir=/storage5/n2disk/timeline
+--timeline-dir=/storage6/n2disk/timeline
+--timeline-dir=/storage7/n2disk/timeline
+--timeline-dir=/storage8/n2disk/timeline
+--disk-limit=80%
+--max-file-len=1024
+--buffer-len=8192
+--index
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--reader-cpu-affinity=1
+--reader-cpu-affinity=2
+--reader-cpu-affinity=3
+--reader-cpu-affinity=4
+--reader-cpu-affinity=5
+--reader-cpu-affinity=6
+--reader-cpu-affinity=7
+--reader-cpu-affinity=8
+--indexer-cpu-affinity=9,10
+--indexer-cpu-affinity=11,12
+--indexer-cpu-affinity=13,14
+--indexer-cpu-affinity=15,0
+--indexer-cpu-affinity=25,26
+--indexer-cpu-affinity=27,28
+--indexer-cpu-affinity=29,30
+--indexer-cpu-affinity=31,16
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="storage_sizing.html" class="btn btn-neutral float-right" title="Storage Sizing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="how_to_start.html" class="btn btn-neutral float-left" title="How to Start n2disk" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, ntop.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/tuning.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 15:39:33 GMT -->
+</html>

@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/flow_dump/clickhouse/clickhouse.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:52:27 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect to ClickHouse &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ClickHouse DB Schema" href="clickhouse_schema.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Flows Dump (ClickHouse)</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">ClickHouse (Flow Dump)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#clickhouse-tuning">ClickHouse Tuning</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Connect to ClickHouse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#what-s-stored-in-clickhouse">What’s Stored in ClickHouse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tls-connection">TLS Connection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#securing-the-connection-in-clickhouse-cloud">Securing the Connection in ClickHouse Cloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#server-certificate-verification">Server Certificate Verification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mutual-tls-mtls">Mutual TLS (mTLS)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#strict-startup">Strict Startup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clickhouse_schema.html">ClickHouse DB Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="historical_flows.html">Historical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reports.html">Traffic Reports</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../kafka/index.html">Kafka</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../syslog/index.html">Syslog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Flows Dump (ClickHouse)</a></li>
+          <li class="breadcrumb-item"><a href="index.html">ClickHouse (Flow Dump)</a></li>
+      <li class="breadcrumb-item active">Connect to ClickHouse</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/flow_dump/clickhouse/clickhouse.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="connect-to-clickhouse">
+<h1>Connect to ClickHouse<a class="headerlink" href="#connect-to-clickhouse" title="Link to this heading"></a></h1>
+<p>In order to connect ntopng to ClickHouse use option <code class="code docutils literal notranslate"><span class="pre">-F</span></code>. The format of this option is the following</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>clickhouse<span class="p">;</span>&lt;host<span class="o">[</span>@&lt;tcp-port&gt;,&lt;mysql-port&gt;<span class="o">]</span><span class="p">|</span>unix-socket&gt;<span class="p">;</span>&lt;dbname&gt;<span class="p">;</span>&lt;user&gt;<span class="p">;</span>&lt;pw&gt;
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>clickhouse-cluster<span class="p">;</span>&lt;host<span class="o">[</span>@&lt;tcp-port&gt;,&lt;mysql-port&gt;<span class="o">]</span><span class="p">|</span>socket&gt;<span class="p">;</span>&lt;dbname&gt;<span class="p">;</span>&lt;user&gt;<span class="p">;</span>&lt;pw&gt;<span class="p">;</span>&lt;cluster<span class="w"> </span>name&gt;
+</pre></div>
+</div>
+<p>Where</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;host[&#64;mysqlport]|socket&gt;</span></code> Specifies the database <code class="code docutils literal notranslate"><span class="pre">host</span></code> or a <code class="code docutils literal notranslate"><span class="pre">socket</span></code> file. By default, port <code class="code docutils literal notranslate"><span class="pre">9000</span></code> is used for the connection via native API and <code class="code docutils literal notranslate"><span class="pre">9004</span></code> for connection over MySQL API. To use a different port, specify it with <code class="code docutils literal notranslate"><span class="pre">&#64;TCP_PORT,MYSQL_PORT</span></code>. The host can be a symbolic name or an IP address. By default ntopng connects in clear text, this unless you want to do it over TLS and in this case you need to append a ‘s’ after the port. Example <code class="code docutils literal notranslate"><span class="pre">192.168.2.1&#64;9000,9004s</span></code>. Please see later in this pare more information about TLS connections.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;dbname&gt;</span></code> Specifies the name of the database to be used and defaults to <code class="code docutils literal notranslate"><span class="pre">ntopng</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;user&gt;</span></code> Specifies an user with read and write permissions on <code class="code docutils literal notranslate"><span class="pre">&lt;dbname&gt;</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;pw&gt;</span></code> Specifies the password that authenticates <code class="code docutils literal notranslate"><span class="pre">&lt;user&gt;</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;cluster</span> <span class="pre">name&gt;</span></code> Specifies the name of the ClickHouse cluster <code class="code docutils literal notranslate"><span class="pre">&lt;user&gt;</span></code></p></li>
+</ul>
+<p>If you use a stand-alone ClickHouse database you need to use <code class="code docutils literal notranslate"><span class="pre">-F</span> <span class="pre">clickhouse;....</span></code> whereas with a cluster you need to use <code class="code docutils literal notranslate"><span class="pre">-F</span> <span class="pre">clickhouse-cluster;....</span></code></p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<p>To connect ntopng and ClickHouse, both running on the same machine, the following line can be used</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;clickhouse;127.0.0.1;ntopng;default;default&quot;</span>
+</pre></div>
+</div>
+<p>In the example above, <cite>127.0.0.1</cite> is used to connect using IPv4 (using the symbolic string <code class="code docutils literal notranslate"><span class="pre">localhost</span></code> could resolve to an IPv6 address). A user <code class="code docutils literal notranslate"><span class="pre">default</span></code>, identified with password <code class="code docutils literal notranslate"><span class="pre">default</span></code>, with read and write permissions on database <code class="code docutils literal notranslate"><span class="pre">ntopng</span></code> is indicated as well. As shortcut you can use <code class="code docutils literal notranslate"><span class="pre">-F</span> <span class="pre">clickhouse</span></code> for <code class="code docutils literal notranslate"><span class="pre">F=&quot;clickhouse;127.0.0.1;ntopng;default;default&quot;</span></code></p>
+<p>The above example with a ClickHouse cluster would be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;clickhouse-cluster;127.0.0.1;ntopng;default;default;ntop_cluster&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="what-s-stored-in-clickhouse">
+<h1>What’s Stored in ClickHouse<a class="headerlink" href="#what-s-stored-in-clickhouse" title="Link to this heading"></a></h1>
+<p>ntopng stores both historical flows and alerts in ClickHouse.</p>
+<p>IPv4 and IPv6 flows are stored in table <code class="code docutils literal notranslate"><span class="pre">flows</span></code>. A column <code class="code docutils literal notranslate"><span class="pre">INTERFACE_ID</span></code> is used to identify the interface on which the flow was seen, this is useful ntopng is monitoring multiple interfaces (see <code class="code docutils literal notranslate"><span class="pre">-i</span></code>).</p>
+<p>Alerts are stored in several tables, all ending with suffix <code class="code docutils literal notranslate"><span class="pre">_alerts</span></code>. The table prefix indicates the alert family, e.g. <code class="code docutils literal notranslate"><span class="pre">host_alerts</span></code> table contains alerts for hosts, <code class="code docutils literal notranslate"><span class="pre">flow_alerts</span></code> table contains alerts for flows, and so on.</p>
+<p>For more information, check the <a class="reference external" href="https://github.com/ntop/ntopng/blob/dev/httpdocs/misc/db_schema_clickhouse.sql">ntopng database schema</a>.</p>
+</section>
+<section id="tls-connection">
+<h1>TLS Connection<a class="headerlink" href="#tls-connection" title="Link to this heading"></a></h1>
+<p>In order to connect ntopng with ClickHouse using a secure TCP connection, first, create the server certificate with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>req<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=localhost&quot;</span><span class="w"> </span>-new<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-nodes<span class="w"> </span>-x509<span class="w"> </span>-keyout<span class="w"> </span>/etc/clickhouse-server/server.key<span class="w"> </span>-out<span class="w"> </span>/etc/clickhouse-server/server.crt
+</pre></div>
+</div>
+<p>This command generates a server certificate for secure communication between ntopng and ClickHouse, establishing a secure TCP connection.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To enable the ClickHouse user to use the <cite>server.crt</cite> and <cite>server.key</cite> files, it is necessary to change their owner.
+Run the following command as a superuser to grant the required permissions:</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chown<span class="w"> </span>clickhouse:clickhouse<span class="w"> </span>/etc/clickhouse-server/server.key<span class="w"> </span>/etc/clickhouse-server/server.crt
+</pre></div>
+</div>
+<p>Open the ClickHouse config.xml file and uncomment the following lines:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;!--&lt;tcp_port_secure&gt;9440&lt;/tcp_port_secure&gt;--&gt;</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;!--&lt;certificateFile&gt;/etc/clickhouse-server/server.crt&lt;/certificateFile&gt;--&gt;</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">&lt;!--&lt;privateKeyFile&gt;/etc/clickhouse-server/server.key&lt;/privateKeyFile&gt;--&gt;</span></code></p></li>
+</ul>
+<p>Restart ClickHouse.</p>
+<p>Start ntopng using the <cite>-F</cite> option, but in this case, it is mandatory to indicate the database port with an <cite>s</cite> at the end of it.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>clickhouse<span class="p">;</span>&lt;host<span class="o">[</span>@&lt;port&gt;s<span class="o">]</span>&gt;<span class="p">;</span>&lt;dbname&gt;<span class="p">;</span>&lt;user&gt;<span class="p">;</span>&lt;pw&gt;
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;clickhouse;127.0.0.1@9000,9440s;ntopng;default;default`</span>
+</pre></div>
+</div>
+<section id="securing-the-connection-in-clickhouse-cloud">
+<h2>Securing the Connection in ClickHouse Cloud<a class="headerlink" href="#securing-the-connection-in-clickhouse-cloud" title="Link to this heading"></a></h2>
+<p>To secure the connection in ClickHouse Cloud, instead, the only thing to configure is adding the <cite>s</cite> character in the <cite>-F</cite> option after the ports list, when starting ntopng (or in the configuration file),
+without needing to configure anything else.
+For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;clickhouse-cloud;127.0.0.1@9440,3306s;ntopng;default,default;default`</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Securing the connection when using ClickHouse Cloud is highly recommended,
+moreover ClickHouse Cloud by default only accepts secured connections</p>
+</div>
+</section>
+<section id="server-certificate-verification">
+<h2>Server Certificate Verification<a class="headerlink" href="#server-certificate-verification" title="Link to this heading"></a></h2>
+<p>When the host used to connect (see <code class="code docutils literal notranslate"><span class="pre">-F</span></code>) does not match the Common Name (CN) of the ClickHouse server certificate, TLS verification fails. Use <code class="code docutils literal notranslate"><span class="pre">--clickhouse-server-cn</span></code> to explicitly indicate the name to expect in the certificate:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;clickhouse;clickhouse.host@9000,9440s;ntopng;default;default&quot;</span><span class="w"> </span>--clickhouse-server-cn<span class="w"> </span>clickhouse.example.org
+</pre></div>
+</div>
+</section>
+<section id="mutual-tls-mtls">
+<h2>Mutual TLS (mTLS)<a class="headerlink" href="#mutual-tls-mtls" title="Link to this heading"></a></h2>
+<p>ntopng can also authenticate itself to the ClickHouse server using a client certificate, in addition to the usual username/password authentication. This requires setting both <code class="code docutils literal notranslate"><span class="pre">--clickhouse-client-cert</span></code> and <code class="code docutils literal notranslate"><span class="pre">--clickhouse-client-key</span></code> to PEM-encoded files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;clickhouse;127.0.0.1@9000,9440s;ntopng;default;default&quot;</span><span class="w"> </span>--clickhouse-client-cert<span class="w"> </span>/etc/ntopng/clickhouse-client.crt<span class="w"> </span>--clickhouse-client-key<span class="w"> </span>/etc/ntopng/clickhouse-client.key
+</pre></div>
+</div>
+<p>Both options must be set together.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The private key file must be unencrypted (no passphrase).</p>
+</div>
+<p>Note that the ClickHouse server should also be configured (in <code class="code docutils literal notranslate"><span class="pre">config.xml</span></code>, under the <code class="code docutils literal notranslate"><span class="pre">&lt;openSSL&gt;&lt;server&gt;</span></code> section) to request or require a client certificate, and optionally to map the certificate to a user via <code class="code docutils literal notranslate"><span class="pre">&lt;ssl_certificates&gt;</span></code>. Otherwise, mTLS is only used for transport security while user/password authentication is still performed as usual.</p>
+</section>
+</section>
+<section id="strict-startup">
+<h1>Strict Startup<a class="headerlink" href="#strict-startup" title="Link to this heading"></a></h1>
+<p>By default, if ntopng fails to connect to ClickHouse at startup, it logs an error and continues running without ClickHouse support. To change this behaviour and force ntopng to exit when the ClickHouse connection cannot be established, use the <code class="code docutils literal notranslate"><span class="pre">--strict-startup</span></code> option.
+Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;clickhouse&quot;</span><span class="w"> </span>--strict-startup
+</pre></div>
+</div>
+<p>When <code class="code docutils literal notranslate"><span class="pre">--strict-startup</span></code> is set and ClickHouse fails to initialize (e.g. the service is down), ntopng prints an error and terminates immediately.
+This is particularly useful in production deployments where running without ClickHouse is not acceptable and a hard failure is preferable to silent data loss.</p>
+<p>In any case, in case of runtime failures with the ClickHouse connection, ntopng keeps running and the connection is automatically restored when connectivity comes back.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="clickhouse_schema.html" class="btn btn-neutral float-right" title="ClickHouse DB Schema" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/flow_dump/clickhouse/clickhouse.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:52:28 GMT -->
+</html>

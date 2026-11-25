@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>n2disk Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/n2disk/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/n2disk/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 21 Oct 2026 09:30:38 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>n2disk Archives - ntop</title>
+	<link>https://www.ntop.org/category/n2disk/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Introducing n2disk 3.8: NVIDIA Support, Smart Recording, Traffic Deduplication</title>
+		<link>https://www.ntop.org/introducing-n2disk-3-8-nvidia-support-smart-recording-traffic-deduplication/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 07 Jan 2025 10:27:45 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11508</guid>
+
+					<description><![CDATA[<p>We're excited to announce a new stable release of n2disk v. 3.8. This release is bringing significant new capabilities to the network monitoring and recording landscape, and it is packed with features…</p>
+<p>The post <a href="https://www.ntop.org/introducing-n2disk-3-8-nvidia-support-smart-recording-traffic-deduplication/">Introducing n2disk 3.8: NVIDIA Support, Smart Recording, Traffic Deduplication</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We&#8217;re excited to announce a new stable release of n2disk v. 3.8. This release is bringing significant new capabilities to the network monitoring and recording landscape, and it is packed with features that enhance both functionalities and performance.</p>
+<p>Here&#8217;s a closer look at the highlights of this release:</p>
+<ul>
+<li>New <a href="https://www.ntop.org/announce/introducing-smart-recording-in-n2disk-combining-cybersecurity-with-packet-to-disk/">Smart Recording</a> support to intelligently manage and optimize storage usage.</li>
+<li><a href="https://www.ntop.org/guides/n2disk/tuning.html">Multithreaded Packet Capture</a> to take advantage of &nbsp;RSS (Receive Side Scaling) capabilities on NVIDIA/Mellanox ConnectX adapters. In fact on those adapters it is not possible to scale the performance by spawning multiple (n2disk) processes, a multithreaded application is mandatory.</li>
+<li><a href="https://www.ntop.org/pf_ring/fixing-packet-deduplication-introducing-ndedup/">Inline Packet Deduplication</a> with <a href="https://www.ntop.org/pf_ring/fixing-packet-deduplication-introducing-ndedup/">ndedup</a> to eliminate duplicated packets eating up bandwidth and processing power on the monitoring tools, or save disk resources when dumping traffic to disk dramatically increasing data retention.</li>
+</ul>
+<p>For the full list of changes and new features, please read the changelog below. Instead for detailed documentation and tutorials, visit our official documentation or the dedicated blog posts.</p>
+<p>Enjoy!</p>
+<h2>Changelog</h2>
+<h3>Breakthroughs</h3>
+<ul>
+<li>New Smart Recording support (disk2disk service)</li>
+<li>New n2disk multithreaded capture (support for RSS with NVIDIA/Mellanox adapters)</li>
+<li>New ndedup utility for inline packet deduplication
+<ul>
+<li>Zero-copy batch traffic forwarding as transparent bridge</li>
+<li>Support for multiple segments or RSS queues with mulththreading</li>
+<li>Configurable window size</li>
+</ul>
+</li>
+</ul>
+<h3>n2disk</h3>
+<ul>
+<li>Add Device and Port ID to indexed metadata</li>
+<li>Add support for Metawatch in packet capture mode</li>
+<li>Add support for indexing tunneled traffic in VXLAN</li>
+<li>Add support for IP-in-GRE-IP-in-VXLAN-in-IP encapsulation</li>
+<li>Add support for ERSPAN</li>
+<li>Add support for Arista 7280 headers</li>
+<li>Add support for FT-driven slicing</li>
+<li>Add threads for notifications (exec command) and queues to notify pcaps in order</li>
+<li>Index L2 packets</li>
+<li>Index ICMP protocol</li>
+<li>Index Arista Metawatch Device and Port ID with &#8211;extended-index 4 (even without &#8211;hw-timestamp metawatch)</li>
+<li>New options
+<ul>
+<li>Add &#8211;disable-rss option to disable RSS (send all traffic to queue 0)</li>
+<li>Add &#8211;file-mode and &#8211;dir-mode options to set permissions on disk</li>
+<li>Add &#8211;indexer-threads &lt;cores&gt; (same semantic of -k &lt;cores&gt; -K) to set indexer threads core affinity</li>
+<li>Add &#8211;reader-priority, &#8211;writer-priority, &#8211;indexer-priority to set threads priority</li>
+<li>Add &#8211;numa-affinity to set NUMA node affinity</li>
+<li>Add &#8211;other-cpu-affinity option to set core affinity for auxiliary threads</li>
+<li>Add &#8211;no-overwriting option to disable pcap recycling</li>
+<li>Add &#8211;hole-detection &lt;msec&gt; option to detect traffic holes</li>
+<li>Add &#8211;disable-chunk-mode option to disable chunk mode when automatically detected</li>
+<li>Add &#8211;profiling option to enable pipeline profiling</li>
+<li>Add &#8211;no-demo option to fail on no/expired license</li>
+</ul>
+</li>
+<li>Enable libpcap capture on Linux (fallback to libpcap when pf_ring is not available)</li>
+<li>Improve Arista timestamps management to skip packets until the first keyframe is received</li>
+<li>Disable dump to specific disks in case of write failure when multiple volumes are available</li>
+<li>Fix standard BPF filters with zc interfaces</li>
+<li>Fix used disk space computation with compressed npcap files</li>
+<li>Fix exit status on failure</li>
+<li>Fix fd leak</li>
+<li>Fix DLT with vanilla pcap capture</li>
+<li>Deprecate -n option</li>
+</ul>
+<h3>Flow export</h3>
+<ul>
+<li>Add &#8211;probe-ip option to specify the probe ip</li>
+<li>Reworked ZMQ export (now using ZMQ export support provided by PF_RING FT)</li>
+<li>Fix exported flows stats</li>
+</ul>
+<h3>npcapextract</h3>
+<ul>
+<li>Add match for Device and Port ID</li>
+<li>Add support for time in epoch format in -b/-e</li>
+<li>Add support for nanoseconds time interval</li>
+<li>Handle extraction from pcap files which are not strictly honoring the timeline boundaries</li>
+<li>Fix extraction filters on IPv6 add</li>
+</ul>
+<h3>npcap library (PF_RING timeline module)</h3>
+<ul>
+<li>Add support for nanoseconds time interval</li>
+<li>Fix memory corruption with big pcap and big index files</li>
+</ul>
+<h3>disk2n (replay)</h3>
+<ul>
+<li>Add &#8211;keep-crc option to keep the CRC</li>
+<li>Fix &#8211;takeoff-time</li>
+</ul>
+<h3>Misc</h3>
+<ul>
+<li>Add ARM support</li>
+<li>Add Ubuntu 22/24 support and package</li>
+<li>Add Debian 11/12 support and package</li>
+<li>Add FreeBSD support and package</li>
+<li>Add n2disk user to the ntop group</li>
+<li>Add UNIT_NAME and INSTANCE_NAME env var to systemd services</li>
+<li>Install binaries to /usr/bin</li>
+</ul>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-recording/n2disk/">n2disk</a>, <a href="https://www.ntop.org/capacity-planning-troubleshooting/">Capacity planning and troubleshooting</a></p>
+<p>The post <a href="https://www.ntop.org/introducing-n2disk-3-8-nvidia-support-smart-recording-traffic-deduplication/">Introducing n2disk 3.8: NVIDIA Support, Smart Recording, Traffic Deduplication</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Howto Build a (Cheaper) 100 Gbit Continuous Packet Recorder using Commodity Hardware</title>
+		<link>https://www.ntop.org/howto-build-a-cheaper-100-gbit-packet-recorder-using-commodity-hardware/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 01 Jul 2024 05:37:12 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11217</guid>
+
+					<description><![CDATA[<p>Those who follow this blog probably read a few posts where we described how to build a 100 Gbit continuous packet recorder using n2disk and PF_RING, providing specs for recommended hardware and…</p>
+<p>The post <a href="https://www.ntop.org/howto-build-a-cheaper-100-gbit-packet-recorder-using-commodity-hardware/">Howto Build a (Cheaper) 100 Gbit Continuous Packet Recorder using Commodity Hardware</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Those who follow this blog probably read a few posts where we described how to build a 100 Gbit continuous packet recorder using n2disk and PF_RING, providing specs for recommended hardware and sample configurations&nbsp;(if you missed them, read <a href="https://www.ntop.org/n2disk/building-a-cheap-2x10-gbit-continuous-packet-recorder-using-n2disk-and-pf_ring/">part 1</a>, <a href="https://www.ntop.org/ntop/building-a-cheap-continuous-packet-recorder-using-n2disk-and-pf_ring-part-2/">part 2</a> and <a href="https://www.ntop.org/ntop/howto-build-a-100-gbit-drop-free-continuous-packet-recorder-using-n2disk-part-3/">part 3</a>). In those posts we recommended the use of FPGA-based adapters (e.g. Napatech) with support for PCAP <em>chunk mode</em> (e.g. ability for the NIC to collapse packets onside the adapter in pcap format without the need to read packet-by-packet as with most network adapters), in addition to other nice features like hardware time-stamping and link aggregation. The ability to capture traffic using chunk mode improves the bus utilisation and reduces the number of CPU cycles (and PCIe bus transitions) required for copying and processing the data. This allows <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a>, our continuous traffic recorder, to process up to 50 Gbps per instance/stream, allowing us to handle full 100 Gbps load balancing traffic to 2 instances/streams (in the same box).</p>
+<p>As you probably know, we have pioneered packet capture on commodity hardware for many years, since the introduction of PF_RING, trying to do our best to get the most out of ASIC adapters (e.g. Intel) and close the gap with specialised and costly capture adapters. For this reason, in the past months we struggled to give our community a cheaper alternative for building a 100 Gbps recorder, using ASIC adapters in place of FPGAs.</p>
+<p>For this project we selected a <a href="https://www.ntop.org/guides/pf_ring/modules/mellanox.html">NVIDIA</a> (former Mellanox) ASIC adapter from the ConnectX family, which is quite fast, provides nice features (including hardware timestamping and flexible packet filtering), at a price range similar to the Intel <a href="https://www.intel.com/content/www/us/en/products/details/ethernet/800-network-adapters/e810-network-adapters/products.html">E810</a>. This adapter, just like any other ASIC adapter on the market, does <span style="text-decoration: underline;">not</span> support chunk mode, but it rather uses a transaction per packet, delivering lower performance per stream with respect to FPGA adapters. This means that in order to reach 100 Gbps performance we need to scale with many more (RSS) streams.</p>
+<p>For this reason we have decided to change the internal n2disk architecture to be able to handle multiple interfaces (and RSS streams) in a single process, by means of multiple capture threads. In order to keep the internal architecture simple, the configuration of multiple capture threads also requires multiple dump directories (and timelines), one per RSS stream. The extraction tool (npcapextract) can be seamlessly used to extract and aggregate traffic from all the timelines at extraction time, using the hardware timestamp with nanosecond resolution for merging packets in the proper order.</p>
+<p>The hardware required for building such system consists of a 16+ cores 3Ghz CPU (e.g. in our tests we have used Xeon Gold 6526Y), with an optimal memory configuration (i.e. all memory channels filled) as already discussed in the previous posts.</p>
+<p>Sample command for configuring 8 RSS queues on a ConnectX interface (the linux interface name should be provided):</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ethtool -L ens0f0 combined 8</pre>
+<p>Sample n2disk configuration file for capturing from 8 RSS queues (mlx_5@[0-7]):</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">--interface=mlx:mlx_5@[0-7]
+--dump-directory=/storage1/n2disk/pcap
+--dump-directory=/storage2/n2disk/pcap
+--dump-directory=/storage3/n2disk/pcap
+--dump-directory=/storage4/n2disk/pcap
+--dump-directory=/storage5/n2disk/pcap
+--dump-directory=/storage6/n2disk/pcap
+--dump-directory=/storage7/n2disk/pcap
+--dump-directory=/storage8/n2disk/pcap
+--timeline-dir=/storage1/n2disk/timeline
+--timeline-dir=/storage2/n2disk/timeline
+--timeline-dir=/storage3/n2disk/timeline
+--timeline-dir=/storage4/n2disk/timeline
+--timeline-dir=/storage5/n2disk/timeline
+--timeline-dir=/storage6/n2disk/timeline
+--timeline-dir=/storage7/n2disk/timeline
+--timeline-dir=/storage8/n2disk/timeline
+--disk-limit=80%
+--max-file-len=1024
+--buffer-len=8192
+--index
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--writer-cpu-affinity=0
+--reader-cpu-affinity=1
+--reader-cpu-affinity=2
+--reader-cpu-affinity=3
+--reader-cpu-affinity=4
+--reader-cpu-affinity=5
+--reader-cpu-affinity=6
+--reader-cpu-affinity=7
+--reader-cpu-affinity=8
+--indexer-cpu-affinity=9,10
+--indexer-cpu-affinity=11,12
+--indexer-cpu-affinity=13,14
+--indexer-cpu-affinity=15,0
+--indexer-cpu-affinity=25,26
+--indexer-cpu-affinity=27,28
+--indexer-cpu-affinity=29,30
+--indexer-cpu-affinity=31,16</pre>
+<p>From our tests, this configuration was able to capture, index and dump traffic to disk with no packet loss up to more than 100 Mpps (average packet size of 100 bytes) at full 100 Gbps. Worth to mention that this still delivers lower performance with respect to an FPGA with chunk mode, which is capable of 148.8 Mpps (theoretical max throughput at 100 Gbps with 60-byte packets), but for many people it&#8217;s probably enough to cope with real traffic (where the average packet size is usually much higher than 100-bytes). Also, note the configuration looks a bit more complicated with respect to the one used with FPGA adapters, as this requires more threads, and setting the affinity for all of them is required to make sure n2disk fully takes advantage of all CPU cores and get the best performance. In essence with an FPGA adapter you have to put into account the cost of the network adapter but you can save money on the system (as you can use a cheaper CPU) and you have the guarantee that no packet is lost a FPGA adapters are more efficient and have GB of on-board of memory. This said you now have a cheaper option for your high-speed packet-to-disk activities.</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/howto-build-a-cheaper-100-gbit-packet-recorder-using-commodity-hardware/">Howto Build a (Cheaper) 100 Gbit Continuous Packet Recorder using Commodity Hardware</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing Smart Recording in n2disk: Combining Cybersecurity with Packet-to-Disk</title>
+		<link>https://www.ntop.org/introducing-smart-recording-in-n2disk-combining-cybersecurity-with-packet-to-disk/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 02 May 2023 06:56:07 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[Cybersecurity]]></category>
+		<category><![CDATA[n2disk]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10394</guid>
+
+					<description><![CDATA[<p>In short Continuous network traffic recorders are applications (or appliances) that write network traffic on disk. In case of issues (e.g. security breach or network outage) they enable network and security analysts…</p>
+<p>The post <a href="https://www.ntop.org/introducing-smart-recording-in-n2disk-combining-cybersecurity-with-packet-to-disk/">Introducing Smart Recording in n2disk: Combining Cybersecurity with Packet-to-Disk</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>In short</h3>
+<p>Continuous network traffic recorders are applications (or appliances) that write network traffic on disk. In case of issues (e.g. security breach or network outage) they enable network and security analysts to go back in time and see how a problem originated. The main limitation of this practice is that a lot of data it is written to disk even when there is nothing special happening on the network. Similar to the evolution of surveillance cameras that implemented &#8220;motion detection&#8221; to trigger recording when some meaningful even happen, this is to introduce a similar concept for network packet recording. Namely, we now enable (this is a configuration option) the ability to record network traffic only if relevant activities are detected (call it &#8220;network motion detection&#8221; if you wish): less disk space used, more data recorded, faster data access as non relevant data is discarded. <strong>IMPORTANT</strong>: contrary to &#8220;motion detection&#8221; where recording starts the a motion is detected, in smart packet recording we have implemented a mechanism (through a technique called &#8220;<em>extract on recording</em>&#8220;) that allows us to start recording <strong>before</strong> the security event is triggered, and so give people the ability to see how everything started and not when the problem is already in place. Below we show how nDPI/ntopng (and <a href="https://www.ntop.org/guides/ntopng/third_party_integrations/suricata.html">Suricata via ntopng)</a> trigger smart recording, but soon we want to extend this facility to other third party security applications that can trigger recording in n2disk.</p>
+<p>Continue reading this article if you want to know how smart recording works in detail.</p>
+<h3>The Whole Story</h3>
+<p>In <a href="https://www.ntop.org/webinar/ntop-webinar-on-dec-14th-community-meeting-and-future-plans/">one of our Webinars</a> last year we introduced the idea of implementing a smart way of <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">recording PCAP data</a>. This was based on the necessity of going back in time and get the raw traffic matching an event that our system (e.g. ntopng) detected. In fact, the recording window (data retention) for PCAP data, that depends on the size of the storage system, may not be large enough to contain (and let us download) the data for the event we are analysing, especially at high traffic rates (a 10 Gbit link can produce more than 100 Terabytes per day!).</p>
+<p>Those who are running&nbsp;<a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a> for security or troubleshooting, in most cases are using it in combination with <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a> for&nbsp;enabling Continuous Traffic Recording. When ntopng&nbsp;triggers an alert, in case of a security event or a Network issue, this allows them to drill down and download the raw packets, providing full evidence of the event. But it happens that at the time the manual analysis is conducted, the PCAP data is no longer on disk, as n2disk already deleted it to make room for new data.</p>
+<p>n2disk implements several techniques for improving the data retention and enlarge the recording window. This includes:</p>
+<ul>
+<li>Packet slicing, to strip the packet payload</li>
+<li>Layer 2/3/4 filtering based on optimized BPF filters, to discard traffic based on packet headers</li>
+<li>Layer-7 filtering, to discard or shunt unwanted traffic based on the application protocol</li>
+<li>Traffic compression</li>
+</ul>
+<p>However all the filtering techniques described above have some limitation: they are not able to predict which traffic is really important (i.e. packets matching Network events) and keep keep using disk space for traffic which is not really relevant for our analysis.</p>
+<p>This is why we introduced the concept of <strong><a href="https://www.ntop.org/guides/ntopng/using_with_other_tools/n2disk.html#smart-recording">Smart Recording</a></strong>, which is a new technique that allows us prioritise selected traffic (e.g. based on security events generated by ntopng or third party tools), by deleting the rest of the traffic first, when it&#8217;s time to make room for new data on disk.</p>
+<p>The Smart Recording has been implemented as a new service which is running on the box, which is processing events published by the analysis tools, and it is archiving PCAP data matching those events to a secondary storage (this can be on a dedicated or the same volume). In short n2disk is using:</p>
+<ul>
+<li>a 1st level storage to implement Continuous Recording with a short data retention</li>
+<li>a 2nd level storage to archive traffic for Network events with a longer data retention</li>
+</ul>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/04/smart-recording-architecture.png"><img fetchpriority="high" decoding="async" class="alignnone size-large wp-image-10398" src="https://www.ntop.org/wp-content/uploads/2023/04/smart-recording-architecture-1024x299.png" alt="" width="1024" height="299"></a></p>
+<p>This architecture is already supported by ntopng 5.7 (available in ntopng Enterprise XL) and can be enabled from the <a href="https://www.ntop.org/guides/ntopng/using_with_other_tools/n2disk.html#using-ntopng-with-n2disk">Traffic Recording page</a>&nbsp;in the ntopng GUI. This requires n2disk to be installed as described in the <a href="https://www.ntop.org/guides/ntopng/using_with_other_tools/n2disk.html#enabling-traffic-recording">documentation</a>, and can be enabled in the same page used to manage Traffic Recording:</p>
+<ol>
+<li>Toggle <em>Smart Traffic Recording</em></li>
+<li>Configure the desired <em>Max Smart Disk Space</em> which is the disk space to be used for the second level storage (events traffic)</li>
+<li>Save the configuration and enable Smart Recording with the <em>Save Settings</em> button</li>
+</ol>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/04/web_gui_interfaces_smart_recording.png"><img decoding="async" class="alignnone size-large wp-image-10399" src="https://www.ntop.org/wp-content/uploads/2023/04/web_gui_interfaces_smart_recording-1024x737.png" alt="" width="1024" height="737"></a></p>
+<p>At this point everything is up and running: n2disk is continuously recording PCAP traffic up to the configured <em>Max Disk Space</em>, and the Smart Recording service is processing events and moving event&#8217;s data to the secondary storage up to <em>Max Smart Disk Space.</em>&nbsp;When traffic extraction is requested, from one of the charts in the ntopng GUI, or when downloading PCAP traffic for a specific alert or flow, traffic is extracted from the first-level storage if it falls inside the first-level recording window, or from the second-level storage otherwise (only traffic matching network events will be available in the latter case).</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/introducing-smart-recording-in-n2disk-combining-cybersecurity-with-packet-to-disk/">Introducing Smart Recording in n2disk: Combining Cybersecurity with Packet-to-Disk</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Exploiting Arista MetaWatch with n2disk and ntopng: HighRes Timestamping  and Analytics</title>
+		<link>https://www.ntop.org/arista-metawatch-n2disk-ntopng/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Wed, 02 Dec 2020 09:53:42 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<category><![CDATA[ntop]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=8889</guid>
+
+					<description><![CDATA[<p>Precise packet timestamping is a key feature for network traffic analysis and troubleshooting. Traditionally many people use FPGA-based NICs with precise timestamping (e.g. Napatech, Silicom) even though a good precision can be…</p>
+<p>The post <a href="https://www.ntop.org/arista-metawatch-n2disk-ntopng/">Exploiting Arista MetaWatch with n2disk and ntopng: HighRes Timestamping  and Analytics</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><a href="https://en.wikipedia.org/wiki/Low_latency_(capital_markets)">Precise packet timestamping</a> is a key feature for network traffic analysis and troubleshooting. Traditionally many people use FPGA-based NICs with precise timestamping (e.g. <a href="http://napatech.com">Napatech</a>, <a href="http://silicom-usa.com">Silicom</a>) even though a good precision can be obtained with <a href="https://en.wikipedia.org/wiki/Precision_Time_Protocol">PTP</a>-based NICs such as many Intel network adapters. A better alternative to this practice is to avoid ad all using specialised adapters and rely on existing network devices to timestamp packets.</p>
+<p><a href="https://www.arista.com/">Arista</a> packet brokers with <a href="https://www.arista.com/en/products/metawatch-network-application">MetaWatch</a>  can be configured to add an extra trailer (Metamako) with metadata to every captured packet. In fact <a href="https://www.arista.com/en/products/7150-series">Arista 7150 Series</a> devices are able to add packet trailers and generate keyframes to provide high-resolution timestamping, allowing for advanced network analysis and precise latency measurements. Arista MetaWatch devices are also able to include device information such as the Device ID and the incoming Port ID for captured packets and thus identify packet source that is then propagated to packet consumers. Below you can see an example of the packet trailer containing this information.</p>
+<p>&nbsp;</p>
+<p><img decoding="async" class="aligncenter wp-image-8892 size-large" src="https://www.ntop.org/wp-content/uploads/2020/12/metamako_trailer-1024x355.png" alt="" width="600" /></p>
+<p><a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/"><strong>n2disk</strong></a>, ntop&#8217;s software tool for packet recording, is able to dump traffic and build an index on the fly, for enabling quick traffic retrieval by specifying the time interval and a BPF-like criteria. In addition to the 5-tuple, n2disk is able to index extended metadata, including those provided by MetaWatch devices and use the timestamp reported in the packet trailer. n2disk stores the <em><strong>device &lt;ID&gt;</strong></em> and <strong><em>interface &lt;ID&gt;</em></strong> in the packet index and it allows to use then when running traffic extractions.  A typical use case is the ability to retrieve traffic that went through a specific port and at a specific time in our network, this in addition to traditional IP address, port and layer-7 based filters.</p>
+<p>This can be enabled in n2disk by adding<em> &#8211;extended-index 4</em> and <em>&#8211;hw-timestamp metawatch</em> to the configuration (for further information please read the <a href="https://www.ntop.org/guides/n2disk/filters.html">documentation</a>). Example:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">--interface=eth1
+--dump-directory=/storage
+--timeline-dir=/storage
+--disk-limit=90%
+--index
+--extended-index=4
+--hw-timestamp=metawatch
+--index-on-compressor-threads
+--reader-cpu-affinity=0
+--compressor-cpu-affinity=1
+--writer-cpu-affinity=2</pre>
+<p><img decoding="async" class="aligncenter wp-image-8913 size-full" src="https://www.ntop.org/wp-content/uploads/2020/12/Screen-Shot-2020-12-02-at-10.45.46.png" alt="" width="753" height="325" /></p>
+<p>n2disk is also able to <a href="https://www.ntop.org/guides/n2disk/using_with_ntopng.html#flows-export">export flow metadata</a> to <strong><a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a></strong>, acting as a flow probe, similar to <a href="https://www.ntop.org/guides/ntopng/using_with_other_tools/nprobe.html">what nProbe or nProbe Cento do</a>. In this configuration, when support for MetaWatch devices is enabled with <em>&#8211;hw-timestamp metawatch</em>, n2disk also exports device and port information by populating <em>%INPUT_SNMP %OUTPUT_SNMP %OBSERVATION_POINT_ID</em> Information Elements. Example n2disk configuration file:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">--interface=eth1
+--dump-directory=/storage
+--timeline-dir=/storage
+--disk-limit=90%
+--index
+--extended-index=4
+--hw-timestamp=metawatch
+--index-on-compressor-threads
+--reader-cpu-affinity=0
+--compressor-cpu-affinity=1
+--writer-cpu-affinity=2
+--zmq=tcp://127.0.0.1:5556
+--zmq-export-flows</pre>
+<p>ntopng configuration file example:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">-i=tcp://*:5556c</pre>
+<p>In this configuration, device and ingress/egress port information are collected by ntopng and displayer in the flow details page as depicted below as well hardware timestamps are used in dumped pcaps.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-8894 size-full" src="https://www.ntop.org/wp-content/uploads/2020/12/ntopng_matawatch_device_id-e1606902940635.png" alt="" width="1944" height="586" /></p>
+<p>In summary, thanks to Metamako support in ntop tools it is possible to combine precise timestamping as well packet-to-disk with real-time monitoring capabilities. This is an improvement with respect to hardware-based timestamping NICs that provide just timestamping and offer no device visibility and match on the actual network topology, very useful feature to locate and troubleshoot network issues.</p>
+<p>Enjoy!</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/arista-metawatch-n2disk-ntopng/">Exploiting Arista MetaWatch with n2disk and ntopng: HighRes Timestamping  and Analytics</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing n2disk 3.6: full L7 support, fast flow export, replay rate control</title>
+		<link>https://www.ntop.org/introducing-n2disk-3-6-full-l7-support-fast-flow-export-replay-rate-control/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 20 Oct 2020 10:59:55 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=8779</guid>
+
+					<description><![CDATA[<p>This is to announce a new n2disk release 3.6. This release adds full support for indexing and retrieving traffic based on the Layer-7 application protocol. This can now be enabled even when…</p>
+<p>The post <a href="https://www.ntop.org/introducing-n2disk-3-6-full-l7-support-fast-flow-export-replay-rate-control/">Introducing n2disk 3.6: full L7 support, fast flow export, replay rate control</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to announce a new <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a> release 3.6.</p>
+<p>This release adds full support for indexing and retrieving traffic based on the Layer-7 application protocol. This can now be enabled even when <a href="https://www.ntop.org/guides/n2disk/using_with_ntopng.html#flows-export">flow export</a> is disabled, and it is possible to use the extraction tool to extract selected application traffic using the Layer-7 protocol as part of the <a href="https://www.ntop.org/guides/n2disk/filters.html#id2">nBPF filter</a>.</p>
+<p>n2disk is now also able to use the main storage as a cache, and in the meantime archive pcap files moving them from the fast to a slower storage, even when the new &#8220;disk-limit&#8221; file schema. This is useful to handle peak hours with high throughput using a fast/small NVMe storage, moving data to a slower/larger/cheaper storage off peak, slowly or overnight.</p>
+<p><a href="https://www.ntop.org/guides/n2disk/using_with_ntopng.html#flows-export">Flow export</a> has been optimized, to be able to handle a high number of flows to be exported to <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a> while dumping traffic to disk. More settings have also been added to provide full control on flow termination and export.</p>
+<p>The disk2n tool has also been improved: it is now possible to control the transmission rate by specifying the number of packets per second (e.g. &#8211;transmission-rate 100 &#8211; 100 packets/s), or bit rate (e.g. &#8211;transmission-rate 1.25Gbps &#8211; 1.25 Gigabit/sec), or the relative speed (e.g. &#8211;transmission-rate 50% &#8211; 50% of the original traffic rate).</p>
+<p>Below you can find the full changelog.</p>
+<p>Enjoy!</p>
+<h2>Changelog</h2>
+<ul>
+<li>n2disk (dump)
+<ul>
+<li>Add support for Metawatch Metamako packet trailer (timestamp is added to packet header and index,<span class="Apple-converted-space"> </span>device and port ID are exported as flow metadata using INPUT_SNMP/OUTPUT_SNMP/OBSERVATION_POINT_ID IEs)</li>
+<li>Add support for Arista 7150 Series packet trailer and keyframes (timestamp is added to packet header and index)</li>
+<li>New -E 2 option to enable application protocol (L7) indexing when ZMQ export is disabled</li>
+<li>Add support for archiving to a slower storage (-O) when the &#8211;disk-limit dump schema is used</li>
+<li>Set a default disk limit (auto computing 80% of free space + space already in use) when not configured</li>
+<li>Increse maximum number of interfaces (up to 32)</li>
+<li>Exporting FirstDumpedEpoch only when available</li>
+<li>Fix access to latest deleted PCAP file epoch</li>
+<li>Fix drop stats in PCAP mode (do not account drop in recv)</li>
+<li>Fix index root folder (when a folder different from the dump folder is specified)</li>
+<li>Fix -I&lt;index path&gt; with &#8211;disk-limit</li>
+<li>Support for Ubuntu 20</li>
+</ul>
+</li>
+<li>Flow export
+<ul>
+<li>Add &#8211;lifetime-timeout and &#8211;idle-timeout options to control flow expiration</li>
+<li>Optimize flow export with batch mode</li>
+<li>Fix ZMQ message ID</li>
+</ul>
+</li>
+<li>npcapextract
+<ul>
+<li>Add support for L7 filtering using nBPF</li>
+</ul>
+</li>
+<li><span class="Apple-converted-space"> </span>disk2n (replay)
+<ul>
+<li>Add new &#8211;transmission-rate option to set the replay speed in bps, pps or % (relative to the original traffic speed)</li>
+</ul>
+</li>
+<li>Misc
+<ul>
+<li>Add -a option to npcapmove to generate absolute paths</li>
+<li>Fix npcapmanage in case of relative paths</li>
+<li>Fix logrotate configuration file permission</li>
+</ul>
+</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/introducing-n2disk-3-6-full-l7-support-fast-flow-export-replay-rate-control/">Introducing n2disk 3.6: full L7 support, fast flow export, replay rate control</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Howto Build a 100 Gbit (Drop-Free) Continuous Packet Recorder using n2disk [Part 3]</title>
+		<link>https://www.ntop.org/howto-build-a-100-gbit-drop-free-continuous-packet-recorder-using-n2disk-part-3/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 15 Jun 2020 15:37:41 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=8531</guid>
+
+					<description><![CDATA[<p>In the first post of this series (part 1) we described how to build a 2×10 Gbit continuous packet recorder using n2disk and PF_RING, in the second post (part 2) we described…</p>
+<p>The post <a href="https://www.ntop.org/howto-build-a-100-gbit-drop-free-continuous-packet-recorder-using-n2disk-part-3/">Howto Build a 100 Gbit (Drop-Free) Continuous Packet Recorder using n2disk [Part 3]</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>In the first post of this series (<a href="https://www.ntop.org/n2disk/building-a-cheap-2x10-gbit-continuous-packet-recorder-using-n2disk-and-pf_ring/">part 1</a>) we described how to build a 2×10 Gbit continuous packet recorder using n2disk and PF_RING, in the second post (<a href="https://www.ntop.org/ntop/building-a-cheap-continuous-packet-recorder-using-n2disk-and-pf_ring-part-2/">part 2</a>) we described what hardware is required to scale from 10 Gbit to 100 Gbit. One more year has past now and we matured more experience with 100 Gbit recording, it&#8217;s time to refresh the previous posts and share more information about the new capture and storage technologies and configurations in order to build a recorder able to dump 100+ Gbit line-rate small-packets sustained traffic.</p>
+<p>For those reading about this topic for the first time, a continuous packet recorder is a device that captures raw traffic to disk continuously, similar to a CVR camera, providing a window into network history. This allows you, whenever a network event happens, to go back in time and analyse traffic up to the raw packet as it appeared on the wire (including headers and payload) to find what exactly caused a specific issue.</p>
+<p>With n2disk, which is part of the ntop suite, it is possible to build such device and dump traffic using the standard PCAP format. Furthermore, by leveraging on the PF_RING acceleration, n2disk is able to capture, index and dump traffic from 1/10/100 Gbit links with no packet loss in any traffic condition. This year we released a new <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a> stable version 3.4, that besides  adding new interesting features (including the ability to filter traffic based on the L7 application protocol), introduced major performance optimizations when running on top of FPGA-based NICs.</p>
+<p>In this post we will focus on 100 Gbit recording, describing a hardware and software configuration that our users are successfully using in production environments.</p>
+<h2>Hardware Specs</h2>
+<h3>Network Card</h3>
+<p>As already discussed in the <a href="https://www.ntop.org/ntop/building-a-cheap-continuous-packet-recorder-using-n2disk-and-pf_ring-part-2/">previous post</a> n2disk is able to capture traffic from many adapters thanks to the abstraction layer provided by the PF_RING <a href="https://www.ntop.org/guides/pf_ring/modules/index.html">modules</a>. Based on the speed and features we need (and our budget) we can decide to go for a commodity adapter (e.g. Intel) or a specialised FPGA adapter (e.g. Napatech, Silicom/Fiberblaze).</p>
+<p>There are a few commodity adapters with 100 Gbit connectivity on the market, however they are usually not able to cope with full 100 Gbit throughput in any traffic condition (e.g. small packets) even using accelerated drivers, when it comes to dump traffic to disk. The main reason is that in this case we cannot use technologies like RSS to spread the load across multiple streams, as this would shuffle packets (coming from different streams) to disk, and we need to preserve packet order to provide evidence of a network event. Please note that using multiple streams is still an option if we have a way for sorting packets (e.g. hardware timestamps with high precision) which is usually not the case with commodity adapters.</p>
+<p>FPGA adapters provide support for moving packets in big chunks, delivering high throughput to applications like n2disk, without the need of using multiple streams in most cases (in our experience n2disk is able to handle up to ~50 Gbps with a single stream). In this post we will use the <a href="https://www.napatech.com/support/resources/data-sheets/link-nt200a02-smartnic/">Napatech NT200A02</a> adapter as reference for the configuration, however other options are also supported like the <a href="https://www.silicom-usa.com/cats/fpga-based-cards/100-gigabit-fpga-cards/">Silicom/Fiberblaze</a>.</p>
+<h3>Storage</h3>
+<p>When it comes to select a fast storage, the word &#8220;Raid&#8221; immediately jumps to our mind. A good Raid controller (e.g. with 2 GB of onboard buffer) with a few disks in a Raid 0 configuration can increase the I/O throughput up to 40+ Gbps. However this is not enough to handle 100 Gbps. If we need quite some data retention time, and rack space is not a problem, we can probably use a few Raid controllers and many HDD or SSD disks to distribute the load and reach the desired throughput.</p>
+<p>A better option could be using NVMe disks. Those disks are fast SSDs directly connected to the PCIe bus. Since they are fast, they do not even require a Raid controller (actually a standard SATA/SAS controller cannot drive them) and it is possible to leverage on the multithreaded dump capability of n2disk to directly write in parallel to many of them and dramatically increase the dump throughput.</p>
+<p>The throughput we&#8217;ve been able to achieve with n2disk using Intel NVMe disks from the P4500/P4600 series is ~20 Gbps per disk. This means that 8 disks are enough for recording traffic at 100 Gbps. Please make sure that you select write-intensive disks that guarantee enough endurance time.</p>
+<h3>CPU</h3>
+<p>FPGA adapters are able to aggregate traffic in hardware and distribute the load across multiple streams. As said before, n2disk is able to handle up to ~50 Gbps with a single capture thread/core and a single data stream. If we use a 3+ Ghz Xeon Gold CPU, at 50 Gbps n2disk requires 3/4 cores for indexing traffic. One more core is required for the threads dumping traffic to disk, for a total of 6 cores.</p>
+<p>If we want to handle 100 Gbps traffic, we should use 2 streams, with one n2disk instance each, thus a 3+ Ghz Xeon Gold with at least 12 cores is required. An Intel Xeon Gold 6246 is an example as minimum requirement at this speed. If you go for a NUMA system (multiple CPUs) please pay attention to the CPU affinity as already discussed in the previous posts! Please also make sure you configure the system with enough memory modules to use all memory channels (check the CPU specs for this) and with the maximum supported frequency.</p>
+<h2>Software Configuration</h2>
+<h3>Data Stream Configuration</h3>
+<p>In order to run n2disk on Napatech or other FPGAs with the best performance, the  adapter need to be properly configured. Support for chunk mode, PCAP format, nanosecond timestamps, need to be enabled in the configuration the under /opt/napatech3/config/ntservice.ini as described in the n2disk <a href="https://www.ntop.org/guides/n2disk/napatech.html">user&#8217;s guide</a>. Please find below the parameters that you usually need to change:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">[System]
+TimestampFormat = PCAP_NS
+[Adapter0]
+HostBufferSegmentSizeRx = 4
+HostBuffersRx = [4,128,0]
+MaxFrameSize = 1518
+PacketDescriptor = PCAP</pre>
+<p>If a single data stream is enough, no additional configuration is required as it is possible to capture directly from an interface (e.g. <em>nt:0</em> for port 0). If a single data stream is not enough as the traffic throughput exceeds 50 Gbps, multiple streams need to be configured using the <em>ntpl</em> tool as in the example below. In the example below traffic is load-balanced to two streams using a 5-tuple hash function. Each stream can be selected by capturing from nt:stream&lt;id&gt; (e.g. <em>nt:stream0</em> for stream 0).</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">/opt/napatech3/bin/ntpl -e "Delete=All"
+/opt/napatech3/bin/ntpl -e "HashMode = Hash5TupleSorted"
+/opt/napatech3/bin/ntpl -e "Setup[NUMANode=0]=Streamid==(0..1)"
+/opt/napatech3/bin/ntpl -e "Assign[streamid=(0..1)] = All"</pre>
+<h3>n2disk Configuration</h3>
+<p>A good n2disk setup is also really important in order to achieve the best dump performance. The <a href="https://www.ntop.org/guides/n2disk/tuning.html">tuning section</a> of the n2disk user&#8217;s guide contains basic guidelines for properly configuring dump settings, CPU core affinity, indexing, etc.</p>
+<p>In this example we are capturing 100 Gbps traffic divided into two streams by means of two n2disk instances, which should handle a maximum throughput of 50 Gbps each. Traffic is stored in PCAP files across multiple NVMe disks in round-robin. As we&#8217;ve seen before, each NVMe disk has a max sustained IO throughput of 20 Gbps, thus 4 disks for each n2disk instance will be used.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-8553 size-large" src="https://www.ntop.org/wp-content/uploads/2020/06/recording-streams-1024x585.png" alt="" width="1024" height="585" /></p>
+<p>Please note that dumped traffic can be later on extracted seamlessly from all NVMe disks by selecting all timelines generated by the n2disk instances as data source in the <a href="https://www.ntop.org/guides/n2disk/utilities/npcapextract.html"><em>npcapextract</em></a> extraction tool. Please find below the configuration file for the first n2disk instance, with some comment describing what each instance is supposed to do.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"># Capture interface
+-i=nt:stream0
+# Disk space limit
+--disk-limit=80%
+# Storages (NVMe disks 1, 2, 3, 4)
+-o=/storage1
+-o=/storage2
+-o=/storage3
+-o=/storage4
+# Max PCAP file size
+-p=2048
+# In-memory buffer size
+-b=16384
+# Chunk size
+-C=16384
+# Index and timeline
+-A=/storage1
+-I
+-Z
+# Capture thread core affinity
+-c=0
+# Writer thread core affinity
+-w=22,22,22,22
+# Indexing threads core affinity
+-z=4,6,8,10</pre>
+<p>Please find below the configuration file for the second n2disk instance, which is similar to the previous one. It is important here to pay attention to the CPU affinity to avoid using the same cores twice (including logical cores using hyperthreading) affecting the performance.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">-i=nt:stream1
+--disk-limit=80%
+-o=/storage5
+-o=/storage6
+-o=/storage7
+-o=/storage8
+-p=2048
+-b=16384
+-C=16384
+-A=/storage5
+-I
+-Z
+-c=2
+-w=46,46,46,46
+-z=12,14,16,18
+</pre>
+<p>At this point we are ready to start the two n2disk instances. The chart below shows the CPU cores utilisation while capturing, indexing and dumping sustained 100 Gbps traffic (64-byte packets) continuously.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-8547 size-full" src="https://www.ntop.org/wp-content/uploads/2020/06/2-streams-100g-64-bytes-indexing.png" alt="" width="694" height="711" /></p>
+<p>Now you have all the ingredients to build your 100 Gbps traffic recorder.</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/howto-build-a-100-gbit-drop-free-continuous-packet-recorder-using-n2disk-part-3/">Howto Build a 100 Gbit (Drop-Free) Continuous Packet Recorder using n2disk [Part 3]</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing n2disk 3.4: 100 Gbit Traffic Dump to Disk</title>
+		<link>https://www.ntop.org/introducing-n2disk-3-4-100-gbit-traffic-dump-to-disk/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 07 Jan 2020 17:35:31 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=8068</guid>
+
+					<description><![CDATA[<p>This is to announce a new n2disk release 3.4. In addition to major performance optimisations with FPGA-based NICs, this release adds new interesting features including the ability to filter traffic based on…</p>
+<p>The post <a href="https://www.ntop.org/introducing-n2disk-3-4-100-gbit-traffic-dump-to-disk/">Introducing n2disk 3.4: 100 Gbit Traffic Dump to Disk</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to announce a new <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a> release 3.4. In addition to major performance optimisations with FPGA-based NICs, this release adds new interesting features including the ability to filter traffic based on the application protocol, aggregate traffic from multiple (2+) ZC interfaces, a better disk space management in case of multiple output folders (also from the same volume), and other useful options.</p>
+<p>With the current n2disk release and adequate storage, it is now possible on FPGA-based NICs to dump up over 40 Gbit of traffic with a single n2disk instance. This means that if you want to dump 100 Gbit to disk using NVMEs, you can now start 3 n2disk instances each dumping on a separate disk partition a portion of the ingress traffic. With npcapextract you can the aggregate the dumped traffic into a single pcap file.</p>
+<p>Enjoy!</p>
+<h3>Changelog</h3>
+<ul>
+<li>n2disk
+<ul>
+<li>New &#8211;l7-filter-conf option to enable l7 filtering (based on FT)</li>
+<li>New &#8211;time-pulse-precision option to lower CPU load when high-precision is not required</li>
+<li>Bulk/segment mode capture optimizations and fixes</li>
+<li>Add support for multiple (more than 2) ZC interfaces</li>
+<li>Add support for interface index encoding in timestamp (LSB)</li>
+<li>Improve &#8216;&#8211;disk-limit&#8217; support to take into account multiple folders from the same volume</li>
+<li>Improve exported flows (ZMQ) in JSON/TLV format, add PEN</li>
+<li>Improve disk utilization monitoring</li>
+<li>New option &#8211;kernel-cluster-id|-K to set a kernel cluster</li>
+<li>Improve egress queue flushing when idle with &#8211;export-flow-offload</li>
+<li>Improve /proc stats, add number of exported flows and timeline path</li>
+<li>Fix exported stats (ZMQ) JSON format</li>
+<li>Fix for mountpoints with no device (e.g. NFS)</li>
+<li>Fix storage status check on NFS without no_root_squash</li>
+<li>Fix disk limit check when indexing is not enabled</li>
+</ul>
+</li>
+<li>disk2n
+<ul>
+<li>Add support for interface index encoding in timestamp (LSB) to select the egress interface</li>
+<li>Add fully-cached mode to avoid continuously reading from disk when full pcap fits in memory</li>
+</ul>
+</li>
+<li>npcapextract
+<ul>
+<li>Increased max number of timelines from 10 to 16</li>
+<li>New -C &lt;num&gt; option to stop extraction after &lt;num&gt; packets</li>
+<li>Fix for filesystems with no I_DIRECT support</li>
+<li>Improve permission check</li>
+</ul>
+</li>
+<li>Misc
+<ul>
+<li>Add -T option to print first/last TS only to npcapprintindex</li>
+<li>Add more options to control n2membenchmark</li>
+</ul>
+</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/introducing-n2disk-3-4-100-gbit-traffic-dump-to-disk/">Introducing n2disk 3.4: 100 Gbit Traffic Dump to Disk</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Combining Traffic Recording with Visibility at 100 Gbps</title>
+		<link>https://www.ntop.org/combining-traffic-recording-with-visibility-at-100-gbps/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Fri, 16 Aug 2019 09:39:13 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7814</guid>
+
+					<description><![CDATA[<p>A few months ago, with ntopng 3.8, we introduced support for continuous traffic recording, that allows you to drill down historical data from the timeseries level up to raw packets. This is…</p>
+<p>The post <a href="https://www.ntop.org/combining-traffic-recording-with-visibility-at-100-gbps/">Combining Traffic Recording with Visibility at 100 Gbps</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>A few months ago, with <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a> 3.8, we <a href="https://www.ntop.org/announce/welcome-to-ntopng-3-8-with-continuous-drill-down-packets-flows-activities/">introduced support for continuous traffic recording</a>, that allows you to <a href="https://www.ntop.org/n2disk/drill-down-deeper-using-ntopng-to-zoom-in-filter-out-and-go-straight-to-the-packets/">drill down historical data from the timeseries level up to raw packets</a>. This is useful when troubleshooting a network issue or analysing a security event, by combining traffic visibility with raw traffic analysis.</p>
+<p>In order to record raw data ntopng leverages on the <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a> application, which is able to capture full-sized network packets at wire-speed up to 100 Gbps from a live network interface, and write them into pcap files without any packet loss. In a previous post we&#8217;ve seen <a href="https://www.ntop.org/ntop/building-a-cheap-continuous-packet-recorder-using-n2disk-and-pf_ring-part-2/">how to build a (cheap) continuous packet recorder</a>, providing instructions for configuring the storage to be able to match the expected performance and size it to get the desired data retention.</p>
+<p>Enabling traffic recording in ntopng is really straightforward and requires just a few clicks in the <em>Interface -&gt; (Recording)</em> page as you can see in the screenshot below and explained in the <a href="https://www.ntop.org/guides/ntopng/traffic_recording.html">User’s Guide</a>, this as long as you need to process traffic at low/mid rates (up to 1-2 Gbps) and the performance provided by commodity network adapters using standard drivers are fine. In this configuration, both ntopng and n2disk are able to capture traffic from the same interface by leveraging on the linux kernel for receiving a copy of the traffic.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/ntopng_interface_recording.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-7839 size-large" src="https://www.ntop.org/wp-content/uploads/2019/08/ntopng_interface_recording-1024x433.png" alt="" width="1024" height="433" /></a></p>
+<p>However, if you need to process traffic at high rates (10/40Gbit and above), you should consider using capture technologies able to deliver higher performance, like PF_RING ZC for Intel adapters or specialised FPGA adapters. As both PF_RING ZC and FPGA adapters are based on kernel bypass technologies, the drawback is that they do not allow you to capture the same traffic from multiple applications at the same time: this means that you cannot run ntopng and n2disk at the same time on the same interface.</p>
+<p>In order to overcome this limitation, n2disk has been extended with a new feature: the ability to <strong>export flow metadata to ntopng</strong>, similar to <a href="https://www.ntop.org/guides/ntopng/case_study/using_with_nprobe.html">what nProbe does</a>. In fact, n2disk can be configured to capture raw packets, dump PCAP data to disk, and export flow metadata through ZMQ to ntopng at the same time. n2disk can do this at high rates thanks to the internal multithreaded architecture and by leveraging on the optimized <a href="https://www.ntop.org/products/packet-capture/pf_ring/pf_ring-ft-flow-table/">PF_RING FT</a> flow processing library providing support for high-speed Layer 7 flow classification.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/n2disk_zmq_export.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-7817 size-large" src="https://www.ntop.org/wp-content/uploads/2019/08/n2disk_zmq_export-1024x506.png" alt="n2disk ZMQ export" width="1024" height="506" /></a></p>
+<p>The n2disk service can be configured creating a configuration file <em>/etc/n2disk/n2disk-&lt;instance name&gt;.conf</em> and is controlled using the systemctl utility on operating systems based on the <em>systemd</em> service manager. For details about the n2disk configuration please refer to the <a href="https://www.ntop.org/guides/n2disk/usage.html">n2disk User&#8217;s Guide</a>. In order to configure n2disk to export flow metadata, a ZMQ endpoint should be added to the configuration file by using the <em>&#8211;zmq &lt;endpoint&gt;</em> and <em>&#8211;zmq-export-flows</em> options.<br />
+It is a good practice to run n2disk using the <em>ntopng</em> user (<em>-u &lt;user&gt;</em> option) in order to make sure that the ntopng process is able to access the PCAP data recorded by n2disk and run traffic extractions. Such user is created when installing the packaged version available at http://packages.ntop.org.<br />
+Please find below a sample configuration, let&#8217;s call it <em>/etc/n2disk/n2disk-nt0.conf</em>, which is tied to the n2disk service instance <em>n2disk@nt0</em> according to the configuration file suffix. In this case n2disk is aggregating traffic from 2 ports of a Napatech adapter, building index and timeline, and exporting flow information through ZMQ.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">--interface=nt:0,1
+--dump-directory=/storage/n2disk/pcap
+--timeline-dir=/storage/n2disk/timeline
+--disk-limit=80%
+--max-file-len=1000
+--buffer-len=4000
+--max-file-duration=60
+--index
+--snaplen=1536
+--writer-cpu-affinity=0
+--reader-cpu-affinity=1
+--compressor-cpu-affinity=2,3,4,5
+--index-on-compressor-threads
+-u=ntopng
+--zmq=tcp://127.0.0.1:5556
+--zmq-probe-mode
+--zmq-export-flows</pre>
+<p>This n2disk service can be started with <em>systemctl</em> as below. As it is likely you want to run the service after a reboot, you also need to enable it.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">systemctl enable n2disk@nt0
+systemctl start n2disk@nt0</pre>
+<p>In order to process flow metadata coming from n2disk to ntopng, you need to add a ZMQ collector interface in the ntopng configuration file <em>/etc/ntopng/ntopng.conf</em>. Please find below an example of a basic ntopng configuration with a ZMQ endpoint in collector mode:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">-i=tcp://*:5556c</pre>
+<p>This ntopng service can be (re)started with <em>systemctl</em> as below:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">systemctl restart ntopng</pre>
+<p>As last step, you need to set the n2disk instance as external PCAP source in ntopng in the <em>Interface -&gt; Settings</em> page, to be able to check the n2disk service status and drill down up to the packet level in ntopng. In order to do this, you need to select the proper instance from the <em>Traffic Recording Provider</em> dropdown in the collector interface settings page as shown in the screenshot below.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/recording_external_providers.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-7818 size-large" src="https://www.ntop.org/wp-content/uploads/2019/08/recording_external_providers-1024x480.png" alt="" width="1024" height="480" /></a></p>
+<p>At this point it&#8217;s all set and you should be able to drill-down from charts and activities, to flows and packets, while processing 40/100 Gbps! In fact we&#8217;ve been able to process full 100 Gbps using &#8220;bulk&#8221; capture mode (n2disk is able to work in this mode when used in combination with Napatech or Fiberblaze adapters) and <a href="https://www.ntop.org/ntop/introducing-n2disk-3-2-towards-100-gbit-to-disk/">multithreaded dump</a> writing to 8 NVMe disks in parallel on an Intel Xeon Gold 12 cores 3Ghz, while sending flow metadata to ntopng. Please take a look at the <a href="https://www.ntop.org/guides/ntopng/traffic_recording.html">Continuous Traffic Recording</a> section to learn more about the integration of ntopng with n2disk.</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/combining-traffic-recording-with-visibility-at-100-gbps/">Combining Traffic Recording with Visibility at 100 Gbps</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Building a (Cheap) Continuous Packet Recorder using n2disk and PF_RING [Part 2]</title>
+		<link>https://www.ntop.org/building-a-cheap-continuous-packet-recorder-using-n2disk-and-pf_ring-part-2/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Thu, 11 Jul 2019 09:45:34 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7710</guid>
+
+					<description><![CDATA[<p>Continuous packet recorders are devices that capture raw traffic to disk, providing a window into network history, that allows you to go back in time when a network event occurs, and analyse…</p>
+<p>The post <a href="https://www.ntop.org/building-a-cheap-continuous-packet-recorder-using-n2disk-and-pf_ring-part-2/">Building a (Cheap) Continuous Packet Recorder using n2disk and PF_RING [Part 2]</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Continuous packet recorders are devices that capture raw traffic to disk, providing a window into network history, that allows you to go back in time when a network event occurs, and analyse traffic up to the packet level to find the exact network activity that caused the problem.</p>
+<p><a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a> is a software application part of the ntop suite able to capture traffic at high speed (it relies on the <a href="https://www.ntop.org/products/packet-capture/pf_ring/">PF_RING</a> packet capture framework, able to deliver line-rate packet capture up to 100 Gbit/s) and dump traffic to disk using the standard PCAP format (which is used by packet analysis tools like <a href="https://wireshark.org">Wireshark</a> and <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>). Network traffic is recorded permanently and the oldest data is overwritten as disk space fills up, in order to provide continuous recording and the best data retention time.</p>
+<p>Besides storing network data to disk, n2disk can also:</p>
+<ul>
+<li>Index and organize data in a timeline, to be able to retrieve traffic searching for packets matching a specific BPF filter in a selected time interval.</li>
+<li>Compress data to save disk space (if you compile pcap-based applications on top of PF_RING-aware libpcap, any application compatible with the PCAP format can read compressed pcap files seamlessly).</li>
+<li>Filter traffic, up to L7: you can discard traffic matching selected application protocols.</li>
+<li>Shunt traffic: you can save disk space by recording only a few packets from the beginning of each communication for selected application protocols (e.g. encrypted or multimedia elephant flows).</li>
+<li>Slice packets: the ability to reduce packet size by cutting them (e.g. up to the IP or TCP/UDP header).</li>
+</ul>
+<p>In a <a href="https://www.ntop.org/n2disk/building-a-cheap-2x10-gbit-continuous-packet-recorder-using-n2disk-and-pf_ring/">previous post</a> (part 1) we described how to build a 2×10 Gbit continuous packet recorder using <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a> and <a href="https://www.ntop.org/products/packet-capture/pf_ring/">PF_RING</a>, however it&#8217;s time to update it as a few years have past, new features have been added, and new capture and storage technologies are available.</p>
+<h3>Network Adapter: Intel vs FPGAs</h3>
+<p>All ntop applications, including n2disk, are based on PF_RING and can operate on top of commodity adapters (accelerated Zero-Copy drivers are available for Intel) as well as specialised FPGAs adapters like Napatech, Fiberblaze and others (the full list is available in the <a href="https://www.ntop.org/guides/pf_ring/modules/index.html#">PF_RING documentation</a>).</p>
+<p>In order to choose the best adapter we need to take into account a few factors, including capture speed, features and price. Intel adapters are cheap and can deliver 10+ Gbps packet capture with 64 byte packets using PF_RING ZC accelerated drivers. FPGA adapters are (more or less, depending on the manufacturer) expensive, but provide, in addition to higher capture speed with small packet sizes, support for useful features like ports aggregation, nanosecond timestamping, traffic filtering. We can summarize it in a small table:</p>
+<table>
+<tbody>
+<tr>
+<th>Link Speed / Features Required</th>
+<th>Recommended Adapter</th>
+</tr>
+<tr>
+<td>1 Gbit</td>
+<td>Any adapter</td>
+</tr>
+<tr>
+<td>10 Gbit</td>
+<td>Intel (e.g. 82599/X520)</td>
+</tr>
+<tr>
+<td>2 x 10 Gbit Aggregation / Nanosecond Timestamp</td>
+<td>FPGA (Napatech, Silicom)</td>
+</tr>
+<tr>
+<td>40/100 Gbit</td>
+<td>FPGA (Napatech, Silicom)</td>
+</tr>
+</tbody>
+</table>
+<h3>What Storage System Do I Need?</h3>
+<p>If you need to record 1 Gbps, even a single (fast) HDD is enough to keep up with the traffic throughput. If you need to record 10+ Gbps, you need to increase the I/O throughput by using a RAID system with many drives. At ntop we usually use 2.5&#8243; 10K RPM SAS HDD drives for compact systems (e.g. 2U form factor with up to 24 disks), or 3.5&#8243; 7.2 KRPM SAS HDD for modular systems when rack space is not a problem and many units are required to increase data retention (in this case you need to use a RAID controller able to drive a <a href="http://www.sasexpanders.com">SAS expander</a>, which is able to handle hundreds of disks). More space in the storage system translates in a higher retention time and thus the ability to go further back in time to find old data.</p>
+<p>The number of drives, combined with the I/O throughput for each drive, and the RAID configuration, determine the final I/O throughput you are able to achieve. The drive speed depends on the drive type and model, they can be summarized in the table below:</p>
+<table>
+<tbody>
+<tr>
+<th>Drive Type</th>
+<th>Sustained Sequential I/O</th>
+</tr>
+<tr>
+<td>SAS/SATA HDD</td>
+<td>100-250 MB/s</td>
+</tr>
+<tr>
+<td>SSD</td>
+<td>100-500 MB/s</td>
+</tr>
+<tr>
+<td>NVMe (PCIe SSD)</td>
+<td>500-3000 MB/s</td>
+</tr>
+</tbody>
+</table>
+<p>In order to record traffic at 10 Gbps for instance, you need 8-10 SAS HDDs in RAID 0, 10-12 disks in RAID 50. The RAID controller should have at least 1-2 GB of buffer onboard in order to keep up with 10+ Gbps. Alternatively you can use 3-5 SSDs, or 1-2 NVMe (PCIe SSD) drives. SSDs are usually used when concurrent write and read are required under intensive workload, to avoid that HDD&#8217;s seek time jeopardize the performance. Please make sure that you select write-intensive flash disks that guarantee great endurance over time.</p>
+<p>At 20 Gbps at ntop we usually use 16-24 HDDs. At 40-100 Gbps you probably also need to use multiple controllers as most controllers are able to handle up to 35-40 Gbps sustained and you need to distribute the load across a few of them. In fact, since version 3.2, n2disk implements multithreaded dump, that means it is able to write to multiple volumes in parallel. This is also useful when using NVMe disks, as they are directly attached to the PCIe bus and lightfast, but they cannot be driven by a standard controller, thus you can use n2disk to write to many NVMe disks in parallel: we have been able to achieve 140 Gbps of sustained throughput using 8 write-intensive NVMe disks!</p>
+<h3>What CPU Do I Need?</h3>
+<p>Choosing the right CPU depends on a few factors.</p>
+<p>First of all the adapter model. Intel adapters transfers packets one-by-one putting pressure on the PCIe bus and thus increasing the overall system utilisation with respect to FPGA adapter like Napatech or Silicom that are able to work in &#8220;chunk&#8221; mode (other NIC vendors such as Accolade for instance do not support it yet). FPGA adapters are also able to aggregate traffic in hardware at line-rate, whereas with Intel we need to merge packets on the host, and it is hard to scale above 20-25 Mpps in this configuration. A CPU with high frequency (3+ GHz) is required with Intel.</p>
+<p>The second factor is definitely traffic indexing. You probably want to index traffic to accelerate traffic extraction and this requires a few CPU cores. In order to index traffic on the fly at 10 Gbps, 1-2 dedicated cores/threads are required (in addition to the capture and writer threads. At 40 Gbps you probably need 4-6 indexing threads. At 100 Gbps at least 8-10 threads.</p>
+<p>In short, if you need to record 10 Gbps, a cheap Intel Xeon E3 with 4 cores and 3+ GHz is usually enough even with Intel adapters. If you need to record and index 20+ Gbps, you should probably go with something more expensive like an Intel Xeon Scalable  (e.g. Xeon Gold 6136) with 12+ cores  and 3+ GHz. Pay attention to the core affinity and NUMA as<a href="https://www.ntop.org/pf_ring/not-all-servers-are-alike-with-pf_ring-zcdna-part-3/"> already discussed in the past</a>.</p>
+<h3>How Much Does It Cost?</h3>
+<p>Continuous packet recorders on the market are expensive devices because they need fast/expensive storage systems and they are usually part of enterprise-grade solutions designed for high-end customers. At ntop we want to deliver everyone the best technology at affordable prices, and we recently updated our price list lowering down prices for the n2disk product (please check the <a href="https://shop.ntop.org">shop</a> for more info). <a href="https://www.ntop.org/support/need-help/faq/">Education and no-profit</a> can use our commercial tools at no cost.</p>
+<p>For further information about the n2disk configuration and tuning, please refer to the <a href="https://www.ntop.org/guides/n2disk/">n2disk documentation</a>.</p>
+<p>The post <a href="https://www.ntop.org/building-a-cheap-continuous-packet-recorder-using-n2disk-and-pf_ring-part-2/">Building a (Cheap) Continuous Packet Recorder using n2disk and PF_RING [Part 2]</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Drill Down Deeper: Using ntopng to Zoom In, Filter Out and Go Straight to the Packets</title>
+		<link>https://www.ntop.org/drill-down-deeper-using-ntopng-to-zoom-in-filter-out-and-go-straight-to-the-packets/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 24 Dec 2018 18:30:24 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[continuous traffic recording]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7274</guid>
+
+					<description><![CDATA[<p>ntopng has grown significantly over the past years, providing an increasingly-interesting set of features to support network analysts and troubleshooters in their decisions. Among the most relevant features, it is worth mentioning…</p>
+<p>The post <a href="https://www.ntop.org/drill-down-deeper-using-ntopng-to-zoom-in-filter-out-and-go-straight-to-the-packets/">Drill Down Deeper: Using ntopng to Zoom In, Filter Out and Go Straight to the Packets</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>ntopng has grown significantly over the past years, providing an increasingly-interesting set of features to support network analysts and troubleshooters in their decisions. Among the most relevant features, it is worth mentioning that timeseries inspection pages <a href="https://www.ntop.org/guides/ntopng/web_gui/historical.html">have been redesigned and reworked profoundly</a> to facilitate the drill-down of historical data. Similarly, a home-grown high-speed special-purpose <a href="https://www.ntop.org/guides/ntopng/historical_flows.html">flow database has been seamlessly integrated in ntopng</a> to ease the storage and retrieval of historical flows.</p>
+<p>However, the circle was not really closed. A piece was missing. Something that could take us down to the packets. A feature that could allow us to start start the drill-down at the timeseries-level and then, step-by-step, after opportune selections and filters, could allow us to fetch the matching traffic packets. Real packets. Those packets responsible for the generation of the timeseries we&#8217;ve started the drill-down from.</p>
+<p>Motivated by this, we have worked hard to add <a href="https://www.ntop.org/guides/ntopng/traffic_recording.html">continuous traffic recording</a> support to ntopng. We have been developing the <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk traffic recording technology</a> for several years now and have finally created a strong tight between n2disk and ntopng.</p>
+<p>Let&#8217;s briefly see how it works. Don&#8217;t forget to go through the manual for <a href="https://www.ntop.org/guides/ntopng/traffic_recording.html">more detailed information</a>.</p>
+<p>First of all, you have to install package <code class="EnlighterJSRAW" data-enlighter-language="shell">n2disk</code> and restart ntopng. An extra &#8220;Traffic Recording&#8221; entry in the &#8220;Runtime Preferences&#8221; menu will appear. You have to add an n2disk license key there. Contact us to get a demo license or use our shop to purchase one (note that licenses are free for non-profit organisations and NGOs).</p>
+<p>&nbsp;</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-license.png"><img loading="lazy" decoding="async" class="size-large wp-image-7284 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-license-1024x415.png" alt="" width="1024" height="415" /></a></p>
+<p>&nbsp;</p>
+<p>Once the license is setup, you can visit the interface page, tab &#8220;Traffic Recording&#8221; to configure recording settings. You can tick the checkbox to enable and disable the traffic recording, configure the maximum disk space that should be allocated for the recording of the traffic, and even monitor the current storage utilisation. What happens when the maximum disk space is hit? Pretty simple, oldest traffic will be overwritten by the newest one.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-iface-setup.png"><img loading="lazy" decoding="async" class="size-large wp-image-7287 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-iface-setup-1024x512.png" alt="" width="1024" height="512" /></a></p>
+<p>When the traffic recording is enabled, an icon in the bottom-right corner of ntopng will appear to confirm this. Click that icon to access recording statistics and status.</p>
+<p>And now the juicy part! Wondering how to download recorded traffic? Well, open up any of the charts page, including those of interfaces, local hosts and networks. Do the selection of interest, slice and dice using the mouse or the selectors. Finally, do you see the small top-right download button? Use that to download the pcap!</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-download.png"><img loading="lazy" decoding="async" class="size-large wp-image-7289 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-download-1024x643.png" alt="" width="1024" height="643" /></a></p>
+<p>&nbsp;</p>
+<p>For the download, a dialog will ask you if you want to download the file immediately or if you want to schedule an extraction job.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-now-or-schedule.png"><img loading="lazy" decoding="async" class="size-large wp-image-7291 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-now-or-schedule-1024x343.png" alt="" width="1024" height="343" /></a></p>
+<p>You can select &#8220;Extract Now&#8221; to immediately start downloading the pcap file. Alternatively, you can select &#8220;Queue as Job&#8221; to let ntopng do the extraction. Once the file is extracted, ntopng archives it on the disk for later download and usage.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-extracted-jobs.png"><img loading="lazy" decoding="async" class="size-large wp-image-7292 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-extracted-jobs-1024x503.png" alt="" width="1024" height="503" /></a></p>
+<p>Wondering if you could also specify BPF filters? The answer is yes! Just click on the &#8220;Advanced&#8221; and specify the filter there!</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-bpf.png"><img loading="lazy" decoding="async" class="size-large wp-image-7294 aligncenter" src="https://www.ntop.org/wp-content/uploads/2018/12/continuous-traffic-recording-bpf-1024x513.png" alt="" width="1024" height="513" /></a></p>
+<p>&nbsp;</p>
+<p>Finally, some words on the limitations. Currently, the Layer-7 protocols cannot be specified when downloading a pcap. This means that you won&#8217;t be able to download the traffic of a single Layer-7 application protocol as detected by nDPI. The traffic of all Layer-7 protocols will be downloaded unless you create a BPF filter that you know it matches the protocol of interest. But don&#8217;t worry too much, we are already working on this to allow the download of specific nDPI-detected Layer-7 protocols.</p>
+<p>And remember, pcap or it didn&#8217;t happen!</p>
+<p>The post <a href="https://www.ntop.org/drill-down-deeper-using-ntopng-to-zoom-in-filter-out-and-go-straight-to-the-packets/">Drill Down Deeper: Using ntopng to Zoom In, Filter Out and Go Straight to the Packets</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Introducing n2disk 2.8 with Microburst Detection</title>
+		<link>https://www.ntop.org/introducing-n2disk-2-8-with-microburst-detection/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 25 Apr 2017 09:09:30 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5356</guid>
+
+					<description><![CDATA[<p>Together with PF_RING 6.6, today we also released n2disk 2.8. In this release we introduced support for microburst detection in order to spot traffic bursts, which is crucial in identifying potential capacity…</p>
+<p>The post <a href="https://www.ntop.org/introducing-n2disk-2-8-with-microburst-detection/">Introducing n2disk 2.8 with Microburst Detection</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Together with PF_RING 6.6, today we also released n2disk 2.8. In this release we introduced support for <a href="https://www.ntop.org/ntop/what-is-a-microburst-and-how-to-detect-it/">microburst detection</a> in order to spot traffic bursts, which is crucial in identifying potential capacity issues and troubleshooting packet loss in network equipments. We also improved our &#8220;fast&#8221; BPF engine extending the supported primitives, and improving the ability to match tunneled traffic. More tools have been added, for playing with the dump set, for instance for moving part of the dump set to an external storage, or deleting PCAP files in a specified time interval.</p>
+<p>Below the complete changelog for all details.</p>
+<h3>Changelog</h3>
+<ul>
+<li>n2disk (recording)
+<ul>
+<li>Performance improvements for 40 Gbit packet-to-disk with both Intel and FPGA-based NICs.</li>
+<li>Support for microburst detection</li>
+<li>n2disk renamed to n2disk5g, n2disk10g renamed to n2disk, n2disk10g and n2disknt are now symlinks to n2disk</li>
+<li>Fast BPF support for rules with relative byte match (e.g. udp[9]!=0x0a)</li>
+<li>Improved tunnels parsing, support for PPTP GRE</li>
+<li>Implemented &#8211;exec-cmd for executing a command when a pcap file has been dumped</li>
+<li>Improved systemd scripts</li>
+<li>New &#8211;daemon option</li>
+<li>Maximum supported Napatech segment size moved from 1MB to 4MB</li>
+<li>Changed -z N limit from &#8220;num files &#8211; 1&#8221; to &#8220;num files&#8221;, to improve indexing load distribution</li>
+<li>64bit counters print fix</li>
+<li>Support of Silicom/FiberBlaze NICs in burst mode for 10/40 Gbit packet-to-disk.</li>
+</ul>
+</li>
+<li>npcapextract (extraction)
+<ul>
+<li>Fixed extraction with empty filter</li>
+<li>Fix for -P option</li>
+</ul>
+</li>
+<li>Tools
+<ul>
+<li>New npcapmanage utility to delete pcap files from timeline in a time interval</li>
+<li>New npcapmove utility to move a pcap file with its index and timeline to a new storage path</li>
+<li>New myritool utility for Myricom cards</li>
+<li>Improved nttool utility for Napatech cards, added card S/N, removed ntlib dep (dlopen support)</li>
+<li>Fixed index header dump v2 in npcapindex</li>
+</ul>
+</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/introducing-n2disk-2-8-with-microburst-detection/">Introducing n2disk 2.8 with Microburst Detection</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>See You Next Week at the ntop Users Meeting</title>
+		<link>https://www.ntop.org/see-you-at-the-ntop-users-meeting/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 13 Oct 2016 09:11:52 +0000</pubDate>
+				<category><![CDATA[n2disk]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5110</guid>
+
+					<description><![CDATA[<p>This is to renew the invitation to meet you next week at the ntop users meeting colocated with Sharkfest Europe. The event is free of charge but seats are limited. More information…</p>
+<p>The post <a href="https://www.ntop.org/see-you-at-the-ntop-users-meeting/">See You Next Week at the ntop Users Meeting</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><iframe src="https://www.youtube.com/embed/9osuMYNAtzQ" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>
+<p>This is to renew the invitation to meet you next week at the ntop users meeting colocated with Sharkfest Europe. The event is free of charge but seats are limited. More information can be <a href="https://www.ntop.org/announce/youre-invited-to-the-ntop-users-meeting-and-free-tutorial-at-sharkfest-europe-2016/">found here</a>.</p>
+<p>Hope too see you next week at the workshop!</p>
+<p>The post <a href="https://www.ntop.org/see-you-at-the-ntop-users-meeting/">See You Next Week at the ntop Users Meeting</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

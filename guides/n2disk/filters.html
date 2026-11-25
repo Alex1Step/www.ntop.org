@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/filters.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:57:19 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Packet Filtering &mdash; n2disk 3.7 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options02ed.js?v=da8737de"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Disk Partitioning and Formatting" href="filesystem.html" />
+    <link rel="prev" title="Netflow and Raw Recording" href="netflow.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            n2disk
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/n2disk/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="features.html">Main Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions.html">Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#licensing">Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">How to Start n2disk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuning/index.html">Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage_sizing.html">Storage Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities/index.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_ntopng.html">Flows Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netflow.html">Netflow and Raw Recording</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Packet Filtering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#l2-l3-l4-filtering">L2/L3/L4 Filtering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#capture-filters">Capture Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extraction-filters">Extraction Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#l7-filtering">L7 Filtering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Capture Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Extraction Filters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="filesystem.html">Disk Partitioning and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">n2disk</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Packet Filtering</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/filters.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="packet-filtering">
+<h1>Packet Filtering<a class="headerlink" href="#packet-filtering" title="Link to this heading"></a></h1>
+<section id="l2-l3-l4-filtering">
+<h2>L2/L3/L4 Filtering<a class="headerlink" href="#l2-l3-l4-filtering" title="Link to this heading"></a></h2>
+<p>BPF-like filters can be specified using a subset of the BPF syntax.
+As the filter expression complexity affects:</p>
+<ul class="simple">
+<li><p>packet capture speed when used for filtering incoming traffic</p></li>
+<li><p>index complexity and speed when used for filtering dumped traffic</p></li>
+</ul>
+<p>Below we define a set of constraints and allowed expressions.</p>
+<p>An expression consists of one or more primitives.
+Complex filter expressions are built by using <strong>AND</strong>, <strong>OR</strong> and <strong>NOT</strong> operators.</p>
+<p>Allowed qualifiers for primitive expressions:</p>
+<p>Protocol: <strong>ether</strong>, <strong>ip</strong>, <strong>ip6</strong>, <strong>tcp</strong>, <strong>udp</strong>, <strong>sctp</strong>
+Direction: <strong>src</strong>, <strong>dst</strong>, <strong>src or dst</strong>, <strong>src and dst</strong>
+Type: <strong>host</strong>, <strong>net</strong>, <strong>port</strong></p>
+<p>Other allowed primitives: <strong>vlan</strong></p>
+<p>Primitive filter examples:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ether host 00:11:22:33:44:55
+ether src host 00:11:22:33:44:55
+
+ip host 192.168.0.1
+ip dst host 192.168.0.1
+
+ip6 host 2001:0db8:85a3:0042:0000:8a2e:0370:7334
+ip6 src host 2001:0db8:85a3:0042:0000:8a2e:0370:7334
+
+ip net 192.168.1.0/24
+ip src net 192.168.1
+
+port 80
+udp port 9000
+tcp src port 80
+vlan 32
+</pre></div>
+</div>
+<p>Complex capture filter examples:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip host 192.168.1.1 and 192.168.1.2
+ip src 192.168.1.1 and dst 192.168.1.2
+
+ip host 192.168.1.1 and tcp port (80 or 443)
+(ip host 192.168.1.1 or 192.168.1.2) and (port 80 or 443)
+</pre></div>
+</div>
+<section id="capture-filters">
+<h3>Capture Filters<a class="headerlink" href="#capture-filters" title="Link to this heading"></a></h3>
+<p>Please note that there are additional constraints when using BPF-like
+filters for packet capture:</p>
+<ul class="simple">
+<li><p>it is not possible to use the <strong>NOT</strong> operator.</p></li>
+<li><p>it is possible to use up to two level of nesting with parenthesis</p></li>
+<li><p>on the same nesting level, and inside the same parenthesis, it is not possible to mix different operators</p></li>
+</ul>
+</section>
+<section id="extraction-filters">
+<h3>Extraction Filters<a class="headerlink" href="#extraction-filters" title="Link to this heading"></a></h3>
+<p>Please find below a few tricks to speed up packet extraction when
+using BPF-like filters for retrieving traffic:</p>
+<ul class="simple">
+<li><p>Use /32 and /24 IPv4</p></li>
+<li><p>Use /128 only IPv6</p></li>
+<li><p>Use exact ports (no port range)</p></li>
+<li><p>Do not use protocol identifiers</p></li>
+</ul>
+</section>
+</section>
+<section id="l7-filtering">
+<h2>L7 Filtering<a class="headerlink" href="#l7-filtering" title="Link to this heading"></a></h2>
+<p>Filtering traffic based on the application protocol is also
+possible both at capture and extraction time, by leveraging
+on the PF_RING FT support, which uses in turn the nDPI library.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>n2disk 10/40/100G already includes a PF_RING FT license. n2disk 1/5G instead
+require a PF_RING FT license for enabling Layer 7 indexing/filtering.</p>
+</div>
+<section id="id1">
+<h3>Capture Filters<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>In order to enable L7 filtering at capture time, all you need to do
+is to provide a configuration file with PF_RING FT filtering rules to
+n2disk using the <em>–l7-filter-conf &lt;file&gt;</em> option. This file contains
+the protocols that you want to discard (‘discard’ action) or dump (‘forward’ action).
+Since protocol detection is provided by <a class="reference external" href="../../products/deep-packet-inspection/ndpi/index.html">nDPI</a>
+you can specify all application protocol names supported by the nDPI
+library.
+Adaptive (per application) packet slicing is also supported, by configuring
+the protocols for which packets should be sliced removing the payload (‘slice’ action).</p>
+<p>Example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[global]
+default = forward
+
+[filter]
+YouTube = discard
+Netflix = discard
+SSH = slice
+</pre></div>
+</div>
+<p>Please note that the dumped PCAP may still contain some packet for
+communications matching discarded protocols. This is expected and
+depends on the way Deep Packet Inspection works: it has to inspect
+a few packets at the beginning of each communication, before being
+able to identify with a reasonable degree of confidence the L7 protocol.
+For this reason, the initial packets of any communication are dumped
+to disk, until the L7 protocol is detected. This is meant to be used
+to save disk space for unwanted traffic, thus having a small percentage
+of unwanted traffic to disk is usually acceptable.</p>
+<p>Example with ‘default = discard’ and ‘MDNS = forward’:</p>
+<p>Packets on the Network:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Unknown              packets: 567           bytes: 64030         flows: 4
+DNS                  packets: 8             bytes: 864           flows: 2
+MDNS                 packets: 6             bytes: 480           flows: 2
+SSDP                 packets: 8             bytes: 1728          flows: 2
+SSH                  packets: 1755          bytes: 702890        flows: 4
+Dropbox              packets: 3             bytes: 639           flows: 1
+</pre></div>
+</div>
+<p>Dumped packets:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Unknown              packets: 30            bytes: 4549          flows: 4
+DNS                  packets: 8             bytes: 864           flows: 2
+MDNS                 packets: 6             bytes: 480           flows: 2
+SSH                  packets: 32            bytes: 7490          flows: 4
+</pre></div>
+</div>
+<p>Please check the <a class="reference external" href="../pf_ring/ft.html">PF_RING FT</a>
+documentation for further information about PF_RING FT and enhanced configurations.</p>
+</section>
+<section id="id2">
+<h3>Extraction Filters<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>The BPF syntax for extraction filters contains additional primitives
+that can leverage on index extentions to match traffic based on extra attributes</p>
+<ul class="simple">
+<li><p>Layer 7 application protocol: <strong>l7proto &lt;protocol&gt;</strong> is available when using the <em>–extended-index|-E 2</em> option (please check the help or the <em>Usage</em> section for more options).</p></li>
+<li><p>Device and Interface ID: <strong>device &lt;ID&gt;</strong>, <strong>interface &lt;ID&gt;</strong> are available when device and port information are added to the packet as metadata by external packet brokers. Arista Metawatch devices export Metamako trailers encoding the device ID and port ID, they can be used by n2disk by adding <em>–extended-index 4</em> and <em>–hw-timestamp metawatch</em> to the configuration.</p></li>
+<li><p>Tunneling: <strong>inner</strong>, <strong>outer</strong> are available when enabling —index-tunnel-content|-G</p></li>
+</ul>
+<p>Example using Layer 7 indexing and extraction:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">n2disk -i eth1 -o /storage -b 1024 -p 512 --disk-limit 50% -I -E 2 -A /storage -Z -w 0 -r 1 -z 1</span>
+</pre></div>
+</div>
+<p>At this point you are able to filter traffic based on the application
+protocol using BPF-like filters in the <em>npcapextract</em> tool as described
+in the <em>Utilities</em> / <em>npcapextract</em> section. The <em>l7proto</em> primitive
+should be used for this, as in the filter example below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip host 192.168.1.1 and l7proto SSH
+</pre></div>
+</div>
+<p>Since protocol detection is provided by <a class="reference external" href="../../products/deep-packet-inspection/ndpi/index.html">nDPI</a>
+also for the index, you can specify all application protocol names
+supported by the nDPI library.
+Please find below a full example using <em>npcapextract</em> to retrieve <em>SSH</em>
+traffic generated by <em>192.168.1.1</em>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">npcapextract -t /storage -b &quot;2020-09-16 12:05:32&quot; -e &quot;2020-09-16 12:10:32&quot; -o output.pcap -f &quot;ip host 192.168.1.1 and l7proto SSH&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="netflow.html" class="btn btn-neutral float-left" title="Netflow and Raw Recording" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="filesystem.html" class="btn btn-neutral float-right" title="Disk Partitioning and Formatting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/n2disk/filters.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:57:20 GMT -->
+</html>

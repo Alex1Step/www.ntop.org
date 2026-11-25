@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>tcp states Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/tcp-states/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/tcp-states/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Sat, 09 Feb 2019 10:11:12 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>tcp states Archives - ntop</title>
+	<link>https://www.ntop.org/tag/tcp-states/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Identifying Suspicious Flows: Network Issues or Misbehaving Hosts ?</title>
+		<link>https://www.ntop.org/identifying-suspicious-flows-network-issues-or-misbehaving-hosts/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Sat, 09 Feb 2019 10:11:12 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tcp]]></category>
+		<category><![CDATA[tcp states]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7356</guid>
+
+					<description><![CDATA[<p>Starting from the latest 3.9 version, ntopng features and handy dropdown menu that allows you to filter flows on the basis of their current TCP state. Being able to filter flows on…</p>
+<p>The post <a href="https://www.ntop.org/identifying-suspicious-flows-network-issues-or-misbehaving-hosts/">Identifying Suspicious Flows: Network Issues or Misbehaving Hosts ?</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Starting from the latest 3.9 version, ntopng features and handy dropdown menu that allows you to filter flows on the basis of their current TCP state.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/02/tcp_flow_states.png"><img fetchpriority="high" decoding="async" class="size-large wp-image-7359 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/02/tcp_flow_states-1024x557.png" alt="" width="1024" height="557" /></a></p>
+<p>Being able to filter flows on the basis of their TCP state is particularly useful as it allows to separate the <em>normal flows</em> from those that are suspicious or symptomatic of certain network issues. For example, one can unveil:</p>
+<ul>
+<li>Flows that only have a client SYN. This can identify clients attempting to connect to a server that is no longer responding (down?) or misbehaving hosts that are performing SYN-scans.</li>
+<li>SYN-RST only flows. In general, when a client sends a SYN and immediately gets a RST from the server, it means that the server port the client has tried to connect to is <em>closed</em>. Such RST could signal a server application that is no longer working (down?) but it could also highlight misbehaving hosts that are performing port scans.</li>
+<li>Not established flows. Such flows are all those flows that are not ready to exchange data. They can be FIN-ned or RST-ted flows, or flows that have still to complete the initial three-way handshake.</li>
+</ul>
+<p>For example, running a port scan with nmap as</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">simone@devel:~$ nmap -p- 192.168.2.223</pre>
+<p>Causes scanned host <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.223</code> to respond to <code class="EnlighterJSRAW" data-enlighter-language="generic">devel</code> with 65k+ RST as the majority of its ports are closed. In this case, highlighting such flows is as easy as picking the SYN-RST Only dropdown entry.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/02/tcp_flow_states_syn_rst.png"><img decoding="async" class="alignnone size-large wp-image-7360" src="https://www.ntop.org/wp-content/uploads/2019/02/tcp_flow_states_syn_rst-1024x680.png" alt="" width="1024" height="680" /></a></p>
+<p>Selecting each of the listed flow will actually confirm the client has sent a SYN to the server which, in turn, has ACKnowledged the SYN and has RST-ed the connection.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2019/02/tcp_flow_states_conn_refused.png"><img decoding="async" class="alignnone size-large wp-image-7361" src="https://www.ntop.org/wp-content/uploads/2019/02/tcp_flow_states_conn_refused-1024x513.png" alt="" width="1024" height="513" /></a></p>
+<p>The post <a href="https://www.ntop.org/identifying-suspicious-flows-network-issues-or-misbehaving-hosts/">Identifying Suspicious Flows: Network Issues or Misbehaving Hosts ?</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

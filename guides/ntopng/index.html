@@ -1,0 +1,833 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:16:57 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ntopng Documentation &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="What is ntopng" href="what_is_ntopng.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            ntopng
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ntopng Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ntopng-documentation">
+<h1>ntopng Documentation<a class="headerlink" href="#ntopng-documentation" title="Link to this heading"></a></h1>
+<p>ntopng can be used in combination with other ntop tools. Documentation to use ntopng with other tools is the object of this section.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="what_is_ntopng.html">What is ntopng</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="what_is_ntopng.html#releases-and-features">Releases and Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="what_is_ntopng.html#basic-concepts-use-cases">Basic Concepts &amp; Use Cases</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="versions_and_licensing.html">Available Versions &amp; Licensing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#ntopng-community">ntopng Community</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#ntopng-professional">ntopng Professional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#ntopng-enterprise-m">ntopng Enterprise M</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#ntopng-enterprise-l">ntopng Enterprise L</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#ntopng-enterprise-l-bundle">ntopng Enterprise L Bundle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#ntopng-enterprise-xl-xxl-xxxl">ntopng Enterprise XL/XXL/XXXL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#licensing">Licensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#purchasing-a-license">Purchasing a License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#generating-the-license-key">Generating the License Key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#generating-the-key">Generating The Key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#installing-the-key">Installing The Key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#using-the-license-manager">Using the License Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#licenses-on-a-container">Licenses on a Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versions_and_licensing.html#versions-comparison-table">Versions Comparison Table</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-on-linux">Installing on Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-on-macos">Installing on macOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-on-windows">Installing on Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-on-freebsd">Installing on FreeBSD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-on-opnsense-pfsense">Installing on OPNsense/pfSense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-on-a-container">Installing on a Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#updating-the-software-on-linux">Updating the Software on Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start/index.html">How to Start ntopng</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="how_to_start/configuration_file.html">The ntopng Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how_to_start/running_as_a_daemon.html">Running ntopng as a Daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="how_to_start/running_on_windows.html">Running on Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli_options/index.html">Command Line Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli_options/cli_options.html">Command Line Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli_options/cli_options_example.html">Configuration File Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_interface/index.html">User Interface Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_interface/network_interface/index.html">Network Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface/system_interface/index.html">System Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface/index.html#alerts">Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface/index.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface/index.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface/index.html#settings">Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface/index.html#developer">Developer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_interface/index.html#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">User Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#local-authentication">Local Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#multi-factor-authentication">Multi-Factor Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#passkey">Passkey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#openid-connect-oidc-sso-authentication">OpenID Connect (OIDC) / SSO Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#ldap-authentication">LDAP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#radius-authentication">RADIUS Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#http-authentication">HTTP Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#unable-to-login">Unable to Login</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#token-based-authentication">Token based authentication</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using_with_other_tools/index.html">Using ntopng with ntop Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="using_with_other_tools/nprobe.html">Using ntopng with nProbe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_with_other_tools/nprobe_collector_mode.html">Using ntopng with nProbe (Collector Mode)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_with_other_tools/nedgelite.html">Using ntopng with nEdgeLite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_with_other_tools/nprobeagent.html">Using ntopng with nProbe Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_with_other_tools/cento.html">Using ntopng with nProbe Cento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_with_other_tools/n2disk.html">Using ntopng with n2disk</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nanalyst/what_is_nanalyst.html">What is nAnalyst?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nanalyst/architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nanalyst/chat_interface.html">Chat Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nanalyst/ai_dashboards.html">AI Dashboards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nanalyst/features/index.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nanalyst/tools_and_licensing.html">Tools and Licensing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nanalyst/llm_setup.html">LLM Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nanalyst/mcp_server.html">MCP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nanalyst/observability.html">Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nanalyst/faq.html">Frequently Asked Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="flows/index.html">Flow Collection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flows/nprobe.html">What nProbe Does</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flows/exporters.html">Flow Exporters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flows/exporters_bandwidth_usage.html">Exporter Interfaces Bandwidth Usage per Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_with_other_tools/nprobe.html">Using ntopng with nProbe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_with_other_tools/nprobe_collector_mode.html">Using ntopng with nProbe (Collector Mode)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scada/index.html">Industrial Monitoring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scada/modbus.html">1. ModbusTCP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scada/s7comm.html">2. S7Comm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scada/profinet.html">3. PROFINET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scada/IEC60870-5-104.html">4. IEC 60870-5-104</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scada/custom_detections.html">5. Custom Detections</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="qoe/index.html">Quality of Experience (QoE)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qoe/tcp.html">1. TCP-based Protocols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qoe/udp.html">2. UDP-based Protocols (QUIC and RTP)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asmode/index.html">ASN and BGP Flow Monitoring</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asmode/configuration.html">1. Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="asmode/asmode.html">2. Using AS Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operating_ntopng_on_large_networks.html#red-badges">Red Badges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operating_ntopng_on_large_networks.html#packet-drops">Packet Drops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operating_ntopng_on_large_networks.html#additional-tuning">Additional Tuning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="flow_dump/index.html">Flows Dump (ClickHouse)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flow_dump/clickhouse/index.html">ClickHouse (Flow Dump)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_dump/kafka/index.html">Kafka</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_dump/syslog/index.html">Syslog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_features/index.html">Advanced Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/bridging_and_policing.html">1. Bridging and Traffic Policing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/ids_acceleration.html">2. IDS Acceleration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/interfaces/index.html">3. Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/lightview/index.html">4. Light View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/live_pcap_download.html">5. Live Pcap Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/deduplication.html">6. Flow Deduplication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/oem.html">7. OEM Customizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/snapshots.html">8. Snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/syslog.html">9. Syslog Log Ingestion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/clickhouse_timeseries.html">10. ClickHouse Timeseries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/high_resolution_timeseries.html">11. Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_features/assets_journal.html">12. Assets Journal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="third_party_integrations/index.html">Third-Party Integrations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="third_party_integrations/opnsense.html">OPNsense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third_party_integrations/pfsense.html">pfSense</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third_party_integrations/suricata.html">Suricata Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third_party_integrations/suricata.html#suricata-acceleration">Suricata Acceleration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third_party_integrations/kibana.html">Kibana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third_party_integrations/grafana.html">Grafana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third_party_integrations/checkmk.html">Checkmk Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="third_party_integrations/wazuh.html">Wazuh Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="performances/index.html">Performance and Hardware Sizing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performances/hardware_sizing.html">Hardware Sizing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performances/flow_collection.html">Flow Collection Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#licenses">Licenses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#what-to-save-timeseries-flows-pcaps">What to Save: Timeseries, Flows, pcaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#maximum-number-of-interfaces">Maximum Number of Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#cannot-login-into-the-gui">Cannot Login into the GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#too-many-failed-authentication-attempts">Too many failed authentication attempts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#reset-ntopng-preferences">Reset ntopng Preferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-can-i-troubleshoot-snmp">How Can I Troubleshoot SNMP ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-can-i-monitor-the-sites-visited-by-an-host">How can I monitor the sites visited by an host?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-know-who-is-using-most-of-my-bandwidth">How do I know who is using most of my bandwidth?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-can-i-associate-an-hostname-to-a-certain-category">How can I associate an hostname to a certain category?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-can-i-estimate-the-disk-space-required-by-ntopng">How can I estimate the disk space required by ntopng?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#cannot-see-data-in-grafana">Cannot see data in Grafana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#permission-denied-errors">Permission denied errors</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scripts/index.html">Developers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripts/overview.html">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scripts/overview.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scripts/overview.html#capabilities">Capabilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scripts/overview.html#monitoring-an-analysis">Monitoring an Analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/overview.html#alerts-generation">Alerts Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/overview.html#custom-pages">Custom Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/overview.html#timeseries">Timeseries</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scripts/overview.html#what-is-a-script">What is a Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scripts/overview.html#availability">Availability</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scripts/developing_alerts.html">Alerts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scripts/other_alerts.html">Other Alerts (Interface, MAC, Local Networks, SNMP, System, User)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scripts/other_alerts.html#create-the-check">Create the check</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/other_alerts.html#handles-the-default-conf-and-gui-part">Handles the default conf and GUI part</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/other_alerts.html#trigger-the-alert">Trigger the alert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/other_alerts.html#handle-custom-changes-on-various-situations">Handle Custom Changes on Various Situations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/other_alerts.html#alert-id">Alert ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/other_alerts.html#create-the-alert-script">Create the Alert Script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scripts/flow_host_alerts.html">Flow/Host Alerts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scripts/flow_host_alerts.html#checks">Checks</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="scripts/flow_host_alerts.html#check-execution">Check Execution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="scripts/flow_host_alerts.html#check-configuration">Check Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/flow_host_alerts.html#alerts">Alerts</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="scripts/flow_host_alerts.html#identifying-alerts">Identifying Alerts</a></li>
+<li class="toctree-l5"><a class="reference internal" href="scripts/flow_host_alerts.html#alert-formatting">Alert Formatting</a></li>
+<li class="toctree-l5"><a class="reference internal" href="scripts/flow_host_alerts.html#creating-flow-alerts">Creating Flow Alerts</a></li>
+<li class="toctree-l5"><a class="reference internal" href="scripts/flow_host_alerts.html#creating-host-alerts">Creating Host Alerts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scripts/syslog_checks.html">Syslog Checks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scripts/syslog_checks.html#scripts-location">Scripts Location</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/syslog_checks.html#script-api">Script API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/syslog_checks.html#script-example">Script Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scripts/alert_endpoints.html">Endpoints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scripts/alert_endpoints.html#how-they-work">How They Work</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scripts/alert_endpoints.html#endpoints-definition">Endpoints Definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scripts/alert_endpoints.html#endpoint-script">Endpoint Script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/alert_endpoints.html#preferences-definition">Preferences Definition</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scripts/alert_endpoints.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scripts/alert_endpoints.html#alert-format">Alert Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scripts/localization.html">Localization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scripts/localization.html#scripts-and-localization">Scripts and Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scripts/localization.html#internal-handling">Internal Handling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scripts/localization.html#parameters">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scripts/localization.html#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scripts/timeseries_schemas.html">Timeseries Schemas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scripts/timeseries_schemas.html#schemas-definition">Schemas Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scripts/timeseries_schemas.html#schemas-usage">Schemas Usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index-2.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/rest/index.html">RESTful API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/rest/api_v2.html">1. RESTful API v2 Specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/api_v2.html#authentication">1.1. Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/api_v2.html#request-format">1.2. Request Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/api_v2.html#response-format">1.3. Response Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/api_v2.html#api">1.4. API</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Interfaces">1.4.1. Interfaces</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Hosts">1.4.2. Hosts</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Alerts">1.4.3. Alerts</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Issues">1.4.4. Issues</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Flows">1.4.5. Flows</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#PCAP">1.4.6. PCAP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Users">1.4.7. Users</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Infrastructures">1.4.8. Infrastructures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Health">1.4.9. Health</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Configurations">1.4.10. Configurations</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Vulnerability Scan">1.4.11. Vulnerability Scan</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#nEdge">1.4.12. nEdge</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#AI Dashboards">1.4.13. AI Dashboards</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Syslog Rules">1.4.14. Syslog Rules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Wazuh">1.4.15. Wazuh</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#nAnalyst">1.4.16. nAnalyst</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Traffic Model">1.4.17. Traffic Model</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Syslog">1.4.18. Syslog</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Notification Recipients">1.4.19. Notification Recipients</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Active Monitoring">1.4.20. Active Monitoring</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#SNMP">1.4.21. SNMP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Host">1.4.22. Host</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Observation Point">1.4.23. Observation Point</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Pools">1.4.24. Pools</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Traffic">1.4.25. Traffic</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Timeseries">1.4.26. Timeseries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Flow Exporters">1.4.27. Flow Exporters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Peers">1.4.28. Peers</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Top">1.4.29. Top</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#System">1.4.30. System</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Sites">1.4.31. Sites</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Maps">1.4.32. Maps</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#User">1.4.33. User</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Checks">1.4.34. Checks</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Notification Endpoints">1.4.35. Notification Endpoints</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Assets">1.4.36. Assets</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#L7 Application Categories">1.4.37. L7 Application Categories</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Configuration">1.4.38. Configuration</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#All">1.4.39. All</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#Notifications">1.4.40. Notifications</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v2.html#">1.4.41. </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/rest/examples_v2.html">2. Examples v2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v2.html#interfaces">2.1. Interfaces</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-interface-data">2.1.1. Get Interface Data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-interface-ip-addresses">2.1.2. Get interface IP addresses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-l7-statistics-for-an-interface">2.1.3. Get L7 statistics for an interface</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-actively-monitored-interfaces">2.1.4. Get actively monitored interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v2.html#hosts">2.2. Hosts</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-active-hosts">2.2.1. Get active hosts</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-host-data">2.2.2. Get host data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-host-custom-data">2.2.3. Get host custom data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-l7-statistics-for-a-host">2.2.4. Get L7 statistics for a host</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-host-interfaces">2.2.5. Get host interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v2.html#flows">2.3. Flows</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-flow-counters-for-l4-protocols">2.3.1. Get flow counters for L4 protocols</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-flow-counters-for-l7-protocols">2.3.2. Get flow counters for L7 protocols</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-active-flows">2.3.3. Get active flows</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-historical-flows">2.3.4. Get historical flows</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v2.html#alerts">2.4. Alerts</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-alerts-timeseries">2.4.1. Get alerts timeseries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-alerts-data">2.4.2. Get alerts data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-alert-severity-constants">2.4.3. Get alert severity constants</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-alert-type-constants">2.4.4. Get alert type constants</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-counters-per-severity">2.4.5. Get counters per severity</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-counters-per-type">2.4.6. Get counters per type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v2.html#l7-application-protocols">2.5. L7 Application Protocols</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-l7-application-protocol-constants">2.5.1. Get L7 application protocol constants</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v2.html#l7-application-categories">2.6. L7 Application Categories</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-l7-application-category-constants">2.6.1. Get L7 application category constants</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v2.html#l4-protocols">2.7. L4 Protocols</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-l4-protocol-constants">2.7.1. Get L4 protocol constants</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v2.html#pools">2.8. Pools</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#add-an-host-pool">2.8.1. Add an Host Pool</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#edit-an-host-pool">2.8.2. Edit an Host Pool</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#delete-an-host-pool">2.8.3. Delete an Host Pool</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-an-host-pool">2.8.4. Get an Host Pool</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-members-of-an-host-pool">2.8.5. Get Members of an Host Pool</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#get-all-pools-of-any-type">2.8.6. Get All Pools of Any type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v2.html#snmp">2.9. SNMP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#add-an-snmp-device">2.9.1. Add an SNMP Device</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#change-the-status-of-an-snmp-device-interface">2.9.2. Change the Status of an SNMP Device Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v2.html#misc">2.10. Misc</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v2.html#create-a-session-cookie">2.10.1. Create a Session Cookie</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/rest/api_v1.html">3. RESTful API v1 Specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/api_v1.html#authentication">3.1. Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/api_v1.html#request-format">3.2. Request Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/api_v1.html#response-format">3.3. Response Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/api_v1.html#api">3.4. API</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Interfaces">3.4.1. Interfaces</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Hosts">3.4.2. Hosts</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Alerts">3.4.3. Alerts</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Flows">3.4.4. Flows</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#PCAP">3.4.5. PCAP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Users">3.4.6. Users</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Infrastructures">3.4.7. Infrastructures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#L4 Protocols">3.4.8. L4 Protocols</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#L7 Application Protocols">3.4.9. L7 Application Protocols</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#L7 Application Categories">3.4.10. L7 Application Categories</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#SNMP">3.4.11. SNMP</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Pools">3.4.12. Pools</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Notification Recipients">3.4.13. Notification Recipients</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Notification Endpoints">3.4.14. Notification Endpoints</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#All">3.4.15. All</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Active Monitoring">3.4.16. Active Monitoring</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#Notifications">3.4.17. Notifications</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/api_v1.html#">3.4.18. </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/rest/examples_v1.html">4. Examples v1</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v1.html#interfaces">4.1. Interfaces</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-interface-data">4.1.1. Get Interface Data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-interface-ip-addresses">4.1.2. Get interface IP addresses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-l7-statistics-for-an-interface">4.1.3. Get L7 statistics for an interface</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-actively-monitored-interfaces">4.1.4. Get actively monitored interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v1.html#hosts">4.2. Hosts</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-active-hosts">4.2.1. Get active hosts</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-host-data">4.2.2. Get host data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-host-custom-data">4.2.3. Get host custom data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-l7-statistics-for-a-host">4.2.4. Get L7 statistics for a host</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-host-interfaces">4.2.5. Get host interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v1.html#flows">4.3. Flows</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-flow-counters-for-l4-protocols">4.3.1. Get flow counters for L4 protocols</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-flow-counters-for-l7-protocols">4.3.2. Get flow counters for L7 protocols</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-active-flows">4.3.3. Get active flows</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-historical-flows">4.3.4. Get historical flows</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v1.html#alerts">4.4. Alerts</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-alerts-timeseries">4.4.1. Get alerts timeseries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-alerts-data">4.4.2. Get alerts data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-alert-severity-constants">4.4.3. Get alert severity constants</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-alert-type-constants">4.4.4. Get alert type constants</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-counters-per-severity">4.4.5. Get counters per severity</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-counters-per-type">4.4.6. Get counters per type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v1.html#l7-application-protocols">4.5. L7 Application Protocols</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-l7-application-protocol-constants">4.5.1. Get L7 application protocol constants</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v1.html#l7-application-categories">4.6. L7 Application Categories</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-l7-application-category-constants">4.6.1. Get L7 application category constants</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v1.html#l4-protocols">4.7. L4 Protocols</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-l4-protocol-constants">4.7.1. Get L4 protocol constants</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v1.html#pools">4.8. Pools</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#add-an-host-pool">4.8.1. Add an Host Pool</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#edit-an-host-pool">4.8.2. Edit an Host Pool</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#delete-an-host-pool">4.8.3. Delete an Host Pool</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-an-host-pool">4.8.4. Get an Host Pool</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-members-of-an-host-pool">4.8.5. Get Members of an Host Pool</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#get-all-pools-of-any-type">4.8.6. Get All Pools of Any type</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v1.html#snmp">4.9. SNMP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#add-an-snmp-device">4.9.1. Add an SNMP Device</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#change-the-status-of-an-snmp-device-interface">4.9.2. Change the Status of an SNMP Device Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/rest/examples_v1.html#misc">4.10. Misc</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/rest/examples_v1.html#create-a-session-cookie">4.10.1. Create a Session Cookie</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/lua_c/index.html">Lua API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/lua_c/ntop/index.html">1. ntop Lua Object</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/ntop/ntop_cache.html">1.1. Cache API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/ntop/ntop_prefs.html">1.2. Prefs API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/ntop/ntop_fs.html">1.3. Filesystem API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/ntop/ntop_network.html">1.4. Network API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/ntop/ntop_users.html">1.5. Users API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/ntop/ntop_misc.html">1.6. Misc API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/lua_c/interface/index.html">2. interface Lua Object</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/interface/interface_hosts.html">2.1. Hosts API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/interface/interface_flows.html">2.2. Flows API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/interface/interface_misc.html">2.3. Misc API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/interface/interface_macs.html">2.4. MACs API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/interface/interface_ndpi.html">2.5. nDPI API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/interface/interface_dump.html">2.6. Dump API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/lua_c/host_checks/index.html">3. Host Checks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/host_checks/index.html#operational-mode">3.1. Operational Mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/host_checks/index.html#script-example">3.2. Script Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/host_checks/index.html#host-object-methods">3.3. Host Object Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/lua_c/flow_checks/index.html">4. Flow Checks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/flow_checks/index.html#script-format">4.1. Script Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/flow_checks/index.html#flow-filters">4.2. Flow Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/flow_checks/index.html#alerts">4.3. Alerts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/flow_checks/index.html#helpers">4.4. Helpers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lua_c/flow_checks/index.html#flow-object-methods">4.5. Flow Object Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/lua_c/interface_checks/index.html">5. Interface Checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lua_c/network_checks/index.html">6. Network Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/python/index.html">Python API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/python/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/python/index.html#installation">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/python/index.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/python/index.html#module-ntopng">API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/python/index.html#ntopng">Ntopng</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/python/index.html#ntopng.Ntopng"><code class="docutils literal notranslate"><span class="pre">Ntopng</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#ntopng.Ntopng.get_alert_severities"><code class="docutils literal notranslate"><span class="pre">Ntopng.get_alert_severities()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#ntopng.Ntopng.get_alert_types"><code class="docutils literal notranslate"><span class="pre">Ntopng.get_alert_types()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#ntopng.Ntopng.get_historical_interface"><code class="docutils literal notranslate"><span class="pre">Ntopng.get_historical_interface()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#ntopng.Ntopng.get_host_interfaces_list"><code class="docutils literal notranslate"><span class="pre">Ntopng.get_host_interfaces_list()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#ntopng.Ntopng.get_interface"><code class="docutils literal notranslate"><span class="pre">Ntopng.get_interface()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#ntopng.Ntopng.get_interfaces_list"><code class="docutils literal notranslate"><span class="pre">Ntopng.get_interfaces_list()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/python/index.html#interface">Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/python/index.html#interface.Interface"><code class="docutils literal notranslate"><span class="pre">Interface</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_active_flows_paginated"><code class="docutils literal notranslate"><span class="pre">Interface.get_active_flows_paginated()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_active_hosts"><code class="docutils literal notranslate"><span class="pre">Interface.get_active_hosts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_active_l4_proto_flow_counters"><code class="docutils literal notranslate"><span class="pre">Interface.get_active_l4_proto_flow_counters()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_active_l7_proto_flow_counters"><code class="docutils literal notranslate"><span class="pre">Interface.get_active_l7_proto_flow_counters()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_address"><code class="docutils literal notranslate"><span class="pre">Interface.get_address()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_alert_severities_enum"><code class="docutils literal notranslate"><span class="pre">Interface.get_alert_severities_enum()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_alert_types_enum"><code class="docutils literal notranslate"><span class="pre">Interface.get_alert_types_enum()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_alerts_counter_per_severity"><code class="docutils literal notranslate"><span class="pre">Interface.get_alerts_counter_per_severity()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_alerts_counter_per_type"><code class="docutils literal notranslate"><span class="pre">Interface.get_alerts_counter_per_type()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_all_active_hosts"><code class="docutils literal notranslate"><span class="pre">Interface.get_all_active_hosts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_all_alerts"><code class="docutils literal notranslate"><span class="pre">Interface.get_all_alerts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_broadcast_domains"><code class="docutils literal notranslate"><span class="pre">Interface.get_broadcast_domains()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_data"><code class="docutils literal notranslate"><span class="pre">Interface.get_data()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_dscp_stats"><code class="docutils literal notranslate"><span class="pre">Interface.get_dscp_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_historical"><code class="docutils literal notranslate"><span class="pre">Interface.get_historical()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_host"><code class="docutils literal notranslate"><span class="pre">Interface.get_host()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_host_data"><code class="docutils literal notranslate"><span class="pre">Interface.get_host_data()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_l4_protocols_enum"><code class="docutils literal notranslate"><span class="pre">Interface.get_l4_protocols_enum()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_l7_application_category_enum"><code class="docutils literal notranslate"><span class="pre">Interface.get_l7_application_category_enum()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_l7_application_proto_enum"><code class="docutils literal notranslate"><span class="pre">Interface.get_l7_application_proto_enum()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_l7_stats"><code class="docutils literal notranslate"><span class="pre">Interface.get_l7_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_top_local_talkers"><code class="docutils literal notranslate"><span class="pre">Interface.get_top_local_talkers()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#interface.Interface.get_top_remote_talkers"><code class="docutils literal notranslate"><span class="pre">Interface.get_top_remote_talkers()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/python/index.html#host">Host</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/python/index.html#host.Host"><code class="docutils literal notranslate"><span class="pre">Host</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#host.Host.get_active_flows_paginated"><code class="docutils literal notranslate"><span class="pre">Host.get_active_flows_paginated()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#host.Host.get_dscp_stats"><code class="docutils literal notranslate"><span class="pre">Host.get_dscp_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#host.Host.get_host_data"><code class="docutils literal notranslate"><span class="pre">Host.get_host_data()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#host.Host.get_l7_stats"><code class="docutils literal notranslate"><span class="pre">Host.get_l7_stats()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/python/index.html#historical">Historical</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/python/index.html#historical.Historical"><code class="docutils literal notranslate"><span class="pre">Historical</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_active_monitoring_alerts"><code class="docutils literal notranslate"><span class="pre">Historical.get_active_monitoring_alerts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_alert_severity_counters"><code class="docutils literal notranslate"><span class="pre">Historical.get_alert_severity_counters()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_alert_type_counters"><code class="docutils literal notranslate"><span class="pre">Historical.get_alert_type_counters()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_alerts"><code class="docutils literal notranslate"><span class="pre">Historical.get_alerts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_alerts_stats"><code class="docutils literal notranslate"><span class="pre">Historical.get_alerts_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_flow_alerts"><code class="docutils literal notranslate"><span class="pre">Historical.get_flow_alerts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_flow_alerts_stats"><code class="docutils literal notranslate"><span class="pre">Historical.get_flow_alerts_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_flows"><code class="docutils literal notranslate"><span class="pre">Historical.get_flows()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_host_alerts"><code class="docutils literal notranslate"><span class="pre">Historical.get_host_alerts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_host_timeseries"><code class="docutils literal notranslate"><span class="pre">Historical.get_host_timeseries()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_host_timeseries_stats"><code class="docutils literal notranslate"><span class="pre">Historical.get_host_timeseries_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_host_top_protocols"><code class="docutils literal notranslate"><span class="pre">Historical.get_host_top_protocols()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_interface_alerts"><code class="docutils literal notranslate"><span class="pre">Historical.get_interface_alerts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_interface_timeseries"><code class="docutils literal notranslate"><span class="pre">Historical.get_interface_timeseries()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_interface_timeseries_stats"><code class="docutils literal notranslate"><span class="pre">Historical.get_interface_timeseries_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_mac_alerts"><code class="docutils literal notranslate"><span class="pre">Historical.get_mac_alerts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_network_alerts"><code class="docutils literal notranslate"><span class="pre">Historical.get_network_alerts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_snmp_alerts"><code class="docutils literal notranslate"><span class="pre">Historical.get_snmp_alerts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_system_alerts"><code class="docutils literal notranslate"><span class="pre">Historical.get_system_alerts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_timeseries"><code class="docutils literal notranslate"><span class="pre">Historical.get_timeseries()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_timeseries_metadata"><code class="docutils literal notranslate"><span class="pre">Historical.get_timeseries_metadata()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_timeseries_stats"><code class="docutils literal notranslate"><span class="pre">Historical.get_timeseries_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_top_conversations"><code class="docutils literal notranslate"><span class="pre">Historical.get_top_conversations()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_topk_flows"><code class="docutils literal notranslate"><span class="pre">Historical.get_topk_flows()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/python/index.html#historical.Historical.get_user_alerts"><code class="docutils literal notranslate"><span class="pre">Historical.get_user_alerts()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/timeseries/index.html">Timeseries API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/timeseries/intro.html">Basic Concepts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/intro.html#schema">Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/intro.html#schema-name">Schema Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/intro.html#metric-types">Metric Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/intro.html#driver">Driver</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/timeseries/export.html">Exporting Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/timeseries/change_schema.html">Modify an existing Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/timeseries/adding_new_timeseries.html">Adding New Metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/adding_new_timeseries.html#general-overview">General Overview</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/timeseries/adding_new_timeseries.html#case-1-adding-metrics-via-the-lua-method">Case 1: Adding metrics via the <cite>::lua</cite> method</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/timeseries/adding_new_timeseries.html#case-2-adding-metrics-inside-a-timeseriespoint">Case 2: Adding metrics inside a <cite>TimeseriesPoint</cite></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/timeseries/adding_new_timeseries.html#case-3-adding-metrics-for-lua-only-objects">Case 3: Adding metrics for Lua only objects</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/adding_new_timeseries.html#id1">Custom Timeseries Scripts</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/timeseries/adding_new_timeseries.html#structure-of-custom-timeseries-scripts">Structure of Custom Timeseries Scripts</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/timeseries/adding_new_timeseries.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/adding_new_timeseries.html#charting-new-metrics">Charting New Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/timeseries/accessing_metrics.html">Accessing Metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/accessing_metrics.html#interface-metrics">Interface Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/accessing_metrics.html#host-metrics">Host Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/timeseries/metrics.html">Metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#interface-metrics">Interface Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#device-metrics">Device Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#host-metrics">Host Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#subnet-metrics">Subnet Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#vlan-metrics">VLAN Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#snmp-interface-metrics">SNMP Interface Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#traffic-profile-metrics">Traffic Profile Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#host-pool-metrics">Host Pool Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#asn-metrics">ASN Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#country-metrics">Country Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#flow-device-metrics">Flow Device Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#event-exporter-metrics">Event Exporter Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#container-metrics">Container Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#pod-metrics">POD Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#process-metrics">Process Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/metrics.html#system-metrics">System Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/timeseries/queries.html">Querying Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/queries.html#number-of-hosts-in-the-last-minute">Number Of Hosts In The Last Minute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/queries.html#traffic-on-an-interface-in-the-last-minute">Traffic On An Interface In The Last Minute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/queries.html#traffic-on-an-interface-in-the-last-hour-per-minute">Traffic On An Interface In The Last Hour, Per Minute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/timeseries/queries.html#traffic-on-an-interface-in-the-last-hour">Traffic On An Interface In The Last Hour</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/timeseries/ts_utils.html">ts_utils API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/timeseries/driver.html">Driver Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/alerts/index.html">Alerts API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/alerts/index.html#engaged-alerts">Engaged Alerts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/alerts/alerts_api.html">alert_api API</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/alerts/alerts_api.html#trigger-alert">Trigger alert</a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/alerts/alerts_api.html#metadata">Metadata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/recording/index.html">Recording API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/recording/recording_utils.html">recording_utils API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../license/index.html">License Manager</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="what_is_ntopng.html" class="btn btn-neutral float-right" title="What is ntopng" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 11:19:08 GMT -->
+</html>

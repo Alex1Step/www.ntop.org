@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/ssl.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:47:46 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSL/HTTPS &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">SSL/HTTPS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advanced_features/ssl.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ssl-https">
+<span id="ssl"></span><h1>SSL/HTTPS<a class="headerlink" href="#ssl-https" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>In order to use SSL with ntopng (i.e. HTTPS) you need a certificate; you can create your own self signed certificate (1) or obtain it by a Certification Authorities (CA) (2):</p>
+<ul class="simple">
+<li><p>obtain the .pem files</p></li>
+<li><p>concatenate the privateKeyFile(.pem) and the certificate/certificateChainFile(.pem)</p></li>
+<li><p>Rename it in ntopng-cert.pem and put inside ntopng/httpdocs/ssl/.</p></li>
+</ul>
+<p>The HTTPS server will start on port 3001</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since ntopng packages install HTTPS enabled by default (port 3001) and HTTP disabled, a
+self-signed certificate is already generated for you on first install. Read the instructions
+below to configure your own.</p>
+</div>
+<p>Below you can find instructions on how to run ntopng with either a self signed or a CA certificate generated by Let’s Encrypt (<a class="reference external" href="https://letsencrypt.org/">https://letsencrypt.org</a>)</p>
+</section>
+<section id="selfsigned-certificate">
+<h2>SELFSIGNED CERTIFICATE<a class="headerlink" href="#selfsigned-certificate" title="Link to this heading"></a></h2>
+<p>To create the self-signed certificate you need to install OpenSSL</p>
+<p>On Debian/Ubuntu: sudo apt-get install openssl
+OnRedHat/CentOS: sudo yum install openssl
+On OSX do: brew install openssl</p>
+<section id="from-source-code">
+<h3>From Source Code<a class="headerlink" href="#from-source-code" title="Link to this heading"></a></h3>
+<p>If you are running from source code, you can create your SSL certificate inside the ntopng folder executing the command below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>cert
+</pre></div>
+</div>
+<p>Edit the /etc/ntopng/ntopng.conf file to enable https, adding:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--https-port=3001
+</pre></div>
+</div>
+<p>You may choose ports other than 3001 but it must be a different port to the http port which is port 3000 by default
+Alternatively you can disable insecure http altogether by replacing the line -w=3000 with –http-port=0
+(-w and –http-port are interchangeable)</p>
+<p>Then start ntopng.</p>
+</section>
+<section id="from-packages">
+<h3>From Packages<a class="headerlink" href="#from-packages" title="Link to this heading"></a></h3>
+<p>Please find below the steps to generate a certificate manually.
+The certificate should be installed under the ntopng <cite>share</cite> directory, usually located at <cite>/usr/share/ntopng</cite> or at <cite>/usr/local/share/ntopng</cite>.
+The next instructions assume it’s located at <cite>/usr/local/share/ntopng</cite>.</p>
+<section id="ubuntu-and-centos">
+<h4>Ubuntu and Centos<a class="headerlink" href="#ubuntu-and-centos" title="Link to this heading"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/tmp/
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-sha256<span class="w"> </span>-extensions<span class="w"> </span>v3_ca<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>cert.pem<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/C=EU/CN=ntopng.local&quot;</span>
+cat<span class="w"> </span>privkey.pem<span class="w"> </span>cert.pem<span class="w"> </span>&gt;<span class="w"> </span>/usr/share/ntopng/httpdocs/ssl/ntopng-cert.pem
+/bin/rm<span class="w"> </span>-f<span class="w"> </span>privkey.pem<span class="w"> </span>cert.pem
+systemctl<span class="w"> </span>restart<span class="w"> </span>ntopng
+</pre></div>
+</div>
+</section>
+<section id="homebrew-formula">
+<h4>HomeBrew Formula<a class="headerlink" href="#homebrew-formula" title="Link to this heading"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/tmp/
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-sha256<span class="w"> </span>-extensions<span class="w"> </span>v3_ca<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>cert.pem<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/C=EU/CN=ntopng.local&quot;</span>
+mkdir<span class="w"> </span>/usr/share/ntopng/httpdocs/ssl/
+cat<span class="w"> </span>privkey.pem<span class="w"> </span>cert.pem<span class="w"> </span>&gt;<span class="w"> </span>/usr/share/ntopng/httpdocs/ssl/ntopng-cert.pem
+/bin/rm<span class="w"> </span>-f<span class="w"> </span>privkey.pem<span class="w"> </span>cert.pem
+<span class="nb">cd</span><span class="w"> </span>/usr/local/bin/
+ln<span class="w"> </span>-s<span class="w"> </span>/opt/local/lib/libssl.dylib<span class="w"> </span>/opt/local/lib/libcrypto.dylib<span class="w"> </span>.
+ntopng
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="ca-certificate-let-s-encrypt">
+<h2>CA CERTIFICATE [ Let’s Encrypt ]<a class="headerlink" href="#ca-certificate-let-s-encrypt" title="Link to this heading"></a></h2>
+<p>Please read <a class="reference external" href="../../../ntopng/securing-ntopng-with-ssl-and-lets-encrypt/index.html">https://www.ntop.org/ntopng/securing-ntopng-with-ssl-and-lets-encrypt/</a> for
+a complete tutorial on using Let’s Encrypt to secure ntopng.</p>
+</section>
+<section id="https-client-authentication">
+<h2>HTTPS Client Authentication<a class="headerlink" href="#https-client-authentication" title="Link to this heading"></a></h2>
+<p>By enabling this feature you may grant access to ntopng by the means of X.509 client certificates.</p>
+<p>Clients that provides a valid certificate, issued by a trusted CA, are authenticated
+without the need of a password, if the X.509 Common Name (CN) matches an existing ntopng user.</p>
+<p>Clients that otherwise fails to provide a certificate or a valid one, fallback to the usual
+login process.</p>
+<p>Trusted CAs are read from httpdocs/ssl/ntopng-ca.crt, this file must contain the concatenated
+list of CAs certificates, in PEM format. Any change to this file requires a restart of ntopng
+to take effect.</p>
+<p>Using openssl you may easily activate the feature and create client certificates
+with the following instructions.</p>
+<p>Create your own CA:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>genrsa<span class="w"> </span>-des3<span class="w"> </span>-out<span class="w"> </span>ca.key<span class="w"> </span><span class="m">2048</span><span class="w">                        </span><span class="c1"># create key</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-key<span class="w"> </span>ca.key<span class="w"> </span>-out<span class="w"> </span>ca.crt<span class="w">     </span><span class="c1"># create CA self-signed cert</span>
+cat<span class="w"> </span>ca.crt<span class="w"> </span>&gt;&gt;<span class="w"> </span>ntopng/httpdocs/ssl/ntopng-ca.crt<span class="w">              </span><span class="c1"># add cert to trusted CAs</span>
+</pre></div>
+</div>
+<p>Create one or more Client Certificates:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>genrsa<span class="w"> </span>-des3<span class="w"> </span>-out<span class="w"> </span>client.key<span class="w"> </span><span class="m">2048</span><span class="w">                    </span><span class="c1"># create key</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>client.key<span class="w"> </span>-out<span class="w"> </span>client.csr<span class="w">             </span><span class="c1"># create client cert request</span>
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-in<span class="w"> </span>client.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>client.crt<span class="w">                                                                                                                          </span><span class="c1"># create client cert signed by CA</span>
+</pre></div>
+</div>
+<p>Export Client to preferred browser format (usually pkcs12):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>pkcs12<span class="w"> </span>-export<span class="w"> </span>-clcerts<span class="w"> </span>-in<span class="w"> </span>client.crt<span class="w"> </span>-inkey<span class="w"> </span>client.key<span class="w"> </span>-out<span class="w"> </span>client.p12
+</pre></div>
+</div>
+<p>Then import client certificate in the browser and restart ntopng.
+Remember first to enable HTTPS Client Authentication in the Preferences-&gt;User Authetication.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/advanced_features/ssl.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:47:47 GMT -->
+</html>

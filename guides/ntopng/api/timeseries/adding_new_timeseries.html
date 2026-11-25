@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/timeseries/adding_new_timeseries.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:43 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adding New Metrics &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Accessing Metrics" href="accessing_metrics.html" />
+    <link rel="prev" title="Modify an existing Schema" href="change_schema.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">User Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_with_other_tools/index.html">Using ntopng with ntop Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../scripts/index.html">Developers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index-2.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../rest/index.html">RESTful API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lua_c/index.html">Lua API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python/index.html">Python API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Timeseries API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="intro.html">Basic Concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="export.html">Exporting Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change_schema.html">Modify an existing Schema</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Adding New Metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-overview">General Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Custom Timeseries Scripts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#charting-new-metrics">Charting New Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accessing_metrics.html">Accessing Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="queries.html">Querying Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ts_utils.html">ts_utils API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="driver.html">Driver Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../alerts/index.html">Alerts API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recording/index.html">Recording API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index-2.html">API Documentation</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Timeseries API</a></li>
+      <li class="breadcrumb-item active">Adding New Metrics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/timeseries/adding_new_timeseries.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="adding-new-metrics">
+<h1>Adding New Metrics<a class="headerlink" href="#adding-new-metrics" title="Link to this heading"></a></h1>
+<p>Scripts allow users to create their own scripts and <a class="reference external" href="../../scripts/custom_pages.html">custom pages</a> as long as
+long as defining their own <a class="reference external" href="../../scripts/timeseries_schemas.html">timeseries schemas</a>. This is often enough to add
+custom metrics and visualize them. Some user however need to export
+internal metrics from the ntopng core. The information that follow should give
+a good starting point to do this.</p>
+<section id="general-overview">
+<h2>General Overview<a class="headerlink" href="#general-overview" title="Link to this heading"></a></h2>
+<p>Traffic elements (such as local hosts and interfaces) are iterated periodically
+and by some Lua scripts and their statistics are dumped in the form of timeseries.
+Traffic elements are handled in some standard ways:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Most traffic elements are implemented in C, and their statistics are passed
+to Lua via the <code class="code docutils literal notranslate"><span class="pre">::lua</span></code> method. For example, <code class="code docutils literal notranslate"><span class="pre">AutonomousSystem::lua</span></code> dumps
+the autonomous system statistics to Lua. <em>Important</em> if the element has a <cite>::tsLua</cite>
+method check out the case 2 below.</p></li>
+<li><p>Some other traffic elements are implemented in C, but their statistics are hold
+on a <code class="code docutils literal notranslate"><span class="pre">TimeseriesPoint</span></code> rather then the element itself. For example, the
+local hosts data is stored into the <code class="code docutils literal notranslate"><span class="pre">HostTimeseriesPoint</span></code> class. In order
+to add new timeseries for a local host, the <code class="code docutils literal notranslate"><span class="pre">HostTimeseriesPoint</span></code> is the
+class to modify (and related <code class="code docutils literal notranslate"><span class="pre">::lua</span></code> method).</p></li>
+<li><p>Some traffic elements are implemented in Lua. Their state is stored in Redis
+usually in JSON form. This includes, for example, the SNMP devices.</p></li>
+</ol>
+</div></blockquote>
+<p>In order to add a custom timeseries it’s necessary to identify the correct case
+above. It’s also important to note that not all the traffic elements can be exported.
+Remote Hosts and Flows timeseries, for example, cannot be exported anyway due to the
+design of ntopng.</p>
+<section id="case-1-adding-metrics-via-the-lua-method">
+<h3>Case 1: Adding metrics via the <cite>::lua</cite> method<a class="headerlink" href="#case-1-adding-metrics-via-the-lua-method" title="Link to this heading"></a></h3>
+<p>The new metric should be exposed into the <code class="code docutils literal notranslate"><span class="pre">::lua</span></code> method. Then, you can
+simply add the metric to the <a class="reference external" href="#custom-timeseries-scripts">custom timeseries scripts</a>. For example,
+the autonomous systems <cite>num_hosts</cite> field, exposed into the <code class="code docutils literal notranslate"><span class="pre">AutonomousSystem::lua</span></code>
+method, can be written as a timeseries in this way.</p>
+<p>Please note that if the metric is already exposed into the <code class="code docutils literal notranslate"><span class="pre">::lua</span></code> method,
+you can keep compatibility with the standard ntopng and update it normally (no ntopng fork needed).</p>
+</section>
+<section id="case-2-adding-metrics-inside-a-timeseriespoint">
+<h3>Case 2: Adding metrics inside a <cite>TimeseriesPoint</cite><a class="headerlink" href="#case-2-adding-metrics-inside-a-timeseriespoint" title="Link to this heading"></a></h3>
+<p>In order to add a new metric to a LocalHost or NetworkInterface, the corresponding
+<code class="code docutils literal notranslate"><span class="pre">TimeseriesPoint</span></code> should be modified instead:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>For LocalHost, modify the <code class="code docutils literal notranslate"><span class="pre">HostTimeseriesPoint</span></code></p></li>
+<li><p>For NetworkInterface, modify the <code class="code docutils literal notranslate"><span class="pre">NetworkInterfaceTsPoint</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>Things to keep in mind:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The new metric should be added to the header file (e.g. <cite>HostTimeseriesPoint.h</cite>).</p></li>
+<li><p>The metric should be written to the <code class="code docutils literal notranslate"><span class="pre">TimeseriesPoint</span></code>, (e.g. in <code class="code docutils literal notranslate"><span class="pre">LocalHostStats::makeTsPoint</span></code>)</p></li>
+<li><p>The metric should be exposed to Lua in the <code class="code docutils literal notranslate"><span class="pre">TimeseriesPoint:lua</span></code> method (e.g. in <code class="code docutils literal notranslate"><span class="pre">HostTimeseriesPoint::lua</span></code>)</p></li>
+</ul>
+</div></blockquote>
+<p>After this, the metric should now be available in Lua. Use the <a class="reference external" href="#custom-timeseries-scripts">custom timeseries scripts</a>
+to export it as a timeseries. Since this requires modifications of the C source code,
+compatibility with the standard ntopng cannot be preserved.</p>
+</section>
+<section id="case-3-adding-metrics-for-lua-only-objects">
+<h3>Case 3: Adding metrics for Lua only objects<a class="headerlink" href="#case-3-adding-metrics-for-lua-only-objects" title="Link to this heading"></a></h3>
+<p>This really depends on the specific element to be added. Compatibility may or may not be assured.</p>
+</section>
+</section>
+<section id="id1">
+<h2>Custom Timeseries Scripts<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>Once the new metrics are available in Lua via one of the methods discussed above,
+it’s necessary to export such metrics as timeseries. In order to do so, two actions are
+required:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The metric format should be declared in a timeseries schema</p></li>
+<li><p>The metric should be written to the timeseries driver</p></li>
+</ul>
+</div></blockquote>
+<p>Both actions can be implemented inside the custom timeseries scripts.</p>
+<p>ntopng handles custom timeseries with updates every:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>1 minute for interfaces</p></li>
+<li><p>5 minutes for local hosts</p></li>
+</ul>
+</div></blockquote>
+<p>This means that custom timeseries with a point every minute and a
+point every 5 minutes can be generated for interfaces and local hosts, respectively.</p>
+<p>ntopng looks for custom timeseries in the following Lua files under
+<code class="code docutils literal notranslate"><span class="pre">scripts/lua/modules/timeseries/custom/</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">ts_minute_custom.lua</span></code> for local hosts timeseries with 5-minute updates</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ts_5min_custom.lua</span></code> for interface timeseries with 1-minute updates</p></li>
+</ul>
+</div></blockquote>
+<p>If file <code class="code docutils literal notranslate"><span class="pre">ts_5min_custom.lua</span></code> does not exist, ntopng will skip the
+creation of custom timeseries with 5-minute updates. Similarly, if
+file <code class="code docutils literal notranslate"><span class="pre">ts_minute_custom.lua</span></code> does not exist, ntopng will skip the
+creation of custom timeseries with 1-minute updates.</p>
+<p>Sample files <code class="code docutils literal notranslate"><span class="pre">ts_5min_custom.lua.sample</span></code> and <code class="code docutils literal notranslate"><span class="pre">ts_minute_custom.lua.sample</span></code> are
+created automatically upon ntopng installation with some example
+contents. Those files are ignored by ntopng. However, it is safe to
+copy them to <code class="code docutils literal notranslate"><span class="pre">ts_5min_custom.lua</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">ts_minute_custom.lua</span></code> and modify the copies when it is necessary to
+add custom timeseries.</p>
+<section id="structure-of-custom-timeseries-scripts">
+<h3>Structure of Custom Timeseries Scripts<a class="headerlink" href="#structure-of-custom-timeseries-scripts" title="Link to this heading"></a></h3>
+<p>Every custom file must contain a method <code class="code docutils literal notranslate"><span class="pre">setup</span></code> which defines one or
+more schemas. Every custom timeseries <em>needs</em> a schema to function. A
+schema defines the timeseries in terms of tags and metrics. The
+documentation describes what is a schema in detail. Later in this
+section an example schema will be shown.</p>
+<p>File <code class="code docutils literal notranslate"><span class="pre">ts_5min_custom.lua</span></code> must contain a callback
+<code class="code docutils literal notranslate"><span class="pre">ts_custom.host_update_stats</span></code> which is called by ntopng every 5
+minutes for every <em>active</em> local host. This callback accepts the
+following arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">when</span></code> The time (expressed as a Unix Epoch) of the call</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">hostname</span></code> The IP address of the host, possibly followed by
+a VLAN tag</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">host</span></code> The host metrics in a Lua table</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ifstats</span></code> The interface stats of the host interface</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">verbose</span></code> and extra flag passed when ntopng is working in
+verbose mode</p></li>
+</ul>
+</div></blockquote>
+<p>File <code class="code docutils literal notranslate"><span class="pre">ts_minute_custom.lua</span></code> must contain a callback
+<code class="code docutils literal notranslate"><span class="pre">ts_custom.iface_update_stats</span></code> which is called by ntopng every
+minute for every monitored interface. This callback accepts the
+following arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">when</span></code> The time (expressed as a Unix Epoch) of the call</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">_ifname</span></code> The name of the monitored interface</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">ifstats</span></code> The interface stats of the monitored interface</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">verbose</span></code> and extra flag passed when ntopng is working in
+verbose mode</p></li>
+</ul>
+</div></blockquote>
+<p>Callbacks can be used to append points to the timeseries. Indeed,
+once the schema is defined, it is necessary to <code class="code docutils literal notranslate"><span class="pre">append</span></code> points to
+the timeseries. The function used to append points to the timeseries
+is the <code class="code docutils literal notranslate"><span class="pre">ts_utils.append</span></code> documented later in this section of the
+documentation.</p>
+</section>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
+<p>Let’s see how to add an interface timeseries that counts the number of
+issues detected when analyzing sequence numbers. The total issues
+detected when analyzing sequence numbers is considered as the sum of
+TCP retransmitted, out-of-order and lost packets.</p>
+<p>The first thing to do is to add a schema to the <code class="code docutils literal notranslate"><span class="pre">setup</span></code> function
+of <code class="code docutils literal notranslate"><span class="pre">ts_minute_custom.lua</span></code>. The schema is created as as follows:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">schema</span> <span class="o">=</span> <span class="n">ts_utils</span><span class="p">.</span><span class="n">newSchema</span><span class="p">(</span><span class="s2">&quot;iface:tcp_seq_errors&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">step</span> <span class="o">=</span> <span class="mi">60</span><span class="p">})</span>
+<span class="n">schema</span><span class="p">:</span><span class="n">addTag</span><span class="p">(</span><span class="s2">&quot;ifid&quot;</span><span class="p">)</span>
+<span class="n">schema</span><span class="p">:</span><span class="n">addMetric</span><span class="p">(</span><span class="s2">&quot;packets&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first argument of <code class="code docutils literal notranslate"><span class="pre">newSchema</span></code> specifies the timeseries name
+<code class="code docutils literal notranslate"><span class="pre">&quot;iface:tcp_seq_errors&quot;</span></code>. Timeseries interfaces <em>must</em> start
+with prefix <code class="code docutils literal notranslate"><span class="pre">iface:</span></code>. The second argument is a table that <em>must</em>
+contain argument <code class="code docutils literal notranslate"><span class="pre">step</span></code> which tells how frequently the
+timeseries will be updated. As we are in the 1-minute local hosts
+timeseries Lua script, a value of <code class="code docutils literal notranslate"><span class="pre">60</span></code> must be specified here.</p>
+<p>Then, function <code class="code docutils literal notranslate"><span class="pre">addTag</span></code> is used to indicate an interface id
+<code class="code docutils literal notranslate"><span class="pre">ifid</span></code> that will be used to uniquely identify the timeseries
+when multiple interfaces are monitored. Finally, <code class="code docutils literal notranslate"><span class="pre">addMetric</span></code> is
+called with an argument <code class="code docutils literal notranslate"><span class="pre">packets</span></code> to indicate the metric
+name. Note that both the <code class="code docutils literal notranslate"><span class="pre">ifid</span></code> and <code class="code docutils literal notranslate"><span class="pre">packets</span></code> are just
+plain strings here, their actual values will be set in the
+<code class="code docutils literal notranslate"><span class="pre">ts_custom.iface_update_stats</span></code> when updating the timeseries with
+new points.</p>
+<p>The number of issues detected when analyzing sequence numbers is a
+<em>counter</em>, that is, is an always-increasing function of
+time. By default, schemas consider metrics as counters so there is no
+need to specify this type upon schema addition. For <em>gauges</em>, one has
+to indicate an extra <code class="code docutils literal notranslate"><span class="pre">metrics_type</span></code> in the table containing the
+<code class="code docutils literal notranslate"><span class="pre">step</span></code>. So for example, to create a 1-minute timeseries for the number of
+active flows of a given host, one can use the following syntax <code class="code docutils literal notranslate"><span class="pre">ts_utils.newSchema(&quot;host:flows&quot;,</span> <span class="pre">{step=60,</span> <span class="pre">metrics_type=ts_utils.metrics.gauge})</span></code>.</p>
+<p>To update the timeseries with new points, callback
+<code class="code docutils literal notranslate"><span class="pre">ts_custom.iface_update_stats</span></code> is extended with a
+<code class="code docutils literal notranslate"><span class="pre">ts_utils.append</span></code> call as follows.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">ts_utils</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;iface:tcp_seq_errors&quot;</span><span class="p">,</span>
+<span class="p">{</span><span class="n">ifid</span> <span class="o">=</span> <span class="n">ifstats</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<span class="n">packets</span> <span class="o">=</span> <span class="n">ifstats</span><span class="p">.</span><span class="n">tcpPacketStats</span><span class="p">.</span><span class="n">retransmissions</span>
+             <span class="o">+</span> <span class="n">ifstats</span><span class="p">.</span><span class="n">tcpPacketStats</span><span class="p">.</span><span class="n">out_of_order</span>
+             <span class="o">+</span> <span class="n">ifstats</span><span class="p">.</span><span class="n">tcpPacketStats</span><span class="p">.</span><span class="n">lost</span><span class="p">},</span>
+<span class="n">when</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first argument of <code class="code docutils literal notranslate"><span class="pre">ts_utils.append</span></code> is the timeseries name
+and <em>must</em> be equal to the one specified when defining the schema. The
+second argument is a table which <em>must</em> contain the tag (<code class="code docutils literal notranslate"><span class="pre">ifid</span></code>)
+and the metric (<code class="code docutils literal notranslate"><span class="pre">packets</span></code>) which must be set to their actual
+values. As it can be seen from the example above, the field <code class="code docutils literal notranslate"><span class="pre">id</span></code>
+of table <code class="code docutils literal notranslate"><span class="pre">ifstats</span></code> is used to set tag <code class="code docutils literal notranslate"><span class="pre">ifid</span></code>, whereas the
+sum of <code class="code docutils literal notranslate"><span class="pre">ifstats.tcpPacketStats</span></code> table fields
+<code class="code docutils literal notranslate"><span class="pre">retransmissions</span></code>, <code class="code docutils literal notranslate"><span class="pre">out_of_order</span></code> and <code class="code docutils literal notranslate"><span class="pre">lost</span></code> are used
+as value for the metric <code class="code docutils literal notranslate"><span class="pre">packets</span></code>.</p>
+<p>Finally, the third argument <code class="code docutils literal notranslate"><span class="pre">when</span></code> is the time of the call, and
+the latest argument <code class="code docutils literal notranslate"><span class="pre">verbose</span></code> indicates whether ntopng is
+operating in verbose mode.</p>
+<p>From that point on, the timeseries will be consistently updated by
+ntopng.</p>
+<p>Multiple schemas and multiple <code class="code docutils literal notranslate"><span class="pre">ts_utils.append</span></code> can be added in
+the same file.</p>
+<p>The full example can be seen at:
+<a class="reference external" href="https://github.com/ntop/ntopng/blob/dev/scripts/lua/modules/timeseries/custom/ts_minute_custom.lua.sample">https://github.com/ntop/ntopng/blob/dev/scripts/lua/modules/timeseries/custom/ts_minute_custom.lua.sample</a></p>
+<p>Another example that creates 5-minute timeseries of local hosts total
+bytes can be seen at
+<a class="reference external" href="https://github.com/ntop/ntopng/blob/dev/scripts/lua/modules/timeseries/custom/ts_5min_custom.lua.sample">https://github.com/ntop/ntopng/blob/dev/scripts/lua/modules/timeseries/custom/ts_5min_custom.lua.sample</a></p>
+</section>
+</section>
+<section id="charting-new-metrics">
+<h2>Charting New Metrics<a class="headerlink" href="#charting-new-metrics" title="Link to this heading"></a></h2>
+<p>After exporting the new metrics to the timeseries driver (e.g. InfluxDB), the generated
+timeseries can be charted inside the traffic element page. The particular script to
+modify depends on the specific traffic element, here are some examples:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>For local hosts, modify <cite>host_details.lua</cite></p></li>
+<li><p>For network interfaces, modify <cite>if_stats.lua</cite></p></li>
+</ul>
+</div></blockquote>
+<p>The script should contain a call to <code class="code docutils literal notranslate"><span class="pre">graph_utils.drawGraphs</span></code> with a <code class="code docutils literal notranslate"><span class="pre">timeseries</span></code> field.
+The new timeseries should be added to it. Here is for example a modified host_stats.lua
+with a new <cite>host:low_goodput_flows</cite> metric:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">graph_utils</span><span class="p">.</span><span class="n">drawGraphs</span><span class="p">(</span><span class="n">ifId</span><span class="p">,</span> <span class="n">schema</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">_GET</span><span class="p">[</span><span class="s2">&quot;zoom&quot;</span><span class="p">],</span> <span class="n">url</span><span class="p">,</span> <span class="n">selected_epoch</span><span class="p">,</span> <span class="p">{</span>
+   <span class="n">top_protocols</span> <span class="o">=</span> <span class="s2">&quot;top:host:ndpi&quot;</span><span class="p">,</span>
+<span class="p">...</span>
+   <span class="n">timeseries</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">{</span><span class="n">schema</span><span class="o">=</span><span class="s2">&quot;host:traffic&quot;</span><span class="p">,</span>                <span class="n">label</span><span class="o">=</span><span class="n">i18n</span><span class="p">(</span><span class="s2">&quot;traffic&quot;</span><span class="p">)},</span>
+      <span class="p">{</span><span class="n">schema</span><span class="o">=</span><span class="s2">&quot;host:flows&quot;</span><span class="p">,</span>                  <span class="n">label</span><span class="o">=</span><span class="n">i18n</span><span class="p">(</span><span class="s2">&quot;graphs.active_flows&quot;</span><span class="p">)},</span>
+      <span class="p">{</span><span class="n">schema</span><span class="o">=</span><span class="s2">&quot;host:misbehaving_flows&quot;</span><span class="p">,</span>        <span class="n">label</span><span class="o">=</span><span class="n">i18n</span><span class="p">(</span><span class="s2">&quot;graphs.total_misbehaving_flows&quot;</span><span class="p">)},</span>
+
+      <span class="c1">-- The new metric is added here in order to be shown into the charts</span>
+      <span class="p">{</span><span class="n">schema</span><span class="o">=</span><span class="s2">&quot;host:low_goodput_flows&quot;</span><span class="p">,</span>      <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Low Goodput Flows&quot;</span><span class="p">},</span>
+<span class="p">...</span>
+   <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>The metric will appear with the “Low Goodput Flows” into the timeseries dropdown
+after the timeseries points are available.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="change_schema.html" class="btn btn-neutral float-left" title="Modify an existing Schema" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="accessing_metrics.html" class="btn btn-neutral float-right" title="Accessing Metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/api/timeseries/adding_new_timeseries.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:51:44 GMT -->
+</html>

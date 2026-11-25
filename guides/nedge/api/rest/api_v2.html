@@ -1,0 +1,897 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+
+<!-- Mirrored from www.ntop.org/guides/nedge/api/rest/api_v2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:53:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. RESTful API v2 Specification &mdash; nEdge  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/ntopf127.css?v=8597da58" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options0b7c.js?v=5929fcd5"></script>
+      <script src="../../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="RESTful API" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index-2.html" class="icon icon-home">
+            nEdge
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nedge/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../policies.html">Policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bandwidth_control.html">Bandwidth Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vlan.html">VLAN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dns.html">DNS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../captive_portal.html">Captive Portal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bridging.html">Bridge Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../routing.html">Router Mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hw_bypass.html">Hardware Bypass Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_management.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../management.html">Device Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../recovery.html">Device Recovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conf_backup.html">Configuration Backup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conf_backup.html#configuration-restore">Configuration Restore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../licenses.html">Licenses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">RESTful API</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. RESTful API v2 Specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#authentication">1.1. Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#request-format">1.2. Request Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#response-format">1.3. Response Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api">1.4. API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">nEdge</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Documentation</a></li>
+          <li class="breadcrumb-item"><a href="index.html">RESTful API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1. </span>RESTful API v2 Specification</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/rest/api_v2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="restful-api-v2-specification">
+<span id="restapidocv2-target"></span><h1><span class="section-number">1. </span>RESTful API v2 Specification<a class="headerlink" href="#restful-api-v2-specification" title="Link to this heading"></a></h1>
+<section id="authentication">
+<h2><span class="section-number">1.1. </span>Authentication<a class="headerlink" href="#authentication" title="Link to this heading"></a></h2>
+<p>The HTTP/HTTPS authentication should be used, for example with <cite>curl</cite>
+it is possible to specify username and password with
+<code class="code docutils literal notranslate"><span class="pre">-u</span> <span class="pre">&lt;user&gt;:&lt;password&gt;</span></code></p>
+<p>Using HTTPS is recommended for security. See  <a class="reference external" href="../../../../ntopng/best-practices-to-secure-ntopng/index.html">this post</a> to enable HTTPS.</p>
+</section>
+<section id="request-format">
+<h2><span class="section-number">1.2. </span>Request Format<a class="headerlink" href="#request-format" title="Link to this heading"></a></h2>
+<p>Parameters can be provided both using GET with a query string or
+POST using JSON (in this case please make sure the correct
+Content Type is provided). For example, to download data for a host you can
+use the below <cite>curl</cite> command line using GET:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span><span class="s2">&quot;http://192.168.1.1:3000/lua/rest/v2/get/host/data.lua?ifid=1&amp;host=192.168.1.2&quot;</span>
+</pre></div>
+</div>
+<p>or the below <cite>curl</cite> command line using POST:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>admin:admin<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;ifid&quot;: &quot;1&quot;, &quot;host&quot;: &quot;192.168.1.2&quot;}&#39;</span><span class="w"> </span><span class="s2">&quot;http://192.168.1.1:3000/lua/rest/v2/get/host/data.lua&quot;</span>
+</pre></div>
+</div>
+<p>Please check the <em>Examples</em> section for more examples.</p>
+</section>
+<section id="response-format">
+<h2><span class="section-number">1.3. </span>Response Format<a class="headerlink" href="#response-format" title="Link to this heading"></a></h2>
+<p>An API response is usually represented by a JSON message matching a standard structure.
+This JSON message consists of an envelope containing:</p>
+<ul class="simple">
+<li><p>a return code <em>rc</em></p></li>
+<li><p>a human-readable string <em>rc_str</em> describing the return code</p></li>
+<li><p>the actual response in <em>rsp</em></p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+ &quot;rc&quot;: 0
+ &quot;rc_str&quot;: &quot;OK&quot;,
+ &quot;rsp&quot;: {
+    ...
+ }
+}
+</pre></div>
+</div>
+</section>
+<section id="api">
+<h2><span class="section-number">1.4. </span>API<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
+<section id="Interfaces">
+<h3><span class="section-number">1.4.1. </span>Interfaces<a class="headerlink" href="#Interfaces" title="Link to this heading"></a></h3>
+<div class="admonition">
+<p class="admonition-title">GET /lua/pro/rest/v2/get/nedge/interfaces.lua</p>
+<p>Get nEdge interfaces<ul class="simple">
+<li><p><strong>Description: 
+</strong>Get all the network interfaces used by nEdge</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">GET /lua/pro/rest/v2/get/nedge/gateways/status.lua</p>
+<p>Get gateways status information<ul class="simple">
+<li><p><strong>Description: 
+</strong>Read information about gateways</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">GET /lua/pro/rest/v2/get/nedge/physical/interface/data.lua</p>
+<p>Get interface information<ul class="simple">
+<li><p><strong>Description: 
+</strong>Read information about an interface</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ifid</p></td>
+<td><p>query</p></td>
+<td><p>Interface identifier</p></td>
+<td><p>integer</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-2 - INVALID_INTERFACE</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">GET /lua/pro/rest/v2/get/nedge/dhcp_active_leases.lua</p>
+<p>Get DHCP leases<ul class="simple">
+<li><p><strong>Description: 
+</strong>Read active DHCP elases</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">POST /lua/pro/rest/v2/add/nedge/vlan/add_vlan.lua</p>
+<p>Add a VLAN interface<ul class="simple">
+<li><p><strong>Description: 
+</strong>Add a VLAN interface</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>interface</p></td>
+<td><p>formData</p></td>
+<td><p>Physical interface</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>vlan_id</p></td>
+<td><p>formData</p></td>
+<td><p>VLAN ID</p></td>
+<td><p>string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-5 - INVALID_ARGUMENTS</em></p>
+<p><em>-6 - INTERNAL_ERROR</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">POST /lua/rest/v2/delete/nedge/vlan/remove_vlan.lua</p>
+<p>Delete a VLAN interface<ul class="simple">
+<li><p><strong>Description: 
+</strong>Remove a VLAN interface</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>delete_vlan</p></td>
+<td><p>formData</p></td>
+<td><p>VLAN ID</p></td>
+<td><p>string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+</section>
+<section id="Users">
+<h3><span class="section-number">1.4.2. </span>Users<a class="headerlink" href="#Users" title="Link to this heading"></a></h3>
+<div class="admonition">
+<p class="admonition-title">GET /lua/pro/rest/v2/get/nedge/users/status.lua</p>
+<p>Get users stats<ul class="simple">
+<li><p><strong>Description: 
+</strong>Read traffic stats about users</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+</section>
+<section id="Policy">
+<h3><span class="section-number">1.4.3. </span>Policy<a class="headerlink" href="#Policy" title="Link to this heading"></a></h3>
+<div class="admonition">
+<p class="admonition-title">POST /lua/pro/rest/v2/set/nedge/interface/state.lua</p>
+<p>Enable or disable a WAN interface<ul class="simple">
+<li><p><strong>Description: 
+</strong>Set the state (enabled or disabled) of a WAN interface</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>interface</p></td>
+<td><p>formData</p></td>
+<td><p>WAN interface name</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>enabled</p></td>
+<td><p>formData</p></td>
+<td><p>New interface enable state: ‘true’ or ‘false’</p></td>
+<td><p>string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-5 - INVALID_ARGUMENTS</em></p>
+<p><em>-6 - INTERNAL_ERROR</em></p>
+<p><em>-7 - BAD_FORMAT</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">GET /lua/pro/rest/v2/get/nedge/policy/default.lua</p>
+<p>Get default policy for inter-LAN traffic <ul class="simple">
+<li><p><strong>Description: 
+</strong>Read default policy for inter-LAN traffic</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">POST /lua/pro/rest/v2/set/nedge/policy/default.lua</p>
+<p>Set default policy for inter-LAN traffic<ul class="simple">
+<li><p><strong>Description: 
+</strong>Set default policy for inter-LAN traffic</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>default_policy</p></td>
+<td><p>formData</p></td>
+<td><p>Policy: accept or deny</p></td>
+<td><p>string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-5 - INVALID_ARGUMENTS</em></p>
+<p><em>-6 - INTERNAL_ERROR</em></p>
+<p><em>-7 - BAD_FORMAT</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">GET /lua/pro/rest/v2/get/nedge/policy/rules.lua</p>
+<p>Get rules for inter-LAN traffic<ul class="simple">
+<li><p><strong>Description: 
+</strong>Read all configured rules to allow/deny inter-LAN traffic</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">POST /lua/pro/rest/v2/add/nedge/policy/rule.lua</p>
+<p>Add a policy for inter-LAN traffic<ul class="simple">
+<li><p><strong>Description: 
+</strong>Add a new policy for inter-LAN traffic and return the ID</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>src_type</p></td>
+<td><p>formData</p></td>
+<td><p>Source type: ‘cidr’ or ‘interface’</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>src_value</p></td>
+<td><p>formData</p></td>
+<td><p>Source (e.g. ‘192.168.1.0/24’ or ‘eno2.11’)</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-even"><td><p>dst_type</p></td>
+<td><p>formData</p></td>
+<td><p>Destination type: ‘cidr’ or ‘interface’</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>dst_value</p></td>
+<td><p>formData</p></td>
+<td><p>Destination (e.g. ‘192.168.1.0/24’ or ‘eno2.11’)</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-even"><td><p>bidirectional</p></td>
+<td><p>formData</p></td>
+<td><p>Bidirectionsl: ‘true’ or ‘false’</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>policy</p></td>
+<td><p>formData</p></td>
+<td><p>Policy: ‘accept’ or ‘deny’</p></td>
+<td><p>string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-5 - INVALID_ARGUMENTS</em></p>
+<p><em>-6 - INTERNAL_ERROR</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">POST /lua/pro/rest/v2/edit/nedge/policy/rule.lua</p>
+<p>Edit a policy by ID<ul class="simple">
+<li><p><strong>Description: 
+</strong>Change a policy rule by ID</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rule_id</p></td>
+<td><p>formData</p></td>
+<td><p>Rule ID to edit</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>new_rule_id</p></td>
+<td><p>formData</p></td>
+<td><p>New Rule ID</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-even"><td><p>src_type</p></td>
+<td><p>formData</p></td>
+<td><p>Source type: ‘cidr’ or ‘interface’</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>src_value</p></td>
+<td><p>formData</p></td>
+<td><p>Source (e.g. ‘192.168.1.0/24’ or ‘eno2.11’)</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-even"><td><p>dst_type</p></td>
+<td><p>formData</p></td>
+<td><p>Destination type: ‘cidr’ or ‘interface’</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>dst_value</p></td>
+<td><p>formData</p></td>
+<td><p>Destination (e.g. ‘192.168.1.0/24’ or ‘eno2.11’)</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-even"><td><p>bidirectional</p></td>
+<td><p>formData</p></td>
+<td><p>Bidirectionsl: ‘true’ or ‘false’</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>policy</p></td>
+<td><p>formData</p></td>
+<td><p>Policy: ‘accept’ or ‘deny’</p></td>
+<td><p>string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-5 - INVALID_ARGUMENTS</em></p>
+<p><em>-6 - INTERNAL_ERROR</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">POST /lua/rest/v2/delete/nedge/policy/rule.lua</p>
+<p>Delete a policy rule<ul class="simple">
+<li><p><strong>Description: 
+</strong>Delete a policy rule by id</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rule_id</p></td>
+<td><p>formData</p></td>
+<td><p>Rule ID to delete</p></td>
+<td><p>string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">GET /lua/pro/rest/v2/get/nedge/forwarders.lua</p>
+<p>Get broadcast/multicast forwarding rules<ul class="simple">
+<li><p><strong>Description: 
+</strong>Read all configured broadcast/multicast forwarding rules</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">POST /lua/pro/rest/v2/add/nedge/forwarder.lua</p>
+<p>Add a rule for broadcast/multicast forwarding<ul class="simple">
+<li><p><strong>Description: 
+</strong>Add a new rule for broadcast/multicast forwarding</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>repeater_type</p></td>
+<td><p>formData</p></td>
+<td><p>Repeater type (e.g. ‘custom’)</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>ip</p></td>
+<td><p>formData</p></td>
+<td><p>Multicast IP address</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-even"><td><p>interfaces</p></td>
+<td><p>formData</p></td>
+<td><p>Trusted interfaces</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface_details</p></td>
+<td><p>formData</p></td>
+<td><p></p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-even"><td><p>restricted_interfaces</p></td>
+<td><p>formData</p></td>
+<td><p>Restricted interfaces</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>restricted_interface_details</p></td>
+<td><p>formData</p></td>
+<td><p></p></td>
+<td><p>string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-5 - INVALID_ARGUMENTS</em></p>
+<p><em>-6 - INTERNAL_ERROR</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">POST /lua/pro/rest/v2/edit/nedge/forwarder.lua</p>
+<p>Edit a broadcast/multicast forwarding rule<ul class="simple">
+<li><p><strong>Description: 
+</strong>Edit a broadcast/multicast forwarding rules by ID</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>repeater_id</p></td>
+<td><p>formData</p></td>
+<td><p>Repeater rule ID</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>new_repeater_id</p></td>
+<td><p>formData</p></td>
+<td><p>New repeater rule ID</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-even"><td><p>repeater_type</p></td>
+<td><p>formData</p></td>
+<td><p>Repeater type (e.g. ‘custom’)</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>ip</p></td>
+<td><p>formData</p></td>
+<td><p>Multicast IP address</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-even"><td><p>interfaces</p></td>
+<td><p>formData</p></td>
+<td><p>Trusted interfaces</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>interface_details</p></td>
+<td><p>formData</p></td>
+<td><p></p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-even"><td><p>restricted_interfaces</p></td>
+<td><p>formData</p></td>
+<td><p>Restricted interfaces</p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p>restricted_interface_details</p></td>
+<td><p>formData</p></td>
+<td><p></p></td>
+<td><p>string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-5 - INVALID_ARGUMENTS</em></p>
+<p><em>-6 - INTERNAL_ERROR</em></p>
+</div>
+<div class="admonition">
+<p class="admonition-title">POST /lua/rest/v2/delete/nedge/forwarder.lua</p>
+<p>Delete multicast/broadcast forwarder rule<ul class="simple">
+<li><p><strong>Description: 
+</strong>Delete multicast/broadcast forwarder rule by id</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>repeater_id</p></td>
+<td><p>formData</p></td>
+<td><p>Repeater rule ID</p></td>
+<td><p>string</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-3 - NOT_GRANTED</em></p>
+</div>
+</section>
+<section id="nEdge">
+<h3><span class="section-number">1.4.4. </span>nEdge<a class="headerlink" href="#nEdge" title="Link to this heading"></a></h3>
+<div class="admonition">
+<p class="admonition-title">POST /lua/pro/rest/v2/set/nedge/interface/drop_host_flows.lua</p>
+<p>Drop all active flows for the specified host<ul class="simple">
+<li><p><strong>Description: 
+</strong>Set flow verdict to drop for all active flows for the specified host</p></li>
+<li><p><strong>Consumes: 
+</strong>[‘application/json’]</p></li>
+<li><p><strong>Produces: 
+</strong>[‘application/json’]</p></li>
+</ul>
+</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Position</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>body</p></td>
+<td><p>body</p></td>
+<td><p>JSON payload</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<p><em>0 - OK</em></p>
+<p><em>-5 - INVALID_ARGUMENTS</em></p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="RESTful API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nedge/api/rest/api_v2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:53:55 GMT -->
+</html>

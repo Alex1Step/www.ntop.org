@@ -1,0 +1,33 @@
+Performance and Hardware Sizing
+-------------------------------
+
+nTap is a stateless application that virtually needs no memory to process traffic as it does not need to store information in memory. Its performance is thus limited by:
+
+  - Packet capture speed
+  - Encryption speed (unless disabled)
+  - Traffic delivery (i.e. transmission of the captured packet to destination)
+
+This means that memory is not a key factor and does not need to be taked into account during sizing as its usage is limited to a few MBytes (oftem less than 1 MBytes is sufficient) needed to start the applications. In order to have efficient encryption we encourgae to use CPUs with vectorial instructions (e.g. AVX) that are present on all modern CPUs but not present on some embedded SOCs.
+
+As of the CPU we then encourage you to use a modern CPU, starting from Intel i3 or Xeon E3 and up, that features all the necessary resources for efficiently running nTap.
+
+Note that the number of simultaneous application consumers on the ntap_collector side does not affect the overall performance.
+
+
+When shall I use nTap ?
+-----------------------
+
+nTap has been designed to collect on a central location traffic coming from remote sites when a port mirror or similar techniques cannot be used. In addition nTap delivers full packets to destination meaning that it can be used to implement cybersecurity solutions or trubleshoot using Wireshark or similar applications. This said, you should not care much about performance as you can limit the number of packets you can nTap-deliver using a filtering expression on the ntap_remote side. If you have instead a lot of traffic (1 Gbit+) to analyze you should consider deploying a network probe such as nProbe instead of nTap and deliver flows rather than packets that are much smaller in size.
+
+
+Performance Evaluation
+----------------------
+
+We have evaluated the performance connecting the nTap collector and nTap remote on a LAN. Both components have been deployed on Intel boxes with low-end CPUs (Intel I3 of past generations). The remote component captured mixed-size traffic (512 bytes) on 1 Gbit link. The observed performance on the nTap remote end has been:
+
+- With encryption: no loss up to 400 Mbps.
+- Without encryption: no loss up to 450 Mbps.
+
+With real traffic (and even more with large packets) or more modern CPU you should be able to almost saturate a 1 Gbit link. 
+
+

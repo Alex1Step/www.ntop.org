@@ -1,0 +1,185 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<!-- Mirrored from www.ntop.org/guides/nbox/introduction.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:25:06 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; nBox UI 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/themee873.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options729d.js?v=3b2dd2c4"></script>
+      <script src="_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Get Started" href="installation.html" />
+    <link rel="prev" title="nBox UI Documentation" href="index-2.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nBox UI
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nbox/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage Guidelines</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../ntopng/index.html">ntopng</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../ntap/index.html">nTap</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nBox UI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<p>Traffic measurements are necessary to operate all types of IP networks. Network admins need a detailed view
+of network traffic for several reasons and some of these could be security, accounting and management.
+The traffic compositions have to be analysed accurately when estimating traffic metrics or when finding
+network problems. All of these measurements have to be made by inspecting all the packets flowing into
+the network trunk analysed (such as router and/or switches). This analysis could be done on the fly or
+by logging all the packets and than post-processing them. But with the increasing network capacities and
+traffic volumes this kind of approach is not suitable for the most cases. Instead similar packets
+(packets with a set of common properties) can be grouped together composing what are called “flow”.
+As an example, a flow can be composed of all packets that share the same 5-tuple, so a flow can be derived
+using only some fields of a network packet. On this way, similar types of traffic can be stored in a more
+compact format without loosing the information we are interested in. This information can be aggregated in
+a flow datagram and exported to a collector able to report network metrics in a user-friendly format.
+When collected, this information provides a detailed view of the network traffic.</p>
+<p>Precise network metric measurements are a challenging task so hard work has been done in this field.
+In commercial environments, NetFlow is probably the de-facto standard for network traffic accounting and
+billing. NetFlow is a technology which was originally created by Cisco in 1996 and is now standardised as
+Internet Protocol Flow Information eXport (IPFIX - RFC 3917). NetFlow is based on the probe/collector
+paradigm. The probe, usually part of network appliances such as routers or switches, is deployed on the
+measured network segment, it sends traffic information in NetFlow format towards a central collector.</p>
+<p>nProbe is a software NetFlow v5/v9/IPFIX probe able to collect and aggregate network traffic, and export
+it using the standard Cisco NetFlow v5/v9/IPFIX format. It is available for most of the OSs on the market
+(Windows, FreeBSD, Linux, MacOS). When installed on a PC, nProbe turns it into a Network-aware monitoring
+appliance. Many users, who used nProbe, realised that running a network probe on a PC is not always the
+best choice for several reasons:</p>
+<ol class="arabic simple">
+<li><p>PCs have moving parts that can break making the probe unavailable.</p></li>
+<li><p>PCs are large, need monitors and keyboards, whereas probes often need to be deployed on places where there is not much space available.</p></li>
+<li><p>Administering PCs is not cheap and they require the purchase of an OS, its installation and maintenance.</p></li>
+<li><p>In large networks divided in several trunks it is necessary to have several probes each analysing a trunk. This requires that multiple PC running nProbe are deployed across the network.</p></li>
+<li><p>The cost (for both hardware and maintenance) of a PC + nProbe is not neglect-able in particular if several probes need to be deployed.</p></li>
+<li><p>In many cases, no technician are available at the monitored site and sometimes plug and play is needed.</p></li>
+</ol>
+<p>To face these matters and to provide an All-in-One high-performance and reliable solution, nBox has been
+designed and developed.
+nBox is based on Linux OS, and thanks to an optimised Linux kernel with the PF_RING module that
+significantly improves the packet capture process, nBox is able to monitor and analyse network trunks at
+full speed without the need of hardware accelerated cards.
+The nProbe application has been carefully optimised and extended to run on the nBox server and deliver
+optimal performance.</p>
+<p>If you are a user that does not want to bother with installing nProbe on a PC or you need to use a
+high performance and reliable network probe solution then you are probably an nBox user.</p>
+<p>In some environments it would be nice to distribute light network probes on the network sending traffic
+information towards a central traffic analysis console such as ntopng or any other NetFlow/IPFIX
+compliant collector. In order to satisfy the above requirements nProbe and ntopng can be used together.
+nBox includes both a NetFlow probe (nProbe) and a collector (ntopng) for v5/v9/IPFIX NetFlow flows.
+Based on your network speed and traffic volumes different nBox server could be used.
+nBox can be effectively used:</p>
+<ul class="simple">
+<li><p>To analyse NetFlow flows generated by your border gateway.</p></li>
+<li><p>To replace the embedded, low-speed NetFlow probe available on your router/switch</p></li>
+<li><p>As a NetFlow probe that sends flows towards one or more collectors either ntopng or a commercial one (e.g. Cisco NetFlow Collector or HP-OV).</p></li>
+<li><p>Both as a probe and collector at the same time. ntopng can be used as collector and analyser for nProbe-generated flows.</p></li>
+</ul>
+<p>Finally it is worth saying that nBox is quite easy to administrate using the very intuitive embedded
+web interface. nBox is easy to setup and it is immediately ready to use with little configuration effort.</p>
+<p>Throughout this guide we are going to describe the main components of the nBox UI Web interface.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index-2.html" class="btn btn-neutral float-left" title="nBox UI Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Get Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-25, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nbox/introduction.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 13:25:07 GMT -->
+</html>

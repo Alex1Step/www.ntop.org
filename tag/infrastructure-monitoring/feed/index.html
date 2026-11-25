@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>infrastructure monitoring Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/infrastructure-monitoring/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/infrastructure-monitoring/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Tue, 07 May 2024 17:00:46 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>infrastructure monitoring Archives - ntop</title>
+	<link>https://www.ntop.org/tag/infrastructure-monitoring/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Using ClickHouse Cloud with ntopng</title>
+		<link>https://www.ntop.org/using-clickhouse-cloud-with-ntopng/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Tue, 07 May 2024 17:00:46 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[alerts]]></category>
+		<category><![CDATA[flows]]></category>
+		<category><![CDATA[howto]]></category>
+		<category><![CDATA[infrastructure monitoring]]></category>
+		<category><![CDATA[security]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11149</guid>
+
+					<description><![CDATA[<p>We are happy to announce that from the latest ntopng dev (6.1) version, ntopng supports exporting data (flows &#038; alerts) to ClickHouse Cloud. Below you can find a step-by-step guide. Quick Start…</p>
+<p>The post <a href="https://www.ntop.org/using-clickhouse-cloud-with-ntopng/">Using ClickHouse Cloud with ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We are happy to announce that from the latest ntopng dev (6.1) version, ntopng supports exporting data (flows &amp; alerts) to ClickHouse Cloud. Below you can find a step-by-step guide.</p>
+<h3>Quick Start</h3>
+<p>First of all let&#8217;s start by creating our account and service on the ClickHouse Cloud (you can find the official guide <a href="https://clickhouse.com/docs/en/cloud-quick-start">here</a>); remember to save the ClickHouse username and password used for accessing your database.</p>
+<p>After that we have to jump to the &#8216;Connect&#8217; section:</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-144403-1.png"><img fetchpriority="high" decoding="async" class="alignnone wp-image-11152 size-large" src="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-144403-1-1024x392.png" alt="" width="1024" height="392"></a></p>
+<p>Then, we have to select MySQL, turn on &#8220;Enable the MySQL protocol&#8221; and collect 3 information needed to the ntopng configuration file:</p>
+<ul>
+<li>The MySQL Username (it&#8217;s an other username, different from the one configured at the start)</li>
+<li>The Hostname (used to connect to the right Host)</li>
+<li>The Port (MySQL port, to connect in order to run queries)</li>
+</ul>
+<p><a href="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-155553.png"><img decoding="async" class="alignnone size-large wp-image-11156" src="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-155553-1024x694.png" alt="" width="1024" height="694"></a></p>
+<p>After collecting these 3 info, let&#8217;s jump back to ntopng and let&#8217;s edit the configuration file.</p>
+<p>Here we have to add (or modify if already there) the -F option, by following the ntopng documentation (<a href="https://www.ntop.org/guides/ntopng/cli_options/cli_options.html">here</a>):</p>
+<ul>
+<li>
+<div>clickhouse-cloud;&lt;host[@[&lt;tcp-port&gt;,]&lt;mysql-port&gt;s]|socket&gt;;&lt;dbname&gt;;&lt;clickhouse-user&gt;,&lt;mysql-user&gt;;&lt;pw&gt;;</div>
+</li>
+</ul>
+<p>So let&#8217;s suppose that our previously collected info are the following:</p>
+<ul>
+<li>ClickHouse username: CH-USER (by default it should be the &#8216;default&#8217; username, it is&nbsp;provided when creating the Service)</li>
+<li>MySQL username: MYSQL-USER</li>
+<li>TCP-Port: by default it&#8217;s the 9440</li>
+<li>MySQL Port: 3306 (default one). Note that you need to add a <strong>s</strong> after the port as this means that we&#8217;re pushing data over TLS.</li>
+<li>Password: CH-PASSWORD (the password&nbsp; used to access the DB, provided when creating the Service)</li>
+<li>Hostname: CH-HOST</li>
+</ul>
+<p>Then our -F option should look like:</p>
+<p>-F=&#8221;clickhouse-cloud;CH-HOST@9440,3306<strong>s</strong>;ntopng;CH-USER,MYSQL-USER;CH-PASSWORD&#8221;</p>
+<p>Note:</p>
+<ul>
+<li>Both data export and query connections are encrypted and protected by TLS.</li>
+<li>clickhouse-client is needed on the local machine (where ntopng is) in order to correctly push data to the ClickHouse Cloud. This means that you need to install it as <a href="https://www.ntop.org/guides/ntopng/clickhouse/installation.html">described here</a>.</li>
+</ul>
+<p>If you want you can read all this in the ntopng <a href="https://www.ntop.org/guides/ntopng/clickhouse/installation.html#clickhouse-cloud">user&#8217;s guide</a>.</p>
+<p>Enjoy!</p>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/using-clickhouse-cloud-with-ntopng/">Using ClickHouse Cloud with ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How we Improved Alarm Delivery in ntopng</title>
+		<link>https://www.ntop.org/how-we-improved-alarm-delivery-in-ntopng/</link>
+		
+		<dc:creator><![CDATA[Matteo Biscosi]]></dc:creator>
+		<pubDate>Mon, 04 Sep 2023 07:19:20 +0000</pubDate>
+				<category><![CDATA[Features]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[active monitoring]]></category>
+		<category><![CDATA[alerts]]></category>
+		<category><![CDATA[analytics]]></category>
+		<category><![CDATA[infrastructure monitoring]]></category>
+		<category><![CDATA[security]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10648</guid>
+
+					<description><![CDATA[<p>Sometimes, a critical issue shows up in your network and you'd like to be notified by ntopng on Telegram or by E-Mail. ntopng allows you to filter alerts for each recipient based…</p>
+<p>The post <a href="https://www.ntop.org/how-we-improved-alarm-delivery-in-ntopng/">How we Improved Alarm Delivery in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Sometimes, a critical issue shows up in your network and you&#8217;d like to be notified by ntopng on Telegram or by E-Mail. ntopng allows you to filter alerts for each recipient based on a few criteria including alert family, category, severity, or affected hosts. However in some case you want to be notified about a very specific alert, out of all alerts produced with the same family, category, severity.</p>
+<p>For example, it&#8217;s important to be notified when an Interface has no traffic, or when a new device (MAC) connects or disconnects from your network, or if a SYN scan attack is in progress, however all these alerts have the same severity/category as other critical alerts that you could not be interested in receiving a message directly on your Telegram (for example).</p>
+<p>For this reason, we decided to extend the recipients configuration to be able to deliver specific alerts, selected from the user to the endpoint we want. In this way, a user can send a notification (e.g.) on his Telegram, if some interface stops capturing traffic (No Traffic Activity alert).</p>
+<p>Doing that today it&#8217;s simple!</p>
+<p>From the Notification page, it&#8217;s possible to handle it, and when adding/editing a Recipient, a tab is available, from which it&#8217;s possible to select:</p>
+<ul>
+<li>&#8216;By Properties&#8217; if the &#8220;old&#8221; way of filtering alerts is needed, so filter alerts by severity, by category, or by entity;</li>
+<li>&#8216;By Alerts&#8217; if the &#8220;new&#8221; filtering is required and here it&#8217;s possible to select one or more alerts to deliver.</li>
+</ul>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-182010.png"><img decoding="async" class=" wp-image-10668 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-182010-300x150.png" alt="" width="532" height="266"></a></p>
+<p>After selecting &#8216;By Alerts&#8217; click on the dropdown and select the critical alerts to receive.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-181835.png"><img loading="lazy" decoding="async" class=" wp-image-10667 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-181835-300x151.png" alt="" width="550" height="277"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>An other important point is that, as you wish to receive important alerts on your phone, you do not want to be spammed by ntopng!</p>
+<p>So we added a new preference, still when adding/editing a Recipient, to silence the same exact alert if it triggers more than one time per hour, in this way only one alert of the same kind per hour is going to be delivered to the recipient.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-121213.png"><img loading="lazy" decoding="async" class="wp-image-10653 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-121213-300x74.png" alt="" width="555" height="137"></a></p>
+<p>We hope you enjoy this new feature!</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-122227.png"><img loading="lazy" decoding="async" class=" wp-image-10659 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-122227-300x231.png" alt="" width="397" height="306"></a></p>
+<p>The post <a href="https://www.ntop.org/how-we-improved-alarm-delivery-in-ntopng/">How we Improved Alarm Delivery in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Infrastructure Monitoring: Observing The Health and Status of Multiple ntopng Instances</title>
+		<link>https://www.ntop.org/infrastructure-monitoring-observing-the-health-and-status-of-multiple-ntopng-instances/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 27 Jul 2021 09:22:37 +0000</pubDate>
+				<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[infrastructure monitoring]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9364</guid>
+
+					<description><![CDATA[<p>Introduction Quis custodiet ipsos custodes? (Juvenal). In other words: who will guard the guards themselves? If you use ntopng to monitor your network, you also need to make sure ntopng is monitored…</p>
+<p>The post <a href="https://www.ntop.org/infrastructure-monitoring-observing-the-health-and-status-of-multiple-ntopng-instances/">Infrastructure Monitoring: Observing The Health and Status of Multiple ntopng Instances</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>Introduction</h3>
+<p><a href="https://en.wikipedia.org/wiki/Quis_custodiet_ipsos_custodes%3F">Quis custodiet ipsos custodes</a>? (<a href="https://en.wikipedia.org/wiki/Juvenal">Juvenal</a>). In other words: who will guard the guards themselves? If you use ntopng to monitor your network, you also need to make sure ntopng is monitored as in case of failure, ntopng will not report any alert, and the network administrator can interpret that as a sign of good health, instead of interpreting it as lack of monitoring.Recent 4.3+ versions of ntopng have the capability to monitor other ntopng instances, being them in the same local LAN or physically/geographically distributed. This capability, also referred to as <strong>infrastructure monitoring</strong>, provides <strong>live visibility</strong> of ntopng instances&#8217; status, as well as of the network interconnecting them.</p>
+<p>Indeed, with infrastructure monitoring, ntopng periodically performs checks against configured instances to</p>
+<ul>
+<li>Measure <strong>throughput</strong> and <strong>Round Trip Time</strong> (RTT)</li>
+<li>Fetch <strong>key performance</strong> and <strong>security indicators</strong> (KPI/KSI) such as the number of engaged alerts</li>
+</ul>
+<p>Measures are also written as timeseries data to enable <strong>historical analysis</strong>. In addition, ntopng has the ability to <strong>trigger alerts</strong> when monitored instances become unreachable, or when their throughput or RTT falls outside expected/configured bounds.</p>
+<p>Under the hood, checks are performed using remote instances&#8217; REST APIs. In essence, the ntopng instance in charge of doing the infrastructure monitoring, periodically fetches remote instances&#8217; data through their exposed REST APIs. Authentication and authorization are done using (randomly-generated)<strong> API tokens</strong>.</p>
+<p>&nbsp;</p>
+<p><iframe title="ntopng Network Infrastructure Monitoring" width="1140" height="641" src="https://www.youtube.com/embed/7yWaN3yRErI?feature=oembed&#038;enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p>
+<h3>Infrastructure Monitoring in Practice</h3>
+<p>Let&#8217;s see an infrastructure monitoring example in practice. Let&#8217;s assume there are three ntopng instances running in Paris, Rome and Milan, respectively. The instance running in Rome is being used to monitor the other two instances in Paris and Milan.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-9398" src="https://www.ntop.org/wp-content/uploads/2021/07/Infrastructure.png" alt="" width="627" height="423" /></p>
+<p>To view the health and status of Paris and Milan from Rome, it suffices to go under Rome&#8217;s <em>System -&gt; Pollers -&gt; Infrastructure</em>. That pages summarises measured data from each of the two instances</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/07/01-infrastructure-monitoring-dashboard.png"><img loading="lazy" decoding="async" class="size-large wp-image-9388 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/07/01-infrastructure-monitoring-dashboard-1024x433.png" alt="" width="1024" height="433" /></a></p>
+<p>Under normal circumstances, green <span style="color: #008000;"><strong>&#8220;UP&#8221;</strong></span> badges tell that everything is working as expected, with remote instances reachable, and with a throughput and RTT within the expected bounds.</p>
+<p>As soon as something unexpected happens, the status toggles to <span style="color: #ff0000;"><strong>&#8220;ERROR&#8221;</strong></span> with ntopng immediately detecting the event and triggering the corresponding alerts. For the sake of example, below it is shown what happens in the event of Paris becoming unreachable</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/07/02-infrastructure-monitoring-dashboard-issues.png"><img loading="lazy" decoding="async" class="size-large wp-image-9387 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/07/02-infrastructure-monitoring-dashboard-issues-1024x430.png" alt="" width="1024" height="430" /></a></p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/07/03-infrastructure-monitoring-alerts.png"><img loading="lazy" decoding="async" class="size-large wp-image-9386 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/07/03-infrastructure-monitoring-alerts-1024x587.png" alt="" width="1024" height="587" /></a></p>
+<h3>Adding Monitored Instances</h3>
+<p>In order to add monitored instances, you need to click on the plus button of the <em>System -&gt; Pollers -&gt; Infrastructure</em> page. An instance alias must be specified, along with instance URL, token, and thresholds. The image below shows the addition of Milan&#8217;s instance.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/07/04-infrastructure-monitoring-add-instance.png"><img loading="lazy" decoding="async" class="size-full wp-image-9385 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/07/04-infrastructure-monitoring-add-instance.png" alt="" width="823" height="558" /></a></p>
+<p>The URL is just the base ntopng URL and can be specified either with a numeric IP as well as with an symbolic name.</p>
+<p>The token must be generated on the Milan&#8217;s instance. To generate the token, visit Milan&#8217;s page <em>Settings -&gt; Users</em>. A tab &#8220;<em>User Authentication Token</em>&#8221; is available when editing each of the available users to generate or read the token.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/07/05-infrastructure-monitoring-token.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-9384" src="https://www.ntop.org/wp-content/uploads/2021/07/05-infrastructure-monitoring-token-1024x399.png" alt="" width="1024" height="399" /></a></p>
+<p>Once the token has been generated on Milan, it can be cut-and-pasted straight into Rome.</p>
+<p>The latest two threshold allows to specify both a throughput and an RTT threshold for the instance. Every time ntopng measures fall outside these threshold, an alert is generated.</p>
+<h3>Final Remarks</h3>
+<p>In this post it has been shown how a single ntopng can be effectively used to monitor multiple sibling instances to achieve live visibility of a whole infrastructure. However the right approach is <span style="text-decoration: underline;">create a mesh of monitored instances</span> so that each ntopng instance can monitor the other ones and create a robust monitoring system without a central point of failure or if you wish to positively answer the &#8220;Quis custodiet ipsos custodes?&#8221; question. This also because the measurements between ntopng instances can be different: Rome -&gt; Paris and Paris -&gt; Rome can have very different values in terms of throughput for instance. This is the key ingredient for reliably monitoring a ntopng-based monitoring system and indirectly monitoring the monitored network infrastructure.</p>
+<p>Enjoy !</p>
+<p>The post <a href="https://www.ntop.org/infrastructure-monitoring-observing-the-health-and-status-of-multiple-ntopng-instances/">Infrastructure Monitoring: Observing The Health and Status of Multiple ntopng Instances</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>kafka Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/kafka/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/kafka/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 21 Oct 2026 09:30:39 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>kafka Archives - ntop</title>
+	<link>https://www.ntop.org/tag/kafka/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Stream That Flow: How to Publish nProbe/Cento Flows in a Kafka Cluster</title>
+		<link>https://www.ntop.org/stream-that-flow-how-to-inject-nprobe-cento-flows-in-a-kafka-cluster/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 01 Dec 2016 12:20:57 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[flows]]></category>
+		<category><![CDATA[kafka]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5143</guid>
+
+					<description><![CDATA[<p>Apache Kafka can be used across an organization to collect data from multiple sources and make them available in standard format to multiple consumers, including Hadoop, Apache HBase, and Apache Solr. nProbe…</p>
+<p>The post <a href="https://www.ntop.org/stream-that-flow-how-to-inject-nprobe-cento-flows-in-a-kafka-cluster/">Stream That Flow: How to Publish nProbe/Cento Flows in a Kafka Cluster</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><a href="https://kafka.apache.org">Apache Kafka</a> can be used across an organization to collect data from multiple sources and make them available in standard format to multiple consumers, including Hadoop, Apache HBase, and Apache Solr. <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a> &#8212; and it&#8217;s ultra-high-speed sibling <a href="https://www.ntop.org/products/netflow/nprobe-cento/">nProbe cento</a> &#8212; integration with the Kafka messaging system makes them good candidates source of network data. The delivery of network data to a redundant, scalable, and fault-tolerant messaging system such as Kafka enables companies to protect their data even <em>in-flight</em>, that is, when the consolidation in a database has still to occur.</p>
+<p>An impatient reader who is eager to use Cento for delivering flows to a Kafka cluster having a broker at address 127.0.0.1:9092 on a topic named &#8220;topicFlow can use the following command</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/code/cento$ ./cento -i eth0 --kafka “127.0.0.1:9092;topicFlows"</pre>
+<p>Readers who are interested in learning more about Cento and Kafka should continue reading this article that starts by describing Cento-Kafka publishing mechanisms and then moves to a real configuration example. Finally, in the appendix, it describes how to setup Kafka both in a single- and multi-broker fashion.</p>
+<p><em>Cento will be used in the remainder of this article to carry on the discussion. Examples and configurations given work, mutatis mutandis, also for nProbe.</em></p>
+<h1>Publishing nProbe Cento Flows to Kafka</h1>
+<p>Cento publish flow “messages” into a Kafka cluster by sending them to one or more Kafka brokers responsible for a given topic. Both the topic and the list of Kafka brokers are submitted using a command line option. Initially, Cento tries to contact one or more user-specified brokers to retrieve Kafka cluster metadata. Metadata include, among other things, the <em>full</em> list of brokers available in the cluster that are responsible for a given topic, and the available topic partitions. Cento will use the retrieved full list of brokers to push flow “messages” in a round robin fashion to the various partitions.</p>
+<p>Cento also features optional message compression and message acknowledgement policy specification. Acknowledgment policies make it possible to totally avoid waiting for acknowledgements, to wait only for the Kafka leader acknowledgement, or to wait for an acknowledgment from every replica.</p>
+<h3></h3>
+<h2>Setting Up Cento</h2>
+<p class="p1"><span class="s1">Let’s say Cento has to monitor interface eth1 and has to export generated flows to Kafka topic “topicFlows”. The following command will do the magic</span></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/code/cento$ ./cento -i eth0 --kafka “127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094;topicFlows"</pre>
+<p class="p1"><span class="s1">The command above assumes flows have to be exported on topic topicFlows and that there are three brokers listening on localhost, on ports 9092, 9093 and 9094 respectively. These Kafka brokers are shown also in the picture below together with the running Cento instance</span></p>
+<figure id="attachment_5156" aria-describedby="caption-attachment-5156" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/06-kafka-three-brokers-with-cento.png"><img fetchpriority="high" decoding="async" class="wp-image-5156 size-large" src="https://www.ntop.org/wp-content/uploads/2016/10/06-kafka-three-brokers-with-cento-1024x576.png" alt="06-kafka-three-brokers-with-cento" width="1024" height="576" /></a><figcaption id="caption-attachment-5156" class="wp-caption-text">Three Kafka Brokers (top and bottom left). Cento exporting to the brokers (bottom right).</figcaption></figure>
+<h3>Consuming Cento Flows</h3>
+<p>For the sake of example, the command-line script kafka-console-consumer.sh available in the bin/ folder of the Kafka sources is used to read messages from a Kafka topic (see the appendix for instructions on how to get it). In order to consume flows in the topicFlows we can use the command line-script as follows</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic topicFlows --from-beginning</pre>
+<p>Below is an image that shows flows that are being consumed from the Kafka cluster.</p>
+<figure id="attachment_5155" aria-describedby="caption-attachment-5155" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/07-kafka-three-brokers-with-cento-consume-flows.png"><img decoding="async" class="wp-image-5155 size-large" src="https://www.ntop.org/wp-content/uploads/2016/10/07-kafka-three-brokers-with-cento-consume-flows-1024x576.png" alt="07-kafka-three-brokers-with-cento-consume-flows" width="1024" height="576" /></a><figcaption id="caption-attachment-5155" class="wp-caption-text">Three Kafka Brokers (top and bottom left). Cento exporting to the brokers (bottom right). The command line consumer (middle right)</figcaption></figure>
+<p>Note that flows can be consumed by any custom application that can interact with Kafka.</p>
+<h3>Cento and Kafka Topics</h3>
+<p>Cento takes as input a topic, that is, a string representing the generated stream of data inside Kafka. Topics can be partitioned and replicated. With reference to the topic being used, Cento has the following behavior:</p>
+<ul>
+<li>If the topic doesn&#8217;t exist in the Kafka cluster, then Cento creates it with a single partition and replication factor 1</li>
+<li>If the topic exists in the Kafka cluster, then Cento uses the existing topic and will send flows to the whole set of partitions in round-robin.</li>
+</ul>
+<p>So, if the user is OK with a single-partition topic can simply fire up Cento that will create it. If more complex topic configurations are needed, then the topic has to be created in advance using, for example, the helper script kafka-topics.sh. We refer the interested reader to the remainder of this section for a detailed discussion on the Kafka setup and its topics.</p>
+<p>&nbsp;</p>
+<h1>Appendix</h1>
+<h2>Setting Up Kafka</h2>
+<h3>Prerequisites</h3>
+<h4>Getting Kafka</h4>
+<p>The latest version of Kafka can be downloaded from <a href="https://kafka.apache.org/downloads">https://kafka.apache.org/downloads</a>. Download the latest tar archive (kafka_2.11-0.10.1.0.tgz at the time of writing), extract it, and navigate into the decompressed folder.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:wget http://apache.panu.it/kafka/0.10.1.0/kafka_2.11-0.10.1.0.tgz
+ntopPC:~/kafka$ tar xfvz kafka_2.11-0.10.1.0.tgz
+ntopPC:~/kafka$ cd kafka_2.11-0.10.1.0/
+ntopPC:~/kafka/kafka_2.11-0.10.1.0$ ls
+bin config libs LICENSE logs NOTICE site-docs</pre>
+<h3>Starting Zookeeper</h3>
+<p>Kafka uses Zookeeper to store a great deal of status information that includes, but is not limited to, the topics managed by each broker. An healthy Zookeeper installation consists of at least three distributed nodes. In this example, we will just start a quick-and-dirty zookeeper on the same machine that will run Kafka. This represents a single point of failure and should be absolutely avoided in production environments.</p>
+<p>To start the zookeeper we can simply use the one that is shipped with Kafka as follows</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ ./bin/zookeeper-server-start.sh config/zookeeper.properties
+[...]
+[2016-10-23 12:50:02,402] INFO binding to port 0.0.0.0/0.0.0.0:2181 (org.apache.zookeeper.server.NIOServerCnxnFactory)</pre>
+<h3>Starting a Kafka Broker</h3>
+<p>Now that Zookeeper is up and running it is possible to start a Kafka broker by using the default configuration found under config/server.properties. Upon startup, the broker will contact the Zookeeper instance to exchange and agree on some status variables.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ ./bin/kafka-server-start.sh config/server.properties
+[...]
+[2016-10-23 12:52:01,510] INFO [Kafka Server 0], started (kafka.server.KafkaServer)
+
+</pre>
+<h3>Creating a Kafka test Topic</h3>
+<p>A simple test Kafka topic with just one partition an replication factor 1 can be created using the kafka-topics.sh helper script.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test</pre>
+<p>Graphically, topic creation is show in the following image.</p>
+<figure id="attachment_5161" aria-describedby="caption-attachment-5161" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/01-kafka-create-topic-test.png"><img decoding="async" class="wp-image-5161 size-large" src="https://www.ntop.org/wp-content/uploads/2016/10/01-kafka-create-topic-test-1024x576.png" alt="01-kafka-create-topic-test" width="1024" height="576" /></a><figcaption id="caption-attachment-5161" class="wp-caption-text">The running kafka broker (top left); the running zookeeper (top right) and the command issued to create the test topic (bottom).</figcaption></figure>
+<h3>Producing Messages on a test Topic</h3>
+<p>A command-line producer available in the bin/ folder can be used to test and see if the Kafka deployment can receive messages. The script will send messages (one per line) unless Ctrl+C is pressed to exit. In the following example two &#8220;ntop test&#8221; messages are produced and sent to the broker listening on localhost port 9092.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+ntop test 01
+ntop test 02</pre>
+<h3>Consuming messages on a test Topic</h3>
+<p>A command-line consumer available in the bin/ folder can be used to read messages from a Kafka topic. In the following snippet the script is used to consume the two &#8220;ntop test&#8221; messages produced above. The script will wait for new messages until Ctrl+C will be pressed to exit.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+ntop test 01
+ntop test 02</pre>
+<p>Following is an image that shows how to consume messages from the topic.</p>
+<figure id="attachment_5159" aria-describedby="caption-attachment-5159" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/03-kafka-console-topics.png"><img loading="lazy" decoding="async" class="size-large wp-image-5159" src="https://www.ntop.org/wp-content/uploads/2016/10/03-kafka-console-topics-1024x576.png" alt="Top: the kafka broker (left) and the Zookeeper (right). Bottom: The command-line consumer" width="1024" height="576" /></a><figcaption id="caption-attachment-5159" class="wp-caption-text">Top: the kafka broker (left) and the Zookeeper (right).<br />Bottom: The command-line consumer</figcaption></figure>
+<h3>Multi-Broker</h3>
+<p>A real Kafka cluster consist of multiple brokers. In the remainder of this section is is shown how to add two extra Kafka brokers to the cluster that is already running the broker started above. In order to add the two kafka brokers two configuration files must be created. They can be copied from the default configuration file found in config/server.properties.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ cp config/server.properties config/server-1.properties
+ntopPC:~/kafka/kafka_2.11-0.10.1.0$ cp config/server.properties config/server-2.properties</pre>
+<p>The two files will carry configuration information for two different brokers:</p>
+<ul>
+<li>server-1.properties configures a broker as follows: broker id 1; listen on localhost port 9092 and log in /tmp/kafka-logs-1</li>
+<li>server-2.properties configures a broker as follows: broker id 2; listen on localhost port 9093 and log in /tmp/kafka-logs-2</li>
+</ul>
+<p>The relevant part of the configuration files is the following.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ cat config/server-{1,2}.properties | egrep '(id|listeners|logs)'
+# The id of the broker. This must be set to a unique integer for each broker.
+broker.id=1
+# listeners = security_protocol://host_name:port
+# listeners = PLAINTEXT://your.host.name:9092
+listeners=PLAINTEXT://:9093
+# it uses the value for "listeners" if configured. Otherwise, it will use the value
+#advertised.listeners=PLAINTEXT://your.host.name:9092
+log.dirs=/tmp/kafka-logs-1
+# every N messages (or both). This can be done globally and overridden on a per-topic basis.
+# A size-based retention policy for logs. Segments are pruned from the log as long as the remaining
+# The id of the broker. This must be set to a unique integer for each broker.
+broker.id=2
+# listeners = security_protocol://host_name:port
+# listeners = PLAINTEXT://your.host.name:9092
+listeners=PLAINTEXT://:9094
+# it uses the value for "listeners" if configured. Otherwise, it will use the value
+#advertised.listeners=PLAINTEXT://your.host.name:9092
+log.dirs=/tmp/kafka-logs-2
+# every N messages (or both). This can be done globally and overridden on a per-topic basis.
+# A size-based retention policy for logs. Segments are pruned from the log as long as the remaining</pre>
+<p>The two additional brokers can be started normally. They will discover each other &#8212; and the already running broker &#8212; through the Zookeeper.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-server-start.sh config/server-1.properties
+ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-server-start.sh config/server-2.properties</pre>
+<h3>Creating a Partitioned Topic</h3>
+<p>A replicated test topic named &#8220;topicFlowsPartitioned&#8221; can be created using the kafka-topic.sh helper script. Once created, the status of the topic can be queried using the same helper.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ ./bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 3 --topic topicFlowsPartitioned
+Created topic "topicFlowsPartitioned".
+ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic topicFlowsPartitioned
+Topic:topicFlowsPartitioned PartitionCount:3 ReplicationFactor:3 Configs:
+ Topic: topicFlowsPartitioned Partition: 0 Leader: 2 Replicas: 2,1,0 Isr: 2,1,0
+ Topic: topicFlowsPartitioned Partition: 1 Leader: 0 Replicas: 0,2,1 Isr: 0,2,1
+ Topic: topicFlowsPartitioned Partition: 2 Leader: 1 Replicas: 1,0,2 Isr: 1,0,2</pre>
+<p>The creation of the partitioned topic is also shown in the image below</p>
+<figure id="attachment_5158" aria-describedby="caption-attachment-5158" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/04-kafka-three-brokers.png"><img loading="lazy" decoding="async" class="wp-image-5158 size-large" src="https://www.ntop.org/wp-content/uploads/2016/10/04-kafka-three-brokers-1024x576.png" alt="04-kafka-three-brokers" width="1024" height="576" /></a><figcaption id="caption-attachment-5158" class="wp-caption-text">The three Kafka brokers (top and bottom left) and the creation of a replicated topic (bottom right)</figcaption></figure>
+<p>Producing and consuming messages on the replicated topic can be done exactly as it has already been shown for the single topic. The following image shows the usage of  producer and consumer scripts execution</p>
+<figure id="attachment_5157" aria-describedby="caption-attachment-5157" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/05-kafka-three-brokers-console-topics.png"><img loading="lazy" decoding="async" class="wp-image-5157 size-large" src="https://www.ntop.org/wp-content/uploads/2016/10/05-kafka-three-brokers-console-topics-1024x576.png" alt="05-kafka-three-brokers-console-topics" width="1024" height="576" /></a><figcaption id="caption-attachment-5157" class="wp-caption-text">The three Kafka brokers (top and bottom left) and the production/consumption of messages in a replicated topic (bottom right)</figcaption></figure>
+<h1>References</h1>
+<ul>
+<li>Kafka documentation: <a href="https://kafka.apache.org/documentation">https://kafka.apache.org/documentation</a></li>
+</ul>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/stream-that-flow-how-to-inject-nprobe-cento-flows-in-a-kafka-cluster/">Stream That Flow: How to Publish nProbe/Cento Flows in a Kafka Cluster</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

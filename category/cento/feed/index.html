@@ -1,0 +1,1469 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>cento Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/category/cento/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/category/cento/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 21 Oct 2026 09:30:36 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>cento Archives - ntop</title>
+	<link>https://www.ntop.org/category/cento/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Cento 2.6: ClickHouse Support, Enhanced Tunnel Visibility, PQC, and more</title>
+		<link>https://www.ntop.org/cento-2-6-clickhouse-support-enhanced-tunnel-visibility-pqc-and-more/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 14 Sep 2026 16:41:05 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[cento]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=46363</guid>
+
+					<description><![CDATA[<p>We are pleased to announce the release of cento 2.6, bringing a broad set of new capabilities and improvements to high-performance traffic processing and flow export. This release expands cento’s integration with…</p>
+<p>The post <a href="https://www.ntop.org/cento-2-6-clickhouse-support-enhanced-tunnel-visibility-pqc-and-more/">Cento 2.6: ClickHouse Support, Enhanced Tunnel Visibility, PQC, and more</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">We are pleased to announce the release of cento 2.6, bringing a broad set of new capabilities and improvements to high-performance traffic processing and flow export.</p>
+
+
+
+<p class="wp-block-paragraph">This release expands cento’s integration with the ntop ecosystem, adds new visibility into tunneled traffic, introduces Post-Quantum Cryptography (PQC) support, and delivers important improvements across protocol dissection, security, and performance.</p>
+
+
+
+<h5 class="wp-block-heading">ClickHouse Export</h5>
+
+
+
+<p class="wp-block-paragraph">Cento 2.6 introduces ClickHouse export support, using a <strong>schema compatible with ntopng.</strong> This makes it easier to feed high-volume flow data into ClickHouse-based deployments and integrate cento into existing ntopng-oriented data pipelines.</p>
+
+
+
+<p class="wp-block-paragraph">ClickHouse settings can be configured through the new&nbsp;<code>--clickhouse-*</code>&nbsp;options.</p>
+
+
+
+<h5 class="wp-block-heading">Better Visibility into Encapsulated and Tunneled traffic</h5>
+
+
+
+<p class="wp-block-paragraph">Understanding traffic inside tunnels is increasingly important in modern networks. Cento 2.6 adds new Information Elements that expose addresses and ports across encapsulation boundaries.</p>
+
+
+
+<p class="wp-block-paragraph">The new fields include:</p>
+
+
+
+<ul class="wp-block-list">
+<li><code>%ENCAP_IPV4_SRC_ADDR</code>&nbsp;/&nbsp;<code>%ENCAP_IPV4_DST_ADDR</code></li>
+
+
+
+<li><code>%ENCAP_IPV6_SRC_ADDR</code>&nbsp;/&nbsp;<code>%ENCAP_IPV6_DST_ADDR</code></li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These identify the addresses at the first encapsulation hop.</p>
+
+
+
+<p class="wp-block-paragraph">Cento also introduces fields for the traffic after tunnel decapsulation:</p>
+
+
+
+<ul class="wp-block-list">
+<li><code>%UNTUNNELED_IPV4_SRC_ADDR</code></li>
+
+
+
+<li><code>%UNTUNNELED_L4_SRC_PORT</code></li>
+
+
+
+<li><code>%UNTUNNELED_IPV4_DST_ADDR</code></li>
+
+
+
+<li><code>%UNTUNNELED_L4_DST_PORT</code></li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Together, these additions provide more detailed visibility into tunneled traffic and make exported flows more useful for analysis and monitoring.</p>
+
+
+
+<h5 class="wp-block-heading">Application Latency Export</h5>
+
+
+
+<p class="wp-block-paragraph">Cento 2.6 adds application latency export, providing latency information similar to the capabilities available in nProbe. This gives flow collectors additional context for identifying application performance issues and understanding how network conditions affect applications.</p>
+
+
+
+<h5 class="wp-block-heading">Flow Swap Heuristic</h5>
+
+
+
+<p class="wp-block-paragraph">Cento now includes a flow swap heuristic, similar to the one used by ntopng. This helps cento correctly handle flows when the observed direction of traffic needs to be reversed.</p>
+
+
+
+<p class="wp-block-paragraph">Deployments that need the previous behavior can opt out using:</p>
+
+
+
+<pre class="wp-block-code"><code>--disable-flow-swap</code></pre>
+
+
+
+<h5 class="wp-block-heading">Post-Quantum Cryptography support</h5>
+
+
+
+<p class="wp-block-paragraph">With the transition toward post-quantum security gaining momentum, cento 2.6 introduces Post-Quantum Cryptography (PQC) support, extending the platform&#8217;s cryptographic capabilities for future-proof network deployments.</p>
+
+
+
+<h5 class="wp-block-heading">REST API security hardening</h5>
+
+
+
+<p class="wp-block-paragraph">Security is another important focus of this release.</p>
+
+
+
+<p class="wp-block-paragraph">The REST API now has HTTPS enabled by default, using a self-signed certificate when no other certificate is configured. At the same time, the default administrator credentials have been removed.</p>
+
+
+
+<p class="wp-block-paragraph">These changes provide a safer starting point for new installations and reduce the risk associated with leaving default credentials or unencrypted API access in place.</p>
+
+
+
+<h5 class="wp-block-heading">Improved GTP dissection</h5>
+
+
+
+<p class="wp-block-paragraph">GTP processing has been extensively reworked. The new implementation includes:</p>
+
+
+
+<ul class="wp-block-list">
+<li>A tunnelled-packet decode loop</li>
+
+
+
+<li>Support for fragmented tunnelled packets, including encapsulated smart fragments</li>
+
+
+
+<li>Improved handling of packets with sequence-number and length options</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These changes improve the reliability and accuracy of traffic analysis in mobile and other GTP-based environments.</p>
+
+
+
+<h5 class="wp-block-heading">More secure ZMQ defaults</h5>
+
+
+
+<p class="wp-block-paragraph">ZMQ communication is now encrypted by default, using a default encryption key that can be replaced by the user with a dedicated key in production environments. This provides secure communication out of the box while retaining the ability to configure deployments according to their specific requirements.</p>
+
+
+
+<h5 class="wp-block-heading">nDPI Improvements</h5>
+
+
+
+<p class="wp-block-paragraph">Cento 2.6 incorporates several nDPI-related improvements, including enhanced TLS block analysis settings and improved protocol detection. These changes further improve application and protocol identification.</p>
+
+
+
+<h5 class="wp-block-heading">Flow Export and Performance</h5>
+
+
+
+<p class="wp-block-paragraph">The flow export subsystem has been reworked with several performance optimizations, together with new counters to make throughput easier to monitor.</p>
+
+
+
+<p class="wp-block-paragraph">Napatech Flow Manager support for flow offload has also been updated with improved TX offload handling.</p>
+
+
+
+<h5 class="wp-block-heading">Fixes and Reliability Improvements</h5>
+
+
+
+<p class="wp-block-paragraph">Cento 2.6 includes a large number of fixes addressing flow accounting, tunnel processing, protocol handling, exports, and memory management. Among the notable fixes are:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Corrected ICMP type/code encoding in the destination port when exporting through NetFlow v5</li>
+
+
+
+<li>Fixed packet direction and accounting when the first packet of a flow is direction-swapped</li>
+
+
+
+<li>Corrected encapsulation size accounting and tunnel-related flow reversal and fragmentation handling</li>
+
+
+
+<li>Improved handling of IPv6 GTP-encapsulated traffic, untunnelled IP swaps, and downstream tunnel IDs/calculations</li>
+
+
+
+<li>Fixed partial flow resets and several FlowList issues</li>
+
+
+
+<li>Improved DNS record serialization, DNS forwarding, and JSON output with&nbsp;<code>--json-labels</code></li>
+
+
+
+<li>Fixed HTTP export over ZMQ</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These fixes further improve cento&#8217;s stability and correctness, particularly in complex environments involving tunnels, fragmented traffic, and multiple export backends.</p>
+
+
+
+<h5 class="wp-block-heading">Get Cento 2.6</h5>
+
+
+
+<p class="wp-block-paragraph">Cento 2.6 is now available with these new capabilities and improvements.</p>
+
+
+
+<p class="wp-block-paragraph">With ClickHouse integration, richer tunnel visibility, application latency export, PQC support, stronger security defaults, and extensive performance and reliability work, cento 2.6 represents another significant step forward for high-performance flow collection and export.</p>
+
+
+
+<p class="wp-block-paragraph">For the complete list of changes, please refer to the cento 2.6 release notes and documentation.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy!</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/cento-2-6-clickhouse-support-enhanced-tunnel-visibility-pqc-and-more/">Cento 2.6: ClickHouse Support, Enhanced Tunnel Visibility, PQC, and more</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Post-Quantum Cryptography (PQC) Analysis</title>
+		<link>https://www.ntop.org/post-quantum-cryptography-pqc-analysis/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 18 May 2026 08:11:12 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45656</guid>
+
+					<description><![CDATA[<p>Modern digital security relies on public-key encryption (like RSA and ECC) to protect global data. The future arrival of a Cryptographically Relevant Quantum Computer (CRQC) will completely break these mathematical foundations. To…</p>
+<p>The post <a href="https://www.ntop.org/post-quantum-cryptography-pqc-analysis/">Post-Quantum Cryptography (PQC) Analysis</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">Modern digital security relies on public-key encryption (like <a href="https://en.wikipedia.org/wiki/RSA_cryptosystem">RSA</a> and <a href="https://en.wikipedia.org/wiki/Elliptic-curve_cryptography">ECC</a>) to protect global data. The future arrival of a&nbsp;Cryptographically Relevant Quantum Computer (CRQC)&nbsp;will completely break these mathematical foundations. To counter this, organizations must migrate to&nbsp;Post-Quantum Cryptography (PQC) — new, math-based algorithms deployed via standard software that quantum computers cannot exploit.</p>
+
+
+
+<p class="wp-block-paragraph">The PQC migration requires to protect data &#8220;at rest&#8221; (i.e. static data stored on physical drives, databases, cloud storage, or backups) and &#8220;in transit&#8221; (i.e. data transmitted on computer networks, including HTTPs and VPNs). In the latter case quantum computers running <a href="https://en.wikipedia.org/wiki/Shor%27s_algorithm">Shor’s Algorithm</a> will easily break these keys hence attackers are currently executing&nbsp;<a href="https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later">&#8220;Harvest Now, Decrypt Later&#8221; (HNDL)&nbsp;attacks</a> — stealing encrypted network traffic today to decrypt it the moment a quantum computer becomes available. In order to mitigate this risk, the National Institute of Standards and Technology (NIST) has finalized its first official Post-Quantum Cryptography (PQC) standards (<a href="https://cloudsecurityalliance.org/blog/2024/08/15/nist-fips-203-204-and-205-finalized-an-important-step-towards-a-quantum-safe-future">FIPS 203, 204, 205</a>) to fully discontinue legacy public-key algorithms by&nbsp;2035.</p>
+
+
+
+<p class="wp-block-paragraph">The work described below on this post comes from months of bootstrapping <a href="https://www.qubitowl.com/"><strong>QubitOwl</strong></a>, our partner startup on which we as taking part as core technology providers in building a comprehensive PQC posture analysis solution. For a complete PQC tool we suggest you to have a look at the <a href="https://www.qubitowl.com">QubitOwl CONTINUUM</a> tool that features a complete PQC analysis including both &#8220;at rest&#8221; and &#8220;in transit&#8221; tools.</p>
+
+
+
+<p class="wp-block-paragraph">At ntop we analyze network traffic hence we focus on PQC in transit. In particular we need to analyze encrypted traffic protocols such as:</p>
+
+
+
+<ul class="wp-block-list">
+<li><a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS (Transport Layer Security)</a></li>
+
+
+
+<li><a href="https://en.wikipedia.org/wiki/QUIC">QUIC (Quick UDP Internet Connections)</a></li>
+
+
+
+<li><a href="https://en.wikipedia.org/wiki/Secure_Shell">SSH (Secure Shell)</a></li>
+
+
+
+<li><a href="https://en.wikipedia.org/wiki/Internet_Key_Exchange">IPSEC (IKE &#8211; Internet Key Exchange)</a></li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">These protocols are used for transmitting data in a secure fashion by exchanging encrypted data. Unfortunately with the advent of PQC, network administrators need to identify hosts using non-PQC compliant versions of the above protocols and upgrade them. In order to ease the identification of these obsolete assets, we have enhanced ntop tools (ntopng Enterprise, nProbe, cento) using nDPI Pro in order to spot non-PQC compliant communications and report then.</p>
+
+
+
+<figure class="wp-block-image size-full"><img fetchpriority="high" decoding="async" width="2476" height="804" src="https://www.ntop.org/wp-content/uploads/2026/05/PQC.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 1" class="wp-image-45657"/></figure>
+
+
+
+<p class="wp-block-paragraph">In the above picture you can see how ntopng has detected a SSH non-PQC compliant communication, and identify the weakness side (the client is PQC ready, whereas the server is using an obsolete SSH version). As you can see detailed protocol information is reported in order to ease migration and identify the exact software version responsible fopr the issue.</p>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" width="1576" height="556" src="https://www.ntop.org/wp-content/uploads/2026/05/Screenshot-2026-05-18-at-10.06.00.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 2" class="wp-image-45658"/></figure>
+
+
+
+<p class="wp-block-paragraph">If you store flows on ClickHouse you can easily find all non-PQC compliant with a matter of clicks.</p>
+
+
+
+<p class="wp-block-paragraph">At any time you can enable/disable the PQC from the behavioral check page.</p>
+
+
+
+<figure class="wp-block-image size-full"><img decoding="async" width="2732" height="446" src="https://www.ntop.org/wp-content/uploads/2026/05/Screenshot-2026-05-18-at-10.50.06.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 3" class="wp-image-45663"/></figure>
+
+
+
+<p class="wp-block-paragraph">If you want to know what network assets are not PQC-ready you can do it in a matter of clicks.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="2122" height="560" src="https://www.ntop.org/wp-content/uploads/2026/05/pqc_host.png" alt="Pqc host" class="wp-image-45669"/></figure>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="1636" height="470" src="https://www.ntop.org/wp-content/uploads/2026/05/Screenshot-2026-05-18-at-17.41.18.png" alt="Post-Quantum Cryptography (PQC) Analysis, figure 5" class="wp-image-45668"/></figure>
+
+
+
+<p class="wp-block-paragraph">Please remember that PQC analysis is based on nDPI, hence you can use it only if you monitor packets including nProbe/Cento that monitor packets and send flows to ntopng, but not if you collect flows sent by a router (NetFlow/IPFIX/sFlow).</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/tls-fingerprinting-ja3-ja4/">TLS fingerprinting guide</a>, <a href="https://www.ntop.org/products/deep-packet-inspection/ndpi/">nDPI</a></p><p>The post <a href="https://www.ntop.org/post-quantum-cryptography-pqc-analysis/">Post-Quantum Cryptography (PQC) Analysis</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>nProbe Cento at Scale: Flow Offload Acceleration on Napatech</title>
+		<link>https://www.ntop.org/nprobe-cento-at-scale-flow-offload-acceleration-on-napatech/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Sun, 25 Jan 2026 21:56:05 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[PF_RING]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45418</guid>
+
+					<description><![CDATA[<p>High-speed networks continue to push the limits of software-based monitoring and security applications. As link speeds grow and traffic patterns become more complex, efficiently analyzing packets while maintaining per-flow state, for updating…</p>
+<p>The post <a href="https://www.ntop.org/nprobe-cento-at-scale-flow-offload-acceleration-on-napatech/">nProbe Cento at Scale: Flow Offload Acceleration on Napatech</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">High-speed networks continue to push the limits of software-based monitoring and security applications. As link speeds grow and traffic patterns become more complex, efficiently analyzing packets while maintaining per-flow state, for updating stats and running Deep Packet Inspection, is increasingly challenging. By leveraging on our long term experience with high-speed packet processing, modern architectures, and state of the art data structures, during the past years we developed nProbe Cento, a high-performance NetFlow probe able to keep up with 100+ Gbit/s on adequate servers. However, this requires quite some resources (mainly CPU cores and memory bandwidth), which becomes a limit when trying to build boxes able to scale beyond 100 Gbit or when additional software should run on the same machine.</p>
+
+
+
+<h5 class="wp-block-heading">Scaling Up Beyond Packet Capture</h5>
+
+
+
+<p class="wp-block-paragraph">Napatech provides advanced FPGA-based SmartNICs designed to offload and accelerate specific networking workloads directly in hardware, delivering:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Optimized data transfer to the application</li>
+
+
+
+<li>Enhanced packet parsing</li>
+
+
+
+<li>Hardware load balancing</li>
+
+
+
+<li>Packet filtering</li>
+
+
+
+<li>Programmability (via NTPL, Napatech Programming Language)</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Feeding a monitoring or inline application at more than 100 Gbit/s, with reasonable CPU utilization, requires more than just accelerated packet capture. For this reason, with the latest releases of Cento, we introduced full <strong>Flow Offload support</strong>, by leveraging the <strong>Napatech Flow Manager </strong>to take acceleration to the next level. This pushes the boundary by delegating parts of per-flow state handling to hardware. </p>
+
+
+<div class="wp-block-image">
+<figure class="aligncenter size-full is-resized"><img loading="lazy" decoding="async" width="692" height="1046" src="https://www.ntop.org/wp-content/uploads/2026/01/nprobe-cento-napatech-flow-offload.png" alt="Nprobe cento napatech flow offload" class="wp-image-45419" style="width:300px"/></figure>
+</div>
+
+
+<p class="wp-block-paragraph">How this works:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Running DPI on initial packets in software</li>
+
+
+
+<li>Offloading established flows into the adapter’s hardware flow tables</li>
+
+
+
+<li>Periodically retrieving flow counters with minimal CPU intervention</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">This hybrid approach lets Cento operate efficiently even under heavy traffic loads.</p>
+
+
+
+<h5 class="wp-block-heading">Get Started with Flow Offload</h5>
+
+
+
+<p class="wp-block-paragraph">Below are practical examples showing how to configure and run Cento with flow offload support on top of&nbsp;Napatech adapters.</p>
+
+
+
+<h6 class="wp-block-heading">Configure the Adapter (NTPL Script)</h6>
+
+
+
+<p class="wp-block-paragraph">First of all please follow the instructions in the PF_RING documentation for <a href="https://www.ntop.org/guides/pf_ring/modules/napatech.html">installing the Napatech SDK</a>.</p>
+
+
+
+<p class="wp-block-paragraph">Then, before launching Cento, the Napatech adapter must be configured with an NTPL script to enable flow offload. Here’s a simple baseline&nbsp;<strong>flow-offload.ntpl</strong>&nbsp;that prepares one stream, assume both interfaces on the adapter are used.</p>
+
+
+
+<pre class="wp-block-code"><code>Delete = All
+
+// Pair of uplink and downlink ports
+Define UL_PORT = Macro("0")
+Define DL_PORT = Macro("1")
+Define NUMA    = Macro("0")
+
+// Streams (i.e. processing threads/cores)
+Define STREAMS = Macro("(0..0)")
+
+// Other internal macros
+Define TX_FORWARD = Macro("0x00")
+Define TX_DISCARD = Macro("0x08")
+
+Define FLM_HIT       = Macro("0x00")
+Define FLM_MISS      = Macro("0x10")
+Define FLM_UNHANDLED = Macro("0x20")
+
+Define FLM_DISCARD = Macro("3")
+Define FLM_FORWARD = Macro("4")
+
+Define isIPv4    = Macro("Layer3Protocol==IPv4")
+Define isTcpUdp  = Macro("Layer4Protocol==TCP,UDP")
+KeyType&#91;Name=KT_4Tuple] = {32, 32, 16, 16}
+
+Define KeyDefProtoSpec = Macro("(Layer3Header&#91;12]/32, Layer3Header&#91;16]/32, Layer4Header&#91;0]/16, Layer4Header&#91;2]/16)")
+KeyDef&#91;Name=KD_4Tuple; KeyType=KT_4Tuple; IpProtocolField=Outer; KeySort=Sorted] = KeyDefProtoSpec
+
+// Load-balancing
+HashMode = Hash5TupleSorted
+
+// Streams setup
+Setup&#91;NUMANode=NUMA] = StreamId == STREAMS
+
+// Map packets to host for new and unhandled flows
+Assign&#91;StreamId=STREAMS; ColorMask=FLM_UNHANDLED; Descriptor=DYN1] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == UNHANDLED
+Assign&#91;StreamId=STREAMS; ColorMask=FLM_MISS; Descriptor=DYN1] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == MISS
+</code></pre>
+
+
+
+<p class="wp-block-paragraph">Then load this script on the adapter:</p>
+
+
+
+<pre class="wp-block-code"><code>sudo /opt/napatech3/bin/ntpl -f flow-offload.ntpl</code></pre>
+
+
+
+<p class="wp-block-paragraph">This configures the hardware to start tracking flows and send the appropriate packets to the host for further inspection or offload.</p>
+
+
+
+<h6 class="wp-block-heading">Run Cento with Flow Offload</h6>
+
+
+
+<p class="wp-block-paragraph">Once the adapter is configured, launch Cento:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i nt:stream0 --flow-offload --dpi-level 2</code></pre>
+
+
+
+<p class="wp-block-paragraph">This tells Cento to use the Napatech stream with flow offload and DPI enabled.&nbsp;</p>
+
+
+
+<p class="wp-block-paragraph">Note: additional parameters for exporting flows needs to be configured according to the preferred export format.<br><br>Example of export to ntopng:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i nt:stream0 --flow-offload --dpi-level 2 --zmq tcp://127.0.0.1:5556</code></pre>
+
+
+
+<p class="wp-block-paragraph">ntopng configuration:</p>
+
+
+
+<pre class="wp-block-code"><code>ntopng -i tcp://*:5556c</code></pre>
+
+
+
+<h6 class="wp-block-heading">Scale with Multiple Streams</h6>
+
+
+
+<p class="wp-block-paragraph">To scale performance on high-speed links, configure multiple streams in the NTPL script. </p>
+
+
+
+<p class="wp-block-paragraph">For example, to set 4 streams:</p>
+
+
+
+<pre class="wp-block-code"><code>Define STREAMS = Macro("(0..3)")</code></pre>
+
+
+
+<p class="wp-block-paragraph">Reload the script:</p>
+
+
+
+<pre class="wp-block-code"><code>sudo /opt/napatech3/bin/ntpl -f flow-offload.ntpl</code></pre>
+
+
+
+<p class="wp-block-paragraph">Then start Cento on all streams:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i nt:stream&#91;0-3] --flow-offload --dpi-level 2 \
+  --processing-cores 0,1,2,3 --exporting-cores 4,5,6,7 \
+  --max-hash-size 4000000</code></pre>
+
+
+
+<p class="wp-block-paragraph">This spreads work across CPU cores and enlarges the flow cache to handle many concurrent flows.&nbsp;</p>
+
+
+
+<p class="wp-block-paragraph">Data can still be exported to ntopng through a single ZMQ endpoint as in the previous section, or through multiple endpoints (one per interface) for parallel export and optimal performance. Example:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i nt:stream&#91;0-3] --flow-offload --dpi-level 2 \
+  --processing-cores 0,1,2,3 --exporting-cores 4,5,6,7 \
+  --max-hash-size 4000000 \
+  --zmq tcp://127.0.0.1:5556 \
+  --zmq tcp://127.0.0.1:5557 \
+  --zmq tcp://127.0.0.1:5558 \
+  --zmq tcp://127.0.0.1:5559 \
+  --zmq-direct-mapping</code></pre>
+
+
+
+<p class="wp-block-paragraph">On the other side ntopng can be configured with multiple ZMQ endpoints, and a view interface aggregating all traffic into a single logical view:</p>
+
+
+
+<pre class="wp-block-code"><code>ntopng -i tcp://*:5556c -i tcp://*:5557c -i tcp://*:5558c -i tcp://*:5559c -i view:all</code></pre>
+
+
+
+<h6 class="wp-block-heading">Flow Offload in Inline/Bridge Mode</h6>
+
+
+
+<p class="wp-block-paragraph">Cento can also be deployed in&nbsp;<strong>inline bridge mode</strong>&nbsp;using&nbsp;<code>cento-bridge</code>, while still taking advantage of flow offload to combinine packet forwarding with hardware acceleration. </p>
+
+
+
+<p class="wp-block-paragraph">Here’s a simple baseline <strong>NTPL example</strong>&nbsp;optimized for bidirectional forwarding between two ports:</p>
+
+
+
+<pre class="wp-block-code"><code>Delete = All
+
+// Pair of uplink and downlink ports
+Define UL_PORT = Macro("0")
+Define DL_PORT = Macro("1")
+Define NUMA    = Macro("0")
+
+// Streams (i.e. processing threads/cores)
+Define STREAMS = Macro("(0..3)")
+
+Define TX_FORWARD = Macro("0x00")
+Define TX_DISCARD = Macro("0x08")
+Assign&#91;ColorMask=DL_PORT; Descriptor=DYN1] = Port==UL_PORT
+Assign&#91;ColorMask=UL_PORT; Descriptor=DYN1] = Port==DL_PORT
+
+// Forward all packets by default
+Assign&#91;ColorMask=TX_FORWARD; Descriptor=DYN1] = Port==UL_PORT,DL_PORT
+
+// Flow Manager assignments (similar to capture config)
+Assign&#91;StreamId=STREAMS; ColorMask=FLM_UNHANDLED; Descriptor=DYN1] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == UNHANDLED
+Assign&#91;StreamId=STREAMS; ColorMask=FLM_MISS;      Descriptor=DYN1] = Port==UL_PORT,DL_PORT AND isIPv4 AND isTcpUdp AND Key(KD_4Tuple, KeyID=1) == MISS
+</code></pre>
+
+
+
+<p class="wp-block-paragraph">Load it as before:</p>
+
+
+
+<pre class="wp-block-code"><code>sudo /opt/napatech3/bin/ntpl -f flow-offload.ntpl</code></pre>
+
+
+
+<p class="wp-block-paragraph">And start Cento in bridge mode with both TX and flow offload enabled:</p>
+
+
+
+<pre class="wp-block-code"><code>cento-bridge -i nt:stream&#91;0-3],nt:stream&#91;0-3] \
+  --tx-offload --flow-offload --dpi-level 2 --bridge-conf rules.conf</code></pre>
+
+
+
+<p class="wp-block-paragraph">Here,&nbsp;<code>rules.conf</code>&nbsp;may contain traffic policing rules (e.g., forwarding or discarding specific protocols). Please take a look at the Cento documentation for more details. This is an example:</p>
+
+
+
+<pre class="wp-block-code"><code>&#91;bridge]
+default = forward
+
+&#91;bridge.protocol]
+NetFlix = discard
+YouTube = discard</code></pre>
+
+
+
+<h5 class="wp-block-heading">Performance</h5>
+
+
+
+<p class="wp-block-paragraph">The Flow Manager is able to offload ~1.5 Million new flows/sec with one stream, 3+ Million new flows/sec with multiple streams, with a cache capacity of 140 Million active flows.</p>
+
+
+
+<p class="wp-block-paragraph">To give you an idea, assuming a 100 Gbit/s link with 1 Million concurrent flows of mixed Internet traffic, CPU load consumed by Cento usually stays in the 50-80% range, per core, on a 16-core CPU. By leveraging on flow offload support, it goes down to 10-20% (this may change a bit depending on CPU specs). PCI and memory bandwidth is also affected, as this dramatically reduces the amount of data transferred to the CPU, saving resources for processing more traffic on the same machine.</p>
+
+
+
+<p class="wp-block-paragraph">For full configuration reference and advanced options, see the official <a href="https://www.ntop.org/guides/cento/offload.html">NetFlow Flow Offload</a> and <a href="https://www.ntop.org/guides/cento/bridge.html">Bridge/Inline Offload</a> guides.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy!</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p><p>The post <a href="https://www.ntop.org/nprobe-cento-at-scale-flow-offload-acceleration-on-napatech/">nProbe Cento at Scale: Flow Offload Acceleration on Napatech</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Cento 2.4: Flexible Export, Improved Telco Support</title>
+		<link>https://www.ntop.org/cento-2-4-flexible-export-improved-telco-support/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 18 Nov 2025 08:07:34 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45307</guid>
+
+					<description><![CDATA[<p>This is to announce the release of cento 2.4, a major update focused on boosting export flexibility, improving telco-grade encapsulation support, and strengthening performance and reliability across the entire data pipeline.This release…</p>
+<p>The post <a href="https://www.ntop.org/cento-2-4-flexible-export-improved-telco-support/">Cento 2.4: Flexible Export, Improved Telco Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">This is to announce the release of&nbsp;<strong>cento 2.4</strong>, a major update focused on boosting export flexibility, improving telco-grade encapsulation support, and strengthening performance and reliability across the entire data pipeline.<br>This release brings architectural enhancements, new features for ntopng users, and improved compatibility with modern hardware and Linux distributions.</p>
+
+
+
+<p class="wp-block-paragraph">Below is an overview of what’s new.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h4 class="wp-block-heading">Key Features</h4>
+
+
+
+<h6 class="wp-block-heading"><strong>Template-based serialization (JSON/TLV)</strong></h6>
+
+
+
+<p class="wp-block-paragraph">Cento 2.4 introduces support for template-driven serialization also when exporting data using JSON and TLV (used by ntopng). Users can now define exactly which fields to export, reducing overhead and enabling tailored integrations.</p>
+
+
+
+<h6 class="wp-block-heading"><strong>New event exporter architecture</strong></h6>
+
+
+
+<p class="wp-block-paragraph">Cento is now able to send statistics to systems like&nbsp;<strong>Kafka</strong>&nbsp;or monitoring frameworks. This allows third party collectors to monitor the probe and get information about the system health and performance.</p>
+
+
+
+<h6 class="wp-block-heading"><strong>Enhanced GTP support for telco environments</strong></h6>
+
+
+
+<p class="wp-block-paragraph">We’ve extended GTP-U capabilities including <strong>GTPv0</strong>, <strong>GRE-in-GTP dissection</strong> and TPDU handling. Starting with this version, you can use nProbe to analyze GTP-C and use Cento to analyze GTP-U and correlate it with user info (IMSI) stored in a redis cache by nProbe. This makes cento 2.4 an even stronger fit for mobile network analytics and high-volume encapsulated traffic.</p>
+
+
+
+<h6 class="wp-block-heading"><strong>Instance name support</strong></h6>
+
+
+
+<p class="wp-block-paragraph">Multi-instance deployments can now use the new&nbsp;<code>--instance-name</code>&nbsp;option to easily distinguish exporters in large-scale or containerized deployments across the network in the collector dashboards (ntopng).</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h4 class="wp-block-heading">Improvements</h4>
+
+
+
+<h6 class="wp-block-heading"><strong>Extended TCP statistics</strong></h6>
+
+
+
+<p class="wp-block-paragraph">New Information Elements, such as&nbsp;<code>%TCP_STATS_SRC_TO_DST</code>&nbsp;and&nbsp;<code>%TCP_STATS_DST_TO_SRC</code>, add deeper visibility into TCP behavior. Retransmissions and out-of-order packets are now exportable via ZMQ, making troubleshooting more precise.</p>
+
+
+
+<h6 class="wp-block-heading"><strong>Napatech flow offload enhancements</strong></h6>
+
+
+
+<p class="wp-block-paragraph">For Napatech users, flow offload is now more reliable and powerful:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Flow table reset at startup</li>
+
+
+
+<li>Better handling of long-lived flows with slice exports</li>
+
+
+
+<li>More detailed offload update statistics</li>
+
+
+
+<li>Passive and active flow-offload modes</li>
+</ul>
+
+
+
+<h6 class="wp-block-heading"><strong>ZMQ improvements</strong></h6>
+
+
+
+<ul class="wp-block-list">
+<li>Separate event socket with its own message-ID sequence</li>
+
+
+
+<li>New&nbsp;<code>--zmq-direct-mapping</code>&nbsp;option to map capture interfaces to ZMQ export endpoints, useful when scaling up</li>
+</ul>
+
+
+
+<h6 class="wp-block-heading"><strong>Network protocol and interface enhancements</strong></h6>
+
+
+
+<ul class="wp-block-list">
+<li>QinQ (802.1ad) support</li>
+
+
+
+<li>Better GTP padding handling</li>
+
+
+
+<li>Improved GRE/MPLS dissection</li>
+
+
+
+<li>Support for&nbsp;25G interfaces</li>
+</ul>
+
+
+
+<h6 class="wp-block-heading"><strong>Other notable upgrades</strong></h6>
+
+
+
+<ul class="wp-block-list">
+<li>Category and confidence level export</li>
+
+
+
+<li>Packet sampling upscaling</li>
+
+
+
+<li>Detailed drop and queue length stats</li>
+
+
+
+<li>Optimized nDPI integration (faster memory release)</li>
+
+
+
+<li>QoE computation only when needed (optimize CPU utilization and export)</li>
+
+
+
+<li>Platform support for&nbsp;<strong>Debian 13</strong>&nbsp;and&nbsp;<strong>Rocky 10</strong></li>
+
+
+
+<li>Clearer thread labeling with interface names</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<p class="wp-block-paragraph">Cento 2.4 is bringing greater flexibility, telco-grade protocol coverage, improved reliability, and better export capabilities. Whether you&#8217;re integrating with ntopng, using Kafka for analytics pipelines, or deploying cento in high-speed monitoring setups, this release delivers noticeable improvements.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy!</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p><p>The post <a href="https://www.ntop.org/cento-2-4-flexible-export-improved-telco-support/">Cento 2.4: Flexible Export, Improved Telco Support</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>HowTo Measure the Status and Performance of Network Flows</title>
+		<link>https://www.ntop.org/howto-measure-the-status-and-performance-of-network-flows/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 10 Nov 2025 15:21:04 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45272</guid>
+
+					<description><![CDATA[<p>NetFlow has been originally designed to monitor network traffic using simple bytes/packets metrics. For TCP, it is also possible to know what TCP flags (that indicate the connection state) have been used…</p>
+<p>The post <a href="https://www.ntop.org/howto-measure-the-status-and-performance-of-network-flows/">HowTo Measure the Status and Performance of Network Flows</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">NetFlow has been originally designed to monitor network traffic using simple bytes/packets metrics. For TCP, it is also possible to know what TCP flags (that indicate the connection state) have been used on a flow, as NetFlow/IPFIX exports them as a cumulative OR of all TCP flags of the flow. This allows you to know if a SYN flag has been observed on a flow but not the number of SYN flags that have been reported for a flow. No other information elements have been implemented to report detailed TCP flow information, performance metrics, and quality.</p>
+
+
+
+<p class="wp-block-paragraph">In all ntop tools (<a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a>, and <a href="https://www.ntop.org/products/netflow-probes/nprobe-cento/">nProbe Cento)</a>, we have implemented detailed measurements for reporting users, not just traditional bytes/packets metrics, but also detailed information about the TCP connection status.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="2270" height="916" src="https://www.ntop.org/wp-content/uploads/2025/11/ConnectionMetrics.png" alt="ConnectionMetrics" class="wp-image-45273"/></figure>
+
+
+
+<p class="wp-block-paragraph">In additional to the <a href="https://www.ntop.org/introducing-network-quality-measurement-qoe-in-ntop-tools/">network quality</a> (QoE) that we have already discussed some time ago, ntop tools report:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Network Latency</li>
+
+
+
+<li>RTT (Round-Trip Time)</li>
+
+
+
+<li>IAT (Packet Inter-Arrival Time)</li>
+
+
+
+<li>TCP Statistics (Retransmissions, Packets Out-of-Order, Packets Lost).</li>
+
+
+
+<li>TCP zero-window packets</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Furthermore, as SYN/RST-based scans are pretty popular on the Internet, we have enhanced our tools to report not just the presence of a flag but also its number.</p>
+
+
+
+<figure class="wp-block-image size-full"><img loading="lazy" decoding="async" width="3016" height="628" src="https://www.ntop.org/wp-content/uploads/2025/11/TCPFlags.png" alt="TCPFlags" class="wp-image-45274"/></figure>
+
+
+
+<p class="wp-block-paragraph">In the latest dev branch (see above) version, we can now report how many packets with relevant TCP flags (SYN, FIN, RST) have been observed, by enhancing flow-based analytics with statistical metrics typical of packet-based analysis. Note that in order to report the above information, you need to update the ntop tools and run nProbe/nProbe Cento on packets (example &#8220;nprobe -i eth0 &#8211;zmq tcp://127.0.0.1:1234&#8221;) as when nProbe is used in flow-collection mode, the above statistics cannot be reported as they have not been exported by the router. All the above measurements are enabled automatically by default, so you do not need to modify anything in the application configuration, but just update the ntop tools to the latest version.</p>
+
+
+
+<p class="wp-block-paragraph">In conclusion, using ntop tools, you can now have the same level of detail both with packets and flows. This is in addition to nDPI layer-7 statistics that we have already discussed several times on this blog.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+
+
+<p class="wp-block-paragraph"></p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p><p>The post <a href="https://www.ntop.org/howto-measure-the-status-and-performance-of-network-flows/">HowTo Measure the Status and Performance of Network Flows</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How ntop Accelerated Network Telescope at Georgia Tech</title>
+		<link>https://www.ntop.org/how-ntop-accelerated-network-telescope-at-georgia-tech/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 06 Nov 2025 14:31:23 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[News]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45270</guid>
+
+					<description><![CDATA[<p>If you are wondering what is a network telescope and how ntop tools have been used in research, we're pleased to publish a guest post from Prof. A. Dainotti that describes the…</p>
+<p>The post <a href="https://www.ntop.org/how-ntop-accelerated-network-telescope-at-georgia-tech/">How ntop Accelerated Network Telescope at Georgia Tech</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph">If you are wondering what is a <a href="https://en.wikipedia.org/wiki/Network_telescope">network telescope</a> and how ntop tools have been used in research, we&#8217;re pleased to publish a guest post from <a href="https://www.cc.gatech.edu/news/professor-aims-bolster-internet-research-infrastructure">Prof. A. Dainotti</a> that describes the project.</p>
+
+
+
+<p class="wp-block-paragraph">Enjoy !</p>
+
+
+
+<p class="wp-block-paragraph">At the Internet Intelligence Lab at Georgia Institute of Technology’s College of Computing, we have been using nProbe Cento and PF_RING ZC to help us build, monitor, and validate the output of an innovative research infrastructure — a dynamic network telescope — funded by the US National Science Foundation.  </p>
+
+
+
+<p class="wp-block-paragraph">A network telescope uses a large set of inactive IP addresses to observe unsolicited Internet traffic, often referred to as “pollution” or “background radiation”, which can reveal a variety of interesting Internet phenomena. These include denial-of-service attacks, port scanning activity, and the spread of new malware. Traditional network telescope architectures require that the inactive IP addresses belong to a single large subnet, and as IPv4 addresses become more scarce, the ability to create and maintain network telescopes has become very difficult.</p>
+
+
+
+<p class="wp-block-paragraph">The dynamic telescope helps to resolve this issue by instead continually tracking unused IP addresses across multiple subnets within an institution and incorporating them into a telescope. Addresses that are used infrequently can also be included during times when they are inactive, and then removed from the telescope again when they become used again to ensure that all traffic seen by the telescope is unsolicited. This approach also solves another problem with traditional static telescopes; some malicious actors have learned how to detect and avoid sets of IP addresses that are used by network telescopes. In a dynamic telescope, the addresses being used may be constantly changing, and therefore it is difficult for other parties to discover which addresses are being used by the telescope.</p>
+
+
+
+<p class="wp-block-paragraph">In our setup, we use nProbe Cento to obtain unsampled NetFlow records from monitored traffic received through fiber taps. This traffic is collected by a programmable Intel Tofino switch and forwarded to a capture server equipped with an AMD Genoa 9534 64C, 768GB. 4800 MHz DDR5 Memory, and a Mellanox ConnectX-6 NIC with two 100Gbps ports. The capture server runs Ubuntu 24.04.2 LTS (Noble). Here we have deployed nProbe CentOS with PF_RING ZC as a 100Gbps Flow Exporter. In our first deployment, we employed YAF (with libpfring) and SiLK of the CERT NetSA Security Suite. However, with this solution we observed significant packet loss, since the tool was unable to keep up with our campus’ traffic load which is consistently above 10 Gbps. Nevertheless, YAF offers the capability to use it with PF_RING ZC which overcomes this issue. PF_RING ZC requires a license, and therefore we replaced the whole NetFlow generation pipeline of YAF (with vanilla PF_RING) with the self-contained / standalone nProbe CentOS (with PF_RING ZC) to support up to 100Gbps traffic load. Our initial nProbe configuration was suboptimal and required communication with the ntop team to improve it – among the addressed issues were the number of RSS threads of the interface, core affinity, and export formats. Regarding the latter, we originally tried using the IPFIX export mode in CentOS with the aim of consuming those records with SiLK, but this pipeline was still unable to keep up with the packet rate due to the performance impact of constructing records to conform to the IPFIX format. Following advice from the ntop team, we then switched to writing our flow records to disk using the text-based format built into CentOS and post-processed those records off-line. This has enabled us to generate complete flow records in real-time without any observed packet loss.</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p><p>The post <a href="https://www.ntop.org/how-ntop-accelerated-network-telescope-at-georgia-tech/">How ntop Accelerated Network Telescope at Georgia Tech</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Handling High Flow Rates: Cento and ntopng at Scale</title>
+		<link>https://www.ntop.org/handling-high-flow-rates-cento-and-ntopng-at-scale/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Mon, 29 Sep 2025 20:00:33 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[Technologies and Trends]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=45175</guid>
+
+					<description><![CDATA[<p>Cento is a high-speed NetFlow probe designed to analyse traffic from high-speed links (100+ Gbit/s) and export flows toward ntopng, third party collectors or big-data systems. When exporting data to ntopng, Cento…</p>
+<p>The post <a href="https://www.ntop.org/handling-high-flow-rates-cento-and-ntopng-at-scale/">Handling High Flow Rates: Cento and ntopng at Scale</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p class="wp-block-paragraph"><a href="https://www.ntop.org/products/netflow-probes/nprobe-cento/">Cento</a> is a high-speed NetFlow probe designed to analyse traffic from high-speed links (100+ Gbit/s) and export flows toward <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, third party collectors or big-data systems. <br><br>When exporting data to ntopng, Cento uses ZeroMQ (ZMQ) as its primary mechanism for exporting flows in JSON or binary (TLV) format. In short, Cento acts as a ZMQ publisher, sending flow records over a TCP socket. ntopng subscribes to this socket as a ZMQ collector, receiving and processing the flows in real-time. This design allows flexible network deployment, with Cento running on the capture host and ntopng on the same or a remote machine.<br><br>At very high traffic rates, however, a single export channel and a single ntopng collector may not be able to keep up with the incoming flows. To handle this, it is possible to <strong>scale</strong> out using <strong>multiple ZMQ channels</strong> from Cento and then combine the outputs inside ntopng using an <strong>aggregated</strong> <strong><em>view</em></strong> interface. In fact, cento can exprt flows through a single ZMQ endpoint or to multiple endpoints for load-balancing or fan-out to multiple collectors. ntopng instances then subscribe to one or more of these endpoints. By combining the outputs in a view, operators can achieve a unified traffic overview while scaling horizontally.</p>
+
+
+<div class="wp-block-image">
+<figure class="aligncenter size-full is-resized"><img loading="lazy" decoding="async" width="1238" height="438" src="https://www.ntop.org/wp-content/uploads/2025/09/cento_ntopng_view.png" alt="Cento ntopng view" class="wp-image-45180" style="width:500px"/></figure>
+</div>
+
+
+<h5 class="wp-block-heading">Single ZMQ Channel (N:1)</h5>
+
+
+
+<ol class="wp-block-list">
+<li></li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">By default, when a single &#8211;zmq option is configured, Cento exports flows via a single ZMQ publisher socket in N:1 mode. For example:<br></p>
+
+
+
+<pre class="wp-block-code"><code>cento -i zc:eth0 --zmq tcp://127.0.0.1:5556</code></pre>
+
+
+
+<p class="wp-block-paragraph">And ntopng subscribes to this endpoint:</p>
+
+
+
+<pre class="wp-block-code"><code>ntopng -i tcp://127.0.0.1:5556c</code></pre>
+
+
+
+<p class="wp-block-paragraph">This works well for moderate flow rates, but when hundreds of thousands of flows per second are exported, one pipeline may become saturated.</p>
+
+
+
+<h5 class="wp-block-heading">Scaling with Multiple ZMQ Channels</h5>
+
+
+
+<p class="wp-block-paragraph">Cento allows you to create multiple ZMQ publisher sockets. Each publisher can be bound to a different TCP port, and Cento will distribute flows among them. Example:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i zc:eth0 --zmq tcp://127.0.0.1:5556,tcp://127.0.0.1:5557</code></pre>
+
+
+
+<p class="wp-block-paragraph">Now Cento will export flows across two independent ZMQ channels in round-robin.<br><br>Note: when a comma-separated list is provided, cento will load-balance flows to the ZMQ sockets in the list. Instead, when multiple &#8211;zmq options are provided, cento will copy the same flows (fan-out) to all configured ZMQ sockets.</p>
+
+
+
+<p class="wp-block-paragraph">Each ZMQ publisher can be consumed by a different ntopng interface. For example:</p>
+
+
+
+<pre class="wp-block-code"><code>ntopng -i tcp://127.0.0.1:5556 -i tcp://127.0.0.1:5557</code></pre>
+
+
+
+<p class="wp-block-paragraph">This way, the workload is spread across multiple ntopng threads. Each thread only processes the portion of flows delivered to its socket.</p>
+
+
+
+<p class="wp-block-paragraph">While multiple ntopng interfaces solve the scaling problem, operators usually want a single, unified dashboard.<br>This is achieved through views. A view in ntopng acts as an aggregation layer across multiple interfaces or collectors.<br>To create a view, all you need to do is to add one more special interface, which is aggregating traffic from all other interfaces:</p>
+
+
+
+<pre class="wp-block-code"><code>ntopng -i tcp://127.0.0.1:5556,tcp://127.0.0.1:5557 -i view:all</code></pre>
+
+
+
+<p class="wp-block-paragraph">The view will then expose consolidated traffic statistics, while still allowing you to drill down into each individual ntopng interface if needed.</p>
+
+
+
+<h5 class="wp-block-heading">Scaling with RSS and Multiple ZMQ Channels</h5>
+
+
+
+<p class="wp-block-paragraph">In order to handle 100+ Gbit/s, Cento is usually used in combination with RSS, which is load-balancing network traffic coming from the adapter by means of multiple data streams to multiple packet processing threads. In this configuration, the adapter is logically divided into multiple sub-adapters (also known as queues) to which packets are delivered. Example with 4 RSS queues:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i zc:eth0@0 -i zc:eth0@1 -i zc:eth0@2 -i zc:eth0@3 --zmq tcp://127.0.0.1:5556,tcp://127.0.0.1:5557</code></pre>
+
+
+
+<p class="wp-block-paragraph">This is equivalent to:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i zc:eth0@&#91;0-3] --zmq tcp://127.0.0.1:5556,tcp://127.0.0.1:5557</code></pre>
+
+
+
+<p class="wp-block-paragraph">In this configuration, Cento spawns multiple threads, each thread is processing traffic from a data stream. Flows extracted by all threads are still load-balanced to the configured ZMQ endpoints in a <strong>Round-Robin</strong> fashion.</p>
+
+
+
+<p class="wp-block-paragraph">As an alternative configuration, it is possible to configure Cento to send all flows extracted on a specific data stream to a specific ZMQ endpoint, with a <strong>direct 1:1 mapping</strong>. This configuration requires as many ZMQ endpoints as the number of configured RSS queues, and the &#8211;zmq-direct-mapping option. Example:</p>
+
+
+
+<pre class="wp-block-code"><code>cento -i zc:eth0@&#91;0-3] --zmq-direct-mapping --zmq tcp://127.0.0.1:5556,tcp://127.0.0.1:5557,tcp://127.0.0.1:5558,tcp://127.0.0.1:5559</code></pre>
+
+
+
+<p class="wp-block-paragraph">ntopng is still configured in the same way, to collect flows from all endpoints and aggregate all traffic in a view:</p>
+
+
+
+<pre class="wp-block-code"><code>ntopng -i tcp://127.0.0.1:5556 -i tcp://127.0.0.1:5557 -i tcp://127.0.0.1:5558 -i tcp://127.0.0.1:5559 -i view:all</code></pre>
+
+
+
+<h5 class="wp-block-heading">Conclusions</h5>
+
+
+
+<p class="wp-block-paragraph">On high-speed networks, Cento can easily generate flow rates that exceed what a single ntopng interface can handle. By configuring Cento with multiple ZMQ publishers, deploying multiple ntopng collector interfaces, and aggregating them with views, you can scale horizontally and maintain full visibility without losing data. This architecture ensures that Cento + ntopng can keep up with the flow volumes of modern backbone and datacenter environments.</p>
+
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p><p>The post <a href="https://www.ntop.org/handling-high-flow-rates-cento-and-ntopng-at-scale/">Handling High Flow Rates: Cento and ntopng at Scale</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Released Cento 2.2: Enhanced Flow Offload, QoE Metrics, and GTP Correlation</title>
+		<link>https://www.ntop.org/released-cento-2-2-enhanced-flow-offload-qoe-metrics-and-gtp-correlation/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Wed, 30 Apr 2025 06:12:31 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[cento]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11669</guid>
+
+					<description><![CDATA[<p>We're excited to announce a new release of Cento 2.2, our high-performance flow-based traffic processing engine. This release brings major enhancements in traffic analysis capabilities, particularly for mobile network monitoring, quality assessment,…</p>
+<p>The post <a href="https://www.ntop.org/released-cento-2-2-enhanced-flow-offload-qoe-metrics-and-gtp-correlation/">Released Cento 2.2: Enhanced Flow Offload, QoE Metrics, and GTP Correlation</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We&#8217;re excited to announce a new release of Cento 2.2, our high-performance flow-based traffic processing engine. This release brings major enhancements in traffic analysis capabilities, particularly for mobile network monitoring, quality assessment, and flow offloading on Napatech adapters. Whether you&#8217;re deploying Cento in ISP-grade infrastructures or using it for deep traffic inspection, this release is packed with powerful new features and improvements designed to push performance and visibility to the next level.</p>
+<ul>
+<li><strong>Full Flow Table Offload on Napatech Adapters</strong><br />
+Cento 2.2 now offers fully-fledged Flow Table offload support with the latest <a href="https://docs.napatech.com/r/Stateful-Flow-Management/Stateful-Flow-Management-Features">Napatech Flow Manager</a>, enabling hardware-accelerated flow processing at high speed both inline or passively, with a reduction of the export latency thanks to periodic counter updates for offloaded flows when using the latest Flow Manager FPGA.</li>
+<li><strong>IMSI Correlation for Mobile Tracking</strong><br />
+We&#8217;ve improved GTP traffic processing with IMSI correlation, enabling effective mobile subscriber tracking — a must-have for telcos and mobile network operators.</li>
+<li><strong>Quality of Experience (QoE) Metrics</strong><br />
+Cento now computes QoE metrics, offering insights into user-perceived service quality. This is especially valuable in VoIP and media streaming environments, where MOS scores, combined with TCP statistics, and directional QoE stats, can reveal degraded experiences.</li>
+</ul>
+<p>As always, we welcome your feedback and contributions. Stay tuned for more enhancements, and thank you for being part of the ntop community!</p>
+<h3>Changelog</h3>
+<h3>Key Features</h3>
+<ul>
+<li>Fully fledged Flow Table offload on Napatech adapters with latest Flow Manager support</li>
+<li>Mobile tracking with IMSI correlation on GTP traffic</li>
+<li>Quality of Experience (QoE) computation</li>
+</ul>
+<h3>Improvements</h3>
+<ul>
+<li>Extended Flow Table offload on Napatech with periodic updates (flow counters) from offloaded flows</li>
+<li>Dynamic templates (&#8211;template) are now supported when dumping to text and JSON over ZMQ (in addition to Avro and Kafka)</li>
+<li>Computing TCP statistics (out-of-order, retransmissions, packet loss, keepalive packets)</li>
+<li>Reworked IMSI aggregation for GTP traffic correlation</li>
+<li>Automatically set RSS based on the range in the interface name</li>
+<li>Implement MOS computation on RTP flows</li>
+<li>Implement &#8211;lifetime-perturbation to add random flow lifetime perturbation to distribute flows expiration and avoid export storms on startup</li>
+<li>Add &#8211;dont-nest-dump-dirs option</li>
+<li>Add more Information Elements to the exported template:
+<ul>
+<li>%FLOW_VERDICT</li>
+<li>%L7_CONFIDENCE</li>
+<li>%RETRANSMITTED_IN_PKTS</li>
+<li>%RETRANSMITTED_OUT_PKTS</li>
+<li>%OOORDER_IN_PKTS</li>
+<li>%OOORDER_OUT_PKTS</li>
+<li>%RTP_IN_PAYLOAD_TYPE</li>
+<li>%RTP_OUT_PAYLOAD_TYPE</li>
+<li>%QOE_DST_TO_SRC</li>
+<li>%QOE_SRC_TO_DST</li>
+</ul>
+</li>
+</ul>
+<h3>Fixes</h3>
+<ul>
+<li>Fix exported L7_APP_PROTOCOL_NAME</li>
+<li>Fix max interface speed computation</li>
+<li>Fix twin interface speed computation in case of tx offload</li>
+<li>Fix flow export information and stats via ZMQ</li>
+</ul>
+<h3>Misc/Changes</h3>
+<ul>
+<li>List all supported template IEs in &#8211;help</li>
+<li>Add thread labels</li>
+<li>Increase Max Frame Size on GRO check</li>
+<li>Exit gracefully on bad option</li>
+</ul>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p>
+<p>The post <a href="https://www.ntop.org/released-cento-2-2-enhanced-flow-offload-qoe-metrics-and-gtp-correlation/">Released Cento 2.2: Enhanced Flow Offload, QoE Metrics, and GTP Correlation</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Exporting (Custom) Flows with Avro in nProbe Cento</title>
+		<link>https://www.ntop.org/exporting-custom-flows-with-avro-in-nprobe-cento/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Thu, 12 Dec 2024 09:59:27 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11484</guid>
+
+					<description><![CDATA[<p>This summer we introduced nProbe Cento 2.0. Before this release, Cento was supporting JSON serialization only when exporting flows to Kafka. JSON is straightforward and widely used, but it can be verbose…</p>
+<p>The post <a href="https://www.ntop.org/exporting-custom-flows-with-avro-in-nprobe-cento/">Exporting (Custom) Flows with Avro in nProbe Cento</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This summer we introduced nProbe Cento 2.0. Before this release, Cento was supporting JSON serialization only when exporting flows to Kafka. JSON is straightforward and widely used, but it can be verbose and less efficient for high-throughput or resource-sensitive environments. To address these challenges, when exporting flows to ntopng, some time ago we introduced a binary/TLV format for data serialization, implemented in our open-source nDPI library. However, despite this being an open format, it is not widely used. For this reason, in order to improve interoperability with other solutions, we decided to also introduce the <strong>Avro serialization</strong> format as an additional option when exporting to Kafka. In fact, the key Avro features are:</p>
+<ul data-spread="false">
+<li><strong>Compact and efficient:</strong> similar to the nDPI TLV, Avro uses a binary format, making it more compact than JSON. This results in reduced storage and bandwidth usage.</li>
+<li><strong>Flexible schema:</strong> Avro includes schemas with the data, which makes it easier to handle changes in the data structure over time. Kafka consumers can dynamically adapt to new schemas, ensuring forward and backward compatibility.</li>
+<li><strong>Faster processing:</strong> parsing binary data is faster than processing JSON, which can improve performance in high-throughput environments.</li>
+</ul>
+<p>In addition to introducing Avro serialization, we’ve implemented <strong>custom templates</strong> <strong>for Kafka</strong> flow export. This feature allows you to define the <strong>Information Elements (IEs)</strong> to include in your flow exports, whether you’re using <strong>JSON or Avro</strong> serialization formats. Information Elements are the individual fields that describe the template of a network flow. For example they include source and destination IP addresses, ports, protocols, in/out packets, bytes, etc. Depending on your use case, you might not need all the available IEs in every export and further optimise exported data size and processing.</p>
+<p>To start using these new features, follow these simple steps:</p>
+<ol start="1" data-spread="true">
+<li><strong>Enable Avro Serialization:</strong>
+<ul data-spread="false">
+<li>Update your Kafka configuration in Cento and select Avro as the serialization format (<strong><em>&#8212;<span class="highlighted">avro</span></em></strong>). An Avro schema is automatically generated by Cento.</li>
+</ul>
+</li>
+<li><strong>Create a Custom Template:</strong>
+<ul data-spread="false">
+<li>Define in the Cento configuration file a template specifying the IEs you want to include in the export (<strong><em>&#8211;template</em></strong>). The corresponding Avro schema is automatically generated by Cento also in this case.</li>
+</ul>
+</li>
+</ol>
+<p>Example 1 &#8211; Exporting flows to Kafka with Avro serialization</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">cento -i eth0 --kafka “127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094;topicFlows" --avro</pre>
+<p>Example 2 &#8211; Exporting flows to Kafka with JSON serialization using a custom template</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">cento -i eth0 --kafka “127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094;topicFlows" --json-labels --template "%SRC_VLAN %SRC_MAC %DST_MAC %IP_PROTOCOL_VERSION %IPV4_SRC_ADDR %IPV4_DST_ADDR %IPV6_SRC_ADDR %IPV6_DST_ADDR %EXPORTER_IPV4_ADDRESS %DIRECTION %INPUT_SNMP %OUTPUT_SNMP %SRC_TO_DST_PKTS %SRC_TO_DST_BYTES %DST_TO_SRC_PKTS %DST_TO_SRC_BYTES %FIRST_SWITCHED %LAST_SWITCHED %L4_SRC_PORT %L4_DST_PORT %PROTOCOL %L7_PROTO %L7_PROTO_NAME"</pre>
+<p>Example 3 &#8211; Exporting flows to Kafka with &nbsp;Avro serialization using a custom template</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">cento -i eth0 --kafka “127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094;topicFlows" --avro --template "%SRC_VLAN %SRC_MAC %DST_MAC %IP_PROTOCOL_VERSION %IPV4_SRC_ADDR %IPV4_DST_ADDR %IPV6_SRC_ADDR %IPV6_DST_ADDR %EXPORTER_IPV4_ADDRESS %DIRECTION %INPUT_SNMP %OUTPUT_SNMP %SRC_TO_DST_PKTS %SRC_TO_DST_BYTES %DST_TO_SRC_PKTS %DST_TO_SRC_BYTES %FIRST_SWITCHED %LAST_SWITCHED %L4_SRC_PORT %L4_DST_PORT %PROTOCOL %L7_PROTO %L7_PROTO_NAME"</pre>
+<p>Please also check the <a href="https://www.ntop.org/guides/cento/options.html">documentation</a> for the full list of IEs and to learn more about all the export settings and customisations.</p>
+<p>We’re committed to continuously improving our software to meet the evolving needs of our users. We look forward to hearing your feedback and seeing how you leverage Avro serialization and custom templates in your workflows. Stay tuned!</p>
+<p>The post <a href="https://www.ntop.org/exporting-custom-flows-with-avro-in-nprobe-cento/">Exporting (Custom) Flows with Avro in nProbe Cento</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Released Cento 2.0: Hardware Flow Table Offload, Avro Export and Much More</title>
+		<link>https://www.ntop.org/released-cento-2-0-hardware-flow-table-offload-avro-export-and-much-more/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Wed, 14 Aug 2024 05:30:18 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11303</guid>
+
+					<description><![CDATA[<p>This is to announce that Cento 2.0 is out! This new major release introduces many new great features. First of all it adds support for offloading flows to Napatech SmartNICs featuring Flow…</p>
+<p>The post <a href="https://www.ntop.org/released-cento-2-0-hardware-flow-table-offload-avro-export-and-much-more/">Released Cento 2.0: Hardware Flow Table Offload, Avro Export and Much More</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This is to announce that Cento 2.0 is out! This new major release introduces many new great features.</p>
+<p>First of all it adds <a href="http://luca.ntop.org/NetAccel-AI_2024.pdf">support for offloading flows to Napatech SmartNICs</a> featuring Flow Manager. This new feature has been presented at <a href="https://hpsr2024.ieee-hpsr.org">IEEE HPSR</a> (IEEE International Conference on High Performance Switching and Routing) and demonstrated to provide a significant performance boost and dramatically reduce the PCIe and memory bandwidth utilisation when processing 100 Gbit (or more) links with full-speed traffic. This can be used both by standard cento to accelerate passive monitoring, and cento-bridge to accelerate packet forwarding and reduce latency (also in combination with the new zero-copy packet forwarding support).</p>
+<p>This release also adds support for Avro serialization when exporting flows to Kafka, in addition to the JSON serialization. Support for custom templates has also been introduced to select the Information Elements to export when exporting to Kafka, both with Avro and JSON serialization formats.</p>
+<p>From the long list of major improvements, it is worth to mention also the ability to configure, for each application protocol, a specific destination interface or queue when running cento in IDS mode, in combination with load-balancing. In addition to this, cento-ids is also now able to bufferize packets per flow, to store packets in memory until the layer-7 protocol has been detected, to make sure all packets for the flow are sent to the same/expected egress interface when a destination is configured per application protocol.</p>
+<p>Please check the changelog below for the full list of new features and improvements.</p>
+<p>Enjoy!</p>
+<h2>Changelog</h2>
+<h3>New Features</h3>
+<ul>
+<li>Flow table offload on Napatech adapters with Flow Manager support (&#8211;flow-offload option), on both passive and bridge mode</li>
+<li>Avro flow serialization when exporting to Kafka (&#8211;avro option)</li>
+<li>Template support (&#8211;template option) to select the Information Elements when exporting JSON or Avro to Kafka</li>
+</ul>
+<h3>Improvements</h3>
+<ul>
+<li>Add supprot for zero-copy packet forwarding on Napatech adapters (&#8211;tx-offload option)</li>
+<li>Add support for interface notation with no rss queues on second interface (e.g. nt:stream[0-1],nt:1)</li>
+<li>Add support for bridging on a single interface (packet bouncing)</li>
+<li>Add support for shunting and slicing (via rules file) in bridge mode</li>
+<li>Add support for configuring egress interfaces or queues as actions in rules configuration when balancing traffic in ids mode</li>
+<li>Add support for buffering packets (per flow) in ids mode (&#8211;balanced-egress-buffer option)</li>
+<li>Add support for blacklists (&#8211;blacklists option)</li>
+<li>Add IMSI aggregation and caching using redis</li>
+<li>Add ability to load public TLD domain names</li>
+<li>Add support for GRE Transparent Ethernet Bridging</li>
+<li>Add UUID to exported metadata</li>
+<li>Improve Geolocation support with MaxMind DB</li>
+<li>Improve ZMQ export with high flow rate</li>
+<li>Optimize nDPI support</li>
+</ul>
+<h3>Fixes</h3>
+<ul>
+<li>Fix PPPoE support</li>
+</ul>
+<h3>Misc/Changes</h3>
+<ul>
+<li>Disable cento auto start on first install</li>
+<li>Add nDPI package dependency</li>
+<li>Add cento user to the ntop group</li>
+<li>Add libavro dependency</li>
+<li>Migrate from json-c to jansson due to Avro incompatibility</li>
+<li>Package for Ubuntu 24</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/released-cento-2-0-hardware-flow-table-offload-avro-export-and-much-more/">Released Cento 2.0: Hardware Flow Table Offload, Avro Export and Much More</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Advancements in Traffic Processing Using Programmable Hardware Flow Offload</title>
+		<link>https://www.ntop.org/advancements-in-traffic-processing-using-programmable-hardware-flow-offload/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 23 Jul 2024 07:28:50 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[nDPI]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=11249</guid>
+
+					<description><![CDATA[<p>This week we have presented at the IEEE HPSR (IEEE International Conference on High Performance Switching and Routing) our latest work that shows how nProbe can benefit of acceleration provided by modern…</p>
+<p>The post <a href="https://www.ntop.org/advancements-in-traffic-processing-using-programmable-hardware-flow-offload/">Advancements in Traffic Processing Using Programmable Hardware Flow Offload</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>This week we have presented at the <a href="https://hpsr2024.ieee-hpsr.org">IEEE HPSR</a> (IEEE International Conference on High Performance Switching and Routing) our latest work that shows how nProbe can benefit of acceleration provided by modern SmartNICs to achieving multi-100 Gbit traffic processing (both passive and inline) on low-end servers while deep-packet inspecting traffic using nDPI.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-11251 size-large" src="https://www.ntop.org/wp-content/uploads/2024/07/Flow_SmartNIC-658x1024.png" alt="" width="658" height="1024"><br />
+If you want to know more about it, you can view<a href="https://www.ntop.org/wp-content/uploads/2024/07/HPSR_2024_Deri.pdf"> the presentation slides</a>, or read thw <a href="http://luca.ntop.org/NetAccel-AI_2024.pdf">paper</a>.</p>
+<p>Your feedback is welcome. Enjoy !</p>
+<p>The post <a href="https://www.ntop.org/advancements-in-traffic-processing-using-programmable-hardware-flow-offload/">Advancements in Traffic Processing Using Programmable Hardware Flow Offload</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>HowTo Build a 100 Gbit NetFlow Sensor Using nProbe Cento</title>
+		<link>https://www.ntop.org/howto-build-a-100-gbit-netflow-sensor-using-nprobe-cento/</link>
+		
+		<dc:creator><![CDATA[Alfredo Cardigliano]]></dc:creator>
+		<pubDate>Tue, 05 Dec 2023 08:45:12 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[ntop]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=10896</guid>
+
+					<description><![CDATA[<p>When it comes to monitor a distributed network, to get a picture of the Network traffic flowing through the uplinks or on critical Network segments, NetFlow like technologies are usually the answer.…</p>
+<p>The post <a href="https://www.ntop.org/howto-build-a-100-gbit-netflow-sensor-using-nprobe-cento/">HowTo Build a 100 Gbit NetFlow Sensor Using nProbe Cento</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>When it comes to monitor a distributed network, to get a picture of the Network traffic flowing through the uplinks or on critical Network segments, NetFlow like technologies are usually the answer.</p>
+<p><a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a> Pro/Enterprise and <a href="https://www.ntop.org/products/netflow/nprobe-cento/">nProbe Cento</a> are software probes that can be used to build versatile sensors able to export flow information in many different formats, including NetFlow v5/v9/IPFIX, Kafka, Elasticsearch, ClickHouse, MySQL, CSV files, etc. All this at very high speed. nProbe Pro/Enterprise has been designed for low/mid rate (1/10 Gbps) while nProbe Cento has been designed to run at high speed (today we consider 100 Gbit a high-speed link).</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/04/nprobe_cento_100Gbps_probe_and_flow_exporter.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-4880" src="https://www.ntop.org/wp-content/uploads/2016/04/nprobe_cento_100Gbps_probe_and_flow_exporter.png" alt="" width="540" height="99"></a></p>
+<p>This regardless of the collector, that can be a third-party NetFlow collector, or the ntop collector, <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, which takes care of traffic visualization, augmentation, behavioral analysis, alerting, and a myriad of other functionalities. By combining nProbe Cento with ntopng it is possible to build a fully fledged Network monitoring solution for 100 Gbit distributed networks that provides full visibility.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2016/04/nprobe_cento_100Gbps_probe_and_ntopng_data_source.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-4881" src="https://www.ntop.org/wp-content/uploads/2016/04/nprobe_cento_100Gbps_probe_and_ntopng_data_source.png" alt="" width="532" height="101"></a></p>
+<p>A frequent question that we get from those that are willing to use nProbe Cento at high speed is &#8220;What kind of hardware do I need to be able to process 100 Gbps full rate&#8221;? With this post we want to provide some guidelines about hardware selection.</p>
+<h3>Network Adapter</h3>
+<p>In contrast with what happens when running <a href="https://www.ntop.org/ntop/howto-build-a-100-gbit-drop-free-continuous-packet-recorder-using-n2disk-part-3/">n2disk at high speed</a>, where FPGA adapters, like Napatech or Silicom/Fiberblaze, able to operate in segment mode, are mandatory to get the best dump performance, nProbe Cento does not really require expensive adapters. A 100 Gbit probe can be built using commodity, under 1K$, ASIC adapters. What is mandatory here is the support for symmetric RSS. <a href="https://www.ntop.org/guides/pf_ring/rss.html">RSS</a> is used to spread the traffic load across multiple CPU cores by means of multiple data streams, splitting the physical interface into multiple logical interfaces where traffic is distributed according to an hash function computed on packet headers. Using RSS to scale, in combination with <a href="https://www.ntop.org/products/packet-capture/pf_ring/pf_ring-zc-zero-copy/">PF_RING ZC</a> (Zero-Copy) drivers delivering max capture performance, guarantees no packet loss at full 100 Gbit when processing flows.</p>
+<p>For this reason the list of recommended adapters to be used in combination with nProbe Cento at 100 Gbit includes:</p>
+<ul>
+<li>NVIDIA/Mellanox Connect-X 5/6</li>
+<li>Intel E810</li>
+</ul>
+<h3>CPU</h3>
+<p>Not all CPUs are alike. They have different frequency, number of cores, cache size, different level of caches, instruction set, etc. However, in our experience, we can say that a modern CPU (for example a Xeon Gold 6346 3 Ghz or AMD EPYC 9124) is usually able to handle more than 10 Mpps (Million packets per second) per CPU core. Considering the average Internet packet size, a 10 Gbit link usually has 1-3 Mpps. Considering the worst case scenario, a 10 Gbit link can have up to 14.88 Mpps. x10 at 100 Gbit.</p>
+<p>This means that in order to handle 100 Gbps, worst case, we need a CPU with at least 16 cores, 3 Ghz. Less cores may be sufficient on CPUs with higher frequency and a big cache.</p>
+<p>For instance, if we want to build an Intel-based system, we can use a Xeon Gold 6326 or 6346 or higher. If we want to build an AMD-based system, we can use a AMD EPYC 9124 or higher.</p>
+<h3>RAM</h3>
+<p>The RAM configuration for optimal performance mainly depends on the CPU itself:</p>
+<ul>
+<li>Number of modules: this should match the number of memory channels supported by the CPU (check the CPU specs for this)
+<ul>
+<li>Intel Xeon Gold currently supports 8 memory channels</li>
+<li>AMD EPYC supports 12 memory channels for most of the models</li>
+</ul>
+</li>
+<li>Speed: select the higher speed supported by the CPU (check the CPU specs for this)</li>
+<li>Size: considering the minimum size per module (8-16 GB), grabbing the smaller available size usually works just fine (8x 8GB = 64GB are more then enough for nProbe Cento)</li>
+</ul>
+<h3>Storage</h3>
+<div class="page" title="Page 1">
+<div class="section">
+<div class="layoutArea">
+<div class="column">Many users are worried about the storage. The storage does not really matter when running nProbe Cento as it does not really use disk space when data is exported to external collectors using NetFlow, ZMQ, Kafka, or other export formats other than CSV (which are actually written on the local disk). This means that a single small disk, or a RAID-1 2-disks array if you want data recovery for the system disk, is fine.</div>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+<h3>Software Configuration</h3>
+<p>Configuring nProbe Cento is really simple. The actual options to be provided to the command line (or configuration file) may change depending on the working mode and export format, however on the capture side it&#8217;s really straightforward. You should pay attention to 2 main options, the interfaces configuration (-i) and the CPU affinity (&#8211;processing-cores).</p>
+<p>If you are using an Intel adapter and you configured <a href="https://www.ntop.org/guides/pf_ring/get_started/packages_installation.html">ZC drivers</a> with <a href="https://www.ntop.org/guides/pf_ring/rss.html">RSS</a> , all you need to do is to specify the RSS interfaces as below:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="bash">cento -i zc:eth1@0 -i zc:eth1@1 -i zc:eth1@2 -i zc:eth1@3 ...</pre>
+<p>You can also use a shortcut for this, which is convenient especially when running on 16+ RSS streams:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="bash">cento -i zc:eth1@[0-15]</pre>
+<p>If you are using a NVIDIA/Mellanox adapter, you can use a similar syntax:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="bash">cento -i mlx:mlx5_0@[0-15]</pre>
+<p>At this point, we just have to add the CPU affinity configuration, to make sure that nProbe Cento will use all the available cores by binding one thread per core (providing max scalability and overall performance). <strong>lstopo</strong> is a tool that is really useful in understanding the CPU topology and helps you selecting the right cores.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="bash">cento -i mlx:mlx5_0@[0-15] --processing-cores 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15</pre>
+<p>At this point you just have to add the options to control the export format.</p>
+<p>Now you have all the ingredients to build your 100 Gbit sensor.</p>
+<div class="page" title="Page 1">
+<p>Enjoy!</p>
+</div>
+<p>The post <a href="https://www.ntop.org/howto-build-a-100-gbit-netflow-sensor-using-nprobe-cento/">HowTo Build a 100 Gbit NetFlow Sensor Using nProbe Cento</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

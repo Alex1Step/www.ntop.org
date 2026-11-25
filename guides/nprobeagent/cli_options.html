@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+
+<!-- Mirrored from www.ntop.org/guides/nprobeagent/cli_options.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 18:27:34 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Configuration &mdash; nProbe Agent dev documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration File" href="conf_file.html" />
+    <link rel="prev" title="What’s New" href="whats_new.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html" class="icon icon-home">
+            nProbe Agent
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/nprobeagent/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Agent Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#zmq-export">ZMQ Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kafka-export">Kafka Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-mode">Working Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#misc">Misc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conf_file.html">Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_start.html">Run nProbe Agent as a Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="information_elements.html">Information Elements</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">nProbe Agent</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Agent Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/cli_options.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="agent-configuration">
+<span id="clioptions"></span><h1>Agent Configuration<a class="headerlink" href="#agent-configuration" title="Permalink to this heading"></a></h1>
+<p>nProbe Agent supports a few options (command line parameters), to see an updated list please simply enter the command <code class="code docutils literal notranslate"><span class="pre">nprobe-agent</span> <span class="pre">-h</span></code>. Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-h<span class="w">                          </span><span class="p">|</span><span class="w"> </span>Print<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span>
+-v<span class="w">                          </span><span class="p">|</span><span class="w"> </span>Verbose<span class="w"> </span>output
+<span class="o">[</span>-z<span class="p">|</span>--zmq<span class="w"> </span>&lt;option&gt;<span class="o">]</span><span class="w">         </span><span class="p">|</span><span class="w"> </span>Specify<span class="w"> </span>the<span class="w"> </span>ZMQ<span class="w"> </span>endpoint<span class="w"> </span>to<span class="w"> </span>which<span class="w"> </span>JSON<span class="w"> </span>data<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>delivered
+<span class="o">[</span>-k<span class="p">|</span>--kafka<span class="w"> </span>&lt;broker&gt;,&lt;topic&gt;<span class="o">]</span>
+<span class="w">                            </span><span class="p">|</span><span class="w"> </span>Exports<span class="w"> </span>flows<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>specified<span class="w"> </span>Kafka<span class="w"> </span>&lt;topic&gt;,<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>list<span class="w"> </span>of
+<span class="w">                            </span><span class="p">|</span><span class="w"> </span>brokers<span class="w"> </span>retrieved<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>metadata<span class="w"> </span>obtained<span class="w"> </span>from<span class="w"> </span>&lt;broker&gt;
+-e<span class="w">                          </span><span class="p">|</span><span class="w"> </span>Disable<span class="w"> </span>eBPF<span class="w"> </span>polling
+-n<span class="w">                          </span><span class="p">|</span><span class="w"> </span>Disable<span class="w"> </span>Netlink<span class="w"> </span>polling
+-l<span class="w">                          </span><span class="p">|</span><span class="w"> </span>Discard<span class="w"> </span>loopback<span class="w"> </span>information
+-L<span class="w">                          </span><span class="p">|</span><span class="w"> </span>Discard<span class="w"> </span>listening<span class="w"> </span>sockets
+<span class="o">[</span>-V<span class="p">|</span>--version<span class="o">]</span><span class="w">              </span><span class="p">|</span><span class="w"> </span>Display<span class="w"> </span>probe<span class="w"> </span>version
+<span class="o">[</span>-C<span class="p">|</span>--check-license<span class="o">]</span><span class="w">        </span><span class="p">|</span><span class="w"> </span>Checks<span class="w"> </span><span class="k">if</span><span class="w"> </span>the<span class="w"> </span>license<span class="w"> </span>is<span class="w"> </span>present<span class="w"> </span>and<span class="w"> </span>valid
+<span class="o">[</span>-M<span class="p">|</span>--check-maintenance<span class="o">]</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>Checks<span class="w"> </span>the<span class="w"> </span>maintenance<span class="w"> </span>status
+</pre></div>
+</div>
+<p>The most important parameters are briefly discussed in the sections below.</p>
+<section id="zmq-export">
+<h2>ZMQ Export<a class="headerlink" href="#zmq-export" title="Permalink to this heading"></a></h2>
+<p><code class="code docutils literal notranslate"><span class="pre">-z|--zmq</span> <span class="pre">&lt;socket&gt;</span></code></p>
+<blockquote>
+<div><p>Specify an endpoint (e.g., <code class="code docutils literal notranslate"><span class="pre">tcp://*:5556</span></code>) that will be used to deliver flows to subscribers polling the socket. Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe-agent<span class="w"> </span>--zmq<span class="w"> </span>tcp://<span class="se">\*</span>:5556
+</pre></div>
+</div>
+<p>ntopng can be used to analyze the flows generated by nProbe Agent in JSON format through ZMQ.
+When used with ntopng, nProbe Agent can act as a remote and light probe and ntopng as a central
+network monitoring console. Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-i<span class="w"> </span>tcp://*:1234c<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;192.168.2.0/24&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="kafka-export">
+<h2>Kafka Export<a class="headerlink" href="#kafka-export" title="Permalink to this heading"></a></h2>
+<p><code class="code docutils literal notranslate"><span class="pre">-k|--kafka</span> <span class="pre">&lt;broker&gt;,&lt;topic&gt;</span></code></p>
+<blockquote>
+<div><p>Export data to the specified Kafka <code class="code docutils literal notranslate"><span class="pre">&lt;topic&gt;</span></code>. The list of brokers
+which will be used for the export is obtained from the metadata
+retrieved from <code class="code docutils literal notranslate"><span class="pre">&lt;broker&gt;</span></code>.</p>
+<p>Currently, eBPF and Netlink data is exported to the same
+<code class="code docutils literal notranslate"><span class="pre">&lt;topic&gt;</span></code>.</p>
+<p>Assuming a topic named <code class="code docutils literal notranslate"><span class="pre">test</span></code> is available through a
+broker on <code class="code docutils literal notranslate"><span class="pre">127.0.0.1:9092</span></code>, one can use the following configuration</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nprobe-agent<span class="w"> </span>-k<span class="w"> </span><span class="m">127</span>.0.0.1:9092,test
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="working-mode">
+<h2>Working Mode<a class="headerlink" href="#working-mode" title="Permalink to this heading"></a></h2>
+<p><code class="code docutils literal notranslate"><span class="pre">-e</span></code></p>
+<blockquote>
+<div><p>Disables eBPF polling. eBPF provides information about traffic flows (creation, deletion, and updates).
+This includes accept/connect/connection-failed/close/retransmit events for TCP, send/recv for UDP.
+Admin rights (root) are required in order to run eBPF.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-n</span></code></p>
+<blockquote>
+<div><p>Disables Netlink polling. Netlink provides periodic network status information (e.g. established connections) and traffic statistics on interfaces.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-l</span></code></p>
+<blockquote>
+<div><p>Discards information for the loopback interface.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-L</span></code></p>
+<blockquote>
+<div><p>Discards information for listening sockets.</p>
+</div></blockquote>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h2>
+<p><code class="code docutils literal notranslate"><span class="pre">--check-license</span></code></p>
+<blockquote>
+<div><p>Checks if the configured license is valid.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">--check-maintenance</span></code></p>
+<blockquote>
+<div><p>Checks if the configured license is valid and shows maintenance information.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-V|--version</span></code></p>
+<blockquote>
+<div><p>This flag is used to print the nProbe Agent version number and date, as well as other information.</p>
+</div></blockquote>
+</section>
+<section id="misc">
+<h2>Misc<a class="headerlink" href="#misc" title="Permalink to this heading"></a></h2>
+<p><code class="code docutils literal notranslate"><span class="pre">-v</span></code></p>
+<blockquote>
+<div><p>Using this flag, nProbe Agent generates verbose output.</p>
+</div></blockquote>
+<p><code class="code docutils literal notranslate"><span class="pre">-h:</span> <span class="pre">print</span> <span class="pre">help</span></code></p>
+<blockquote>
+<div><p>Prints the nProbe Agent help.</p>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="whats_new.html" class="btn btn-neutral float-left" title="What’s New" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="conf_file.html" class="btn btn-neutral float-right" title="Configuration File" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, ntop.org.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/nprobeagent/cli_options.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 18:27:35 GMT -->
+</html>

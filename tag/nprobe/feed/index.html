@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>nProbe Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/nprobe/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/nprobe/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 21 Oct 2026 09:30:39 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>nProbe Archives - ntop</title>
+	<link>https://www.ntop.org/tag/nprobe/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>NetFlow Collection Performance Using ntopng and nProbe</title>
+		<link>https://www.ntop.org/netflow-collection-performance-using-ntopng-and-nprobe/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 19 Jul 2021 21:15:10 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[netflow]]></category>
+		<category><![CDATA[netflow collection]]></category>
+		<category><![CDATA[performance]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9285</guid>
+
+					<description><![CDATA[<p>Introduction ntopng, in combination with nProbe, can be used to collect NetFlow. Their use for NetFlow collection is described in detail here. In this post we measure the performance of nProbe and…</p>
+<p>The post <a href="https://www.ntop.org/netflow-collection-performance-using-ntopng-and-nprobe/">NetFlow Collection Performance Using ntopng and nProbe</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>Introduction</h3>
+<p>ntopng, in combination with nProbe, can be used to collect NetFlow. Their use for NetFlow collection is described in detail <a href="https://www.ntop.org/guides/ntopng/using_with_other_tools/nprobe.html#usingntopngwithnprobe">here</a>.</p>
+<p>In this post we measure the performance of nProbe and ntopng when used together to collect, analyze, and dump NetFlow data. The idea is to provide performance figures useful to understand the maximum rate at which NetFlow can be processed without loss of data.</p>
+<p>Before giving the actual figures, it is worth discussing briefly the most relevant unit of measure that will be used, i.e., the number of <strong>flows per second</strong> &#8211; <strong>fps</strong> in short. NetFlow is <em>per se</em> a protocol designed to export communication flows. It carries flows inside UDP datagrams, and each UDP datagram carries multiple flows. For this reason, it is natural to choose the number of flows per unit of time when it comes to analyzing the performance of ntopng and nProbe when dealing with NetFlow. Indeed, we will use fps to quantify the number of flows analysed and written to disk when giving performance figures.</p>
+<p>Knowing how much your NetFlow actually accounts for, in terms of fps, is also fundamental to make sense of the figures we are giving and to understand if ntopng and nProbe perform well enough for your network. In general, a few Mbps of NetFlow are able to carry thousands of flows per second. If you do not know the how many flows per second your NetFlow accounts for, you can consider that, as a ballpark figure, <strong>10 Mbps of NetFlow v9 carry approximately 12,000 fps</strong>. Note that this is just a ballpark as the flow size depends on the flow template for v9 and IPFIX.</p>
+<h3>Performance Figures</h3>
+<p>Finally, it&#8217;s time to look at the figures, that are given both for two and four interfaces.</p>
+<table class="matrix">
+<thead></thead>
+<tbody>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Drop-Free Processing Rate / Interface</th>
+<th style="text-align: center;">Overall Drop-Free Processing Rate</th>
+</tr>
+<tr>
+<td style="text-align: left;">2 Interfaces</td>
+<td style="text-align: right;">42 Kfps</td>
+<td style="text-align: right;">84 Kfps</td>
+</tr>
+<tr>
+<td style="text-align: left;">4 Interfaces</td>
+<td style="text-align: right;">25.5 Kfps</td>
+<td style="text-align: right;">102 Kfps</td>
+</tr>
+</tbody>
+</table>
+<p>The rationale of expressing performance numbers for a variable number of interfaces is that multiple interfaces:</p>
+<ul>
+<li>Can be used to effectively balance the NetFlow across multiple cores</li>
+<li>Can be used to keep the traffic of multiple NetFlow sources separated</li>
+</ul>
+<p>However, to give consistent numbers, results are also expressed in terms of <em>fps per interface</em> in the first column. Note also that results apply when using <a href="https://www.ntop.org/guides/ntopng/advanced_features/view_interfaces.html">interface views</a> too and that, when <a href="https://www.ntop.org/guides/ntopng/advanced_features/flows_dump.html#nindex">nIndex</a> flow dump is enabled, the expected reduction in the processing rate is between 2 and 3 Kfps.</p>
+<h3>Example</h3>
+<p>To give a real example that can help you in making sense of the figures above, let&#8217;s consider a case where you want to collect NetFlow at 85 Mbps, i.e., approximately, 100 Kfps. To collect at 100 Kfps, according to the table above, we need at least 3 interfaces. Let&#8217;s set up an ntopng instance with four interfaces to say on the safe side &#8211; traffic is aggregated together using the view with <code class="EnlighterJSRAW" data-enlighter-language="generic">-i view:all</code>.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">./ntopng -i tcp://*:5556c -i tcp://*:5557c -i tcp://*:5558c -i tcp://*:5559c -iview:all -F"nindex"</pre>
+<p>Assuming NetFlow is arriving on port <code class="EnlighterJSRAW" data-enlighter-language="generic">2056</code> and ntopng is running on host <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.225</code>, we can configure nProbe to collect NetFlow and load-balance flows on the four interfaces above as follow</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"> ./nprobe -i none -n none --collector-port 2056 -b 1 -T "@NTOPNG@" --zmq tcp://192.168.2.225:5556 --zmq tcp://192.168.2.225:5557 --zmq tcp://192.168.2.225:5558 --zmq tcp://192.168.2.225:5559 --zmq-probe-mode --collector-passthrough</pre>
+<h3>Final Remarks</h3>
+<p>In this post we have seen the performance figures of ntopng and nProbe when used to collect NetFlow. We have seen how to quantify the <em>flows per second</em> (fps) carried by NetFlow and have also determined that the combination of nProbe and ntopng is suitable for the collection of NetFlow at 100+ Kfps. Figures given are valid for the latest ntopng 4.3 (soon ntopng 5.0 stable) and nProbe 9.5 (soon 9.6 stable), that represent a significant step towards high-speed flow collection. Indeed, their performance exceeds the performance of the previous versions by at <span style="text-decoration: underline;"><em>least a 15%</em></span>.</p>
+<p>You can read more about high-speed flow collection <a href="https://www.ntop.org/nprobe/best-practices-for-high-speed-flow-collection/">here</a> or directly refer to the <a href="https://www.ntop.org/guides/ntopng/operating_ntopng_on_large_networks.html">user guide</a>.</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/netflow-sflow-ipfix-collector-analyzer/">NetFlow, sFlow and IPFIX collector guide</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a></p>
+<p>The post <a href="https://www.ntop.org/netflow-collection-performance-using-ntopng-and-nprobe/">NetFlow Collection Performance Using ntopng and nProbe</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>nProbe IPS: How To setup an Inline Layer-7 Traffic Policer in 5 Minutes</title>
+		<link>https://www.ntop.org/nprobe-ips-how-to-setup-an-inline-layer-7-traffic-policer-in-5-minutes/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 05 Jul 2021 08:59:47 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[inline]]></category>
+		<category><![CDATA[layer7]]></category>
+		<category><![CDATA[policer]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9219</guid>
+
+					<description><![CDATA[<p>Introduction Recently, we have added Intrusion Prevention System (IPS) capabilities to our nProbe. Those capabilities are available starting from the latest 9.5 version, both for Linux and FreeBSD - including OPNsense and…</p>
+<p>The post <a href="https://www.ntop.org/nprobe-ips-how-to-setup-an-inline-layer-7-traffic-policer-in-5-minutes/">nProbe IPS: How To setup an Inline Layer-7 Traffic Policer in 5 Minutes</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<h3>Introduction</h3>
+<p>Recently, we have added <a href="https://www.ntop.org/guides/nprobe/ips_mode.html">Intrusion Prevention System (IPS) capabilities to our nProbe</a>. Those capabilities are available starting from the latest 9.5 version, both for Linux and FreeBSD &#8211; including OPNsense and pfSense, and are available with all nProbe versions and licenses (see the <a href="https://www.ntop.org/products/netflow-probes/nprobe/">product page</a> for additional details).</p>
+<p>On Linux, nProbe leverages the <a href="https://www.netfilter.org/">netfilter</a> framework. In essence, the kernel send packets to nProbe via NF_QUEUE which, in turn, gives each packet a <strong>pass/drop</strong> verdict so that it can be dropped or let it continue its journey through the network. In addition, nProbe has the ability to <a href="https://www.linuxtopia.org/Linux_Firewall_iptables/x4368.html">mark</a> packets to create policies that go beyond the simple pass/drop but can include, <strong>shaping</strong>, <strong>routing</strong>, and so on. Using markers it is also possible to <strong>offload</strong> traffic packets. In essence, once a flow packet has been marked, the kernel can be told to bridge additional flow packets directly, without sending them to nProbe. This is beneficial and allows to reach very good bridging performances. On FreeBSD, the NetFilter framework is not available and nProbe leverages <a href="http://info.iet.unipi.it/~luigi/netmap/">netmap</a>. For this reason, all packets need to be sent to userspace to nProbe. Hence, measured performances are reduced if compared to Linux. The <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe product page</a> reports typical performance figures for both Linux and FreeBSD.</p>
+<p>For those of you who prefer a video resource, here&#8217;s the step-by-step tutorial</p>
+<p style="text-align: center">
+<p>otherwise you can read the rest of this article for details.</p>
+<h3>Creating a Layer-7 Traffic Policer</h3>
+<p>In this post, we create a Layer-7 traffic policer on a Linux machine, put as a <strong>bump-in-the-wire</strong> between the clients we want to policy and the router that handles their traffic. A commodity 4x1Gb Intel 82580 network card installed on the machine is used to bridge the traffic between the clients and the router. nProbe IPS will operate on top of this bridge, that is created with 2 of the 4 interfaces of the network card:</p>
+<ul>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">enp2s0f0</code> is connected to a WiFi access point where clients are connected.</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">enp2s0f1</code> is connected to the Router that in charge of handling clients&#8217; traffic.</li>
+</ul>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge.png"><img fetchpriority="high" decoding="async" class="size-full wp-image-9244 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge.png" alt="" width="640" height="358" /></a></p>
+<p>Packets reaching one of the two bridged interfaces, before being bridged, are sent to nProbe via NFQUEUE that emits a verdict. If the packet verdict is <strong>drop</strong>, then the packet is dropped and not bridged. Otherwise, the packet is allowed to reach the other interface.</p>
+<p>Let&#8217;s now see how to &#8211; quickly and easily &#8211; configure the bridge, NFQUEUE and nProbe to implement the Layer-7 traffic policer.</p>
+<h4>Configuring the Bridge and NFQUEUE</h4>
+<p>This part of the configuration prepares the system to:</p>
+<ul>
+<li>Bridge clients&#8217; traffic</li>
+<li>Send clients&#8217; traffic to nProbe for policy enforcement</li>
+</ul>
+<p>To facilitate the configuration, we have prepared a shell script that takes care of the above. This script, distributed along with any <a href="https://packages.ntop.org/">packaged version of nProbe</a>, becomes automatically available at the following path once nProbe is installed:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"> /usr/share/nprobe/netfilter/scripts/policy_and_bridge_simple.sh</pre>
+<p>The script begins with a brief configuration section that allows interface names to be configured. Interface names are pretty much everything that needs to be specified. After the necessary configuration changes have been applied, the script can be run as <code class="EnlighterJSRAW" data-enlighter-language="generic">./policy_and_bridge_simple.sh</code> to set up the system.</p>
+<p>In short, the script carries out the following tasks. First, it creates a bridge using Linux bridging capabilities. Then, it instructs the kernel to send packets to nProbe, rather than bridging them automatically. This is done with a couple of <code class="EnlighterJSRAW" data-enlighter-language="generic">iptables</code> rules, indicating that packets entering the system from bridged interfaces must go through a NFQUEUE.</p>
+<p>For the sake of example, <code class="EnlighterJSRAW" data-enlighter-language="generic">iptables</code> can be used to send packets entering the system from <code class="EnlighterJSRAW" data-enlighter-language="generic">enp2s0f0</code> and <code class="EnlighterJSRAW" data-enlighter-language="generic">enp2s0f1</code> to the NFQUEUE queue identified with id <code class="EnlighterJSRAW" data-enlighter-language="generic">0</code> as follows:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="shell">iptables -t mangle -A FORWARD -j NFQUEUE --queue-num 0 --queue-bypass -m physdev --physdev-in enp2s0f0
+iptables -t mangle -A FORWARD -j NFQUEUE --queue-num 0 --queue-bypass -m physdev --physdev-in enp2s0f1</pre>
+<h4>Configuring nProbe IPS</h4>
+<p>nProbe, to operate in IPS mode, needs a rules file. Policy rules are applied to groups of hosts (identified with IP or MAC Addresses) and give the ability to pass/drop/mark packets on the basis of their Layer-7 application protocol, Layer-7 application category, country, <a href="https://www.ntop.org/ndpi/introducing-ndpi-risk-analysis-for-cybersecurity-network-traffic-analysis-was-ripple20/">flow risk</a>, and so on.</p>
+<p>A very simple configuration file can be the following</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"># Pool definition
+{"pool":{"id":1,"name":"Local Networks","ip": [ "172.16.12.0/24", "172.16.4.0/24", "192.168.2.0/24"], "mac": []},"policy": {"id": 0} }
+
+# Policy definition
+{"policy":{"id":0,"name":"root policy rule", "default_marker": "pass", "markers": { "categories": { }, "protocols": {"Facebook": "drop" }, "countries": { }, "asn" : { }, "continents" : { } } } }</pre>
+<p>The file basically tells nProbe to drop Facebook traffic (<code class="EnlighterJSRAW" data-enlighter-language="generic">"protocols": {"Facebook": "drop" }</code>) for all hosts belonging to networks <code class="EnlighterJSRAW" data-enlighter-language="generic">"172.16.12.0/24", "172.16.4.0/24", "192.168.2.0/24"</code>. A pass verdict is emitted for all non-Facebook traffic (<code class="EnlighterJSRAW" data-enlighter-language="generic">"default_marker": "pass"</code>).</p>
+<p>Now that the file is ready, assuming it is saved as <code class="EnlighterJSRAW" data-enlighter-language="generic">nprobe-ips.config</code>, nProbe can be started as follows</p>
+<p><code class="EnlighterJSRAW" data-enlighter-language="generic">$ /usr/bin/nprobe --ips-mode nprobe-ips.config -i nf:0 -n none</code></p>
+<p>Relevant options have the following meaning:</p>
+<ul>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">--ips-mode nprobe-ips.config</code> tells to operate in IPS mode and specifies the rules file</li>
+<li><code class="EnlighterJSRAW" data-enlighter-language="generic">nf:0</code> indicates the NFQUEUE queue used by the kernel to send packets to nProbe. Note that this id <code class="EnlighterJSRAW" data-enlighter-language="generic">0</code> MUST match with the id indicated in the configuration of <code class="EnlighterJSRAW" data-enlighter-language="generic">policy_and_bridge_simple.sh</code>. In general, it is safe to use <code class="EnlighterJSRAW" data-enlighter-language="generic">0</code>.</li>
+</ul>
+<p>From this point on, traffic policies are enforced for all clients. For example, this is what happens to one of the client that tries to reach Facebook before and after Layer-7 policer activation.</p>
+<p><a href="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge_drop.jpg"><img decoding="async" class="size-full wp-image-9238 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge_drop.jpg" alt="" width="860" height="361" /></a></p>
+<h3>Conclusion</h3>
+<p>In this post, we have seen how to quickly create a Layer-7 traffic policer on Linux using nProbe IPS. A very simple <code class="EnlighterJSRAW" data-enlighter-language="generic">"protocols": {"Facebook": "drop" }</code> policy has been created just for the sake of example. In practice, nProbe IPS is flexible enough to <a href="https://www.ntop.org/guides/nprobe/ips_mode.html">create complex policies</a> using also Layer-7 categories, countries, autonomous systems and so on.</p>
+<p>Moreover, by leveraging packet marks, effective kernel traffic offload and traffic shaping can be implemented. There are scripts distributed with any packaged version of nProbe available under <code class="EnlighterJSRAW" data-enlighter-language="generic">/usr/share/nprobe/netfilter/</code> that can be used for reference when implementing offload and shaping.</p>
+<p>The post <a href="https://www.ntop.org/nprobe-ips-how-to-setup-an-inline-layer-7-traffic-policer-in-5-minutes/">nProbe IPS: How To setup an Inline Layer-7 Traffic Policer in 5 Minutes</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Measuring nProbe ElasticSearch Flow Export Performance</title>
+		<link>https://www.ntop.org/measuring-nprobe-elasticsearch-flow-export-performance/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Fri, 12 Jul 2019 12:55:38 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[elasticsearch]]></category>
+		<category><![CDATA[export]]></category>
+		<category><![CDATA[netflow]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7753</guid>
+
+					<description><![CDATA[<p>nProbe (via its export plugin) supports ElasticSearch flows export. Setting up nProbe for the ElasticSearch export is a breeze, it just boils down to specifying option --elastic. For example, to export NetFlow…</p>
+<p>The post <a href="https://www.ntop.org/measuring-nprobe-elasticsearch-flow-export-performance/">Measuring nProbe ElasticSearch Flow Export Performance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>nProbe (via its export plugin) supports ElasticSearch flows export. Setting up nProbe for the ElasticSearch export is a breeze, it just boils down to specifying option <code class="EnlighterJSRAW" data-enlighter-language="generic">--elastic</code>. For example, to export NetFlow flows collected on port <code class="EnlighterJSRAW" data-enlighter-language="generic">2058</code> (<code class="EnlighterJSRAW" data-enlighter-language="generic">--collector-port 2058</code>)  to an ElasticSearch cluster running on <code class="EnlighterJSRAW" data-enlighter-language="generic">localhost</code> port <code class="EnlighterJSRAW" data-enlighter-language="generic">9200</code>, one can use the following</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">nprobe -i none -n none --collector-port 2058 --elastic "flows;nprobe-%Y.%m.%d;http://localhost:9200/_bulk"</pre>
+<p>nProbe will take care of pushing a template to ElasticSearch to have IP fields properly indexed, and will also POST flows in bulk to maximize the performance.</p>
+<p>Recently we&#8217;ve done several improvements to the nProbe performance (you need to use the latest dev nProbe version) when it comes to export flows to ElasticSearch and therefore we believe it is time to publish some official numbers.</p>
+<p>Performance tests have been run on an Intel(R) Xeon(R) CPU E3-1230 v3 @ 3.30GHz machine with 16GB RAM with both nProbe and ElasticSearch:</p>
+<ul>
+<li>OS: Ubuntu 16.04.6 LTS</li>
+<li>nProbe v.8.7.190712 (r6564)</li>
+<li>ElasticSearch 6.8.1</li>
+</ul>
+<p>In order to measure the export performance, we&#8217;ve pushed NetFlow at increasing rates using <code class="EnlighterJSRAW" data-enlighter-language="generic">pfsend</code> as described in <a href="https://www.ntop.org/nprobe/measuring-ntopngnprobe-flow-processing-performance/">another post</a> and we&#8217;ve disabled nProbe internal caches (<code class="EnlighterJSRAW" data-enlighter-language="generic">--disable-cache</code>).</p>
+<p>We&#8217;ve seen that the maximum number of flows per second that a single nProbe instance (but remember you can instantiate one instance per-core on a multicore system, all sharing the same license) can export to ElasticSearch is <strong>approximately 45,000 flows per second</strong>. Above that threshold, flows will be dropped, that is, it won&#8217;t be possible to bulk-POST the incoming NetFlow fast enough.</p>
+<p>For the sake of completeness, this is the full nprobe command used in the tests</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">./nprobe -i none -n none --collector-port 2058 -T "@NTOPNG@" --elastic "flows;nprobe-%Y.%m.%d;http://localhost:9200/_bulk" --disable-cache -b 1</pre>
+<p>We&#8217;ve also extended nProbe export stats shown when using option <code class="EnlighterJSRAW" data-enlighter-language="generic">-b=1</code> to accurately report the rates. This allowed us to make the measurements and will also allow you to accurately monitor the performance of nProbe. Note that the drops you are seeing below are normal as we pushed nProbe above its limit to see the maximum successful flow export rate.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">12/Jul/2019 12:54:26 [nprobe.c:3448] ElasticSearch flow exports (successful) [1307219 flows][avg: 42168.4 flows/sec][latest 30 seconds: 42372.5 flows/sec]
+12/Jul/2019 12:54:26 [nprobe.c:3455] ElasticSearch flow drops [export queue full: 311977][post failed: 0]
+12/Jul/2019 12:54:56 [nprobe.c:3448] ElasticSearch flow exports (successful) [2655429 flows][avg: 43531.6 flows/sec][latest 30 seconds: 44940.3 flows/sec]
+12/Jul/2019 12:54:56 [nprobe.c:3455] ElasticSearch flow drops [export queue full: 560827][post failed: 0]
+12/Jul/2019 12:55:26 [nprobe.c:3448] ElasticSearch flow exports (successful) [4036654 flows][avg: 44358.8 flows/sec][latest 30 seconds: 46040.8 flows/sec]
+12/Jul/2019 12:55:26 [nprobe.c:3455] ElasticSearch flow drops [export queue full: 778416][post failed: 0]</pre>
+<p>The main advantage of the direct export to ELK instead of using intermediate tools such as LogStash is that you can do it more efficiently and without having to configure too many intermediate components. Please also note that you can obtain similar figures when using the nProbe to export flows towards Kafka using the export plugin.</p>
+<p>Enjoy!</p>
+<p>The post <a href="https://www.ntop.org/measuring-nprobe-elasticsearch-flow-export-performance/">Measuring nProbe ElasticSearch Flow Export Performance</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How to export BGP routing information (AS Path) in network flows</title>
+		<link>https://www.ntop.org/how-to-export-bgp-routing-information-as-path-in-network-flows/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 28 Feb 2019 07:58:23 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[bgp]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=7404</guid>
+
+					<description><![CDATA[<p>Tools like traceroute have been used for a long time to track the forward path of packets, i.e. the journey of our packets to a remote destination. Unfortunately with traceroute nothing can…</p>
+<p>The post <a href="https://www.ntop.org/how-to-export-bgp-routing-information-as-path-in-network-flows/">How to export BGP routing information (AS Path) in network flows</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Tools like traceroute have been used for a long time to track the forward path of packets, i.e. the journey of our packets to a remote destination. Unfortunately with traceroute nothing can be said about the path of ingress packets, it not assuming that routing is symmetrical, fact that is often not correct. For this reason we have designed a solution that allows path information to be report in emitted flows. As the most popular exterior gateway protocol used on the internet is <a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol">BGP</a>, we have designed a tool that allows nProbe to receive BGP messages and use them to infer routing information. Using the nProbe BGP plugin it is possible to export the first ten Autonomous Systems (ASes) in both the AS-path to the client and to the server of each flow.</p>
+<p>AS-paths, which are well-known mandatory BGP attributes, are determined by establishing a BGP session with a BGP-router. BGP sessions are established by an helper script <code class="EnlighterJSRAW" data-enlighter-language="generic">bgp_probe_client.pl</code> which encapsulates all of the functionality needed to establish and maintain a BGP peering session and exchange routing update information. Specifically, the script:</p>
+<ul>
+<li>Establishes a BGP session with a BGP-router</li>
+<li>Reads BGP updates to extract AS-paths</li>
+<li>Sends AS-paths to nProbe<a href="https://www.ntop.org/wp-content/uploads/2019/02/nprobe_plugins_bgp.png"><img decoding="async" class="size-full wp-image-7406 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/02/nprobe_plugins_bgp.png" alt="" width="642" height="84" /></a></li>
+</ul>
+<p>The script is opensource and can be downloaded from <a href="https://github.com/ntop/nProbe/tree/master/bgp">GitHub</a>.</p>
+<p>nProbe uses AS-paths received from the script to export additional elements <code class="EnlighterJSRAW" data-enlighter-language="generic">SRC_AS_PATH_1, ..., SRC_AS_PATH_1</code>0 and <code class="EnlighterJSRAW" data-enlighter-language="generic">DST_AS_PATH_1, ..., DST_AS_PATH_10</code>, indicating up to the first 10 ASes in the AS-path to the client and to the server. Those elements can be specified in the nProbe template (option <code class="EnlighterJSRAW" data-enlighter-language="generic">-T</code>) as any other regular element.</p>
+<p>So for example, one can export the first 8 ASes of the client and the server of flows monitored from interface <code class="EnlighterJSRAW" data-enlighter-language="generic">eth1</code> as follows:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">sudo ./nprobe --bgp-port 9999 --zmq "tcp://*:5556" -i eth1 -n none -T "@NTOPNG@ %SRC_TOS %DST_TOS %INPUT_SNMP %OUTPUT_SNMP %SRC_AS_PATH_1 %SRC_AS_PATH_2 %SRC_AS_PATH_3 %SRC_AS_PATH_4 %SRC_AS_PATH_5 %SRC_AS_PH_6 %SRC_AS_PATH_7 %SRC_AS_PATH_8 %DST_AS_PATH_1 %DST_AS_PATH_2 %DST_AS_PATH_3 %DST_AS_PATH_4 %DST_AS_PATH_5 %DST_AS_PATH_6 %DST_AS_PATH_7 %DST_AS_PATH_8"</pre>
+<p>Apart from the well-known options, the extra <code class="EnlighterJSRAW" data-enlighter-language="generic">--bgp-port 9999</code> is required for the communications between nProbe and the <code class="EnlighterJSRAW" data-enlighter-language="generic">bgp_probe_client.pl</code>.</p>
+<p>For an in-depth description of the plugin, refer to the official <a href="https://www.ntop.org/guides/nprobe/plugins/bgp.html">nProbe documentation</a>. Keep in mind that the BGP plugin also works when nProbe is collector mode.</p>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/how-to-export-bgp-routing-information-as-path-in-network-flows/">How to export BGP routing information (AS Path) in network flows</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Network Monitoring 101: A Beginner&#8217;s Guide to Understanding ntop Tools</title>
+		<link>https://www.ntop.org/network-monitoring-101-a-beginners-guide-to-understanding-ntop-tools/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 22 Jan 2018 10:14:19 +0000</pubDate>
+				<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=6020</guid>
+
+					<description><![CDATA[<p>The first important step to start with network monitoring is to analyze what we want to monitor and how to deploy the monitoring solution in the existing network. Here are some important…</p>
+<p>The post <a href="https://www.ntop.org/network-monitoring-101-a-beginners-guide-to-understanding-ntop-tools/">Network Monitoring 101: A Beginner&#8217;s Guide to Understanding ntop Tools</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>The first important step to start with network monitoring is to analyze what we want to monitor and how to deploy the monitoring solution in the existing network.</p>
+<p>Here are some important questions to ask ourselves before starting the actual monitoring:</p>
+<ul>
+<li>Do we need to monitor the entire network or just a specific segment?</li>
+<li>Do we already have network appliances with network flow export capabilities (e.g. NetFlow/sFlow devices)?</li>
+<li>Can we use port mirroring of a switch or a network TAP?</li>
+<li>Where are we deploying our network monitoring appliances to get visibility on the traffic of interest?</li>
+<li>Do we have a NAT/routers which possibly hides IP/MAC addresses? Can we place our monitor appliance before the actual NAT/router?</li>
+<li>Do we need full L7 application traffic analysis capabilities or we can go with a simpler port based approach?</li>
+</ul>
+<p>In this article we will see how to deploy ntopng and optionally nProbe to fulfill some common network analysis requirements.</p>
+<p>nProbe is a powerful network probe. It supports many standard flow formats as Netflow sFlow and IPFIX. nProbe itself does not provide a Graphical User Interface (GUI). When coupled with ntopng, however, it allows us to monitor traffic and display it on the ntopng GUI.</p>
+<p>ntopng is a full-featured network monitoring tool. It provides a web GUI to access accurate monitoring data. It provides detailed views on active hosts, flows, IP addresses, Mac addresses, Autonomous systems. It cam be used to monitor and report live throughput, network and application latencies, Round Trip Time (RTT), TCP statistics (retransmissions, out of order packets, packet lost), and bytes and packets transmitted.</p>
+<p>Let&#8217;s now review some of the most common network monitoring use cases with ntopng.</p>
+<h3>Monitoring Netflow/sFlow Traffic</h3>
+<p>If our network appliances supports the Netflow/sFlow flow export, we can send flows data to a remote server running ntopng. This setup is not appropriate if we need detailed L7 application dissection or per-packet realtime analysis. We will need to set up nProbe as an intermediate flow collector, which in turn will send flows to ntopng. The ntopng dashboard visualization will not be &#8220;real-time&#8221; actually as there are some export timeouts (both into nProbe and into the NetFlow appliance) involved.</p>
+<p>In this example we have a Netflow capable router. We have to configure the router to export flows to nprobe. From the router admin interface (typically a web GUI), we configure Netflow export to our nProbe running server by specifying its IP address as well as a port, say <code class="EnlighterJSRAW" data-enlighter-language="shell">2055</code>.</p>
+<p>Now we have to configure nProbe to receive the Netflow data. We do this by creating the file <code class="EnlighterJSRAW" data-enlighter-language="shell">/etc/nprobe/nprobe-none.conf</code> on the nProbe host:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">--zmq="tcp://*:5556"
+-T="@NTOPNG@"
+-i=none
+-n=none
+--collector-port=2055</pre>
+<p>We are also telling nProbe to send the flows to ntopng. This intermediate step is needed as ntopng does not know talk Netflow so nProbe acts like a translator.</p>
+<p>Now we have to set up ntopng. Let&#8217;s install ntopng and configure it to receive flows from nProbe. Let&#8217;s modify <code class="EnlighterJSRAW" data-enlighter-language="shell">/etc/ntopng/ntopng.conf</code>:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">-i="tcp://127.0.0.1:5556"
+--local-networks="172.16.1.0/24,172.16.2.0/24"</pre>
+<p>We are also telling ntopng which are the local networks to monitor, in this example <code class="EnlighterJSRAW" data-enlighter-language="shell">172.16.1.0/24</code> and <code class="EnlighterJSRAW" data-enlighter-language="shell">172.16.2.0/24</code>. ntopng will mark hosts belonging to that networks as &#8220;local&#8221; and this will enable their historical data to be saved to disk.</p>
+<p>After setting up the configuration files, we have to enable and start the system services:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">systemctl enable ntopng
+systemctl enable nprobe@none
+systemctl restart ntopng
+systemctl restart nprobe@none</pre>
+<p>If we have many Netflow appliances we can direct all of the to exports flows to our single nprobe instance. In ntopng, we can then split the incoming traffic by using the Dynamic Interfaces Disaggregation from the ntopng preferences.</p>
+<h3>Monitoring a Port Mirror/TAP</h3>
+<p>In this example we have an appliance which mirrors the packets using a SPAN port. With this setup we can perform full L7 packet analysis and get a realtime view of the traffic.</p>
+<p>We only need to set up ntopng to listen from the network interface connected to the SPAN port. Ideally the network interface should not have an IP address as it should only be used to receive the mirrored traffic.</p>
+<p>The ntopng setup is really simple: we only need to tell it to monitor the <code class="EnlighterJSRAW" data-enlighter-language="shell">-i</code>nterface connected to the span port. Supposing the interface is <code class="EnlighterJSRAW" data-enlighter-language="shell">eth1</code>, the correspondent <code class="EnlighterJSRAW" data-enlighter-language="shell">/etc/ntopng/ntopng.conf</code> file will be:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">-i=eth1
+--local-networks="192.168.1.0/24"</pre>
+<p>Remember to restart the ntopng service after applying the changes.</p>
+<h3>Monitoring Multiple Locations</h3>
+<p>We may need to deploy multiple probes in our network to capture traffic at different points. We can use a single ntopng to gather all the information from the probes. Let&#8217;s assume we have two nProbe instances running on two different hosts, one at IP <code class="EnlighterJSRAW" data-enlighter-language="shell">192.168.10.10</code> and the other on <code class="EnlighterJSRAW" data-enlighter-language="shell">192.168.20.20</code>. ntopng runs on a separate host with IP address <code class="EnlighterJSRAW" data-enlighter-language="shell">1.2.3.4</code>. We assume that the probes read traffic from local SPAN ports, connected on the interface <code class="EnlighterJSRAW" data-enlighter-language="shell">eth0</code> of each probe.</p>
+<p>The first nprobe configuration (<code class="EnlighterJSRAW" data-enlighter-language="shell">/etc/nprobe/nprobe-eth0.conf</code> on host <code class="EnlighterJSRAW" data-enlighter-language="shell">192.168.10.10</code>) is:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">--zmq="tcp://1.2.3.4:5556"
+-T="@NTOPNG@"
+-i=eth0</pre>
+<p>The second nprobe configuration (<code class="EnlighterJSRAW" data-enlighter-language="shell">/etc/nprobe/nprobe-eth0.conf</code> on host <code class="EnlighterJSRAW" data-enlighter-language="shell">192.168.20.20</code>) is:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">--zmq="tcp://1.2.3.4:5557"
+-T="@NTOPNG@"
+-i=eth0</pre>
+<p>The ntopng configuration file <code class="EnlighterJSRAW" data-enlighter-language="shell">/etc/ntopng/ntopng.conf</code> will contain:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">-i="tcp://*:5556c"
+-i="tcp://*:5557c"
+--local-networks="192.168.10.0/24,192.168.20.0/24"</pre>
+<p>We enable and start the <code class="EnlighterJSRAW" data-enlighter-language="shell">nprobe@eth0</code> service on both probes, then enable and start the ntopng service. The ntopng GUI will show two network interfaces, each one represents one remote probe and its related traffic.</p>
+<p>For advanced nProbe and ntopng communication see <a href="https://www.ntop.org/nprobe/advanced-flow-collection-with-ntopng-and-nprobe/">https://www.ntop.org/nprobe/advanced-flow-collection-with-ntopng-and-nprobe/</a> .</p>
+<p class="ntop-related-links"><strong>Related:</strong> <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>, <a href="https://www.ntop.org/network-traffic-analysis-software/">Network traffic analysis software</a></p>
+<p>The post <a href="https://www.ntop.org/network-monitoring-101-a-beginners-guide-to-understanding-ntop-tools/">Network Monitoring 101: A Beginner&#8217;s Guide to Understanding ntop Tools</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>nProbe 8.2 stable is out &#8211; A Wink At Next-Gen ASA Firewalls</title>
+		<link>https://www.ntop.org/nprobe-8-2-stable-is-out-a-wink-at-next-gen-asa-firewalls/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Mon, 04 Dec 2017 08:55:44 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<category><![CDATA[release]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5958</guid>
+
+					<description><![CDATA[<p>We are pleased to announce that the new 8.2 release of nProbe is out. This release features full Cisco ASA NetFlow support. ASA are industry’s first threat-focused next-generation firewalls that export a…</p>
+<p>The post <a href="https://www.ntop.org/nprobe-8-2-stable-is-out-a-wink-at-next-gen-asa-firewalls/">nProbe 8.2 stable is out &#8211; A Wink At Next-Gen ASA Firewalls</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>We are pleased to announce that the new 8.2 release of nProbe is out. This release features full Cisco ASA NetFlow support. ASA are industry’s first threat-focused next-generation firewalls that export a rich set of information through NetFlow. Being able to collect ASA data using nProbe will give you an advantage over collectors that only interpret standard NetFlow. Collected data can also be sent to ntopng over ZMQ to actually create a very effective solution for the monitoring and visualization of firewall-generated data.</p>
+<p>ZMQ-based data export has been greatly improved in this release, too. ZMQ, a high-performance asynchronous messaging library, has always been used to send collected and monitored data from nProbe to ntopng in a JSON-encoded format. Nonetheless, some peculiarities of the JSON-encoded format were preventing ultra-high throughputs from being reached when exchanging data over ZMQ. This release heavily uses batching and compression to remove any possible bottleneck occurring in ZMQ communications.</p>
+<p>nProbe binary packages are available at <a href="http://packages.ntop.org/">http://packages.ntop.org/</a>.</p>
+<p>The full list of new features and changes present in this release is the following:</p>
+<h5>Main New Features</h5>
+<ul>
+<li>Support for multiple &#8211;zmq endpoints to load-banace exported flows in a round-robin fashion</li>
+<li>Full support for NetFlow exported by ASA, including firewall events and cumulative counters</li>
+<li>MySQL database interoperability with ntopng using template -T &#8220;@NTOPNG@&#8221;</li>
+</ul>
+<h5>New Options</h5>
+<ul>
+<li>Added &#8211;plugin-dir &lt;dir&gt; for loading plugins from the specified directory</li>
+</ul>
+<h5>Extensions</h5>
+<ul>
+<li>bgpNextHop support</li>
+<li>sFlow
+<ul>
+<li>Improved sFlow upscale algorithm and added heuristic to prevent sFlow exporters bugs</li>
+<li>Fixed throughput calculation and upsampling of sFlow traffic</li>
+</ul>
+</li>
+<li>Full systemd support for Debian, Ubuntu, Centos, and Raspbian</li>
+<li>Fixes wrong flow first/last calculations when collecting IPFIX</li>
+<li>Added support for flowDurationMillis Fixed bug for properly handling flowStart/flowEndMillis</li>
+</ul>
+<p>The post <a href="https://www.ntop.org/nprobe-8-2-stable-is-out-a-wink-at-next-gen-asa-firewalls/">nProbe 8.2 stable is out &#8211; A Wink At Next-Gen ASA Firewalls</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Stream That Flow: How to Publish nProbe/Cento Flows in a Kafka Cluster</title>
+		<link>https://www.ntop.org/stream-that-flow-how-to-inject-nprobe-cento-flows-in-a-kafka-cluster/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Thu, 01 Dec 2016 12:20:57 +0000</pubDate>
+				<category><![CDATA[cento]]></category>
+		<category><![CDATA[tutorials]]></category>
+		<category><![CDATA[flows]]></category>
+		<category><![CDATA[kafka]]></category>
+		<category><![CDATA[nProbe]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=5143</guid>
+
+					<description><![CDATA[<p>Apache Kafka can be used across an organization to collect data from multiple sources and make them available in standard format to multiple consumers, including Hadoop, Apache HBase, and Apache Solr. nProbe…</p>
+<p>The post <a href="https://www.ntop.org/stream-that-flow-how-to-inject-nprobe-cento-flows-in-a-kafka-cluster/">Stream That Flow: How to Publish nProbe/Cento Flows in a Kafka Cluster</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p><a href="https://kafka.apache.org">Apache Kafka</a> can be used across an organization to collect data from multiple sources and make them available in standard format to multiple consumers, including Hadoop, Apache HBase, and Apache Solr. <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nProbe</a> &#8212; and it&#8217;s ultra-high-speed sibling <a href="https://www.ntop.org/products/netflow/nprobe-cento/">nProbe cento</a> &#8212; integration with the Kafka messaging system makes them good candidates source of network data. The delivery of network data to a redundant, scalable, and fault-tolerant messaging system such as Kafka enables companies to protect their data even <em>in-flight</em>, that is, when the consolidation in a database has still to occur.</p>
+<p>An impatient reader who is eager to use Cento for delivering flows to a Kafka cluster having a broker at address 127.0.0.1:9092 on a topic named &#8220;topicFlow can use the following command</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/code/cento$ ./cento -i eth0 --kafka “127.0.0.1:9092;topicFlows"</pre>
+<p>Readers who are interested in learning more about Cento and Kafka should continue reading this article that starts by describing Cento-Kafka publishing mechanisms and then moves to a real configuration example. Finally, in the appendix, it describes how to setup Kafka both in a single- and multi-broker fashion.</p>
+<p><em>Cento will be used in the remainder of this article to carry on the discussion. Examples and configurations given work, mutatis mutandis, also for nProbe.</em></p>
+<h1>Publishing nProbe Cento Flows to Kafka</h1>
+<p>Cento publish flow “messages” into a Kafka cluster by sending them to one or more Kafka brokers responsible for a given topic. Both the topic and the list of Kafka brokers are submitted using a command line option. Initially, Cento tries to contact one or more user-specified brokers to retrieve Kafka cluster metadata. Metadata include, among other things, the <em>full</em> list of brokers available in the cluster that are responsible for a given topic, and the available topic partitions. Cento will use the retrieved full list of brokers to push flow “messages” in a round robin fashion to the various partitions.</p>
+<p>Cento also features optional message compression and message acknowledgement policy specification. Acknowledgment policies make it possible to totally avoid waiting for acknowledgements, to wait only for the Kafka leader acknowledgement, or to wait for an acknowledgment from every replica.</p>
+<h3></h3>
+<h2>Setting Up Cento</h2>
+<p class="p1"><span class="s1">Let’s say Cento has to monitor interface eth1 and has to export generated flows to Kafka topic “topicFlows”. The following command will do the magic</span></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/code/cento$ ./cento -i eth0 --kafka “127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094;topicFlows"</pre>
+<p class="p1"><span class="s1">The command above assumes flows have to be exported on topic topicFlows and that there are three brokers listening on localhost, on ports 9092, 9093 and 9094 respectively. These Kafka brokers are shown also in the picture below together with the running Cento instance</span></p>
+<figure id="attachment_5156" aria-describedby="caption-attachment-5156" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/06-kafka-three-brokers-with-cento.png"><img loading="lazy" decoding="async" class="wp-image-5156 size-large" src="https://www.ntop.org/wp-content/uploads/2016/10/06-kafka-three-brokers-with-cento-1024x576.png" alt="06-kafka-three-brokers-with-cento" width="1024" height="576" /></a><figcaption id="caption-attachment-5156" class="wp-caption-text">Three Kafka Brokers (top and bottom left). Cento exporting to the brokers (bottom right).</figcaption></figure>
+<h3>Consuming Cento Flows</h3>
+<p>For the sake of example, the command-line script kafka-console-consumer.sh available in the bin/ folder of the Kafka sources is used to read messages from a Kafka topic (see the appendix for instructions on how to get it). In order to consume flows in the topicFlows we can use the command line-script as follows</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic topicFlows --from-beginning</pre>
+<p>Below is an image that shows flows that are being consumed from the Kafka cluster.</p>
+<figure id="attachment_5155" aria-describedby="caption-attachment-5155" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/07-kafka-three-brokers-with-cento-consume-flows.png"><img loading="lazy" decoding="async" class="wp-image-5155 size-large" src="https://www.ntop.org/wp-content/uploads/2016/10/07-kafka-three-brokers-with-cento-consume-flows-1024x576.png" alt="07-kafka-three-brokers-with-cento-consume-flows" width="1024" height="576" /></a><figcaption id="caption-attachment-5155" class="wp-caption-text">Three Kafka Brokers (top and bottom left). Cento exporting to the brokers (bottom right). The command line consumer (middle right)</figcaption></figure>
+<p>Note that flows can be consumed by any custom application that can interact with Kafka.</p>
+<h3>Cento and Kafka Topics</h3>
+<p>Cento takes as input a topic, that is, a string representing the generated stream of data inside Kafka. Topics can be partitioned and replicated. With reference to the topic being used, Cento has the following behavior:</p>
+<ul>
+<li>If the topic doesn&#8217;t exist in the Kafka cluster, then Cento creates it with a single partition and replication factor 1</li>
+<li>If the topic exists in the Kafka cluster, then Cento uses the existing topic and will send flows to the whole set of partitions in round-robin.</li>
+</ul>
+<p>So, if the user is OK with a single-partition topic can simply fire up Cento that will create it. If more complex topic configurations are needed, then the topic has to be created in advance using, for example, the helper script kafka-topics.sh. We refer the interested reader to the remainder of this section for a detailed discussion on the Kafka setup and its topics.</p>
+<p>&nbsp;</p>
+<h1>Appendix</h1>
+<h2>Setting Up Kafka</h2>
+<h3>Prerequisites</h3>
+<h4>Getting Kafka</h4>
+<p>The latest version of Kafka can be downloaded from <a href="https://kafka.apache.org/downloads">https://kafka.apache.org/downloads</a>. Download the latest tar archive (kafka_2.11-0.10.1.0.tgz at the time of writing), extract it, and navigate into the decompressed folder.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:wget http://apache.panu.it/kafka/0.10.1.0/kafka_2.11-0.10.1.0.tgz
+ntopPC:~/kafka$ tar xfvz kafka_2.11-0.10.1.0.tgz
+ntopPC:~/kafka$ cd kafka_2.11-0.10.1.0/
+ntopPC:~/kafka/kafka_2.11-0.10.1.0$ ls
+bin config libs LICENSE logs NOTICE site-docs</pre>
+<h3>Starting Zookeeper</h3>
+<p>Kafka uses Zookeeper to store a great deal of status information that includes, but is not limited to, the topics managed by each broker. An healthy Zookeeper installation consists of at least three distributed nodes. In this example, we will just start a quick-and-dirty zookeeper on the same machine that will run Kafka. This represents a single point of failure and should be absolutely avoided in production environments.</p>
+<p>To start the zookeeper we can simply use the one that is shipped with Kafka as follows</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ ./bin/zookeeper-server-start.sh config/zookeeper.properties
+[...]
+[2016-10-23 12:50:02,402] INFO binding to port 0.0.0.0/0.0.0.0:2181 (org.apache.zookeeper.server.NIOServerCnxnFactory)</pre>
+<h3>Starting a Kafka Broker</h3>
+<p>Now that Zookeeper is up and running it is possible to start a Kafka broker by using the default configuration found under config/server.properties. Upon startup, the broker will contact the Zookeeper instance to exchange and agree on some status variables.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ ./bin/kafka-server-start.sh config/server.properties
+[...]
+[2016-10-23 12:52:01,510] INFO [Kafka Server 0], started (kafka.server.KafkaServer)
+
+</pre>
+<h3>Creating a Kafka test Topic</h3>
+<p>A simple test Kafka topic with just one partition an replication factor 1 can be created using the kafka-topics.sh helper script.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test</pre>
+<p>Graphically, topic creation is show in the following image.</p>
+<figure id="attachment_5161" aria-describedby="caption-attachment-5161" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/01-kafka-create-topic-test.png"><img loading="lazy" decoding="async" class="wp-image-5161 size-large" src="https://www.ntop.org/wp-content/uploads/2016/10/01-kafka-create-topic-test-1024x576.png" alt="01-kafka-create-topic-test" width="1024" height="576" /></a><figcaption id="caption-attachment-5161" class="wp-caption-text">The running kafka broker (top left); the running zookeeper (top right) and the command issued to create the test topic (bottom).</figcaption></figure>
+<h3>Producing Messages on a test Topic</h3>
+<p>A command-line producer available in the bin/ folder can be used to test and see if the Kafka deployment can receive messages. The script will send messages (one per line) unless Ctrl+C is pressed to exit. In the following example two &#8220;ntop test&#8221; messages are produced and sent to the broker listening on localhost port 9092.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+ntop test 01
+ntop test 02</pre>
+<h3>Consuming messages on a test Topic</h3>
+<p>A command-line consumer available in the bin/ folder can be used to read messages from a Kafka topic. In the following snippet the script is used to consume the two &#8220;ntop test&#8221; messages produced above. The script will wait for new messages until Ctrl+C will be pressed to exit.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+ntop test 01
+ntop test 02</pre>
+<p>Following is an image that shows how to consume messages from the topic.</p>
+<figure id="attachment_5159" aria-describedby="caption-attachment-5159" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/03-kafka-console-topics.png"><img loading="lazy" decoding="async" class="size-large wp-image-5159" src="https://www.ntop.org/wp-content/uploads/2016/10/03-kafka-console-topics-1024x576.png" alt="Top: the kafka broker (left) and the Zookeeper (right). Bottom: The command-line consumer" width="1024" height="576" /></a><figcaption id="caption-attachment-5159" class="wp-caption-text">Top: the kafka broker (left) and the Zookeeper (right).<br />Bottom: The command-line consumer</figcaption></figure>
+<h3>Multi-Broker</h3>
+<p>A real Kafka cluster consist of multiple brokers. In the remainder of this section is is shown how to add two extra Kafka brokers to the cluster that is already running the broker started above. In order to add the two kafka brokers two configuration files must be created. They can be copied from the default configuration file found in config/server.properties.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ cp config/server.properties config/server-1.properties
+ntopPC:~/kafka/kafka_2.11-0.10.1.0$ cp config/server.properties config/server-2.properties</pre>
+<p>The two files will carry configuration information for two different brokers:</p>
+<ul>
+<li>server-1.properties configures a broker as follows: broker id 1; listen on localhost port 9092 and log in /tmp/kafka-logs-1</li>
+<li>server-2.properties configures a broker as follows: broker id 2; listen on localhost port 9093 and log in /tmp/kafka-logs-2</li>
+</ul>
+<p>The relevant part of the configuration files is the following.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ cat config/server-{1,2}.properties | egrep '(id|listeners|logs)'
+# The id of the broker. This must be set to a unique integer for each broker.
+broker.id=1
+# listeners = security_protocol://host_name:port
+# listeners = PLAINTEXT://your.host.name:9092
+listeners=PLAINTEXT://:9093
+# it uses the value for "listeners" if configured. Otherwise, it will use the value
+#advertised.listeners=PLAINTEXT://your.host.name:9092
+log.dirs=/tmp/kafka-logs-1
+# every N messages (or both). This can be done globally and overridden on a per-topic basis.
+# A size-based retention policy for logs. Segments are pruned from the log as long as the remaining
+# The id of the broker. This must be set to a unique integer for each broker.
+broker.id=2
+# listeners = security_protocol://host_name:port
+# listeners = PLAINTEXT://your.host.name:9092
+listeners=PLAINTEXT://:9094
+# it uses the value for "listeners" if configured. Otherwise, it will use the value
+#advertised.listeners=PLAINTEXT://your.host.name:9092
+log.dirs=/tmp/kafka-logs-2
+# every N messages (or both). This can be done globally and overridden on a per-topic basis.
+# A size-based retention policy for logs. Segments are pruned from the log as long as the remaining</pre>
+<p>The two additional brokers can be started normally. They will discover each other &#8212; and the already running broker &#8212; through the Zookeeper.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-server-start.sh config/server-1.properties
+ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-server-start.sh config/server-2.properties</pre>
+<h3>Creating a Partitioned Topic</h3>
+<p>A replicated test topic named &#8220;topicFlowsPartitioned&#8221; can be created using the kafka-topic.sh helper script. Once created, the status of the topic can be queried using the same helper.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic">ntopPC:~/kafka/kafka_2.11-0.10.1.0$ ./bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 3 --topic topicFlowsPartitioned
+Created topic "topicFlowsPartitioned".
+ntopPC:~/kafka/kafka_2.11-0.10.1.0$ bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic topicFlowsPartitioned
+Topic:topicFlowsPartitioned PartitionCount:3 ReplicationFactor:3 Configs:
+ Topic: topicFlowsPartitioned Partition: 0 Leader: 2 Replicas: 2,1,0 Isr: 2,1,0
+ Topic: topicFlowsPartitioned Partition: 1 Leader: 0 Replicas: 0,2,1 Isr: 0,2,1
+ Topic: topicFlowsPartitioned Partition: 2 Leader: 1 Replicas: 1,0,2 Isr: 1,0,2</pre>
+<p>The creation of the partitioned topic is also shown in the image below</p>
+<figure id="attachment_5158" aria-describedby="caption-attachment-5158" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/04-kafka-three-brokers.png"><img loading="lazy" decoding="async" class="wp-image-5158 size-large" src="https://www.ntop.org/wp-content/uploads/2016/10/04-kafka-three-brokers-1024x576.png" alt="04-kafka-three-brokers" width="1024" height="576" /></a><figcaption id="caption-attachment-5158" class="wp-caption-text">The three Kafka brokers (top and bottom left) and the creation of a replicated topic (bottom right)</figcaption></figure>
+<p>Producing and consuming messages on the replicated topic can be done exactly as it has already been shown for the single topic. The following image shows the usage of  producer and consumer scripts execution</p>
+<figure id="attachment_5157" aria-describedby="caption-attachment-5157" style="width: 1024px" class="wp-caption aligncenter"><a href="https://www.ntop.org/wp-content/uploads/2016/10/05-kafka-three-brokers-console-topics.png"><img loading="lazy" decoding="async" class="wp-image-5157 size-large" src="https://www.ntop.org/wp-content/uploads/2016/10/05-kafka-three-brokers-console-topics-1024x576.png" alt="05-kafka-three-brokers-console-topics" width="1024" height="576" /></a><figcaption id="caption-attachment-5157" class="wp-caption-text">The three Kafka brokers (top and bottom left) and the production/consumption of messages in a replicated topic (bottom right)</figcaption></figure>
+<h1>References</h1>
+<ul>
+<li>Kafka documentation: <a href="https://kafka.apache.org/documentation">https://kafka.apache.org/documentation</a></li>
+</ul>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/stream-that-flow-how-to-inject-nprobe-cento-flows-in-a-kafka-cluster/">Stream That Flow: How to Publish nProbe/Cento Flows in a Kafka Cluster</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

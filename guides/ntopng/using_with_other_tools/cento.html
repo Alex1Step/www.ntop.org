@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/using_with_other_tools/cento.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:48:46 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using ntopng with nProbe Cento &mdash; ntopng v.7.1.261018 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments7bd6.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/themee873.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/ntopea32.css?v=e6689f8c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custome4b8.css?v=4b68ecde" />
+
+  
+      <script src="../_static/jquery3b25.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compatfa9a.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options9c16.js?v=7bc5e088"></script>
+      <script src="../_static/doctoolsb5e9.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight7f57.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using ntopng with n2disk" href="n2disk.html" />
+    <link rel="prev" title="Using ntopng with nProbe Agent" href="nprobeagent.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index-2.html" class="icon icon-home">
+            ntopng
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://www.ntop.org/guides/ntopng/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../what_is_ntopng.html">What is ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versions_and_licensing.html">Available Versions &amp; Licensing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_start/index.html">How to Start ntopng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_options/index.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_interface/index.html">User Interface Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">User Authentication</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Using ntopng with ntop Tools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nprobe.html">Using ntopng with nProbe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nprobe_collector_mode.html">Using ntopng with nProbe (Collector Mode)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nedgelite.html">Using ntopng with nEdgeLite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nprobeagent.html">Using ntopng with nProbe Agent</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Using ntopng with nProbe Cento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#collecting-flows-via-zmq">Collecting Flows via ZMQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#collecting-flows-via-pf-ring-zc">Collecting Flows via PF_RING ZC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-encryption">Data Encryption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flow-dump-to-clickhouse">Flow Dump to ClickHouse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cento-clickhouse-options">Cento ClickHouse Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-example">Configuration Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="n2disk.html">Using ntopng with n2disk</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../nanalyst/index-2.html">nAnalyst - Agentic AI Network Intelligence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flows/index.html">Flow Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scada/index.html">Industrial Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qoe/index.html">Quality of Experience (QoE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../asmode/index.html">ASN and BGP Flow Monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating_ntopng_on_large_networks.html">Operating ntopng on large networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flow_dump/index.html">Flows Dump (ClickHouse)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_features/index.html">Advanced Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third_party_integrations/index.html">Third-Party Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performances/index.html">Performance and Hardware Sizing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer's Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index-2.html">API Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Other Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="../../nprobe/index.html">nProbe</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../cento/index.html">nProbe Cento</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../n2disk/index.html">n2disk</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nDPI/index.html">nDPI</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../pf_ring/index.html">PF_RING</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedge/index.html">nEdge</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nedgelite/index.html">nEdge Lite</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nscrub/index.html">nScrub</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../nbox/index.html">nBox</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../ntap/index.html">nTap</a></li>
+<li class="toctree-l1"><a class="reference external" href="../../license/index.html">License Manager</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">ntopng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Using ntopng with ntop Tools</a></li>
+      <li class="breadcrumb-item active">Using ntopng with nProbe Cento</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/using_with_other_tools/cento.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-ntopng-with-nprobe-cento">
+<span id="usingntopngwithcento"></span><h1>Using ntopng with nProbe Cento<a class="headerlink" href="#using-ntopng-with-nprobe-cento" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="../../../products/netflow/nprobe-cento/index.html">nProbe Cento</a> is a high-performance
+flow probe designed to process network traffic at line rate (10/40/100 Gbit and above) using
+hardware-accelerated capture technologies such as <a class="reference external" href="../../pf_ring/zc.html">PF_RING ZC</a>.
+It decouples the heavy-duty packet processing from the analysis and visualization performed by ntopng,
+making it the recommended solution for monitoring large or high-speed networks.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An nProbe Cento and PF_RING ZC license is required to operate Cento at line rate on
+high-speed adapters.</p>
+</div>
+<p>ntopng can collect flows from nProbe Cento in two ways:</p>
+<ul class="simple">
+<li><p><strong>ZMQ</strong>: Cento exports flows over ZMQ to ntopng. This works over the network and supports
+remote ntopng instances. This is the same mechanism used by nProbe.</p></li>
+<li><p><strong>PF_RING ZC Queue</strong>: A local, zero-copy connection between Cento and ntopng running on
+the same physical host, providing the highest performance.</p></li>
+</ul>
+<p>In addition, Cento can export flows directly to a <strong>ClickHouse</strong> database, which ntopng can
+then query for historical flow analysis and visualization. This is described in the
+<a class="reference internal" href="#flow-dump-to-clickhouse">Flow Dump to ClickHouse</a> section.</p>
+<section id="collecting-flows-via-zmq">
+<h2>Collecting Flows via ZMQ<a class="headerlink" href="#collecting-flows-via-zmq" title="Link to this heading"></a></h2>
+<p>The ZMQ-based integration between Cento and ntopng works in the same way as described in the
+<a class="reference internal" href="nprobe.html#usingntopngwithnprobe"><span class="std std-ref">Using ntopng with nProbe</span></a> section. Cento acts as a ZMQ publisher and ntopng acts as a
+ZMQ subscriber (or collector).</p>
+<p>Following is a minimum working configuration example assuming both Cento and ntopng run on
+the same host. In case they run on separate machines, replace <code class="code docutils literal notranslate"><span class="pre">127.0.0.1</span></code> with the
+IP address of the machine hosting Cento.</p>
+<p><em>ntopng Configuration</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-i<span class="w"> </span>tcp://127.0.0.1:5556c
+</pre></div>
+</div>
+<p><em>Cento Configuration</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cento<span class="w"> </span>-i<span class="w"> </span>zc:eth1<span class="w"> </span>--zmq<span class="w"> </span>tcp://127.0.0.1:5556
+</pre></div>
+</div>
+<p>Cento acts as the connection initiator, and the trailing <code class="code docutils literal notranslate"><span class="pre">c</span></code> in the ntopng endpoint
+tells ntopng to listen for incoming connection  (collector mode).</p>
+</section>
+<section id="collecting-flows-via-pf-ring-zc">
+<h2>Collecting Flows via PF_RING ZC<a class="headerlink" href="#collecting-flows-via-pf-ring-zc" title="Link to this heading"></a></h2>
+<p>When Cento and ntopng run on the same physical host, a PF_RING ZC Socket provides a
+zero-copy, lower-latency alternative to ZMQ. In this mode Cento passes flows directly
+to ntopng without any serialization overhead.</p>
+<p>Start Cento with the <code class="code docutils literal notranslate"><span class="pre">--monitor|-A</span></code> option to enable the ZC socket export. Cento will print
+the interface name to use in ntopng in its startup log, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-i<span class="w"> </span>zcflow:10@0
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The PF_RING ZC queue is a local connection only and supports a single consumer.
+Use ZMQ if ntopng runs on a different host or if multiple consumers are needed.</p>
+</div>
+<p>For scenarios with multiple capture queues and direct monitoring, Cento can be started as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cento<span class="w"> </span>-i<span class="w"> </span>zc:eth1@<span class="o">[</span><span class="m">0</span>-3<span class="o">]</span><span class="w"> </span>-A<span class="w"> </span>--direct-monitor
+</pre></div>
+</div>
+<p>This eliminates aggregation overhead and enables parallel processing across multiple
+ntopng interafaces.</p>
+</section>
+<section id="data-encryption">
+<h2>Data Encryption<a class="headerlink" href="#data-encryption" title="Link to this heading"></a></h2>
+<p>ntopng and Cento support data encryption over ZMQ, based on the native CURVE encryption
+support in ZMQ (available with ZMQ &gt;= 4.1).</p>
+<p>Encryption is now <strong>enabled by default</strong>: ntopng no longer accepts cleartext ZMQ traffic
+by default. If encryption is not explicitly configured by the user, ntopng (and Cento)
+fall back to a public builtin default key pair. This default key only prevents accidental
+cleartext exposure and should be replaced by properly configuring a dedicated key pair.</p>
+<p>In order to configure a dedicated key pair, add the <code class="code docutils literal notranslate"><span class="pre">--zmq-encryption</span></code> option to the
+ntopng configuration. A private/public key pair is automatically generated by ntopng and the
+public key is displayed in the interface status page.</p>
+<p>The public key should then be configured in Cento using the
+<code class="code docutils literal notranslate"><span class="pre">--zmq-encryption-key</span> <span class="pre">'&lt;pub</span> <span class="pre">key&gt;'</span></code> option.</p>
+<p>Example:</p>
+<ul class="simple">
+<li><p>Start ntopng as follows: <code class="code docutils literal notranslate"><span class="pre">ntopng</span> <span class="pre">-i</span> <span class="pre">tcp://127.0.0.1:5556c</span> <span class="pre">--zmq-encryption</span></code></p></li>
+<li><p>Connect to the ntopng web GUI, navigate to the ZMQ interface status page and copy the
+value of <code class="code docutils literal notranslate"><span class="pre">--zmq-encryption-key</span> <span class="pre">'...'</span></code></p></li>
+<li><p>Start Cento as follows: <code class="code docutils literal notranslate"><span class="pre">cento</span> <span class="pre">-i</span> <span class="pre">zc:eth1</span> <span class="pre">--zmq</span> <span class="pre">tcp://127.0.0.1:5556</span> <span class="pre">--zmq-encryption-key</span> <span class="pre">'&lt;pub</span> <span class="pre">key&gt;'</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Unless a private key is provided, ntopng generates a public/private keypair and stores
+it under <code class="code docutils literal notranslate"><span class="pre">/var/lib/ntopng/key.{pub,priv}</span></code>.</p>
+</div>
+<p>If encryption is not desired at all (e.g. on a fully trusted network, or in old deployments
+with Cento instances exporting cleartext ZMQ), it can be turned off with
+<code class="code docutils literal notranslate"><span class="pre">--zmq-disable-encryption</span></code>.</p>
+</section>
+<section id="flow-dump-to-clickhouse">
+<span id="id1"></span><h2>Flow Dump to ClickHouse<a class="headerlink" href="#flow-dump-to-clickhouse" title="Link to this heading"></a></h2>
+<p>nProbe Cento can export flows directly to a <strong>ClickHouse</strong> database, bypassing
+the ZMQ channel. ntopng then connects to the same ClickHouse instance in read-only mode for
+historical flow analysis and visualization.</p>
+<p>The architecture follows this pattern:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Network Traffic --&gt; nProbe Cento (write) --&gt; ClickHouse &lt;-- ntopng (read-only)
+</pre></div>
+</div>
+<p>This approach is particularly suited to high-speed environments where storing all flows
+through ntopng would become a bottleneck.</p>
+<section id="cento-clickhouse-options">
+<h3>Cento ClickHouse Options<a class="headerlink" href="#cento-clickhouse-options" title="Link to this heading"></a></h3>
+<p>The following Cento options control the ClickHouse export:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">--clickhouse</span> <span class="pre">&lt;host[:port]&gt;</span></code> — ClickHouse server address and native TCP port
+(default port: <code class="code docutils literal notranslate"><span class="pre">9000</span></code>). Append <code class="code docutils literal notranslate"><span class="pre">s</span></code> to enable SSL (e.g.
+<code class="code docutils literal notranslate"><span class="pre">192.168.1.1:9000s</span></code>).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">--clickhouse-auth</span> <span class="pre">&lt;user:password&gt;</span></code> — Credentials for the ClickHouse user.
+Default user is <code class="code docutils literal notranslate"><span class="pre">default</span></code>.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">--clickhouse-dbname</span> <span class="pre">&lt;name&gt;</span></code> — Target ClickHouse database name. Defaults to
+<code class="code docutils literal notranslate"><span class="pre">ntopng</span></code>, which matches ntopng’s naming convention.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">--clickhouse-interface-id</span> <span class="pre">&lt;id&gt;</span></code> — Associates flows exported by Cento
+with a specific ntopng interface ID, required to bind flows to the correct ntopng
+interface. Default value is <code class="code docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+</ul>
+</section>
+<section id="configuration-example">
+<h3>Configuration Example<a class="headerlink" href="#configuration-example" title="Link to this heading"></a></h3>
+<p><strong>Step 1</strong> — Launch nProbe Cento with ClickHouse export:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cento<span class="w"> </span>-i<span class="w"> </span>zc:eth1<span class="w"> </span>--zmq<span class="w"> </span>tcp://127.0.0.1:5556<span class="w"> </span>--clickhouse<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span>--dpi-level<span class="w"> </span><span class="m">2</span>
+</pre></div>
+</div>
+<p><strong>Step 2</strong> — Start ntopng in read-only flow dump mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ntopng<span class="w"> </span>-i<span class="w"> </span>tcp://*:5556c<span class="w"> </span>-F<span class="w"> </span>clickhouse<span class="w"> </span>--readonly-flows-dump
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">--readonly-flows-dump</span></code> option tells ntopng not to write flows to ClickHouse
+itself, since Cento is the writer in this setup.</p>
+<p>For a local all-in-one deployment where Cento, ClickHouse, and ntopng all run on the same
+host:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cento<span class="w"> </span>-i<span class="w"> </span>zc:eth1<span class="w"> </span>--clickhouse<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>--clickhouse-interface-id<span class="w"> </span><span class="m">1</span>
+ntopng<span class="w"> </span>-i<span class="w"> </span>tcp://*:5556c<span class="w"> </span>-F<span class="w"> </span>clickhouse<span class="w"> </span>--readonly-flows-dump
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nprobeagent.html" class="btn btn-neutral float-left" title="Using ntopng with nProbe Agent" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="n2disk.html" class="btn btn-neutral float-right" title="Using ntopng with n2disk" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, ntop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from www.ntop.org/guides/ntopng/using_with_other_tools/cento.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 Nov 2026 12:48:47 GMT -->
+</html>

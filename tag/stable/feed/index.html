@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>stable Archives - ntop</title>
+	<atom:link href="https://www.ntop.org/tag/stable/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.ntop.org/tag/stable/</link>
+	<description>Network Visibility and Cybersecurity</description>
+	<lastBuildDate>Wed, 18 Aug 2021 20:25:33 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.4</generator>
+
+<image>
+	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<title>stable Archives - ntop</title>
+	<link>https://www.ntop.org/tag/stable/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>ntopng 5.0 Is Out: Modern Traffic Monitoring for AIOps and Cybersecurity</title>
+		<link>https://www.ntop.org/ntopng-5-0-is-out-modern-traffic-monitoring-for-aiops-and-cybersecurity/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Wed, 18 Aug 2021 20:25:33 +0000</pubDate>
+				<category><![CDATA[Announce]]></category>
+		<category><![CDATA[ntopng]]></category>
+		<category><![CDATA[release]]></category>
+		<category><![CDATA[stable]]></category>
+		<guid isPermaLink="false">https://www.ntop.org/?p=9404</guid>
+
+					<description><![CDATA[<p>ntopng was initially designed as a tool for realtime network traffic monitoring. The idea was to create a DPI-based tool able to report traffic statistics. Overtime we have added the ability to…</p>
+<p>The post <a href="https://www.ntop.org/ntopng-5-0-is-out-modern-traffic-monitoring-for-aiops-and-cybersecurity/">ntopng 5.0 Is Out: Modern Traffic Monitoring for AIOps and Cybersecurity</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>ntopng was initially designed as a tool for realtime network traffic monitoring. The idea was to create a DPI-based tool able to report traffic statistics. Overtime we have added the ability to implement active monitoring checks, SNMP, and various other features. However there was a fundamental point that was missing: go beyond traffic reporting, moving towards traffic analysis. The current <a href="https://grafana.com/">Grafana</a>-like trend of having several large screens full of dashboards is the opposite of what we believe we should do. This approach requires network and security administrators to be trained so well to understand whether the network is behaving well or not.</p>
+<p>ntopng instead reverts this perspective by implementing an <a href="https://en.wikipedia.org/wiki/Artificial_Intelligence_for_IT_Operations">AIOps</a> platform, able to analyse network metrics in realtime while being able to collapse thousand signals into a single comprehensive view of your network status, without human intervention or training typical of machine learning tools. For instance below you can see the service map, that is a representation of interactions of local hosts. ntopng learns this map automatically and enforces changes and violations to the policy. Humans can tune the system by selecting what services are not supposed to flow on the network, but the system has already built the knowledge base automatically, also identifying device types (is this a tablet or a router?) and the type of traffic such devices are expected to do.</p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter size-large wp-image-9443" src="https://www.ntop.org/wp-content/uploads/2021/07/Screen-Shot-2021-08-18-at-21.48.24-1024x700.png" alt="" width="1024" height="700" /></p>
+<p>In the past months we have introduced the concept of score (you can read this <a href="https://luca.ntop.org/IEEE_CSR.pdf">paper</a> for more information on the topic), that is a way to identify with a numerical value how bad is a host currently behaving. When we account the score, we take into account not only the alerts a host generates but also its behaviour: this way we can both detect changes in behaviour that a human operator would be unable to report, in particular in modern networks where there are several thousand signals to watch.</p>
+<p><img decoding="async" class="aligncenter size-large wp-image-9444" src="https://www.ntop.org/wp-content/uploads/2021/07/Screen-Shot-2021-08-18-at-22.03.57-1024x479.png" alt="" width="1024" height="479" /></p>
+<p>Anomalies as well all other alerts, are reported in ntopng on a new alert dashboard that allows you to correlate the event with traffic and drill-down to the flows that created such alerts.</p>
+<p>In essence ntopng is not just reporting what happens, but it also tells you what is wrong or not, and it can notify you on your preferred messaging application. This is a major milestone for ntopng and also for open source software.</p>
+<p>Below you can find all details and changes of the 5.0 release.</p>
+<p>Enjoy !</p>
+<h3>Main New Changes and Breakthroughs</h3>
+<p>During these 9 months we have invested a lot of time and energies to <strong>rework</strong> the way <strong>alerts</strong> are handled in ntopng. Initially, host and flow alerts were completely processed in Lua at fixed intervals of time. This architecture, although very flexible and extensible, had several drawbacks:</p>
+<ul>
+<li>Lua is an interpreted language so it is intrinsically more expensive, in terms of CPU clocks, if compared to a compiled language</li>
+<li>Processing at fixed intervals of time poorly utilizes the CPUs, with periods of high load and periods where the system is almost idle</li>
+</ul>
+<p>To mitigate these drawbacks, we decided to move host and flow alerts from Lua to C++ and to process them continuously, rather than at fixed intervals of time, to better utilize the CPUs. It was a huge architectural change, but it eventually <strong>reduced the average load by 50%</strong> and mitigated significantly the load spikes originally caused by fixed-time processing. <a href="https://www.ntop.org/guides/ntopng/alerts/index.html">Here</a> we describe how the new host and flow alerts work, and provide a <a href="https://www.ntop.org/guides/ntopng/developing_alerts/index.html">guide</a> that an interested developer can used as reference to code new alerts.</p>
+<p>Among the benefits of having less CPU-intensive alerts is the ability to integrate more tightly with nDPI and its <a href="https://www.ntop.org/ndpi/introducing-ndpi-4-0-dpi-for-cybersecurity-and-traffic-analysis/">security risks</a>, with ntopng 5.0 now triggering many novel security-related alerts. Alerts are also augmented with intelligence to detect <a href="https://www.ntop.org/ntopng/how-attackers-and-victims-detection-works-in-ntopng/">attackers and victims</a> and abrupt changes in host behaviors, e.g., when the <a href="https://www.ntop.org/ntopng/how-attackers-and-victims-detection-works-in-ntopng/">score indicator of compromise</a> increase significantly.</p>
+<p>The benefits of having a reduced load, along with a less spiky behavior with reference to the CPU activity, also proved to be fundamental to break the barrier of <a href="https://www.ntop.org/nprobe/netflow-collection-performance-using-ntopng-and-nprobe/">100Kfps NetFlow Collection</a>. Indeed, ntopng and nProbe can collect, analyze, and dump NetFlow data at a rate that exceeds 100K flows per second. Detailed performance figures can be found <a href="https://www.ntop.org/nprobe/netflow-ipfix-at-scale-comparing-nprobe-clickhouse-vs-nprobe-ntopng/">here</a>.</p>
+<p>However, being able to work at 100Kfps is not that useful, unless there are easy and intuitive ways to drill down into the data that quickly becomes humongous. For the sake of example, consider that a system fills by 36M new flows every hours when it operates at 100Kfps. Therefore, to ease the way data can be drilled down, we added support for <a href="https://www.ntop.org/nprobe/collecting-flows-from-hundred-of-routers-using-observation-points/">observation points</a> in ntopng 5.0. This makes it possible to fluidly drill down data originating at hundredths of routers. The rationale is that, although nowadays 100Kfps is becoming a requirement when it comes to NetFlow collection, it is unlikely to have all those flows generated at a single router. In general, flows come from multiple independent routers that together can sum up to 100Kfps.</p>
+<h3>Supported Distributions</h3>
+<p>ntopng 5.0 adds to its <a href="https://packages.ntop.org/">supported distributions</a> also FreeBSD 11 and 12, including the popular firewalls <a href="https://www.ntop.org/guides/nprobe/third_party_integrations/opnsense.html">OPNsense</a> and <a href="https://www.ntop.org/guides/nprobe/third_party_integrations/pfsense.html">pfSense</a>.</p>
+<h3>Breaking Changes</h3>
+<ul>
+<li>To ensure optimal performance and scalability and to prevent uneven resource utilization, the maximum number of interfaces handled by a single ntopng instance has been reduced to
+<ul>
+<li>16 (Enterprise M)</li>
+<li>32 (Enterprise L)</li>
+<li>8 (all other versions)</li>
+</ul>
+</li>
+<li>REST API v1/ is deprecated and will be dropped in the next stable release in favor of REST API v2/</li>
+<li>The old alerts dashboard has been removed and replaced by an advanced alerts drilldown page with integrated charts</li>
+</ul>
+<h3>Changelog</h3>
+<p>The complete list of changes introduced with ntopng 5.0 are:</p>
+<h5>Breakthroughs</h5>
+<ul>
+<li>Advanced alerts engine with security features, including the detection of attackers and victims
+<ul>
+<li>Integration of 30+ nDPI security risks</li>
+<li>Generation of the score indicator of compromise for hosts, interfaces and other network elements</li>
+</ul>
+</li>
+<li>Ability to collect flows from hundredths of routers by means of observation points</li>
+<li>Anomaly detection based on Double Exponential Smoothing (DES) to uncover possibly suspicious behaviors in the traffic and in the score</li>
+<li>Encrypted Traffic Analysis (ETA) with special emphasis on the TLS to uncover self-signed, expired, invalid certificates and other issues</li>
+</ul>
+<h5>New features</h5>
+<ul>
+<li>Ability to configure alert exclusions for individual hosts to mitigate false positives</li>
+<li>FreeBSD / OPNsense / pfSense packages</li>
+<li>Ability to see the TX/RX traffic breakdown both for physical interfaces and when receiving traffic from nProbe</li>
+<li>Add support for ECS when exporting to Syslog</li>
+<li>Improved TCP analysis, including analysis of TCP flows with zero window and low goodput</li>
+<li>Ability to send alerts to Slack</li>
+<li>Implementation of a token-based REST API access</li>
+</ul>
+<h5>Improvements</h5>
+<ul>
+<li>Reworked the execution of hosts and flows checks (formerly user scripts), yielding a reduced CPU load of about 50%</li>
+<li>Improved 100Kfps+ NetFlow/sFlow collection performance</li>
+<li>Drilldown of nIndex historical flows much more flexible</li>
+<li>Migration to Bootstrap 5</li>
+<li>Check malicious JA3 signatures against all TLS-based protocols</li>
+<li>Reworked Doh/DoT handling</li>
+</ul>
+<h5>Fixes</h5>
+<ul>
+<li>Fixes SSRF and stored-XSS injected with malicious SSDP responses</li>
+<li>Fixes several leaks in NetworkInterface</li>
+</ul>
+<p>&nbsp;</p>
+<p>The post <a href="https://www.ntop.org/ntopng-5-0-is-out-modern-traffic-monitoring-for-aiops-and-cybersecurity/">ntopng 5.0 Is Out: Modern Traffic Monitoring for AIOps and Cybersecurity</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>
