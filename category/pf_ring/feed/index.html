@@ -21,7 +21,7 @@
 	<generator>https://wordpress.org/?v=7.1.4</generator>
 
 <image>
-	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<url>/wp-content/uploads/2025/06/favicon-80x80.png</url>
 	<title>PF_RING Archives - ntop</title>
 	<link>https://www.ntop.org/category/pf_ring/</link>
 	<width>32</width>
@@ -80,7 +80,7 @@
 
 
 <div class="wp-block-image">
-<figure class="aligncenter size-full is-resized"><img fetchpriority="high" decoding="async" width="692" height="1046" src="https://www.ntop.org/wp-content/uploads/2026/01/nprobe-cento-napatech-flow-offload.png" alt="Nprobe cento napatech flow offload" class="wp-image-45419" style="width:300px"/></figure>
+<figure class="aligncenter size-full is-resized"><img fetchpriority="high" decoding="async" width="692" height="1046" src="/wp-content/uploads/2026/01/nprobe-cento-napatech-flow-offload.png" alt="Nprobe cento napatech flow offload" class="wp-image-45419" style="width:300px"/></figure>
 </div>
 
 
@@ -611,7 +611,7 @@ YouTube = discard</code></pre>
 <p>This is where packet deduplication tools come to the rescue.</p>
 <p>A dedicated packet deduplication tool sits between the network source and the monitoring tools, acting as a filter. There are network packet brokers able to remediate this by finding and removing duplicate packets before they can reach the analytics tools. However the higher is their capacity of filtering out duplicated packets, the higher is usually the price. If you look at the specs, there is a time window on which they are able to detect duplicated packets, which is limited by the buffering power of the equipment, and in many cases they are only able to detect them when they are one after the other.</p>
 <p>For this reason we decided to develop a new utility, <a href="https://www.ntop.org/guides/n2disk/utilities/ndedup.html">ndedup</a>, able to detect and eliminate packet duplication in software, on a server with a couple of network interfaces, acting as a bridge. This tool has no hard limit on the buffering power and time window used for detecting duplicates, as it mainly depends on the amount of RAM available on the system (and modern systems have plenty of RAM). Furthermore, it leverages on our kernel-bypass zero-copy drivers and the <a href="https://www.ntop.org/products/packet-capture/pf_ring/pf_ring-zc-zero-copy/">PF_RING ZC</a> library and optimised data structures to implement fast duplicates detection and packet forwarding, achieving high speed even with a large window size. This can run on top of any adapter (Intel, Mellanox/nVidia, Napatech) and natively supports the <a href="https://www.ntop.org/guides/pf_ring/rss.html">RSS</a> technology to scale the performance up to 100 Gbps.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2024/04/ndedup.png"><img decoding="async" class="alignnone size-large wp-image-11137" src="https://www.ntop.org/wp-content/uploads/2024/04/ndedup-1024x226.png" alt="" width="1024" height="226"></a></p>
+<p><a href="/wp-content/uploads/2024/04/ndedup.png"><img decoding="async" class="alignnone size-large wp-image-11137" src="/wp-content/uploads/2024/04/ndedup-1024x226.png" alt="" width="1024" height="226"></a></p>
 <p>How does it work under the hood?</p>
 <p>When a packet is received by the tool, a one-way hash is used to turn the packet into a strong collision-resistant hash value. This hash is compared to the hash of <strong>every</strong> <strong>packet</strong> that came before it in a pre-configured time window (for example the last 50 msec), and if no match is found, the packet is forwarded to the twin interface to be delivered to the monitoring tools, otherwise it is discarded (duplicate!).</p>
 <p>This makes this tool deployable as transparent bridge in front of any appliance running Network monitoring software, including <a href="https://www.ntop.org/products/traffic-recording-replay/n2disk/">n2disk</a>, <a href="https://www.ntop.org/products/netflow-probes/nprobe/">nprobe</a> or <a href="https://www.ntop.org/products/traffic-analysis/ntopng/">ntopng</a>.</p>
@@ -651,7 +651,7 @@ YouTube = discard</code></pre>
 <ul>
 <li>ntopng -i&nbsp;-i eth0@1 -i eth0@2 -i eth0@3 -i view:all</li>
 </ul>
-<p><img decoding="async" class="alignnone size-full wp-image-10501" src="https://www.ntop.org/wp-content/uploads/2023/06/ntopng_rss.png" alt="" width="503" height="213"></p>
+<p><img decoding="async" class="alignnone size-full wp-image-10501" src="/wp-content/uploads/2023/06/ntopng_rss.png" alt="" width="503" height="213"></p>
 <p>The view interface allows you too see from a single interface the traffic that is processed by the individual sub-interfaces. Using this technique you can almost scale linearly&#8230; as long as you have enough cores available. Note that a faster version of the above example is based on ZC, and in this case you need to change the command line into:</p>
 <ul>
 <li>ntopng -i zc:eth0@0 -i zc:eth0@1 -i zc:eth0@2 -i zc:eth0@3 -i view:all</li>
@@ -709,7 +709,7 @@ YouTube = discard</code></pre>
 <li>As soon as PF_RING detects an IP to ban/unban it adds a hardware filtering rule on the &#8220;on demand&#8221; connection, so such IP traffic is sent to Zeek/Suricata</li>
 </ul>
 <p>&nbsp;</p>
-<p><img loading="lazy" decoding="async" class="alignnone size-large wp-image-10484" src="https://www.ntop.org/wp-content/uploads/2023/06/suricata-1-1024x357.png" alt="" width="1024" height="357"></p>
+<p><img loading="lazy" decoding="async" class="alignnone size-large wp-image-10484" src="/wp-content/uploads/2023/06/suricata-1-1024x357.png" alt="" width="1024" height="357"></p>
 <p>&nbsp;</p>
 <h3>Going Deep</h3>
 <p>The <a class="reference external" href="https://www.ntop.org/guides/pf_ring/">PF_RING</a> framework has demonstrated to play a key role in the acceleration of those tools, by delivering features like:</p>
@@ -723,7 +723,7 @@ YouTube = discard</code></pre>
 <p>Let&#8217;s see how this works under the hood.</p>
 <p>Filters are pushed to the capture engine by means of a Redis queue. Host filters can be added and removed by means of commands like “add host” or “remove host”.</p>
 <p>This can be configured in ntopng from the <em>Interface</em> &gt; <em>Details</em> &gt; <em>Settings</em> menu, where it is possible to toggle the <em>Push Alerted Hosts to PF_RING</em> flag.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/alerts_push_alerted_hosts_to_pfring.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-10476" src="https://www.ntop.org/wp-content/uploads/2023/06/alerts_push_alerted_hosts_to_pfring-1024x685.png" alt="" width="1024" height="685"></a></p>
+<p><a href="/wp-content/uploads/2023/06/alerts_push_alerted_hosts_to_pfring.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-10476" src="/wp-content/uploads/2023/06/alerts_push_alerted_hosts_to_pfring-1024x685.png" alt="" width="1024" height="685"></a></p>
 <p>With this setting enabled, ntopng notifies hosts for which there is an <em>engaged</em> alert to PF_RING, triggering the diversion of the traffic matching those hosts to the IDS (or any other application running on top of PF_RING), which is otherwise discarded by default.</p>
 <p>The name of the Redis queue is&nbsp;<strong>pfring.<em>ID</em>.filter.host.queue</strong> and it&#8217;s reported by the GUI (more details about this queue and how it works are available in the <a class="reference external" href="https://www.ntop.org/guides/pf_ring/filtering/runtime.html">PF_RING Runtime Filtering</a> section of the PF_RING user&#8217;s guide=.</p>
 <p>In order to run the application on top of PF_RING, and enable Runtime Filtering, the PF_RING_RUNTIME_MANAGER environment variable should be set, using as value the name of the Redis queue used by ntopng to push the filtering commands.</p>
@@ -1123,7 +1123,7 @@ Those adapters have been designed for general purpose connectivity and are not r
 					<description><![CDATA[<p>Internet censorship is a global phenomenon (see Figure 1) that aims to throttle or entirely block access to certain Internet resources. National or regional governments impose Internet censorship by using sophisticated networking…</p>
 <p>The post <a href="https://www.ntop.org/how-pf_ring-is-used-to-fight-internet-censorship-refraction-networking-censorship/">How PF_RING is Used to Fight Internet Censorship: Refraction Networking</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
 ]]></description>
-										<content:encoded><![CDATA[<p>Internet censorship is a global phenomenon (see Figure 1) that aims to throttle or entirely block access to certain Internet resources. National or regional governments impose Internet censorship by using sophisticated networking appliances—strategically placed at the edge of their networks at various Internet inter-connection points—capable of inspecting and discarding network packets destined to sites with restricted content. Users that try to evade censorship have traditionally relied on techniques based on “domain fronting” and VPNs. However, these censorship circumvention tools are increasingly becoming harder to deploy and do not offer strong censorship resistance guarantees since regimes that impose censorship can also block access to such technologies.<img loading="lazy" decoding="async" class="aligncenter size-full wp-image-9745" src="https://www.ntop.org/wp-content/uploads/2022/04/Screen-Shot-2022-04-03-at-19.23.06.png" alt="" width="686" height="416" /></p>
+										<content:encoded><![CDATA[<p>Internet censorship is a global phenomenon (see Figure 1) that aims to throttle or entirely block access to certain Internet resources. National or regional governments impose Internet censorship by using sophisticated networking appliances—strategically placed at the edge of their networks at various Internet inter-connection points—capable of inspecting and discarding network packets destined to sites with restricted content. Users that try to evade censorship have traditionally relied on techniques based on “domain fronting” and VPNs. However, these censorship circumvention tools are increasingly becoming harder to deploy and do not offer strong censorship resistance guarantees since regimes that impose censorship can also block access to such technologies.<img loading="lazy" decoding="async" class="aligncenter size-full wp-image-9745" src="/wp-content/uploads/2022/04/Screen-Shot-2022-04-03-at-19.23.06.png" alt="" width="686" height="416" /></p>
 <div class="page" title="Page 1">
 <div class="section">
 <div class="layoutArea">
@@ -1144,7 +1144,7 @@ Those adapters have been designed for general purpose connectivity and are not r
 <div class="layoutArea">
 <div class="column">
 <p>places stations at the network’s core (e.g., within friendly ISPs, see Figure 2). Placing these stations in the “middle of the network” deters censoring entities from imposing any kind of practical censorship since their only option is to aggressively block access to the ISPs hosting the Refraction stations. This aggressive blockage would inflict collateral damage to censors themselves since they would be essentially cutting themselves off of large portions of the Internet.</p>
-<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-9746" src="https://www.ntop.org/wp-content/uploads/2022/04/Screen-Shot-2022-04-03-at-19.24.59.png" alt="" width="668" height="309" /></p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-9746" src="/wp-content/uploads/2022/04/Screen-Shot-2022-04-03-at-19.24.59.png" alt="" width="668" height="309" /></p>
 <div class="page" title="Page 2">
 <div class="section">
 <div class="layoutArea">
@@ -1233,7 +1233,7 @@ mlx:mlx5_1 enp1s0f1   mlx     B8:CE:F6:8E:DD:5B 0000:00:00.0  -1        Up      
 <p>Packet transmission demonstrated to be quite fast as well in our tests, delivering more than 16 Mpps per core, and scaling linearly with the number of cores when using multiple queues (e.g. 64 Mpps with 4 cores).</p>
 <h3>Flexibility</h3>
 <p>An interesting feature of this adapter is the flexibility it provides when it comes to traffic duplication and load-balancing. In fact, as opposite to ZC drivers for Intel and most FPGA adapters (Silicom Fiberblaze is probably the only exception), access to the device is <strong>non exclusive</strong>, and it is possible to capture (<strong>duplicate</strong>) the traffic from multiple applications. In addition to this, it is also possible to apply a different <strong>load-balancing</strong> (RSS) configuration for each application. As an example, this allows us to run, on the same traffic, nProbe Cento and n2disk, where nProbe Cento is configured to load-balancing the traffic to N streams/cores, while n2disk receives all the traffic in a single data stream.</p>
-<p><img loading="lazy" decoding="async" class="aligncenter wp-image-9535" src="https://www.ntop.org/wp-content/uploads/2021/10/connectx-duplicate-rss-300x141.png" alt="" width="600" height="282" /></p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-9535" src="/wp-content/uploads/2021/10/connectx-duplicate-rss-300x141.png" alt="" width="600" height="282" /></p>
 <p>In order to test this configuration, RSS should be enabled when configuring the adapter with <em>pf_ringcfg</em>, by configuring the number of queues that should be used by cento to load-balance the traffic to multiple threads.</p>
 <pre class="EnlighterJSRAW" data-enlighter-language="generic">pf_ringcfg --configure-driver mlx --rss-queues 8</pre>
 <p>Run cento by specifying the queues and the cores affinity.</p>

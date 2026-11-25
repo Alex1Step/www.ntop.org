@@ -21,7 +21,7 @@
 	<generator>https://wordpress.org/?v=7.1.4</generator>
 
 <image>
-	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<url>/wp-content/uploads/2025/06/favicon-80x80.png</url>
 	<title>Components Archives - ntop</title>
 	<link>https://www.ntop.org/category/components/</link>
 	<width>32</width>
@@ -45,11 +45,11 @@
 										<content:encoded><![CDATA[<p>In large organizations, it is common to have a centralised authentication system usually named <a href="https://en.wikipedia.org/wiki/AAA_(computer_security)">AAA (Authentication, Authorization and Accounting)</a>. Managing users typically involves the definition and enforcement of the rights to do some operations or to access certain resources in a network. Being able to grant (or deny) such rights using a centralized authentication system is the only viable solution when it comes to dealing with large organizations with hundreds, or even thousands, of users that periodically join and leave.</p>
 <p>AAA protocols include Remote Authentication Dial-In User Service (RADIUS) and the Lightweight Directory Access Protocol (LDAP). Supporting RADIUS and LDAP was the only way to seamlessly integrate ntopng in infrastructures with existing users and policies, in particular to avoid the need to redefine (and keep updated) ntopng web users and privileges to match the existing users in the organisation.</p>
 <p>RADIUS and LDAP are included in the current dev release as well as in the forthcoming 3.8 stable release. LDAP and RADIUS can be configured from the ntopng preferences, simply by selecting tab &#8220;<em>User Authentication</em>&#8221; and turning the corresponding switch to &#8220;<em>On</em>&#8220;. Once the switch is set to &#8220;<em>On</em>&#8220;, a series of protocol-specific configuration properties pop up.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-01-config.png"><img fetchpriority="high" decoding="async" class="alignnone size-large wp-image-7129" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-01-config-1024x666.png" alt="" width="1024" height="666" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-01-config.png"><img fetchpriority="high" decoding="async" class="alignnone size-large wp-image-7129" src="/wp-content/uploads/2018/12/radius-ldap-01-config-1024x666.png" alt="" width="1024" height="666" /></a></p>
 <p>This post briefly shows how each of these two protocols can be configured in ntopng.</p>
 <h2>LDAP</h2>
 <p>LDAP properties that can be configured are show in the picture below.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-02-ldap-config.png"><img decoding="async" class="alignnone size-large wp-image-7131" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-02-ldap-config-1024x672.png" alt="" width="1024" height="672" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-02-ldap-config.png"><img decoding="async" class="alignnone size-large wp-image-7131" src="/wp-content/uploads/2018/12/radius-ldap-02-ldap-config-1024x672.png" alt="" width="1024" height="672" /></a></p>
 <ul>
 <li><strong>LDAP Accounts Type</strong> allows to choose if the login should be performed in an Active Directory (AD) or in a Posix environment:
 <ul>
@@ -88,23 +88,23 @@
 <p>Those those groups will be added both to the LDAP server and to ntopng to make sure the corresponding users will be able to log in with the right privileges.</p>
 <h4>Step by Step Setup</h4>
 <p>Once the installation of slapd and phpLDAPadmin is completed, one can point the browser to the running phpLDAPadmin instance and indicate the Login DN and password created during the installation.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-03b-login-dn.png"><img decoding="async" class="alignnone size-full wp-image-7147" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-03b-login-dn.png" alt="" width="819" height="486" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-03b-login-dn.png"><img decoding="async" class="alignnone size-full wp-image-7147" src="/wp-content/uploads/2018/12/radius-ldap-03b-login-dn.png" alt="" width="819" height="486" /></a></p>
 <p>Login DN and password are the same ntopng uses for the binding that, in this case, is not anonymous. Therefore, one must also specify them in the ntopng preferences as LDAP Bind DN and LDAP Bind Authentication Password, respectively to let ntopng access the LDAP server.</p>
 <p>After a successful login, one will find the hierarchical LDAP tree on the left of the page, and a series of actions on the right. &#8220;Create a Child Entry&#8221;  can be used to start adding users.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-04-create-child-entry.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7140" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-04-create-child-entry.png" alt="" width="893" height="374" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-04-create-child-entry.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7140" src="/wp-content/uploads/2018/12/radius-ldap-04-create-child-entry.png" alt="" width="893" height="374" /></a></p>
 <p>To add users one can select &#8220;<em>Create Generic Account</em>&#8221; after clicking on &#8220;<em>Create a child entry</em>&#8220;.</p>
 <p>&nbsp;</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-07-create-generic-account.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7142" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-07-create-generic-account.png" alt="" width="897" height="671" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-07-create-generic-account.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7142" src="/wp-content/uploads/2018/12/radius-ldap-07-create-generic-account.png" alt="" width="897" height="671" /></a></p>
 <p>Users can then be defined simply by populating the available fields as shown below. There is nothing really special. The only important thing to note is the &#8220;<em>Common Name</em>&#8221; as such name is the one used by ntopng when performing the match against the submitted username.</p>
 <p>&nbsp;</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-08-create-admin-user.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7143" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-08-create-admin-user.png" alt="" width="1013" height="1000" /></a></p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-09-create-normal-user.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7144" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-09-create-normal-user.png" alt="" width="1014" height="1002" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-08-create-admin-user.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7143" src="/wp-content/uploads/2018/12/radius-ldap-08-create-admin-user.png" alt="" width="1013" height="1000" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-09-create-normal-user.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7144" src="/wp-content/uploads/2018/12/radius-ldap-09-create-normal-user.png" alt="" width="1014" height="1002" /></a></p>
 <p>At this point users are created and it is time to add the adminGroup and usersGroup. One can create groups by selecting &#8220;<em>Create Child Entry</em>&#8221; and then &#8220;<em>Generic: Posix Group</em>&#8220;.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-05-create-generic-group.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7141" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-05-create-generic-group.png" alt="" width="897" height="670" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-05-create-generic-group.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7141" src="/wp-content/uploads/2018/12/radius-ldap-05-create-generic-group.png" alt="" width="897" height="670" /></a></p>
 <p>The two groups can be created simply by assigning the aforementioned names and making sure to tick the checkbox next to the user that has to be associated with the group.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-10-create-adminGroup.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7145" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-10-create-adminGroup-1024x574.png" alt="" width="1024" height="574" /></a><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-11-create-usersGroup.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7146" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-11-create-usersGroup-1024x616.png" alt="" width="1024" height="616" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-10-create-adminGroup.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7145" src="/wp-content/uploads/2018/12/radius-ldap-10-create-adminGroup-1024x574.png" alt="" width="1024" height="574" /></a><a href="/wp-content/uploads/2018/12/radius-ldap-11-create-usersGroup.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7146" src="/wp-content/uploads/2018/12/radius-ldap-11-create-usersGroup-1024x616.png" alt="" width="1024" height="616" /></a></p>
 <p>Now everything is ready in phpLDAPadmin. The last thing to do is to just configure ntopng to make sure the users will be logged in as desired. The configuration is shown in the picture below</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-03-overall-configuration-1.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7149" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-03-overall-configuration-1-1024x760.png" alt="" width="1024" height="760" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-03-overall-configuration-1.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-7149" src="/wp-content/uploads/2018/12/radius-ldap-03-overall-configuration-1-1024x760.png" alt="" width="1024" height="760" /></a></p>
 <p>In particular, note that:</p>
 <ul>
 <li>The LDAP Bind DN and Password are those also used when authenticating to the phpLDAPadmin page.</li>
@@ -113,7 +113,7 @@
 </ul>
 <h2>RADIUS</h2>
 <p>RADIUS properties that can be configured are shown below</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-02-radius-config2.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7137" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-02-radius-config2.png" alt="" width="979" height="416" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-02-radius-config2.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7137" src="/wp-content/uploads/2018/12/radius-ldap-02-radius-config2.png" alt="" width="979" height="416" /></a></p>
 <ul>
 <li><strong>RADIUS Server Address</strong> specifies the IP address or name of the RADIUS server and is followed by a colon and a number indicating the port on which the RADIUS server is listening.</li>
 <li><strong>RADIUS Secret</strong> is the shared secret between the ntopng host and the radius server, and is used to transmit obfuscated passwords.</li>
@@ -142,7 +142,7 @@ nastype = other
 <p>At this point FreeRadius can be restarted with</p>
 <pre class="EnlighterJSRAW" data-enlighter-language="shell"># /etc/init.d/freeradius restart</pre>
 <p>The last thing to do is to set up the ntopng RADIUS configuration page. Assuming the FreeRadius server has IP 192.168.2.165 and listens on the standard port 1812, one can use the following configuration</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-02-radius-config2.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7137" src="https://www.ntop.org/wp-content/uploads/2018/12/radius-ldap-02-radius-config2.png" alt="" width="979" height="416" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/radius-ldap-02-radius-config2.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-7137" src="/wp-content/uploads/2018/12/radius-ldap-02-radius-config2.png" alt="" width="979" height="416" /></a></p>
 <p>The RADIUS Secret specified is the same &#8220;testing456&#8221; indicated in file /etc/freeradius/clients.conf. Similarly, the RADIUS Admin Filter-Id is the same &#8220;ntopAdmin&#8221; specified in file /etc/freeradius/users.</p>
 <p>The post <a href="https://www.ntop.org/remote-ntopng-authentication-with-radius-and-ldap/">Remote ntopng Authentication with RADIUS and LDAP</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
 ]]></content:encoded>

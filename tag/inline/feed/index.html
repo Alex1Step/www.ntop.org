@@ -21,7 +21,7 @@
 	<generator>https://wordpress.org/?v=7.1.4</generator>
 
 <image>
-	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<url>/wp-content/uploads/2025/06/favicon-80x80.png</url>
 	<title>inline Archives - ntop</title>
 	<link>https://www.ntop.org/tag/inline/</link>
 	<width>32</width>
@@ -55,7 +55,7 @@
 <li><code class="EnlighterJSRAW" data-enlighter-language="generic">enp2s0f0</code> is connected to a WiFi access point where clients are connected.</li>
 <li><code class="EnlighterJSRAW" data-enlighter-language="generic">enp2s0f1</code> is connected to the Router that in charge of handling clients&#8217; traffic.</li>
 </ul>
-<p><a href="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge.png"><img fetchpriority="high" decoding="async" class="size-full wp-image-9244 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge.png" alt="" width="640" height="358" /></a></p>
+<p><a href="/wp-content/uploads/2021/06/inline_l7_bridge.png"><img fetchpriority="high" decoding="async" class="size-full wp-image-9244 aligncenter" src="/wp-content/uploads/2021/06/inline_l7_bridge.png" alt="" width="640" height="358" /></a></p>
 <p>Packets reaching one of the two bridged interfaces, before being bridged, are sent to nProbe via NFQUEUE that emits a verdict. If the packet verdict is <strong>drop</strong>, then the packet is dropped and not bridged. Otherwise, the packet is allowed to reach the other interface.</p>
 <p>Let&#8217;s now see how to &#8211; quickly and easily &#8211; configure the bridge, NFQUEUE and nProbe to implement the Layer-7 traffic policer.</p>
 <h4>Configuring the Bridge and NFQUEUE</h4>
@@ -88,7 +88,7 @@ iptables -t mangle -A FORWARD -j NFQUEUE --queue-num 0 --queue-bypass -m physdev
 <li><code class="EnlighterJSRAW" data-enlighter-language="generic">nf:0</code> indicates the NFQUEUE queue used by the kernel to send packets to nProbe. Note that this id <code class="EnlighterJSRAW" data-enlighter-language="generic">0</code> MUST match with the id indicated in the configuration of <code class="EnlighterJSRAW" data-enlighter-language="generic">policy_and_bridge_simple.sh</code>. In general, it is safe to use <code class="EnlighterJSRAW" data-enlighter-language="generic">0</code>.</li>
 </ul>
 <p>From this point on, traffic policies are enforced for all clients. For example, this is what happens to one of the client that tries to reach Facebook before and after Layer-7 policer activation.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge_drop.jpg"><img decoding="async" class="size-full wp-image-9238 aligncenter" src="https://www.ntop.org/wp-content/uploads/2021/06/inline_l7_bridge_drop.jpg" alt="" width="860" height="361" /></a></p>
+<p><a href="/wp-content/uploads/2021/06/inline_l7_bridge_drop.jpg"><img decoding="async" class="size-full wp-image-9238 aligncenter" src="/wp-content/uploads/2021/06/inline_l7_bridge_drop.jpg" alt="" width="860" height="361" /></a></p>
 <h3>Conclusion</h3>
 <p>In this post, we have seen how to quickly create a Layer-7 traffic policer on Linux using nProbe IPS. A very simple <code class="EnlighterJSRAW" data-enlighter-language="generic">"protocols": {"Facebook": "drop" }</code> policy has been created just for the sake of example. In practice, nProbe IPS is flexible enough to <a href="https://www.ntop.org/guides/nprobe/ips_mode.html">create complex policies</a> using also Layer-7 categories, countries, autonomous systems and so on.</p>
 <p>Moreover, by leveraging packet marks, effective kernel traffic offload and traffic shaping can be implemented. There are scripts distributed with any packaged version of nProbe available under <code class="EnlighterJSRAW" data-enlighter-language="generic">/usr/share/nprobe/netfilter/</code> that can be used for reference when implementing offload and shaping.</p>

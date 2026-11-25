@@ -21,7 +21,7 @@
 	<generator>https://wordpress.org/?v=7.1.4</generator>
 
 <image>
-	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<url>/wp-content/uploads/2025/06/favicon-80x80.png</url>
 	<title>security Archives - ntop</title>
 	<link>https://www.ntop.org/tag/security/</link>
 	<width>32</width>
@@ -50,14 +50,14 @@
 <h3>Quick Start</h3>
 <p>First of all let&#8217;s start by creating our account and service on the ClickHouse Cloud (you can find the official guide <a href="https://clickhouse.com/docs/en/cloud-quick-start">here</a>); remember to save the ClickHouse username and password used for accessing your database.</p>
 <p>After that we have to jump to the &#8216;Connect&#8217; section:</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-144403-1.png"><img fetchpriority="high" decoding="async" class="alignnone wp-image-11152 size-large" src="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-144403-1-1024x392.png" alt="" width="1024" height="392"></a></p>
+<p><a href="/wp-content/uploads/2024/05/Screenshot-2024-05-07-144403-1.png"><img fetchpriority="high" decoding="async" class="alignnone wp-image-11152 size-large" src="/wp-content/uploads/2024/05/Screenshot-2024-05-07-144403-1-1024x392.png" alt="" width="1024" height="392"></a></p>
 <p>Then, we have to select MySQL, turn on &#8220;Enable the MySQL protocol&#8221; and collect 3 information needed to the ntopng configuration file:</p>
 <ul>
 <li>The MySQL Username (it&#8217;s an other username, different from the one configured at the start)</li>
 <li>The Hostname (used to connect to the right Host)</li>
 <li>The Port (MySQL port, to connect in order to run queries)</li>
 </ul>
-<p><a href="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-155553.png"><img decoding="async" class="alignnone size-large wp-image-11156" src="https://www.ntop.org/wp-content/uploads/2024/05/Screenshot-2024-05-07-155553-1024x694.png" alt="" width="1024" height="694"></a></p>
+<p><a href="/wp-content/uploads/2024/05/Screenshot-2024-05-07-155553.png"><img decoding="async" class="alignnone size-large wp-image-11156" src="/wp-content/uploads/2024/05/Screenshot-2024-05-07-155553-1024x694.png" alt="" width="1024" height="694"></a></p>
 <p>After collecting these 3 info, let&#8217;s jump back to ntopng and let&#8217;s edit the configuration file.</p>
 <p>Here we have to add (or modify if already there) the -F option, by following the ntopng documentation (<a href="https://www.ntop.org/guides/ntopng/cli_options/cli_options.html">here</a>):</p>
 <ul>
@@ -110,20 +110,20 @@
 										<content:encoded><![CDATA[<p>Recently, we added the ability in ntopng to <a href="https://www.ntop.org/ntop/howto-monitor-network-interface-usage-with-netflow-ipfix/">monitor link utilisation using NetFlow/IPFIX</a>. <span data-preserver-spaces="true">In this post, we want to show you how we further improved those functionalities by leveraging SNMP to monitor the status of many devices (interfaces) simply. </span><span data-preserver-spaces="true">SNMP is a well-known protocol used for monitoring network devices, and ntopng uses it to poll and gather information from them. ntopng computes the&nbsp;</span><em><span data-preserver-spaces="true">interface usage</span></em><span data-preserver-spaces="true">&nbsp;by using a simple proportion between the traffic metered via SNMP and the interface speed. The interface speed is read by default from SNMP, but it can be customised by the user as sometimes the physical and actual interface speeds are different.</span></p>
 <p><span data-preserver-spaces="true">Let&#8217;s see now how it is possible to configure SNMP link speeds and monitor them to detect unexpected behaviours with SNMP polled devices.</span></p>
 <p><span data-preserver-spaces="true">Similar to what happens with the Flow Exporters speed, by going to the SNMP page, selecting an interface of a device, and jumping to the configuration page (cog icon) it is possible to configure the link speed (Up and Down independently) of a specific interface.</span></p>
-<p><img decoding="async" class="aligncenter wp-image-10962 size-large" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-150918-1024x309.png" alt="" width="1024" height="309"></p>
+<p><img decoding="async" class="aligncenter wp-image-10962 size-large" src="/wp-content/uploads/2024/01/Screenshot-2024-01-29-150918-1024x309.png" alt="" width="1024" height="309"></p>
 <p>As already mentioned above, this speed is automatically read using SNMP, however not all the times detected speed is correct, consider the example of being connected to the Internet with a 1 Gbit ethernet link but your SLA has a cap of 100 Mbit, in this case the right speed to configure is 100 Mbit.<br />
 After setting the interface speeds, save the settings, jump to the Preferences (under the Settings menu), in the SNMP section and be sure to have the &#8220;SNMP Devices Timeseries&#8221; preference enabled.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151501.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-10963 size-large" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151501-1024x446.png" alt="" width="1024" height="446"></a></p>
+<p><a href="/wp-content/uploads/2024/01/Screenshot-2024-01-29-151501.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-10963 size-large" src="/wp-content/uploads/2024/01/Screenshot-2024-01-29-151501-1024x446.png" alt="" width="1024" height="446"></a></p>
 <p>From now on, a new timeseries is going to be available in the SNMP Interface Timeseries section (accessible from the chart icon, highlighted in green in the above picture) with the interface usage in percentage.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151852.png"><img loading="lazy" decoding="async" class="size-large wp-image-10964 aligncenter" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-151852-1024x422.png" alt="" width="1024" height="422"></a></p>
+<p><a href="/wp-content/uploads/2024/01/Screenshot-2024-01-29-151852.png"><img loading="lazy" decoding="async" class="size-large wp-image-10964 aligncenter" src="/wp-content/uploads/2024/01/Screenshot-2024-01-29-151852-1024x422.png" alt="" width="1024" height="422"></a></p>
 <p>When the usage is &lt;= 25% the bar is light green, from 25 &lt;= 50% is dark green, from 50 &lt;= 75% is yellow, and above is red. However, while developing this feature, we realised that with hundreds, or even thousands, of interfaces, it is impossible to jump to all of them one by one and check whether everything is ok. In addition to that, having an interface &#8220;Congested&#8221; (i.e. high traffic load) for a short period, may or may not represent a real issue: in most cases, it is not, for example, in the case of a backup we have a couple of hours a week were the bandwidth of the interface is filled.<br />
 For this reason, we decided to gather all this information together and put it on a single page.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-154520-1.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-10968" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-154520-1-1024x496.png" alt="" width="1024" height="496"></a></p>
+<p><a href="/wp-content/uploads/2024/01/Screenshot-2024-01-29-154520-1.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-10968" src="/wp-content/uploads/2024/01/Screenshot-2024-01-29-154520-1-1024x496.png" alt="" width="1024" height="496"></a></p>
 <p>Here it is possible to navigate through time (by using the classic time navbar) and find if any interfaces had problems. In addition to the standard information (SNMP IP, Interface Name, etc.) we introduced a new metric called &#8220;Congestion Rate&#8221;, representing how much an Interface is filled in the selected timeframe.<br />
 For those who like formulas, the Congestion Rate is computed in the following way: sum all the points of the timeseries with usage higher than 75% and divide it by the number of total points in timeseries in the selected timeframe. In practice, this is similar to the average.<br />
 After finding some issue with the Congestion Rate of an interface, it is possible to drill down and do follow-up investigations by directly clicking on the bar of the Top Congested Interfaces chart or by clicking on the Actions -&gt; Timeseries button.<br />
 And this is not all. As promised, we also added the ability to trigger conditional alerts based on the interface usage. It is now possible, for both SNMP and Flow Exporters, to trigger alerts when the usage exceeds a specific configurable threshold by using <a href="https://www.ntop.org/ntop/local-traffic-rules-a-new-way-to-define-custom-thresholds/">Traffic Rules</a>.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-152247.png"><img loading="lazy" decoding="async" class="size-large wp-image-10965 aligncenter" src="https://www.ntop.org/wp-content/uploads/2024/01/Screenshot-2024-01-29-152247-1024x205.png" alt="" width="1024" height="205"></a></p>
+<p><a href="/wp-content/uploads/2024/01/Screenshot-2024-01-29-152247.png"><img loading="lazy" decoding="async" class="size-large wp-image-10965 aligncenter" src="/wp-content/uploads/2024/01/Screenshot-2024-01-29-152247-1024x205.png" alt="" width="1024" height="205"></a></p>
 <p>For you reference you can read more about interface utilisation in the <a href="https://www.ntop.org/guides/ntopng/snmp/usage.html">ntopng user&#8217;s guide</a>.</p>
 <p>Enjoy this new feature, and send us your feedback!</p>
 <p>The post <a href="https://www.ntop.org/howto-monitor-snmp-interfaces-utilisation-and-congestion-rate/">HowTo Monitor SNMP Interfaces Utilisation and Congestion Rate</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
@@ -159,16 +159,16 @@ And this is not all. As promised, we also added the ability to trigger condition
 <li>&#8216;By Properties&#8217; if the &#8220;old&#8221; way of filtering alerts is needed, so filter alerts by severity, by category, or by entity;</li>
 <li>&#8216;By Alerts&#8217; if the &#8220;new&#8221; filtering is required and here it&#8217;s possible to select one or more alerts to deliver.</li>
 </ul>
-<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-182010.png"><img loading="lazy" decoding="async" class=" wp-image-10668 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-182010-300x150.png" alt="" width="532" height="266"></a></p>
+<p><a href="/wp-content/uploads/2023/08/Screenshot-2023-08-02-182010.png"><img loading="lazy" decoding="async" class=" wp-image-10668 aligncenter" src="/wp-content/uploads/2023/08/Screenshot-2023-08-02-182010-300x150.png" alt="" width="532" height="266"></a></p>
 <p>After selecting &#8216;By Alerts&#8217; click on the dropdown and select the critical alerts to receive.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-181835.png"><img loading="lazy" decoding="async" class=" wp-image-10667 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-181835-300x151.png" alt="" width="550" height="277"></a></p>
+<p><a href="/wp-content/uploads/2023/08/Screenshot-2023-08-02-181835.png"><img loading="lazy" decoding="async" class=" wp-image-10667 aligncenter" src="/wp-content/uploads/2023/08/Screenshot-2023-08-02-181835-300x151.png" alt="" width="550" height="277"></a></p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>An other important point is that, as you wish to receive important alerts on your phone, you do not want to be spammed by ntopng!</p>
 <p>So we added a new preference, still when adding/editing a Recipient, to silence the same exact alert if it triggers more than one time per hour, in this way only one alert of the same kind per hour is going to be delivered to the recipient.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-121213.png"><img loading="lazy" decoding="async" class="wp-image-10653 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-121213-300x74.png" alt="" width="555" height="137"></a></p>
+<p><a href="/wp-content/uploads/2023/08/Screenshot-2023-08-02-121213.png"><img loading="lazy" decoding="async" class="wp-image-10653 aligncenter" src="/wp-content/uploads/2023/08/Screenshot-2023-08-02-121213-300x74.png" alt="" width="555" height="137"></a></p>
 <p>We hope you enjoy this new feature!</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-122227.png"><img loading="lazy" decoding="async" class=" wp-image-10659 aligncenter" src="https://www.ntop.org/wp-content/uploads/2023/08/Screenshot-2023-08-02-122227-300x231.png" alt="" width="397" height="306"></a></p>
+<p><a href="/wp-content/uploads/2023/08/Screenshot-2023-08-02-122227.png"><img loading="lazy" decoding="async" class=" wp-image-10659 aligncenter" src="/wp-content/uploads/2023/08/Screenshot-2023-08-02-122227-300x231.png" alt="" width="397" height="306"></a></p>
 <p>The post <a href="https://www.ntop.org/how-we-improved-alarm-delivery-in-ntopng/">How we Improved Alarm Delivery in ntopng</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
 ]]></content:encoded>
 					
@@ -202,9 +202,9 @@ And this is not all. As promised, we also added the ability to trigger condition
 <p>For instance, if a DNS server is available in the network, a check for that host regarding the DNS traffic could be added: alert me if the DNS traffic for a host exceeds 1 GB/day.</p>
 <h3>How Thresholds Work</h3>
 <p>The Local Traffic Rules page can be found under the Hosts menù.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/Screenshot-2023-06-26-105400.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-10579" src="https://www.ntop.org/wp-content/uploads/2023/06/Screenshot-2023-06-26-105400-246x300.png" alt="" width="246" height="300"></a></p>
+<p><a href="/wp-content/uploads/2023/06/Screenshot-2023-06-26-105400.png"><img loading="lazy" decoding="async" class="alignnone size-medium wp-image-10579" src="/wp-content/uploads/2023/06/Screenshot-2023-06-26-105400-246x300.png" alt="" width="246" height="300"></a></p>
 <p>Here it is possible to set up the rules you like, for every Local Host or Interface you want.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-Local-Traffic-Rules-e-altre-18-pagine-Personale-Microsoft​-Edge-19_06_2023-11_06_30.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10524 size-full" src="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-Local-Traffic-Rules-e-altre-18-pagine-Personale-Microsoft​-Edge-19_06_2023-11_06_30.png" alt="" width="1920" height="924"></a></p>
+<p><a href="/wp-content/uploads/2023/06/ntopng-Local-Traffic-Rules-e-altre-18-pagine-Personale-Microsoft​-Edge-19_06_2023-11_06_30.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10524 size-full" src="/wp-content/uploads/2023/06/ntopng-Local-Traffic-Rules-e-altre-18-pagine-Personale-Microsoft​-Edge-19_06_2023-11_06_30.png" alt="" width="1920" height="924"></a></p>
 <p>The rule is composed by:</p>
 <ul>
 <li>Target (who is monitored)</li>
@@ -215,7 +215,7 @@ And this is not all. As promised, we also added the ability to trigger condition
 </ul>
 <p>(In the action column instead, it is possible to edit/delete the rule)</p>
 <p>By clicking the &#8216;+&#8217; icon next to the search bar of the table, it&#8217;s possible to add a new rule</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-2.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10528" src="https://www.ntop.org/wp-content/uploads/2023/06/ntopng-2-300x145.png" alt="" width="643" height="311"></a></p>
+<p><a href="/wp-content/uploads/2023/06/ntopng-2.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10528" src="/wp-content/uploads/2023/06/ntopng-2-300x145.png" alt="" width="643" height="311"></a></p>
 <p>Here it is possible to :</p>
 <ul>
 <li>Set the type of rule.</li>
@@ -258,7 +258,7 @@ And this is not all. As promised, we also added the ability to trigger condition
 <p>Today we are going to talk about the Asset Map.</p>
 <p>Have you ever asked yourself, what are the NTP servers in your network? Or, are all active DNS servers?</p>
 <p>Well, the Asset Map is useful  exactly in this case.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-10-53-03.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10066" src="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-10-53-03-300x148.png" alt="" width="590" height="291" /></a></p>
+<p><a href="/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-10-53-03.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10066" src="/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-10-53-03-300x148.png" alt="" width="590" height="291" /></a></p>
 <p>The Asset Map is a map we designed to know what exactly is (are) the DNS, NTP,&#8230; server(s) active in a network. This could be really useful in many case,  just think of a couple of cases:</p>
 <ul>
 <li>If you are an ISP, many users &#8220;use&#8221; your network and you&#8217;d like to know if your network was compromised, or if the users you have are correctly using the resources you gave them, correctly.</li>
@@ -273,7 +273,7 @@ And this is not all. As promised, we also added the ability to trigger condition
 <li>IMAP server</li>
 </ul>
 <p>The asset map will depict the above servers and include service edges. This is both useful to understand if there was some misconfiguration in your network, or if some of your machine is infected (there are many attacks where infected hosts presets themselves as DNS or NTP even if they are not).</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-11-01-49.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10067" src="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-11-01-49-300x148.png" alt="" width="590" height="291" /></a></p>
+<p><a href="/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-11-01-49.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10067" src="/wp-content/uploads/2022/11/Screenshot-from-2022-11-28-11-01-49-300x148.png" alt="" width="590" height="291" /></a></p>
 <p>This feature is the first step towards asset management support in ntopng. We&#8217;re working hard at developing it, and this will be one of the new features of the upcoming release. Stay tuned !</p>
 <p>&nbsp;</p>
 <p>Enjoy!</p>
@@ -304,8 +304,8 @@ And this is not all. As promised, we also added the ability to trigger condition
 <p>Welcome back to the weekly blog post of this serie used to update you with the latest ntopng features and graphical changes. Please let us know your feedback!</p>
 <p>Today we are going to talk about the Periodicity Map.</p>
 <p>You are probably asking yourself what&#8217;s so bad about periodic activities, right? First of all, let&#8217;s take a look at the Periodicity Map and what are the contained information.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-26-07-1.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10034" src="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-26-07-1-300x148.png" alt="" width="508" height="250" /></a></p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-37-09.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10035" src="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-37-09-300x148.png" alt="" width="510" height="251" /></a></p>
+<p><a href="/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-26-07-1.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10034" src="/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-26-07-1-300x148.png" alt="" width="508" height="250" /></a></p>
+<p><a href="/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-37-09.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10035" src="/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-37-09-300x148.png" alt="" width="510" height="251" /></a></p>
 <p>What we can see here is:</p>
 <ul>
 <li>The last seen &#8211; last time ntopng has seen a periodic activity (flow)</li>
@@ -315,7 +315,7 @@ And this is not all. As promised, we also added the ability to trigger condition
 </ul>
 <p>One other important information that you can see in this page is towards whom the most periodic flows are.</p>
 <p>What is nice here is that you can configure ntopng to send an alert whenever a new Periodic Activity shows up in the network, by enabling the corresponding alert as shown in the picture below.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-49-06.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10038" src="https://www.ntop.org/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-49-06-300x148.png" alt="" width="509" height="251" /></a></p>
+<p><a href="/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-49-06.png"><img loading="lazy" decoding="async" class="alignnone wp-image-10038" src="/wp-content/uploads/2022/11/Screenshot-from-2022-11-18-10-49-06-300x148.png" alt="" width="509" height="251" /></a></p>
 <p>Let&#8217;s jump back to the first question, what&#8217;s so bad about periodic activities?</p>
 <p>There are many cases in which periodic activities are not legit or expected, this is for instance the case of BotNet activities (an overlay network of machines infected by malicious software and controlled as a group without the owners&#8217; knowledge, e.g. to send spam or launch DDoS attacks).</p>
 <p>A BotNet needs to constantly monitor the infected hosts to see if they are available or not, or to check for new commands, and here comes in hand the Periodicity Map. By finding the presence of periodic flows in your network, ntopng is able to detected these kinds of attacks!</p>

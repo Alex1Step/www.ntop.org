@@ -21,7 +21,7 @@
 	<generator>https://wordpress.org/?v=7.1.4</generator>
 
 <image>
-	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<url>/wp-content/uploads/2025/06/favicon-80x80.png</url>
 	<title>icinga2 Archives - ntop</title>
 	<link>https://www.ntop.org/tag/icinga2/</link>
 	<width>32</width>
@@ -75,18 +75,18 @@ const NtopngUnsecureSsl = false</pre>
 <h3>Running Plugin Checks</h3>
 <p>Let&#8217;s see now how this plugin works and what we can expect from it. Let&#8217;s assume Icinga2 monitored host with address <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.222</code> is trying to contact a <a href="https://www.ntop.org/ntopng/how-to-track-an-fight-malware-ransomware-botnets-network-traffic-using-ntopng/">malware host</a>, maybe because it has been infected.</p>
 <p>Before the contact, service <code class="EnlighterJSRAW" data-enlighter-language="generic">"ntopng-icinga-host-flows-health"</code> is OK</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/01-ntopng-icinga2-host-flows-OK.png"><img fetchpriority="high" decoding="async" class="size-large wp-image-7868 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/01-ntopng-icinga2-host-flows-OK-1024x556.png" alt="" width="1024" height="556" /></a></p>
+<p><a href="/wp-content/uploads/2019/08/01-ntopng-icinga2-host-flows-OK.png"><img fetchpriority="high" decoding="async" class="size-large wp-image-7868 aligncenter" src="/wp-content/uploads/2019/08/01-ntopng-icinga2-host-flows-OK-1024x556.png" alt="" width="1024" height="556" /></a></p>
 <p>But as soon as <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.222</code> contacts a malware host (contact which has been simulated by pinging one of the hosts in blacklist for the sake of this example), the service becomes CRITICAL and all the necessary notifications will be sent by Icinga2</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/02-ntopng-icinga2-host-flows-CRITICAL.png"><img decoding="async" class="size-large wp-image-7869 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/02-ntopng-icinga2-host-flows-CRITICAL-1024x504.png" alt="" width="1024" height="504" /></a></p>
+<p><a href="/wp-content/uploads/2019/08/02-ntopng-icinga2-host-flows-CRITICAL.png"><img decoding="async" class="size-large wp-image-7869 aligncenter" src="/wp-content/uploads/2019/08/02-ntopng-icinga2-host-flows-CRITICAL-1024x504.png" alt="" width="1024" height="504" /></a></p>
 <p>At this point, to have additional information, one can jump into the ntopng web user interface to find this malware flow among the host flow alerts</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/03-ntopng-icinga2-host-flows-ntopng-ui.png"><img decoding="async" class="size-large wp-image-7870 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/03-ntopng-icinga2-host-flows-ntopng-ui-1024x292.png" alt="" width="1024" height="292" /></a></p>
+<p><a href="/wp-content/uploads/2019/08/03-ntopng-icinga2-host-flows-ntopng-ui.png"><img decoding="async" class="size-large wp-image-7870 aligncenter" src="/wp-content/uploads/2019/08/03-ntopng-icinga2-host-flows-ntopng-ui-1024x292.png" alt="" width="1024" height="292" /></a></p>
 <p>Similarly, let&#8217;s assume <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.222</code> has been configured, in ntopng, to be considered a victim of a SYN flood when it receives more than 10 SYN per second for three consecutive seconds.</p>
 <p>Before the SYN flood, service <code class="EnlighterJSRAW" data-enlighter-language="generic">"ntopng-icinga-host-health"</code> is OK</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/04-ntopng-icinga2-host-OK.png"><img loading="lazy" decoding="async" class="size-large wp-image-7871 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/04-ntopng-icinga2-host-OK-1024x526.png" alt="" width="1024" height="526" /></a></p>
+<p><a href="/wp-content/uploads/2019/08/04-ntopng-icinga2-host-OK.png"><img loading="lazy" decoding="async" class="size-large wp-image-7871 aligncenter" src="/wp-content/uploads/2019/08/04-ntopng-icinga2-host-OK-1024x526.png" alt="" width="1024" height="526" /></a></p>
 <p>But as soon as <code class="EnlighterJSRAW" data-enlighter-language="generic">192.168.2.222</code> becomes a victim of the SYN flood (the SYN flood has been simulated, for the sake of this example, with <code class="EnlighterJSRAW" data-enlighter-language="generic">nmap -sS 192.168.2.222</code>), the service becomes CRITICAL</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/05-ntopng-icinga2-host-CRITICAL.png"><img loading="lazy" decoding="async" class="size-large wp-image-7872 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/05-ntopng-icinga2-host-CRITICAL-1024x519.png" alt="" width="1024" height="519" /></a></p>
+<p><a href="/wp-content/uploads/2019/08/05-ntopng-icinga2-host-CRITICAL.png"><img loading="lazy" decoding="async" class="size-large wp-image-7872 aligncenter" src="/wp-content/uploads/2019/08/05-ntopng-icinga2-host-CRITICAL-1024x519.png" alt="" width="1024" height="519" /></a></p>
 <p>Again, to have additional information, one can jump into the ntopng web user interface where this alert will show up among the host engaged alerts</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2019/08/06-ntopng-icinga2-host-ntopng-ui.png"><img loading="lazy" decoding="async" class="size-large wp-image-7873 aligncenter" src="https://www.ntop.org/wp-content/uploads/2019/08/06-ntopng-icinga2-host-ntopng-ui-1024x272.png" alt="" width="1024" height="272" /></a></p>
+<p><a href="/wp-content/uploads/2019/08/06-ntopng-icinga2-host-ntopng-ui.png"><img loading="lazy" decoding="async" class="size-large wp-image-7873 aligncenter" src="/wp-content/uploads/2019/08/06-ntopng-icinga2-host-ntopng-ui-1024x272.png" alt="" width="1024" height="272" /></a></p>
 <h3>Conclusion</h3>
 <p>We believe this plugin is the first step towards making Icinga2 not just a tool which checks the availability of hosts and services, but also a tool which gives extended information on how such hosts and services are being used from a network perspective.</p>
 <p>Feel free to try the plugin and give us feedback!</p>

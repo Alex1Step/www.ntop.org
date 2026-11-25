@@ -21,7 +21,7 @@
 	<generator>https://wordpress.org/?v=7.1.4</generator>
 
 <image>
-	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<url>/wp-content/uploads/2025/06/favicon-80x80.png</url>
 	<title>nScrub Archives - ntop</title>
 	<link>https://www.ntop.org/category/nscrub/</link>
 	<width>32</width>
@@ -312,7 +312,7 @@
 ]]></description>
 										<content:encoded><![CDATA[<p>Distributed Denial of Service (DDoS) attacks represent a family cyber-attacks that are more and more common nowadays. They aim to make the service unavailable by overwhelming the victim with high traffic volumes (this is the case of volumetric or amplification attacks based on UDP, ICMP, DNS, &#8230;) or an high number of requests (including TCP connection attacks like the SYB flood, or Layer 7 attacks able to exhaust the resources of the service at the application level). This differentiate them from other cyber-attacks like intrusion attacks or malwares aiming to destroying, stealing or compromising data. With the proliferation of IoT devices, the number and entity of these attacks is exploding.</p>
 <p>A traditional security device, like a firewall or an IPS, is not able to cope with such attacks, as they have not been designed to process and filter bad traffic at high volume/rate and with an high number of sessions. Those attacks are usually able to exhaust the resources of such security devices, which become the first point of failure.</p>
-<p><img fetchpriority="high" decoding="async" class="aligncenter size-large wp-image-8958" src="https://www.ntop.org/wp-content/uploads/2020/12/Screen-Shot-2020-12-28-at-10.57.01-1024x597.png" alt="" width="1024" height="597" /></p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter size-large wp-image-8958" src="/wp-content/uploads/2020/12/Screen-Shot-2020-12-28-at-10.57.01-1024x597.png" alt="" width="1024" height="597" /></p>
 <p>A dedicated device should be used to protect the network (including traditional security devices) from DDoS attacks. Such device is usually known as mitigator or <em>scrubber</em>, and should be able, during an attack, to filter the traffic in order to make sure that 1. legitimate users are able to reach the service and 2. the service stays up and is able to serve the legitimate requests.</p>
 <p><a href="https://www.ntop.org/products/ddos-mitigation/nscrub/">nScrub</a> is a software-based protection system able to mitigate DDoS attacks on commodity hardware. nScrub is able to process 10+ Gbit full-rate traffic on a low-end 4-6 core Xeon CPU, and scale to Terabit using multiple blades, load balancing the traffic through multiple links with mechanisms like ECMP. nScrub can be easily deployed as bump-in-the-wire (a transparent bridge, with hardware bypass support to handle system failures or maintenance) or as a router to implement on-demand traffic diversion.</p>
 <p>This step-by-step guide aims to get you started with nScrub, guiding you from the software installation to the policy configuration in order to setup a mitigation box protecting your services in minutes.</p>
@@ -336,7 +336,7 @@ Name: enp2s0f0             Driver: ixgbe      [Running ZC]
 Name: enp2s0f1             Driver: ixgbe      [Running ZC]</pre>
 <h3>4. Configure the nScrub Service</h3>
 <p>The nScrub service configuration may differ a bit depending on the deployment mode (transparent bridge, routing mode with a single or two interfaces, etc.). In this guide we assume the most common configuration is used, which is the transparent bridge (bump in the wire).</p>
-<p><img decoding="async" class="aligncenter size-large wp-image-8959" src="https://www.ntop.org/wp-content/uploads/2020/12/Screen-Shot-2020-12-28-at-10.59.11-1024x686.png" alt="" width="1024" height="686" /></p>
+<p><img decoding="async" class="aligncenter size-large wp-image-8959" src="/wp-content/uploads/2020/12/Screen-Shot-2020-12-28-at-10.59.11-1024x686.png" alt="" width="1024" height="686" /></p>
 <p>The <em>/etc/nscrub/nscrub.conf</em> configuration file should be created as below.</p>
 <pre class="EnlighterJSRAW" data-enlighter-language="generic"># WAN interface name
 --wan-interface=zc:enp2s0f0
@@ -413,7 +413,7 @@ target mynet profile DEFAULT icmp type 8 accept enable</pre>
 <h3>6. Monitor the System</h3>
 <p>The easiest way to read statistics and make sure nScrub is actually processing traffic is to run the <em>stats</em> command in <em>nscrub-cli</em>. Statistics about a specific target can also be read by running <em>target mynet stats</em> in <em>nscrub-cli</em>. However this provides the actual statistics only.</p>
 <p>Historical statistics are available from the web GUI which is available using a browser connecting to http://NSCRUB-IP:8880/monitor.html (please make sure you are configuring &#8211;http-address in nscrub.conf to allow connections from remote machines).</p>
-<p><img decoding="async" class="aligncenter size-large wp-image-8961" src="https://www.ntop.org/wp-content/uploads/2020/12/nscrub-screenshot-1024x823.png" alt="" width="1024" height="823" /></p>
+<p><img decoding="async" class="aligncenter size-large wp-image-8961" src="/wp-content/uploads/2020/12/nscrub-screenshot-1024x823.png" alt="" width="1024" height="823" /></p>
 <p>&nbsp;</p>
 <p>In addition to basic traffic statistics, nScrub is able to export a copy of the raw traffic to third-party applications via software queues, for providing enhanced visibility. In the nscrub.conf configuration above we already enabled a couple of traffic mirrors with <em>&#8211;aux-queues=2</em>, thus we are able to use up to two applications to concurrently analyse the traffic.</p>
 <p>It is possible to configure what traffic should be forwarded to both mirrors (respectively with IDs 0 and 1), and the sampling rate to avoid overwhelming the third-party applications with traffic in the worst case.</p>
@@ -648,7 +648,7 @@ localhost:8880&gt;
 </pre>
 <p>Now you are ready to test the mitigation, running attacks towards the destination server.</p>
 <p>It is possible to check live stats running ‘stats’ in the nscrub-cli prompt or using a browser to access the web gui at http://&lt;host&gt;:8880/monitor.html</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/03/nscrub_gui_stats.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-6115 size-large" src="https://www.ntop.org/wp-content/uploads/2018/03/nscrub_gui_stats-1024x659.png" alt="" width="1024" height="659" /></a></p>
+<p><a href="/wp-content/uploads/2018/03/nscrub_gui_stats.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-6115 size-large" src="/wp-content/uploads/2018/03/nscrub_gui_stats-1024x659.png" alt="" width="1024" height="659" /></a></p>
 <p>Enjoy!</p>
 <p>The post <a href="https://www.ntop.org/protecting-a-web-server-from-dos-attacks-using-nscrub/">Protecting a Web Server from DDoS Attacks Using nScrub</a> appeared first on <a href="https://www.ntop.org">ntop</a>.</p>
 ]]></content:encoded>

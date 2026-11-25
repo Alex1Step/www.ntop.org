@@ -21,7 +21,7 @@
 	<generator>https://wordpress.org/?v=7.1.4</generator>
 
 <image>
-	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<url>/wp-content/uploads/2025/06/favicon-80x80.png</url>
 	<title>ntopCloud Archives - ntop</title>
 	<link>https://www.ntop.org/category/ntopcloud/</link>
 	<width>32</width>
@@ -47,9 +47,9 @@
 </ul>
 <h3>ntop Cloud Architecture</h3>
 <p>A simplified overview of the architecture is depicted below.</p>
-<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-11096 size-full" src="https://www.ntop.org/wp-content/uploads/2024/04/ntopCloud.jpg" alt="" width="666" height="299"></p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-11096 size-full" src="/wp-content/uploads/2024/04/ntopCloud.jpg" alt="" width="666" height="299"></p>
 <p>The core of the cloud are message brokers federated on a cluster so that you can connect your instances&nbsp; to the closest node (e.g. Europe if you are in France, or US is you are in Virginia) and the brokers distribute messages in a way that all your instances can communicate regardless of the node they are connected to. This way you can see from a web console (the image below is a work in progress) all the active instances and perform actions on them such as update software or restart.</p>
-<p><img decoding="async" class="aligncenter wp-image-11103 size-large" src="https://www.ntop.org/wp-content/uploads/2024/04/cloudDashboard-1024x333.png" alt="" width="1024" height="333"></p>
+<p><img decoding="async" class="aligncenter wp-image-11103 size-large" src="/wp-content/uploads/2024/04/cloudDashboard-1024x333.png" alt="" width="1024" height="333"></p>
 <p>In the above table, instances are running on several different networks, behind a firewall or unprotected with a public IP address and they all look similar, with the cloud hiding all differences in connectivity.</p>
 <h3>ntop Cloud Security Design</h3>
 <p>In order to implement the architecture and convince our users that the cloud has various benefits (note that enrolling on the ntop cloud is not compulsory, and you can keep using our tools as today), we decided to do our best to make it secure and based on the following principles:</p>
@@ -58,7 +58,7 @@
 <li>Each ntop cloud user (and its application instances) is unable to talk using the cloud with other user instances.</li>
 <li>As the message broker is shared among users, we want to make sure that even in the remote case that a user is able to listen to messages of other users, he is unable to &nbsp;send/receive or understand the data.</li>
 </ul>
-<p><img decoding="async" class="aligncenter wp-image-11105 size-full" src="https://www.ntop.org/wp-content/uploads/2024/04/ntopCloudEncryption.jpg" alt="" width="135" height="166"></p>
+<p><img decoding="async" class="aligncenter wp-image-11105 size-full" src="/wp-content/uploads/2024/04/ntopCloudEncryption.jpg" alt="" width="135" height="166"></p>
 <p>In order to implement all this, every registered ntop Cloud user has a private configuration file (that will be copied into /etc/ntop/ of the sensors) that contains the user public/private keys generated using <a href="https://cr.yp.to/ecdh.html">Curve25519</a> elliptic curve. The cloud manager has its own public/private keys, and its public key is stored in the ntop DNS.</p>
 <pre class="EnlighterJSRAW" data-enlighter-language="generic">$ host -t TXT cloud._pubkey.ntop.org
  cloud._pubkey.ntop.org descriptive text "b61aaccbf226f2095f48a7ca9d417791f71c4b37e28827cee376b4c9ff5d4c6a"

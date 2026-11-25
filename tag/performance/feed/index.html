@@ -21,7 +21,7 @@
 	<generator>https://wordpress.org/?v=7.1.4</generator>
 
 <image>
-	<url>https://www.ntop.org/wp-content/uploads/2025/06/favicon-80x80.png</url>
+	<url>/wp-content/uploads/2025/06/favicon-80x80.png</url>
 	<title>performance Archives - ntop</title>
 	<link>https://www.ntop.org/tag/performance/</link>
 	<width>32</width>
@@ -123,7 +123,7 @@ $ pfsend -i stack:eno1 -f ./localNetflow.pcap -n 0 -r 0.1</pre>
 <li>Flows are dequeued to be actually exported via ZMQ or other downstream collectors</li>
 </ul>
 <p>The following picture shows a graphical representation of the several steps listed above, and provides information on the maximum rate that can go through each step without drops.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/nprobe-drops-analysis.png"><img fetchpriority="high" decoding="async" class="alignnone size-large wp-image-7216" src="https://www.ntop.org/wp-content/uploads/2018/12/nprobe-drops-analysis-1024x361.png" alt="" width="1024" height="361" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/nprobe-drops-analysis.png"><img fetchpriority="high" decoding="async" class="alignnone size-large wp-image-7216" src="/wp-content/uploads/2018/12/nprobe-drops-analysis-1024x361.png" alt="" width="1024" height="361" /></a></p>
 <p>Going above the maximum rate automatically translates into drops. In the following, we will explain how we&#8217;ve computed the drops that can occur:</p>
 <ul>
 <li>On the UDP socket when the socket buffer overflows, when the incoming NetFlow rate is higher than the rate at which nProbe reads from the UDP socket</li>
@@ -157,7 +157,7 @@ sl local_address rem_address st tx_queue rx_queue tr tm-&gt;when retrnsmt uid ti
 <li>Reconstructed flows are added to the ntopng internal cache for further processing</li>
 </ul>
 <p>The following picture shows a graphical representation of the several steps listed above, and provides information on the maximum rate that can go through each step.</p>
-<p><a href="https://www.ntop.org/wp-content/uploads/2018/12/ntopng-drops-analysis.png"><img decoding="async" class="alignnone size-large wp-image-7215" src="https://www.ntop.org/wp-content/uploads/2018/12/ntopng-drops-analysis-1024x309.png" alt="" width="1024" height="309" /></a></p>
+<p><a href="/wp-content/uploads/2018/12/ntopng-drops-analysis.png"><img decoding="async" class="alignnone size-large wp-image-7215" src="/wp-content/uploads/2018/12/ntopng-drops-analysis-1024x309.png" alt="" width="1024" height="309" /></a></p>
 <p>We have experienced that, without JSON parsing and internal cache processing, ntopng is able to collect flows from nProbe at 90 Kfps. However, when we&#8217;ve enabled the JSON parsing and the internal cache, necessary for ntopng to properly work, we have experienced a lower maximum drop free rate.</p>
 <p>Specifically, enabling the JSON parsing alone, without any internal cache, brings the maximum processed flows per second down to 40 Kfps. Enabling also the internal cache costs another 5 Kfps, resulting in a <strong>maximum drop-free rate</strong> of <strong>35 Kfps</strong>. This maximum drop-free rate can be obtained with pfsend with a rate of 40 Mbps</p>
 <pre class="EnlighterJSRAW" data-enlighter-language="generic">$ sudo pfsend -i stack:eno1 -f ./localNetflow.pcap -n 0 -r 0.04</pre>
